@@ -4,7 +4,7 @@ import android.app.Application;
 
 import com.lwkandroid.wings.app.BaseApplication;
 import com.lwkandroid.wings.net.RxHttp;
-import com.lwkandroid.wingsdemo.bean.CXHttpResult;
+import com.lwkandroid.wingsdemo.bean.CustomHttpResult;
 import com.lwkandroid.wingsdemo.net.ApiURL;
 import com.lwkandroid.wingsdemo.net.TestSignInterceptor;
 import com.socks.library.KLog;
@@ -53,10 +53,8 @@ public class AppApplication extends BaseApplication
     {
         super.initRxHttp();
         RxHttp.getGlobalOptions()
-                .setApiResultType(CXHttpResult.class)
-                .setApiResultOkCode(22000)
-                .addFormData("token", "myTokenValue")
-                .addHeader("Android", "CommonHeader");
+                .setApiResultType(CustomHttpResult.class)
+                .setApiResultOkCode(0);
     }
 
 

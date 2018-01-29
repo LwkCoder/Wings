@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         android:layout="@layout/layout_zxingview"/>
 
-    <com.lwk.comactionbar.ComActionBar
+    <com.lwkandroid.widget.comactionbar.ComActionBar
         android:id="@+id/cab_qrcode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

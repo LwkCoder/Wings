@@ -13,12 +13,12 @@ import android.view.View;
 import android.view.ViewStub;
 import android.widget.ImageView;
 
-import com.lwk.comactionbar.ComActionBar;
 import com.lwkandroid.imagepicker.ImagePicker;
 import com.lwkandroid.imagepicker.data.ImageBean;
 import com.lwkandroid.imagepicker.data.ImagePickType;
 import com.lwkandroid.rtpermission.RTPermission;
 import com.lwkandroid.rtpermission.listener.OnPermissionResultListener;
+import com.lwkandroid.widget.comactionbar.ComActionBar;
 import com.lwkandroid.wings.R;
 import com.lwkandroid.wings.app.BaseActivity;
 import com.lwkandroid.wings.utils.BarUtils;

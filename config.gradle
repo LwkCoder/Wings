@@ -12,8 +12,8 @@ ext {
 
     /*项目网络请求域名*/
     url = [
-            "debugUrl"  : "http://devapi.cubedat.com/",
-            "releaseUrl": "http://devapi.cubedat.com/"
+            "debugUrl"  : "http://lf.snssdk.com/neihan/",
+            "releaseUrl": "http://lf.snssdk.com/neihan/"
     ]
 
     /*第三方库参数*/
@@ -36,7 +36,7 @@ ext {
     RXAndroidVersion = "2.0.1"
     BGACodeVersion = "1.1.9"
     ZXingVersion = "3.3.0"
-    ComActionBarVersion = "1.1.0"
+    ComActionBarVersion = "1.1.1"
     LeakCanaryVersion = "1.5.4"
     StethoVersion = "1.5.0"
 

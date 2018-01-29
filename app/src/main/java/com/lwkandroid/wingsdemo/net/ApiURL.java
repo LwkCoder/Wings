@@ -9,7 +9,5 @@ public final class ApiURL
 {
     public static String HOST;
 
-    public static final String POST_TEST = "";
-    public static final String UPLOAD_TEST = "";
-    public static final String DOWNLOAD_TEST = "";
+    public static final String TEST = "service/tabs/";
 }

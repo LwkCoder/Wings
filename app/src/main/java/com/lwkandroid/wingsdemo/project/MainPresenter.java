@@ -2,7 +2,7 @@ package com.lwkandroid.wingsdemo.project;
 
 /**
  * Created by LWK
- * TODO MainActivity Presenter层
+ * TODO RxHttpDemoActivity Presenter层
  */
 
 public class MainPresenter extends MainConstract.Presenter

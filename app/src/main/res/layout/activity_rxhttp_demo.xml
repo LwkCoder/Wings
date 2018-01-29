@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.lwkandroid.widget.comactionbar.ComActionBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:bg_color="@color/deep_dark"
+        app:title_text="网络请求示例"/>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="@dimen/spacing_small">
+
+            <Button
+                android:id="@+id/btn_rxhttp_demo01"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="RxHttp获取数据"/>
+
+            <Button
+                android:id="@+id/btn_rxhttp_demo02"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="自定义Service获取数据"/>
+
+            <TextView
+                android:id="@+id/tv_rxhttp_demo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:textColor="@color/deep_dark"
+                android:textSize="@dimen/textsize_small"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

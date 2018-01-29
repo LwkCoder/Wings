@@ -272,12 +272,12 @@ public abstract class ApiRequestOptions<T extends ApiRequestOptions>
     /**
      * 添加该次请求的表单文本数据
      */
-    public T addFormData(@NonNull String tag, String value)
+    public T addFormData(@NonNull String key, String value)
     {
         if (mFormDatasMap == null)
             mFormDatasMap = new FormDataMap();
-        if (StringUtils.isNotEmpty(tag))
-            mFormDatasMap.addParam(tag, value);
+        if (StringUtils.isNotEmpty(key))
+            mFormDatasMap.addParam(key, value);
         return (T) this;
     }
 
