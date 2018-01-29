@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--文本基础风格-->
+    <style name="BaseTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+    </style>
+
+    <!--微小文本风格-->
+    <style name="TinyTextStyle" parent="BaseTextStyle">
+        <item name="android:textSize">@dimen/textsize_tiny</item>
+    </style>
+
+    <!--小文本风格-->
+    <style name="SmallTextStyle" parent="BaseTextStyle">
+        <item name="android:textSize">@dimen/textsize_small</item>
+    </style>
+
+    <!--中等文本风格-->
+    <style name="MediumTextStyle" parent="BaseTextStyle">
+        <item name="android:textSize">@dimen/textsize_normal</item>
+    </style>
+
+    <!--大文本风格-->
+    <style name="LargeTextStyle" parent="BaseTextStyle">
+        <item name="android:textSize">@dimen/textsize_large</item>
+    </style>
+
+    <!--超大文本风格-->
+    <style name="HugeTextStyle" parent="BaseTextStyle">
+        <item name="android:textSize">@dimen/textsize_huge</item>
+    </style>
+
+    <!--App风格基础-->
+    <style name="BaseAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!--Activity基础风格-->
+    <style name="BaseActivityStyle" parent="BaseAppTheme">
+        <item name="android:configChanges">orientation|keyboardHidden|screenSize</item>
+        <item name="android:screenOrientation">portrait</item>
+        <item name="android:windowSoftInputMode">adjustPan</item>
+    </style>
+
+    <!--自定义dialog风格-->
+    <style name="BaseDialog" parent="android:Theme.Holo.Light.Dialog">
+        <item name="android:windowIsFloating">true</item><!--是否悬浮在界面上-->
+        <item name="android:windowNoTitle">true</item>       <!--是否无标题-->
+        <item name="android:windowIsTranslucent">true</item> <!--是否半透明-->
+        <item name="android:windowBackground">@android:color/transparent</item> <!--窗口背景色透明-->
+        <item name="android:backgroundDimEnabled">false</item> <!--背景是否模糊显示-->
+        <item name="android:windowFrame">@null</item> <!--提示框边框-->
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+</resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--margin、padding常用大小-->
+    <dimen name="spacing_huge">40dp</dimen>
+    <dimen name="spacing_large">24dp</dimen>
+    <dimen name="spacing_normal">16dp</dimen>
+    <dimen name="spacing_small">8dp</dimen>
+    <dimen name="spacing_tiny">4dp</dimen>
+
+    <!--常用文字大小-->
+    <dimen name="textsize_tiny">10sp</dimen>
+    <dimen name="textsize_small">13sp</dimen>
+    <dimen name="textsize_normal">17sp</dimen>
+    <dimen name="textsize_large">20sp</dimen>
+    <dimen name="textsize_huge">25sp</dimen>
+</resources>

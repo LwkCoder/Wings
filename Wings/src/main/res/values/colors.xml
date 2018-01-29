@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <!--常用颜色-->
+    <color name="white">#fff</color>
+    <color name="black">#000</color>
+    <color name="gray_lightest">#F4F4F4</color>
+    <color name="gray_lighter">#ddd</color>
+    <color name="gray_darker">#aaa</color>
+    <color name="gray_darkest">#666666</color>
+</resources>

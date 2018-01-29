@@ -1,0 +1,107 @@
+package com.lwkandroid.wings.net;
+
+import com.lwkandroid.wings.net.bean.ApiResult;
+import com.lwkandroid.wings.net.bean.ApiGlobalOptions;
+import com.lwkandroid.wings.net.requst.ApiDeleteRequest;
+import com.lwkandroid.wings.net.requst.ApiDownloadRequest;
+import com.lwkandroid.wings.net.requst.ApiGetRequest;
+import com.lwkandroid.wings.net.requst.ApiPatchRequest;
+import com.lwkandroid.wings.net.requst.ApiPostRequest;
+import com.lwkandroid.wings.net.requst.ApiPutRequest;
+import com.lwkandroid.wings.net.requst.ApiUploadRequest;
+
+/**
+ * Created by LWK
+ * TODO 向外提供功能的入口
+ */
+
+public class RxHttp
+{
+    static
+    {
+        mGlobalOptions = new ApiGlobalOptions();
+    }
+
+    private RxHttp()
+    {
+    }
+
+    private static final ApiGlobalOptions mGlobalOptions;
+
+    /**
+     * 初始化公共配置
+     *
+     * @param baseUrl 网络请求域名，用来配置Retrofit，结尾必须是“/”
+     * @return 公共配置对象
+     */
+    public static ApiGlobalOptions init(String baseUrl)
+    {
+        mGlobalOptions.setBaseUrl(baseUrl);
+        mGlobalOptions.setApiResultType(ApiResult.class);
+        return mGlobalOptions;
+    }
+
+    /**
+     * 获取公共配置
+     */
+    public static ApiGlobalOptions getGlobalOptions()
+    {
+        return mGlobalOptions;
+    }
+
+    /**
+     * 发起Get请求
+     */
+    public static ApiGetRequest GET(String url)
+    {
+        return new ApiGetRequest(url);
+    }
+
+    /**
+     * 发起Post请求
+     */
+    public static ApiPostRequest POST(String url)
+    {
+        return new ApiPostRequest(url);
+    }
+
+    /**
+     * 发起Put请求
+     */
+    public static ApiPutRequest PUT(String url)
+    {
+        return new ApiPutRequest(url);
+    }
+
+    /**
+     * 发起Delete请求
+     */
+    public static ApiDeleteRequest DELETE(String url)
+    {
+        return new ApiDeleteRequest(url);
+    }
+
+    /**
+     * 发起Patch请求
+     */
+    public static ApiPatchRequest PATCH(String url)
+    {
+        return new ApiPatchRequest(url);
+    }
+
+    /**
+     * 发起Download请求
+     */
+    public static ApiDownloadRequest DOWNLOAD(String url)
+    {
+        return new ApiDownloadRequest(url);
+    }
+
+    /**
+     * 发起Upload请求
+     */
+    public static ApiUploadRequest UPLOAD(String url)
+    {
+        return new ApiUploadRequest(url);
+    }
+}
