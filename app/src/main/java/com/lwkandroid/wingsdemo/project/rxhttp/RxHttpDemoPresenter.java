@@ -46,7 +46,7 @@ public class RxHttpDemoPresenter extends RxHttpDemoConstract.Presenter
                     @Override
                     public void _OnError(ApiException e)
                     {
-                        KLog.e("无法获取天气数据：" + e.toString());
+                        KLog.e("无法获取数据：" + e.toString());
                         mViewImpl.showLongToast(e.toString());
                     }
                 });
