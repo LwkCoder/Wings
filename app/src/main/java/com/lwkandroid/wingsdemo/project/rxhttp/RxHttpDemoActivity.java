@@ -5,10 +5,13 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.TextView;
 
+import com.lwkandroid.wings.net.bean.ApiException;
+import com.lwkandroid.wings.net.bean.ProgressInfo;
 import com.lwkandroid.wingsdemo.R;
 import com.lwkandroid.wingsdemo.app.AppBaseActivity;
 import com.lwkandroid.wingsdemo.bean.TabsBean;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -45,6 +48,14 @@ public class RxHttpDemoActivity extends AppBaseActivity<RxHttpDemoPresenter> imp
                 mPresenter.requestDataByService();
             }
         });
+        addClick(R.id.btn_rxhttp_download, new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                mPresenter.requestMovieData();
+            }
+        });
     }
 
     @Override
@@ -71,5 +82,29 @@ public class RxHttpDemoActivity extends AppBaseActivity<RxHttpDemoPresenter> imp
             mTextView.setText(null);
         else
             mTextView.setText(dataList.toString());
+    }
+
+    @Override
+    public void showDownloadResult(File file)
+    {
+        mTextView.setText("下载完成：" + file.getAbsolutePath());
+    }
+
+    @Override
+    public void setDownliadEnable(boolean enable)
+    {
+        find(R.id.btn_rxhttp_download).setEnabled(enable);
+    }
+
+    @Override
+    public void showDownloadProgress(ProgressInfo info)
+    {
+        mTextView.setText("下载进度：" + info.getPercent() + "%");
+    }
+
+    @Override
+    public void showHttpError(ApiException e)
+    {
+        mTextView.setText("请求错误：" + e.toString());
     }
 }

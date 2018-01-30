@@ -10,4 +10,5 @@ public final class ApiURL
     public static String HOST;
 
     public static final String TEST = "service/tabs/";
+    public static final String DOWNLOAD_TEST = "http://oi5vnsj5b.bkt.clouddn.com/MV_Sample.mp4";
 }

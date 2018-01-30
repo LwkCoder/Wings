@@ -6,6 +6,7 @@ import com.lwkandroid.wings.utils.StringUtils;
 import com.lwkandroid.wings.utils.Utils;
 import com.socks.library.KLog;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -80,14 +81,13 @@ public class ApiFileParser implements IApiInputStreamParser
             try
             {
                 byte[] fileReader = new byte[4096];
-                outputStream = new FileOutputStream(file);
+                outputStream = new BufferedOutputStream(new FileOutputStream(file));
 
                 while (true)
                 {
                     int read = inputStream.read(fileReader);
                     if (read == -1)
                         break;
-
                     outputStream.write(fileReader, 0, read);
                 }
 
@@ -97,6 +97,7 @@ public class ApiFileParser implements IApiInputStreamParser
                 return file;
             } catch (IOException e)
             {
+                KLog.e(e.toString());
                 throw new ApiException(ApiExceptionCode.IO_EXCEPTION, e.toString());
             } finally
             {
@@ -107,6 +108,7 @@ public class ApiFileParser implements IApiInputStreamParser
             }
         } catch (IOException e)
         {
+            KLog.e(e.toString());
             throw new ApiException(ApiExceptionCode.IO_EXCEPTION, e.toString());
         }
     }

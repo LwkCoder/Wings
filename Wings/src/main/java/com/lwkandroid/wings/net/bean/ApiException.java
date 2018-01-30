@@ -162,6 +162,8 @@ public class ApiException extends Exception
                 return "无法解析该域名";
             case ApiExceptionCode.NULLPOINTER_EXCEPTION:
                 return "空指针异常";
+            case ApiExceptionCode.IO_EXCEPTION:
+                return "IO流异常";
             default:
                 return "未知错误";
         }

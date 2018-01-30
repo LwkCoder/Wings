@@ -118,6 +118,7 @@ public class ProgressRequestBody extends RequestBody
                 {
                     mListeners[i].onError(mProgressInfo.getId(), e);
                 }
+                throw e;
             }
             if (mProgressInfo.getContentLength() == 0)
             { //避免重复调用 contentLength()

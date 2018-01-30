@@ -35,6 +35,12 @@
                 android:layout_height="wrap_content"
                 android:text="自定义Service获取数据"/>
 
+            <Button
+                android:id="@+id/btn_rxhttp_download"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="下载文件"/>
+
             <TextView
                 android:id="@+id/tv_rxhttp_demo"
                 android:layout_width="wrap_content"

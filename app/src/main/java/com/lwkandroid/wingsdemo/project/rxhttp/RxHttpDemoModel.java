@@ -4,9 +4,11 @@ import com.lwkandroid.wings.net.RxHttp;
 import com.lwkandroid.wings.net.parser.ApiResponseConvert;
 import com.lwkandroid.wings.net.utils.FormDataMap;
 import com.lwkandroid.wings.net.utils.RetrofitUtils;
+import com.lwkandroid.wings.utils.SDCardUtils;
 import com.lwkandroid.wingsdemo.bean.TabsBean;
 import com.lwkandroid.wingsdemo.net.ApiURL;
 
+import java.io.File;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -37,5 +39,16 @@ public class RxHttpDemoModel extends RxHttpDemoConstract.Model
                 .customGet(ApiURL.TEST, new FormDataMap().addParam("webp", "1"))
                 .compose(ApiResponseConvert.responseToString())//先将ResponseBody转为String结果的数据
                 .compose(RxHttp.getGlobalOptions().getApiStringParser().parseDataAsList(TabsBean.class));//再将String数据解析为所需数据集合
+    }
+
+    @Override
+    Observable<File> requestMovieData()
+    {
+        return RxHttp.DOWNLOAD(ApiURL.DOWNLOAD_TEST) //下载链接的请求域名和全局域名不一样没关系，内部retrofit会自动识别
+                .removeAllGlobalFormDatas() //去除所有的全局参数，避免无法监听下载过程
+                .addRemoveInterceptor("sign") //去除模拟签名用的拦截器，避免无法监听下载过程
+                .setFileName("Movie.mp4")
+                .setSaveFloderPath(SDCardUtils.getExternalCachePath())
+                .parseAsFile();
     }
 }

@@ -97,6 +97,7 @@ public class ProgressResponseBody extends ResponseBody
                     {
                         mListeners[i].onError(mProgressInfo.getId(), e);
                     }
+                    throw e;
                 }
                 if (mProgressInfo.getContentLength() == 0)
                 {
