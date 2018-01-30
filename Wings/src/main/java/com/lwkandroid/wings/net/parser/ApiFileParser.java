@@ -97,7 +97,7 @@ public class ApiFileParser implements IApiInputStreamParser
                 return file;
             } catch (IOException e)
             {
-                KLog.e(e.toString());
+                KLog.e("ApiFileParser writeIntoStroge exception:" + e.toString());
                 throw new ApiException(ApiExceptionCode.IO_EXCEPTION, e.toString());
             } finally
             {
@@ -108,7 +108,7 @@ public class ApiFileParser implements IApiInputStreamParser
             }
         } catch (IOException e)
         {
-            KLog.e(e.toString());
+            KLog.e("ApiFileParser writeIntoStroge exception:" + e.toString());
             throw new ApiException(ApiExceptionCode.IO_EXCEPTION, e.toString());
         }
     }
