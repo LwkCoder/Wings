@@ -8,7 +8,7 @@ import java.util.TreeMap;
  * TODO 自定义Retrofit对象时用来添加全局参数的拦截器
  */
 
-public class RetrofitFormDataInterceptor extends ApiParamsInterceptor
+public final class RetrofitFormDataInterceptor extends ApiParamsInterceptor
 {
     private Map<String, String> mNewParamsMap;
 

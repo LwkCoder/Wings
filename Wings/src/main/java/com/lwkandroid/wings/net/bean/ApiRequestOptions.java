@@ -341,12 +341,12 @@ public abstract class ApiRequestOptions<T extends ApiRequestOptions>
     /**
      * 添加该次请求需要排除的拦截器
      */
-    public T addRemoveInterceptorList(List<String> removeInterceptorList)
+    public T addRemoveInterceptorList(List<String> tagList)
     {
         if (mRemoveInterceptorList == null)
             mRemoveInterceptorList = new ArrayList<>();
-        if (removeInterceptorList != null && removeInterceptorList.size() > 0)
-            mRemoveInterceptorList.addAll(removeInterceptorList);
+        if (tagList != null && tagList.size() > 0)
+            mRemoveInterceptorList.addAll(tagList);
         return (T) this;
     }
 
@@ -381,12 +381,12 @@ public abstract class ApiRequestOptions<T extends ApiRequestOptions>
     /**
      * 添加该次请求需要排除的网络拦截器
      */
-    public T addRemoveNetInterceptorList(List<String> removeNetInterceptorList)
+    public T addRemoveNetInterceptorList(List<String> tagList)
     {
         if (mRemoveNetInterceptorList == null)
             mRemoveNetInterceptorList = new ArrayList<>();
-        if (removeNetInterceptorList != null && removeNetInterceptorList.size() > 0)
-            mRemoveNetInterceptorList.addAll(removeNetInterceptorList);
+        if (tagList != null && tagList.size() > 0)
+            mRemoveNetInterceptorList.addAll(tagList);
         return (T) this;
     }
 
@@ -421,12 +421,12 @@ public abstract class ApiRequestOptions<T extends ApiRequestOptions>
     /**
      * 添加该次请求需要排除的表单文本数据
      */
-    public T addRemoveFormDatasList(List<String> removeFormDatasList)
+    public T addRemoveFormDatasList(List<String> keyList)
     {
         if (mRemoveFormDatasList == null)
             mRemoveFormDatasList = new ArrayList<>();
-        if (removeFormDatasList != null & removeFormDatasList.size() > 0)
-            mRemoveFormDatasList.addAll(removeFormDatasList);
+        if (keyList != null & keyList.size() > 0)
+            mRemoveFormDatasList.addAll(keyList);
         return (T) this;
     }
 
@@ -461,23 +461,23 @@ public abstract class ApiRequestOptions<T extends ApiRequestOptions>
     /**
      * 添加该次请求需要排除的Header
      */
-    public T addRemoveHeaderList(List<String> removeHeaderList)
+    public T addRemoveHeaderList(List<String> tagList)
     {
         if (mRemoveHeaderList == null)
             mRemoveHeaderList = new ArrayList<>();
-        if (removeHeaderList != null & removeHeaderList.size() > 0)
-            mRemoveHeaderList.addAll(removeHeaderList);
+        if (tagList != null & tagList.size() > 0)
+            mRemoveHeaderList.addAll(tagList);
         return (T) this;
     }
 
     /**
      * 添加该次请求需要排除的Header
      */
-    public T addRemoveHeader(String key)
+    public T addRemoveHeader(String tag)
     {
         if (mRemoveHeaderList == null)
             mRemoveHeaderList = new ArrayList<>();
-        mRemoveHeaderList.add(key);
+        mRemoveHeaderList.add(tag);
         return (T) this;
     }
 

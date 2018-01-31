@@ -96,21 +96,21 @@ public class RxHttpDemoPresenter extends RxHttpDemoConstract.Presenter
                     public void onSubscribe(Disposable d)
                     {
                         super.onSubscribe(d);
-                        mViewImpl.setDownliadEnable(false);
+                        mViewImpl.setDownLoadEnable(false);
                     }
 
                     @Override
                     public void _OnNext(File file)
                     {
                         mViewImpl.showDownloadResult(file);
-                        mViewImpl.setDownliadEnable(true);
+                        mViewImpl.setDownLoadEnable(true);
                     }
 
                     @Override
                     public void _OnError(ApiException e)
                     {
                         mViewImpl.showHttpError(e);
-                        mViewImpl.setDownliadEnable(true);
+                        mViewImpl.setDownLoadEnable(true);
                     }
                 });
 

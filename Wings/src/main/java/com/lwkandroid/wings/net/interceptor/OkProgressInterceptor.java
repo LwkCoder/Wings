@@ -12,7 +12,7 @@ import okhttp3.Response;
  * TODO OkHttp 上传/下载过程拦截器
  */
 
-public class OkProgressInterceptor implements Interceptor
+public final class OkProgressInterceptor implements Interceptor
 {
     @Override
     public Response intercept(Chain chain) throws IOException

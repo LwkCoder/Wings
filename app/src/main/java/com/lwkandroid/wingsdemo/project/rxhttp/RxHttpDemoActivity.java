@@ -91,7 +91,7 @@ public class RxHttpDemoActivity extends AppBaseActivity<RxHttpDemoPresenter> imp
     }
 
     @Override
-    public void setDownliadEnable(boolean enable)
+    public void setDownLoadEnable(boolean enable)
     {
         find(R.id.btn_rxhttp_download).setEnabled(enable);
     }

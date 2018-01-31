@@ -25,7 +25,7 @@ public interface RxHttpDemoConstract
 
         void showDownloadResult(File file);
 
-        void setDownliadEnable(boolean enable);
+        void setDownLoadEnable(boolean enable);
 
         void showDownloadProgress(ProgressInfo info);
 
