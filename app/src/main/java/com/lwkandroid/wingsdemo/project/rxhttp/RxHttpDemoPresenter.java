@@ -129,4 +129,11 @@ public class RxHttpDemoPresenter extends RxHttpDemoConstract.Presenter
             }
         });
     }
+
+    @Override
+    public void onDestory()
+    {
+        super.onDestory();
+        OkProgressManger.get().removeDownloadListener(ApiURL.DOWNLOAD_TEST);
+    }
 }

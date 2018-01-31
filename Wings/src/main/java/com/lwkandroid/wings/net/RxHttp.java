@@ -1,7 +1,7 @@
 package com.lwkandroid.wings.net;
 
-import com.lwkandroid.wings.net.bean.ApiResult;
 import com.lwkandroid.wings.net.bean.ApiGlobalOptions;
+import com.lwkandroid.wings.net.bean.ApiResult;
 import com.lwkandroid.wings.net.requst.ApiDeleteRequest;
 import com.lwkandroid.wings.net.requst.ApiDownloadRequest;
 import com.lwkandroid.wings.net.requst.ApiGetRequest;
@@ -9,6 +9,10 @@ import com.lwkandroid.wings.net.requst.ApiPatchRequest;
 import com.lwkandroid.wings.net.requst.ApiPostRequest;
 import com.lwkandroid.wings.net.requst.ApiPutRequest;
 import com.lwkandroid.wings.net.requst.ApiUploadRequest;
+import com.socks.library.KLog;
+
+import io.reactivex.functions.Consumer;
+import io.reactivex.plugins.RxJavaPlugins;
 
 /**
  * Created by LWK
@@ -38,7 +42,21 @@ public class RxHttp
     {
         mGlobalOptions.setBaseUrl(baseUrl);
         mGlobalOptions.setApiResultType(ApiResult.class);
+        initRxJava();
         return mGlobalOptions;
+    }
+
+    //初始化RxJava配置：捕获异常
+    private static void initRxJava()
+    {
+        RxJavaPlugins.setErrorHandler(new Consumer<Throwable>()
+        {
+            @Override
+            public void accept(Throwable throwable) throws Exception
+            {
+                KLog.e("RxJavaPlugins.ErrorHandler :" + throwable.toString());
+            }
+        });
     }
 
     /**
