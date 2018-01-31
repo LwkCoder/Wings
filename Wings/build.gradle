@@ -1,17 +1,23 @@
 apply plugin: 'com.android.library'
 
 def cfg = rootProject.ext.android
-def libraries = rootProject.ext.baseLibsDependencies
-def debugTools = rootProject.ext.baseLibsDebugTools
+def libraries = rootProject.ext.wingsDependencies
+def debugTools = rootProject.ext.wingsDebugTools
 
 android {
     compileSdkVersion cfg.compileSdkVersion
-    buildToolsVersion cfg.buildToolsVersion
+//    buildToolsVersion cfg.buildToolsVersion
     publishNonDefault true
 
     defaultConfig {
         minSdkVersion cfg.minSdkVersion
         targetSdkVersion cfg.targetSdkVersion
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath true
+            }
+        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
@@ -20,11 +26,11 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     /*依赖库*/
     libraries.each {
         entry ->
-            compile(entry.key) {
+            api(entry.key) {
                 entry.value.each {
                     childEntry ->
                         exclude(group: childEntry.key, module: childEntry.value)
@@ -32,5 +38,5 @@ dependencies {
             }
     }
     /*Debug工具库*/
-    debugTools.each { k, v -> debugCompile v }
+    debugTools.each { k, v -> debugApi v }
 }

@@ -2,8 +2,8 @@ ext {
     /*项目基础配置*/
     android = [
             minSdkVersion    : 14,
-            targetSdkVersion : 26,
-            compileSdkVersion: 26,
+            targetSdkVersion : 27,
+            compileSdkVersion: 27,
             buildToolsVersion: "26.0.1",
             applicationId    : "com.lwkandroid.wingsdemo",
             versionCode      : 1,
@@ -41,7 +41,7 @@ ext {
     StethoVersion = "1.5.0"
 
     /*各个依赖库*/
-    baseLibsDependencies = [
+    wingsDependencies = [
             /*Support模块*/
             "com.android.support:support-v4:$SupportVersion"             : [],
             "com.android.support:appcompat-v7:$SupportVersion"           : [],
@@ -104,7 +104,7 @@ ext {
     ]
 
     /*Debug环境下的辅助工具*/
-    baseLibsDebugTools = [
+    wingsDebugTools = [
             /*内存泄漏检测*/
             "leakCanary": "com.squareup.leakcanary:leakcanary-android:$LeakCanaryVersion",
             /*Stetho辅助*/

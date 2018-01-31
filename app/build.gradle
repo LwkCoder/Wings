@@ -10,13 +10,19 @@ keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 android {
     compileSdkVersion cfg.compileSdkVersion
-    buildToolsVersion cfg.buildToolsVersion
+//    buildToolsVersion cfg.buildToolsVersion
     defaultConfig {
         applicationId cfg.applicationId
         minSdkVersion cfg.minSdkVersion
         targetSdkVersion cfg.targetSdkVersion
         versionCode cfg.versionCode
         versionName cfg.versionName
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath true
+            }
+        }
     }
 
     signingConfigs {
@@ -79,7 +85,7 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    debugCompile project(path: ':Wings', configuration: 'debug')
-    releaseCompile project(path: ':Wings', configuration: 'release')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    debugImplementation project(':Wings')
+    releaseImplementation project(':Wings')
 }
