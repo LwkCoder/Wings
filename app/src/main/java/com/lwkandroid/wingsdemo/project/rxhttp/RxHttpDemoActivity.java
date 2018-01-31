@@ -1,10 +1,13 @@
 package com.lwkandroid.wingsdemo.project.rxhttp;
 
+import android.Manifest;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.TextView;
 
+import com.lwkandroid.rtpermission.RTPermission;
+import com.lwkandroid.rtpermission.listener.OnPermissionResultListener;
 import com.lwkandroid.wings.net.bean.ApiException;
 import com.lwkandroid.wings.net.bean.ProgressInfo;
 import com.lwkandroid.wingsdemo.R;
@@ -53,7 +56,22 @@ public class RxHttpDemoActivity extends AppBaseActivity<RxHttpDemoPresenter> imp
             @Override
             public void onClick(View v)
             {
-                mPresenter.requestMovieData();
+                new RTPermission.Builder()
+                        .permissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        .start(RxHttpDemoActivity.this, new OnPermissionResultListener()
+                        {
+                            @Override
+                            public void onAllGranted(String[] allPermissions)
+                            {
+                                mPresenter.requestMovieData();
+                            }
+
+                            @Override
+                            public void onDeined(String[] dinedPermissions)
+                            {
+                                showShortToast("不给权限我咋下载啊大兄弟");
+                            }
+                        });
             }
         });
     }
