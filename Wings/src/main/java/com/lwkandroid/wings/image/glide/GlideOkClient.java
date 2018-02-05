@@ -11,7 +11,7 @@ import okhttp3.OkHttpClient;
  * TODO Glide专用的OkHttpClient
  */
 
-public class GlideOkClient
+public final class GlideOkClient
 {
     private static final long DEFAULT_TIMEOUT = 30000;
 
@@ -21,7 +21,7 @@ public class GlideOkClient
                 .readTimeout(DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS)
                 .writeTimeout(DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS)
                 .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS)
-                .addNetworkInterceptor(new OkProgressInterceptor());
+                .addInterceptor(new OkProgressInterceptor());
     }
 
     private static final class Holder

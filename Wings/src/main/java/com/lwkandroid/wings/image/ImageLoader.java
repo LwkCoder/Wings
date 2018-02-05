@@ -8,20 +8,33 @@ import com.lwkandroid.wings.image.glide.GlideImageLoader;
  */
 public final class ImageLoader
 {
+    static
+    {
+        mGlobalOptions = new ImageGlobalOptions();
+        mLoader = new GlideImageLoader();
+    }
+
+    private static final ImageGlobalOptions mGlobalOptions;
+
+    private static final IImageLoader mLoader;
+
     private ImageLoader()
     {
     }
 
-    static
+    /**
+     * 获取全局配置
+     */
+    public static ImageGlobalOptions getGlobalOptions()
     {
-        IMPL = new GlideImageLoader();
+        return mGlobalOptions;
     }
 
-    private static final IImageLoaderStrategy IMPL;
-
-    public static IImageLoaderStrategy get()
+    /**
+     * 获取图片加载器对象
+     */
+    public static IImageLoader getLoader()
     {
-        return IMPL;
+        return mLoader;
     }
-
 }

@@ -13,6 +13,7 @@ import com.bumptech.glide.load.engine.cache.LruResourceCache;
 import com.bumptech.glide.load.engine.cache.MemorySizeCalculator;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.module.AppGlideModule;
+import com.lwkandroid.wings.image.ImageLoader;
 import com.lwkandroid.wings.utils.SDCardUtils;
 
 import java.io.InputStream;
@@ -23,7 +24,7 @@ import java.io.InputStream;
  */
 
 @GlideModule
-public class GlideLoaderModule extends AppGlideModule
+public final class GlideLoaderModule extends AppGlideModule
 {
     //glide系统缓存基础倍率
     private static final float MEMORY_CACHE_COUNT = 1.2f;
@@ -44,7 +45,7 @@ public class GlideLoaderModule extends AppGlideModule
         builder.setBitmapPool(new LruBitmapPool(customBitmapPoolSize));
         //设置磁盘缓存
         long availableSize = SDCardUtils.getFreeSpace();
-        builder.setDiskCache(new DiskLruCacheFactory(GlideCacheUtils.getCachePath(),
+        builder.setDiskCache(new DiskLruCacheFactory(ImageLoader.getCachePath(),
                 availableSize < MAX_DISK_CACHE_SIZE ? (int) availableSize : MAX_DISK_CACHE_SIZE));
     }
 
