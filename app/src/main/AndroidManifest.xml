@@ -23,6 +23,10 @@
             android:name=".project.rxhttp.RxHttpDemoActivity"
             android:theme="@style/BaseActivityStyle">
         </activity>
+        <activity
+            android:name=".project.image.ImageLoaderDemoActivity"
+            android:theme="@style/BaseActivityStyle">
+        </activity>
     </application>
 
 </manifest>

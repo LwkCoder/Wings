@@ -10,9 +10,9 @@ import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
-import com.lwkandroid.wings.image.ImageDiskCacheType;
 import com.lwkandroid.wings.image.ImageLoader;
-import com.lwkandroid.wings.image.ImageBaseOptions;
+import com.lwkandroid.wings.image.bean.ImageBaseOptions;
+import com.lwkandroid.wings.image.constants.ImageDiskCacheType;
 import com.lwkandroid.wings.utils.StringUtils;
 
 /**
@@ -38,13 +38,13 @@ public final class GlideImageOptions extends ImageBaseOptions<GlideImageOptions>
     @Override
     public void show(Activity activity, ImageView imageView)
     {
-        RequestBuilder requestBuilder = isAsGif() ?
-                Glide.with(activity).asGif() :
-                Glide.with(activity).asDrawable();
+                RequestBuilder requestBuilder = isAsGif() ?
+                        Glide.with(activity).asGif() :
+                        Glide.with(activity).asDrawable();
 
-        loadResource(requestBuilder)
-                .apply(getRequestOptions(requestBuilder))
-                .into(imageView);
+                loadResource(requestBuilder)
+                        .apply(getRequestOptions(requestBuilder))
+                        .into(imageView);
     }
 
     @Override
@@ -71,7 +71,7 @@ public final class GlideImageOptions extends ImageBaseOptions<GlideImageOptions>
                 .into(imageView);
     }
 
-    private RequestBuilder loadResource(RequestBuilder builder)
+    private <T> RequestBuilder<T> loadResource(RequestBuilder<T> builder)
     {
         if (StringUtils.isNotEmpty(getUrl()))
             return builder.load(getUrl());
@@ -133,10 +133,14 @@ public final class GlideImageOptions extends ImageBaseOptions<GlideImageOptions>
         //设置显示动画
         if (isCrossFade() != ImageLoader.getGlobalOptions().isCrossFade() ?
                 isCrossFade() : ImageLoader.getGlobalOptions().isCrossFade())
+        {
             builder.transition(DrawableTransitionOptions.withCrossFade(getCrossFadeDuration() != ImageLoader.getGlobalOptions().getCrossFadeDuration() ?
                     getCrossFadeDuration() : ImageLoader.getGlobalOptions().getCrossFadeDuration()));
-        else
+        } else if (!isAsGif())
+        {
+            //gif的图片不能调用.dontAnimate()
             options.dontAnimate();
+        }
         //设置缩略图比例
         if (getThumbRate() != 0)
             builder.thumbnail(getThumbRate());

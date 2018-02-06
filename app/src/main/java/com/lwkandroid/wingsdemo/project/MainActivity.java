@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.lwkandroid.wingsdemo.R;
 import com.lwkandroid.wingsdemo.app.AppBaseActivity;
+import com.lwkandroid.wingsdemo.project.image.ImageLoaderDemoActivity;
 import com.lwkandroid.wingsdemo.project.rxhttp.RxHttpDemoActivity;
 
 /**
@@ -23,6 +24,14 @@ public class MainActivity extends AppBaseActivity<MainPresenter> implements Main
     @Override
     protected void initUI(View contentView)
     {
+        addClick(R.id.btn_main_imageloader, new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                startActivity(new Intent(MainActivity.this, ImageLoaderDemoActivity.class));
+            }
+        });
         addClick(R.id.btn_main_rxhttp, new View.OnClickListener()
         {
             @Override

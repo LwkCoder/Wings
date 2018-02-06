@@ -1,9 +1,12 @@
-package com.lwkandroid.wings.image;
+package com.lwkandroid.wings.image.bean;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.annotation.DrawableRes;
+
+import com.lwkandroid.wings.image.constants.ImageDiskCacheType;
+import com.lwkandroid.wings.image.ImageLoader;
 
 /**
  * Created by LWK

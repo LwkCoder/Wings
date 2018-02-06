@@ -1,4 +1,4 @@
-package com.lwkandroid.wings.image;
+package com.lwkandroid.wings.image.bean;
 
 import android.app.Activity;
 import android.app.Fragment;

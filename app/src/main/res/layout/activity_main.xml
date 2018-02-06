@@ -26,6 +26,12 @@
             android:orientation="vertical">
 
             <Button
+                android:id="@+id/btn_main_imageloader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="图片加载示例"/>
+
+            <Button
                 android:id="@+id/btn_main_rxhttp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

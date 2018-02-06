@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="RoundDiffImageView">
+        <attr name="riv_radius" format="dimension"/>
+        <attr name="riv_left_top_radius" format="dimension"/>
+        <attr name="riv_right_top_radius" format="dimension"/>
+        <attr name="riv_left_bottom_radius" format="dimension"/>
+        <attr name="riv_right_bottom_radius" format="dimension"/>
+        <attr name="riv_border_width" format="dimension"/>
+        <attr name="riv_border_color" format="color"/>
+        <attr name="riv_is_oval" format="boolean"/>
+        <attr name="android:scaleType"/>
+    </declare-styleable>
+
+    <declare-styleable name="ShapeImageView">
+        <attr name="siv_shape" format="enum">
+            <enum name="Circle" value="1"/>
+            <enum name="Round" value="2"/>
+        </attr>
+        <attr name="siv_round_radius" format="dimension"/>
+        <attr name="siv_border_width" format="dimension"/>
+        <attr name="siv_border_color" format="color"/>
+        <attr name="siv_foreground" format="reference"/>
+        <attr name="siv_width_scale" format="integer"/>
+        <attr name="siv_height_scale" format="integer"/>
+        <attr name="siv_scale_target" format="enum">
+            <enum name="height" value="0"/>
+            <enum name="width" value="1"/>
+            <enum name="expand" value="2"/>
+            <enum name="inside" value="3"/>
+        </attr>
+    </declare-styleable>
+
+</resources>

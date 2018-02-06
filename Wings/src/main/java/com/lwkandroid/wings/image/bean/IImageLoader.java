@@ -1,4 +1,4 @@
-package com.lwkandroid.wings.image;
+package com.lwkandroid.wings.image.bean;
 
 import android.content.Context;
 import android.graphics.Bitmap;

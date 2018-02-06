@@ -1,7 +1,9 @@
-package com.lwkandroid.wings.image;
+package com.lwkandroid.wings.image.bean;
 
 import android.graphics.drawable.Drawable;
 import android.support.annotation.DrawableRes;
+
+import com.lwkandroid.wings.image.constants.ImageDiskCacheType;
 
 /**
  * Created by LWK
@@ -26,13 +28,13 @@ public class ImageGlobalOptions
 
     /*全局外部缓存策略*/
     @ImageDiskCacheType.Type
-    private int diskCacheType = ImageDiskCacheType.DEFAULT;
+    private int diskCacheType = ImageDiskCacheType.RESOURCE;
 
     /*全局内存是否缓存*/
     private boolean skipMemoryCache = false;
 
     /*全局是否显示动画*/
-    private boolean crossFade = true;
+    private boolean crossFade = false;
 
     /*全剧动画时间*/
     private int crossFadeDuration = 200;

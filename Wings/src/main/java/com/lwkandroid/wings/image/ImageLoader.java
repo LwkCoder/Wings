@@ -1,5 +1,7 @@
 package com.lwkandroid.wings.image;
 
+import com.lwkandroid.wings.image.bean.IImageLoader;
+import com.lwkandroid.wings.image.bean.ImageGlobalOptions;
 import com.lwkandroid.wings.image.glide.GlideImageLoader;
 
 /**

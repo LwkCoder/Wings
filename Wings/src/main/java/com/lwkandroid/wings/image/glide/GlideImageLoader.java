@@ -6,8 +6,8 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 
 import com.bumptech.glide.Glide;
-import com.lwkandroid.wings.image.IImageLoader;
-import com.lwkandroid.wings.image.ImageBaseOptions;
+import com.lwkandroid.wings.image.bean.IImageLoader;
+import com.lwkandroid.wings.image.bean.ImageBaseOptions;
 import com.lwkandroid.wings.image.ImageLoader;
 import com.lwkandroid.wings.utils.SDCardUtils;
 import com.lwkandroid.wings.utils.StringUtils;

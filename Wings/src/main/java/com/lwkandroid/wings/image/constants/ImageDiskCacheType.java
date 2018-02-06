@@ -1,4 +1,4 @@
-package com.lwkandroid.wings.image;
+package com.lwkandroid.wings.image.constants;
 
 import android.support.annotation.IntDef;
 
