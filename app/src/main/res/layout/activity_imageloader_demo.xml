@@ -71,8 +71,11 @@
                 android:layout_marginTop="@dimen/spacing_normal"
                 app:riv_border_color="@android:color/holo_green_dark"
                 app:riv_border_width="2dp"
+                app:riv_height_scale="1"
                 app:riv_left_top_radius="10dp"
-                app:riv_right_bottom_radius="10dp"/>
+                app:riv_right_bottom_radius="10dp"
+                app:riv_scale_target="height"
+                app:riv_width_scale="2"/>
 
             <ImageView
                 android:id="@+id/img_imageloader_demo04"

@@ -10,6 +10,14 @@
         <attr name="riv_border_width" format="dimension"/>
         <attr name="riv_border_color" format="color"/>
         <attr name="riv_is_oval" format="boolean"/>
+        <attr name="riv_width_scale" format="integer"/>
+        <attr name="riv_height_scale" format="integer"/>
+        <attr name="riv_scale_target" format="enum">
+            <enum name="height" value="0"/>
+            <enum name="width" value="1"/>
+            <enum name="expand" value="2"/>
+            <enum name="inside" value="3"/>
+        </attr>
         <attr name="android:scaleType"/>
     </declare-styleable>
 

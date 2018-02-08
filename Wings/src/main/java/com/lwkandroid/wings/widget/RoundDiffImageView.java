@@ -75,6 +75,14 @@ public class RoundDiffImageView extends ImageView
     //各个角radius值
     private float[] mRadiusArray = new float[]{0, 0, 0, 0, 0, 0, 0, 0};
 
+    public static final int SCALE_TARGET_HEIGHT = 0;// 对高进行缩放
+    public static final int SCALE_TARGET_WIDTH = 1;// 对宽进行缩放
+    public static final int SCALE_TARGET_EXPAND = 2;// 扩大方式（宽不足拉伸宽，高不足拉伸高）
+    public static final int SCALE_TARGET_INSIDE = 3;// 缩小方式（缩小到一条边刚好与原尺寸一样，另一条小于原尺寸）
+    private int mWidthScale = 0;// 宽度缩放比
+    private int mHeightScale = 0;// 高度缩放比
+    private int mScaleTarget = SCALE_TARGET_INSIDE;// 缩放目标
+
     public RoundDiffImageView(Context context)
     {
         super(context);
@@ -92,6 +100,8 @@ public class RoundDiffImageView extends ImageView
         TypedArray a = context.obtainStyledAttributes(attrs,
                 R.styleable.RoundDiffImageView, defStyle, 0);
 
+        int widthScale = mWidthScale, heightScale = mHeightScale, scaleTarget = mScaleTarget;
+
         if (a != null)
         {
             final int scaleTypeIndex = a.getInt(R.styleable.RoundDiffImageView_android_scaleType, -1);
@@ -103,6 +113,9 @@ public class RoundDiffImageView extends ImageView
             mRightTopRadius = a.getDimensionPixelSize(R.styleable.RoundDiffImageView_riv_right_top_radius, 0);
             mLeftBottomRadius = a.getDimensionPixelSize(R.styleable.RoundDiffImageView_riv_left_bottom_radius, 0);
             mRightBottomRadius = a.getDimensionPixelSize(R.styleable.RoundDiffImageView_riv_right_bottom_radius, 0);
+            widthScale = a.getInteger(R.styleable.RoundDiffImageView_riv_width_scale, 0);
+            heightScale = a.getInteger(R.styleable.RoundDiffImageView_riv_height_scale, 0);
+            scaleTarget = a.getInt(R.styleable.RoundDiffImageView_riv_scale_target, SCALE_TARGET_INSIDE);
 
             if (mRadius < 0.0f)
                 mRadius = 0.0f;
@@ -134,7 +147,52 @@ public class RoundDiffImageView extends ImageView
             a.recycle();
         }
 
+        setFixedSize(widthScale, heightScale);
+        setScaleTarget(scaleTarget);
         updateDrawable();
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
+    {
+        if (mWidthScale <= 0 || mHeightScale <= 0)
+        {
+            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+            return;
+        }
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        final int measureWidth = getMeasuredWidth();
+        final int measureHeight = getMeasuredHeight();
+        switch (mScaleTarget)
+        {
+            case SCALE_TARGET_HEIGHT:
+                setMeasuredDimension(measureWidth, measureWidth * mHeightScale / mWidthScale);
+                break;
+            case SCALE_TARGET_WIDTH:
+                setMeasuredDimension(measureHeight * mWidthScale / mHeightScale, measureHeight);
+                break;
+            case SCALE_TARGET_EXPAND:
+                if (measureWidth * mHeightScale < measureHeight * mWidthScale)
+                {
+                    // 宽不足
+                    setMeasuredDimension(measureHeight * mWidthScale / mHeightScale, measureHeight);
+                } else
+                {
+                    // 高不足
+                    setMeasuredDimension(measureWidth, measureWidth * mHeightScale / mWidthScale);
+                }
+                break;
+            default:
+            case SCALE_TARGET_INSIDE:
+                if (measureWidth * mHeightScale > measureHeight * mWidthScale)
+                {
+                    setMeasuredDimension(measureHeight * mWidthScale / mHeightScale, measureHeight);
+                } else
+                {
+                    setMeasuredDimension(measureWidth, measureWidth * mHeightScale / mWidthScale);
+                }
+                break;
+        }
     }
 
     @Override
@@ -385,6 +443,52 @@ public class RoundDiffImageView extends ImageView
         isOval = oval;
         updateDrawable();
         invalidate();
+    }
+
+    /**
+     * 获取缩放目标
+     *
+     * @return 缩放目标
+     */
+    @SuppressWarnings("unused")
+    public int getScaleTarget()
+    {
+        return mScaleTarget;
+    }
+
+    /**
+     * 设置缩放目标
+     *
+     * @param target 缩放目标
+     */
+    public void setScaleTarget(int target)
+    {
+        if (target != SCALE_TARGET_INSIDE && target != SCALE_TARGET_HEIGHT
+                && target != SCALE_TARGET_WIDTH && target != SCALE_TARGET_EXPAND)
+            return;
+        if (mScaleTarget != target)
+        {
+            mScaleTarget = target;
+            requestLayout();
+            invalidate();
+        }
+    }
+
+    /**
+     * 设置缩放比（任意值小于等于0则关闭该功能）
+     *
+     * @param widthScale  宽度缩放比
+     * @param heightScale 高度缩放比
+     */
+    public void setFixedSize(int widthScale, int heightScale)
+    {
+        if (mWidthScale != widthScale || mHeightScale != heightScale)
+        {
+            mWidthScale = widthScale;
+            mHeightScale = heightScale;
+            requestLayout();
+            invalidate();
+        }
     }
 
     private static class RoundedDrawable extends Drawable
