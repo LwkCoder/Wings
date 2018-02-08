@@ -34,6 +34,7 @@ public class RxHttpDemoActivity extends AppBaseActivity<RxHttpDemoPresenter> imp
     @Override
     protected void initUI(View contentView)
     {
+        super.initUI(contentView);
         mTextView = find(R.id.tv_rxhttp_demo);
         addClick(R.id.btn_rxhttp_demo01, new View.OnClickListener()
         {

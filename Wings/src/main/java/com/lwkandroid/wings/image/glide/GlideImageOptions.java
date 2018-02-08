@@ -104,13 +104,13 @@ public final class GlideImageOptions extends ImageBaseOptions<GlideImageOptions>
             options.placeholder(ImageLoader.getGlobalOptions().getErrorHolderDrawable());
         //设置错误占位图
         if (getErrorHolder() != -1)
-            options.placeholder(getErrorHolder());
+            options.error(getErrorHolder());
         else if (getErrorHolderDrawable() != null)
-            options.placeholder(getErrorHolderDrawable());
+            options.error(getErrorHolderDrawable());
         else if (ImageLoader.getGlobalOptions().getErrorHolder() != -1)
-            options.placeholder(ImageLoader.getGlobalOptions().getErrorHolder());
+            options.error(ImageLoader.getGlobalOptions().getErrorHolder());
         else if (ImageLoader.getGlobalOptions().getErrorHolderDrawable() != null)
-            options.placeholder(ImageLoader.getGlobalOptions().getErrorHolderDrawable());
+            options.error(ImageLoader.getGlobalOptions().getErrorHolderDrawable());
         //设置加载大小
         if (getWidth() != 0 && getHeight() != 0)
             options.override(getWidth(), getHeight());

@@ -42,6 +42,7 @@ public class ImageLoaderDemoActivity extends AppBaseActivity
     @Override
     protected void initUI(View contentView)
     {
+        super.initUI(contentView);
         mImageView00 = find(R.id.img_imageloader_demo00);
         mImageView01 = find(R.id.img_imageloader_demo01);
         mImageView02 = find(R.id.img_imageloader_demo02);
@@ -50,21 +51,31 @@ public class ImageLoaderDemoActivity extends AppBaseActivity
 
         ImageLoader.getLoader().load(IMG_URL01)
                 .setCrossFade(true)
+                .setPlaceHolder(R.drawable.img_placeholder_square_loading)
+                .setErrorHolder(R.drawable.img_placeholder_square_fail)
                 .show(this, mImageView00);
 
         ImageLoader.getLoader().load(IMG_URL02)
+                .setPlaceHolder(R.drawable.img_placeholder_square_loading)
+                .setErrorHolder(R.drawable.img_placeholder_square_fail)
                 .setCrossFade(true)
                 .show(this, mImageView01);
 
         ImageLoader.getLoader().load(IMG_URL03)
+                .setPlaceHolder(R.drawable.img_placeholder_square_loading)
+                .setErrorHolder(R.drawable.img_placeholder_square_fail)
                 .setCrossFade(true)
                 .show(this, mImageView02);
 
         //RoundDiffImageView不能调用.setCrossFade(true) !!!
         ImageLoader.getLoader().load(IMG_URL04)
+                .setPlaceHolder(R.drawable.img_placeholder_square_loading)
+                .setErrorHolder(R.drawable.img_placeholder_square_fail)
                 .show(this, mImageView03);
 
         ImageLoader.getLoader().load(GIF_URL)
+                .setPlaceHolder(R.drawable.img_placeholder_square_loading)
+                .setErrorHolder(R.drawable.img_placeholder_square_fail)
                 .setAsGif(true)
                 .show(this, mImageView04);
 
@@ -96,6 +107,7 @@ public class ImageLoaderDemoActivity extends AppBaseActivity
     @Override
     protected void initData(@Nullable Bundle savedInstanceState)
     {
+
     }
 
     @Override

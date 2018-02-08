@@ -9,6 +9,7 @@
     tools:context="com.lwkandroid.wingsdemo.project.MainActivity">
 
     <com.lwkandroid.widget.comactionbar.ComActionBar
+        android:id="@id/comactionbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:bg_color="@color/deep_dark"
@@ -39,12 +40,16 @@
 
             <com.lwkandroid.wings.widget.shapeimage.ShapeImageView
                 android:id="@+id/img_imageloader_demo01"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 android:layout_marginTop="@dimen/spacing_normal"
+                android:scaleType="centerCrop"
                 app:siv_border_color="@android:color/black"
                 app:siv_border_width="2dp"
-                app:siv_shape="Circle"/>
+                app:siv_height_scale="1"
+                app:siv_scale_target="height"
+                app:siv_shape="Circle"
+                app:siv_width_scale="1"/>
 
             <com.lwkandroid.wings.widget.shapeimage.ShapeImageView
                 android:id="@+id/img_imageloader_demo02"
@@ -61,8 +66,9 @@
 
             <com.lwkandroid.wings.widget.RoundDiffImageView
                 android:id="@+id/img_imageloader_demo03"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_normal"
                 app:riv_border_color="@android:color/holo_green_dark"
                 app:riv_border_width="2dp"
                 app:riv_left_top_radius="10dp"
@@ -70,8 +76,9 @@
 
             <ImageView
                 android:id="@+id/img_imageloader_demo04"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_normal"/>
 
         </LinearLayout>
 

@@ -7,6 +7,7 @@
     android:orientation="vertical">
 
     <com.lwkandroid.widget.comactionbar.ComActionBar
+        android:id="@id/comactionbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:bg_color="@color/deep_dark"

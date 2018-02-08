@@ -24,6 +24,7 @@ public class MainActivity extends AppBaseActivity<MainPresenter> implements Main
     @Override
     protected void initUI(View contentView)
     {
+        super.initUI(contentView);
         addClick(R.id.btn_main_imageloader, new View.OnClickListener()
         {
             @Override
