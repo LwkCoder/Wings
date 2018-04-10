@@ -499,6 +499,30 @@ public final class BarUtils
     }
 
     /**
+     * 设置全屏
+     * [fixme 似乎在MIUI上按下home再回到app会有问题]
+     */
+    public static void setFullScreen(Activity activity)
+    {
+        if (Build.VERSION.SDK_INT >= MIN_API)
+        {
+            View decorView = activity.getWindow().getDecorView();
+            decorView.setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+        } else
+        {
+            View decorView = activity.getWindow().getDecorView();
+            int option = View.SYSTEM_UI_FLAG_FULLSCREEN;
+            decorView.setSystemUiVisibility(option);
+        }
+    }
+
+    /**
      * 设置沉浸式模式，需要重写Activity的onWindowFocusChanged方法再调用
      */
     public static void immsiveMode(Activity activity, boolean hasFocus)

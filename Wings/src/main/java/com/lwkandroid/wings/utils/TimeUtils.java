@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
 /**
@@ -652,32 +653,78 @@ public final class TimeUtils
      */
     public static String getFriendlyTimeSpanByNow(long millis)
     {
+        String format;
+        boolean isChinese = Utils.getContext().getResources()
+                .getConfiguration().locale.getCountry().equals("CN");
         long now = System.currentTimeMillis();
         long span = now - millis;
-        if (span < 0)
-            return String.format("%tc", millis);// U can read http://www.apihome.cn/api/java/Formatter.html to understand it.
-        if (span < 1000)
+
+        //一小时之内的直接显示时间
+        if (span < TimeConstants.HOUR)
         {
-            return "刚刚";
-        } else if (span < TimeConstants.MIN)
-        {
-            return String.format(Locale.getDefault(), "%d秒前", span / TimeConstants.SEC);
-        } else if (span < TimeConstants.HOUR)
-        {
-            return String.format(Locale.getDefault(), "%d分钟前", span / TimeConstants.MIN);
-        }
-        // 获取当天00:00
-        long wee = (now / TimeConstants.DAY) * TimeConstants.DAY - 8 * TimeConstants.HOUR;
-        if (millis >= wee)
-        {
-            return String.format("今天%tR", millis);
-        } else if (millis >= wee - TimeConstants.DAY)
-        {
-            return String.format("昨天%tR", millis);
+            format = "HH:mm";
         } else
         {
-            return String.format("%tF", millis);
+            // 获取当天00:00
+            long wee = (now / TimeConstants.DAY) * TimeConstants.DAY - 8 * TimeConstants.HOUR;
+            if (millis >= wee)
+            {
+                //今天之内
+                Calendar calendar = GregorianCalendar.getInstance();
+                calendar.setTime(new Date(millis));
+                int hour = calendar.get(Calendar.HOUR_OF_DAY);
+
+                if (hour >= 0 && hour < 6)
+                {
+                    if (isChinese)
+                        format = "凌晨 HH:mm";
+                    else
+                        format = "Morning HH:mm";
+                } else if (hour >= 6 && hour < 12)
+                {
+                    if (isChinese)
+                        format = "上午 HH:mm";
+                    else
+                        format = "Morning HH:mm";
+                } else if (hour >= 12 && hour < 15)
+                {
+                    if (isChinese)
+                        format = "中午 HH:mm";
+                    else
+                        format = "Noon HH:mm";
+                } else if (hour >= 15 && hour < 18)
+                {
+                    if (isChinese)
+                        format = "下午 HH:mm";
+                    else
+                        format = "Afternoon HH:mm";
+                } else
+                {
+                    if (isChinese)
+                        format = "晚上 HH:mm";
+                    else
+                        format = "Night HH:mm";
+                }
+            } else if (millis >= wee - TimeConstants.DAY)
+            {
+                //昨天
+                if (isChinese)
+                    format = "昨天 HH:mm";
+                else
+                    format = "Yesterday HH:mm";
+            } else
+            {
+                if (isChinese)
+                    format = "M月d日 HH:mm";
+                else
+                    format = "MM-dd HH:mm";
+            }
         }
+
+        if (isChinese)
+            return new SimpleDateFormat(format, Locale.CHINA).format(millis);
+        else
+            return new SimpleDateFormat(format, Locale.US).format(millis);
     }
 
     /**

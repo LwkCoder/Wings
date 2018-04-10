@@ -28,7 +28,7 @@
             <Button
                 android:id="@+id/btn_main_imageloader"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/button_height_normal"
                 android:text="图片加载示例"/>
 
             <Button
@@ -37,12 +37,25 @@
                 android:layout_height="wrap_content"
                 android:text="网络请求示例"/>
 
-            <com.lwkandroid.wings.widget.shapeimage.ShapeImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@mipmap/ic_launcher"
-                app:siv_press_feedback="true"/>
+            <TextView
+                style="@style/TinyTextStyle"
+                android:text="Wings快速开发工具"/>
 
+            <TextView
+                style="@style/SmallTextStyle"
+                android:text="Wings快速开发工具"/>
+
+            <TextView
+                style="@style/MediumTextStyle"
+                android:text="Wings快速开发工具"/>
+
+            <TextView
+                style="@style/LargeTextStyle"
+                android:text="Wings快速开发工具"/>
+
+            <TextView
+                style="@style/HugeTextStyle"
+                android:text="Wings快速开发工具"/>
         </LinearLayout>
 
     </ScrollView>
