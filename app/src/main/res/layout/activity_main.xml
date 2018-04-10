@@ -37,6 +37,12 @@
                 android:layout_height="wrap_content"
                 android:text="网络请求示例"/>
 
+            <com.lwkandroid.wings.widget.shapeimage.ShapeImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@mipmap/ic_launcher"
+                app:siv_press_feedback="true"/>
+
         </LinearLayout>
 
     </ScrollView>

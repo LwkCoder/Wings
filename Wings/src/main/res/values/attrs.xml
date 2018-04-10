@@ -12,6 +12,7 @@
         <attr name="riv_is_oval" format="boolean"/>
         <attr name="riv_width_scale" format="integer"/>
         <attr name="riv_height_scale" format="integer"/>
+        <attr name="riv_press_feedback" format="boolean"/>
         <attr name="riv_scale_target" format="enum">
             <enum name="height" value="0"/>
             <enum name="width" value="1"/>
@@ -32,6 +33,7 @@
         <attr name="siv_foreground" format="reference"/>
         <attr name="siv_width_scale" format="integer"/>
         <attr name="siv_height_scale" format="integer"/>
+        <attr name="siv_press_feedback" format="boolean"/>
         <attr name="siv_scale_target" format="enum">
             <enum name="height" value="0"/>
             <enum name="width" value="1"/>

@@ -26,6 +26,7 @@ import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.widget.ImageView;
 
 import com.lwkandroid.wings.R;
@@ -74,6 +75,7 @@ public class RoundDiffImageView extends ImageView
     private Drawable mDrawable;
     //各个角radius值
     private float[] mRadiusArray = new float[]{0, 0, 0, 0, 0, 0, 0, 0};
+    private boolean mPressFeedBack = false;//按压反馈
 
     public static final int SCALE_TARGET_HEIGHT = 0;// 对高进行缩放
     public static final int SCALE_TARGET_WIDTH = 1;// 对宽进行缩放
@@ -116,6 +118,7 @@ public class RoundDiffImageView extends ImageView
             widthScale = a.getInteger(R.styleable.RoundDiffImageView_riv_width_scale, 0);
             heightScale = a.getInteger(R.styleable.RoundDiffImageView_riv_height_scale, 0);
             scaleTarget = a.getInt(R.styleable.RoundDiffImageView_riv_scale_target, SCALE_TARGET_INSIDE);
+            mPressFeedBack = a.getBoolean(R.styleable.ShapeImageView_siv_press_feedback, false);
 
             if (mRadius < 0.0f)
                 mRadius = 0.0f;
@@ -147,6 +150,8 @@ public class RoundDiffImageView extends ImageView
             a.recycle();
         }
 
+        if (mPressFeedBack)
+            setClickable(true);
         setFixedSize(widthScale, heightScale);
         setScaleTarget(scaleTarget);
         updateDrawable();
@@ -489,6 +494,23 @@ public class RoundDiffImageView extends ImageView
             requestLayout();
             invalidate();
         }
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event)
+    {
+        int action = event.getAction();
+        if (action == MotionEvent.ACTION_DOWN)
+        {
+            if (mPressFeedBack)
+                setAlpha(0.8f);
+        } else if (action == MotionEvent.ACTION_UP ||
+                action == MotionEvent.ACTION_CANCEL)
+        {
+            if (mPressFeedBack)
+                setAlpha(1.0f);
+        }
+        return super.dispatchTouchEvent(event);
     }
 
     private static class RoundedDrawable extends Drawable

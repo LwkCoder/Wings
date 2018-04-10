@@ -55,6 +55,7 @@ public class ShapeImageView extends ImageView
     private int mWidthScale = 0;// 宽度缩放比
     private int mHeightScale = 0;// 高度缩放比
     private int mScaleTarget = SCALE_TARGET_INSIDE;// 缩放目标
+    private boolean mPressFeedBack = false;//按压反馈
 
     public ShapeImageView(Context context)
     {
@@ -104,6 +105,7 @@ public class ShapeImageView extends ImageView
         int heightScale = custom.getInteger(R.styleable.ShapeImageView_siv_height_scale, 0);
         int scaleTarget = custom.getInt(
                 R.styleable.ShapeImageView_siv_scale_target, SCALE_TARGET_INSIDE);
+        mPressFeedBack = custom.getBoolean(R.styleable.ShapeImageView_siv_press_feedback, false);
         custom.recycle();
         ImageShape shape;
         switch (shapeType)
@@ -118,6 +120,9 @@ public class ShapeImageView extends ImageView
                 shape = null;
                 break;
         }
+
+        if (mPressFeedBack)
+            setClickable(true);
         setImageShape(shape);
         setRoundRectRadius(roundRectRadius);
         setBorderColor(borderColor);
@@ -495,5 +500,20 @@ public class ShapeImageView extends ImageView
         super.setForeground(foreground);
     }
 
-
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event)
+    {
+        int action = event.getAction();
+        if (action == MotionEvent.ACTION_DOWN)
+        {
+            if (mPressFeedBack)
+                setAlpha(0.8f);
+        } else if (action == MotionEvent.ACTION_UP ||
+                action == MotionEvent.ACTION_CANCEL)
+        {
+            if (mPressFeedBack)
+                setAlpha(1.0f);
+        }
+        return super.dispatchTouchEvent(event);
+    }
 }
