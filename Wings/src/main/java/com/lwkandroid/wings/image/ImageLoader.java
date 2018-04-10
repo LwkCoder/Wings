@@ -14,11 +14,14 @@ public final class ImageLoader
     {
         mGlobalOptions = new ImageGlobalOptions();
         mLoader = new GlideImageLoader();
+        mGlideLoader = new GlideImageLoader();
     }
 
     private static final ImageGlobalOptions mGlobalOptions;
 
     private static final IImageLoader mLoader;
+
+    private static final GlideImageLoader mGlideLoader;
 
     private ImageLoader()
     {
@@ -35,8 +38,17 @@ public final class ImageLoader
     /**
      * 获取图片加载器对象
      */
-    public static IImageLoader getLoader()
+    public static IImageLoader getDefaultLoader()
     {
         return mLoader;
+    }
+
+    /**
+     * 获取Glide图片加载对象
+     * 【可以用Glide独有的方法】
+     */
+    public static GlideImageLoader getGlideLoader()
+    {
+        return mGlideLoader;
     }
 }

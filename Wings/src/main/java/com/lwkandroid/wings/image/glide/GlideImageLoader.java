@@ -6,9 +6,8 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 
 import com.bumptech.glide.Glide;
-import com.lwkandroid.wings.image.bean.IImageLoader;
-import com.lwkandroid.wings.image.bean.ImageBaseOptions;
 import com.lwkandroid.wings.image.ImageLoader;
+import com.lwkandroid.wings.image.bean.IImageLoader;
 import com.lwkandroid.wings.utils.SDCardUtils;
 import com.lwkandroid.wings.utils.StringUtils;
 import com.lwkandroid.wings.utils.Utils;
@@ -21,52 +20,41 @@ import com.socks.library.KLog;
 
 public final class GlideImageLoader implements IImageLoader
 {
+    public void test(){}
     @Override
-    public ImageBaseOptions load(String url)
+    public GlideImageOptions load(String url)
     {
-        GlideImageOptions options = new GlideImageOptions();
-        options.setResource(url);
-        return options;
+        return new GlideImageOptions().setResource(url);
     }
 
     @Override
-    public ImageBaseOptions load(Uri uri)
+    public GlideImageOptions load(Uri uri)
     {
-        GlideImageOptions options = new GlideImageOptions();
-        options.setResource(uri);
-        return options;
+        return new GlideImageOptions().setResource(uri);
     }
 
     @Override
-    public ImageBaseOptions load(Drawable drawable)
+    public GlideImageOptions load(Drawable drawable)
     {
-        GlideImageOptions options = new GlideImageOptions();
-        options.setResource(drawable);
-        return options;
+        return new GlideImageOptions().setResource(drawable);
     }
 
     @Override
-    public ImageBaseOptions load(int resId)
+    public GlideImageOptions load(int resId)
     {
-        GlideImageOptions options = new GlideImageOptions();
-        options.setResource(resId);
-        return options;
+        return new GlideImageOptions().setResource(resId);
     }
 
     @Override
-    public ImageBaseOptions load(Bitmap bitmap)
+    public GlideImageOptions load(Bitmap bitmap)
     {
-        GlideImageOptions options = new GlideImageOptions();
-        options.setResource(bitmap);
-        return options;
+        return new GlideImageOptions().setResource(bitmap);
     }
 
     @Override
-    public ImageBaseOptions load(byte[] bytes)
+    public GlideImageOptions load(byte[] bytes)
     {
-        GlideImageOptions options = new GlideImageOptions();
-        options.setResource(bytes);
-        return options;
+        return new GlideImageOptions().setResource(bytes);
     }
 
     @Override

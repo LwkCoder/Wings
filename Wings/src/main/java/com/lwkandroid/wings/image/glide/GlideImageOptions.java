@@ -3,12 +3,14 @@ package com.lwkandroid.wings.image.glide;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestBuilder;
+import com.bumptech.glide.load.Transformation;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 import com.lwkandroid.wings.image.ImageLoader;
 import com.lwkandroid.wings.image.bean.ImageBaseOptions;
@@ -22,13 +24,28 @@ import com.lwkandroid.wings.utils.StringUtils;
 
 public final class GlideImageOptions extends ImageBaseOptions<GlideImageOptions>
 {
+    private Transformation<Bitmap> mTransformation;
+
+    /**
+     * 设置Transformation
+     */
+    public GlideImageOptions setTransformation(Transformation<Bitmap> transformation)
+    {
+        this.mTransformation = transformation;
+        return this;
+    }
+
+    public Transformation<Bitmap> getTransformation()
+    {
+        return mTransformation;
+    }
 
     @Override
     public void show(Context context, ImageView imageView)
     {
         RequestBuilder requestBuilder = isAsGif() ?
                 Glide.with(context).asGif() :
-                Glide.with(context).asDrawable();
+                Glide.with(context).asBitmap();
 
         loadResource(requestBuilder)
                 .apply(getRequestOptions(requestBuilder))
@@ -38,13 +55,13 @@ public final class GlideImageOptions extends ImageBaseOptions<GlideImageOptions>
     @Override
     public void show(Activity activity, ImageView imageView)
     {
-                RequestBuilder requestBuilder = isAsGif() ?
-                        Glide.with(activity).asGif() :
-                        Glide.with(activity).asDrawable();
+        RequestBuilder requestBuilder = isAsGif() ?
+                Glide.with(activity).asGif() :
+                Glide.with(activity).asBitmap();
 
-                loadResource(requestBuilder)
-                        .apply(getRequestOptions(requestBuilder))
-                        .into(imageView);
+        loadResource(requestBuilder)
+                .apply(getRequestOptions(requestBuilder))
+                .into(imageView);
     }
 
     @Override
@@ -52,7 +69,7 @@ public final class GlideImageOptions extends ImageBaseOptions<GlideImageOptions>
     {
         RequestBuilder requestBuilder = isAsGif() ?
                 Glide.with(fragment).asGif() :
-                Glide.with(fragment).asDrawable();
+                Glide.with(fragment).asBitmap();
 
         loadResource(requestBuilder)
                 .apply(getRequestOptions(requestBuilder))
@@ -64,7 +81,7 @@ public final class GlideImageOptions extends ImageBaseOptions<GlideImageOptions>
     {
         RequestBuilder requestBuilder = isAsGif() ?
                 Glide.with(fragment).asGif() :
-                Glide.with(fragment).asDrawable();
+                Glide.with(fragment).asBitmap();
 
         loadResource(requestBuilder)
                 .apply(getRequestOptions(requestBuilder))
@@ -130,11 +147,14 @@ public final class GlideImageOptions extends ImageBaseOptions<GlideImageOptions>
         //设置内存缓存策略
         options.skipMemoryCache(isSkipMemoryCache() != ImageLoader.getGlobalOptions().isSkipMemoryCache() ?
                 isSkipMemoryCache() : ImageLoader.getGlobalOptions().isSkipMemoryCache());
+        //设置Transformation
+        if (getTransformation() != null)
+            options.transform(getTransformation());
         //设置显示动画
         if (isCrossFade() != ImageLoader.getGlobalOptions().isCrossFade() ?
                 isCrossFade() : ImageLoader.getGlobalOptions().isCrossFade())
         {
-            builder.transition(DrawableTransitionOptions.withCrossFade(getCrossFadeDuration() != ImageLoader.getGlobalOptions().getCrossFadeDuration() ?
+            builder.transition(BitmapTransitionOptions.withCrossFade(getCrossFadeDuration() != ImageLoader.getGlobalOptions().getCrossFadeDuration() ?
                     getCrossFadeDuration() : ImageLoader.getGlobalOptions().getCrossFadeDuration()));
         } else if (!isAsGif())
         {
