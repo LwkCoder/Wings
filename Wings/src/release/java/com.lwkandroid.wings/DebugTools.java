@@ -1,11 +1,10 @@
-package com.lwkandroid.baselibs;
+package com.lwkandroid.wings;
 
 import android.app.Application;
 
 /**
  * Created by LWK
  * TODO Debug工具
- * 2017/5/22
  */
 
 public class DebugTools
