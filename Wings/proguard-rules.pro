@@ -63,6 +63,8 @@
 -keepattributes Signature
 #抛出异常时保留代码行号
 -keepattributes SourceFile,LineNumberTable
+#忽略警告
+-ignorewarnings
 #------------------------------------------------------------------------
 #-keep class XXXX   保留类名不变，也就是类名不混淆，而类中的成员名不保证。当然也可以是继承XXX类的所有类名不混淆
 #-keepclasseswithmembers class XXXX 保留类名和成员名,当然也可以是类中特定方法

@@ -15,7 +15,6 @@ import com.lwkandroid.wings.utils.StringUtils;
 import com.lwkandroid.wings.utils.Utils;
 import com.socks.library.KLog;
 
-import java.lang.reflect.Field;
 import java.util.Map;
 
 import okhttp3.Interceptor;
@@ -33,7 +32,6 @@ public abstract class BaseApplication extends Application implements Application
         initCommonUtils();
         initKLog();
         initCrashUtils();
-        initBuildConfig();
         initDebugTools();
         initRxHttp();
         initExtraLibraries();
@@ -63,63 +61,6 @@ public abstract class BaseApplication extends Application implements Application
     protected void initCrashUtils()
     {
         CrashUtils.init();
-    }
-
-    /**
-     * 初始化获取BuildConfig里配置的参数
-     */
-    protected void initBuildConfig()
-    {
-        String packageName = getPackageName();
-        try
-        {
-            Class buildConfig = Class.forName(packageName + ".BuildConfig");
-            getBuildConfigOptions(buildConfig);
-        } catch (ClassNotFoundException e)
-        {
-            e.printStackTrace();
-            KLog.e("Can not find the Class:" + packageName + ".BuildConfig");
-        }
-    }
-
-    /**
-     * 子类实现获取BuildConfig参数的方法
-     *
-     * @param buildConfig BuildConfig对象
-     */
-    protected abstract void getBuildConfigOptions(Class buildConfig);
-
-    /**
-     * 子类可调用该方法获取BuildConfig中某一配置参数
-     *
-     * @param buildConfig BuildConfig对象
-     * @param field       参数名
-     */
-    protected <T> T getBuildConfigField(Class buildConfig, String field)
-    {
-        if (buildConfig == null)
-            return null;
-
-        try
-        {
-            Field field1 = buildConfig.getField(field);
-            boolean access = field1.isAccessible();
-            if (!access)
-                field1.setAccessible(true);
-            T value = (T) field1.get(buildConfig);
-            if (!access)
-                field1.setAccessible(false);
-            return value;
-        } catch (IllegalAccessException e)
-        {
-            e.printStackTrace();
-            KLog.e("Can not get BuildConfig field:" + e.toString());
-        } catch (NoSuchFieldException e)
-        {
-            e.printStackTrace();
-            KLog.e("Can not get BuildConfig field:" + e.toString());
-        }
-        return null;
     }
 
     /**
