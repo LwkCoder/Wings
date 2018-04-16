@@ -42,7 +42,7 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField("String", "BaseUrl", "\"${urls["debugUrl"]}\"")
+            buildConfigField("String", "HOST", "\"${urls["debugUrl"]}\"")
             buildConfigField("String", "WX_APP_ID", "\"${extraLibsCfg["WX_APP_ID"]}\"")
             buildConfigField("String", "WX_APP_SECRET", "\"${extraLibsCfg["WX_APP_SECRET"]}\"")
 
@@ -53,7 +53,7 @@ android {
             signingConfig signingConfigs.debug
         }
         release {
-            buildConfigField("String", "BaseUrl", "\"${urls["releaseUrl"]}\"")
+            buildConfigField("String", "HOST", "\"${urls["releaseUrl"]}\"")
             buildConfigField("String", "WX_APP_ID", "\"${extraLibsCfg["WX_APP_ID"]}\"")
             buildConfigField("String", "WX_APP_SECRET", "\"${extraLibsCfg["WX_APP_SECRET"]}\"")
 

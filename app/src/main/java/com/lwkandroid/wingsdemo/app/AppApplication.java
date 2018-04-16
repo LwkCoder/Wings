@@ -6,7 +6,9 @@ import com.lwkandroid.wings.app.BaseApplication;
 import com.lwkandroid.wings.net.RxHttp;
 import com.lwkandroid.wingsdemo.BuildConfig;
 import com.lwkandroid.wingsdemo.bean.CustomHttpResult;
+import com.lwkandroid.wingsdemo.net.ApiURL;
 import com.lwkandroid.wingsdemo.net.TestSignInterceptor;
+import com.socks.library.KLog;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,6 +32,16 @@ public class AppApplication extends BaseApplication
     }
 
     @Override
+    protected void initBuildConfig()
+    {
+        AppConfig.WX_APP_ID = BuildConfig.WX_APP_ID;
+        AppConfig.WX_APP_SECRET = BuildConfig.WX_APP_SECRET;
+        ApiURL.HOST = BuildConfig.HOST;
+
+        KLog.i("WX_APP_ID=" + AppConfig.WX_APP_ID + " WX_APP_SECRET=" + AppConfig.WX_APP_SECRET + " API_HOST=" + ApiURL.HOST);
+    }
+
+    @Override
     protected Map<String, Interceptor> getCustomInterceptors()
     {
         Map<String, Interceptor> map = new HashMap<>();
@@ -50,7 +62,7 @@ public class AppApplication extends BaseApplication
     @Override
     protected String getBaseUrl()
     {
-        return BuildConfig.BaseUrl;
+        return ApiURL.HOST;
     }
 
     @Override

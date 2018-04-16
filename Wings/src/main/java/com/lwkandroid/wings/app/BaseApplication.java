@@ -32,6 +32,7 @@ public abstract class BaseApplication extends Application implements Application
         initCommonUtils();
         initKLog();
         initCrashUtils();
+        initBuildConfig();
         initDebugTools();
         initRxHttp();
         initExtraLibraries();
@@ -62,6 +63,11 @@ public abstract class BaseApplication extends Application implements Application
     {
         CrashUtils.init();
     }
+
+    /**
+     * 初始化获取BuildConfig里配置的参数
+     */
+    protected abstract void initBuildConfig();
 
     /**
      * 子类实现该方法为网络请求加入全局拦截器
