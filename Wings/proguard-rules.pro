@@ -1,3 +1,8 @@
+#自定义注解NotProguard
+-keepattributes *Annotation*
+-keep @com.lwkandroid.wings.annotation.NotProguard class * {*;}
+-keep class * {@com.lwkandroid.wings.annotation.NotProguard <fields>;}
+-keepclassmembers class * {@com.lwkandroid.wings.annotation.NotProguard <methods>;}
 # RxJava RxAndroid
 -dontwarn sun.misc.**
 -keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {

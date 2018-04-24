@@ -1,12 +1,14 @@
 package com.lwkandroid.wings.net.bean;
 
+import com.lwkandroid.wings.annotation.NotProguard;
+
 import java.io.Serializable;
 
 /**
  * Created by LWK
  * TODO 默认的请求结果
  */
-
+@NotProguard
 public class ApiResult<T> implements IApiResult<T>, Serializable
 {
     private static final long serialVersionUID = 4302225912527235188L;

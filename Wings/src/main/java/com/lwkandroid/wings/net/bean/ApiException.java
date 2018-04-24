@@ -20,7 +20,6 @@ import retrofit2.HttpException;
  * Created by LWK
  * TODO 自定义异常：网络请求错误
  */
-
 public class ApiException extends Exception
 {
     private static final long serialVersionUID = 4966919777463155346L;

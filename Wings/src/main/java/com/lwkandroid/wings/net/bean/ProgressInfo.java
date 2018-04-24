@@ -3,11 +3,13 @@ package com.lwkandroid.wings.net.bean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.lwkandroid.wings.annotation.NotProguard;
+
 /**
  * Created by LWK
  * TODO OkHttp加载过程数据
  */
-
+@NotProguard
 public class ProgressInfo implements Parcelable
 {
     /**

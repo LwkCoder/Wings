@@ -1,12 +1,13 @@
 package com.lwkandroid.wingsdemo.bean;
 
+import com.lwkandroid.wings.annotation.NotProguard;
 import com.lwkandroid.wings.net.bean.IApiResult;
 
 /**
  * Created by LWK
  * TODO 聚合数据天气预报网络请求返回基类
  */
-
+@NotProguard
 public class CustomHttpResult<T> implements IApiResult<T>
 {
 

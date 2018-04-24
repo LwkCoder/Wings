@@ -17,7 +17,6 @@ import okhttp3.Interceptor;
  * Created by LWK
  * TODO 单次请求的配置
  */
-
 public abstract class ApiRequestOptions<T extends ApiRequestOptions>
 {
     /*请求类型*/
