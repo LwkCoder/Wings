@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
+import com.lwkandroid.widget.comactionbar.ComActionBar;
 import com.lwkandroid.wingsdemo.R;
 import com.lwkandroid.wingsdemo.app.AppBaseActivity;
 import com.lwkandroid.wingsdemo.project.image.ImageLoaderDemoActivity;
@@ -15,6 +16,8 @@ import com.lwkandroid.wingsdemo.project.rxhttp.RxHttpDemoActivity;
  */
 public class MainActivity extends AppBaseActivity<MainPresenter> implements MainConstract.View
 {
+    private ComActionBar mActionBar;
+
     @Override
     public int getContentViewId()
     {
@@ -25,6 +28,7 @@ public class MainActivity extends AppBaseActivity<MainPresenter> implements Main
     protected void initUI(View contentView)
     {
         super.initUI(contentView);
+        mActionBar = find(R.id.comactionbar);
         addClick(R.id.btn_main_imageloader, new View.OnClickListener()
         {
             @Override
@@ -46,6 +50,7 @@ public class MainActivity extends AppBaseActivity<MainPresenter> implements Main
     @Override
     protected void initData(@Nullable Bundle savedInstanceState)
     {
+
     }
 
     @Override

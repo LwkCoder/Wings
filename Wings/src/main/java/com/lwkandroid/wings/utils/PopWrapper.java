@@ -2,9 +2,8 @@ package com.lwkandroid.wings.utils;
 
 import android.animation.ValueAnimator;
 import android.app.Activity;
-import android.graphics.Color;
 import android.graphics.Rect;
-import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -63,11 +62,32 @@ public abstract class PopWrapper implements PopupWindow.OnDismissListener
             mPopupWindow.setAnimationStyle(mOptions.getAnimStyle());
 
         //针对外部点击是否消失需要额外处理
-        mPopupWindow.setOutsideTouchable(mOptions.isCancelTouchOutside());
         boolean cancelOutside = mOptions.isCancelTouchOutside();
+        mPopupWindow.setOutsideTouchable(cancelOutside);
         if (cancelOutside)
         {
-            mPopupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            mPopupWindow.setBackgroundDrawable(new BitmapDrawable());
+            mPopupWindow.setTouchInterceptor(new View.OnTouchListener()
+            {
+                @Override
+                public boolean onTouch(View v, MotionEvent event)
+                {
+                    final int x = (int) event.getX();
+                    final int y = (int) event.getY();
+                    if ((event.getAction() == MotionEvent.ACTION_DOWN)
+                            && ((x > 0) || (x <= mPopupWindow.getContentView().getWidth())
+                            || (y > 0) || (y <= mPopupWindow.getContentView().getHeight())))
+                    {
+                        mPopupWindow.dismiss();
+                        return true;
+                    } else if (event.getAction() == MotionEvent.ACTION_OUTSIDE)
+                    {
+                        mPopupWindow.dismiss();
+                        return true;
+                    }
+                    return false;
+                }
+            });
         } else
         {
             //下面这三个必须同时设置
