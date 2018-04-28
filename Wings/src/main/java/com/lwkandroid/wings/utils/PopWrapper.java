@@ -3,9 +3,10 @@ package com.lwkandroid.wings.utils;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -128,28 +129,55 @@ public abstract class PopWrapper implements PopupWindow.OnDismissListener
         setWindowDark();
     }
 
+    /**
+     * 显示为某个View的下拉菜单
+     *
+     * @param anchor 依附的View
+     */
     public void showAsDropDown(View anchor)
     {
-        if (mPopupWindow == null)
-            return;
-        mPopupWindow.showAsDropDown(anchor);
-        setWindowDark();
+        showAsDropDown(anchor, 0, 0);
     }
 
+    /**
+     * 显示为某个View的下拉菜单
+     *
+     * @param anchor 依附的View
+     * @param xoff   x偏移量
+     * @param yoff   y偏移量
+     */
     public void showAsDropDown(View anchor, int xoff, int yoff)
     {
-        if (mPopupWindow == null)
-            return;
-        mPopupWindow.showAsDropDown(anchor, xoff, yoff);
-        setWindowDark();
+        showAsDropDown(anchor, xoff, yoff, Gravity.TOP | Gravity.START);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    /**
+     * 显示为某个View的下拉菜单
+     *
+     * @param anchor  依附的View
+     * @param xoff    x偏移量
+     * @param yoff    y偏移量
+     * @param gravity 权重（sdk>=19）
+     */
     public void showAsDropDown(View anchor, int xoff, int yoff, int gravity)
     {
         if (mPopupWindow == null)
             return;
-        mPopupWindow.showAsDropDown(anchor, xoff, yoff, gravity);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+        {
+            Rect visibleFrame = new Rect();
+            anchor.getGlobalVisibleRect(visibleFrame);
+            int height = anchor.getResources().getDisplayMetrics().heightPixels - visibleFrame.bottom;
+            mPopupWindow.setHeight(height);
+            mPopupWindow.showAsDropDown(anchor, xoff, yoff, gravity);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+        {
+            mPopupWindow.showAsDropDown(anchor, xoff, yoff, gravity);
+        } else
+        {
+            mPopupWindow.showAsDropDown(anchor, xoff, yoff);
+        }
         setWindowDark();
     }
 
