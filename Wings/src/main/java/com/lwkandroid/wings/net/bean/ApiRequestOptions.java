@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 import okhttp3.Interceptor;
+import okhttp3.RequestBody;
 
 /**
  * Created by LWK
@@ -52,10 +53,16 @@ public abstract class ApiRequestOptions<T extends ApiRequestOptions>
     private boolean mIsRemoveAllGlobalInterceptors = false;
     /*单次请求是否去除所有网络拦截器*/
     private boolean mIsRemoveAllGlobalNetInterceptors = false;
-    /*单词请求是否去除所有全局参数*/
+    /*单次请求是否去除所有全局参数*/
     private boolean mIsRemoveAllGlobalFormDatas = false;
-    /*单词请求是否去除所有全局Header*/
+    /*单次请求是否去除所有全局Header*/
     private boolean mIsRemoveAllGlobalHeaders = false;
+    /*单次请求的ObjectBody*/
+    private Object mObjectReqeustBody;
+    /*单次请求的RequestBody*/
+    private RequestBody mOkHttp3RequestBody;
+    /*单次请求的JsonBody*/
+    private String mJsonRequestBody;
 
     /**
      * 获取请求类型
@@ -514,6 +521,57 @@ public abstract class ApiRequestOptions<T extends ApiRequestOptions>
     {
         mIsRemoveAllGlobalHeaders = true;
         return (T) this;
+    }
+
+    /**
+     * 设置该次请求体为Object类型的RequestBody
+     */
+    public T setObjectRequestBody(Object body)
+    {
+        this.mObjectReqeustBody = body;
+        return (T) this;
+    }
+
+    /**
+     * 获取该次请求的Object类型的RequestBody
+     */
+    public Object getObjectRequestBody()
+    {
+        return mObjectReqeustBody;
+    }
+
+    /**
+     * 设置该次请求体为OkHttp3.RequestBody类型的RequestBody
+     */
+    public T setOkHttp3RequestBody(RequestBody body)
+    {
+        this.mOkHttp3RequestBody = body;
+        return (T) this;
+    }
+
+    /**
+     * 获取该次请求的OkHttp3类型的RequestBody
+     */
+    public RequestBody getOkHttp3RequestBody()
+    {
+        return mOkHttp3RequestBody;
+    }
+
+    /**
+     * 设置该次请求体为JsonObject类型的RequestBody
+     */
+    public T setJsonReqeustBody(String body)
+    {
+        this.mJsonRequestBody = body;
+        return (T) this;
+    }
+
+    /**
+     * 获取该次请求的JsonObject类型的RequestBody
+     */
+    public String getJsonRequestBody()
+    {
+        return mJsonRequestBody;
     }
 
     /**

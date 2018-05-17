@@ -15,6 +15,7 @@ import java.util.concurrent.TimeUnit;
 import io.reactivex.Observable;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 
@@ -91,7 +92,8 @@ public abstract class ApiBaseRequest<T extends ApiRequestOptions> extends ApiReq
         ApiService apiService = retrofit.create(ApiService.class);
 
         //执行请求
-        return buildResponse(allHeadersMap, allFormDatasMap, apiService);
+        return buildResponse(allHeadersMap, allFormDatasMap, getObjectRequestBody(),
+                getOkHttp3RequestBody(), getJsonRequestBody(), apiService);
     }
 
     //计算该请求下包含的拦截器
@@ -141,5 +143,8 @@ public abstract class ApiBaseRequest<T extends ApiRequestOptions> extends ApiReq
      */
     protected abstract Observable<ResponseBody> buildResponse(Map<String, String> headersMap,
                                                               Map<String, String> formDatasMap,
+                                                              Object objectRequestBody,
+                                                              RequestBody okHttp3RequestBody,
+                                                              String jsonRequestBody,
                                                               ApiService service);
 }

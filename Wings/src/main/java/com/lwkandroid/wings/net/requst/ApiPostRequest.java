@@ -2,6 +2,7 @@ package com.lwkandroid.wings.net.requst;
 
 import com.lwkandroid.wings.net.ApiService;
 import com.lwkandroid.wings.net.RxHttp;
+import com.lwkandroid.wings.net.constants.ApiConstants;
 import com.lwkandroid.wings.net.constants.ApiRequestType;
 import com.lwkandroid.wings.net.parser.ApiResponseConvert;
 
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 
 /**
@@ -20,13 +22,33 @@ public class ApiPostRequest extends ApiBaseRequest<ApiPostRequest> implements IA
 {
     public ApiPostRequest(String url)
     {
-        super(url,ApiRequestType.POST);
+        super(url, ApiRequestType.POST);
     }
 
     @Override
-    protected Observable<ResponseBody> buildResponse(Map<String, String> headersMap, Map<String, String> formDatasMap, ApiService service)
+    protected Observable<ResponseBody> buildResponse(Map<String, String> headersMap,
+                                                     Map<String, String> formDatasMap,
+                                                     Object objectRequestBody,
+                                                     RequestBody okHttp3RequestBody,
+                                                     String jsonRequestBody,
+                                                     ApiService service)
     {
-        return service.post(getUrl(), headersMap, formDatasMap);
+        if (objectRequestBody != null)
+        {
+            return service.postObjectBody(getUrl(), headersMap, objectRequestBody);
+        } else if (okHttp3RequestBody != null)
+        {
+            return service.postOkHttp3Body(getUrl(), headersMap, okHttp3RequestBody);
+        } else if (jsonRequestBody != null)
+        {
+            RequestBody jsonBody = RequestBody.create(okhttp3.MediaType.parse(ApiConstants.OKHPPT3_MEDIA_TYPE_JSON), jsonRequestBody);
+            headersMap.put(ApiConstants.HEADER_KEY_CONTENT_TYPE, ApiConstants.HEADER_VALUE_JSON);
+            headersMap.put(ApiConstants.HEADER_KEY_ACCEPT, ApiConstants.HEADER_VALUE_JSON);
+            return service.postJsonBody(getUrl(), headersMap, jsonBody);
+        } else
+        {
+            return service.post(getUrl(), headersMap, formDatasMap);
+        }
     }
 
     @Override

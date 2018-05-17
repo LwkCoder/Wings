@@ -20,4 +20,13 @@ public class ApiConstants
     public static final String TAG_LOG_INTERCEPTOR = "tag_log";
     /*加载过程拦截器的tag*/
     public static final String TAG_PROGRESS_INTERCEPTOR = "tag_progress";
+
+    /*请求头Content-Type*/
+    public static final String HEADER_KEY_CONTENT_TYPE = "Content-Type";
+    /*请求头Accept*/
+    public static final String HEADER_KEY_ACCEPT = "Accept";
+    /*请求头Json*/
+    public static final String HEADER_VALUE_JSON = "application/json";
+    /*OkHttp3 Json MediaType*/
+    public static final String OKHPPT3_MEDIA_TYPE_JSON = "application/json; charset=utf-8";
 }

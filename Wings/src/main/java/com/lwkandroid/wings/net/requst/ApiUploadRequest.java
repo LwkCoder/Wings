@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 
 /**
@@ -84,7 +85,12 @@ public class ApiUploadRequest extends ApiBaseRequest<ApiUploadRequest> implement
     }
 
     @Override
-    protected Observable<ResponseBody> buildResponse(Map<String, String> headersMap, Map<String, String> formDatasMap, ApiService service)
+    protected Observable<ResponseBody> buildResponse(Map<String, String> headersMap,
+                                                     Map<String, String> formDatasMap,
+                                                     Object objectRequestBody,
+                                                     RequestBody okHttp3RequestBody,
+                                                     String jsonRequestBody,
+                                                     ApiService service)
     {
         checkBodyListNotNull();
         for (Map.Entry<String, String> entry : formDatasMap.entrySet())
