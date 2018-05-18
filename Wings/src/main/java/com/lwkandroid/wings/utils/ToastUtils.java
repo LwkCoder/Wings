@@ -5,6 +5,8 @@ import android.os.Looper;
 import android.support.annotation.StringRes;
 import android.widget.Toast;
 
+import java.lang.ref.WeakReference;
+
 /**
  * Toast工具类
  */
@@ -12,7 +14,7 @@ public final class ToastUtils
 {
     private static Handler mHandler = new Handler(Looper.getMainLooper());
 
-    private static Toast mToast;
+    private static WeakReference<Toast> mToast;
 
     private ToastUtils()
     {
@@ -59,14 +61,17 @@ public final class ToastUtils
             @Override
             public void run()
             {
-                if (mToast != null)
+                Toast toast = null;
+                if (mToast != null && (toast = mToast.get()) != null)
                 {
-                    mToast.cancel();
+                    toast.cancel();
                     mToast = null;
+                    toast = null;
                 }
 
-                mToast = Toast.makeText(Utils.getContext(), s, duration);
-                mToast.show();
+                toast = Toast.makeText(Utils.getContext(), s, duration);
+                mToast = new WeakReference<>(toast);
+                toast.show();
             }
         });
     }
