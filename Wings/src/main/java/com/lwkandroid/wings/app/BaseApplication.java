@@ -89,7 +89,7 @@ public abstract class BaseApplication extends Application implements Application
     {
         String baseUrl = getBaseUrl();
         if (StringUtils.isEmpty(baseUrl))
-            throw new IllegalArgumentException("You have to set a non BaseUrl to RxHttp !!!");
+            KLog.w("You have to set a non BaseUrl to RxHttp !!!");
 
         RxHttp.init(baseUrl)
                 .addInterceptorsMap(getCustomInterceptors())

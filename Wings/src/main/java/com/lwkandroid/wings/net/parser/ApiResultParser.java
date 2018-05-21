@@ -42,7 +42,7 @@ public class ApiResultParser implements IApiStringParser
                                 if (result != null && result.getCode() == RxHttp.getGlobalOptions().getApiResultOkCode())
                                 {
                                     String dataJsonString = result.getData() != null ?
-                                            JSON_PARSER.toJson(result.getData()).toString() : null;
+                                            JSON_PARSER.toJson(result.getData()) : null;
                                     if (clazz == String.class)
                                         return (T) dataJsonString;
                                     else
@@ -76,7 +76,7 @@ public class ApiResultParser implements IApiStringParser
                                 if (result != null && result.getCode() == RxHttp.getGlobalOptions().getApiResultOkCode())
                                 {
                                     String dataJsonString = result.getData() != null ?
-                                            JSON_PARSER.toJson(result.getData()).toString() : null;
+                                            JSON_PARSER.toJson(result.getData()) : null;
                                     return StringUtils.isNotEmpty(dataJsonString) ?
                                             JSON_PARSER.parseJsonArray(dataJsonString, clazz) : null;
                                 } else

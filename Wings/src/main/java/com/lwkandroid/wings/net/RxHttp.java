@@ -9,6 +9,7 @@ import com.lwkandroid.wings.net.requst.ApiPatchRequest;
 import com.lwkandroid.wings.net.requst.ApiPostRequest;
 import com.lwkandroid.wings.net.requst.ApiPutRequest;
 import com.lwkandroid.wings.net.requst.ApiUploadRequest;
+import com.lwkandroid.wings.utils.StringUtils;
 import com.socks.library.KLog;
 
 import io.reactivex.functions.Consumer;
@@ -40,7 +41,8 @@ public class RxHttp
      */
     public static ApiGlobalOptions init(String baseUrl)
     {
-        mGlobalOptions.setBaseUrl(baseUrl);
+        if (StringUtils.isNotEmpty(baseUrl))
+            mGlobalOptions.setBaseUrl(baseUrl);
         mGlobalOptions.setApiResultType(ApiResult.class);
         initRxJava();
         return mGlobalOptions;
