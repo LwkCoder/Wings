@@ -62,6 +62,9 @@ public class RetrofitUtils
             }
         }
 
+        //添加Cookie管理类
+        builder.cookieJar(RxHttp.getGlobalOptions().getCookieManager());
+
         return create(globalOptions.getBaseUrl(), builder.build());
     }
 

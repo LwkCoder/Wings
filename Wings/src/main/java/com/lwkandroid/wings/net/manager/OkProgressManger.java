@@ -271,7 +271,7 @@ public class OkProgressManger
             return request;
 
         String key = request.url().toString();
-        KLog.i("OkHttpManager.wrapRequestBody.Url=" + key);
+        KLog.d("OkHttpManager.wrapRequestBody.Url=" + key);
         request = pruneIdentification(key, request);
 
         if (request.body() == null)
@@ -306,7 +306,7 @@ public class OkProgressManger
             return response;
 
         String key = response.request().url().toString();
-        KLog.i("OkHttpManager.wrapResponseBody.Url=" + key);
+        KLog.d("OkHttpManager.wrapResponseBody.Url=" + key);
         if (!TextUtils.isEmpty(response.request().header(IDENTIFICATION_HEADER)))
         { //从 header 中拿出有标识符的 url
             key = response.request().header(IDENTIFICATION_HEADER);

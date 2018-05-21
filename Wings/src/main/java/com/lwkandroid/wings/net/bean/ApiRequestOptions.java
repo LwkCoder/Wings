@@ -2,6 +2,7 @@ package com.lwkandroid.wings.net.bean;
 
 import android.support.annotation.NonNull;
 
+import com.lwkandroid.wings.net.RxHttp;
 import com.lwkandroid.wings.net.constants.ApiRequestType;
 import com.lwkandroid.wings.net.utils.FormDataMap;
 import com.lwkandroid.wings.utils.StringUtils;
@@ -11,6 +12,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import okhttp3.Cookie;
+import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.RequestBody;
 
@@ -63,6 +66,8 @@ public abstract class ApiRequestOptions<T extends ApiRequestOptions>
     private RequestBody mOkHttp3RequestBody;
     /*单次请求的JsonBody*/
     private String mJsonRequestBody;
+    /*Cookie*/
+    private List<Cookie> mCookieList = new ArrayList<>();
 
     /**
      * 获取请求类型
@@ -604,5 +609,46 @@ public abstract class ApiRequestOptions<T extends ApiRequestOptions>
     public boolean isRemoveAllGlobalHeaders()
     {
         return mIsRemoveAllGlobalHeaders;
+    }
+
+    public List<Cookie> getCookieList()
+    {
+        return mCookieList;
+    }
+
+    public T addCookie(String name, String value)
+    {
+        HttpUrl httpUrl = HttpUrl.parse(StringUtils.isNotEmpty(mBaseUrl) ?
+                mBaseUrl : RxHttp.getGlobalOptions().getBaseUrl());
+        Cookie.Builder builder = new Cookie.Builder();
+        Cookie cookie = builder.name(name).value(value).domain(httpUrl.host()).build();
+        mCookieList.add(cookie);
+        return (T) this;
+    }
+
+    public T addCookie(Cookie cookie)
+    {
+        mCookieList.add(cookie);
+        return (T) this;
+    }
+
+    public T addCookies(List<Cookie> cookieList)
+    {
+        mCookieList.addAll(cookieList);
+        return (T) this;
+    }
+
+    public T removeCookie(Cookie cookie)
+    {
+        HttpUrl httpUrl = HttpUrl.parse(StringUtils.isNotEmpty(mBaseUrl) ?
+                mBaseUrl : RxHttp.getGlobalOptions().getBaseUrl());
+        RxHttp.getGlobalOptions().getCookieManager().remove(httpUrl, cookie);
+        return (T) this;
+    }
+
+    public T clearAllCookies()
+    {
+        RxHttp.getGlobalOptions().getCookieManager().clear();
+        return (T) this;
     }
 }

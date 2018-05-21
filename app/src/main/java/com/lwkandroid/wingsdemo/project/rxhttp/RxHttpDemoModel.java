@@ -28,6 +28,8 @@ public class RxHttpDemoModel extends RxHttpDemoConstract.Model
                 .addFormData("essence", "1")
                 .addFormData("message_cursor", "1")
                 .addFormData("double_col_mode", "1")
+                .addCookie("cookie_name","cookieValueTest")
+                .addHeader("headertag","headervalue")
                 .parseAsList(TabsBean.class);
     }
 

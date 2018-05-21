@@ -91,7 +91,7 @@ public abstract class BaseApplication extends Application implements Application
         if (StringUtils.isEmpty(baseUrl))
             KLog.w("You have to set a non BaseUrl to RxHttp !!!");
 
-        RxHttp.init(baseUrl)
+        RxHttp.init(this, baseUrl)
                 .addInterceptorsMap(getCustomInterceptors())
                 .addInterceptor(ApiConstants.TAG_PROGRESS_INTERCEPTOR, new OkProgressInterceptor())
                 .addInterceptor(ApiConstants.TAG_LOG_INTERCEPTOR, new ApiLogInterceptor());

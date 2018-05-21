@@ -37,15 +37,12 @@ public abstract class ApiBaseRequest<T extends ApiRequestOptions> extends ApiReq
      */
     protected Observable<ResponseBody> invokeRequest()
     {
-        String baseUrl = StringUtils.isNotEmpty(getBaseUrl()) ? getBaseUrl() : RxHttp.getGlobalOptions().getBaseUrl();
-        long readTimeOut = getReadTimeOut() != -1 ? getReadTimeOut() : RxHttp.getGlobalOptions().getReadTimeOut();
-        long writeTimeOut = getWriteTimeOut() != -1 ? getWriteTimeOut() : RxHttp.getGlobalOptions().getWriteTimeOut();
-        long connectTimeOut = getConnectTimeOut() != -1 ? getConnectTimeOut() : RxHttp.getGlobalOptions().getConnectTimeOut();
+        String baseUrl = getFinalBaseUrl();
 
         OkHttpClient.Builder okBuilder = new OkHttpClient.Builder();
-        okBuilder.readTimeout(readTimeOut, TimeUnit.MILLISECONDS);
-        okBuilder.writeTimeout(writeTimeOut, TimeUnit.MILLISECONDS);
-        okBuilder.connectTimeout(connectTimeOut, TimeUnit.MILLISECONDS);
+        okBuilder.readTimeout(getFinalReadTimeOut(), TimeUnit.MILLISECONDS);
+        okBuilder.writeTimeout(getFinalWriteTimeOut(), TimeUnit.MILLISECONDS);
+        okBuilder.connectTimeout(getFinalConnectTimeOut(), TimeUnit.MILLISECONDS);
 
         //设置拦截器
         Map<String, Interceptor> allInterceptorMap =
@@ -87,6 +84,10 @@ public abstract class ApiBaseRequest<T extends ApiRequestOptions> extends ApiReq
                 isRemoveAllGlobalFormDatas(),
                 getRemoveFormDatasList());
 
+        //添加Cookie管理类
+        RxHttp.getGlobalOptions().getCookieManager().add(getCookieList());
+        okBuilder.cookieJar(RxHttp.getGlobalOptions().getCookieManager());
+
         //创建Retrofit对象
         Retrofit retrofit = RetrofitUtils.create(baseUrl, okBuilder.build());
         ApiService apiService = retrofit.create(ApiService.class);
@@ -94,6 +95,38 @@ public abstract class ApiBaseRequest<T extends ApiRequestOptions> extends ApiReq
         //执行请求
         return buildResponse(allHeadersMap, allFormDatasMap, getObjectRequestBody(),
                 getOkHttp3RequestBody(), getJsonRequestBody(), apiService);
+    }
+
+    /**
+     * 获取最终请求的BaseUrl
+     */
+    protected String getFinalBaseUrl()
+    {
+        return StringUtils.isNotEmpty(getBaseUrl()) ? getBaseUrl() : RxHttp.getGlobalOptions().getBaseUrl();
+    }
+
+    /**
+     * 获取最终请求的读取超时时间
+     */
+    protected long getFinalReadTimeOut()
+    {
+        return getReadTimeOut() != -1 ? getReadTimeOut() : RxHttp.getGlobalOptions().getReadTimeOut();
+    }
+
+    /**
+     * 获取最终请求的写入超时时间
+     */
+    protected long getFinalWriteTimeOut()
+    {
+        return getWriteTimeOut() != -1 ? getWriteTimeOut() : RxHttp.getGlobalOptions().getWriteTimeOut();
+    }
+
+    /**
+     * 获取最终请求的连接超时时间
+     */
+    protected long getFinalConnectTimeOut()
+    {
+        return getConnectTimeOut() != -1 ? getConnectTimeOut() : RxHttp.getGlobalOptions().getConnectTimeOut();
     }
 
     //计算该请求下包含的拦截器

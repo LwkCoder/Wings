@@ -1,7 +1,10 @@
 package com.lwkandroid.wings.net;
 
+import android.content.Context;
+
 import com.lwkandroid.wings.net.bean.ApiGlobalOptions;
 import com.lwkandroid.wings.net.bean.ApiResult;
+import com.lwkandroid.wings.net.cookie.CookieManager;
 import com.lwkandroid.wings.net.requst.ApiDeleteRequest;
 import com.lwkandroid.wings.net.requst.ApiDownloadRequest;
 import com.lwkandroid.wings.net.requst.ApiGetRequest;
@@ -9,7 +12,7 @@ import com.lwkandroid.wings.net.requst.ApiPatchRequest;
 import com.lwkandroid.wings.net.requst.ApiPostRequest;
 import com.lwkandroid.wings.net.requst.ApiPutRequest;
 import com.lwkandroid.wings.net.requst.ApiUploadRequest;
-import com.lwkandroid.wings.utils.StringUtils;
+import com.lwkandroid.wings.utils.Utils;
 import com.socks.library.KLog;
 
 import io.reactivex.functions.Consumer;
@@ -31,19 +34,22 @@ public class RxHttp
     {
     }
 
+    private static Context mContext;
     private static final ApiGlobalOptions mGlobalOptions;
 
     /**
      * 初始化公共配置
      *
+     * @param context Context
      * @param baseUrl 网络请求域名，用来配置Retrofit，结尾必须是“/”
      * @return 公共配置对象
      */
-    public static ApiGlobalOptions init(String baseUrl)
+    public static ApiGlobalOptions init(Context context, String baseUrl)
     {
-        if (StringUtils.isNotEmpty(baseUrl))
-            mGlobalOptions.setBaseUrl(baseUrl);
+        mContext = context.getApplicationContext();
+        mGlobalOptions.setBaseUrl(baseUrl);
         mGlobalOptions.setApiResultType(ApiResult.class);
+        mGlobalOptions.setCookieManager(new CookieManager());
         initRxJava();
         return mGlobalOptions;
     }
@@ -59,6 +65,13 @@ public class RxHttp
                 KLog.e("RxJavaPlugins.ErrorHandler :" + throwable.toString());
             }
         });
+    }
+
+    public static Context getContext()
+    {
+        if (mContext == null)
+            return Utils.getContext();
+        return mContext;
     }
 
     /**

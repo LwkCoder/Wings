@@ -139,10 +139,13 @@ public class ApiLogInterceptor implements Interceptor
                     byte[] bytes = toByteArray(responseBody.byteStream());
                     Charset charset = mediaType != null ? mediaType.charset(UTF8) : UTF8;
                     String bodyString = new String(bytes, charset);
-                    KLog.d("| ResponseBody：" + bodyString);
                     if (JsonUtils.get().isJsonData(bodyString))
                     {
+                        KLog.d("| ResponseBody：\n");
                         KLog.json(bodyString);
+                    } else
+                    {
+                        KLog.d("| ResponseBody：" + bodyString);
                     }
                     KLog.d("----------------------------↑ OkHttp ↑----------------------------");
                     responseBody = ResponseBody.create(responseBody.contentType(), bytes);
