@@ -5,6 +5,7 @@ import com.lwkandroid.wings.net.bean.ProgressInfo;
 import com.lwkandroid.wings.net.listener.OnProgressListener;
 import com.lwkandroid.wings.net.manager.OkProgressManger;
 import com.lwkandroid.wings.net.observer.ApiBaseObserver;
+import com.lwkandroid.wingsdemo.bean.NonRestFulResult;
 import com.lwkandroid.wingsdemo.bean.TabsBean;
 import com.lwkandroid.wingsdemo.net.ApiURL;
 import com.socks.library.KLog;
@@ -39,13 +40,13 @@ public class RxHttpDemoPresenter extends RxHttpDemoConstract.Presenter
                     public void onSubscribe(Disposable d)
                     {
                         super.onSubscribe(d);
-                        mViewImpl.setHttpResultData(null);
+                        mViewImpl.setWeatherHttpResultData(null);
                     }
 
                     @Override
                     public void _OnNext(List<TabsBean> dataList)
                     {
-                        mViewImpl.setHttpResultData(dataList);
+                        mViewImpl.setWeatherHttpResultData(dataList);
                     }
 
                     @Override
@@ -68,13 +69,13 @@ public class RxHttpDemoPresenter extends RxHttpDemoConstract.Presenter
                     public void onSubscribe(Disposable d)
                     {
                         super.onSubscribe(d);
-                        mViewImpl.setHttpResultData(null);
+                        mViewImpl.setWeatherHttpResultData(null);
                     }
 
                     @Override
                     public void _OnNext(List<TabsBean> dataList)
                     {
-                        mViewImpl.setHttpResultData(dataList);
+                        mViewImpl.setWeatherHttpResultData(dataList);
                     }
 
                     @Override
@@ -128,6 +129,34 @@ public class RxHttpDemoPresenter extends RxHttpDemoConstract.Presenter
                 KLog.e("监听下载时发生错误：" + e.toString());
             }
         });
+    }
+
+    @Override
+    void requestNonRestFul()
+    {
+        mModelImpl.requestNonRestFulData()
+                .compose(this.<NonRestFulResult>applyIo2MainWithLifeCycle())
+                .subscribe(new ApiBaseObserver<NonRestFulResult>()
+                {
+                    @Override
+                    public void onSubscribe(Disposable d)
+                    {
+                        super.onSubscribe(d);
+                        mViewImpl.showNonRestFulResult(null);
+                    }
+
+                    @Override
+                    public void _OnNext(NonRestFulResult nonRestFulResult)
+                    {
+                        mViewImpl.showNonRestFulResult(nonRestFulResult);
+                    }
+
+                    @Override
+                    public void _OnError(ApiException e)
+                    {
+                        mViewImpl.showHttpError(e);
+                    }
+                });
     }
 
     @Override

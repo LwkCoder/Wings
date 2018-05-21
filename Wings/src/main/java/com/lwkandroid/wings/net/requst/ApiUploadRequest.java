@@ -1,7 +1,6 @@
 package com.lwkandroid.wings.net.requst;
 
 import com.lwkandroid.wings.net.ApiService;
-import com.lwkandroid.wings.net.RxHttp;
 import com.lwkandroid.wings.net.constants.ApiRequestType;
 import com.lwkandroid.wings.net.parser.ApiResponseConvert;
 import com.lwkandroid.wings.net.utils.MultipartBodyList;
@@ -106,7 +105,7 @@ public class ApiUploadRequest extends ApiBaseRequest<ApiUploadRequest> implement
     {
         return invokeRequest()
                 .compose(ApiResponseConvert.responseToString())
-                .compose(RxHttp.getGlobalOptions().getApiStringParser().parseDataAsObject(tOfClass));
+                .compose(getApiStringParser().parseDataAsObject(tOfClass));
     }
 
     @Override
@@ -114,6 +113,6 @@ public class ApiUploadRequest extends ApiBaseRequest<ApiUploadRequest> implement
     {
         return invokeRequest()
                 .compose(ApiResponseConvert.responseToString())
-                .compose(RxHttp.getGlobalOptions().getApiStringParser().parseDataAsList(tOfClass));
+                .compose(getApiStringParser().parseDataAsList(tOfClass));
     }
 }

@@ -12,6 +12,7 @@ import com.lwkandroid.wings.net.bean.ApiException;
 import com.lwkandroid.wings.net.bean.ProgressInfo;
 import com.lwkandroid.wingsdemo.R;
 import com.lwkandroid.wingsdemo.app.AppBaseActivity;
+import com.lwkandroid.wingsdemo.bean.NonRestFulResult;
 import com.lwkandroid.wingsdemo.bean.TabsBean;
 
 import java.io.File;
@@ -75,6 +76,14 @@ public class RxHttpDemoActivity extends AppBaseActivity<RxHttpDemoPresenter> imp
                         });
             }
         });
+        addClick(R.id.btn_rxhttp_demo03, new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                mPresenter.requestNonRestFul();
+            }
+        });
     }
 
     @Override
@@ -95,7 +104,7 @@ public class RxHttpDemoActivity extends AppBaseActivity<RxHttpDemoPresenter> imp
 
 
     @Override
-    public void setHttpResultData(List<TabsBean> dataList)
+    public void setWeatherHttpResultData(List<TabsBean> dataList)
     {
         if (dataList == null)
             mTextView.setText(null);
@@ -119,6 +128,15 @@ public class RxHttpDemoActivity extends AppBaseActivity<RxHttpDemoPresenter> imp
     public void showDownloadProgress(ProgressInfo info)
     {
         mTextView.setText("下载进度：" + info.getPercent() + "%");
+    }
+
+    @Override
+    public void showNonRestFulResult(NonRestFulResult result)
+    {
+        if (result == null)
+            mTextView.setText(null);
+        else
+            mTextView.setText(result.toString());
     }
 
     @Override

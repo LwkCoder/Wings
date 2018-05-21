@@ -5,6 +5,7 @@ import com.lwkandroid.wings.net.parser.ApiResponseConvert;
 import com.lwkandroid.wings.net.utils.FormDataMap;
 import com.lwkandroid.wings.net.utils.RetrofitUtils;
 import com.lwkandroid.wings.utils.SDCardUtils;
+import com.lwkandroid.wingsdemo.bean.NonRestFulResult;
 import com.lwkandroid.wingsdemo.bean.TabsBean;
 import com.lwkandroid.wingsdemo.net.ApiURL;
 
@@ -28,8 +29,6 @@ public class RxHttpDemoModel extends RxHttpDemoConstract.Model
                 .addFormData("essence", "1")
                 .addFormData("message_cursor", "1")
                 .addFormData("double_col_mode", "1")
-                .addCookie("cookie_name","cookieValueTest")
-                .addHeader("headertag","headervalue")
                 .parseAsList(TabsBean.class);
     }
 
@@ -52,5 +51,15 @@ public class RxHttpDemoModel extends RxHttpDemoConstract.Model
                 .setFileName("Movie.mp4")
                 .setSaveFloderPath(SDCardUtils.getExternalCachePath())
                 .parseAsFile();
+    }
+
+    @Override
+    Observable<NonRestFulResult> requestNonRestFulData()
+    {
+        return RxHttp.GET(ApiURL.TEST02)
+                .addFormData("code", "utf-8")
+                .addFormData("q", "iphone")
+                .setApiResultStringParser(new NonRestFulStringResultParser())
+                .parseAsObject(NonRestFulResult.class);
     }
 }

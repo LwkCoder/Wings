@@ -5,7 +5,7 @@ import android.app.Application;
 import com.lwkandroid.wings.app.BaseApplication;
 import com.lwkandroid.wings.net.RxHttp;
 import com.lwkandroid.wingsdemo.BuildConfig;
-import com.lwkandroid.wingsdemo.bean.CustomHttpResult;
+import com.lwkandroid.wingsdemo.bean.WeatherHttpResult;
 import com.lwkandroid.wingsdemo.net.ApiURL;
 import com.lwkandroid.wingsdemo.net.TestSignInterceptor;
 import com.socks.library.KLog;
@@ -54,7 +54,7 @@ public class AppApplication extends BaseApplication
     {
         super.initRxHttp();
         RxHttp.getGlobalOptions()
-                .setApiResultType(CustomHttpResult.class)
+                .setApiResultType(WeatherHttpResult.class)
                 .setApiResultOkCode(0);
     }
 

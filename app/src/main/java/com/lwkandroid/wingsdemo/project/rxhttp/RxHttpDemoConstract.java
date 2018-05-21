@@ -5,6 +5,7 @@ import com.lwkandroid.wings.net.bean.ProgressInfo;
 import com.lwkandroid.wingsdemo.app.AppBaseModel;
 import com.lwkandroid.wingsdemo.app.AppBasePresenter;
 import com.lwkandroid.wingsdemo.app.AppBaseView;
+import com.lwkandroid.wingsdemo.bean.NonRestFulResult;
 import com.lwkandroid.wingsdemo.bean.TabsBean;
 
 import java.io.File;
@@ -21,13 +22,15 @@ public interface RxHttpDemoConstract
 {
     interface View extends AppBaseView
     {
-        void setHttpResultData(List<TabsBean> dataList);
+        void setWeatherHttpResultData(List<TabsBean> dataList);
 
         void showDownloadResult(File file);
 
         void setDownLoadEnable(boolean enable);
 
         void showDownloadProgress(ProgressInfo info);
+
+        void showNonRestFulResult(NonRestFulResult result);
 
         void showHttpError(ApiException e);
     }
@@ -48,6 +51,11 @@ public interface RxHttpDemoConstract
          * 七牛上的静态资源
          */
         abstract Observable<File> requestMovieData();
+
+        /**
+         * 请求非RestFul风格的数据
+         */
+        abstract Observable<NonRestFulResult> requestNonRestFulData();
     }
 
     abstract class Presenter extends AppBasePresenter<View, Model>
@@ -57,5 +65,7 @@ public interface RxHttpDemoConstract
         abstract void requestDataByService();
 
         abstract void requestMovieData();
+
+        abstract void requestNonRestFul();
     }
 }

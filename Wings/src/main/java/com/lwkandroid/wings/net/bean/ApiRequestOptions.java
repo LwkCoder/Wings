@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.lwkandroid.wings.net.RxHttp;
 import com.lwkandroid.wings.net.constants.ApiRequestType;
+import com.lwkandroid.wings.net.parser.IApiStringParser;
 import com.lwkandroid.wings.net.utils.FormDataMap;
 import com.lwkandroid.wings.utils.StringUtils;
 
@@ -68,6 +69,24 @@ public abstract class ApiRequestOptions<T extends ApiRequestOptions>
     private String mJsonRequestBody;
     /*Cookie*/
     private List<Cookie> mCookieList = new ArrayList<>();
+    /*返回结果解析对象*/
+    private IApiStringParser mStringParser = RxHttp.getGlobalOptions().getApiStringParser();
+
+    public IApiStringParser getApiStringParser()
+    {
+        return mStringParser;
+    }
+
+    /**
+     * 自定义String类型的请求结果解析器对象
+     *
+     * @param parser 自定义Json解析对象
+     */
+    public T setApiResultStringParser(IApiStringParser parser)
+    {
+        this.mStringParser = parser;
+        return (T) this;
+    }
 
     /**
      * 获取请求类型
