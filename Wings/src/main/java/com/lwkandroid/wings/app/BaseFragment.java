@@ -38,7 +38,7 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
     public void onActivityCreated(@Nullable Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
-        getArgumentsData(getArguments());
+        getArgumentsData(getArguments(), savedInstanceState);
         initUI(mContentView);
         initData(savedInstanceState);
     }
@@ -46,7 +46,7 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
     /**
      * 子类可重写此方法获取传入的Argument数据
      */
-    protected void getArgumentsData(Bundle bundle)
+    protected void getArgumentsData(Bundle bundle, Bundle savedInstanceState)
     {
 
     }
