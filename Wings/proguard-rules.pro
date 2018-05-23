@@ -17,8 +17,9 @@
 }
 #RxBinding无需混淆
 # Retrofit
--dontwarn retrofit2.**
--keep class retrofit2.** { *; }
+-keepattributes Signature
+-keepclassmembernames,allowobfuscation interface * { @retrofit2.http.* <methods>;}
+-dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
 # Gson
 -keep class com.google.gson.stream.** { *; }
 -keepattributes EnclosingMethod
@@ -31,12 +32,12 @@
 #RcvAdapter
 -dontwarn com.lwkandroid.rcvadapter.**
 -keep class com.lwkandroid.rcvadapter.**{*;}
-#okhttp
+#okhttp okio
 -dontwarn okhttp3.**
--keep class okhttp3.**{*;}
-#okio
 -dontwarn okio.**
--keep class okio.**{*;}
+-dontwarn javax.annotation.**
+-dontwarn org.conscrypt.**
+-keepnames class okhttp3.internal.publicsuffix.PublicSuffixDatabase
 #KLog不需要额外指定混淆规则
 #Glide
 -keep public class * implements com.bumptech.glide.module.GlideModule
