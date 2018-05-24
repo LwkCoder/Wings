@@ -75,8 +75,8 @@ public abstract class PopWrapper implements PopupWindow.OnDismissListener
                     final int x = (int) event.getX();
                     final int y = (int) event.getY();
                     if ((event.getAction() == MotionEvent.ACTION_DOWN)
-                            && ((x > 0) || (x <= mPopupWindow.getContentView().getWidth())
-                            || (y > 0) || (y <= mPopupWindow.getContentView().getHeight())))
+                            && ((x < 0) || (x > mPopupWindow.getContentView().getWidth())
+                            || (y < 0) || (y > mPopupWindow.getContentView().getHeight())))
                     {
                         mPopupWindow.dismiss();
                         return true;
