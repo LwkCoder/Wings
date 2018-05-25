@@ -75,8 +75,17 @@ public class ApiLogInterceptor implements Interceptor
             if (hasBody)
             {
                 if (isPlaintext(mediaType))
-                    KLog.d("| RequestBody：" + bodyToString(mediaType, body));
-                else
+                {
+                    String requestBody = bodyToString(mediaType, body);
+                    if (JsonUtils.get().isJsonData(requestBody))
+                    {
+                        KLog.d("| RequestBody：\n");
+                        KLog.json(requestBody);
+                    } else
+                    {
+                        KLog.d("| RequestBody：" + requestBody);
+                    }
+                } else
                     KLog.d("| RequestBody：maybe binary body, Ignored logging !");
             } else
             {
