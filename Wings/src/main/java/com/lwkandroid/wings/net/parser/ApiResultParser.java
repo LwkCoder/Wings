@@ -7,6 +7,7 @@ import com.lwkandroid.wings.utils.StringUtils;
 import com.lwkandroid.wings.utils.json.IJsonStrategy;
 import com.lwkandroid.wings.utils.json.JsonUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -44,10 +45,11 @@ public class ApiResultParser implements IApiStringParser
                                     String dataJsonString = result.getData() != null ?
                                             JSON_PARSER.toJson(result.getData()) : null;
                                     if (clazz == String.class)
-                                        return (T) dataJsonString;
+                                        return StringUtils.isNotEmpty(dataJsonString) ?
+                                                (T) dataJsonString : (T) "";
                                     else
                                         return StringUtils.isNotEmpty(dataJsonString) ?
-                                                JSON_PARSER.parseJsonObject(dataJsonString, clazz) : null;
+                                                JSON_PARSER.parseJsonObject(dataJsonString, clazz) : clazz.newInstance();
                                 } else
                                 {
                                     throw new ApiException(result.getCode(), result.getMessage(), result.getMessage());
@@ -78,7 +80,7 @@ public class ApiResultParser implements IApiStringParser
                                     String dataJsonString = result.getData() != null ?
                                             JSON_PARSER.toJson(result.getData()) : null;
                                     return StringUtils.isNotEmpty(dataJsonString) ?
-                                            JSON_PARSER.parseJsonArray(dataJsonString, clazz) : null;
+                                            JSON_PARSER.parseJsonArray(dataJsonString, clazz) : new ArrayList<T>();
                                 } else
                                 {
                                     throw new ApiException(result.getCode(), result.getMessage(), result.getMessage());

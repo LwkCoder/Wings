@@ -8,12 +8,16 @@ import android.widget.TextView;
 
 import com.lwkandroid.rtpermission.RTPermission;
 import com.lwkandroid.rtpermission.listener.OnPermissionResultListener;
+import com.lwkandroid.wings.net.RxHttp;
 import com.lwkandroid.wings.net.bean.ApiException;
 import com.lwkandroid.wings.net.bean.ProgressInfo;
+import com.lwkandroid.wings.net.observer.ApiBaseObserver;
+import com.lwkandroid.wings.rx.utils.RxSchedulers;
 import com.lwkandroid.wingsdemo.R;
 import com.lwkandroid.wingsdemo.app.AppBaseActivity;
 import com.lwkandroid.wingsdemo.bean.NonRestFulResult;
 import com.lwkandroid.wingsdemo.bean.TabsBean;
+import com.socks.library.KLog;
 
 import java.io.File;
 import java.util.List;
@@ -89,6 +93,40 @@ public class RxHttpDemoActivity extends AppBaseActivity<RxHttpDemoPresenter> imp
     @Override
     protected void initData(@Nullable Bundle savedInstanceState)
     {
+        /*测试返回结果中data为空的情况*/
+        RxHttp.GET("http://oi5vnsj5b.bkt.clouddn.com/empty_data_json")
+                .addRemoveInterceptor("sign")
+                .parseAsList(String.class)
+                .compose(RxSchedulers.<List<String>>applyIo2Main())
+                .subscribe(new ApiBaseObserver<List<String>>()
+                {
+                    @Override
+                    public void _OnNext(List<String> strings)
+                    {
+                        KLog.e("结果：" + strings);
+                    }
+
+                    @Override
+                    public void _OnError(ApiException e)
+                    {
+                        KLog.e("错误：" + e.toString());
+                    }
+                });
+        //                .compose(RxSchedulers.<String>applyIo2Main())
+        //                .subscribe(new ApiBaseObserver<String>()
+        //                {
+        //                    @Override
+        //                    public void _OnNext(String s)
+        //                    {
+        //                        KLog.e("结果：" + s);
+        //                    }
+        //
+        //                    @Override
+        //                    public void _OnError(ApiException e)
+        //                    {
+        //                        KLog.e("错误：" + e);
+        //                    }
+        //                });
     }
 
     @Override

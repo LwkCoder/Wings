@@ -40,7 +40,7 @@ public class ApiLogInterceptor implements Interceptor
             response = chain.proceed(request);
         } catch (Exception e)
         {
-            KLog.d("--->HttpResponse : Fail to proceed response");
+            KLog.d("--->HttpResponse : Fail to proceed response:" + e.toString());
             KLog.d("----------------------------↑ OkHttp ↑----------------------------");
             throw e;
         }
