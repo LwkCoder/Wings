@@ -29,6 +29,29 @@ public final class AppUtils
     }
 
     /**
+     * 获取某个进程名字
+     *
+     * @param pid 进程id
+     */
+    public static String getProcessName(int pid)
+    {
+        ActivityManager am = (ActivityManager) Utils.getContext().getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningAppProcessInfo> runningApps = am.getRunningAppProcesses();
+        if (runningApps == null)
+        {
+            return null;
+        }
+        for (ActivityManager.RunningAppProcessInfo procInfo : runningApps)
+        {
+            if (procInfo.pid == pid)
+            {
+                return procInfo.processName;
+            }
+        }
+        return null;
+    }
+
+    /**
      * 获取App包名
      *
      * @return 包名字符串
