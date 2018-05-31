@@ -26,13 +26,10 @@ public abstract class ApiBaseObserver<T> implements Observer<T>
     @Override
     public void onError(Throwable e)
     {
-        if (e instanceof ApiException)
-        {
-            _OnError((ApiException) e);
-        } else
-        {
-            _OnError(ApiException.handleThrowable(e));
-        }
+        ApiException apiException = ApiException.handleThrowable(e);
+        //可以在这里根据错误码设置对应的提示信息
+        setDisplayMessage(apiException);
+        _OnError(apiException);
     }
 
     @Override
@@ -45,5 +42,12 @@ public abstract class ApiBaseObserver<T> implements Observer<T>
     public abstract void _OnNext(T t);
 
     public abstract void _OnError(ApiException e);
+
+    /**
+     * 子类可重写该方法根据具体错误设置提示信息
+     */
+    protected void setDisplayMessage(ApiException e)
+    {
+    }
 
 }
