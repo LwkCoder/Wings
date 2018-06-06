@@ -25,7 +25,7 @@ ext {
     /*各依赖库的版本号*/
     SupportVersion = "27.1.1"
     KLogVersion = "1.6.0"
-    ImagePickerVersion = "1.3.9"
+    ImagePickerVersion = "1.4.0"
     RTPermissionVersion = "1.3.1"
     RcvAdapterVersion = "1.3.0"
     OkHttp3Version = "3.10.0"
@@ -36,7 +36,7 @@ ext {
     RXAndroidVersion = "2.0.2"
     BGACodeVersion = "1.1.9"
     ZXingVersion = "3.3.0"
-    ComActionBarVersion = "1.1.4"
+    ComActionBarVersion = "1.1.5"
     LeakCanaryVersion = "1.5.4"
     StethoVersion = "1.5.0"
 
