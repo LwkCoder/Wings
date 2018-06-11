@@ -4,6 +4,7 @@ import com.lwkandroid.wings.net.ApiService;
 import com.lwkandroid.wings.net.constants.ApiConstants;
 import com.lwkandroid.wings.net.constants.ApiRequestType;
 import com.lwkandroid.wings.net.parser.ApiResponseConvert;
+import com.lwkandroid.wings.net.utils.RequestBodyUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -40,7 +41,7 @@ public class ApiDeleteRequest extends ApiBaseRequest<ApiDeleteRequest> implement
             return service.deleteOkHttp3Body(getUrl(), headersMap, okHttp3RequestBody);
         } else if (jsonRequestBody != null)
         {
-            RequestBody jsonBody = RequestBody.create(okhttp3.MediaType.parse(ApiConstants.OKHPPT3_MEDIA_TYPE_JSON), jsonRequestBody);
+            RequestBody jsonBody = RequestBodyUtils.createJsonBody(jsonRequestBody);
             headersMap.put(ApiConstants.HEADER_KEY_CONTENT_TYPE, ApiConstants.HEADER_VALUE_JSON);
             headersMap.put(ApiConstants.HEADER_KEY_ACCEPT, ApiConstants.HEADER_VALUE_JSON);
             return service.deleteJsonBody(getUrl(), headersMap, jsonBody);

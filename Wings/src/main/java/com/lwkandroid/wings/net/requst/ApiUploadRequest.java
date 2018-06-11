@@ -4,6 +4,9 @@ import com.lwkandroid.wings.net.ApiService;
 import com.lwkandroid.wings.net.constants.ApiRequestType;
 import com.lwkandroid.wings.net.parser.ApiResponseConvert;
 import com.lwkandroid.wings.net.utils.MultipartBodyList;
+import com.lwkandroid.wings.net.utils.MultipartBodyUtils;
+import com.lwkandroid.wings.net.utils.RequestBodyUtils;
+import com.socks.library.KLog;
 
 import java.io.File;
 import java.io.InputStream;
@@ -92,9 +95,23 @@ public class ApiUploadRequest extends ApiBaseRequest<ApiUploadRequest> implement
                                                      ApiService service)
     {
         checkBodyListNotNull();
-        for (Map.Entry<String, String> entry : formDatasMap.entrySet())
+        if (objectRequestBody != null)
         {
-            mBodyList.addFormData(entry.getKey(), entry.getValue());
+            //Can not do this
+            KLog.w("Object data can not wrapped into the Upload Request. Ignored this data!");
+        } else if (okHttp3RequestBody != null)
+        {
+            mBodyList.add(MultipartBodyUtils.createPart(okHttp3RequestBody));
+        } else if (jsonRequestBody != null)
+        {
+            RequestBody jsonBody = RequestBodyUtils.createJsonBody(jsonRequestBody);
+            mBodyList.add(MultipartBodyUtils.createPart(jsonBody));
+        } else
+        {
+            for (Map.Entry<String, String> entry : formDatasMap.entrySet())
+            {
+                mBodyList.addFormData(entry.getKey(), entry.getValue());
+            }
         }
 
         return service.uploadFiles(getUrl(), headersMap, mBodyList);
