@@ -101,13 +101,16 @@ public class ApiUploadRequest extends ApiBaseRequest<ApiUploadRequest> implement
             KLog.w("Object data can not wrapped into the Upload Request. Ignored this data!");
         } else if (okHttp3RequestBody != null)
         {
+            checkBodyListNotNull();
             mBodyList.add(MultipartBodyUtils.createPart(okHttp3RequestBody));
         } else if (jsonRequestBody != null)
         {
+            checkBodyListNotNull();
             RequestBody jsonBody = RequestBodyUtils.createJsonBody(jsonRequestBody);
             mBodyList.add(MultipartBodyUtils.createPart(jsonBody));
         } else
         {
+            checkBodyListNotNull();
             for (Map.Entry<String, String> entry : formDatasMap.entrySet())
             {
                 mBodyList.addFormData(entry.getKey(), entry.getValue());
