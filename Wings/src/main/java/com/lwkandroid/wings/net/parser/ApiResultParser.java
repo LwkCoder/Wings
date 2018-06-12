@@ -3,6 +3,7 @@ package com.lwkandroid.wings.net.parser;
 import com.lwkandroid.wings.net.RxHttp;
 import com.lwkandroid.wings.net.bean.ApiException;
 import com.lwkandroid.wings.net.bean.IApiResult;
+import com.lwkandroid.wings.net.constants.ApiExceptionCode;
 import com.lwkandroid.wings.utils.StringUtils;
 import com.lwkandroid.wings.utils.json.IJsonStrategy;
 import com.lwkandroid.wings.utils.json.JsonUtils;
@@ -40,20 +41,19 @@ public class ApiResultParser implements IApiStringParser
                             public T apply(@NonNull String s) throws Exception
                             {
                                 IApiResult<Object> result = JSON_PARSER.parseJsonObject(s, RxHttp.getGlobalOptions().getApiResultType());
-                                if (result != null && result.getCode() == RxHttp.getGlobalOptions().getApiResultOkCode())
-                                {
-                                    String dataJsonString = result.getData() != null ?
-                                            JSON_PARSER.toJson(result.getData()) : null;
-                                    if (clazz == String.class)
-                                        return StringUtils.isNotEmpty(dataJsonString) ?
-                                                (T) dataJsonString : (T) "";
-                                    else
-                                        return StringUtils.isNotEmpty(dataJsonString) ?
-                                                JSON_PARSER.parseJsonObject(dataJsonString, clazz) : clazz.newInstance();
-                                } else
-                                {
+                                if (result == null)
+                                    throw new ApiException(ApiExceptionCode.RESPONSE_EMPTY, "Empty Response", "Empty Response");
+                                if (result.getCode() != RxHttp.getGlobalOptions().getApiResultOkCode())
                                     throw new ApiException(result.getCode(), result.getMessage(), result.getMessage());
-                                }
+
+                                String dataJsonString = result.getData() != null ?
+                                        JSON_PARSER.toJson(result.getData()) : null;
+                                if (clazz == String.class)
+                                    return StringUtils.isNotEmpty(dataJsonString) ?
+                                            (T) dataJsonString : (T) "";
+                                else
+                                    return StringUtils.isNotEmpty(dataJsonString) ?
+                                            JSON_PARSER.parseJsonObject(dataJsonString, clazz) : clazz.newInstance();
                             }
                         });
             }
@@ -75,16 +75,15 @@ public class ApiResultParser implements IApiStringParser
                             public List<T> apply(@NonNull String s) throws Exception
                             {
                                 IApiResult<Object> result = JSON_PARSER.parseJsonObject(s, RxHttp.getGlobalOptions().getApiResultType());
-                                if (result != null && result.getCode() == RxHttp.getGlobalOptions().getApiResultOkCode())
-                                {
-                                    String dataJsonString = result.getData() != null ?
-                                            JSON_PARSER.toJson(result.getData()) : null;
-                                    return StringUtils.isNotEmpty(dataJsonString) ?
-                                            JSON_PARSER.parseJsonArray(dataJsonString, clazz) : new ArrayList<T>();
-                                } else
-                                {
+                                if (result == null)
+                                    throw new ApiException(ApiExceptionCode.RESPONSE_EMPTY, "Empty Response", "Empty Response");
+                                if (result.getCode() != RxHttp.getGlobalOptions().getApiResultOkCode())
                                     throw new ApiException(result.getCode(), result.getMessage(), result.getMessage());
-                                }
+
+                                String dataJsonString = result.getData() != null ?
+                                        JSON_PARSER.toJson(result.getData()) : null;
+                                return StringUtils.isNotEmpty(dataJsonString) ?
+                                        JSON_PARSER.parseJsonArray(dataJsonString, clazz) : new ArrayList<T>();
                             }
                         });
             }

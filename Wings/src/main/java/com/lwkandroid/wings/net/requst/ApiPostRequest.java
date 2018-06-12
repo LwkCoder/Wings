@@ -30,21 +30,21 @@ public class ApiPostRequest extends ApiBaseRequest<ApiPostRequest> implements IA
                                                      Map<String, String> formDatasMap,
                                                      Object objectRequestBody,
                                                      RequestBody okHttp3RequestBody,
-                                                     String jsonRequestBody,
+                                                     String jsonBody,
                                                      ApiService service)
     {
         if (objectRequestBody != null)
         {
-            return service.postObjectBody(getUrl(), headersMap, objectRequestBody);
+            return service.post(getUrl(), headersMap, objectRequestBody);
         } else if (okHttp3RequestBody != null)
         {
-            return service.postOkHttp3Body(getUrl(), headersMap, okHttp3RequestBody);
-        } else if (jsonRequestBody != null)
+            return service.post(getUrl(), headersMap, okHttp3RequestBody);
+        } else if (jsonBody != null)
         {
-            RequestBody jsonBody = RequestBodyUtils.createJsonBody(jsonRequestBody);
+            RequestBody jsonRequestBody = RequestBodyUtils.createJsonBody(jsonBody);
             headersMap.put(ApiConstants.HEADER_KEY_CONTENT_TYPE, ApiConstants.HEADER_VALUE_JSON);
             headersMap.put(ApiConstants.HEADER_KEY_ACCEPT, ApiConstants.HEADER_VALUE_JSON);
-            return service.postJsonBody(getUrl(), headersMap, jsonBody);
+            return service.post(getUrl(), headersMap, jsonRequestBody);
         } else
         {
             return service.post(getUrl(), headersMap, formDatasMap);

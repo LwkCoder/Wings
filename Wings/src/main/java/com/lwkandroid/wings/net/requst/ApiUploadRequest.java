@@ -1,5 +1,7 @@
 package com.lwkandroid.wings.net.requst;
 
+import android.text.TextUtils;
+
 import com.lwkandroid.wings.net.ApiService;
 import com.lwkandroid.wings.net.constants.ApiRequestType;
 import com.lwkandroid.wings.net.parser.ApiResponseConvert;
@@ -91,23 +93,22 @@ public class ApiUploadRequest extends ApiBaseRequest<ApiUploadRequest> implement
                                                      Map<String, String> formDatasMap,
                                                      Object objectRequestBody,
                                                      RequestBody okHttp3RequestBody,
-                                                     String jsonRequestBody,
+                                                     String jsonBody,
                                                      ApiService service)
     {
         checkBodyListNotNull();
         if (objectRequestBody != null)
         {
-            //Can not do this
-            KLog.w("Object data can not wrapped into the Upload Request. Ignored this data!");
+            KLog.w("RxHttp method PATCH must not have a Object body：\n" + objectRequestBody.toString());
         } else if (okHttp3RequestBody != null)
         {
             checkBodyListNotNull();
             mBodyList.add(MultipartBodyUtils.createPart(okHttp3RequestBody));
-        } else if (jsonRequestBody != null)
+        } else if (!TextUtils.isEmpty(jsonBody))
         {
             checkBodyListNotNull();
-            RequestBody jsonBody = RequestBodyUtils.createJsonBody(jsonRequestBody);
-            mBodyList.add(MultipartBodyUtils.createPart(jsonBody));
+            RequestBody jsonRequestBody = RequestBodyUtils.createJsonBody(jsonBody);
+            mBodyList.add(MultipartBodyUtils.createPart(jsonRequestBody));
         } else
         {
             checkBodyListNotNull();

@@ -45,4 +45,8 @@ public class ApiExceptionCode
      * IO错误
      */
     public static final int IO_EXCEPTION = 1008;
+    /**
+     * 空返回
+     */
+    public static final int RESPONSE_EMPTY = 1009;
 }

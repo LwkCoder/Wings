@@ -1,5 +1,7 @@
 package com.lwkandroid.wings.net.requst;
 
+import android.text.TextUtils;
+
 import com.lwkandroid.wings.net.ApiService;
 import com.lwkandroid.wings.net.constants.ApiConstants;
 import com.lwkandroid.wings.net.constants.ApiRequestType;
@@ -30,21 +32,21 @@ public class ApiPutRequest extends ApiBaseRequest<ApiPutRequest> implements IApi
                                                      Map<String, String> formDatasMap,
                                                      Object objectRequestBody,
                                                      RequestBody okHttp3RequestBody,
-                                                     String jsonRequestBody,
+                                                     String jsonBody,
                                                      ApiService service)
     {
         if (objectRequestBody != null)
         {
-            return service.putObjectBody(getUrl(), headersMap, objectRequestBody);
+            return service.put(getUrl(), headersMap, objectRequestBody);
         } else if (okHttp3RequestBody != null)
         {
-            return service.putOkHttp3Body(getUrl(), headersMap, okHttp3RequestBody);
-        } else if (jsonRequestBody != null)
+            return service.put(getUrl(), headersMap, okHttp3RequestBody);
+        } else if (!TextUtils.isEmpty(jsonBody))
         {
-            RequestBody jsonBody = RequestBodyUtils.createJsonBody(jsonRequestBody);
+            RequestBody jsonRequestBody = RequestBodyUtils.createJsonBody(jsonBody);
             headersMap.put(ApiConstants.HEADER_KEY_CONTENT_TYPE, ApiConstants.HEADER_VALUE_JSON);
             headersMap.put(ApiConstants.HEADER_KEY_ACCEPT, ApiConstants.HEADER_VALUE_JSON);
-            return service.putJsonBody(getUrl(), headersMap, jsonBody);
+            return service.put(getUrl(), headersMap, jsonRequestBody);
         } else
         {
             return service.put(getUrl(), headersMap, formDatasMap);

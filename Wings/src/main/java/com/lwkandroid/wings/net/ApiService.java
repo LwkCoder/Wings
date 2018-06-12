@@ -37,37 +37,28 @@ public interface ApiService
     Observable<ResponseBody> post(@Url String url, @HeaderMap Map<String, String> headerMap, @FieldMap Map<String, String> maps);
 
     @POST()
-    Observable<ResponseBody> postObjectBody(@Url String url, @HeaderMap Map<String, String> headerMap, @Body Object object);
+    Observable<ResponseBody> post(@Url String url, @HeaderMap Map<String, String> headerMap, @Body Object object);
 
     @POST()
-    Observable<ResponseBody> postOkHttp3Body(@Url String url, @HeaderMap Map<String, String> headerMap, @Body RequestBody body);
-
-    @POST()
-    Observable<ResponseBody> postJsonBody(@Url String url, @HeaderMap Map<String, String> headerMap, @Body RequestBody jsonBody);
+    Observable<ResponseBody> post(@Url String url, @HeaderMap Map<String, String> headerMap, @Body RequestBody body);
 
     @DELETE()
     Observable<ResponseBody> delete(@Url String url, @HeaderMap Map<String, String> headerMap, @QueryMap Map<String, String> maps);
 
     @DELETE()
-    Observable<ResponseBody> deleteObjectBody(@Url String url, @HeaderMap Map<String, String> headerMap, @Body Object object);
+    Observable<ResponseBody> delete(@Url String url, @HeaderMap Map<String, String> headerMap, @Body Object object);
 
     @DELETE()
-    Observable<ResponseBody> deleteOkHttp3Body(@Url String url, @HeaderMap Map<String, String> headerMap, @Body RequestBody body);
-
-    @DELETE()
-    Observable<ResponseBody> deleteJsonBody(@Url String url, @HeaderMap Map<String, String> headerMap, @Body RequestBody jsonBody);
+    Observable<ResponseBody> delete(@Url String url, @HeaderMap Map<String, String> headerMap, @Body RequestBody body);
 
     @PUT()
     Observable<ResponseBody> put(@Url String url, @HeaderMap Map<String, String> headerMap, @QueryMap Map<String, String> maps);
 
     @PUT()
-    Observable<ResponseBody> putObjectBody(@Url String url, @HeaderMap Map<String, String> headerMap, @Body Object object);
+    Observable<ResponseBody> put(@Url String url, @HeaderMap Map<String, String> headerMap, @Body Object object);
 
     @PUT()
-    Observable<ResponseBody> putOkHttp3Body(@Url String url, @HeaderMap Map<String, String> headerMap, @Body RequestBody body);
-
-    @PUT()
-    Observable<ResponseBody> putJsonBody(@Url String url, @HeaderMap Map<String, String> headerMap, @Body RequestBody jsonBody);
+    Observable<ResponseBody> put(@Url String url, @HeaderMap Map<String, String> headerMap, @Body RequestBody body);
 
     @PATCH()
     Observable<ResponseBody> patch(@Url String url, @HeaderMap Map<String, String> headerMap, @QueryMap Map<String, String> maps);

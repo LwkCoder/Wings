@@ -1,8 +1,11 @@
 package com.lwkandroid.wings.net.requst;
 
+import android.text.TextUtils;
+
 import com.lwkandroid.wings.net.ApiService;
 import com.lwkandroid.wings.net.constants.ApiRequestType;
 import com.lwkandroid.wings.net.parser.ApiResponseConvert;
+import com.socks.library.KLog;
 
 import java.util.List;
 import java.util.Map;
@@ -29,9 +32,19 @@ public class ApiGetRequest extends ApiBaseRequest<ApiGetRequest> implements IApi
                                                      Map<String, String> formDatasMap,
                                                      Object objectRequestBody,
                                                      RequestBody okHttp3RequestBody,
-                                                     String jsonRequestBody,
+                                                     String jsonBody,
                                                      ApiService service)
     {
+        if (objectRequestBody != null)
+        {
+            KLog.w("RxHttp method GET must not have a request body：\n" + objectRequestBody.toString());
+        } else if (okHttp3RequestBody != null)
+        {
+            KLog.w("RxHttp method GET must not have a request body：\n" + okHttp3RequestBody.toString());
+        } else if (!TextUtils.isEmpty(jsonBody))
+        {
+            KLog.w("RXHttp method GET must not have a request body：\n" + jsonBody);
+        }
         return service.get(getUrl(), headersMap, formDatasMap);
     }
 

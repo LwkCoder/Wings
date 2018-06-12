@@ -1,9 +1,12 @@
 package com.lwkandroid.wings.net.requst;
 
+import android.text.TextUtils;
+
 import com.lwkandroid.wings.net.ApiService;
 import com.lwkandroid.wings.net.constants.ApiRequestType;
 import com.lwkandroid.wings.net.parser.ApiFileParser;
 import com.lwkandroid.wings.net.parser.ApiResponseConvert;
+import com.socks.library.KLog;
 
 import java.io.File;
 import java.util.Map;
@@ -56,9 +59,19 @@ public class ApiDownloadRequest extends ApiBaseRequest<ApiDownloadRequest> imple
                                                      Map<String, String> formDatasMap,
                                                      Object objectRequestBody,
                                                      RequestBody okHttp3RequestBody,
-                                                     String jsonRequestBody,
+                                                     String jsonBody,
                                                      ApiService service)
     {
+        if (objectRequestBody != null)
+        {
+            KLog.w("RxHttp method DOWNLOAD must not have a request body：\n" + objectRequestBody.toString());
+        } else if (okHttp3RequestBody != null)
+        {
+            KLog.w("RxHttp method DOWNLOAD must not have a request body：\n" + okHttp3RequestBody.toString());
+        } else if (!TextUtils.isEmpty(jsonBody))
+        {
+            KLog.w("RxHttp method DOWNLOAD must not have a request body：\n" + jsonBody);
+        }
         return service.downloadFile(getUrl(), headersMap, formDatasMap);
     }
 

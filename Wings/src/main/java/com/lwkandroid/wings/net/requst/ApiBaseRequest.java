@@ -178,6 +178,6 @@ public abstract class ApiBaseRequest<T extends ApiRequestOptions> extends ApiReq
                                                               Map<String, String> formDatasMap,
                                                               Object objectRequestBody,
                                                               RequestBody okHttp3RequestBody,
-                                                              String jsonRequestBody,
+                                                              String jsonBody,
                                                               ApiService service);
 }
