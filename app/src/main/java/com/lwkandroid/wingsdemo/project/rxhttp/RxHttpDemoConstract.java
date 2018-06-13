@@ -1,5 +1,7 @@
 package com.lwkandroid.wingsdemo.project.rxhttp;
 
+import android.graphics.Bitmap;
+
 import com.lwkandroid.wings.net.bean.ApiException;
 import com.lwkandroid.wings.net.bean.ProgressInfo;
 import com.lwkandroid.wingsdemo.app.AppBaseModel;
@@ -32,6 +34,8 @@ public interface RxHttpDemoConstract
 
         void showNonRestFulResult(NonRestFulResult result);
 
+        void showImageBitmap(Bitmap bitmap);
+
         void showHttpError(ApiException e);
     }
 
@@ -56,6 +60,8 @@ public interface RxHttpDemoConstract
          * 请求非RestFul风格的数据
          */
         abstract Observable<NonRestFulResult> requestNonRestFulData();
+
+        abstract Observable<Bitmap> requestBitmapData();
     }
 
     abstract class Presenter extends AppBasePresenter<View, Model>
@@ -67,5 +73,7 @@ public interface RxHttpDemoConstract
         abstract void requestMovieData();
 
         abstract void requestNonRestFul();
+
+        abstract void requestBitmapData();
     }
 }

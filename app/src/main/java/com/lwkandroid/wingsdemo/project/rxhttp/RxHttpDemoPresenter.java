@@ -1,5 +1,7 @@
 package com.lwkandroid.wingsdemo.project.rxhttp;
 
+import android.graphics.Bitmap;
+
 import com.lwkandroid.wings.net.bean.ApiException;
 import com.lwkandroid.wings.net.bean.ProgressInfo;
 import com.lwkandroid.wings.net.listener.OnProgressListener;
@@ -149,6 +151,27 @@ public class RxHttpDemoPresenter extends RxHttpDemoConstract.Presenter
                     public void _OnNext(NonRestFulResult nonRestFulResult)
                     {
                         mViewImpl.showNonRestFulResult(nonRestFulResult);
+                    }
+
+                    @Override
+                    public void _OnError(ApiException e)
+                    {
+                        mViewImpl.showHttpError(e);
+                    }
+                });
+    }
+
+    @Override
+    void requestBitmapData()
+    {
+        mModelImpl.requestBitmapData()
+                .compose(this.<Bitmap>applyIo2MainWithLifeCycle())
+                .subscribe(new ApiBaseObserver<Bitmap>()
+                {
+                    @Override
+                    public void _OnNext(Bitmap bitmap)
+                    {
+                        mViewImpl.showImageBitmap(bitmap);
                     }
 
                     @Override

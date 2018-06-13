@@ -17,7 +17,7 @@ public interface IApiStringParser
      * @param clazz 对象的Class
      * @param <T>   对象泛型
      */
-    <T> ObservableTransformer<String, T> parseDataAsObject(final Class<T> clazz);
+    <T> ObservableTransformer<String, T> parseAsObject(final Class<T> clazz);
 
     /**
      * 将结果转为某一对象结合
@@ -25,5 +25,5 @@ public interface IApiStringParser
      * @param clazz 对象的Class
      * @param <T>   对象泛型
      */
-    <T> ObservableTransformer<String, List<T>> parseDataAsList(final Class<T> clazz);
+    <T> ObservableTransformer<String, List<T>> parseAsList(final Class<T> clazz);
 }

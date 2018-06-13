@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.lwkandroid.wings.net.constants.ApiConstants;
 import com.lwkandroid.wings.net.cookie.ICookieJar;
-import com.lwkandroid.wings.net.parser.ApiResultParser;
+import com.lwkandroid.wings.net.parser.ApiStringParser;
 import com.lwkandroid.wings.net.parser.IApiStringParser;
 import com.lwkandroid.wings.net.utils.FormDataMap;
 import com.lwkandroid.wings.utils.StringUtils;
@@ -43,7 +43,7 @@ public class ApiGlobalOptions
     /*全局Header*/
     private Map<String, String> mHeadersMap;
     /*全局String类型网络请求结果的解析器*/
-    private IApiStringParser mStringParser = new ApiResultParser();
+    private IApiStringParser mStringParser = new ApiStringParser();
     /*Cookie管理类*/
     private ICookieJar mCookieJar;
 
@@ -257,7 +257,7 @@ public class ApiGlobalOptions
         return this;
     }
 
-    public void setApiResultStringParser(IApiStringParser parser)
+    public void setApiStringParser(IApiStringParser parser)
     {
         this.mStringParser = parser;
     }

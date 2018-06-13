@@ -185,7 +185,7 @@ public final class ImageUtils
      * @param maxHeight 最大高度
      * @return bitmap
      */
-    public static Bitmap getBitmap(InputStream is, int maxWidth, int maxHeight)
+    public static Bitmap getBitmap(InputStream is, int maxWidth, int maxHeight) throws IOException
     {
         if (is == null)
             return null;

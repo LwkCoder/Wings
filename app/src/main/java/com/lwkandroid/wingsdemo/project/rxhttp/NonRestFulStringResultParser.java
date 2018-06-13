@@ -23,7 +23,7 @@ public class NonRestFulStringResultParser implements IApiStringParser
     protected static final IJsonStrategy JSON_PARSER = JsonUtils.get();
 
     @Override
-    public <T> ObservableTransformer<String, T> parseDataAsObject(final Class<T> clazz)
+    public <T> ObservableTransformer<String, T> parseAsObject(final Class<T> clazz)
     {
         return new ObservableTransformer<String, T>()
         {
@@ -45,7 +45,7 @@ public class NonRestFulStringResultParser implements IApiStringParser
     }
 
     @Override
-    public <T> ObservableTransformer<String, List<T>> parseDataAsList(Class<T> clazz)
+    public <T> ObservableTransformer<String, List<T>> parseAsList(Class<T> clazz)
     {
         return null;
     }

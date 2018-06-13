@@ -1,11 +1,17 @@
 package com.lwkandroid.wings.net.requst;
 
+import android.graphics.Bitmap;
 import android.text.TextUtils;
 
 import com.lwkandroid.wings.net.ApiService;
 import com.lwkandroid.wings.net.constants.ApiRequestType;
-import com.lwkandroid.wings.net.parser.ApiFileParser;
-import com.lwkandroid.wings.net.parser.ApiResponseConvert;
+import com.lwkandroid.wings.net.parser.ApiBytes2BitmapParser;
+import com.lwkandroid.wings.net.parser.ApiBytes2FileParser;
+import com.lwkandroid.wings.net.parser.ApiIS2BitmapParser;
+import com.lwkandroid.wings.net.parser.ApiIS2FileParser;
+import com.lwkandroid.wings.net.convert.ApiResponseConvert;
+import com.lwkandroid.wings.net.response.IApiBytesArrayResponse;
+import com.lwkandroid.wings.net.response.IApiInputSreamResponse;
 import com.socks.library.KLog;
 
 import java.io.File;
@@ -20,12 +26,16 @@ import okhttp3.ResponseBody;
  * TODO Download请求
  */
 
-public class ApiDownloadRequest extends ApiBaseRequest<ApiDownloadRequest> implements IApiInputSreamResponse
+public class ApiDownloadRequest extends ApiBaseRequest<ApiDownloadRequest> implements IApiInputSreamResponse, IApiBytesArrayResponse
 {
     /*存储文件夹*/
     private String mSaveFolder;
     /*存储名称*/
     private String mFileName;
+    /*Bitmap最大宽度*/
+    private int mBitmapMaxWidth;
+    /*Bitmap最大高度*/
+    private int mBitmapMaxHeight;
 
     public ApiDownloadRequest(String url)
     {
@@ -42,6 +52,23 @@ public class ApiDownloadRequest extends ApiBaseRequest<ApiDownloadRequest> imple
     {
         this.mFileName = fileName;
         return this;
+    }
+
+    public ApiDownloadRequest setBitmapMaxSize(int maxWidth, int maxHeight)
+    {
+        this.mBitmapMaxWidth = maxWidth;
+        this.mBitmapMaxHeight = maxHeight;
+        return this;
+    }
+
+    public int getBitmapMaxHeight()
+    {
+        return mBitmapMaxHeight;
+    }
+
+    public int getBitmapMaxWidth()
+    {
+        return mBitmapMaxWidth;
     }
 
     public String getSaveFloderPath()
@@ -76,9 +103,34 @@ public class ApiDownloadRequest extends ApiBaseRequest<ApiDownloadRequest> imple
     }
 
     @Override
-    public Observable<File> parseAsFile()
+    public Observable<File> parseAsFileFromIS()
     {
-        return invokeRequest().compose(ApiResponseConvert.responseToInputStream())
-                .compose(new ApiFileParser(mSaveFolder, mFileName).parseDataAsFile());
+        return invokeRequest()
+                .compose(ApiResponseConvert.responseToInputStream())
+                .compose(new ApiIS2FileParser(getSaveFloderPath(), getFileName()).parseAsFile());
+    }
+
+    @Override
+    public Observable<Bitmap> parseAsBitmapFromIS()
+    {
+        return invokeRequest()
+                .compose(ApiResponseConvert.responseToInputStream())
+                .compose(new ApiIS2BitmapParser(getBitmapMaxWidth(), getBitmapMaxHeight()).parseAsBitmap());
+    }
+
+    @Override
+    public Observable<File> parseAsFileFromBytes()
+    {
+        return invokeRequest()
+                .compose(ApiResponseConvert.responseToBytes())
+                .compose(new ApiBytes2FileParser(getSaveFloderPath(), getFileName()).parseAsFile());
+    }
+
+    @Override
+    public Observable<Bitmap> parseAsBitmapFromBytes()
+    {
+        return invokeRequest()
+                .compose(ApiResponseConvert.responseToBytes())
+                .compose(new ApiBytes2BitmapParser(getBitmapMaxWidth(), getBitmapMaxHeight()).parseAsBitmap());
     }
 }

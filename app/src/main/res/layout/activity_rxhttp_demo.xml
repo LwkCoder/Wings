@@ -48,6 +48,12 @@
                 android:layout_height="wrap_content"
                 android:text="下载文件"/>
 
+            <Button
+                android:id="@+id/btn_rxhttp_bitmap"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="下载图片Bitmap"/>
+
             <TextView
                 android:id="@+id/tv_rxhttp_demo"
                 android:layout_width="wrap_content"
@@ -55,6 +61,11 @@
                 android:layout_marginTop="@dimen/spacing_small"
                 android:textColor="@color/deep_dark"
                 android:textSize="@dimen/textsize_small"/>
+
+            <ImageView
+                android:id="@+id/img_rxhttp_demo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
         </LinearLayout>
 

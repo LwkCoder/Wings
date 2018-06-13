@@ -3,7 +3,8 @@ package com.lwkandroid.wings.net.requst;
 import com.lwkandroid.wings.net.ApiService;
 import com.lwkandroid.wings.net.constants.ApiConstants;
 import com.lwkandroid.wings.net.constants.ApiRequestType;
-import com.lwkandroid.wings.net.parser.ApiResponseConvert;
+import com.lwkandroid.wings.net.convert.ApiResponseConvert;
+import com.lwkandroid.wings.net.response.IApiStringResponse;
 import com.lwkandroid.wings.net.utils.RequestBodyUtils;
 
 import java.util.List;
@@ -56,7 +57,7 @@ public class ApiPostRequest extends ApiBaseRequest<ApiPostRequest> implements IA
     {
         return invokeRequest()
                 .compose(ApiResponseConvert.responseToString())
-                .compose(getApiStringParser().parseDataAsObject(tOfClass));
+                .compose(getApiStringParser().parseAsObject(tOfClass));
     }
 
     @Override
@@ -64,6 +65,6 @@ public class ApiPostRequest extends ApiBaseRequest<ApiPostRequest> implements IA
     {
         return invokeRequest()
                 .compose(ApiResponseConvert.responseToString())
-                .compose(getApiStringParser().parseDataAsList(tOfClass));
+                .compose(getApiStringParser().parseAsList(tOfClass));
     }
 }

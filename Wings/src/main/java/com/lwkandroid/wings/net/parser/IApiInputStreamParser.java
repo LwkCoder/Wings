@@ -1,5 +1,7 @@
 package com.lwkandroid.wings.net.parser;
 
+import android.graphics.Bitmap;
+
 import java.io.File;
 import java.io.InputStream;
 
@@ -7,10 +9,18 @@ import io.reactivex.ObservableTransformer;
 
 /**
  * Created by LWK
- * TODO 将InputStream类型的网络请求结果转换为Fil的接口
+ * TODO 将InputStream类型的网络请求结果转换为其他对象类型的接口
  */
 
 public interface IApiInputStreamParser
 {
-    ObservableTransformer<InputStream, File> parseDataAsFile();
+    interface FileParser
+    {
+        ObservableTransformer<InputStream, File> parseAsFile();
+    }
+
+    interface BitmapParser
+    {
+        ObservableTransformer<InputStream, Bitmap> parseAsBitmap();
+    }
 }

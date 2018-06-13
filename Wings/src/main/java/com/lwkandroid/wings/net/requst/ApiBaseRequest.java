@@ -35,7 +35,7 @@ public abstract class ApiBaseRequest<T extends ApiRequestOptions> extends ApiReq
     /**
      * 执行请求的过程
      */
-    protected Observable<ResponseBody> invokeRequest()
+    public Observable<ResponseBody> invokeRequest()
     {
         String baseUrl = getFinalBaseUrl();
 
@@ -130,10 +130,10 @@ public abstract class ApiBaseRequest<T extends ApiRequestOptions> extends ApiReq
     }
 
     //计算该请求下包含的拦截器
-    protected Map<String, Interceptor> getUsefulInterceptors(Map<String, Interceptor> map,
-                                                             Map<String, Interceptor> globalMaps,
-                                                             boolean removeGlobal,
-                                                             List<String> exceptList)
+    private Map<String, Interceptor> getUsefulInterceptors(Map<String, Interceptor> map,
+                                                           Map<String, Interceptor> globalMaps,
+                                                           boolean removeGlobal,
+                                                           List<String> exceptList)
     {
         Map<String, Interceptor> resultMap = new HashMap<>();
         if (!removeGlobal && globalMaps != null && globalMaps.size() > 0)
@@ -151,10 +151,10 @@ public abstract class ApiBaseRequest<T extends ApiRequestOptions> extends ApiReq
     }
 
     //计算该请求下包含的参数
-    protected Map<String, String> getUsefulParams(Map<String, String> map,
-                                                  Map<String, String> globalMaps,
-                                                  boolean removeGlobal,
-                                                  List<String> exceptList)
+    private Map<String, String> getUsefulParams(Map<String, String> map,
+                                                Map<String, String> globalMaps,
+                                                boolean removeGlobal,
+                                                List<String> exceptList)
     {
         Map<String, String> resultMap = new HashMap<>();
         if (!removeGlobal && globalMaps != null && globalMaps.size() > 0)
