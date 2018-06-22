@@ -14,6 +14,13 @@ import io.reactivex.Observable;
 public interface IApiBytesArrayResponse
 {
     /**
+     * 直接返回Byte数组网络请求结果
+     *
+     * @return
+     */
+    Observable<byte[]> returnByteArrayResponse();
+
+    /**
      * 将Bytes解析为File并保存
      */
     Observable<File> parseAsFileFromBytes();

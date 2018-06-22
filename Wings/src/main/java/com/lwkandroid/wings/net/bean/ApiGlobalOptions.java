@@ -4,14 +4,18 @@ import android.support.annotation.NonNull;
 
 import com.lwkandroid.wings.net.constants.ApiConstants;
 import com.lwkandroid.wings.net.cookie.ICookieJar;
+import com.lwkandroid.wings.net.https.HttpsUtils;
 import com.lwkandroid.wings.net.parser.ApiStringParser;
 import com.lwkandroid.wings.net.parser.IApiStringParser;
 import com.lwkandroid.wings.net.utils.FormDataMap;
 import com.lwkandroid.wings.utils.StringUtils;
 
+import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.net.ssl.HostnameVerifier;
 
 import okhttp3.Interceptor;
 
@@ -46,6 +50,10 @@ public class ApiGlobalOptions
     private IApiStringParser mStringParser = new ApiStringParser();
     /*Cookie管理类*/
     private ICookieJar mCookieJar;
+    /*Https证书*/
+    protected HttpsUtils.SSLParams mSslParams;
+    /*Https全局访问规则*/
+    protected HostnameVerifier mHostnameVerifier;
 
     public ApiGlobalOptions setApiResultType(Type type)
     {
@@ -276,5 +284,45 @@ public class ApiGlobalOptions
     public ICookieJar getCookieManager()
     {
         return mCookieJar;
+    }
+
+    /**
+     * https的自签名证书
+     */
+    public ApiGlobalOptions setHttpsCertificates(InputStream... certificates)
+    {
+        this.mSslParams = HttpsUtils.getSslSocketFactory(null, null, certificates);
+        return this;
+    }
+
+    /**
+     * https的双向认证证书
+     */
+    public ApiGlobalOptions setHttpsCertificates(InputStream bksFile, String password, InputStream... certificates)
+    {
+        this.mSslParams = HttpsUtils.getSslSocketFactory(bksFile, password, certificates);
+        return this;
+    }
+
+    public HttpsUtils.SSLParams getSslParams()
+    {
+        return mSslParams;
+    }
+
+    /**
+     * 设置全局请求访问规则
+     *
+     * @param verifier
+     * @return
+     */
+    public ApiGlobalOptions setHostnameVerifier(HostnameVerifier verifier)
+    {
+        this.mHostnameVerifier = verifier;
+        return this;
+    }
+
+    public HostnameVerifier getHostnameVerifier()
+    {
+        return mHostnameVerifier;
     }
 }

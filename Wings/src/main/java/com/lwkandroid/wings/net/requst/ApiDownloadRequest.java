@@ -15,6 +15,7 @@ import com.lwkandroid.wings.net.response.IApiInputSreamResponse;
 import com.socks.library.KLog;
 
 import java.io.File;
+import java.io.InputStream;
 import java.util.Map;
 
 import io.reactivex.Observable;
@@ -26,7 +27,8 @@ import okhttp3.ResponseBody;
  * TODO Download请求
  */
 
-public class ApiDownloadRequest extends ApiBaseRequest<ApiDownloadRequest> implements IApiInputSreamResponse, IApiBytesArrayResponse
+public class ApiDownloadRequest extends ApiBaseRequest<ApiDownloadRequest> implements IApiInputSreamResponse,
+        IApiBytesArrayResponse
 {
     /*存储文件夹*/
     private String mSaveFolder;
@@ -103,34 +105,44 @@ public class ApiDownloadRequest extends ApiBaseRequest<ApiDownloadRequest> imple
     }
 
     @Override
-    public Observable<File> parseAsFileFromIS()
+    public Observable<InputStream> returnISResponse()
     {
         return invokeRequest()
-                .compose(ApiResponseConvert.responseToInputStream())
+                .compose(ApiResponseConvert.responseToInputStream());
+    }
+
+    @Override
+    public Observable<File> parseAsFileFromIS()
+    {
+        return returnISResponse()
                 .compose(new ApiIS2FileParser(getSaveFloderPath(), getFileName()).parseAsFile());
     }
 
     @Override
     public Observable<Bitmap> parseAsBitmapFromIS()
     {
-        return invokeRequest()
-                .compose(ApiResponseConvert.responseToInputStream())
+        return returnISResponse()
                 .compose(new ApiIS2BitmapParser(getBitmapMaxWidth(), getBitmapMaxHeight()).parseAsBitmap());
+    }
+
+    @Override
+    public Observable<byte[]> returnByteArrayResponse()
+    {
+        return invokeRequest()
+                .compose(ApiResponseConvert.responseToBytes());
     }
 
     @Override
     public Observable<File> parseAsFileFromBytes()
     {
-        return invokeRequest()
-                .compose(ApiResponseConvert.responseToBytes())
+        return returnByteArrayResponse()
                 .compose(new ApiBytes2FileParser(getSaveFloderPath(), getFileName()).parseAsFile());
     }
 
     @Override
     public Observable<Bitmap> parseAsBitmapFromBytes()
     {
-        return invokeRequest()
-                .compose(ApiResponseConvert.responseToBytes())
+        return returnByteArrayResponse()
                 .compose(new ApiBytes2BitmapParser(getBitmapMaxWidth(), getBitmapMaxHeight()).parseAsBitmap());
     }
 }

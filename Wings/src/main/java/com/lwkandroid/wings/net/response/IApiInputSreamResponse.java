@@ -3,6 +3,7 @@ package com.lwkandroid.wings.net.response;
 import android.graphics.Bitmap;
 
 import java.io.File;
+import java.io.InputStream;
 
 import io.reactivex.Observable;
 
@@ -13,6 +14,13 @@ import io.reactivex.Observable;
 
 public interface IApiInputSreamResponse
 {
+    /**
+     * 直接返回InputStream网络请求结果
+     *
+     * @return
+     */
+    Observable<InputStream> returnISResponse();
+
     /**
      * 将InputStream解析为File并保存
      */

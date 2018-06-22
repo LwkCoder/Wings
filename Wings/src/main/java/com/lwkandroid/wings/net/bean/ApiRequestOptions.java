@@ -4,14 +4,18 @@ import android.support.annotation.NonNull;
 
 import com.lwkandroid.wings.net.RxHttp;
 import com.lwkandroid.wings.net.constants.ApiRequestType;
+import com.lwkandroid.wings.net.https.HttpsUtils;
 import com.lwkandroid.wings.net.parser.IApiStringParser;
 import com.lwkandroid.wings.net.utils.FormDataMap;
 import com.lwkandroid.wings.utils.StringUtils;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.net.ssl.HostnameVerifier;
 
 import okhttp3.Cookie;
 import okhttp3.HttpUrl;
@@ -71,6 +75,10 @@ public abstract class ApiRequestOptions<T extends ApiRequestOptions>
     private List<Cookie> mCookieList = new ArrayList<>();
     /*返回结果解析对象*/
     private IApiStringParser mStringParser = RxHttp.getGlobalOptions().getApiStringParser();
+    /*Https证书*/
+    protected HttpsUtils.SSLParams mSslParams;
+    /*Https全局访问规则*/
+    protected HostnameVerifier mHostnameVerifier;
 
     public IApiStringParser getApiStringParser()
     {
@@ -645,18 +653,36 @@ public abstract class ApiRequestOptions<T extends ApiRequestOptions>
         return (T) this;
     }
 
+    /**
+     * 添加Cookie
+     *
+     * @param cookie
+     * @return
+     */
     public T addCookie(Cookie cookie)
     {
         mCookieList.add(cookie);
         return (T) this;
     }
 
+    /**
+     * 添加若干Cookie
+     *
+     * @param cookieList
+     * @return
+     */
     public T addCookies(List<Cookie> cookieList)
     {
         mCookieList.addAll(cookieList);
         return (T) this;
     }
 
+    /**
+     * 删除Cookie
+     *
+     * @param cookie
+     * @return
+     */
     public T removeCookie(Cookie cookie)
     {
         HttpUrl httpUrl = HttpUrl.parse(StringUtils.isNotEmpty(mBaseUrl) ?
@@ -665,9 +691,54 @@ public abstract class ApiRequestOptions<T extends ApiRequestOptions>
         return (T) this;
     }
 
+    /**
+     * 清除所有Cookie
+     *
+     * @return
+     */
     public T clearAllCookies()
     {
         RxHttp.getGlobalOptions().getCookieManager().clear();
         return (T) this;
+    }
+
+    /**
+     * https的自签名证书
+     */
+    public T setHttpsCertificates(InputStream... certificates)
+    {
+        this.mSslParams = HttpsUtils.getSslSocketFactory(null, null, certificates);
+        return (T) this;
+    }
+
+    /**
+     * https的双向认证证书
+     */
+    public T setHttpsCertificates(InputStream bksFile, String password, InputStream... certificates)
+    {
+        this.mSslParams = HttpsUtils.getSslSocketFactory(bksFile, password, certificates);
+        return (T) this;
+    }
+
+    public HttpsUtils.SSLParams getSslParams()
+    {
+        return mSslParams;
+    }
+
+    /**
+     * 设置该次请求访问规则
+     *
+     * @param verifier
+     * @return
+     */
+    public T setHostnameVerifier(HostnameVerifier verifier)
+    {
+        this.mHostnameVerifier = verifier;
+        return (T) this;
+    }
+
+    public HostnameVerifier getHostnameVerifier()
+    {
+        return mHostnameVerifier;
     }
 }

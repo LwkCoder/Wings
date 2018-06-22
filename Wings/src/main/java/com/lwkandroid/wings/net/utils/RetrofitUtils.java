@@ -29,20 +29,29 @@ public class RetrofitUtils
      */
     public static Retrofit createWithGlobalOptions()
     {
-        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        OkHttpClient.Builder okBuilder = new OkHttpClient.Builder();
         ApiGlobalOptions globalOptions = RxHttp.getGlobalOptions();
         /*设置超时时间*/
-        builder.readTimeout(globalOptions.getReadTimeOut(), TimeUnit.MILLISECONDS);
-        builder.writeTimeout(globalOptions.getWriteTimeOut(), TimeUnit.MILLISECONDS);
-        builder.connectTimeout(globalOptions.getConnectTimeOut(), TimeUnit.MILLISECONDS);
+        okBuilder.readTimeout(globalOptions.getReadTimeOut(), TimeUnit.MILLISECONDS);
+        okBuilder.writeTimeout(globalOptions.getWriteTimeOut(), TimeUnit.MILLISECONDS);
+        okBuilder.connectTimeout(globalOptions.getConnectTimeOut(), TimeUnit.MILLISECONDS);
+
+         /*设置HostnameVerifier*/
+        if (globalOptions.getHostnameVerifier() != null)
+            okBuilder.hostnameVerifier(globalOptions.getHostnameVerifier());
+
+        /*设置Https证书*/
+        if (globalOptions.getSslParams() != null)
+            okBuilder.sslSocketFactory(globalOptions.getSslParams().sSLSocketFactory,
+                    globalOptions.getSslParams().trustManager);
 
         /*添加全局参数和Header*/
         Map<String, String> globalFormDatasMap = globalOptions.getFormDatasMap();
         Map<String, String> globalHeadersMap = globalOptions.getHeadersMap();
         if (globalFormDatasMap != null && globalFormDatasMap.size() > 0)
-            builder.addInterceptor(new RetrofitFormDataInterceptor(globalFormDatasMap));
+            okBuilder.addInterceptor(new RetrofitFormDataInterceptor(globalFormDatasMap));
         if (globalHeadersMap != null && globalHeadersMap.size() > 0)
-            builder.addInterceptor(new ApiHeaderInterceptor(globalHeadersMap));
+            okBuilder.addInterceptor(new ApiHeaderInterceptor(globalHeadersMap));
 
         /*添加全局拦截器*/
         Map<String, Interceptor> interceptorMap = globalOptions.getInterceptorMap();
@@ -51,21 +60,21 @@ public class RetrofitUtils
         {
             for (Interceptor interceptor : interceptorMap.values())
             {
-                builder.addInterceptor(interceptor);
+                okBuilder.addInterceptor(interceptor);
             }
         }
         if (netInterceptorMap != null && netInterceptorMap.size() > 0)
         {
             for (Interceptor interceptor : netInterceptorMap.values())
             {
-                builder.addNetworkInterceptor(interceptor);
+                okBuilder.addNetworkInterceptor(interceptor);
             }
         }
 
         //添加Cookie管理类
-        builder.cookieJar(RxHttp.getGlobalOptions().getCookieManager());
+        okBuilder.cookieJar(RxHttp.getGlobalOptions().getCookieManager());
 
-        return create(globalOptions.getBaseUrl(), builder.build());
+        return create(globalOptions.getBaseUrl(), okBuilder.build());
     }
 
     /**

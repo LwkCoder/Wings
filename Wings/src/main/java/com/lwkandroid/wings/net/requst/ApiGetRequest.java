@@ -50,18 +50,23 @@ public class ApiGetRequest extends ApiBaseRequest<ApiGetRequest> implements IApi
     }
 
     @Override
-    public <T> Observable<T> parseAsObject(Class<T> tOfClass)
+    public Observable<String> returnStringResponse()
     {
         return invokeRequest()
-                .compose(ApiResponseConvert.responseToString())
+                .compose(ApiResponseConvert.responseToString());
+    }
+
+    @Override
+    public <T> Observable<T> parseAsObject(Class<T> tOfClass)
+    {
+        return returnStringResponse()
                 .compose(getApiStringParser().parseAsObject(tOfClass));
     }
 
     @Override
     public <T> Observable<List<T>> parseAsList(Class<T> tOfClass)
     {
-        return invokeRequest()
-                .compose(ApiResponseConvert.responseToString())
+        return returnStringResponse()
                 .compose(getApiStringParser().parseAsList(tOfClass));
     }
 }

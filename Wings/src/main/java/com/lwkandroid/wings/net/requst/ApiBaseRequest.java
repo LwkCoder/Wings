@@ -44,6 +44,19 @@ public abstract class ApiBaseRequest<T extends ApiRequestOptions> extends ApiReq
         okBuilder.writeTimeout(getFinalWriteTimeOut(), TimeUnit.MILLISECONDS);
         okBuilder.connectTimeout(getFinalConnectTimeOut(), TimeUnit.MILLISECONDS);
 
+        /*设置HostnameVerifier*/
+        if (getHostnameVerifier() != null)
+            okBuilder.hostnameVerifier(getHostnameVerifier());
+        else if (RxHttp.getGlobalOptions().getHostnameVerifier() != null)
+            okBuilder.hostnameVerifier(RxHttp.getGlobalOptions().getHostnameVerifier());
+
+        /*设置Https证书*/
+        if (getSslParams() != null)
+            okBuilder.sslSocketFactory(getSslParams().sSLSocketFactory, getSslParams().trustManager);
+        else if (RxHttp.getGlobalOptions().getSslParams() != null)
+            okBuilder.sslSocketFactory(RxHttp.getGlobalOptions().getSslParams().sSLSocketFactory,
+                    RxHttp.getGlobalOptions().getSslParams().trustManager);
+
         //设置拦截器
         Map<String, Interceptor> allInterceptorMap =
                 getUsefulInterceptors(getInterceptorMap(),

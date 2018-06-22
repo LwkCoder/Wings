@@ -12,6 +12,11 @@ import io.reactivex.Observable;
 public interface IApiStringResponse
 {
     /**
+     * 直接获取字符串类型的网络请求结果
+     */
+    Observable<String> returnStringResponse();
+
+    /**
      * 将字符串网络请求转换为某一个对象
      */
     <T> Observable parseAsObject(Class<T> tOfClass);
