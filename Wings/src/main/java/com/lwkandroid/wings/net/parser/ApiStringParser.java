@@ -42,7 +42,7 @@ public class ApiStringParser implements IApiStringParser
                         IApiResult<Object> result = JSON_PARSER.parseJsonObject(s, RxHttp.getGlobalOptions().getApiResultType());
                         if (result == null)
                             throw new ApiException(ApiExceptionCode.RESPONSE_EMPTY, "Could not get any Response", "Could not get any Response");
-                        if (result.getCode() != RxHttp.getGlobalOptions().getApiResultOkCode())
+                        if (!result.isResultOK())
                             throw new ApiException(result.getCode(), result.getMessage(), result.getMessage());
 
                         String dataJsonString = result.getData() != null ?
@@ -75,7 +75,7 @@ public class ApiStringParser implements IApiStringParser
                         IApiResult<Object> result = JSON_PARSER.parseJsonObject(s, RxHttp.getGlobalOptions().getApiResultType());
                         if (result == null)
                             throw new ApiException(ApiExceptionCode.RESPONSE_EMPTY, "Could not get any Response", "Could not get any Response");
-                        if (result.getCode() != RxHttp.getGlobalOptions().getApiResultOkCode())
+                        if (!result.isResultOK())
                             throw new ApiException(result.getCode(), result.getMessage(), result.getMessage());
 
                         String dataJsonString = result.getData() != null ?

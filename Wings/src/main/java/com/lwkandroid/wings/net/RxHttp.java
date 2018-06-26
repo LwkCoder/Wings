@@ -12,6 +12,7 @@ import com.lwkandroid.wings.net.requst.ApiPatchRequest;
 import com.lwkandroid.wings.net.requst.ApiPostRequest;
 import com.lwkandroid.wings.net.requst.ApiPutRequest;
 import com.lwkandroid.wings.net.requst.ApiUploadRequest;
+import com.lwkandroid.wings.net.utils.RetrofitUtils;
 import com.lwkandroid.wings.utils.Utils;
 import com.socks.library.KLog;
 
@@ -28,6 +29,7 @@ public class RxHttp
     static
     {
         mGlobalOptions = new ApiGlobalOptions();
+        mRetrofitUtils = new RetrofitUtils();
     }
 
     private RxHttp()
@@ -36,6 +38,7 @@ public class RxHttp
 
     private static Context mContext;
     private static final ApiGlobalOptions mGlobalOptions;
+    private static final RetrofitUtils mRetrofitUtils;
 
     /**
      * 初始化公共配置
@@ -136,5 +139,13 @@ public class RxHttp
     public static ApiUploadRequest UPLOAD(String url)
     {
         return new ApiUploadRequest(url);
+    }
+
+    /**
+     * 获取RetrofitUtils对象，便于自定义接口
+     */
+    public static RetrofitUtils RETROFIT()
+    {
+        return mRetrofitUtils;
     }
 }

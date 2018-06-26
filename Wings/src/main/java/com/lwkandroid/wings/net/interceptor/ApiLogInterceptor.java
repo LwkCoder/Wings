@@ -33,6 +33,8 @@ public class ApiLogInterceptor implements Interceptor
 {
     private static final String TAG = "ApiLogInterceptor";
     private static final Charset UTF8 = Charset.forName("UTF-8");
+    private static final String START = "————————————↓ OkHttp ↓————————————————————————————————————————";
+    private static final String END = "————————————↑ OkHttp ↑————————————————————————————————————————";
     private static final String SEPARATOR = "| ";
     private static final String NEXT_LINE = "\n";
 
@@ -55,8 +57,7 @@ public class ApiLogInterceptor implements Interceptor
                     .append(SEPARATOR)
                     .append(e.toString())
                     .append(NEXT_LINE)
-                    .append(SEPARATOR)
-                    .append("----------------------------↑ OkHttp ↑------------------------------------------------------------------------------------");
+                    .append(END);
             showLog(buffer);
             throw e;
         }
@@ -67,8 +68,7 @@ public class ApiLogInterceptor implements Interceptor
     private void logRequest(Request r, Connection connection, StringBuffer buffer)
     {
         buffer.append(NEXT_LINE)
-                .append(SEPARATOR)
-                .append("----------------------------↓ OkHttp ↓------------------------------------------------------------------------------------");
+                .append(START);
         Request request = r.newBuilder().build();
         String method = request.method();
         String url = request.url().toString();
@@ -152,8 +152,7 @@ public class ApiLogInterceptor implements Interceptor
                                 .append("RequestBody: Maybe binary body. Ignored logging !");
                     }
                     buffer.append(NEXT_LINE)
-                            .append(SEPARATOR)
-                            .append("----------------------------↑ OkHttp ↑------------------------------------------------------------------------------------");
+                            .append(END);
                 }
             } else
             {
@@ -230,8 +229,7 @@ public class ApiLogInterceptor implements Interceptor
                                 .append(bodyString);
                     }
                     buffer.append(NEXT_LINE)
-                            .append(SEPARATOR)
-                            .append("----------------------------↑ OkHttp ↑------------------------------------------------------------------------------------");
+                            .append(END);
                     showLog(buffer);
                     body = ResponseBody.create(body.contentType(), bytes);
                     return response.newBuilder().body(body).build();
@@ -251,8 +249,7 @@ public class ApiLogInterceptor implements Interceptor
                                 .append("ResponseBody: Maybe binary body. Ignored logging !");
                     }
                     buffer.append(NEXT_LINE)
-                            .append(SEPARATOR)
-                            .append("----------------------------↑ OkHttp ↑------------------------------------------------------------------------------------");
+                            .append(END);
                     showLog(buffer);
                     body = ResponseBody.create(body.contentType(), binaryString);
                     return response.newBuilder().body(body).build();
@@ -263,8 +260,7 @@ public class ApiLogInterceptor implements Interceptor
                         .append(SEPARATOR)
                         .append("ResponseBody:null")
                         .append(NEXT_LINE)
-                        .append(SEPARATOR)
-                        .append("----------------------------↑ OkHttp ↑------------------------------------------------------------------------------------");
+                        .append(END);
                 showLog(buffer);
                 return response;
             }
@@ -278,8 +274,7 @@ public class ApiLogInterceptor implements Interceptor
                     .append(SEPARATOR)
                     .append(e.toString())
                     .append(NEXT_LINE)
-                    .append(SEPARATOR)
-                    .append("----------------------------↑ OkHttp ↑------------------------------------------------------------------------------------");
+                    .append(END);
             showLog(buffer);
         }
         return response;

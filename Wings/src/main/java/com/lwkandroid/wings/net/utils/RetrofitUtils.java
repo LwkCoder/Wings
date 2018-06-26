@@ -19,7 +19,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * TODO Retrofit辅助工具
  */
 
-public class RetrofitUtils
+public final class RetrofitUtils
 {
     /**
      * 根据RxHttp全局配置创建Retrofit对象
@@ -27,31 +27,31 @@ public class RetrofitUtils
      *
      * @return Retrofit对象
      */
-    public static Retrofit createWithGlobalOptions()
+    public Retrofit createWithGlobalOptions()
     {
-        OkHttpClient.Builder okBuilder = new OkHttpClient.Builder();
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
         ApiGlobalOptions globalOptions = RxHttp.getGlobalOptions();
         /*设置超时时间*/
-        okBuilder.readTimeout(globalOptions.getReadTimeOut(), TimeUnit.MILLISECONDS);
-        okBuilder.writeTimeout(globalOptions.getWriteTimeOut(), TimeUnit.MILLISECONDS);
-        okBuilder.connectTimeout(globalOptions.getConnectTimeOut(), TimeUnit.MILLISECONDS);
+        builder.readTimeout(globalOptions.getReadTimeOut(), TimeUnit.MILLISECONDS);
+        builder.writeTimeout(globalOptions.getWriteTimeOut(), TimeUnit.MILLISECONDS);
+        builder.connectTimeout(globalOptions.getConnectTimeOut(), TimeUnit.MILLISECONDS);
 
          /*设置HostnameVerifier*/
         if (globalOptions.getHostnameVerifier() != null)
-            okBuilder.hostnameVerifier(globalOptions.getHostnameVerifier());
+            builder.hostnameVerifier(globalOptions.getHostnameVerifier());
 
         /*设置Https证书*/
         if (globalOptions.getSslParams() != null)
-            okBuilder.sslSocketFactory(globalOptions.getSslParams().sSLSocketFactory,
+            builder.sslSocketFactory(globalOptions.getSslParams().sSLSocketFactory,
                     globalOptions.getSslParams().trustManager);
 
         /*添加全局参数和Header*/
         Map<String, String> globalFormDatasMap = globalOptions.getFormDatasMap();
         Map<String, String> globalHeadersMap = globalOptions.getHeadersMap();
         if (globalFormDatasMap != null && globalFormDatasMap.size() > 0)
-            okBuilder.addInterceptor(new RetrofitFormDataInterceptor(globalFormDatasMap));
+            builder.addInterceptor(new RetrofitFormDataInterceptor(globalFormDatasMap));
         if (globalHeadersMap != null && globalHeadersMap.size() > 0)
-            okBuilder.addInterceptor(new ApiHeaderInterceptor(globalHeadersMap));
+            builder.addInterceptor(new ApiHeaderInterceptor(globalHeadersMap));
 
         /*添加全局拦截器*/
         Map<String, Interceptor> interceptorMap = globalOptions.getInterceptorMap();
@@ -60,21 +60,21 @@ public class RetrofitUtils
         {
             for (Interceptor interceptor : interceptorMap.values())
             {
-                okBuilder.addInterceptor(interceptor);
+                builder.addInterceptor(interceptor);
             }
         }
         if (netInterceptorMap != null && netInterceptorMap.size() > 0)
         {
             for (Interceptor interceptor : netInterceptorMap.values())
             {
-                okBuilder.addNetworkInterceptor(interceptor);
+                builder.addNetworkInterceptor(interceptor);
             }
         }
 
         //添加Cookie管理类
-        okBuilder.cookieJar(RxHttp.getGlobalOptions().getCookieManager());
+        builder.cookieJar(RxHttp.getGlobalOptions().getCookieManager());
 
-        return create(globalOptions.getBaseUrl(), okBuilder.build());
+        return create(globalOptions.getBaseUrl(), builder.build());
     }
 
     /**
@@ -84,7 +84,7 @@ public class RetrofitUtils
      * @param okClient OkHttpClient对象
      * @return Retrofit对象
      */
-    public static Retrofit create(String baseUrl, OkHttpClient okClient)
+    public Retrofit create(String baseUrl, OkHttpClient okClient)
     {
         Retrofit.Builder retroBuilder = new Retrofit.Builder();
         retroBuilder

@@ -12,4 +12,6 @@ public interface IApiResult<T>
     String getMessage();
 
     T getData();
+
+    boolean isResultOK();
 }

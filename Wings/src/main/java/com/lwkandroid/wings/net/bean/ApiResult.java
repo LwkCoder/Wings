@@ -1,6 +1,7 @@
 package com.lwkandroid.wings.net.bean;
 
 import com.lwkandroid.wings.annotation.NotProguard;
+import com.lwkandroid.wings.net.RxHttp;
 
 import java.io.Serializable;
 
@@ -54,6 +55,12 @@ public class ApiResult<T> implements IApiResult<T>, Serializable
     public T getData()
     {
         return data;
+    }
+
+    @Override
+    public boolean isResultOK()
+    {
+        return code == RxHttp.getGlobalOptions().getApiResultOkCode();
     }
 
     @Override

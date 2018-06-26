@@ -12,8 +12,10 @@ import com.lwkandroid.wings.utils.StringUtils;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.net.ssl.HostnameVerifier;
 
@@ -50,13 +52,13 @@ public abstract class ApiRequestOptions<T extends ApiRequestOptions>
     /*单次请求的Header*/
     private Map<String, String> mHeadersMap;
     /*单次请求需要排除的全局拦截器TAG集合*/
-    private List<String> mRemoveInterceptorList;
+    private Set<String> mRemoveInterceptorSet;
     /*单次请求需要排除的全局网络拦截器TAG集合*/
-    private List<String> mRemoveNetInterceptorList;
+    private Set<String> mRemoveNetInterceptorSet;
     /*单次请求需要排除的全局表单参数Key集合*/
-    private List<String> mRemoveFormDatasList;
+    private Set<String> mRemoveFormDatasSet;
     /*单次请求需要排除的全局Header参数Key集合*/
-    private List<String> mRemoveHeaderList;
+    private Set<String> mRemoveHeaderSet;
     /*单次请求是否去除所有全局拦截器*/
     private boolean mIsRemoveAllGlobalInterceptors = false;
     /*单次请求是否去除所有网络拦截器*/
@@ -99,7 +101,8 @@ public abstract class ApiRequestOptions<T extends ApiRequestOptions>
     /**
      * 获取请求类型
      */
-    public int getRequestType()
+    public @ApiRequestType.Type
+    int getRequestType()
     {
         return mRequestType;
     }
@@ -362,69 +365,69 @@ public abstract class ApiRequestOptions<T extends ApiRequestOptions>
     /**
      * 获取该次请求需要排除的拦截器
      */
-    public List<String> getRemoveInterceptorList()
+    public Set<String> getRemoveInterceptors()
     {
-        return mRemoveInterceptorList;
+        return mRemoveInterceptorSet;
     }
 
     /**
      * 设置该次请求需要排除的拦截器
      */
-    public T setRemoveInterceptorList(List<String> removeInterceptorList)
+    public T setRemoveInterceptors(Set<String> removeInterceptorList)
     {
-        this.mRemoveInterceptorList = removeInterceptorList;
+        this.mRemoveInterceptorSet = removeInterceptorList;
         return (T) this;
     }
 
     /**
      * 添加该次请求需要排除的拦截器
      */
-    public T addRemoveInterceptorList(List<String> tagList)
+    public T addRemoveInterceptors(Set<String> tags)
     {
-        if (mRemoveInterceptorList == null)
-            mRemoveInterceptorList = new ArrayList<>();
-        if (tagList != null && tagList.size() > 0)
-            mRemoveInterceptorList.addAll(tagList);
+        if (mRemoveInterceptorSet == null)
+            mRemoveInterceptorSet = new HashSet<>();
+        if (tags != null && tags.size() > 0)
+            mRemoveInterceptorSet.addAll(tags);
         return (T) this;
     }
 
     /**
      * 添加该次请求需要排除的拦截器
      */
-    public T addRemoveInterceptor(String tag)
+    public T addRemoveInterceptors(String tag)
     {
-        if (mRemoveInterceptorList == null)
-            mRemoveInterceptorList = new ArrayList<>();
-        mRemoveInterceptorList.add(tag);
+        if (mRemoveInterceptorSet == null)
+            mRemoveInterceptorSet = new HashSet<>();
+        mRemoveInterceptorSet.add(tag);
         return (T) this;
     }
 
     /**
      * 获取该次请求需要排除的网络拦截器
      */
-    public List<String> getRemoveNetInterceptorList()
+    public Set<String> getRemoveNetInterceptors()
     {
-        return mRemoveNetInterceptorList;
+        return mRemoveNetInterceptorSet;
     }
 
     /**
      * 设置该次请求需要排除的网络拦截器
      */
-    public T setRemoveNetInterceptorList(List<String> removeNetInterceptorList)
+    public T setRemoveNetInterceptors(Set<String> tags)
     {
-        this.mRemoveNetInterceptorList = removeNetInterceptorList;
+        this.mRemoveNetInterceptorSet = tags;
         return (T) this;
     }
 
     /**
      * 添加该次请求需要排除的网络拦截器
      */
-    public T addRemoveNetInterceptorList(List<String> tagList)
+    public T addRemoveNetInterceptors(Set<String> tagList)
     {
-        if (mRemoveNetInterceptorList == null)
-            mRemoveNetInterceptorList = new ArrayList<>();
+        if (mRemoveNetInterceptorSet == null)
+            mRemoveNetInterceptorSet = new HashSet<>();
         if (tagList != null && tagList.size() > 0)
-            mRemoveNetInterceptorList.addAll(tagList);
+            mRemoveNetInterceptorSet.addAll(tagList);
         return (T) this;
     }
 
@@ -433,38 +436,38 @@ public abstract class ApiRequestOptions<T extends ApiRequestOptions>
      */
     public T addRemoveNetInterceptor(String tag)
     {
-        if (mRemoveNetInterceptorList == null)
-            mRemoveNetInterceptorList = new ArrayList<>();
-        mRemoveNetInterceptorList.add(tag);
+        if (mRemoveNetInterceptorSet == null)
+            mRemoveNetInterceptorSet = new HashSet<>();
+        mRemoveNetInterceptorSet.add(tag);
         return (T) this;
     }
 
     /**
      * 获取该次请求需要排除的表单文本数据
      */
-    public List<String> getRemoveFormDatasList()
+    public Set<String> getRemoveFormDatas()
     {
-        return mRemoveFormDatasList;
+        return mRemoveFormDatasSet;
     }
 
     /**
      * 设置该次请求需要排除的表单文本数据
      */
-    public T setRemoveFormDatasList(List<String> removeFormDatasList)
+    public T setRemoveFormDatasList(Set<String> keys)
     {
-        this.mRemoveFormDatasList = removeFormDatasList;
+        this.mRemoveFormDatasSet = keys;
         return (T) this;
     }
 
     /**
      * 添加该次请求需要排除的表单文本数据
      */
-    public T addRemoveFormDatasList(List<String> keyList)
+    public T addRemoveFormDatas(Set<String> keys)
     {
-        if (mRemoveFormDatasList == null)
-            mRemoveFormDatasList = new ArrayList<>();
-        if (keyList != null & keyList.size() > 0)
-            mRemoveFormDatasList.addAll(keyList);
+        if (mRemoveFormDatasSet == null)
+            mRemoveFormDatasSet = new HashSet<>();
+        if (keys != null & keys.size() > 0)
+            mRemoveFormDatasSet.addAll(keys);
         return (T) this;
     }
 
@@ -473,38 +476,38 @@ public abstract class ApiRequestOptions<T extends ApiRequestOptions>
      */
     public T addRemoveFormData(String key)
     {
-        if (mRemoveFormDatasList == null)
-            mRemoveFormDatasList = new ArrayList<>();
-        mRemoveFormDatasList.add(key);
+        if (mRemoveFormDatasSet == null)
+            mRemoveFormDatasSet = new HashSet<>();
+        mRemoveFormDatasSet.add(key);
         return (T) this;
     }
 
     /**
      * 获取该次请求需要排除的Header
      */
-    public List<String> getRemoveHeaderList()
+    public Set<String> getRemoveHeaders()
     {
-        return mRemoveHeaderList;
+        return mRemoveHeaderSet;
     }
 
     /**
      * 设置该次请求需要排除的Header
      */
-    public T setRemoveHeaderList(List<String> removeHeaderList)
+    public T setRemoveHeaderList(Set<String> tags)
     {
-        this.mRemoveHeaderList = removeHeaderList;
+        this.mRemoveHeaderSet = tags;
         return (T) this;
     }
 
     /**
      * 添加该次请求需要排除的Header
      */
-    public T addRemoveHeaderList(List<String> tagList)
+    public T addRemoveHeaderList(Set<String> tags)
     {
-        if (mRemoveHeaderList == null)
-            mRemoveHeaderList = new ArrayList<>();
-        if (tagList != null & tagList.size() > 0)
-            mRemoveHeaderList.addAll(tagList);
+        if (mRemoveHeaderSet == null)
+            mRemoveHeaderSet = new HashSet<>();
+        if (tags != null & tags.size() > 0)
+            mRemoveHeaderSet.addAll(tags);
         return (T) this;
     }
 
@@ -513,9 +516,9 @@ public abstract class ApiRequestOptions<T extends ApiRequestOptions>
      */
     public T addRemoveHeader(String tag)
     {
-        if (mRemoveHeaderList == null)
-            mRemoveHeaderList = new ArrayList<>();
-        mRemoveHeaderList.add(tag);
+        if (mRemoveHeaderSet == null)
+            mRemoveHeaderSet = new HashSet<>();
+        mRemoveHeaderSet.add(tag);
         return (T) this;
     }
 

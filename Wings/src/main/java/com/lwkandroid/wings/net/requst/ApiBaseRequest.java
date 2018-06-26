@@ -4,12 +4,11 @@ import com.lwkandroid.wings.net.ApiService;
 import com.lwkandroid.wings.net.RxHttp;
 import com.lwkandroid.wings.net.bean.ApiRequestOptions;
 import com.lwkandroid.wings.net.constants.ApiRequestType;
-import com.lwkandroid.wings.net.utils.RetrofitUtils;
 import com.lwkandroid.wings.utils.StringUtils;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -58,11 +57,10 @@ public abstract class ApiBaseRequest<T extends ApiRequestOptions> extends ApiReq
                     RxHttp.getGlobalOptions().getSslParams().trustManager);
 
         //设置拦截器
-        Map<String, Interceptor> allInterceptorMap =
-                getUsefulInterceptors(getInterceptorMap(),
-                        RxHttp.getGlobalOptions().getInterceptorMap(),
-                        isRemoveAllGlobalInterceptors(),
-                        getRemoveInterceptorList());
+        Map<String, Interceptor> allInterceptorMap = mergeParams(
+                RxHttp.getGlobalOptions().getInterceptorMap(),
+                getInterceptorMap(), getRemoveInterceptors(),
+                isRemoveAllGlobalInterceptors());
         if (allInterceptorMap.size() > 0)
         {
             for (Interceptor interceptor : allInterceptorMap.values())
@@ -72,11 +70,10 @@ public abstract class ApiBaseRequest<T extends ApiRequestOptions> extends ApiReq
         }
 
         //设置网络拦截器
-        Map<String, Interceptor> allNetInterceptorMap =
-                getUsefulInterceptors(getNetInterceptorMap(),
-                        RxHttp.getGlobalOptions().getNetInterceptorMap(),
-                        isRemoveAllGlobalNetInterceptors(),
-                        getRemoveNetInterceptorList());
+        Map<String, Interceptor> allNetInterceptorMap = mergeParams(
+                RxHttp.getGlobalOptions().getNetInterceptorMap(),
+                getNetInterceptorMap(), getRemoveNetInterceptors(),
+                isRemoveAllGlobalNetInterceptors());
         if (allNetInterceptorMap.size() > 0)
         {
             for (Interceptor interceptor : allNetInterceptorMap.values())
@@ -86,23 +83,23 @@ public abstract class ApiBaseRequest<T extends ApiRequestOptions> extends ApiReq
         }
 
         //获取Headers
-        Map<String, String> allHeadersMap = getUsefulParams(getHeadersMap(),
+        Map<String, String> allHeadersMap = mergeParams(
                 RxHttp.getGlobalOptions().getHeadersMap(),
-                isRemoveAllGlobalHeaders(),
-                getRemoveHeaderList());
+                getHeadersMap(), getRemoveHeaders(),
+                isRemoveAllGlobalHeaders());
 
         //获取表单参数
-        Map<String, String> allFormDatasMap = getUsefulParams(getFormDatasMap(),
+        Map<String, String> allFormDatasMap = mergeParams(
                 RxHttp.getGlobalOptions().getFormDatasMap(),
-                isRemoveAllGlobalFormDatas(),
-                getRemoveFormDatasList());
+                getFormDatasMap(), getRemoveFormDatas(),
+                isRemoveAllGlobalFormDatas());
 
         //添加Cookie管理类
         RxHttp.getGlobalOptions().getCookieManager().add(getCookieList());
         okBuilder.cookieJar(RxHttp.getGlobalOptions().getCookieManager());
 
         //创建Retrofit对象
-        Retrofit retrofit = RetrofitUtils.create(baseUrl, okBuilder.build());
+        Retrofit retrofit = RxHttp.RETROFIT().create(baseUrl, okBuilder.build());
         ApiService apiService = retrofit.create(ApiService.class);
 
         //执行请求
@@ -142,43 +139,25 @@ public abstract class ApiBaseRequest<T extends ApiRequestOptions> extends ApiReq
         return getConnectTimeOut() != -1 ? getConnectTimeOut() : RxHttp.getGlobalOptions().getConnectTimeOut();
     }
 
-    //计算该请求下包含的拦截器
-    private Map<String, Interceptor> getUsefulInterceptors(Map<String, Interceptor> map,
-                                                           Map<String, Interceptor> globalMaps,
-                                                           boolean removeGlobal,
-                                                           List<String> exceptList)
+    /*合并全局参数和自定义参数*/
+    protected <P> Map<String, P> mergeParams(Map<String, P> globalParams,
+                                             Map<String, P> customParams,
+                                             Set<String> ignoreParams,
+                                             boolean ignoreGlobal)
     {
-        Map<String, Interceptor> resultMap = new HashMap<>();
-        if (!removeGlobal && globalMaps != null && globalMaps.size() > 0)
-            resultMap.putAll(globalMaps);
-        if (map != null && map.size() > 0)
-            resultMap.putAll(map);
-        if (exceptList != null && exceptList.size() > 0 && resultMap.size() > 0)
+        Map<String, P> resultMap = new HashMap<>();
+        //添加全局参数
+        if (!ignoreGlobal && globalParams != null)
+            resultMap.putAll(globalParams);
+        //添加自定义参数
+        if (customParams != null)
+            resultMap.putAll(customParams);
+        //去除忽略的参数
+        if (ignoreParams != null)
         {
-            for (String tag : exceptList)
+            for (String param : ignoreParams)
             {
-                resultMap.remove(tag);
-            }
-        }
-        return resultMap;
-    }
-
-    //计算该请求下包含的参数
-    private Map<String, String> getUsefulParams(Map<String, String> map,
-                                                Map<String, String> globalMaps,
-                                                boolean removeGlobal,
-                                                List<String> exceptList)
-    {
-        Map<String, String> resultMap = new HashMap<>();
-        if (!removeGlobal && globalMaps != null && globalMaps.size() > 0)
-            resultMap.putAll(globalMaps);
-        if (map != null && map.size() > 0)
-            resultMap.putAll(map);
-        if (exceptList != null && exceptList.size() > 0 && resultMap.size() > 0)
-        {
-            for (String key : exceptList)
-            {
-                resultMap.remove(key);
+                resultMap.remove(param);
             }
         }
         return resultMap;

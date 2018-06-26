@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import com.lwkandroid.wings.net.RxHttp;
 import com.lwkandroid.wings.net.convert.ApiResponseConvert;
 import com.lwkandroid.wings.net.utils.FormDataMap;
-import com.lwkandroid.wings.net.utils.RetrofitUtils;
 import com.lwkandroid.wings.utils.SDCardUtils;
 import com.lwkandroid.wingsdemo.bean.NonRestFulResult;
 import com.lwkandroid.wingsdemo.bean.TabsBean;
@@ -37,7 +36,8 @@ public class RxHttpDemoModel extends RxHttpDemoConstract.Model
     @Override
     Observable<List<TabsBean>> requestDataByService()
     {
-        return RetrofitUtils.createWithGlobalOptions()
+        return RxHttp.RETROFIT()
+                .createWithGlobalOptions()
                 .create(CustomService.class)
                 .customGet(ApiURL.TEST, new FormDataMap().addParam("webp", "1"))
                 .compose(ApiResponseConvert.responseToString())//先将ResponseBody转为String结果的数据
@@ -49,7 +49,7 @@ public class RxHttpDemoModel extends RxHttpDemoConstract.Model
     {
         return RxHttp.DOWNLOAD(ApiURL.DOWNLOAD_TEST) //下载链接的请求域名和全局域名不一样没关系，内部retrofit会自动识别
                 .removeAllGlobalFormDatas() //去除所有的全局参数，避免无法监听下载过程
-                .addRemoveInterceptor("sign") //去除模拟签名用的拦截器，避免无法监听下载过程
+                .addRemoveInterceptors("sign") //去除模拟签名用的拦截器，避免无法监听下载过程
                 .setFileName("Movie.mp4")
                 .setSaveFloderPath(SDCardUtils.getSDCardPath() + "/WingsDemo/")
                 .parseAsFileFromBytes();
@@ -70,7 +70,7 @@ public class RxHttpDemoModel extends RxHttpDemoConstract.Model
     {
         return RxHttp.DOWNLOAD("http://oi5vnsj5b.bkt.clouddn.com/good_pic01.jpg")
                 .removeAllGlobalFormDatas() //去除所有的全局参数，避免无法监听下载过程
-                .addRemoveInterceptor("sign") //去除模拟签名用的拦截器，避免无法监听下载过程
+                .addRemoveInterceptors("sign") //去除模拟签名用的拦截器，避免无法监听下载过程
                 .setBitmapMaxSize(400, 400)
                 .parseAsBitmapFromIS();
     }

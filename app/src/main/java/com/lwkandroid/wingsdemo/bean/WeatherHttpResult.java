@@ -30,7 +30,8 @@ public class WeatherHttpResult<T> implements IApiResult<T>
         this.message = message;
     }
 
-    public void setData(T data)    {
+    public void setData(T data)
+    {
         this.data = data;
     }
 
@@ -60,5 +61,11 @@ public class WeatherHttpResult<T> implements IApiResult<T>
     public T getData()
     {
         return data;
+    }
+
+    @Override
+    public boolean isResultOK()
+    {
+        return status_code == 0;
     }
 }
