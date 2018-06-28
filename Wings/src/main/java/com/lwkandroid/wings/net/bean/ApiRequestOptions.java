@@ -3,6 +3,7 @@ package com.lwkandroid.wings.net.bean;
 import android.support.annotation.NonNull;
 
 import com.lwkandroid.wings.net.RxHttp;
+import com.lwkandroid.wings.net.constants.ApiCacheMode;
 import com.lwkandroid.wings.net.constants.ApiRequestType;
 import com.lwkandroid.wings.net.https.HttpsUtils;
 import com.lwkandroid.wings.net.parser.IApiStringParser;
@@ -81,6 +82,13 @@ public abstract class ApiRequestOptions<T extends ApiRequestOptions>
     protected HttpsUtils.SSLParams mSslParams;
     /*Https全局访问规则*/
     protected HostnameVerifier mHostnameVerifier;
+    //缓存类型
+    private @ApiCacheMode.Mode
+    int mCacheMode = RxHttp.getGlobalOptions().getCacheMode();
+    //缓存key
+    private String mCacheKey;
+    //缓存时长
+    private long mCacheTime = RxHttp.getGlobalOptions().getCacheTime();
 
     public IApiStringParser getApiStringParser()
     {
@@ -743,5 +751,38 @@ public abstract class ApiRequestOptions<T extends ApiRequestOptions>
     public HostnameVerifier getHostnameVerifier()
     {
         return mHostnameVerifier;
+    }
+
+    public T setCacheMode(@ApiCacheMode.Mode int mode)
+    {
+        this.mCacheMode = mode;
+        return (T) this;
+    }
+
+    public T setCachekey(String cachekey)
+    {
+        this.mCacheKey = cachekey;
+        return (T) this;
+    }
+
+    public T setCacheTime(long cacheTime)
+    {
+        this.mCacheTime = cacheTime;
+        return (T) this;
+    }
+
+    public int getCacheMode()
+    {
+        return mCacheMode;
+    }
+
+    public String getCacheKey()
+    {
+        return mCacheKey;
+    }
+
+    public long getCacheTime()
+    {
+        return mCacheTime;
     }
 }

@@ -1,5 +1,7 @@
 package com.lwkandroid.wings.net.response;
 
+import com.lwkandroid.wings.net.bean.ApiCacheResultBean;
+
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -12,17 +14,32 @@ import io.reactivex.Observable;
 public interface IApiStringResponse
 {
     /**
+     * 获取缓存结果包装的字符串类型的网络请求结果
+     */
+    Observable<ApiCacheResultBean<String>> returnStringResponseWithCacheWraped();
+
+    /**
      * 直接获取字符串类型的网络请求结果
      */
     Observable<String> returnStringResponse();
 
     /**
-     * 将字符串网络请求转换为某一个对象
+     * 获取缓存结果包装的某一个对象的网络请求结果
      */
-    <T> Observable parseAsObject(Class<T> tOfClass);
+    <T> Observable<ApiCacheResultBean<T>> parseAsObjectWithCacheWraped(Class<T> tOfClass);
 
     /**
-     * 将字符串网络请求转换为某一个对象的集合
+     * 直接获取某一个对象的网络请求结果
+     */
+    <T> Observable<T> parseAsObject(Class<T> tOfClass);
+
+    /**
+     * 获取缓存结果包装的某个一对象的集合的网络请求结果
+     */
+    <T> Observable<ApiCacheResultBean<List<T>>> parseAsListWithCacheWraped(Class<T> tOfClass);
+
+    /**
+     * 直接获取某一个对象的集合的网络请求结果
      */
     <T> Observable<List<T>> parseAsList(Class<T> tOfClass);
 }

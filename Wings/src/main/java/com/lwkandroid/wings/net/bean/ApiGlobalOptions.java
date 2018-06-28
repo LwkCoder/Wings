@@ -2,6 +2,8 @@ package com.lwkandroid.wings.net.bean;
 
 import android.support.annotation.NonNull;
 
+import com.lwkandroid.wings.net.cache.opeartor.IDiskCacheOpeartor;
+import com.lwkandroid.wings.net.constants.ApiCacheMode;
 import com.lwkandroid.wings.net.constants.ApiConstants;
 import com.lwkandroid.wings.net.cookie.ICookieJar;
 import com.lwkandroid.wings.net.https.HttpsUtils;
@@ -54,6 +56,19 @@ public class ApiGlobalOptions
     protected HttpsUtils.SSLParams mSslParams;
     /*Https全局访问规则*/
     protected HostnameVerifier mHostnameVerifier;
+    //缓存类型
+    private @ApiCacheMode.Mode
+    int mCacheMode = ApiCacheMode.NO_CACHE;
+    //App版本
+    private int mCacheVersion = 1;
+    //缓存路径
+    private String mCachePath;
+    //缓存时长
+    private long mCacheTime = -1;
+    //硬盘缓存大小
+    private long mDiskMaxSize = -1;
+    //缓存转换器
+    private IDiskCacheOpeartor mCacheOpeartor = null;
 
     public ApiGlobalOptions setApiResultType(Type type)
     {
@@ -324,5 +339,71 @@ public class ApiGlobalOptions
     public HostnameVerifier getHostnameVerifier()
     {
         return mHostnameVerifier;
+    }
+
+    public ApiGlobalOptions setCacheMode(@ApiCacheMode.Mode int mode)
+    {
+        this.mCacheMode = mode;
+        return this;
+    }
+
+    public ApiGlobalOptions setCacheVersion(int version)
+    {
+        this.mCacheVersion = version;
+        return this;
+    }
+
+    public ApiGlobalOptions setCachePath(String path)
+    {
+        this.mCachePath = path;
+        return this;
+    }
+
+    public ApiGlobalOptions setCacheTime(long cacheTime)
+    {
+        this.mCacheTime = cacheTime;
+        return this;
+    }
+
+    public ApiGlobalOptions setCacheDiskMaxSize(long maxSize)
+    {
+        this.mDiskMaxSize = maxSize;
+        return this;
+    }
+
+    public ApiGlobalOptions setCacheOpeartor(IDiskCacheOpeartor opeartor)
+    {
+        this.mCacheOpeartor = opeartor;
+        return this;
+    }
+
+    public int getCacheMode()
+    {
+        return mCacheMode;
+    }
+
+    public int getCacheVersion()
+    {
+        return mCacheVersion;
+    }
+
+    public String getCachePath()
+    {
+        return mCachePath;
+    }
+
+    public long getCacheTime()
+    {
+        return mCacheTime;
+    }
+
+    public long getCacheDiskMaxSize()
+    {
+        return mDiskMaxSize;
+    }
+
+    public IDiskCacheOpeartor getCacheOpeartor()
+    {
+        return mCacheOpeartor;
     }
 }

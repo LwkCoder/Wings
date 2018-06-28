@@ -3,6 +3,7 @@ package com.lwkandroid.wingsdemo.project.rxhttp;
 import android.graphics.Bitmap;
 
 import com.lwkandroid.wings.net.RxHttp;
+import com.lwkandroid.wings.net.constants.ApiCacheMode;
 import com.lwkandroid.wings.net.convert.ApiResponseConvert;
 import com.lwkandroid.wings.net.utils.FormDataMap;
 import com.lwkandroid.wings.utils.SDCardUtils;
@@ -30,6 +31,9 @@ public class RxHttpDemoModel extends RxHttpDemoConstract.Model
                 .addFormData("essence", "1")
                 .addFormData("message_cursor", "1")
                 .addFormData("double_col_mode", "1")
+                .setCachekey("POST_KEY")
+                .setCacheMode(ApiCacheMode.CACHE_FIRST_AFTER_REMOTE_IF_DIFF)
+                .setCacheTime(60000)
                 .parseAsList(TabsBean.class);
     }
 
@@ -59,6 +63,9 @@ public class RxHttpDemoModel extends RxHttpDemoConstract.Model
     Observable<NonRestFulResult> requestNonRestFulData()
     {
         return RxHttp.GET(ApiURL.TEST02)
+                .setCachekey("TestKey")
+                .setCacheTime(5000)
+                .setCacheMode(ApiCacheMode.REMOTE_FIRST_OR_CACHE)
                 .addFormData("code", "utf-8")
                 .addFormData("q", "iphone")
                 .setApiResultStringParser(new NonRestFulStringResultParser())

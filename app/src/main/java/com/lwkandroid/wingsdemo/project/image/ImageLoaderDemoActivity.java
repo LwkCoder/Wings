@@ -68,7 +68,7 @@ public class ImageLoaderDemoActivity extends AppBaseActivity
                 .show(this, mImageView02);
 
         //RoundDiffImageView不能调用.setCrossFade(true) !!!
-        //        ImageLoader.getDefaultLoader().load(IMG_URL04)
+        //        ImageLoader.getDefaultLoader().loadCache(IMG_URL04)
         //                .setPlaceHolder(R.drawable.img_placeholder_square_loading)
         //                .setErrorHolder(R.drawable.img_placeholder_square_fail)
         //                .show(this, mImageView03);

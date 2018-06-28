@@ -39,6 +39,7 @@ ext {
     ComActionBarVersion = "1.1.5"
     LeakCanaryVersion = "1.5.4"
     StethoVersion = "1.5.0"
+    DiskLruCacheVersion = "2.0.2"
 
     /*各个依赖库*/
     wingsDependencies = [
@@ -100,7 +101,9 @@ ext {
             "cn.bingoogolapple:bga-zxing:$BGACodeVersion@aar"            : [],
             /*RX模块*/
             "io.reactivex.rxjava2:rxjava:$RXJava2Version"                : [],
-            "io.reactivex.rxjava2:rxandroid:$RXAndroidVersion"           : []
+            "io.reactivex.rxjava2:rxandroid:$RXAndroidVersion"           : [],
+            /*硬盘缓存*/
+            "com.jakewharton:disklrucache:$DiskLruCacheVersion"          : []
     ]
 
     /*Debug环境下的辅助工具*/

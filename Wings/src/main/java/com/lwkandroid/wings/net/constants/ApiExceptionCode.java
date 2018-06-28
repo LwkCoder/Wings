@@ -49,4 +49,8 @@ public class ApiExceptionCode
      * 空返回
      */
     public static final int RESPONSE_EMPTY = 1009;
+    /**
+     * 缓存为空
+     */
+    public static final int CACHE_EMPTY = 1010;
 }

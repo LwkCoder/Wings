@@ -150,6 +150,7 @@ public class RxHttpDemoPresenter extends RxHttpDemoConstract.Presenter
                     @Override
                     public void _OnNext(NonRestFulResult nonRestFulResult)
                     {
+                        KLog.e();
                         mViewImpl.showNonRestFulResult(nonRestFulResult);
                     }
 

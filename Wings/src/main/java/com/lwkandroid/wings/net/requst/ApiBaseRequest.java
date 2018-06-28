@@ -2,6 +2,7 @@ package com.lwkandroid.wings.net.requst;
 
 import com.lwkandroid.wings.net.ApiService;
 import com.lwkandroid.wings.net.RxHttp;
+import com.lwkandroid.wings.net.bean.ApiCacheOptions;
 import com.lwkandroid.wings.net.bean.ApiRequestOptions;
 import com.lwkandroid.wings.net.constants.ApiRequestType;
 import com.lwkandroid.wings.utils.StringUtils;
@@ -161,6 +162,23 @@ public abstract class ApiBaseRequest<T extends ApiRequestOptions> extends ApiReq
             }
         }
         return resultMap;
+    }
+
+    /**
+     * 获取最终缓存参数
+     */
+    protected ApiCacheOptions getFinalCacheOptions()
+    {
+        ApiCacheOptions.Builder cacheBuilder = new ApiCacheOptions.Builder();
+        cacheBuilder.appVersion(RxHttp.getGlobalOptions().getCacheVersion());
+        cacheBuilder.cachePath(RxHttp.getGlobalOptions().getCachePath());
+        cacheBuilder.diskMaxSize(RxHttp.getGlobalOptions().getCacheDiskMaxSize());
+        cacheBuilder.cacheOpeartor(RxHttp.getGlobalOptions().getCacheOpeartor());
+        cacheBuilder.cacheMode(getCacheMode());
+        cacheBuilder.cacheTime(getCacheTime());
+        cacheBuilder.cacheKey(getCacheKey());
+
+        return cacheBuilder.build();
     }
 
     /**
