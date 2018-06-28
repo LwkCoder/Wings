@@ -183,7 +183,7 @@ public class ApiCacheOptions
             if (TextUtils.isEmpty(options.getCachePath()))
                 options.setCachePath(new StringBuffer()
                         .append(SDCardUtils.getExternalCachePath())
-                        .append("net_cache")
+                        .append("net_cache/")
                         .toString());
             File cacheFile = new File(options.getCachePath());
             if (!cacheFile.exists())
