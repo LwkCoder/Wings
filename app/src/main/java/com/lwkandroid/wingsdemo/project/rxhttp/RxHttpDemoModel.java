@@ -3,6 +3,7 @@ package com.lwkandroid.wingsdemo.project.rxhttp;
 import android.graphics.Bitmap;
 
 import com.lwkandroid.wings.net.RxHttp;
+import com.lwkandroid.wings.net.bean.ApiCacheResultBean;
 import com.lwkandroid.wings.net.constants.ApiCacheMode;
 import com.lwkandroid.wings.net.convert.ApiResponseConvert;
 import com.lwkandroid.wings.net.utils.FormDataMap;
@@ -60,16 +61,17 @@ public class RxHttpDemoModel extends RxHttpDemoConstract.Model
     }
 
     @Override
-    Observable<NonRestFulResult> requestNonRestFulData()
+    Observable<ApiCacheResultBean<NonRestFulResult>> requestNonRestFulData()
     {
         return RxHttp.GET(ApiURL.TEST02)
                 .setCachekey("TestKey")
                 .setCacheTime(5000)
-                .setCacheMode(ApiCacheMode.REMOTE_FIRST_OR_CACHE)
+                .setCacheMode(ApiCacheMode.CACHE_FIRST_OR_REMOTE)
                 .addFormData("code", "utf-8")
                 .addFormData("q", "iphone")
                 .setApiResultStringParser(new NonRestFulStringResultParser())
-                .parseAsObject(NonRestFulResult.class);
+                //                .parseAsObject(NonRestFulResult.class);
+                .parseAsObjectWithCacheWraped(NonRestFulResult.class);
     }
 
     @Override

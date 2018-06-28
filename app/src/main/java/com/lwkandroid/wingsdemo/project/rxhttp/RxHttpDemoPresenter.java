@@ -2,6 +2,7 @@ package com.lwkandroid.wingsdemo.project.rxhttp;
 
 import android.graphics.Bitmap;
 
+import com.lwkandroid.wings.net.bean.ApiCacheResultBean;
 import com.lwkandroid.wings.net.bean.ApiException;
 import com.lwkandroid.wings.net.bean.ProgressInfo;
 import com.lwkandroid.wings.net.listener.OnProgressListener;
@@ -137,8 +138,8 @@ public class RxHttpDemoPresenter extends RxHttpDemoConstract.Presenter
     void requestNonRestFul()
     {
         mModelImpl.requestNonRestFulData()
-                .compose(this.<NonRestFulResult>applyIo2MainWithLifeCycle())
-                .subscribe(new ApiBaseObserver<NonRestFulResult>()
+                .compose(this.<ApiCacheResultBean<NonRestFulResult>>applyIo2MainWithLifeCycle())
+                .subscribe(new ApiBaseObserver<ApiCacheResultBean<NonRestFulResult>>()
                 {
                     @Override
                     public void onSubscribe(Disposable d)
@@ -148,10 +149,10 @@ public class RxHttpDemoPresenter extends RxHttpDemoConstract.Presenter
                     }
 
                     @Override
-                    public void _OnNext(NonRestFulResult nonRestFulResult)
+                    public void _OnNext(ApiCacheResultBean<NonRestFulResult> resultBean)
                     {
-                        KLog.e();
-                        mViewImpl.showNonRestFulResult(nonRestFulResult);
+                        KLog.i("是否为缓存：" + resultBean.isCache());
+                        mViewImpl.showNonRestFulResult(resultBean.getData());
                     }
 
                     @Override
@@ -160,6 +161,28 @@ public class RxHttpDemoPresenter extends RxHttpDemoConstract.Presenter
                         mViewImpl.showHttpError(e);
                     }
                 });
+        //                .subscribe(new ApiBaseObserver<NonRestFulResult>()
+        //                {
+        //                    @Override
+        //                    public void onSubscribe(Disposable d)
+        //                    {
+        //                        super.onSubscribe(d);
+        //                        mViewImpl.showNonRestFulResult(null);
+        //                    }
+        //
+        //                    @Override
+        //                    public void _OnNext(NonRestFulResult nonRestFulResult)
+        //                    {
+        //                        KLog.e();
+        //                        mViewImpl.showNonRestFulResult(nonRestFulResult);
+        //                    }
+        //
+        //                    @Override
+        //                    public void _OnError(ApiException e)
+        //                    {
+        //                        mViewImpl.showHttpError(e);
+        //                    }
+        //                });
     }
 
     @Override
