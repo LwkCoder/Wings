@@ -37,6 +37,9 @@ public class ApiBytes2BitmapParser implements IApiBytesArrayParser.BitmapParser
                     @Override
                     public Bitmap apply(byte[] bytes) throws Exception
                     {
+                        //                        Bitmap bitmap=Bitmap.createBitmap(mMaxWidth,mMaxHeight, Bitmap.Config.ARGB_8888);
+                        //                        bitmap.copyPixelsFromBuffer(ByteBuffer.wrap(bytes));
+                        //                        return bitmap;
                         return ImageUtils.getBitmap(bytes, 0, mMaxWidth, mMaxHeight);
                     }
                 });

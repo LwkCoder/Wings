@@ -192,6 +192,13 @@ public final class ImageUtils
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeStream(is, null, options);
+        //        try
+        //        {
+        //            is.reset();
+        //        } catch (Exception e)
+        //        {
+        //            e.printStackTrace();
+        //        }
         options.inSampleSize = calculateInSampleSize(options.outWidth, options.outHeight, maxWidth, maxHeight);
         options.inJustDecodeBounds = false;
         return BitmapFactory.decodeStream(is, null, options);
@@ -229,7 +236,7 @@ public final class ImageUtils
      */
     public static Bitmap getBitmap(byte[] data, int offset, int maxWidth, int maxHeight)
     {
-        if (data.length == 0)
+        if (data == null || data.length == 0)
             return null;
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
@@ -288,13 +295,18 @@ public final class ImageUtils
         if (originWidth == 0 || originHeight == 0 || maxWidth == 0 || maxHeight == 0)
             return 1;
 
+        //        int inSampleSize = 1;
+        //        if (originWidth > maxWidth || originHeight > maxHeight)
+        //        {
+        //            //Math.ceil(int value):表示取不小于value的最小整数
+        //            int scaleWidth = (int) Math.ceil((originWidth * 1.0f) / maxWidth);
+        //            int scaleHeight = (int) Math.ceil((originHeight * 1.0f) / maxHeight);
+        //            inSampleSize = Math.max(scaleWidth, scaleHeight);
+        //        }
         int inSampleSize = 1;
-        if (originWidth > maxWidth || originHeight > maxHeight)
+        while ((originWidth >>= 1) >= maxWidth && (originHeight >>= 1) >= maxHeight)
         {
-            //Math.ceil(int value):表示取不小于value的最小整数
-            int scaleWidth = (int) Math.ceil((originWidth * 1.0f) / maxWidth);
-            int scaleHeight = (int) Math.ceil((originHeight * 1.0f) / maxHeight);
-            inSampleSize = Math.max(scaleWidth, scaleHeight);
+            inSampleSize <<= 1;
         }
         return inSampleSize;
     }

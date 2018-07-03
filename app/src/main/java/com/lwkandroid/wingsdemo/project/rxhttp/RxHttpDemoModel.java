@@ -3,7 +3,7 @@ package com.lwkandroid.wingsdemo.project.rxhttp;
 import android.graphics.Bitmap;
 
 import com.lwkandroid.wings.net.RxHttp;
-import com.lwkandroid.wings.net.bean.ApiCacheResultBean;
+import com.lwkandroid.wings.net.bean.ApiResultCacheWrapper;
 import com.lwkandroid.wings.net.constants.ApiCacheMode;
 import com.lwkandroid.wings.net.convert.ApiResponseConvert;
 import com.lwkandroid.wings.net.utils.FormDataMap;
@@ -27,7 +27,7 @@ public class RxHttpDemoModel extends RxHttpDemoConstract.Model
     @Override
     Observable<List<TabsBean>> requestData()
     {
-        return RxHttp.POST(ApiURL.TEST)
+        return RxHttp.GET(ApiURL.TEST)
                 .addFormData("webp", "1")
                 .addFormData("essence", "1")
                 .addFormData("message_cursor", "1")
@@ -61,7 +61,7 @@ public class RxHttpDemoModel extends RxHttpDemoConstract.Model
     }
 
     @Override
-    Observable<ApiCacheResultBean<NonRestFulResult>> requestNonRestFulData()
+    Observable<ApiResultCacheWrapper<NonRestFulResult>> requestNonRestFulData()
     {
         return RxHttp.GET(ApiURL.TEST02)
                 .setCachekey("TestKey")
@@ -77,10 +77,10 @@ public class RxHttpDemoModel extends RxHttpDemoConstract.Model
     @Override
     Observable<Bitmap> requestBitmapData()
     {
-        return RxHttp.DOWNLOAD("http://oi5vnsj5b.bkt.clouddn.com/good_pic01.jpg")
+        return RxHttp.DOWNLOAD("http://oi5vnsj5b.bkt.clouddn.com/good_pic02.jpg")
                 .removeAllGlobalFormDatas() //去除所有的全局参数，避免无法监听下载过程
                 .addRemoveInterceptors("sign") //去除模拟签名用的拦截器，避免无法监听下载过程
                 .setBitmapMaxSize(400, 400)
-                .parseAsBitmapFromIS();
+                .parseAsBitmapFromBytes();
     }
 }

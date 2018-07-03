@@ -2,7 +2,7 @@ package com.lwkandroid.wings.net.cache;
 
 import com.lwkandroid.wings.net.bean.ApiCacheOptions;
 import com.lwkandroid.wings.net.bean.ApiDiskCacheBean;
-import com.lwkandroid.wings.net.bean.ApiCacheResultBean;
+import com.lwkandroid.wings.net.bean.ApiResultCacheWrapper;
 import com.lwkandroid.wings.net.bean.ApiException;
 import com.lwkandroid.wings.net.cache.core.CacheCore;
 import com.lwkandroid.wings.net.cache.strategy.CacheAfterRemoteDiffStrategy;
@@ -35,13 +35,13 @@ public class RxCache
     /**
      * 根据参数添加缓存关联
      */
-    public static <T> ObservableTransformer<T, ApiCacheResultBean<T>> transform(final ApiCacheOptions options, final Class<T> clazz)
+    public static <T> ObservableTransformer<T, ApiResultCacheWrapper<T>> transform(final ApiCacheOptions options, final Class<T> clazz)
     {
         final IStrategy strategy = getStrategy(options.getCacheMode());
-        return new ObservableTransformer<T, ApiCacheResultBean<T>>()
+        return new ObservableTransformer<T, ApiResultCacheWrapper<T>>()
         {
             @Override
-            public ObservableSource<ApiCacheResultBean<T>> apply(Observable<T> upstream)
+            public ObservableSource<ApiResultCacheWrapper<T>> apply(Observable<T> upstream)
             {
                 return strategy.excute(options, upstream, clazz);
             }

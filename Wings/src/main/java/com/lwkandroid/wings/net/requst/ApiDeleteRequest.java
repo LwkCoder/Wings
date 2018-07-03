@@ -3,11 +3,15 @@ package com.lwkandroid.wings.net.requst;
 import android.text.TextUtils;
 
 import com.lwkandroid.wings.net.ApiService;
-import com.lwkandroid.wings.net.bean.ApiCacheResultBean;
+import com.lwkandroid.wings.net.bean.ApiResultCacheWrapper;
 import com.lwkandroid.wings.net.cache.RxCache;
+import com.lwkandroid.wings.net.cache.func.ApiCacheDataGetterFunc;
+import com.lwkandroid.wings.net.cache.func.ApiCacheDataParseAsDataFunc;
+import com.lwkandroid.wings.net.cache.func.ApiCacheDataParseAsListFunc;
 import com.lwkandroid.wings.net.constants.ApiConstants;
 import com.lwkandroid.wings.net.constants.ApiRequestType;
 import com.lwkandroid.wings.net.convert.ApiResponseConvert;
+import com.lwkandroid.wings.net.error.ApiErrorTransformer;
 import com.lwkandroid.wings.net.response.IApiStringResponse;
 import com.lwkandroid.wings.net.utils.RequestBodyUtils;
 
@@ -15,8 +19,6 @@ import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
-import io.reactivex.functions.Function;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 
@@ -59,98 +61,46 @@ public class ApiDeleteRequest extends ApiBaseRequest<ApiDeleteRequest> implement
     }
 
     @Override
-    public Observable<ApiCacheResultBean<String>> returnStringResponseWithCacheWraped()
+    public Observable<ApiResultCacheWrapper<String>> returnStringResponseWithCacheWraped()
     {
         return invokeRequest()
                 .compose(ApiResponseConvert.responseToString())
-                .compose(RxCache.transform(getFinalCacheOptions(), String.class));
+                .compose(RxCache.transform(getFinalCacheOptions(), String.class))
+                .compose(new ApiErrorTransformer<ApiResultCacheWrapper<String>>());
     }
 
     @Override
     public Observable<String> returnStringResponse()
     {
         return returnStringResponseWithCacheWraped()
-                .map(new Function<ApiCacheResultBean<String>, String>()
-                {
-                    @Override
-                    public String apply(ApiCacheResultBean<String> resultBean) throws Exception
-                    {
-                        return resultBean.getData();
-                    }
-                });
+                .map(new ApiCacheDataGetterFunc<String>());
     }
 
     @Override
-    public <T> Observable<ApiCacheResultBean<T>> parseAsObjectWithCacheWraped(final Class<T> tOfClass)
+    public <T> Observable<ApiResultCacheWrapper<T>> parseAsObjectWithCacheWraped(final Class<T> tOfClass)
     {
         return returnStringResponseWithCacheWraped()
-                .flatMap(new Function<ApiCacheResultBean<String>, ObservableSource<ApiCacheResultBean<T>>>()
-                {
-                    @Override
-                    public ObservableSource<ApiCacheResultBean<T>> apply(final ApiCacheResultBean<String> resultBean) throws Exception
-                    {
-                        return Observable.just(resultBean.getData())
-                                .compose(getApiStringParser().parseAsObject(tOfClass))
-                                .map(new Function<T, ApiCacheResultBean<T>>()
-                                {
-                                    @Override
-                                    public ApiCacheResultBean<T> apply(T t) throws Exception
-                                    {
-                                        return new ApiCacheResultBean<>(resultBean.isCache(), t);
-                                    }
-                                });
-                    }
-                });
+                .flatMap(new ApiCacheDataParseAsDataFunc<T>(getApiStringParser(), tOfClass));
     }
 
     @Override
     public <T> Observable<T> parseAsObject(Class<T> tOfClass)
     {
         return parseAsObjectWithCacheWraped(tOfClass)
-                .map(new Function<ApiCacheResultBean<T>, T>()
-                {
-                    @Override
-                    public T apply(ApiCacheResultBean<T> cacheResultBean) throws Exception
-                    {
-                        return cacheResultBean.getData();
-                    }
-                });
+                .map(new ApiCacheDataGetterFunc<T>());
     }
 
     @Override
-    public <T> Observable<ApiCacheResultBean<List<T>>> parseAsListWithCacheWraped(final Class<T> tOfClass)
+    public <T> Observable<ApiResultCacheWrapper<List<T>>> parseAsListWithCacheWraped(final Class<T> tOfClass)
     {
         return returnStringResponseWithCacheWraped()
-                .flatMap(new Function<ApiCacheResultBean<String>, ObservableSource<ApiCacheResultBean<List<T>>>>()
-                {
-                    @Override
-                    public ObservableSource<ApiCacheResultBean<List<T>>> apply(final ApiCacheResultBean<String> resultBean) throws Exception
-                    {
-                        return Observable.just(resultBean.getData())
-                                .compose(getApiStringParser().parseAsList(tOfClass))
-                                .map(new Function<List<T>, ApiCacheResultBean<List<T>>>()
-                                {
-                                    @Override
-                                    public ApiCacheResultBean<List<T>> apply(List<T> ts) throws Exception
-                                    {
-                                        return new ApiCacheResultBean<>(resultBean.isCache(), ts);
-                                    }
-                                });
-                    }
-                });
+                .flatMap(new ApiCacheDataParseAsListFunc<T>(getApiStringParser(), tOfClass));
     }
 
     @Override
     public <T> Observable<List<T>> parseAsList(Class<T> tOfClass)
     {
         return parseAsListWithCacheWraped(tOfClass)
-                .map(new Function<ApiCacheResultBean<List<T>>, List<T>>()
-                {
-                    @Override
-                    public List<T> apply(ApiCacheResultBean<List<T>> resultBean) throws Exception
-                    {
-                        return resultBean.getData();
-                    }
-                });
+                .map(new ApiCacheDataGetterFunc<List<T>>());
     }
 }

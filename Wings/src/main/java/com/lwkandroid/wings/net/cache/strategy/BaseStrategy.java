@@ -1,7 +1,7 @@
 package com.lwkandroid.wings.net.cache.strategy;
 
 import com.lwkandroid.wings.net.bean.ApiCacheOptions;
-import com.lwkandroid.wings.net.bean.ApiCacheResultBean;
+import com.lwkandroid.wings.net.bean.ApiResultCacheWrapper;
 import com.lwkandroid.wings.net.cache.RxCache;
 
 import io.reactivex.Observable;
@@ -19,23 +19,23 @@ public abstract class BaseStrategy implements IStrategy
     /**
      * 加载本地缓存
      */
-    protected <T> Observable<ApiCacheResultBean<T>> loadCache(ApiCacheOptions options, Class<T> clazz, boolean needEmpty)
+    protected <T> Observable<ApiResultCacheWrapper<T>> loadCache(ApiCacheOptions options, Class<T> clazz, boolean needEmpty)
     {
-        Observable<ApiCacheResultBean<T>> observable = RxCache.loadCache(options.getCacheCore(), clazz, options.getCacheKey(), options.getCacheTime())
-                .flatMap(new Function<T, ObservableSource<ApiCacheResultBean<T>>>()
+        Observable<ApiResultCacheWrapper<T>> observable = RxCache.loadCache(options.getCacheCore(), clazz, options.getCacheKey(), options.getCacheTime())
+                .flatMap(new Function<T, ObservableSource<ApiResultCacheWrapper<T>>>()
                 {
                     @Override
-                    public ObservableSource<ApiCacheResultBean<T>> apply(T t) throws Exception
+                    public ObservableSource<ApiResultCacheWrapper<T>> apply(T t) throws Exception
                     {
-                        return Observable.just(new ApiCacheResultBean<>(true, t));
+                        return Observable.just(new ApiResultCacheWrapper<>(true, t));
                     }
                 });
 
         if (needEmpty)
-            observable = observable.onErrorResumeNext(new Function<Throwable, ObservableSource<? extends ApiCacheResultBean<T>>>()
+            observable = observable.onErrorResumeNext(new Function<Throwable, ObservableSource<? extends ApiResultCacheWrapper<T>>>()
             {
                 @Override
-                public ObservableSource<? extends ApiCacheResultBean<T>> apply(@NonNull Throwable throwable) throws Exception
+                public ObservableSource<? extends ApiResultCacheWrapper<T>> apply(@NonNull Throwable throwable) throws Exception
                 {
                     return Observable.empty();
                 }
@@ -47,37 +47,37 @@ public abstract class BaseStrategy implements IStrategy
     /**
      * 请求远程数据
      */
-    protected <T> Observable<ApiCacheResultBean<T>> loadRemote(final ApiCacheOptions options, Class<T> clazz, Observable<T> source, boolean needEmpty)
+    protected <T> Observable<ApiResultCacheWrapper<T>> loadRemote(final ApiCacheOptions options, Class<T> clazz, Observable<T> source, boolean needEmpty)
     {
-        Observable<ApiCacheResultBean<T>> observable = source.flatMap(new Function<T, ObservableSource<ApiCacheResultBean<T>>>()
+        Observable<ApiResultCacheWrapper<T>> observable = source.flatMap(new Function<T, ObservableSource<ApiResultCacheWrapper<T>>>()
         {
             @Override
-            public ObservableSource<ApiCacheResultBean<T>> apply(final T t) throws Exception
+            public ObservableSource<ApiResultCacheWrapper<T>> apply(final T t) throws Exception
             {
                 return RxCache.saveCache(options.getCacheCore(), t, options.getCacheKey(), options.getCacheTime())
-                        .map(new Function<Boolean, ApiCacheResultBean<T>>()
+                        .map(new Function<Boolean, ApiResultCacheWrapper<T>>()
                         {
                             @Override
-                            public ApiCacheResultBean<T> apply(Boolean aBoolean) throws Exception
+                            public ApiResultCacheWrapper<T> apply(Boolean aBoolean) throws Exception
                             {
-                                return new ApiCacheResultBean<>(false, t);
+                                return new ApiResultCacheWrapper<>(false, t);
                             }
-                        }).onErrorReturn(new Function<Throwable, ApiCacheResultBean<T>>()
+                        }).onErrorReturn(new Function<Throwable, ApiResultCacheWrapper<T>>()
                         {
                             @Override
-                            public ApiCacheResultBean<T> apply(@NonNull Throwable throwable) throws Exception
+                            public ApiResultCacheWrapper<T> apply(@NonNull Throwable throwable) throws Exception
                             {
-                                return new ApiCacheResultBean<T>(false, t);
+                                return new ApiResultCacheWrapper<T>(false, t);
                             }
                         });
             }
         });
 
         if (needEmpty)
-            observable = observable.onErrorResumeNext(new Function<Throwable, ObservableSource<? extends ApiCacheResultBean<T>>>()
+            observable = observable.onErrorResumeNext(new Function<Throwable, ObservableSource<? extends ApiResultCacheWrapper<T>>>()
             {
                 @Override
-                public ObservableSource<? extends ApiCacheResultBean<T>> apply(@NonNull Throwable throwable) throws Exception
+                public ObservableSource<? extends ApiResultCacheWrapper<T>> apply(@NonNull Throwable throwable) throws Exception
                 {
                     return Observable.empty();
                 }

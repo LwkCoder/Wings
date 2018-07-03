@@ -2,6 +2,7 @@ package com.lwkandroid.wings.net.parser;
 
 import android.graphics.Bitmap;
 
+import com.lwkandroid.wings.utils.CloseUtils;
 import com.lwkandroid.wings.utils.ImageUtils;
 
 import java.io.ByteArrayOutputStream;
@@ -53,15 +54,26 @@ public class ApiIS2BitmapParser implements IApiInputStreamParser.BitmapParser
      */
     private byte[] readStream(InputStream inStream) throws Exception
     {
-        ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-        byte[] buffer = new byte[1024];
-        int len = 0;
-        while ((len = inStream.read(buffer)) != -1)
+        if (inStream == null)
+            return null;
+
+        ByteArrayOutputStream outStream = null;
+        try
         {
-            outStream.write(buffer, 0, len);
+            outStream = new ByteArrayOutputStream();
+            byte[] buffer = new byte[1024];
+            int len = 0;
+            while ((len = inStream.read(buffer)) != -1)
+            {
+                outStream.write(buffer, 0, len);
+            }
+            CloseUtils.closeIO(inStream);
+            CloseUtils.closeIO(outStream);
+            return outStream.toByteArray();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
         }
-        outStream.close();
-        inStream.close();
-        return outStream.toByteArray();
+        return null;
     }
 }

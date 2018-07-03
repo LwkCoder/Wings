@@ -1,7 +1,7 @@
 package com.lwkandroid.wings.net.cache.strategy;
 
 import com.lwkandroid.wings.net.bean.ApiCacheOptions;
-import com.lwkandroid.wings.net.bean.ApiCacheResultBean;
+import com.lwkandroid.wings.net.bean.ApiResultCacheWrapper;
 
 import io.reactivex.Observable;
 import io.reactivex.annotations.NonNull;
@@ -15,15 +15,15 @@ import io.reactivex.functions.Predicate;
 public class CacheAfterRemoteStrategy extends BaseStrategy
 {
     @Override
-    public <T> Observable<ApiCacheResultBean<T>> excute(ApiCacheOptions options, Observable<T> source, Class<T> clazz)
+    public <T> Observable<ApiResultCacheWrapper<T>> excute(ApiCacheOptions options, Observable<T> source, Class<T> clazz)
     {
-        Observable<ApiCacheResultBean<T>> cache = loadCache(options, clazz, true);
-        Observable<ApiCacheResultBean<T>> remote = loadRemote(options, clazz, source, false);
+        Observable<ApiResultCacheWrapper<T>> cache = loadCache(options, clazz, true);
+        Observable<ApiResultCacheWrapper<T>> remote = loadRemote(options, clazz, source, false);
         return Observable.concat(cache, remote)
-                .filter(new Predicate<ApiCacheResultBean<T>>()
+                .filter(new Predicate<ApiResultCacheWrapper<T>>()
                 {
                     @Override
-                    public boolean test(@NonNull ApiCacheResultBean<T> cacheResultBean) throws Exception
+                    public boolean test(@NonNull ApiResultCacheWrapper<T> cacheResultBean) throws Exception
                     {
                         return cacheResultBean != null && cacheResultBean.getData() != null;
                     }

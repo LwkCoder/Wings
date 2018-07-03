@@ -5,6 +5,7 @@ import android.text.TextUtils;
 
 import com.lwkandroid.wings.net.ApiService;
 import com.lwkandroid.wings.net.constants.ApiRequestType;
+import com.lwkandroid.wings.net.error.ApiErrorTransformer;
 import com.lwkandroid.wings.net.parser.ApiBytes2BitmapParser;
 import com.lwkandroid.wings.net.parser.ApiBytes2FileParser;
 import com.lwkandroid.wings.net.parser.ApiIS2BitmapParser;
@@ -35,9 +36,9 @@ public class ApiDownloadRequest extends ApiBaseRequest<ApiDownloadRequest> imple
     /*存储名称*/
     private String mFileName;
     /*Bitmap最大宽度*/
-    private int mBitmapMaxWidth;
+    private int mBitmapMaxWidth = Integer.MAX_VALUE;
     /*Bitmap最大高度*/
-    private int mBitmapMaxHeight;
+    private int mBitmapMaxHeight = Integer.MAX_VALUE;
 
     public ApiDownloadRequest(String url)
     {
@@ -108,7 +109,8 @@ public class ApiDownloadRequest extends ApiBaseRequest<ApiDownloadRequest> imple
     public Observable<InputStream> returnISResponse()
     {
         return invokeRequest()
-                .compose(ApiResponseConvert.responseToInputStream());
+                .compose(ApiResponseConvert.responseToInputStream())
+                .compose(new ApiErrorTransformer<InputStream>());
     }
 
     @Override
@@ -129,7 +131,8 @@ public class ApiDownloadRequest extends ApiBaseRequest<ApiDownloadRequest> imple
     public Observable<byte[]> returnByteArrayResponse()
     {
         return invokeRequest()
-                .compose(ApiResponseConvert.responseToBytes());
+                .compose(ApiResponseConvert.responseToBytes())
+                .compose(new ApiErrorTransformer<byte[]>());
     }
 
     @Override

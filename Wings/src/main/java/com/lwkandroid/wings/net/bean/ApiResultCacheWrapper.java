@@ -4,24 +4,25 @@ import java.io.Serializable;
 
 /**
  * Created by LWK
- * TODO
+ * TODO 请求结果的缓存封装
  */
 
-public class ApiCacheResultBean<T> implements Serializable
+public class ApiResultCacheWrapper<T> implements Serializable
 {
+    private static final long serialVersionUID = -5458415801107285006L;
     private boolean isFromCache;
     private T data;
 
-    public ApiCacheResultBean()
+    public ApiResultCacheWrapper()
     {
     }
 
-    public ApiCacheResultBean(boolean isFromCache)
+    public ApiResultCacheWrapper(boolean isFromCache)
     {
         this.isFromCache = isFromCache;
     }
 
-    public ApiCacheResultBean(boolean isFromCache, T data)
+    public ApiResultCacheWrapper(boolean isFromCache, T data)
     {
         this.isFromCache = isFromCache;
         this.data = data;
@@ -50,7 +51,7 @@ public class ApiCacheResultBean<T> implements Serializable
     @Override
     public String toString()
     {
-        return "ApiCacheResultBean{" +
+        return "ApiResultCacheWrapper{" +
                 "isCache=" + isFromCache +
                 ", data=" + data +
                 '}';

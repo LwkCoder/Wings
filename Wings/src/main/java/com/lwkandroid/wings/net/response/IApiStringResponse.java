@@ -1,6 +1,6 @@
 package com.lwkandroid.wings.net.response;
 
-import com.lwkandroid.wings.net.bean.ApiCacheResultBean;
+import com.lwkandroid.wings.net.bean.ApiResultCacheWrapper;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ public interface IApiStringResponse
     /**
      * 获取缓存结果包装的字符串类型的网络请求结果
      */
-    Observable<ApiCacheResultBean<String>> returnStringResponseWithCacheWraped();
+    Observable<ApiResultCacheWrapper<String>> returnStringResponseWithCacheWraped();
 
     /**
      * 直接获取字符串类型的网络请求结果
@@ -26,7 +26,7 @@ public interface IApiStringResponse
     /**
      * 获取缓存结果包装的某一个对象的网络请求结果
      */
-    <T> Observable<ApiCacheResultBean<T>> parseAsObjectWithCacheWraped(Class<T> tOfClass);
+    <T> Observable<ApiResultCacheWrapper<T>> parseAsObjectWithCacheWraped(Class<T> tOfClass);
 
     /**
      * 直接获取某一个对象的网络请求结果
@@ -36,7 +36,7 @@ public interface IApiStringResponse
     /**
      * 获取缓存结果包装的某个一对象的集合的网络请求结果
      */
-    <T> Observable<ApiCacheResultBean<List<T>>> parseAsListWithCacheWraped(Class<T> tOfClass);
+    <T> Observable<ApiResultCacheWrapper<List<T>>> parseAsListWithCacheWraped(Class<T> tOfClass);
 
     /**
      * 直接获取某一个对象的集合的网络请求结果

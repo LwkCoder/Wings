@@ -2,7 +2,7 @@ package com.lwkandroid.wingsdemo.project.rxhttp;
 
 import android.graphics.Bitmap;
 
-import com.lwkandroid.wings.net.bean.ApiCacheResultBean;
+import com.lwkandroid.wings.net.bean.ApiResultCacheWrapper;
 import com.lwkandroid.wings.net.bean.ApiException;
 import com.lwkandroid.wings.net.bean.ProgressInfo;
 import com.lwkandroid.wings.net.listener.OnProgressListener;
@@ -56,7 +56,7 @@ public class RxHttpDemoPresenter extends RxHttpDemoConstract.Presenter
                     public void _OnError(ApiException e)
                     {
                         KLog.e("无法获取数据：" + e.toString());
-                        mViewImpl.showLongToast(e.toString());
+                        mViewImpl.showHttpError(e);
                     }
                 });
     }
@@ -138,8 +138,8 @@ public class RxHttpDemoPresenter extends RxHttpDemoConstract.Presenter
     void requestNonRestFul()
     {
         mModelImpl.requestNonRestFulData()
-                .compose(this.<ApiCacheResultBean<NonRestFulResult>>applyIo2MainWithLifeCycle())
-                .subscribe(new ApiBaseObserver<ApiCacheResultBean<NonRestFulResult>>()
+                .compose(this.<ApiResultCacheWrapper<NonRestFulResult>>applyIo2MainWithLifeCycle())
+                .subscribe(new ApiBaseObserver<ApiResultCacheWrapper<NonRestFulResult>>()
                 {
                     @Override
                     public void onSubscribe(Disposable d)
@@ -149,7 +149,7 @@ public class RxHttpDemoPresenter extends RxHttpDemoConstract.Presenter
                     }
 
                     @Override
-                    public void _OnNext(ApiCacheResultBean<NonRestFulResult> resultBean)
+                    public void _OnNext(ApiResultCacheWrapper<NonRestFulResult> resultBean)
                     {
                         KLog.i("是否为缓存：" + resultBean.isCache());
                         mViewImpl.showNonRestFulResult(resultBean.getData());
