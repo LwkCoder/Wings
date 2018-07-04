@@ -49,36 +49,36 @@ public class ImageLoaderDemoActivity extends AppBaseActivity
         mImageView03 = find(R.id.img_imageloader_demo03);
         mImageView04 = find(R.id.img_imageloader_demo04);
 
-        ImageLoader.getDefaultLoader().load(IMG_URL01)
+        ImageLoader.load(IMG_URL01)
                 .setCrossFade(true)
                 .setPlaceHolder(R.drawable.img_placeholder_square_loading)
                 .setErrorHolder(R.drawable.img_placeholder_square_fail)
                 .show(this, mImageView00);
 
-        ImageLoader.getDefaultLoader().load(IMG_URL02)
+        ImageLoader.load(IMG_URL02)
                 .setPlaceHolder(R.drawable.img_placeholder_square_loading)
                 .setErrorHolder(R.drawable.img_placeholder_square_fail)
                 .setCrossFade(true)
                 .show(this, mImageView01);
 
-        ImageLoader.getDefaultLoader().load(IMG_URL03)
+        ImageLoader.load(IMG_URL03)
                 .setPlaceHolder(R.drawable.img_placeholder_square_loading)
                 .setErrorHolder(R.drawable.img_placeholder_square_fail)
                 .setCrossFade(true)
                 .show(this, mImageView02);
 
         //RoundDiffImageView不能调用.setCrossFade(true) !!!
-        //        ImageLoader.getDefaultLoader().loadCache(IMG_URL04)
+        //        ImageLoader.loadCache(IMG_URL04)
         //                .setPlaceHolder(R.drawable.img_placeholder_square_loading)
         //                .setErrorHolder(R.drawable.img_placeholder_square_fail)
         //                .show(this, mImageView03);
-        ImageLoader.getGlideLoader().load(IMG_URL04)
+        ImageLoader.load(IMG_URL04)
                 .setPlaceHolder(R.drawable.img_placeholder_square_loading)
                 .setErrorHolder(R.drawable.img_placeholder_square_fail)
                 .setTransformation(new BlurTransformation(25, 6))
                 .show(this, mImageView03);
 
-        ImageLoader.getDefaultLoader().load(GIF_URL)
+        ImageLoader.load(GIF_URL)
                 .setPlaceHolder(R.drawable.img_placeholder_square_loading)
                 .setErrorHolder(R.drawable.img_placeholder_square_fail)
                 .setAsGif(true)
@@ -104,7 +104,7 @@ public class ImageLoaderDemoActivity extends AppBaseActivity
             @Override
             public void onClick(View v)
             {
-                ImageLoader.getDefaultLoader().clearCache(ImageLoaderDemoActivity.this);
+                ImageLoader.getLoader().clearCache(ImageLoaderDemoActivity.this);
             }
         });
     }
@@ -130,14 +130,14 @@ public class ImageLoaderDemoActivity extends AppBaseActivity
     protected void onPause()
     {
         super.onPause();
-        ImageLoader.getDefaultLoader().pause(this);
+        ImageLoader.getLoader().pause(this);
     }
 
     @Override
     protected void onResume()
     {
         super.onResume();
-        ImageLoader.getDefaultLoader().resume(this);
+        ImageLoader.getLoader().resume(this);
     }
 
     @Override

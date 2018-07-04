@@ -45,7 +45,7 @@ public final class GlideLoaderModule extends AppGlideModule
         builder.setBitmapPool(new LruBitmapPool(customBitmapPoolSize));
         //设置磁盘缓存
         long availableSize = SDCardUtils.getFreeSpace();
-        builder.setDiskCache(new DiskLruCacheFactory(ImageLoader.getDefaultLoader().getCachePath(),
+        builder.setDiskCache(new DiskLruCacheFactory(ImageLoader.getLoader().getCachePath(),
                 availableSize < MAX_DISK_CACHE_SIZE ? (int) availableSize : MAX_DISK_CACHE_SIZE));
     }
 

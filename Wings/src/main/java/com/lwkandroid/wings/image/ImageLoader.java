@@ -1,8 +1,17 @@
 package com.lwkandroid.wings.image;
 
-import com.lwkandroid.wings.image.bean.IImageLoader;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.support.annotation.DrawableRes;
+
 import com.lwkandroid.wings.image.bean.ImageGlobalOptions;
-import com.lwkandroid.wings.image.glide.GlideImageLoader;
+import com.lwkandroid.wings.image.callback.ImageDownLoadCallBack;
+import com.lwkandroid.wings.image.glide.GlideLoader;
+import com.lwkandroid.wings.image.glide.GlideLoaderOptions;
+
+import java.io.File;
 
 /**
  * Created by LWK
@@ -13,15 +22,12 @@ public final class ImageLoader
     static
     {
         mGlobalOptions = new ImageGlobalOptions();
-        mLoader = new GlideImageLoader();
-        mGlideLoader = new GlideImageLoader();
+        LOADER = new GlideLoader();
     }
 
     private static final ImageGlobalOptions mGlobalOptions;
 
-    private static final IImageLoader mLoader;
-
-    private static final GlideImageLoader mGlideLoader;
+    private static final ILoader LOADER;
 
     private ImageLoader()
     {
@@ -38,17 +44,118 @@ public final class ImageLoader
     /**
      * 获取图片加载器对象
      */
-    public static IImageLoader getDefaultLoader()
+    public static ILoader getLoader()
     {
-        return mLoader;
+        return LOADER;
     }
 
     /**
-     * 获取Glide图片加载对象
-     * 【可以用Glide独有的方法】
+     * 加载网络图片
+     *
+     * @param url 图片地址
      */
-    public static GlideImageLoader getGlideLoader()
+    public static GlideLoaderOptions load(String url)
     {
-        return mGlideLoader;
+        return new GlideLoaderOptions().setResource(url);
+    }
+
+    /**
+     * 加载本地Uri图片
+     *
+     * @param uri 图片Uri
+     */
+    public static GlideLoaderOptions load(Uri uri)
+    {
+        return new GlideLoaderOptions().setResource(uri);
+    }
+
+    /**
+     * 加载图片Drawable
+     *
+     * @param drawable 图片Drawable
+     */
+    public static GlideLoaderOptions load(Drawable drawable)
+    {
+        return new GlideLoaderOptions().setResource(drawable);
+    }
+
+    /***
+     * 加载图片资源id
+     * @param resId 图片资源id
+     */
+    public static GlideLoaderOptions load(@DrawableRes int resId)
+    {
+        return new GlideLoaderOptions().setResource(resId);
+    }
+
+    /***
+     * 加载图片资源bitmap
+     * @param bitmap 图片资源bitmap
+     */
+    public static GlideLoaderOptions load(Bitmap bitmap)
+    {
+        return new GlideLoaderOptions().setResource(bitmap);
+    }
+
+    /**
+     * 加载图片二进制数据
+     *
+     * @param bytes 图片二进制数据
+     */
+    public static GlideLoaderOptions load(byte[] bytes)
+    {
+        return new GlideLoaderOptions().setResource(bytes);
+    }
+
+    /**
+     * 下载图片保存为File
+     *
+     * @param context  Context环境
+     * @param url      图片地址
+     * @param callBack 回调
+     */
+    public static void downloadFile(Context context, String url, ImageDownLoadCallBack<File> callBack)
+    {
+        LOADER.downloadFile(context, url, callBack);
+    }
+
+    /**
+     * 下载图片保存为File
+     *
+     * @param context   Context环境
+     * @param url       图片地址
+     * @param maxWidth  最大宽度
+     * @param maxHeight 最大高度
+     * @param callBack  回调
+     */
+    public static void downloadFile(Context context, String url, int maxWidth, int maxHeight, ImageDownLoadCallBack<File> callBack)
+    {
+        LOADER.downloadFile(context, url, maxWidth, maxHeight, callBack);
+    }
+
+    /**
+     * 下载图片转为Bitmap
+     *
+     * @param context  Context环境
+     * @param url      图片地址
+     * @param callBack 回调
+     */
+    public static void downloadBitmap(Context context, String url, ImageDownLoadCallBack<Bitmap> callBack)
+    {
+        LOADER.downloadBitmap(context, url, callBack);
+    }
+
+    /**
+     * 下载图片转为Bitmap
+     *
+     * @param context   Context环境
+     * @param url       图片地址
+     * @param maxWidth  最大宽度
+     * @param maxHeight 最大高度
+     * @param callBack  回调
+     */
+    public static void downloadBitmap(Context context, String url, int maxWidth, int maxHeight, ImageDownLoadCallBack<Bitmap> callBack)
+    {
+        LOADER.downloadBitmap(context, url, maxWidth, maxHeight, callBack);
     }
 }
