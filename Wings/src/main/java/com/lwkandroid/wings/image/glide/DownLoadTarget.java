@@ -10,7 +10,7 @@ import com.lwkandroid.wings.image.callback.ImageDownLoadCallBack;
 
 /**
  * Created by LWK
- * TODO
+ * TODO 下载Target
  */
 
 public class DownLoadTarget<R> extends SimpleTarget<R>

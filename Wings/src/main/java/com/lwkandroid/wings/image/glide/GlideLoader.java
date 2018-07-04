@@ -89,7 +89,7 @@ public class GlideLoader implements ILoader<GlideLoaderOptions>
                 .downloadOnly()
                 .load(url)
                 .apply(new RequestOptions().override(maxWidth, maxHeight))
-                .into(new DownLoadTarget<>(callBack));
+                .into(new DownLoadTarget<>(maxWidth, maxHeight, callBack));
     }
 
     @Override
