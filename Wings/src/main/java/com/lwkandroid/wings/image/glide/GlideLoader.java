@@ -155,8 +155,7 @@ public class GlideLoader implements ILoader<GlideLoaderOptions>
         if (options.getWidth() != 0 && options.getHeight() != 0)
             requestOptions.override(options.getWidth(), options.getHeight());
         //设置外部缓存策略
-        int diskCacheType = options.getDiskCacheType() != ImageLoader.getGlobalOptions().getDiskCacheType() ?
-                options.getDiskCacheType() : ImageLoader.getGlobalOptions().getDiskCacheType();
+        int diskCacheType = options.getDiskCacheType();
         if (diskCacheType == ImageDiskCacheType.ALL)
             requestOptions.diskCacheStrategy(DiskCacheStrategy.ALL);
         else if (diskCacheType == ImageDiskCacheType.NONE)
@@ -168,18 +167,14 @@ public class GlideLoader implements ILoader<GlideLoaderOptions>
         else
             requestOptions.diskCacheStrategy(DiskCacheStrategy.AUTOMATIC);
         //设置内存缓存策略
-        requestOptions.skipMemoryCache(options.isSkipMemoryCache() != ImageLoader.getGlobalOptions().isSkipMemoryCache() ?
-                options.isSkipMemoryCache() : ImageLoader.getGlobalOptions().isSkipMemoryCache());
+        requestOptions.skipMemoryCache(options.isSkipMemoryCache());
         //设置Transformation
         if (options.getTransformation() != null)
             requestOptions.transform(options.getTransformation());
         //设置显示动画
-        if (options.isCrossFade() != ImageLoader.getGlobalOptions().isCrossFade() ?
-                options.isCrossFade() : ImageLoader.getGlobalOptions().isCrossFade())
+        if (options.isCrossFade())
         {
-            builder.transition(BitmapTransitionOptions.withCrossFade(
-                    options.getCrossFadeDuration() != ImageLoader.getGlobalOptions().getCrossFadeDuration() ?
-                            options.getCrossFadeDuration() : ImageLoader.getGlobalOptions().getCrossFadeDuration()));
+            builder.transition(BitmapTransitionOptions.withCrossFade(options.getCrossFadeDuration()));
         } else if (!options.isAsGif())
         {
             //gif的图片不能调用.dontAnimate()
