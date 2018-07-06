@@ -27,7 +27,7 @@ public final class ImageLoader
 
     private static final ImageGlobalOptions mGlobalOptions;
 
-    private static final ILoader LOADER;
+    private static final ILoaderStrategy LOADER;
 
     private ImageLoader()
     {
@@ -44,7 +44,7 @@ public final class ImageLoader
     /**
      * 获取图片加载器对象
      */
-    public static ILoader getLoader()
+    public static ILoaderStrategy getLoader()
     {
         return LOADER;
     }

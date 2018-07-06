@@ -16,7 +16,7 @@ import java.io.File;
  * TODO 定义图片加载方法
  */
 
-public interface ILoader<T extends ImageOptions>
+public interface ILoaderStrategy<T extends ImageOptions>
 {
     /**
      * 加载图片

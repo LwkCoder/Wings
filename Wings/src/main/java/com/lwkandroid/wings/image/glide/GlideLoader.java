@@ -11,7 +11,7 @@ import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
-import com.lwkandroid.wings.image.ILoader;
+import com.lwkandroid.wings.image.ILoaderStrategy;
 import com.lwkandroid.wings.image.ImageLoader;
 import com.lwkandroid.wings.image.callback.ImageDownLoadCallBack;
 import com.lwkandroid.wings.image.constants.ImageDiskCacheType;
@@ -27,7 +27,7 @@ import java.io.File;
  * TODO Glide实现的图片加载模块
  */
 
-public class GlideLoader implements ILoader<GlideLoaderOptions>
+public class GlideLoader implements ILoaderStrategy<GlideLoaderOptions>
 {
     @Override
     public void show(Context context, ImageView imageView, GlideLoaderOptions options)
