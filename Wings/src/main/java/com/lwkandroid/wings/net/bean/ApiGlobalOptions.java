@@ -457,7 +457,7 @@ public class ApiGlobalOptions
         return mApiExceptionMsg;
     }
 
-    public ApiGlobalOptions setmApiExceptionMsg(IApiExceptionMsg apiExceptionMsg)
+    public ApiGlobalOptions setApiExceptionMsg(IApiExceptionMsg apiExceptionMsg)
     {
         this.mApiExceptionMsg = apiExceptionMsg;
         return this;
