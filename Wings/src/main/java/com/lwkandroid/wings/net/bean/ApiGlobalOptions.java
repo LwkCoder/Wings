@@ -420,9 +420,10 @@ public class ApiGlobalOptions
         return mAutoRetryCount;
     }
 
-    public void setAutoRetryCount(int count)
+    public ApiGlobalOptions setAutoRetryCount(int count)
     {
         this.mAutoRetryCount = count;
+        return this;
     }
 
     public int getAutoRetryDelay()
@@ -430,9 +431,10 @@ public class ApiGlobalOptions
         return mAutoRetryDelay;
     }
 
-    public void setAutoRetryDelay(int delay)
+    public ApiGlobalOptions setAutoRetryDelay(int delay)
     {
         this.mAutoRetryDelay = mAutoRetryDelay;
+        return this;
     }
 
     public IAutoRetry getAutoRetryJudge()
@@ -440,8 +442,9 @@ public class ApiGlobalOptions
         return mAutoRetry;
     }
 
-    public void setAutoRetryJudge(IAutoRetry autoRetry)
+    public ApiGlobalOptions setAutoRetryJudge(IAutoRetry autoRetry)
     {
         this.mAutoRetry = autoRetry;
+        return this;
     }
 }
