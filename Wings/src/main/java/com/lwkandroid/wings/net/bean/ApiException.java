@@ -112,7 +112,7 @@ public class ApiException extends Exception
         } else if (e instanceof ConnectException)
         {
             e.printStackTrace();
-            return new ApiException(ApiExceptionCode.NETWORD_ERROR, e.getMessage());
+            return new ApiException(ApiExceptionCode.CONNECT_ERROR, e.getMessage());
         } else if (e instanceof javax.net.ssl.SSLHandshakeException)
         {
             e.printStackTrace();
@@ -151,7 +151,7 @@ public class ApiException extends Exception
                 return "数据解析错误";
             case ApiExceptionCode.CAST_ERROR:
                 return "类型转换错误";
-            case ApiExceptionCode.NETWORD_ERROR:
+            case ApiExceptionCode.CONNECT_ERROR:
                 return "连接失败";
             case ApiExceptionCode.SSL_ERROR:
                 return "证书验证失败";

@@ -5,14 +5,15 @@ import android.text.TextUtils;
 
 import com.lwkandroid.wings.net.ApiService;
 import com.lwkandroid.wings.net.constants.ApiRequestType;
+import com.lwkandroid.wings.net.convert.ApiResponseConvert;
 import com.lwkandroid.wings.net.error.ApiErrorTransformer;
 import com.lwkandroid.wings.net.parser.ApiBytes2BitmapParser;
 import com.lwkandroid.wings.net.parser.ApiBytes2FileParser;
 import com.lwkandroid.wings.net.parser.ApiIS2BitmapParser;
 import com.lwkandroid.wings.net.parser.ApiIS2FileParser;
-import com.lwkandroid.wings.net.convert.ApiResponseConvert;
 import com.lwkandroid.wings.net.response.IApiBytesArrayResponse;
 import com.lwkandroid.wings.net.response.IApiInputSreamResponse;
+import com.lwkandroid.wings.net.retry.AutoRetryFunc;
 import com.socks.library.KLog;
 
 import java.io.File;
@@ -110,7 +111,8 @@ public class ApiDownloadRequest extends ApiBaseRequest<ApiDownloadRequest> imple
     {
         return invokeRequest()
                 .compose(ApiResponseConvert.responseToInputStream())
-                .compose(new ApiErrorTransformer<InputStream>());
+                .compose(new ApiErrorTransformer<InputStream>())
+                .retryWhen(new AutoRetryFunc(getUrl(), getAutoRetryCount(), getAutoRetryDelay(), getAutoRetryJudge()));
     }
 
     @Override
@@ -132,7 +134,8 @@ public class ApiDownloadRequest extends ApiBaseRequest<ApiDownloadRequest> imple
     {
         return invokeRequest()
                 .compose(ApiResponseConvert.responseToBytes())
-                .compose(new ApiErrorTransformer<byte[]>());
+                .compose(new ApiErrorTransformer<byte[]>())
+                .retryWhen(new AutoRetryFunc(getUrl(), getAutoRetryCount(), getAutoRetryDelay(), getAutoRetryJudge()));
     }
 
     @Override

@@ -32,9 +32,7 @@ public class RxHttpDemoModel extends RxHttpDemoConstract.Model
                 .addFormData("essence", "1")
                 .addFormData("message_cursor", "1")
                 .addFormData("double_col_mode", "1")
-                .setCachekey("POST_KEY")
-                .setCacheMode(ApiCacheMode.CACHE_FIRST_AFTER_REMOTE_IF_DIFF)
-                .setCacheTime(60000)
+                .setAutoRetryCount(5)
                 .parseAsList(TabsBean.class);
     }
 

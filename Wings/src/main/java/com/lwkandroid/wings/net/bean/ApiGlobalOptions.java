@@ -9,6 +9,8 @@ import com.lwkandroid.wings.net.cookie.ICookieJar;
 import com.lwkandroid.wings.net.https.HttpsUtils;
 import com.lwkandroid.wings.net.parser.ApiStringParser;
 import com.lwkandroid.wings.net.parser.IApiStringParser;
+import com.lwkandroid.wings.net.retry.AutoRetryJudgeImpl;
+import com.lwkandroid.wings.net.retry.IAutoRetry;
 import com.lwkandroid.wings.net.utils.FormDataMap;
 import com.lwkandroid.wings.utils.StringUtils;
 
@@ -69,6 +71,12 @@ public class ApiGlobalOptions
     private long mDiskMaxSize = -1;
     //缓存转换器
     private IDiskCacheOpeartor mCacheOpeartor = null;
+    //自动重试次数
+    private int mAutoRetryCount = 0;
+    //自动重试间隔,ms
+    private int mAutoRetryDelay = 1000;
+    //判断自动重试时机的对象
+    private IAutoRetry mAutoRetry = new AutoRetryJudgeImpl();
 
     public ApiGlobalOptions setApiResultType(Type type)
     {
@@ -405,5 +413,35 @@ public class ApiGlobalOptions
     public IDiskCacheOpeartor getCacheOpeartor()
     {
         return mCacheOpeartor;
+    }
+
+    public int getAutoRetryCount()
+    {
+        return mAutoRetryCount;
+    }
+
+    public void setAutoRetryCount(int count)
+    {
+        this.mAutoRetryCount = count;
+    }
+
+    public int getAutoRetryDelay()
+    {
+        return mAutoRetryDelay;
+    }
+
+    public void setAutoRetryDelay(int delay)
+    {
+        this.mAutoRetryDelay = mAutoRetryDelay;
+    }
+
+    public IAutoRetry getAutoRetryJudge()
+    {
+        return mAutoRetry;
+    }
+
+    public void setAutoRetryJudge(IAutoRetry autoRetry)
+    {
+        this.mAutoRetry = autoRetry;
     }
 }

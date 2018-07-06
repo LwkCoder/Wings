@@ -7,6 +7,7 @@ import com.lwkandroid.wings.net.constants.ApiCacheMode;
 import com.lwkandroid.wings.net.constants.ApiRequestType;
 import com.lwkandroid.wings.net.https.HttpsUtils;
 import com.lwkandroid.wings.net.parser.IApiStringParser;
+import com.lwkandroid.wings.net.retry.IAutoRetry;
 import com.lwkandroid.wings.net.utils.FormDataMap;
 import com.lwkandroid.wings.utils.StringUtils;
 
@@ -79,9 +80,9 @@ public abstract class ApiRequestOptions<T extends ApiRequestOptions>
     /*返回结果解析对象*/
     private IApiStringParser mStringParser = RxHttp.getGlobalOptions().getApiStringParser();
     /*Https证书*/
-    protected HttpsUtils.SSLParams mSslParams;
+    protected HttpsUtils.SSLParams mSslParams = RxHttp.getGlobalOptions().getSslParams();
     /*Https全局访问规则*/
-    protected HostnameVerifier mHostnameVerifier;
+    protected HostnameVerifier mHostnameVerifier = RxHttp.getGlobalOptions().getHostnameVerifier();
     //缓存类型
     private @ApiCacheMode.Mode
     int mCacheMode = RxHttp.getGlobalOptions().getCacheMode();
@@ -89,6 +90,12 @@ public abstract class ApiRequestOptions<T extends ApiRequestOptions>
     private String mCacheKey;
     //缓存时长
     private long mCacheTime = RxHttp.getGlobalOptions().getCacheTime();
+    //自动重试次数
+    private int mAutoRetryCount = RxHttp.getGlobalOptions().getAutoRetryCount();
+    //自动重试间隔,ms
+    private int mAutoRetryDelay = RxHttp.getGlobalOptions().getAutoRetryDelay();
+    //判断自动重试时机的对象
+    private IAutoRetry mAutoRetry = RxHttp.getGlobalOptions().getAutoRetryJudge();
 
     public IApiStringParser getApiStringParser()
     {
@@ -784,5 +791,38 @@ public abstract class ApiRequestOptions<T extends ApiRequestOptions>
     public long getCacheTime()
     {
         return mCacheTime;
+    }
+
+    public int getAutoRetryCount()
+    {
+        return mAutoRetryCount;
+    }
+
+    public T setAutoRetryCount(int count)
+    {
+        this.mAutoRetryCount = count;
+        return (T) this;
+    }
+
+    public int getAutoRetryDelay()
+    {
+        return mAutoRetryDelay;
+    }
+
+    public T setAutoRetryDelay(int delay)
+    {
+        this.mAutoRetryDelay = delay;
+        return (T) this;
+    }
+
+    public IAutoRetry getAutoRetryJudge()
+    {
+        return mAutoRetry;
+    }
+
+    public T setAutoRetryJudge(IAutoRetry autoRetry)
+    {
+        this.mAutoRetry = autoRetry;
+        return (T) this;
     }
 }

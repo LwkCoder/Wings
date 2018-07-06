@@ -11,14 +11,17 @@ public class ApiExceptionCode
      * 未知错误
      */
     public static final int UNKNOWN = 1000;
+
     /**
      * 解析错误
      */
     public static final int PARSE_ERROR = 1001;
+
     /**
-     * 网络错误
+     * 连接错误
      */
-    public static final int NETWORD_ERROR = 1002;
+    public static final int CONNECT_ERROR = 1002;
+
     /**
      * 证书出错
      */
