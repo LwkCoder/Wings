@@ -5,6 +5,7 @@ import android.net.ParseException;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializer;
 import com.google.gson.JsonSyntaxException;
+import com.lwkandroid.wings.net.RxHttp;
 import com.lwkandroid.wings.net.constants.ApiExceptionCode;
 
 import org.apache.http.conn.ConnectTimeoutException;
@@ -23,8 +24,11 @@ import retrofit2.HttpException;
 public class ApiException extends Exception
 {
     private static final long serialVersionUID = 4966919777463155346L;
+    //错误Id
     private int code;
+    //错误抛出的异常描述
     private String throwMessage;
+    //自定义的异常描述，通常可以用来直接Toast
     private String displayMessage;
 
     public ApiException(int code, String throwMessage)
@@ -32,15 +36,7 @@ public class ApiException extends Exception
         super(throwMessage);
         this.code = code;
         this.throwMessage = throwMessage;
-        this.displayMessage = createDisplayMessage(code);
-    }
-
-    public ApiException(int code, String throwMessage, String displayMessage)
-    {
-        super(throwMessage);
-        this.code = code;
-        this.throwMessage = throwMessage;
-        this.displayMessage = displayMessage;
+        this.displayMessage = RxHttp.getGlobalOptions().getApiExceptionMsg().parserMessageByCode(code, throwMessage);
     }
 
     public int getCode()

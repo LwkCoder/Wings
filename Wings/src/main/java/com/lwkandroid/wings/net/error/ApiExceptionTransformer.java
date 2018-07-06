@@ -9,7 +9,7 @@ import io.reactivex.ObservableTransformer;
  * TODO 异常转换为ApiException的Transformer
  */
 
-public class ApiErrorTransformer<T> implements ObservableTransformer<T, T>
+public class ApiExceptionTransformer<T> implements ObservableTransformer<T, T>
 {
     @Override
     public ObservableSource<T> apply(Observable<T> upstream)

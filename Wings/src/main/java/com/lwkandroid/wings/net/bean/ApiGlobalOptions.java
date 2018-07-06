@@ -6,6 +6,8 @@ import com.lwkandroid.wings.net.cache.opeartor.IDiskCacheOpeartor;
 import com.lwkandroid.wings.net.constants.ApiCacheMode;
 import com.lwkandroid.wings.net.constants.ApiConstants;
 import com.lwkandroid.wings.net.cookie.ICookieJar;
+import com.lwkandroid.wings.net.error.ApiExceptionMsgImpl;
+import com.lwkandroid.wings.net.error.IApiExceptionMsg;
 import com.lwkandroid.wings.net.https.HttpsUtils;
 import com.lwkandroid.wings.net.parser.ApiStringParser;
 import com.lwkandroid.wings.net.parser.IApiStringParser;
@@ -77,6 +79,8 @@ public class ApiGlobalOptions
     private int mAutoRetryDelay = 1000;
     //判断自动重试时机的对象
     private IAutoRetry mAutoRetry = new AutoRetryJudgeImpl();
+    //设置错误描述的对象
+    private IApiExceptionMsg mApiExceptionMsg = new ApiExceptionMsgImpl();
 
     public ApiGlobalOptions setApiResultType(Type type)
     {
@@ -445,6 +449,17 @@ public class ApiGlobalOptions
     public ApiGlobalOptions setAutoRetryJudge(IAutoRetry autoRetry)
     {
         this.mAutoRetry = autoRetry;
+        return this;
+    }
+
+    public IApiExceptionMsg getApiExceptionMsg()
+    {
+        return mApiExceptionMsg;
+    }
+
+    public ApiGlobalOptions setmApiExceptionMsg(IApiExceptionMsg apiExceptionMsg)
+    {
+        this.mApiExceptionMsg = apiExceptionMsg;
         return this;
     }
 }

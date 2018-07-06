@@ -53,7 +53,7 @@ public class RxHttpDemoPresenter extends RxHttpDemoConstract.Presenter
                     }
 
                     @Override
-                    public void _OnError(ApiException e)
+                    public void onApiExcetion(ApiException e)
                     {
                         KLog.e("无法获取数据：" + e.toString());
                         mViewImpl.showHttpError(e);
@@ -82,7 +82,7 @@ public class RxHttpDemoPresenter extends RxHttpDemoConstract.Presenter
                     }
 
                     @Override
-                    public void _OnError(ApiException e)
+                    public void onApiExcetion(ApiException e)
                     {
                         mViewImpl.showHttpError(e);
                     }
@@ -111,7 +111,7 @@ public class RxHttpDemoPresenter extends RxHttpDemoConstract.Presenter
                     }
 
                     @Override
-                    public void _OnError(ApiException e)
+                    public void onApiExcetion(ApiException e)
                     {
                         mViewImpl.showHttpError(e);
                         mViewImpl.setDownLoadEnable(true);
@@ -156,7 +156,7 @@ public class RxHttpDemoPresenter extends RxHttpDemoConstract.Presenter
                     }
 
                     @Override
-                    public void _OnError(ApiException e)
+                    public void onApiExcetion(ApiException e)
                     {
                         mViewImpl.showHttpError(e);
                     }
@@ -178,7 +178,7 @@ public class RxHttpDemoPresenter extends RxHttpDemoConstract.Presenter
         //                    }
         //
         //                    @Override
-        //                    public void _OnError(ApiException e)
+        //                    public void onApiExcetion(ApiException e)
         //                    {
         //                        mViewImpl.showHttpError(e);
         //                    }
@@ -199,7 +199,7 @@ public class RxHttpDemoPresenter extends RxHttpDemoConstract.Presenter
                     }
 
                     @Override
-                    public void _OnError(ApiException e)
+                    public void onApiExcetion(ApiException e)
                     {
                         mViewImpl.showHttpError(e);
                     }

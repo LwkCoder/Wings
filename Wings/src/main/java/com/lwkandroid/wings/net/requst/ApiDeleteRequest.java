@@ -11,7 +11,7 @@ import com.lwkandroid.wings.net.cache.func.ApiCacheDataParseAsListFunc;
 import com.lwkandroid.wings.net.constants.ApiConstants;
 import com.lwkandroid.wings.net.constants.ApiRequestType;
 import com.lwkandroid.wings.net.convert.ApiResponseConvert;
-import com.lwkandroid.wings.net.error.ApiErrorTransformer;
+import com.lwkandroid.wings.net.error.ApiExceptionTransformer;
 import com.lwkandroid.wings.net.response.IApiStringResponse;
 import com.lwkandroid.wings.net.retry.AutoRetryFunc;
 import com.lwkandroid.wings.net.utils.RequestBodyUtils;
@@ -67,7 +67,7 @@ public class ApiDeleteRequest extends ApiBaseRequest<ApiDeleteRequest> implement
         return invokeRequest()
                 .compose(ApiResponseConvert.responseToString())
                 .compose(RxCache.transform(getFinalCacheOptions(), String.class))
-                .compose(new ApiErrorTransformer<ApiResultCacheWrapper<String>>())
+                .compose(new ApiExceptionTransformer<ApiResultCacheWrapper<String>>())
                 .retryWhen(new AutoRetryFunc(getUrl(), getAutoRetryCount(), getAutoRetryDelay(), getAutoRetryJudge()));
     }
 

@@ -7,7 +7,7 @@ import io.reactivex.disposables.Disposable;
 
 /**
  * Created by LWK
- * TODO 网络请求Observer基类
+ * TODO 网络请求Observer基类（非必须）
  */
 
 public abstract class ApiBaseObserver<T> implements Observer<T>
@@ -27,9 +27,7 @@ public abstract class ApiBaseObserver<T> implements Observer<T>
     public void onError(Throwable e)
     {
         ApiException apiException = ApiException.handleThrowable(e);
-        //可以在这里根据错误码设置对应的提示信息
-        setDisplayMessage(apiException);
-        _OnError(apiException);
+        onApiExcetion(apiException);
     }
 
     @Override
@@ -41,13 +39,6 @@ public abstract class ApiBaseObserver<T> implements Observer<T>
 
     public abstract void _OnNext(T t);
 
-    public abstract void _OnError(ApiException e);
-
-    /**
-     * 子类可重写该方法根据具体错误设置提示信息
-     */
-    protected void setDisplayMessage(ApiException e)
-    {
-    }
+    public abstract void onApiExcetion(ApiException e);
 
 }

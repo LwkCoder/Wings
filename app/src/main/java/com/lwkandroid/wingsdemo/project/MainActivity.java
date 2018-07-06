@@ -107,7 +107,7 @@ public class MainActivity extends AppBaseActivity<MainPresenter> implements Main
                     }
 
                     @Override
-                    public void _OnError(ApiException e)
+                    public void onApiExcetion(ApiException e)
                     {
                         KLog.e("错误：" + e.toString());
                     }
