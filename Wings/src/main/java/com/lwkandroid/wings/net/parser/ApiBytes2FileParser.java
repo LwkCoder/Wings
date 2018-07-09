@@ -56,7 +56,7 @@ public class ApiBytes2FileParser implements IApiBytesArrayParser.FileParser
         if (StringUtils.isEmpty(mFileName))
             mFileName = String.valueOf(System.currentTimeMillis());
         if (StringUtils.isEmpty(mSavePath))
-            mSavePath = Utils.getContext().getExternalFilesDir(null) + File.separator + mFileName;
+            mSavePath = Utils.getContext().getExternalCacheDir().getAbsolutePath();
         mSavePath = mSavePath.replaceAll("//", "/");
 
         try

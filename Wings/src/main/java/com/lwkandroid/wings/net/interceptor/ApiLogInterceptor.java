@@ -235,23 +235,29 @@ public class ApiLogInterceptor implements Interceptor
                     return response.newBuilder().body(body).build();
                 } else
                 {
-                    String binaryString = toByteString(body.byteStream());
-                    if (JsonUtils.get().isJsonData(binaryString))
-                    {
-                        buffer.append(NEXT_LINE)
-                                .append(SEPARATOR)
-                                .append("ResponseBody: Binary json data:");
-                        appendFormatJson(binaryString, buffer);
-                    } else
-                    {
-                        buffer.append(NEXT_LINE)
-                                .append(SEPARATOR)
-                                .append("ResponseBody: Maybe binary body. Ignored logging !");
-                    }
                     buffer.append(NEXT_LINE)
+                            .append(SEPARATOR)
+                            .append("ResponseBody: Maybe binary body. Ignored logging !")
+                            .append(NEXT_LINE)
                             .append(END);
                     showLog(buffer);
-                    body = ResponseBody.create(body.contentType(), binaryString);
+                    //                    String binaryString = toByteString(body.byteStream());
+                    //                    if (JsonUtils.get().isJsonData(binaryString))
+                    //                    {
+                    //                        buffer.append(NEXT_LINE)
+                    //                                .append(SEPARATOR)
+                    //                                .append("ResponseBody: Binary json data:");
+                    //                        appendFormatJson(binaryString, buffer);
+                    //                    } else
+                    //                    {
+                    //                        buffer.append(NEXT_LINE)
+                    //                                .append(SEPARATOR)
+                    //                                .append("ResponseBody: Maybe binary body. Ignored logging !");
+                    //                    }
+                    //                    buffer.append(NEXT_LINE)
+                    //                            .append(END);
+                    //                    showLog(buffer);
+                    //                    body = ResponseBody.create(body.contentType(), binaryString);
                     return response.newBuilder().body(body).build();
                 }
             } else

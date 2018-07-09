@@ -55,7 +55,7 @@ public class RxHttpDemoModel extends RxHttpDemoConstract.Model
                 .addRemoveInterceptors("sign") //去除模拟签名用的拦截器，避免无法监听下载过程
                 .setFileName("Movie.mp4")
                 .setSaveFloderPath(SDCardUtils.getSDCardPath() + "/WingsDemo/")
-                .parseAsFileFromBytes();
+                .parseAsFileFromIS();
     }
 
     @Override
