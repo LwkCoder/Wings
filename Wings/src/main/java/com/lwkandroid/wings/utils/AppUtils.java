@@ -241,17 +241,17 @@ public final class AppUtils
     }
 
     /**
-     * 安装Apk【兼容7.0】
-     * 调用此方法时需要提前获取SD卡读取权限
+     * 创建用于安装apk的Intent，兼容7.0
      *
-     * @param apkPath apk绝对路径
+     * @param apkPath apk路径
+     * @return Intent
      */
-    public static void installApk(String apkPath)
+    public static Intent createInstallIntent(String apkPath)
     {
         if (StringUtils.isEmpty(apkPath) || !new File(apkPath).exists())
         {
             KLog.e("Can't install apk due to an invaild path !!!");
-            return;
+            return null;
         }
 
         File file = new File(apkPath);
@@ -269,7 +269,20 @@ public final class AppUtils
         }
         intent.setDataAndType(data, type);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        Utils.getContext().startActivity(intent);
+        return intent;
+    }
+
+    /**
+     * 安装Apk【兼容7.0】
+     * 调用此方法时需要提前获取SD卡读取权限
+     *
+     * @param apkPath apk绝对路径
+     */
+    public static void installApk(String apkPath)
+    {
+        Intent intent = createInstallIntent(apkPath);
+        if (intent != null)
+            Utils.getContext().startActivity(intent);
     }
 
     /**
