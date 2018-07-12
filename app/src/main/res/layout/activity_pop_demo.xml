@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.lwkandroid.wingsdemo.project.pop.PopDemoActivity">
+
+    <com.lwkandroid.widget.comactionbar.ComActionBar
+        android:id="@id/comactionbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:bg_color="@color/deep_dark"
+        app:is_left_as_back="true"
+        app:right_text01="菜单"
+        app:title_text="PopCreatorDemo"/>
+
+    <Button
+        android:id="@+id/btn_pop_bottom_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="底部滑出菜单"/>
+
+    <Button
+        android:id="@+id/btn_pop_dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dialog式弹窗"/>
+
+</LinearLayout>

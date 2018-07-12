@@ -53,7 +53,7 @@ public class RxHttpDemoModel extends RxHttpDemoConstract.Model
         return RxHttp.DOWNLOAD(ApiURL.DOWNLOAD_TEST) //下载链接的请求域名和全局域名不一样没关系，内部retrofit会自动识别
                 .removeAllGlobalFormDatas() //去除所有的全局参数，避免无法监听下载过程
                 .addRemoveInterceptors("sign") //去除模拟签名用的拦截器，避免无法监听下载过程
-                .setFileName("Movie.mp4")
+                .setFileName("app.apk")
                 .setSaveFloderPath(SDCardUtils.getSDCardPath() + "/WingsDemo/")
                 .parseAsFileFromIS();
     }

@@ -37,31 +37,12 @@
                 android:layout_height="wrap_content"
                 android:text="网络请求示例"/>
 
-            <TextView
-                style="@style/TinyTextStyle"
-                android:text="Wings快速开发工具"/>
-
-            <TextView
-                style="@style/SmallTextStyle"
-                android:text="Wings快速开发工具"/>
-
-            <TextView
-                style="@style/MediumTextStyle"
-                android:text="Wings快速开发工具"/>
-
-            <TextView
-                style="@style/LargeTextStyle"
-                android:text="Wings快速开发工具"/>
-
-            <TextView
-                style="@style/HugeTextStyle"
-                android:text="Wings快速开发工具"/>
-
             <Button
-                android:id="@+id/btn_image"
+                android:id="@+id/btn_main_pop"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="选图片"/>
+                android:text="PopCreater"/>
+
         </LinearLayout>
 
     </ScrollView>

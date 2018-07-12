@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/root_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/gray_lightest"
+    android:orientation="vertical"
+    android:padding="@dimen/spacing_normal">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="标题哟~~~"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginBottom="@dimen/spacing_small"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:background="@color/gray_darkest"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="触摸外部无法关闭的弹窗，实际上是有PopupWindow实现的，是不是有点意思啊"
+        android:textColor="@android:color/black"
+        android:textSize="15sp"/>
+
+
+    <TextView
+        android:id="@+id/tv_pop_dialog_dismiss"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:paddingLeft="@dimen/spacing_small"
+        android:paddingTop="@dimen/spacing_normal"
+        android:text="好了我知道了"
+        android:textColor="@color/green_rtdialog"
+        android:textSize="13sp"/>
+
+</LinearLayout>

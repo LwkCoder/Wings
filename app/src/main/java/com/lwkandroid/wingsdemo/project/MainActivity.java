@@ -9,26 +9,13 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.lwkandroid.imagepicker.ImagePicker;
-import com.lwkandroid.imagepicker.data.ImageBean;
-import com.lwkandroid.imagepicker.data.ImagePickType;
 import com.lwkandroid.imagepicker.utils.IImagePickerDisplayer;
 import com.lwkandroid.widget.comactionbar.ComActionBar;
-import com.lwkandroid.wings.net.RxHttp;
-import com.lwkandroid.wings.net.bean.ApiException;
-import com.lwkandroid.wings.net.bean.ProgressInfo;
-import com.lwkandroid.wings.net.listener.OnProgressListener;
-import com.lwkandroid.wings.net.manager.OkProgressManger;
-import com.lwkandroid.wings.net.observer.ApiBaseObserver;
-import com.lwkandroid.wings.rx.utils.RxSchedulers;
 import com.lwkandroid.wingsdemo.R;
 import com.lwkandroid.wingsdemo.app.AppBaseActivity;
 import com.lwkandroid.wingsdemo.project.image.ImageLoaderDemoActivity;
+import com.lwkandroid.wingsdemo.project.pop.PopDemoActivity;
 import com.lwkandroid.wingsdemo.project.rxhttp.RxHttpDemoActivity;
-import com.socks.library.KLog;
-
-import java.io.File;
-import java.util.List;
 
 /**
  * RxHttpDemoActivity
@@ -64,75 +51,15 @@ public class MainActivity extends AppBaseActivity<MainPresenter> implements Main
                 startActivity(new Intent(MainActivity.this, RxHttpDemoActivity.class));
             }
         });
-
-        addClick(R.id.btn_image, new View.OnClickListener()
+        addClick(R.id.btn_main_pop, new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                new ImagePicker()
-                        .pickType(ImagePickType.SINGLE)
-                        .displayer(new Loader())
-                        .start(MainActivity.this, 100);
+                startActivity(new Intent(MainActivity.this, PopDemoActivity.class));
             }
         });
-    }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 100 && resultCode == RESULT_OK && data != null)
-        {
-            List<ImageBean> list = data.getParcelableArrayListExtra(ImagePicker.INTENT_RESULT_DATA);
-            KLog.e("选择的图片：" + list.toString());
-            uploadImage(list.get(0).getImagePath());
-        }
-    }
-
-    String url = "http://192.168.3.189:8081/user/upload";
-
-    private void uploadImage(String path)
-    {
-        RxHttp.UPLOAD(url)
-                .addFile("image_data", new File(path))
-                .parseAsObject(String.class)
-                .compose(RxSchedulers.<String>applyIo2Main())
-                .subscribe(new ApiBaseObserver<String>()
-                {
-                    @Override
-                    public void _OnNext(String s)
-                    {
-                        KLog.e("s==" + s);
-                    }
-
-                    @Override
-                    public void onApiExcetion(ApiException e)
-                    {
-                        KLog.e("错误：" + e.toString());
-                    }
-                });
-        OkProgressManger.get().addDownloadListener(url, new OnProgressListener()
-        {
-            @Override
-            public void onProgress(ProgressInfo info)
-            {
-                KLog.e("进度：" + info.getPercent());
-            }
-
-            @Override
-            public void onError(long id, Exception e)
-            {
-                KLog.e("无法追踪进度：id=" + id + " e=" + e.toString());
-            }
-        });
-    }
-
-    @Override
-    protected void onDestroy()
-    {
-        OkProgressManger.get().removeDownloadListener(url);
-        super.onDestroy();
     }
 
     @Override
