@@ -22,7 +22,6 @@ public class PopOptions<T extends PopOptions> implements IPopProxy
     private PopupWindow.OnDismissListener dismissListener;
     private ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(
             ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-    private boolean dismissAfterBackPressed = true;
 
     public boolean isFocusable()
     {
@@ -116,23 +115,6 @@ public class PopOptions<T extends PopOptions> implements IPopProxy
     public PopBaseContentView getPopContentView()
     {
         return popContentView;
-    }
-
-    /**
-     * 设置是否点击Back关闭Pop
-     *
-     * @param b 仅当isCancelOutsideTouched()为True时设置该参数为True才有效
-     * @return
-     */
-    public T setDismissAfterBackPressed(boolean b)
-    {
-        this.dismissAfterBackPressed = b;
-        return (T) this;
-    }
-
-    public boolean isDismissAfterBackPressed()
-    {
-        return dismissAfterBackPressed;
     }
 
     @Override

@@ -118,10 +118,12 @@ public class PopCreator implements IPopOpeartor, PopupWindow.OnDismissListener
             //下面这三个必须同时设置
             mPopupWindow.setFocusable(true);
             mPopupWindow.setOutsideTouchable(false);
-            mPopupWindow.setBackgroundDrawable(new BitmapDrawable());
+            mPopupWindow.setBackgroundDrawable(null);
             //注意下面这三个是contentView 不是PopupWindow
             mPopupWindow.getContentView().setFocusable(true);
             mPopupWindow.getContentView().setFocusableInTouchMode(true);
+            //实测发现这个没用，因为内部的PopupDecorView已经消化了onKeyListener()，
+            //点击Back一定会dismiss()
             mPopupWindow.getContentView().setOnKeyListener(new View.OnKeyListener()
             {
                 @Override
@@ -129,8 +131,7 @@ public class PopCreator implements IPopOpeartor, PopupWindow.OnDismissListener
                 {
                     if (keyCode == KeyEvent.KEYCODE_BACK)
                     {
-                        if (mOptions.isDismissAfterBackPressed())
-                            mPopupWindow.dismiss();
+                        mPopupWindow.dismiss();
                         return true;
                     }
                     return false;

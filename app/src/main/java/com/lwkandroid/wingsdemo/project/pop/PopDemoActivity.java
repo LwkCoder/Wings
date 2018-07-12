@@ -59,7 +59,6 @@ public class PopDemoActivity extends AppBaseActivity
             case R.id.btn_pop_dialog:
                 PopCreator.create(new DialogPop())
                         .setCancelOutsideTouched(false)
-                        .setDismissAfterBackPressed(false)
                         .setLayoutParams(ScreenUtils.getScreenWidth() / 3 * 2, ViewGroup.LayoutParams.WRAP_CONTENT)
                         .setDarkWindow(true)
                         .setDarkWindowDuration(200)
