@@ -8,7 +8,7 @@ import android.widget.PopupWindow;
  * TODO 定义PopupCreator外部可调方法的接口
  */
 
-public interface IPopOpeartor
+public interface IPopOperator
 {
     /**
      * 显示在指定位置

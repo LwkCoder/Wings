@@ -23,7 +23,7 @@ import java.lang.ref.WeakReference;
  * TODO PopupWindow辅助类
  */
 
-public class PopCreator implements IPopOpeartor, PopupWindow.OnDismissListener
+public class PopCreator implements IPopOperator, PopupWindow.OnDismissListener
 {
     private static final String TAG = "PopCreator";
     private WeakReference<Context> mContextReference;
