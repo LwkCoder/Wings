@@ -46,6 +46,11 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         getIntentData(intent, true);
     }
 
+    public View getContentView()
+    {
+        return mContentView;
+    }
+
     /**
      * 子类可重写此方法在onCreate之前执行一些准备操作
      */
