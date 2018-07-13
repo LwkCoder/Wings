@@ -60,7 +60,7 @@ public class PopDemoActivity extends AppBaseActivity
                 PopCreator.create(new DialogPop())
                         .setCancelOutsideTouched(false)
                         .setLayoutParams(ScreenUtils.getScreenWidth() / 3 * 2, ViewGroup.LayoutParams.WRAP_CONTENT)
-                        .setDarkWindow(true)
+                        .setDarkWindow(true, 0.6f)
                         .setDarkWindowDuration(200)
                         .showAtLocation(mContentView, Gravity.CENTER, 0, 0);
                 break;

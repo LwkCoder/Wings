@@ -255,7 +255,13 @@ public class PopCreator implements IPopOperator, PopupWindow.OnDismissListener
             mAnimator = null;
         }
 
-        mAnimator = ValueAnimator.ofFloat(0.5f, 1.0f);
+        float degree = mOptions.getDarkWindowDegree();
+        if (degree > 1.0f)
+            mOptions.setDarkWindowDegree(1.0f);
+        else if (degree < 0)
+            mOptions.setDarkWindowDegree(0f);
+
+        mAnimator = ValueAnimator.ofFloat(mOptions.getDarkWindowDegree(), 1.0f);
         mAnimator.setDuration(mOptions.getDarkWindowDuration());//动画时间要和PopupWindow弹出动画的时间一致
         mAnimator.setInterpolator(new LinearInterpolator());
         mAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
@@ -264,7 +270,7 @@ public class PopCreator implements IPopOperator, PopupWindow.OnDismissListener
             public void onAnimationUpdate(ValueAnimator animation)
             {
                 float value = (float) animation.getAnimatedValue();
-                updateBgAlpha(1.5f - value);
+                updateBgAlpha(mOptions.getDarkWindowDegree() + 1.0f - value);
             }
         });
         mAnimator.start();
