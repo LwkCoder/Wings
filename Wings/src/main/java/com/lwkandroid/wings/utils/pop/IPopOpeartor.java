@@ -1,6 +1,7 @@
 package com.lwkandroid.wings.utils.pop;
 
 import android.view.View;
+import android.widget.PopupWindow;
 
 /**
  * Created by LWK
@@ -52,6 +53,109 @@ public interface IPopOpeartor
      * @return PopCreater对象
      */
     PopCreator showAsDropDown(View anchor, int xoff, int yoff, int gravity, PopOptions options);
+
+    /**
+     * Updates the state of the popup window, if it is currently being displayed,
+     * from the currently set state.
+     * 更新PopupWindow的状态，如果从显示到隐藏后需要更新状态
+     */
+    void update();
+
+    /**
+     * Updates the dimension of the popup window.
+     * 更新PopupWindow的大小
+     * <p>
+     * Calling this function also updates the window with the current popup
+     * state as described for {@link #update()}.
+     * 调用该方法后也会更新PopupWindow的状态
+     *
+     * @param width  the new width in pixels, must be >= 0 or -1 to ignore
+     * @param height the new height in pixels, must be >= 0 or -1 to ignore
+     */
+    void update(int width, int height);
+
+    /**
+     * Updates the position and the dimension of the popup window.
+     * 更新PopupWindow的位置
+     * <p>
+     * Width and height can be set to -1 to update location only. Calling this
+     * function also updates the window with the current popup state as
+     * described for {@link #update()}.
+     * 如果大小没有改变，参数可以传-1
+     * 调用该方法后也会更新PopupWindow的状态
+     *
+     * @param x      the new x location
+     * @param y      the new y location
+     * @param width  the new width in pixels, must be >= 0 or -1 to ignore
+     * @param height the new height in pixels, must be >= 0 or -1 to ignore
+     */
+    void update(int x, int y, int width, int height);
+
+    /**
+     * Updates the position and the dimension of the popup window.
+     * 更新PopupWindow的大小和位置
+     * <p>
+     * Width and height can be set to -1 to update location only. Calling this
+     * function also updates the window with the current popup state as
+     * described for {@link #update()}.
+     * 如果大小没有改变，参数可以传-1
+     * 调用该方法后也会更新PopupWindow的状态
+     *
+     * @param x      the new x location
+     * @param y      the new y location
+     * @param width  the new width in pixels, must be >= 0 or -1 to ignore
+     * @param height the new height in pixels, must be >= 0 or -1 to ignore
+     * @param force  {@code true} to reposition the window even if the specified
+     *               position already seems to correspond to the LayoutParams,
+     *               {@code false} to only reposition if needed
+     */
+    void update(int x, int y, int width, int height, boolean force);
+
+    /**
+     * Updates the position and the dimension of the popup window.
+     * 更新PopupWindow的大小和位置
+     * <p>
+     * Calling this function also updates the window with the current popup
+     * state as described for {@link #update()}.
+     * 调用该方法后也会更新PopupWindow的状态
+     *
+     * @param anchor the popup's anchor view
+     * @param width  the new width in pixels, must be >= 0 or -1 to ignore
+     * @param height the new height in pixels, must be >= 0 or -1 to ignore
+     */
+    void update(View anchor, int width, int height);
+
+    /**
+     * Updates the position and the dimension of the popup window.
+     * 更新PopupWindow的大小和位置
+     * <p>
+     * Width and height can be set to -1 to update location only. Calling this
+     * function also updates the window with the current popup state as
+     * described for {@link #update()}.
+     * 如果大小没有改变，参数可以传-1
+     * 调用该方法后也会更新PopupWindow的状态
+     * <p>
+     * If the view later scrolls to move {@code anchor} to a different
+     * location, the popup will be moved correspondingly.
+     * 如果依附的父View后来滚到到新的位置，PopupWindow也会跟随
+     *
+     * @param anchor the popup's anchor view
+     * @param xoff   x offset from the view's left edge
+     * @param yoff   y offset from the view's bottom edge
+     * @param width  the new width in pixels, must be >= 0 or -1 to ignore
+     * @param height the new height in pixels, must be >= 0 or -1 to ignore
+     */
+    void update(View anchor, int xoff, int yoff, int width, int height);
+
+    /**
+     * 获取PopupWindow对象
+     */
+    PopupWindow getPopupWindow();
+
+    /**
+     * 获取ContentView对象
+     */
+    PopBaseContentView getContentView();
 
     /**
      * 判断是否显示

@@ -70,6 +70,60 @@ public class PopCreator implements IPopOpeartor, PopupWindow.OnDismissListener
         return this;
     }
 
+    @Override
+    public void update()
+    {
+        if (mPopupWindow != null)
+            mPopupWindow.update();
+    }
+
+    @Override
+    public void update(int width, int height)
+    {
+        if (mPopupWindow != null)
+            mPopupWindow.update(width, height);
+    }
+
+    @Override
+    public void update(int x, int y, int width, int height)
+    {
+        if (mPopupWindow != null)
+            mPopupWindow.update(x, y, width, height);
+    }
+
+    @Override
+    public void update(int x, int y, int width, int height, boolean force)
+    {
+        if (mPopupWindow != null)
+            mPopupWindow.update(x, y, width, height, false);
+    }
+
+    @Override
+    public void update(View anchor, int width, int height)
+    {
+        if (mPopupWindow != null)
+            mPopupWindow.update(anchor, width, height);
+    }
+
+    @Override
+    public void update(View anchor, int xoff, int yoff, int width, int height)
+    {
+        if (mPopupWindow != null)
+            mPopupWindow.update(anchor, xoff, yoff, width, height);
+    }
+
+    @Override
+    public PopupWindow getPopupWindow()
+    {
+        return mPopupWindow;
+    }
+
+    @Override
+    public PopBaseContentView getContentView()
+    {
+        return mPopContentView;
+    }
+
     //初始化配置
     private void init(Context context, PopOptions options)
     {
@@ -219,6 +273,7 @@ public class PopCreator implements IPopOpeartor, PopupWindow.OnDismissListener
     //设置窗口变亮
     private void applyWindowLight()
     {
+        mPopupWindow.update();
         if (mOptions != null && !mOptions.isDarkWindow())
             return;
         updateBgAlpha(1.0f);
