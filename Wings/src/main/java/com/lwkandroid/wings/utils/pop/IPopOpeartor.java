@@ -57,7 +57,7 @@ public interface IPopOpeartor
     /**
      * Updates the state of the popup window, if it is currently being displayed,
      * from the currently set state.
-     * 更新PopupWindow的状态，如果从显示到隐藏后需要更新状态
+     * 更新PopupWindow状态，如果当前已是显示状态，就从当前状态更新
      */
     void update();
 
