@@ -81,4 +81,15 @@ public class RxHttpDemoModel extends RxHttpDemoConstract.Model
                 .setBitmapMaxSize(400, 400)
                 .parseAsBitmapFromBytes();
     }
+
+    @Override
+    Observable<String> uploadImages(List<File> files)
+    {
+        return RxHttp.UPLOAD(ApiURL.UPLOAD_TEST)
+                .setWriteTimeOut(600000)
+                .setReadTimeOut(600000)
+                .setConnectTimeOut(600000)
+                .addFiles("image", files)
+                .returnStringResponse();
+    }
 }

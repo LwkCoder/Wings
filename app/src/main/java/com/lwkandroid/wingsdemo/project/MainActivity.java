@@ -1,15 +1,10 @@
 package com.lwkandroid.wingsdemo.project;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
-import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-import com.lwkandroid.imagepicker.utils.IImagePickerDisplayer;
 import com.lwkandroid.widget.comactionbar.ComActionBar;
 import com.lwkandroid.wingsdemo.R;
 import com.lwkandroid.wingsdemo.app.AppBaseActivity;
@@ -59,7 +54,6 @@ public class MainActivity extends AppBaseActivity<MainPresenter> implements Main
                 startActivity(new Intent(MainActivity.this, PopDemoActivity.class));
             }
         });
-
     }
 
     @Override
@@ -78,31 +72,4 @@ public class MainActivity extends AppBaseActivity<MainPresenter> implements Main
         return new MainPresenter();
     }
 
-    private class Loader implements IImagePickerDisplayer
-    {
-
-        @Override
-        public void display(Context context, String url, ImageView imageView, int maxWidth, int maxHeight)
-        {
-            RequestOptions options = new RequestOptions();
-            options.override(maxWidth, maxHeight);
-            Glide.with(context)
-                    .load(url)
-                    .apply(options)
-                    .into(imageView);
-        }
-
-        @Override
-        public void display(Context context, String url, ImageView imageView, int placeHolder, int errorHolder, int maxWidth, int maxHeight)
-        {
-            RequestOptions options = new RequestOptions();
-            options.placeholder(placeHolder);
-            options.error(errorHolder);
-            options.override(maxWidth, maxHeight);
-            Glide.with(context)
-                    .load(url)
-                    .apply(options)
-                    .into(imageView);
-        }
-    }
 }

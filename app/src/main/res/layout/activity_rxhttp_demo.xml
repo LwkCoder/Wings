@@ -54,6 +54,12 @@
                 android:layout_height="wrap_content"
                 android:text="下载图片Bitmap"/>
 
+            <Button
+                android:id="@+id/btn_rxhttp_upload"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="上传图片"/>
+
             <TextView
                 android:id="@+id/tv_rxhttp_demo"
                 android:layout_width="wrap_content"

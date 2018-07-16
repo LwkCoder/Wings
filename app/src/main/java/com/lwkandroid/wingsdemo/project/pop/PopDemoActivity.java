@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.lwkandroid.widget.comactionbar.ComActionBar;
 import com.lwkandroid.wings.mvp.BasePresenter;
@@ -16,6 +17,7 @@ import com.lwkandroid.wingsdemo.app.AppBaseActivity;
 public class PopDemoActivity extends AppBaseActivity
 {
     ComActionBar mActionBar;
+    private Button mBtnMenu;
 
     @Override
     public int getContentViewId()
@@ -29,9 +31,11 @@ public class PopDemoActivity extends AppBaseActivity
         super.initUI(contentView);
         mActionBar = find(R.id.comactionbar);
         mActionBar.setRightClickListener01(this);
+        mBtnMenu = find(R.id.btn_pop_menu);
 
         addClick(R.id.btn_pop_bottom_menu);
         addClick(R.id.btn_pop_dialog);
+        addClick(R.id.btn_pop_menu);
     }
 
     @Override
@@ -44,6 +48,10 @@ public class PopDemoActivity extends AppBaseActivity
     {
         switch (id)
         {
+            case R.id.btn_pop_menu:
+                PopCreator.create(new ActionBarMenuPop())
+                        .showAsDropDown(mBtnMenu);
+                break;
             case R.id.fl_comactionbar_right01:
                 PopCreator.create(new ActionBarMenuPop())
                         .showAsDropDown(mActionBar.getRightAreaView01());

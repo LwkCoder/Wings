@@ -33,6 +33,8 @@ public interface RxHttpDemoConstract
 
         void showDownloadProgress(ProgressInfo info);
 
+        void showUploadProgress(ProgressInfo info);
+
         void showNonRestFulResult(NonRestFulResult result);
 
         void showImageBitmap(Bitmap bitmap);
@@ -63,6 +65,8 @@ public interface RxHttpDemoConstract
         abstract Observable<ApiResultCacheWrapper<NonRestFulResult>> requestNonRestFulData();
 
         abstract Observable<Bitmap> requestBitmapData();
+
+        abstract Observable<String> uploadImages(List<File> files);
     }
 
     abstract class Presenter extends AppBasePresenter<View, Model>
@@ -76,5 +80,7 @@ public interface RxHttpDemoConstract
         abstract void requestNonRestFul();
 
         abstract void requestBitmapData();
+
+        abstract void uploadImages(List<File> files);
     }
 }

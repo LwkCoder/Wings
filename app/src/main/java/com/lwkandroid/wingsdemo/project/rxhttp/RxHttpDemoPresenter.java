@@ -207,9 +207,45 @@ public class RxHttpDemoPresenter extends RxHttpDemoConstract.Presenter
     }
 
     @Override
+    void uploadImages(List<File> files)
+    {
+        mModelImpl.uploadImages(files)
+                .compose(this.<String>applyIo2MainWithLifeCycle())
+                .subscribe(new ApiBaseObserver<String>()
+                {
+                    @Override
+                    public void _OnNext(String s)
+                    {
+                        mViewImpl.showShortToast("上传成功");
+                    }
+
+                    @Override
+                    public void onApiExcetion(ApiException e)
+                    {
+                        mViewImpl.showHttpError(e);
+                    }
+                });
+        OkProgressManger.get().addUploadListener(ApiURL.UPLOAD_TEST, new OnProgressListener()
+        {
+            @Override
+            public void onProgress(ProgressInfo info)
+            {
+                mViewImpl.showUploadProgress(info);
+            }
+
+            @Override
+            public void onError(long id, Exception e)
+            {
+                KLog.e("监听上传时发生错误：" + e.toString());
+            }
+        });
+    }
+
+    @Override
     public void onDestory()
     {
         super.onDestory();
         OkProgressManger.get().removeDownloadListener(ApiURL.DOWNLOAD_TEST);
+        OkProgressManger.get().removeUploadListener(ApiURL.UPLOAD_TEST);
     }
 }
