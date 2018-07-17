@@ -1,7 +1,6 @@
 package com.lwkandroid.wings.utils.pop;
 
 import android.animation.ValueAnimator;
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
@@ -9,7 +8,6 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.LinearInterpolator;
 import android.widget.PopupWindow;
@@ -42,7 +40,7 @@ public class PopCreator implements IPopOperator, PopupWindow.OnDismissListener
     {
         init(parent.getContext(), options);
         mPopupWindow.showAtLocation(parent, gravity, x, y);
-        applyWindowDark();
+        applyProgressAffect();
         return this;
     }
 
@@ -66,7 +64,7 @@ public class PopCreator implements IPopOperator, PopupWindow.OnDismissListener
             mPopupWindow.showAsDropDown(anchor, xoff, yoff, gravity);
         else
             mPopupWindow.showAsDropDown(anchor, xoff, yoff);
-        applyWindowDark();
+        applyProgressAffect();
         return this;
     }
 
@@ -236,65 +234,45 @@ public class PopCreator implements IPopOperator, PopupWindow.OnDismissListener
     @Override
     public void onDismiss()
     {
-        applyWindowLight();
+        applyDismissAffect();
         if (mOptions != null && mOptions.getDismissListener() != null)
             mOptions.getDismissListener().onDismiss();
         mPopupWindow = null;
         mContextReference = null;
     }
 
-    //设置窗口逐渐变暗
-    private void applyWindowDark()
+    //显示过程中的效果
+    private void applyProgressAffect()
     {
-        if (mOptions != null && !mOptions.isDarkWindow())
+        if (mOptions == null || mOptions.getAffect() == null)
             return;
 
         if (mAnimator != null)
-        {
             mAnimator.cancel();
-            mAnimator = null;
-        }
 
-        float degree = mOptions.getDarkWindowDegree();
-        if (degree > 1.0f)
-            mOptions.setDarkWindowDegree(1.0f);
-        else if (degree < 0)
-            mOptions.setDarkWindowDegree(0f);
-
-        mAnimator = ValueAnimator.ofFloat(mOptions.getDarkWindowDegree(), 1.0f);
-        mAnimator.setDuration(mOptions.getDarkWindowDuration());//动画时间要和PopupWindow弹出动画的时间一致
+        mAnimator = ValueAnimator.ofFloat(0f, 1.0f);
+        mAnimator.setDuration(mOptions.getAffectDuration());
         mAnimator.setInterpolator(new LinearInterpolator());
         mAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
         {
             @Override
             public void onAnimationUpdate(ValueAnimator animation)
             {
-                float value = (float) animation.getAnimatedValue();
-                updateBgAlpha(mOptions.getDarkWindowDegree() + 1.0f - value);
+                mOptions.getAffect().onShowingProgress(getContext(), mOptions, (Float) animation.getAnimatedValue());
             }
         });
         mAnimator.start();
     }
 
-    //设置窗口变亮
-    private void applyWindowLight()
+    //消失的效果
+    private void applyDismissAffect()
     {
-        mPopupWindow.update();
-        if (mOptions != null && !mOptions.isDarkWindow())
+        if (mOptions == null || mOptions.getAffect() == null)
             return;
-        updateBgAlpha(1.0f);
-    }
+        if (mAnimator != null)
+            mAnimator.cancel();
 
-    // 此方法用于改变背景的透明度，从而达到“变暗”的效果
-    private void updateBgAlpha(float bgAlpha)
-    {
-        if (getContext() != null && getContext() instanceof Activity)
-        {
-            Window window = ((Activity) getContext()).getWindow();
-            WindowManager.LayoutParams lp = window.getAttributes();
-            lp.alpha = bgAlpha; //0.0-1.0
-            window.setAttributes(lp);
-        }
+        mOptions.getAffect().onDismissed(getContext(), mOptions);
     }
 
     protected Context getContext()

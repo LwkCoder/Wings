@@ -1,6 +1,5 @@
 package com.lwkandroid.wings.utils.pop;
 
-import android.support.annotation.FloatRange;
 import android.support.annotation.StyleRes;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +17,8 @@ public class PopOptions<T extends PopOptions> implements IPopProxy
     private boolean cancelOutsideTouched = true;
     private @StyleRes
     int animStyle = -1;
-    private boolean darkWindow = false;
-    private float darkWindowDegree = 0.5f;
-    private long darkWindowDuration = 200;
+    private IPopAffect affect;
+    private long affectDuration = 200;
     private PopupWindow.OnDismissListener dismissListener;
     private ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(
             ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -72,67 +70,6 @@ public class PopOptions<T extends PopOptions> implements IPopProxy
     public T setAnimStyle(@StyleRes int animStyle)
     {
         this.animStyle = animStyle;
-        return (T) this;
-    }
-
-    public boolean isDarkWindow()
-    {
-        return darkWindow;
-    }
-
-    /**
-     * 设置显示时窗口是否变暗
-     *
-     * @param darkWindow True：是 False：否
-     */
-    public T setDarkWindow(boolean darkWindow)
-    {
-        this.darkWindow = darkWindow;
-        return (T) this;
-    }
-
-    /**
-     * 设置显示时窗口是否变暗
-     *
-     * @param darkWindow True：是 False：否
-     * @param degree     窗口透明度，默认0.5f，取值范围0f - 1.0f，取值越大，透明度越高
-     */
-    public T setDarkWindow(boolean darkWindow, @FloatRange(from = 0f, to = 1.0f) float degree)
-    {
-        this.darkWindow = darkWindow;
-        this.darkWindowDegree = degree;
-        return (T) this;
-    }
-
-    /**
-     * 设置显示时窗口变暗的程度
-     *
-     * @param degree 窗口透明度，默认0.5f，取值范围0f - 1.0f，取值越大，透明度越高
-     */
-    public T setDarkWindowDegree(@FloatRange(from = 0f, to = 1.0f) float degree)
-    {
-        this.darkWindowDegree = degree;
-        return (T) this;
-    }
-
-    public float getDarkWindowDegree()
-    {
-        return darkWindowDegree;
-    }
-
-    public long getDarkWindowDuration()
-    {
-        return darkWindowDuration;
-    }
-
-    /**
-     * 设置显示时窗口变暗的过程时间
-     *
-     * @param darkWindowDuration 时间，默认200ms
-     */
-    public T setDarkWindowDuration(long darkWindowDuration)
-    {
-        this.darkWindowDuration = darkWindowDuration;
         return (T) this;
     }
 
@@ -189,6 +126,40 @@ public class PopOptions<T extends PopOptions> implements IPopProxy
     {
         this.popContentView = contentView;
         return (T) this;
+    }
+
+    /**
+     * 获取显示过程效果时长
+     *
+     * @return 显示过程效果时长
+     */
+    public long getAffectDuration()
+    {
+        return affectDuration;
+    }
+
+    /**
+     * 设置显示效果
+     *
+     * @param affect   显示效果实现类对象
+     * @param duration 过程时长，务必和AnimStyle动画时长保持一致
+     * @return
+     */
+    public T setAffectParams(IPopAffect affect, long duration)
+    {
+        this.affect = affect;
+        this.affectDuration = duration;
+        return (T) this;
+    }
+
+    /**
+     * 获取显示效果
+     *
+     * @return
+     */
+    public IPopAffect getAffect()
+    {
+        return affect;
     }
 
     public PopBaseContentView getPopContentView()

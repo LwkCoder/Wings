@@ -11,6 +11,7 @@ import com.lwkandroid.widget.comactionbar.ComActionBar;
 import com.lwkandroid.wings.mvp.BasePresenter;
 import com.lwkandroid.wings.utils.ScreenUtils;
 import com.lwkandroid.wings.utils.pop.PopCreator;
+import com.lwkandroid.wings.utils.pop.PopDarkWindowAffect;
 import com.lwkandroid.wingsdemo.R;
 import com.lwkandroid.wingsdemo.app.AppBaseActivity;
 
@@ -58,18 +59,16 @@ public class PopDemoActivity extends AppBaseActivity
                 break;
             case R.id.btn_pop_bottom_menu:
                 PopCreator.create(new BottomMenuPop())
-                        .setDarkWindow(true)
+                        .setAffectParams(new PopDarkWindowAffect(0.5f), 200)
                         .setLayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-                        .setDarkWindowDuration(200)//务必和动画时间一致
                         .setAnimStyle(R.style.PopBottomMenuStyle)
                         .showAtLocation(mContentView, Gravity.BOTTOM, 0, 0);
                 break;
             case R.id.btn_pop_dialog:
                 PopCreator.create(new DialogPop())
                         .setCancelOutsideTouched(false)
+                        .setAffectParams(new PopDarkWindowAffect(), 200)
                         .setLayoutParams(ScreenUtils.getScreenWidth() / 3 * 2, ViewGroup.LayoutParams.WRAP_CONTENT)
-                        .setDarkWindow(true, 0.6f)
-                        .setDarkWindowDuration(200)
                         .showAtLocation(mContentView, Gravity.CENTER, 0, 0);
                 break;
         }
