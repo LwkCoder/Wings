@@ -33,6 +33,18 @@ public class ApiExceptionMsgImpl implements IApiExceptionMsg
         else if (errorCode == ApiExceptionCode.CACHE_EMPTY)
             return "本地无缓存";
         else
-            return "未知错误";
+            return getCustomMessage(errorCode, throwMessage);
+    }
+
+    /**
+     * 子类可继承该类完成补全
+     *
+     * @param errCode
+     * @param throwMessage
+     * @return
+     */
+    public String getCustomMessage(int errCode, String throwMessage)
+    {
+        return "未知错误";
     }
 }
