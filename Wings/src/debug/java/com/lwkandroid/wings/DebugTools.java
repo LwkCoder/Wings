@@ -1,6 +1,6 @@
 package com.lwkandroid.wings;
 
-import android.app.Application;
+import android.content.Context;
 
 import com.facebook.stetho.Stetho;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
@@ -21,7 +21,7 @@ public class DebugTools
 {
     public static final boolean DEBUG = true;
 
-    public static void init(Application context)
+    public static void init(Context context)
     {
         //Debug环境下可以初始化debug工具
         //Facebook的Stetho

@@ -22,7 +22,7 @@ public class ActivityStack
         private static ActivityStack instance = new ActivityStack();
     }
 
-    public static ActivityStack getInstance()
+    public static ActivityStack get()
     {
         return InnerHolder.instance;
     }

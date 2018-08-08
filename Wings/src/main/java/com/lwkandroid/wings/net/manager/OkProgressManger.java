@@ -163,7 +163,7 @@ public class OkProgressManger
      * <p>
      * Example usage:
      * <pre>
-     * String newUrl = ProgressManager.getInstance().addDiffDownloadListenerOnSameUrl(DOWNLOAD_URL, "id", getDownloadListener());
+     * String newUrl = ProgressManager.get().addDiffDownloadListenerOnSameUrl(DOWNLOAD_URL, "id", getDownloadListener());
      * new Thread(new Runnable() {
      *
      *   public void run() {
@@ -176,7 +176,7 @@ public class OkProgressManger
      *      } catch (IOException e) {
      *       e.printStackTrace();
      *       //当外部发生错误时,使用此方法可以通知所有监听器的 onError 方法,这里也要使用 newUrl
-     *       ProgressManager.getInstance().notifyOnErorr(newUrl, e);
+     *       ProgressManager.get().notifyOnErorr(newUrl, e);
      *     }
      *   }
      * }).start();
@@ -229,7 +229,7 @@ public class OkProgressManger
      * <p>
      * Example usage:
      * <pre>
-     * String newUrl = ProgressManager.getInstance().addDiffUploadListenerOnSameUrl(UPLOAD_URL, "id", getUploadListener());
+     * String newUrl = ProgressManager.get().addDiffUploadListenerOnSameUrl(UPLOAD_URL, "id", getUploadListener());
      * new Thread(new Runnable() {
      *
      *    public void run() {
@@ -245,7 +245,7 @@ public class OkProgressManger
      *     } catch (IOException e) {
      *      e.printStackTrace();
      *      //当外部发生错误时,使用此方法可以通知所有监听器的 onError 方法,这里也要使用 newUrl
-     *      ProgressManager.getInstance().notifyOnErorr(newUrl, e);
+     *      ProgressManager.get().notifyOnErorr(newUrl, e);
      *    }
      *  }
      * }).start();

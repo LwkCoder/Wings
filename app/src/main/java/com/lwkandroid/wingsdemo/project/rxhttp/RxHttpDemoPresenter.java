@@ -2,8 +2,8 @@ package com.lwkandroid.wingsdemo.project.rxhttp;
 
 import android.graphics.Bitmap;
 
-import com.lwkandroid.wings.net.bean.ApiResultCacheWrapper;
 import com.lwkandroid.wings.net.bean.ApiException;
+import com.lwkandroid.wings.net.bean.ApiResultCacheWrapper;
 import com.lwkandroid.wings.net.bean.ProgressInfo;
 import com.lwkandroid.wings.net.listener.OnProgressListener;
 import com.lwkandroid.wings.net.manager.OkProgressManger;

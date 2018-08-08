@@ -4,8 +4,10 @@ import android.content.Context;
 
 import com.lwkandroid.wings.net.bean.ApiGlobalOptions;
 import com.lwkandroid.wings.net.bean.ApiResult;
+import com.lwkandroid.wings.net.constants.ApiConstants;
 import com.lwkandroid.wings.net.cookie.CookieManager;
 import com.lwkandroid.wings.net.error.UnknownErrorHandler;
+import com.lwkandroid.wings.net.interceptor.OkProgressInterceptor;
 import com.lwkandroid.wings.net.requst.ApiDeleteRequest;
 import com.lwkandroid.wings.net.requst.ApiDownloadRequest;
 import com.lwkandroid.wings.net.requst.ApiGetRequest;
@@ -27,7 +29,7 @@ public class RxHttp
 {
     static
     {
-        mGlobalOptions = new ApiGlobalOptions();
+        mDefaultGlobalOptions = new ApiGlobalOptions();
         mRetrofitUtils = new RetrofitUtils();
     }
 
@@ -36,7 +38,8 @@ public class RxHttp
     }
 
     private static Context mContext;
-    private static final ApiGlobalOptions mGlobalOptions;
+    private static final ApiGlobalOptions mDefaultGlobalOptions;
+    private static ApiGlobalOptions mCustomDefaultGlobalOptions;
     private static final RetrofitUtils mRetrofitUtils;
 
     /**
@@ -48,12 +51,26 @@ public class RxHttp
      */
     public static ApiGlobalOptions init(Context context, String baseUrl)
     {
+        mDefaultGlobalOptions.setBaseUrl(baseUrl);
+        mDefaultGlobalOptions.setApiResultType(ApiResult.class);
+        mDefaultGlobalOptions.setCookieManager(new CookieManager());
+        mDefaultGlobalOptions.addInterceptor(ApiConstants.TAG_PROGRESS_INTERCEPTOR, new OkProgressInterceptor());
+        return init(context, mDefaultGlobalOptions);
+    }
+
+    /**
+     * 初始化公共配置
+     *
+     * @param context Context
+     * @param options 自定义配置参数
+     * @return 公共配置对象
+     */
+    public static ApiGlobalOptions init(Context context, ApiGlobalOptions options)
+    {
         mContext = context.getApplicationContext();
-        mGlobalOptions.setBaseUrl(baseUrl);
-        mGlobalOptions.setApiResultType(ApiResult.class);
-        mGlobalOptions.setCookieManager(new CookieManager());
+        mCustomDefaultGlobalOptions = options;
         RxJavaPlugins.setErrorHandler(new UnknownErrorHandler());
-        return mGlobalOptions;
+        return mCustomDefaultGlobalOptions;
     }
 
     public static Context getContext()
@@ -68,7 +85,7 @@ public class RxHttp
      */
     public static ApiGlobalOptions getGlobalOptions()
     {
-        return mGlobalOptions;
+        return mCustomDefaultGlobalOptions != null ? mCustomDefaultGlobalOptions : mDefaultGlobalOptions;
     }
 
     /**
