@@ -8,8 +8,6 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
-import com.lwkandroid.wings.rx.mvp.RxBasePresenter;
-import com.lwkandroid.wings.rx.mvp.RxMvpBaseFragment;
 import com.lwkandroid.wings.widget.AdvancedWebView;
 import com.lwkandroid.wingsdemo.R;
 import com.socks.library.KLog;
@@ -19,7 +17,7 @@ import com.socks.library.KLog;
  * TODO 带有WebView的Fragment
  */
 
-public abstract class AppWebBaseFragment<P extends RxBasePresenter> extends RxMvpBaseFragment<P>
+public abstract class AppWebBaseFragment<P extends AppBasePresenter> extends AppBaseFragment<P>
         implements AdvancedWebView.Listener
 {
     private static final String TAG = "AppWebBaseFragment";

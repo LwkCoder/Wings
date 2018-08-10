@@ -8,7 +8,6 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
-import com.lwkandroid.wings.rx.mvp.RxBasePresenter;
 import com.lwkandroid.wings.widget.AdvancedWebView;
 import com.lwkandroid.wingsdemo.R;
 import com.socks.library.KLog;
@@ -18,7 +17,7 @@ import com.socks.library.KLog;
  * TODO 带有WebView的Activity
  */
 
-public abstract class AppWebBaseActivity<P extends RxBasePresenter> extends AppBaseActivity<P>
+public abstract class AppWebBaseActivity<P extends AppBasePresenter> extends AppBaseActivity<P>
         implements AdvancedWebView.Listener
 {
     private static final String TAG = "AppWebBaseActivity";

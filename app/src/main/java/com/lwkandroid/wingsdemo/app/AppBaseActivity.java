@@ -1,12 +1,8 @@
 package com.lwkandroid.wingsdemo.app;
 
 
-import android.os.Build;
-import android.os.Bundle;
-import android.view.View;
-
-import com.lwkandroid.wings.rx.mvp.RxBasePresenter;
-import com.lwkandroid.wings.rx.mvp.RxMvpBaseActivity;
+import com.lwkandroid.wings.rx.mvp.MVPBasePresenter;
+import com.lwkandroid.wings.rx.mvp.WingsBaseActivity;
 import com.lwkandroid.wings.utils.BarUtils;
 import com.lwkandroid.wingsdemo.R;
 
@@ -15,20 +11,11 @@ import com.lwkandroid.wingsdemo.R;
  * TODO 项目定制Acitvity基类
  */
 
-public abstract class AppBaseActivity<P extends RxBasePresenter> extends RxMvpBaseActivity<P>
+public abstract class AppBaseActivity<P extends MVPBasePresenter> extends WingsBaseActivity<P>
 {
     @Override
-    protected void beforeOnCreate(Bundle savedInstanceState)
+    protected void setBarColor()
     {
-        super.beforeOnCreate(savedInstanceState);
         BarUtils.setStatusBarColor(this, getResources().getColor(R.color.deep_darker));
-    }
-
-    @Override
-    protected void initUI(View contentView)
-    {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT
-                && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
-            BarUtils.compatMarginWithStatusBar(contentView);
     }
 }

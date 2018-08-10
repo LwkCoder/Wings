@@ -1,5 +1,6 @@
 package com.lwkandroid.wings.qrcode;
 
+
 import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -20,7 +21,8 @@ import com.lwkandroid.rtpermission.RTPermission;
 import com.lwkandroid.rtpermission.listener.OnPermissionResultListener;
 import com.lwkandroid.widget.comactionbar.ComActionBar;
 import com.lwkandroid.wings.R;
-import com.lwkandroid.wings.app.BaseActivity;
+import com.lwkandroid.wings.rx.mvp.MVPBasePresenter;
+import com.lwkandroid.wings.rx.mvp.WingsBaseActivity;
 import com.lwkandroid.wings.utils.BarUtils;
 import com.socks.library.KLog;
 
@@ -35,7 +37,7 @@ import io.reactivex.functions.Consumer;
 /**
  * 二维码扫描界面
  */
-public class QRCodeScanActivity extends BaseActivity
+public class QRCodeScanActivity extends WingsBaseActivity<MVPBasePresenter>
         implements QRCodeView.Delegate, OnPermissionResultListener
 {
     public static final String KEY_RESULT = "qrcode_result";
@@ -58,9 +60,8 @@ public class QRCodeScanActivity extends BaseActivity
     }
 
     @Override
-    protected void beforeOnCreate(Bundle savedInstanceState)
+    protected void setBarColor()
     {
-        super.beforeOnCreate(savedInstanceState);
         BarUtils.setStatusBarTransparent(this);
     }
 
@@ -71,13 +72,25 @@ public class QRCodeScanActivity extends BaseActivity
     }
 
     @Override
+    protected MVPBasePresenter createPresenter()
+    {
+        return null;
+    }
+
+    @Override
+    protected void getIntentData(Intent intent, boolean newIntent)
+    {
+
+    }
+
+    @Override
     protected void initUI(View contentView)
     {
         ComActionBar actionBar = find(R.id.cab_qrcode);
         BarUtils.compatPaddingWithStatusBar(actionBar);
         actionBar.setRightClickListener01(this);
 
-        mImgLight = find(R.id.img_qrcode_light);
+        mImgLight = (ImageView) find(R.id.img_qrcode_light);
         addClick(mImgLight);
     }
 
@@ -158,7 +171,7 @@ public class QRCodeScanActivity extends BaseActivity
     }
 
     @Override
-    protected void onClick(int id, View v)
+    public void onClick(int id, View v)
     {
         if (id == R.id.fl_comactionbar_right01)
         {

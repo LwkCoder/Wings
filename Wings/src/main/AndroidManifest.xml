@@ -24,10 +24,6 @@
                 android:resource="@xml/apk_path"/>
         </provider>
 
-        <activity
-            android:name="com.lwkandroid.wings.qrcode.QRCodeScanActivity"
-            android:theme="@style/BaseActivityStyle">
-        </activity>
     </application>
 
 </manifest>

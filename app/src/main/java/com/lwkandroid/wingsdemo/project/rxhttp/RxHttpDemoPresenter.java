@@ -25,17 +25,10 @@ import io.reactivex.disposables.Disposable;
 
 public class RxHttpDemoPresenter extends RxHttpDemoConstract.Presenter
 {
-
-    @Override
-    protected RxHttpDemoConstract.Model createModel()
-    {
-        return new RxHttpDemoModel();
-    }
-
     @Override
     void requestData()
     {
-        mModelImpl.requestData()
+        getModelImpl().requestData()
                 .compose(this.<List<TabsBean>>applyIo2MainWithLifeCycle())
                 .subscribe(new ApiBaseObserver<List<TabsBean>>()
                 {
@@ -43,20 +36,20 @@ public class RxHttpDemoPresenter extends RxHttpDemoConstract.Presenter
                     public void onSubscribe(Disposable d)
                     {
                         super.onSubscribe(d);
-                        mViewImpl.setWeatherHttpResultData(null);
+                        getViewImpl().setWeatherHttpResultData(null);
                     }
 
                     @Override
                     public void _OnNext(List<TabsBean> dataList)
                     {
-                        mViewImpl.setWeatherHttpResultData(dataList);
+                        getViewImpl().setWeatherHttpResultData(dataList);
                     }
 
                     @Override
                     public void onApiExcetion(ApiException e)
                     {
                         KLog.e("无法获取数据：" + e.toString());
-                        mViewImpl.showHttpError(e);
+                        getViewImpl().showHttpError(e);
                     }
                 });
     }
@@ -64,7 +57,7 @@ public class RxHttpDemoPresenter extends RxHttpDemoConstract.Presenter
     @Override
     void requestDataByService()
     {
-        mModelImpl.requestDataByService()
+        getModelImpl().requestDataByService()
                 .compose(this.<List<TabsBean>>applyIo2MainWithLifeCycle())
                 .subscribe(new ApiBaseObserver<List<TabsBean>>()
                 {
@@ -72,19 +65,19 @@ public class RxHttpDemoPresenter extends RxHttpDemoConstract.Presenter
                     public void onSubscribe(Disposable d)
                     {
                         super.onSubscribe(d);
-                        mViewImpl.setWeatherHttpResultData(null);
+                        getViewImpl().setWeatherHttpResultData(null);
                     }
 
                     @Override
                     public void _OnNext(List<TabsBean> dataList)
                     {
-                        mViewImpl.setWeatherHttpResultData(dataList);
+                        getViewImpl().setWeatherHttpResultData(dataList);
                     }
 
                     @Override
                     public void onApiExcetion(ApiException e)
                     {
-                        mViewImpl.showHttpError(e);
+                        getViewImpl().showHttpError(e);
                     }
                 });
     }
@@ -92,7 +85,7 @@ public class RxHttpDemoPresenter extends RxHttpDemoConstract.Presenter
     @Override
     void requestMovieData()
     {
-        mModelImpl.requestMovieData()
+        getModelImpl().requestMovieData()
                 .compose(this.<File>applyIo2MainWithLifeCycle())
                 .subscribe(new ApiBaseObserver<File>()
                 {
@@ -100,21 +93,21 @@ public class RxHttpDemoPresenter extends RxHttpDemoConstract.Presenter
                     public void onSubscribe(Disposable d)
                     {
                         super.onSubscribe(d);
-                        mViewImpl.setDownLoadEnable(false);
+                        getViewImpl().setDownLoadEnable(false);
                     }
 
                     @Override
                     public void _OnNext(File file)
                     {
-                        mViewImpl.showDownloadResult(file);
-                        mViewImpl.setDownLoadEnable(true);
+                        getViewImpl().showDownloadResult(file);
+                        getViewImpl().setDownLoadEnable(true);
                     }
 
                     @Override
                     public void onApiExcetion(ApiException e)
                     {
-                        mViewImpl.showHttpError(e);
-                        mViewImpl.setDownLoadEnable(true);
+                        getViewImpl().showHttpError(e);
+                        getViewImpl().setDownLoadEnable(true);
                     }
                 });
 
@@ -123,7 +116,7 @@ public class RxHttpDemoPresenter extends RxHttpDemoConstract.Presenter
             @Override
             public void onProgress(ProgressInfo info)
             {
-                mViewImpl.showDownloadProgress(info);
+                getViewImpl().showDownloadProgress(info);
             }
 
             @Override
@@ -137,7 +130,7 @@ public class RxHttpDemoPresenter extends RxHttpDemoConstract.Presenter
     @Override
     void requestNonRestFul()
     {
-        mModelImpl.requestNonRestFulData()
+        getModelImpl().requestNonRestFulData()
                 .compose(this.<ApiResultCacheWrapper<NonRestFulResult>>applyIo2MainWithLifeCycle())
                 .subscribe(new ApiBaseObserver<ApiResultCacheWrapper<NonRestFulResult>>()
                 {
@@ -145,20 +138,20 @@ public class RxHttpDemoPresenter extends RxHttpDemoConstract.Presenter
                     public void onSubscribe(Disposable d)
                     {
                         super.onSubscribe(d);
-                        mViewImpl.showNonRestFulResult(null);
+                        getViewImpl().showNonRestFulResult(null);
                     }
 
                     @Override
                     public void _OnNext(ApiResultCacheWrapper<NonRestFulResult> resultBean)
                     {
                         KLog.i("是否为缓存：" + resultBean.isCache());
-                        mViewImpl.showNonRestFulResult(resultBean.getData());
+                        getViewImpl().showNonRestFulResult(resultBean.getData());
                     }
 
                     @Override
                     public void onApiExcetion(ApiException e)
                     {
-                        mViewImpl.showHttpError(e);
+                        getViewImpl().showHttpError(e);
                     }
                 });
         //                .subscribe(new ApiBaseObserver<NonRestFulResult>()
@@ -167,20 +160,20 @@ public class RxHttpDemoPresenter extends RxHttpDemoConstract.Presenter
         //                    public void onSubscribe(Disposable d)
         //                    {
         //                        super.onSubscribe(d);
-        //                        mViewImpl.showNonRestFulResult(null);
+        //                        getViewImpl().showNonRestFulResult(null);
         //                    }
         //
         //                    @Override
         //                    public void _OnNext(NonRestFulResult nonRestFulResult)
         //                    {
         //                        KLog.e();
-        //                        mViewImpl.showNonRestFulResult(nonRestFulResult);
+        //                        getViewImpl().showNonRestFulResult(nonRestFulResult);
         //                    }
         //
         //                    @Override
         //                    public void onApiExcetion(ApiException e)
         //                    {
-        //                        mViewImpl.showHttpError(e);
+        //                        getViewImpl().showHttpError(e);
         //                    }
         //                });
     }
@@ -188,20 +181,20 @@ public class RxHttpDemoPresenter extends RxHttpDemoConstract.Presenter
     @Override
     void requestBitmapData()
     {
-        mModelImpl.requestBitmapData()
+        getModelImpl().requestBitmapData()
                 .compose(this.<Bitmap>applyIo2MainWithLifeCycle())
                 .subscribe(new ApiBaseObserver<Bitmap>()
                 {
                     @Override
                     public void _OnNext(Bitmap bitmap)
                     {
-                        mViewImpl.showImageBitmap(bitmap);
+                        getViewImpl().showImageBitmap(bitmap);
                     }
 
                     @Override
                     public void onApiExcetion(ApiException e)
                     {
-                        mViewImpl.showHttpError(e);
+                        getViewImpl().showHttpError(e);
                     }
                 });
     }
@@ -209,20 +202,20 @@ public class RxHttpDemoPresenter extends RxHttpDemoConstract.Presenter
     @Override
     void uploadImages(List<File> files)
     {
-        mModelImpl.uploadImages(files)
+        getModelImpl().uploadImages(files)
                 .compose(this.<String>applyIo2MainWithLifeCycle())
                 .subscribe(new ApiBaseObserver<String>()
                 {
                     @Override
                     public void _OnNext(String s)
                     {
-                        mViewImpl.showShortToast("上传成功");
+                        getViewImpl().showShortToast("上传成功");
                     }
 
                     @Override
                     public void onApiExcetion(ApiException e)
                     {
-                        mViewImpl.showHttpError(e);
+                        getViewImpl().showHttpError(e);
                     }
                 });
         OkProgressManger.get().addUploadListener(ApiURL.UPLOAD_TEST, new OnProgressListener()
@@ -230,7 +223,7 @@ public class RxHttpDemoPresenter extends RxHttpDemoConstract.Presenter
             @Override
             public void onProgress(ProgressInfo info)
             {
-                mViewImpl.showUploadProgress(info);
+                getViewImpl().showUploadProgress(info);
             }
 
             @Override
@@ -242,9 +235,15 @@ public class RxHttpDemoPresenter extends RxHttpDemoConstract.Presenter
     }
 
     @Override
-    public void onDestory()
+    public RxHttpDemoConstract.Model createModel()
     {
-        super.onDestory();
+        return new RxHttpDemoModel();
+    }
+
+    @Override
+    public void onDestoryPresenter()
+    {
+        super.onDestoryPresenter();
         OkProgressManger.get().removeDownloadListener(ApiURL.DOWNLOAD_TEST);
         OkProgressManger.get().removeUploadListener(ApiURL.UPLOAD_TEST);
     }

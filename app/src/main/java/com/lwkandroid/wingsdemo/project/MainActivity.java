@@ -26,9 +26,14 @@ public class MainActivity extends AppBaseActivity<MainPresenter> implements Main
     }
 
     @Override
+    protected MainPresenter createPresenter()
+    {
+        return new MainPresenter();
+    }
+
+    @Override
     protected void initUI(View contentView)
     {
-        super.initUI(contentView);
         mActionBar = find(R.id.comactionbar);
         addClick(R.id.btn_main_imageloader, new View.OnClickListener()
         {
@@ -62,14 +67,14 @@ public class MainActivity extends AppBaseActivity<MainPresenter> implements Main
     }
 
     @Override
-    protected void onClick(int id, View v)
+    public void onClick(int id, View v)
     {
     }
 
     @Override
-    protected MainPresenter createPresenter()
+    protected void getIntentData(Intent intent, boolean newIntent)
     {
-        return new MainPresenter();
+
     }
 
 }

@@ -1,15 +1,16 @@
 package com.lwkandroid.wingsdemo.project.image;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.lwkandroid.wings.image.ImageLoader;
-import com.lwkandroid.wings.mvp.BasePresenter;
 import com.lwkandroid.wings.net.bean.ProgressInfo;
 import com.lwkandroid.wings.net.listener.OnProgressListener;
 import com.lwkandroid.wings.net.manager.OkProgressManger;
+import com.lwkandroid.wings.rx.mvp.MVPBasePresenter;
 import com.lwkandroid.wings.widget.RoundDiffImageView;
 import com.lwkandroid.wings.widget.shapeimage.ShapeImageView;
 import com.lwkandroid.wingsdemo.R;
@@ -19,7 +20,7 @@ import com.socks.library.KLog;
 /**
  * ImageLoaderDemoActivity
  */
-public class ImageLoaderDemoActivity extends AppBaseActivity
+public class ImageLoaderDemoActivity extends AppBaseActivity<MVPBasePresenter>
 {
     private static final String IMG_URL01 = "http://oi5vnsj5b.bkt.clouddn.com/pano_01.jpg";
     private static final String IMG_URL02 = "http://oi5vnsj5b.bkt.clouddn.com/pano_02.jpg";
@@ -40,9 +41,20 @@ public class ImageLoaderDemoActivity extends AppBaseActivity
     }
 
     @Override
+    protected MVPBasePresenter createPresenter()
+    {
+        return null;
+    }
+
+    @Override
+    protected void getIntentData(Intent intent, boolean newIntent)
+    {
+
+    }
+
+    @Override
     protected void initUI(View contentView)
     {
-        super.initUI(contentView);
         mImageView00 = find(R.id.img_imageloader_demo00);
         mImageView01 = find(R.id.img_imageloader_demo01);
         mImageView02 = find(R.id.img_imageloader_demo02);
@@ -116,14 +128,8 @@ public class ImageLoaderDemoActivity extends AppBaseActivity
     }
 
     @Override
-    protected void onClick(int id, View v)
+    public void onClick(int id, View v)
     {
-    }
-
-    @Override
-    protected BasePresenter createPresenter()
-    {
-        return null;
     }
 
     @Override

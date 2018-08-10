@@ -36,15 +36,26 @@ public class RxHttpDemoActivity extends AppBaseActivity<RxHttpDemoPresenter> imp
     private ImageView mImageView;
 
     @Override
+    protected void getIntentData(Intent intent, boolean newIntent)
+    {
+
+    }
+
+    @Override
     public int getContentViewId()
     {
         return R.layout.activity_rxhttp_demo;
     }
 
     @Override
+    protected RxHttpDemoPresenter createPresenter()
+    {
+        return new RxHttpDemoPresenter();
+    }
+
+    @Override
     protected void initUI(View contentView)
     {
-        super.initUI(contentView);
         mImageView = find(R.id.img_rxhttp_demo);
         mTextView = find(R.id.tv_rxhttp_demo);
 
@@ -53,7 +64,7 @@ public class RxHttpDemoActivity extends AppBaseActivity<RxHttpDemoPresenter> imp
             @Override
             public void onClick(View v)
             {
-                mPresenter.requestData();
+                getPresenter().requestData();
             }
         });
         addClick(R.id.btn_rxhttp_demo02, new View.OnClickListener()
@@ -61,7 +72,7 @@ public class RxHttpDemoActivity extends AppBaseActivity<RxHttpDemoPresenter> imp
             @Override
             public void onClick(View v)
             {
-                mPresenter.requestDataByService();
+                getPresenter().requestDataByService();
             }
         });
         addClick(R.id.btn_rxhttp_download, new View.OnClickListener()
@@ -76,7 +87,7 @@ public class RxHttpDemoActivity extends AppBaseActivity<RxHttpDemoPresenter> imp
                             @Override
                             public void onAllGranted(String[] allPermissions)
                             {
-                                mPresenter.requestMovieData();
+                                getPresenter().requestMovieData();
                             }
 
                             @Override
@@ -92,7 +103,7 @@ public class RxHttpDemoActivity extends AppBaseActivity<RxHttpDemoPresenter> imp
             @Override
             public void onClick(View v)
             {
-                mPresenter.requestNonRestFul();
+                getPresenter().requestNonRestFul();
             }
         });
 
@@ -101,7 +112,7 @@ public class RxHttpDemoActivity extends AppBaseActivity<RxHttpDemoPresenter> imp
             @Override
             public void onClick(View v)
             {
-                mPresenter.requestBitmapData();
+                getPresenter().requestBitmapData();
             }
         });
 
@@ -145,7 +156,7 @@ public class RxHttpDemoActivity extends AppBaseActivity<RxHttpDemoPresenter> imp
                 KLog.e("选择图片：" + bean.getImagePath());
                 files.add(new File(bean.getImagePath()));
             }
-            mPresenter.uploadImages(files);
+            getPresenter().uploadImages(files);
         }
     }
 
@@ -155,15 +166,10 @@ public class RxHttpDemoActivity extends AppBaseActivity<RxHttpDemoPresenter> imp
     }
 
     @Override
-    protected void onClick(int id, View v)
+    public void onClick(int id, View v)
     {
     }
 
-    @Override
-    protected RxHttpDemoPresenter createPresenter()
-    {
-        return new RxHttpDemoPresenter();
-    }
 
 
     @Override

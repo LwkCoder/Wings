@@ -9,8 +9,8 @@ public class MainPresenter extends MainConstract.Presenter
 {
 
     @Override
-    protected MainConstract.Model createModel()
+    public MainConstract.Model createModel()
     {
-        return new MainModel();
+        return null;
     }
 }
