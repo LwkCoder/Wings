@@ -28,12 +28,6 @@ public class PopDemoActivity extends AppBaseActivity<MVPBasePresenter>
     }
 
     @Override
-    protected MVPBasePresenter createPresenter()
-    {
-        return null;
-    }
-
-    @Override
     protected void initUI(View contentView)
     {
         mActionBar = find(R.id.comactionbar);

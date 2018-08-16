@@ -26,12 +26,6 @@ public class MainActivity extends AppBaseActivity<MainPresenter> implements Main
     }
 
     @Override
-    protected MainPresenter createPresenter()
-    {
-        return new MainPresenter();
-    }
-
-    @Override
     protected void initUI(View contentView)
     {
         mActionBar = find(R.id.comactionbar);

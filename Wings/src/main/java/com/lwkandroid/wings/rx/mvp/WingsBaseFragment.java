@@ -10,6 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.lwkandroid.wings.rx.constant.RxLifecycle;
+import com.lwkandroid.wings.utils.ReflectUtils;
+import com.socks.library.KLog;
+
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 
 import io.reactivex.subjects.PublishSubject;
 
@@ -22,6 +27,7 @@ public abstract class WingsBaseFragment<P extends MVPBasePresenter> extends Frag
         IContentView, IMVPBaseView, ContentViewImpl.onClickListenerDispatcher
         , View.OnClickListener
 {
+    private final String TAG = getClass().getSimpleName();
     private P mPresenter;
     private MVPBaseViewImpl mMVPViewImpl = new MVPBaseViewImpl();
     private ContentViewImpl mContentViewImpl = new ContentViewImpl(this);
@@ -197,6 +203,32 @@ public abstract class WingsBaseFragment<P extends MVPBasePresenter> extends Frag
         onClick(v.getId(), v);
     }
 
+    //反射实例化Presenter
+    protected P createPresenter()
+    {
+        try
+        {
+            Type superType = this.getClass().getGenericSuperclass();
+            if (superType instanceof ParameterizedType)
+            {
+                ParameterizedType pt = (ParameterizedType) superType;
+                Type[] types = pt.getActualTypeArguments();
+                if (types != null && types.length > 0)
+                    return ReflectUtils.reflect(types[0]).newInstance().get();
+            } else
+            {
+                KLog.w(TAG, "Can not reflect instance of Presenter: can not get super class ParameterizedType.");
+            }
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            KLog.w(TAG, "Can not reflect instance of Presenter:" + e.toString());
+        }
+
+        return (P) new DefaultMVPPresenter();
+    }
+
+    //获取Presenter对象
     protected P getPresenter()
     {
         return mPresenter;
@@ -207,6 +239,7 @@ public abstract class WingsBaseFragment<P extends MVPBasePresenter> extends Frag
      */
     protected abstract int getContentViewId();
 
+
     /**
      * 子类实现，获取getArgument()传递的数据
      *
@@ -214,12 +247,6 @@ public abstract class WingsBaseFragment<P extends MVPBasePresenter> extends Frag
      * @param savedInstanceState
      */
     protected abstract void getArgumentsData(Bundle bundle, Bundle savedInstanceState);
-
-
-    /**
-     * 创建Presenter
-     */
-    protected abstract P createPresenter();
 
     /**
      * 子类实现此方法初始化UI
