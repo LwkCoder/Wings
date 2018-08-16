@@ -41,12 +41,6 @@ public class ImageLoaderDemoActivity extends AppBaseActivity<MVPBasePresenter>
     }
 
     @Override
-    protected MVPBasePresenter createPresenter()
-    {
-        return null;
-    }
-
-    @Override
     protected void getIntentData(Intent intent, boolean newIntent)
     {
 

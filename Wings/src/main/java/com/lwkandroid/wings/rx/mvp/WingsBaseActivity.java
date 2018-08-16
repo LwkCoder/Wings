@@ -8,6 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.lwkandroid.wings.rx.constant.RxLifecycle;
+import com.lwkandroid.wings.utils.ReflectUtils;
+import com.socks.library.KLog;
+
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 
 import io.reactivex.subjects.PublishSubject;
 
@@ -19,6 +24,7 @@ import io.reactivex.subjects.PublishSubject;
 public abstract class WingsBaseActivity<P extends MVPBasePresenter> extends AppCompatActivity implements
         IContentView, IMVPBaseView, ContentViewImpl.onClickListenerDispatcher, View.OnClickListener
 {
+    private final String TAG = getClass().getSimpleName();
     private P mPresenter;
     private MVPBaseViewImpl mMVPViewImpl = new MVPBaseViewImpl();
     private ContentViewImpl mContentViewImpl = new ContentViewImpl(this);
@@ -91,7 +97,7 @@ public abstract class WingsBaseActivity<P extends MVPBasePresenter> extends AppC
     @Override
     public <T extends View> T find(@IdRes int resId)
     {
-        return (T) mContentViewImpl.find(resId);
+        return mContentViewImpl.find(resId);
     }
 
     @Override
@@ -166,6 +172,32 @@ public abstract class WingsBaseActivity<P extends MVPBasePresenter> extends AppC
         onClick(v.getId(), v);
     }
 
+    //反射实例化Presenter
+    protected P createPresenter()
+    {
+        try
+        {
+            Type superType = this.getClass().getGenericSuperclass();
+            if (superType instanceof ParameterizedType)
+            {
+                ParameterizedType pt = (ParameterizedType) superType;
+                Type[] types = pt.getActualTypeArguments();
+                if (types != null && types.length > 0)
+                    return ReflectUtils.reflect(types[0]).newInstance().get();
+            } else
+            {
+                KLog.w(TAG, "Can not reflect instance of Presenter: can not get super class ParameterizedType.");
+            }
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            KLog.w(TAG, "Can not reflect instance of Presenter:" + e.toString());
+        }
+
+        return (P) new DefaultMVPPresenter();
+    }
+
+    //获取Presenter对象
     protected P getPresenter()
     {
         return mPresenter;
@@ -188,11 +220,6 @@ public abstract class WingsBaseActivity<P extends MVPBasePresenter> extends AppC
      * 子类实现，指定布局id
      */
     protected abstract int getContentViewId();
-
-    /**
-     * 创建Presenter
-     */
-    protected abstract P createPresenter();
 
     /**
      * 子类实现，初始化UI

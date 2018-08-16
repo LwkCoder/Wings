@@ -48,12 +48,6 @@ public class RxHttpDemoActivity extends AppBaseActivity<RxHttpDemoPresenter> imp
     }
 
     @Override
-    protected RxHttpDemoPresenter createPresenter()
-    {
-        return new RxHttpDemoPresenter();
-    }
-
-    @Override
     protected void initUI(View contentView)
     {
         mImageView = find(R.id.img_rxhttp_demo);
