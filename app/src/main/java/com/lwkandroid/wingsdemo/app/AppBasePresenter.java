@@ -10,5 +10,4 @@ import com.lwkandroid.wings.rx.mvp.MVPBasePresenter;
 
 public abstract class AppBasePresenter<V extends IMVPBaseView, M> extends MVPBasePresenter<V, M>
 {
-
 }

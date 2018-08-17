@@ -183,7 +183,13 @@ public abstract class WingsBaseActivity<P extends MVPBasePresenter> extends AppC
                 ParameterizedType pt = (ParameterizedType) superType;
                 Type[] types = pt.getActualTypeArguments();
                 if (types != null && types.length > 0)
-                    return ReflectUtils.reflect(types[0]).newInstance().get();
+                {
+                    Class pClass = (Class) types[0];
+                    return ReflectUtils.reflect(pClass).newInstance().get();
+                    //NOTICE ：不能通过下面的方式反射
+                    //否则会报错：java.lang.SecurityException: Can not make a java.lang.Class constructor accessible
+                    //                    return ReflectUtils.reflect(types[0]).newInstance().get();
+                }
             } else
             {
                 KLog.w(TAG, "Can not reflect instance of Presenter: can not get super class ParameterizedType.");

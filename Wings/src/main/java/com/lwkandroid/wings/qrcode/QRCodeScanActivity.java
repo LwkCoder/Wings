@@ -72,12 +72,6 @@ public class QRCodeScanActivity extends WingsBaseActivity<MVPBasePresenter>
     }
 
     @Override
-    protected MVPBasePresenter createPresenter()
-    {
-        return null;
-    }
-
-    @Override
     protected void getIntentData(Intent intent, boolean newIntent)
     {
 

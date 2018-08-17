@@ -11,6 +11,6 @@ public class MainPresenter extends MainConstract.Presenter
     @Override
     public MainConstract.Model createModel()
     {
-        return null;
+        return new MainModel();
     }
 }
