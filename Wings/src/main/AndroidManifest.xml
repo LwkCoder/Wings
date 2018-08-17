@@ -23,6 +23,9 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/apk_path"/>
         </provider>
+        <activity
+            android:name=".qrcode.QRCodeScanActivity"
+            android:theme="@style/BaseActivityStyle"/>
 
     </application>
 

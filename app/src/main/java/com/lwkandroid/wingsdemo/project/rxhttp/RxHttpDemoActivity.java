@@ -30,7 +30,7 @@ import java.util.List;
  * 网络请求框架使用示例
  * 数据来源：https://github.com/jokermonn/-Api/blob/master/Neihan.md#recommend
  */
-public class RxHttpDemoActivity extends AppBaseActivity<RxHttpDemoPresenter> implements RxHttpDemoConstract.View
+public class RxHttpDemoActivity extends AppBaseActivity<RxHttpDemoPresenter> implements RxHttpDemoContract.View
 {
     private TextView mTextView;
     private ImageView mImageView;

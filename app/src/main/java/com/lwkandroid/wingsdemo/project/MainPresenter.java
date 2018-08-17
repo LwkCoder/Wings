@@ -5,11 +5,11 @@ package com.lwkandroid.wingsdemo.project;
  * TODO RxHttpDemoActivity Presenter层
  */
 
-public class MainPresenter extends MainConstract.Presenter
+public class MainPresenter extends MainContract.Presenter
 {
 
     @Override
-    public MainConstract.Model createModel()
+    public MainContract.Model createModel()
     {
         return new MainModel();
     }

@@ -22,7 +22,7 @@ import io.reactivex.Observable;
  * TODO RxHttpDemo Model层
  */
 
-public class RxHttpDemoModel extends RxHttpDemoConstract.Model
+public class RxHttpDemoModel extends RxHttpDemoContract.Model
 {
     @Override
     Observable<List<TabsBean>> requestData()

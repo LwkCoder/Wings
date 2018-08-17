@@ -23,7 +23,7 @@ import io.reactivex.disposables.Disposable;
  * TODO RxHttpDemo Presenter层
  */
 
-public class RxHttpDemoPresenter extends RxHttpDemoConstract.Presenter
+public class RxHttpDemoPresenter extends RxHttpDemoContract.Presenter
 {
     @Override
     void requestData()
@@ -235,7 +235,7 @@ public class RxHttpDemoPresenter extends RxHttpDemoConstract.Presenter
     }
 
     @Override
-    public RxHttpDemoConstract.Model createModel()
+    public RxHttpDemoContract.Model createModel()
     {
         return new RxHttpDemoModel();
     }

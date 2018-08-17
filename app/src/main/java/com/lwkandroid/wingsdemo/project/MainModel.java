@@ -5,7 +5,7 @@ package com.lwkandroid.wingsdemo.project;
  * TODO RxHttpDemoActivity Model层
  */
 
-public class MainModel extends MainConstract.Model
+public class MainModel extends MainContract.Model
 {
 
 }

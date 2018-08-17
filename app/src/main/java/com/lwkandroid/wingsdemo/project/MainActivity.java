@@ -10,12 +10,13 @@ import com.lwkandroid.wingsdemo.R;
 import com.lwkandroid.wingsdemo.app.AppBaseActivity;
 import com.lwkandroid.wingsdemo.project.image.ImageLoaderDemoActivity;
 import com.lwkandroid.wingsdemo.project.pop.PopDemoActivity;
+import com.lwkandroid.wingsdemo.project.qrcode.QRCodeDemoActivity;
 import com.lwkandroid.wingsdemo.project.rxhttp.RxHttpDemoActivity;
 
 /**
  * RxHttpDemoActivity
  */
-public class MainActivity extends AppBaseActivity<MainPresenter> implements MainConstract.View
+public class MainActivity extends AppBaseActivity<MainPresenter> implements MainContract.View
 {
     private ComActionBar mActionBar;
 
@@ -51,6 +52,14 @@ public class MainActivity extends AppBaseActivity<MainPresenter> implements Main
             public void onClick(View v)
             {
                 startActivity(new Intent(MainActivity.this, PopDemoActivity.class));
+            }
+        });
+        addClick(R.id.btn_main_qrcode, new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                startActivity(new Intent(MainActivity.this, QRCodeDemoActivity.class));
             }
         });
     }

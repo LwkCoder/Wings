@@ -27,7 +27,13 @@
             android:name=".project.image.ImageLoaderDemoActivity"
             android:theme="@style/BaseActivityStyle">
         </activity>
-        <activity android:name=".project.pop.PopDemoActivity">
+        <activity
+            android:name=".project.pop.PopDemoActivity"
+            android:theme="@style/BaseActivityStyle">
+        </activity>
+        <activity
+            android:name=".project.qrcode.QRCodeDemoActivity"
+            android:theme="@style/BaseActivityStyle">
         </activity>
     </application>
 
