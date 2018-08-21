@@ -10,7 +10,7 @@ import com.lwkandroid.wings.image.ImageLoader;
 import com.lwkandroid.wings.net.bean.ProgressInfo;
 import com.lwkandroid.wings.net.listener.OnProgressListener;
 import com.lwkandroid.wings.net.manager.OkProgressManger;
-import com.lwkandroid.wings.rx.mvp.MVPBasePresenter;
+import com.lwkandroid.wings.mvp.base.MVPBasePresenter;
 import com.lwkandroid.wings.widget.RoundDiffImageView;
 import com.lwkandroid.wings.widget.shapeimage.ShapeImageView;
 import com.lwkandroid.wingsdemo.R;

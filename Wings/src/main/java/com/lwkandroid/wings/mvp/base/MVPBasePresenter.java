@@ -1,4 +1,4 @@
-package com.lwkandroid.wings.rx.mvp;
+package com.lwkandroid.wings.mvp.base;
 
 import com.lwkandroid.wings.rx.constant.RxLifecycle;
 import com.lwkandroid.wings.rx.utils.RxSchedulers;

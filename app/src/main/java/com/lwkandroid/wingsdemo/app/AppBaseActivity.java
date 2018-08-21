@@ -1,8 +1,8 @@
 package com.lwkandroid.wingsdemo.app;
 
 
-import com.lwkandroid.wings.rx.mvp.MVPBasePresenter;
-import com.lwkandroid.wings.rx.mvp.WingsBaseActivity;
+import com.lwkandroid.wings.mvp.base.MVPBasePresenter;
+import com.lwkandroid.wings.mvp.base.WingsBaseActivity;
 import com.lwkandroid.wings.utils.BarUtils;
 import com.lwkandroid.wingsdemo.R;
 

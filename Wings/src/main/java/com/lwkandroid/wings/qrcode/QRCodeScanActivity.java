@@ -21,8 +21,8 @@ import com.lwkandroid.rtpermission.RTPermission;
 import com.lwkandroid.rtpermission.listener.OnPermissionResultListener;
 import com.lwkandroid.widget.comactionbar.ComActionBar;
 import com.lwkandroid.wings.R;
-import com.lwkandroid.wings.rx.mvp.MVPBasePresenter;
-import com.lwkandroid.wings.rx.mvp.WingsBaseActivity;
+import com.lwkandroid.wings.mvp.base.MVPBasePresenter;
+import com.lwkandroid.wings.mvp.base.WingsBaseActivity;
 import com.lwkandroid.wings.utils.BarUtils;
 import com.socks.library.KLog;
 

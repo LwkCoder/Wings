@@ -1,4 +1,4 @@
-package com.lwkandroid.wings.rx.mvp;
+package com.lwkandroid.wings.mvp.base;
 
 import android.content.Context;
 import android.os.Bundle;

@@ -9,6 +9,7 @@ import com.lwkandroid.widget.comactionbar.ComActionBar;
 import com.lwkandroid.wingsdemo.R;
 import com.lwkandroid.wingsdemo.app.AppBaseActivity;
 import com.lwkandroid.wingsdemo.project.image.ImageLoaderDemoActivity;
+import com.lwkandroid.wingsdemo.project.list.ListDemoActivity;
 import com.lwkandroid.wingsdemo.project.pop.PopDemoActivity;
 import com.lwkandroid.wingsdemo.project.qrcode.QRCodeDemoActivity;
 import com.lwkandroid.wingsdemo.project.rxhttp.RxHttpDemoActivity;
@@ -60,6 +61,14 @@ public class MainActivity extends AppBaseActivity<MainPresenter> implements Main
             public void onClick(View v)
             {
                 startActivity(new Intent(MainActivity.this, QRCodeDemoActivity.class));
+            }
+        });
+        addClick(R.id.btn_main_list, new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                startActivity(new Intent(MainActivity.this, ListDemoActivity.class));
             }
         });
     }

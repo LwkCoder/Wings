@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.lwkandroid.widget.comactionbar.ComActionBar;
-import com.lwkandroid.wings.rx.mvp.MVPBasePresenter;
+import com.lwkandroid.wings.mvp.base.MVPBasePresenter;
 import com.lwkandroid.wings.utils.ScreenUtils;
 import com.lwkandroid.wings.utils.pop.PopCreator;
 import com.lwkandroid.wings.utils.pop.PopDarkWindowAffect;

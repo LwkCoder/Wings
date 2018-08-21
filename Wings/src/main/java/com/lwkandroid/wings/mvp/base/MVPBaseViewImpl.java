@@ -1,4 +1,4 @@
-package com.lwkandroid.wings.rx.mvp;
+package com.lwkandroid.wings.mvp.base;
 
 import com.lwkandroid.wings.utils.ToastUtils;
 
@@ -9,7 +9,7 @@ import io.reactivex.subjects.PublishSubject;
  * TODO MVP模版中View层实现类
  * 【实现最基础的一些方法】
  */
-class MVPBaseViewImpl implements IMVPBaseView
+public class MVPBaseViewImpl implements IMVPBaseView
 {
     @Override
     public void showShortToast(int resId)

@@ -1,4 +1,4 @@
-package com.lwkandroid.wings.rx.mvp;
+package com.lwkandroid.wings.mvp.base;
 
 /**
  * Created by LWK

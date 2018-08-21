@@ -1,4 +1,4 @@
-package com.lwkandroid.wings.rx.mvp;
+package com.lwkandroid.wings.mvp.base;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;
@@ -12,7 +12,6 @@ import android.view.ViewGroup;
  * Created by LWK
  * TODO 内容布局方法实现类
  */
-
 class ContentViewImpl implements IContentView, View.OnClickListener
 {
     private View mContentView;
