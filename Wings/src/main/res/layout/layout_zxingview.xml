@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     app:qrcv_animTime="1200"
     app:qrcv_cornerColor="@android:color/holo_blue_dark"
-    app:qrcv_isCenterVertical="true"
     app:qrcv_isOnlyDecodeScanBoxArea="true"
     app:qrcv_isTipTextBelowRect="true"
     app:qrcv_maskColor="#60000000"
@@ -15,6 +14,7 @@
     app:qrcv_rectWidth="250dp"
     app:qrcv_scanLineColor="@android:color/holo_blue_light"
     app:qrcv_tipTextColor="#A1A09C"
-    app:qrcv_tipTextSize="@dimen/textsize_small">
+    app:qrcv_tipTextSize="@dimen/textsize_small"
+    app:qrcv_verticalBias="0.5">
 
 </cn.bingoogolapple.qrcode.zxing.ZXingView>

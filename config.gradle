@@ -1,10 +1,9 @@
 ext {
     /*项目基础配置*/
-    android = [
+    appConfig = [
             minSdkVersion    : 14,
             targetSdkVersion : 27,
             compileSdkVersion: 27,
-            buildToolsVersion: "26.0.1",
             applicationId    : "com.lwkandroid.wingsdemo",
             versionCode      : 1,
             versionName      : "1.0.0"
@@ -16,102 +15,28 @@ ext {
             "releaseUrl": "http://lf.snssdk.com/neihan/"
     ]
 
-    /*第三方库参数*/
-    extraLibsConfig = [
+    /*依赖库参数*/
+    libsConfig = [
             "WX_APP_ID"    : "这里写微信AppId",
             "WX_APP_SECRET": "这里写微信Secret"
     ]
 
-    /*各依赖库的版本号*/
+    /*依赖库的版本号*/
     SupportVersion = "27.1.1"
     KLogVersion = "1.6.0"
     ImagePickerVersion = "1.4.2"
     RTPermissionVersion = "1.3.1"
     RcvAdapterVersion = "1.3.1"
     OkHttp3Version = "3.10.0"
-    GlideVersion = "4.7.1"
+    GlideVersion = "4.8.0"
     GsonVersion = "2.8.5"
     RetrofitVersion = "2.4.0"
     RXJava2Version = "2.1.16"
     RXAndroidVersion = "2.0.2"
-    BGACodeVersion = "1.1.9"
+    BGACodeVersion = "1.2.5"
     ZXingVersion = "3.3.0"
     ComActionBarVersion = "1.1.6"
     LeakCanaryVersion = "1.5.4"
     StethoVersion = "1.5.0"
     DiskLruCacheVersion = "2.0.2"
-
-    /*各个依赖库*/
-    wingsDependencies = [
-            /*Support模块*/
-            "com.android.support:support-v4:$SupportVersion"             : [],
-            "com.android.support:appcompat-v7:$SupportVersion"           : [],
-            "com.android.support:support-annotations:$SupportVersion"    : [],
-            "com.android.support:recyclerview-v7:$SupportVersion"        : [],
-            /*日志*/
-            "com.github.zhaokaiqiang.klog:library:$KLogVersion"          : [],
-            /*Gson*/
-            "com.google.code.gson:gson:$GsonVersion"                     : [],
-            /*权限请求*/
-            "com.lwkandroid:RTPermissionLib:$RTPermissionVersion"        : [],
-            /*自定义ActionBar*/
-            "com.lwkandroid.widget:ComActionBar:$ComActionBarVersion"    : [],
-            /*RecyclerView适配器*/
-            "com.lwkandroid:recyclerviewadapter:$RcvAdapterVersion"      : [
-                    'com.android.support': 'recyclerview-v7'
-            ],
-            /*图片加载*/
-            "com.github.bumptech.glide:glide:$GlideVersion"              : [
-                    'com.android.support' : 'support-v4',
-                    'com.android.support' : 'appcompat-v7',
-                    'com.android.support' : 'support-annotations',
-                    'com.squareup.okhttp3': 'okhttp3'
-            ],
-            "com.github.bumptech.glide:okhttp3-integration:$GlideVersion": [
-                    'com.android.support' : 'support-v4',
-                    'com.android.support' : 'appcompat-v7',
-                    'com.android.support' : 'support-annotations',
-                    'com.squareup.okhttp3': 'okhttp3'
-            ],
-            "com.github.bumptech.glide:compiler:$GlideVersion"           : [
-                    'com.android.support' : 'support-v4',
-                    'com.android.support' : 'appcompat-v7',
-                    'com.android.support' : 'support-annotations',
-                    'com.squareup.okhttp3': 'okhttp3'
-            ],
-            /*图片选择*/
-            "com.lwkandroid:ImagePicker:$ImagePickerVersion"             : [
-                    'com.android.support'      : 'support-v4',
-                    'com.github.bumptech.glide': 'glide'
-            ],
-            /*网络请求*/
-            "com.squareup.okhttp3:okhttp:$OkHttp3Version"                : [],
-            "com.squareup.retrofit2:retrofit:$RetrofitVersion"           : [
-                    'com.squareup.okhttp3': 'okhttp3'
-            ],
-            "com.squareup.retrofit2:converter-gson:$RetrofitVersion"     : [
-                    'com.google.code.gson': 'gson'
-            ],
-            "com.squareup.retrofit2:adapter-rxjava2:$RetrofitVersion"    : [
-                    'io.reactivex.rxjava2': 'rxjava'
-            ],
-            /*二维码*/
-            "com.google.zxing:core:$ZXingVersion"                        : [],
-            "cn.bingoogolapple:bga-qrcodecore:$BGACodeVersion@aar"       : [],
-            "cn.bingoogolapple:bga-zxing:$BGACodeVersion@aar"            : [],
-            /*RX模块*/
-            "io.reactivex.rxjava2:rxjava:$RXJava2Version"                : [],
-            "io.reactivex.rxjava2:rxandroid:$RXAndroidVersion"           : [],
-            /*硬盘缓存*/
-            "com.jakewharton:disklrucache:$DiskLruCacheVersion"          : []
-    ]
-
-    /*Debug环境下的辅助工具*/
-    wingsDebugTools = [
-            /*内存泄漏检测*/
-            "leakCanary": "com.squareup.leakcanary:leakcanary-android:$LeakCanaryVersion",
-            /*Stetho辅助*/
-            "stetho"    : "com.facebook.stetho:stetho:$StethoVersion",
-            "stetho-ok3": "com.facebook.stetho:stetho-okhttp3:$StethoVersion"
-    ]
 }

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.lwkandroid.wingsdemo.project.MainActivity">
+
+    <com.lwkandroid.widget.comactionbar.ComActionBar
+        android:id="@id/comactionbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:bg_color="@color/deep_dark"
+        app:title_text="@string/app_name"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_main_imageloader"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/button_height_normal"
+                android:text="图片加载示例"/>
+
+            <Button
+                android:id="@+id/btn_main_rxhttp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="网络请求示例"/>
+
+            <Button
+                android:id="@+id/btn_main_pop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PopCreater"/>
+
+            <Button
+                android:id="@+id/btn_main_qrcode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="二维码工具"/>
+
+            <Button
+                android:id="@+id/btn_main_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="列表Demo"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

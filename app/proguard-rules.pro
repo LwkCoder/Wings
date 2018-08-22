@@ -1,5 +1,3 @@
--keep class com.lwkandroid.wingsdemo.BuildConfig
--keep class com.lwkandroid.wingsdemo.bean.**{*;}
 #自定义注解NotProguard
 -keepattributes *Annotation*
 -keep @com.lwkandroid.wings.annotation.NotProguard class * {*;}

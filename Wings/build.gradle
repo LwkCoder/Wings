@@ -1,17 +1,14 @@
 apply plugin: 'com.android.library'
 
-def cfg = rootProject.ext.android
-def libraries = rootProject.ext.wingsDependencies
-def debugTools = rootProject.ext.wingsDebugTools
+def appConfig = rootProject.ext.appConfig
 
 android {
-    compileSdkVersion cfg.compileSdkVersion
-//    buildToolsVersion cfg.buildToolsVersion
+    compileSdkVersion appConfig.compileSdkVersion
     publishNonDefault true
 
     defaultConfig {
-        minSdkVersion cfg.minSdkVersion
-        targetSdkVersion cfg.targetSdkVersion
+        minSdkVersion appConfig.minSdkVersion
+        targetSdkVersion appConfig.targetSdkVersion
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -27,16 +24,57 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    /*依赖库*/
-    libraries.each {
-        entry ->
-            api(entry.key) {
-                entry.value.each {
-                    childEntry ->
-                        exclude(group: childEntry.key, module: childEntry.value)
-                }
-            }
+    api "com.android.support:support-v4:$SupportVersion"
+    api "com.android.support:appcompat-v7:$SupportVersion"
+    api "com.android.support:support-annotations:$SupportVersion"
+    api "com.android.support:recyclerview-v7:$SupportVersion"
+    api "com.github.zhaokaiqiang.klog:library:$KLogVersion"
+    api "com.google.code.gson:gson:$GsonVersion"
+    api "com.lwkandroid:RTPermissionLib:$RTPermissionVersion"
+    api "com.lwkandroid.widget:ComActionBar:$ComActionBarVersion"
+    api "com.squareup.okhttp3:okhttp:$OkHttp3Version"
+    api "com.google.zxing:core:$ZXingVersion"
+    api "cn.bingoogolapple:bga-qrcode-zxing:$BGACodeVersion"
+//    api "cn.bingoogolapple:bga-zxing:$BGACodeVersion@aar"
+    api "io.reactivex.rxjava2:rxjava:$RXJava2Version"
+    api "io.reactivex.rxjava2:rxandroid:$RXAndroidVersion"
+    api "com.jakewharton:disklrucache:$DiskLruCacheVersion"
+    api("com.lwkandroid:recyclerviewadapter:$RcvAdapterVersion") {
+        exclude group: 'com.android.support', module: 'recyclerview-v7'
     }
-    /*Debug工具库*/
-    debugTools.each { k, v -> debugApi v }
+    api("com.github.bumptech.glide:glide:$GlideVersion") {
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.squareup.okhttp3', module: 'okhttp3'
+    }
+    api("com.github.bumptech.glide:okhttp3-integration:$GlideVersion") {
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.squareup.okhttp3', module: 'okhttp3'
+    }
+    annotationProcessor("com.github.bumptech.glide:compiler:$GlideVersion") {
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.squareup.okhttp3', module: 'okhttp3'
+    }
+    api("com.lwkandroid:ImagePicker:$ImagePickerVersion") {
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.github.bumptech.glide', module: 'glide'
+    }
+    api("com.squareup.retrofit2:retrofit:$RetrofitVersion") {
+        exclude group: 'com.squareup.okhttp3', module: 'okhttp3'
+    }
+    api("com.squareup.retrofit2:converter-gson:$RetrofitVersion") {
+        exclude group: 'com.google.code.gson', module: 'gson'
+    }
+    api("com.squareup.retrofit2:adapter-rxjava2:$RetrofitVersion") {
+        exclude group: 'io.reactivex.rxjava2', module: 'rxjava'
+    }
+
+    debugApi "com.squareup.leakcanary:leakcanary-android:$LeakCanaryVersion"
+    debugApi "com.facebook.stetho:stetho:$StethoVersion"
+    debugApi "com.facebook.stetho:stetho-okhttp3:$StethoVersion"
 }

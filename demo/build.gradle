@@ -1,0 +1,93 @@
+apply plugin: 'com.android.application'
+
+def appConfig = rootProject.ext.appConfig
+def urls = rootProject.ext.url
+def libsConfig = rootProject.ext.libsConfig
+
+def keystorePropertiesFile = rootProject.file("key/keystore.properties")
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
+android {
+    compileSdkVersion appConfig.compileSdkVersion
+    defaultConfig {
+        applicationId appConfig.applicationId
+        minSdkVersion appConfig.minSdkVersion
+        targetSdkVersion appConfig.targetSdkVersion
+        versionCode appConfig.versionCode
+        versionName appConfig.versionName
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath true
+            }
+        }
+
+        ndk {
+            //选择要添加的对应cpu类型的.so库。
+            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a', 'mips', 'mip64', 'x86', 'x86_64'
+        }
+    }
+    signingConfigs {
+        debug {
+            keyAlias keystoreProperties.keyAlias
+            keyPassword keystoreProperties.keyPassword
+            storeFile rootProject.file(keystoreProperties.storeFile)
+            storePassword keystoreProperties.storePassword
+        }
+        release {
+            keyAlias keystoreProperties.keyAlias
+            keyPassword keystoreProperties.keyPassword
+            storeFile rootProject.file(keystoreProperties.storeFile)
+            storePassword keystoreProperties.storePassword
+        }
+    }
+    buildTypes {
+        debug {
+            buildConfigField("String", "HOST", "\"${urls.debugUrl}\"")
+            buildConfigField("String", "WX_APP_ID", "\"${libsConfig.WX_APP_ID}\"")
+            buildConfigField("String", "WX_APP_SECRET", "\"${libsConfig.WX_APP_SECRET}\"")
+
+            zipAlignEnabled false
+            shrinkResources false
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+        }
+        release {
+            buildConfigField("String", "HOST", "\"${urls.releaseUrl}\"")
+            buildConfigField("String", "WX_APP_ID", "\"${libsConfig.WX_APP_ID}\"")
+            buildConfigField("String", "WX_APP_SECRET", "\"${libsConfig.WX_APP_SECRET}\"")
+
+            zipAlignEnabled true
+            shrinkResources true
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+    }
+    sourceSets {
+        main {
+            assets.srcDirs = ['src/main/assets', 'src/main/assets/']
+            jniLibs.srcDirs('libs')
+        }
+    }
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
+    }
+    lintOptions {
+        abortOnError false
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+    buildToolsVersion '27.0.1'
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    debugImplementation project(':Wings')
+    releaseImplementation project(':Wings')
+}

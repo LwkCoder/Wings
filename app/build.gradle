@@ -1,27 +1,33 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.getkeepsafe.dexcount'
 
-def cfg = rootProject.ext.android
+def appConfig = rootProject.ext.appConfig
 def urls = rootProject.ext.url
-def extraLibsCfg = rootProject.ext.extraLibsConfig
+def libsConfig = rootProject.ext.libsConfig
 
 def keystorePropertiesFile = rootProject.file("key/keystore.properties")
 def keystoreProperties = new Properties()
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 android {
-    compileSdkVersion cfg.compileSdkVersion
-//    buildToolsVersion cfg.buildToolsVersion
+    compileSdkVersion appConfig.compileSdkVersion
+
     defaultConfig {
-        applicationId cfg.applicationId
-        minSdkVersion cfg.minSdkVersion
-        targetSdkVersion cfg.targetSdkVersion
-        versionCode cfg.versionCode
-        versionName cfg.versionName
+        applicationId appConfig.applicationId
+        minSdkVersion appConfig.minSdkVersion
+        targetSdkVersion appConfig.targetSdkVersion
+        versionCode appConfig.versionCode
+        versionName appConfig.versionName
 
         javaCompileOptions {
             annotationProcessorOptions {
                 includeCompileClasspath true
             }
+        }
+
+        ndk {
+            //选择要添加的对应cpu类型的.so库。
+            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a', 'mips', 'mip64', 'x86', 'x86_64'
         }
     }
 
@@ -43,8 +49,6 @@ android {
     buildTypes {
         debug {
             buildConfigField("String", "HOST", "\"${urls.debugUrl}\"")
-            buildConfigField("String", "WX_APP_ID", "\"${extraLibsCfg.WX_APP_ID}\"")
-            buildConfigField("String", "WX_APP_SECRET", "\"${extraLibsCfg.WX_APP_SECRET}\"")
 
             zipAlignEnabled false
             shrinkResources false
@@ -54,8 +58,6 @@ android {
         }
         release {
             buildConfigField("String", "HOST", "\"${urls.releaseUrl}\"")
-            buildConfigField("String", "WX_APP_ID", "\"${extraLibsCfg.WX_APP_ID}\"")
-            buildConfigField("String", "WX_APP_SECRET", "\"${extraLibsCfg.WX_APP_SECRET}\"")
 
             zipAlignEnabled true
             shrinkResources true
@@ -68,6 +70,7 @@ android {
     sourceSets {
         main {
             assets.srcDirs = ['src/main/assets', 'src/main/assets/']
+            jniLibs.srcDirs('libs')
         }
     }
 
@@ -78,6 +81,7 @@ android {
     lintOptions {
         abortOnError false
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7
@@ -89,4 +93,8 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     debugImplementation project(':Wings')
     releaseImplementation project(':Wings')
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
