@@ -7,8 +7,8 @@
 
     <!--二维码扫描界面-->
     <string name="qrcodescan_title">二维码/条码</string>
-    <string name="qrcodescan_sub_title">相册</string>
-    <string name="qrcodescan_desc">将二维码/条码放入框内，即可自动扫描</string>
+    <string name="qrcodescan_album">相册</string>
+    <string name="qrcodescan_hint">将二维码/条码放入框内，即可自动扫描</string>
     <string name="qrcodescan_error">无法识别二维码/条码</string>
     <string name="qrcodescan_decode_error">无法识别图片内二维码/条码</string>
     <string name="qrcode_dialog_message">正在识别...</string>

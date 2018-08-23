@@ -3,6 +3,7 @@ package com.lwkandroid.wings.qrcode;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
@@ -41,7 +42,9 @@ public class QRCodeScanActivity extends WingsBaseActivity<MVPBasePresenter>
         implements QRCodeView.Delegate, OnPermissionResultListener
 {
     public static final String KEY_RESULT = "qrcode_result";
+    private static final String KEY_OPTIONS = "options";
     private static final int REQUEST_CODE_IMAGEPICKER = 100;
+    private QRCodeOptions mOptions;
     private ZXingView mZXingView;
     private ImageView mImgLight;
     private Vibrator mVibrator;
@@ -50,13 +53,40 @@ public class QRCodeScanActivity extends WingsBaseActivity<MVPBasePresenter>
     private Disposable mDisposable;
     private ProgressDialog mProgressDialog;
 
-    /**
-     * 跳转该界面的公共方法
-     */
     public static void start(Activity activity, int requestCode)
     {
+        start(activity, requestCode, new QRCodeOptions());
+    }
+
+    public static void start(Activity activity, int requestCode, QRCodeOptions options)
+    {
         Intent intent = new Intent(activity, QRCodeScanActivity.class);
+        intent.putExtra(KEY_OPTIONS, options);
         activity.startActivityForResult(intent, requestCode);
+    }
+
+    public static void start(Fragment fragment, int requestCode)
+    {
+        start(fragment, requestCode, new QRCodeOptions());
+    }
+
+    public static void start(Fragment fragment, int requestCode, QRCodeOptions options)
+    {
+        Intent intent = new Intent(fragment.getActivity(), QRCodeScanActivity.class);
+        intent.putExtra(KEY_OPTIONS, options);
+        fragment.startActivityForResult(intent, requestCode);
+    }
+
+    public static void start(android.support.v4.app.Fragment fragment, int requestCode)
+    {
+        start(fragment, requestCode, new QRCodeOptions());
+    }
+
+    public static void start(android.support.v4.app.Fragment fragment, int requestCode, QRCodeOptions options)
+    {
+        Intent intent = new Intent(fragment.getActivity(), QRCodeScanActivity.class);
+        intent.putExtra(KEY_OPTIONS, options);
+        fragment.startActivityForResult(intent, requestCode);
     }
 
     @Override
@@ -74,7 +104,10 @@ public class QRCodeScanActivity extends WingsBaseActivity<MVPBasePresenter>
     @Override
     protected void getIntentData(Intent intent, boolean newIntent)
     {
-
+        if (intent != null)
+            mOptions = intent.getParcelableExtra(KEY_OPTIONS);
+        if (mOptions == null)
+            mOptions = new QRCodeOptions();
     }
 
     @Override
@@ -82,7 +115,15 @@ public class QRCodeScanActivity extends WingsBaseActivity<MVPBasePresenter>
     {
         ComActionBar actionBar = find(R.id.cab_qrcode);
         BarUtils.compatPaddingWithStatusBar(actionBar);
-        actionBar.setRightClickListener01(this);
+        actionBar.setBackgroundColor(mOptions.getActionBarBgColor());
+        actionBar.setTitle(mOptions.getActionBarTitle());
+        actionBar.setTitleTextColor(mOptions.getActionBarTextColor());
+        if (mOptions.isShowAlbum())
+        {
+            actionBar.setRightText01(R.string.qrcodescan_album);
+            actionBar.setRightTextColor01(mOptions.getActionBarTextColor());
+            actionBar.setRightClickListener01(this);
+        }
 
         mImgLight = (ImageView) find(R.id.img_qrcode_light);
         addClick(mImgLight);
@@ -102,6 +143,14 @@ public class QRCodeScanActivity extends WingsBaseActivity<MVPBasePresenter>
         ViewStub viewStub = find(R.id.vs_qrcode);
         viewStub.inflate();
         mZXingView = find(R.id.zxv_qrcode);
+        mZXingView.getScanBoxView().setIsBarcode(mOptions.isBarCodeMode());
+        mZXingView.getScanBoxView().setOnlyDecodeScanBoxArea(mOptions.isFullScreenScan());
+        mZXingView.getScanBoxView().setBorderColor(mOptions.getRectColor());
+        mZXingView.getScanBoxView().setCornerColor(mOptions.getRectCornerColor());
+        mZXingView.getScanBoxView().setScanLineColor(mOptions.getScanLineColor());
+        mZXingView.getScanBoxView().setAnimTime(mOptions.getScanLineAnimDuration());
+        mZXingView.getScanBoxView().setTipText(mOptions.getHintText());
+        mZXingView.getScanBoxView().setTipTextColor(mOptions.getHintColor());
         mZXingView.setDelegate(this);
         mZXingView.startSpotAndShowRect();
     }

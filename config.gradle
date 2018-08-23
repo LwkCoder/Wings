@@ -36,7 +36,7 @@ ext {
     BGACodeVersion = "1.2.5"
     ZXingVersion = "3.3.0"
     ComActionBarVersion = "1.1.6"
-    LeakCanaryVersion = "1.5.4"
+    LeakCanaryVersion = "1.6.1"
     StethoVersion = "1.5.0"
     DiskLruCacheVersion = "2.0.2"
 }

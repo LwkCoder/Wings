@@ -32,6 +32,14 @@ public final class QRCodeUtils
     /**
      * 跳转扫码界面
      */
+    public static void startScanQRCode(Activity activity, int requestCode, QRCodeOptions options)
+    {
+        QRCodeScanActivity.start(activity, requestCode, options);
+    }
+
+    /**
+     * 跳转扫码界面
+     */
     public static void startScanQRCode(android.app.Fragment fragment, int requestCode)
     {
         QRCodeScanActivity.start(fragment.getActivity(), requestCode);
@@ -40,9 +48,25 @@ public final class QRCodeUtils
     /**
      * 跳转扫码界面
      */
+    public static void startScanQRCode(android.app.Fragment fragment, int requestCode, QRCodeOptions options)
+    {
+        QRCodeScanActivity.start(fragment.getActivity(), requestCode, options);
+    }
+
+    /**
+     * 跳转扫码界面
+     */
     public static void startScanQRCode(android.support.v4.app.Fragment fragment, int requestCode)
     {
         QRCodeScanActivity.start(fragment.getActivity(), requestCode);
+    }
+
+    /**
+     * 跳转扫码界面
+     */
+    public static void startScanQRCode(android.support.v4.app.Fragment fragment, int requestCode, QRCodeOptions options)
+    {
+        QRCodeScanActivity.start(fragment.getActivity(), requestCode, options);
     }
 
     /**
@@ -135,7 +159,8 @@ public final class QRCodeUtils
                         e.onComplete();
                     } else
                     {
-                        e.onError(new NullPointerException());
+                        e.onNext("");
+                        e.onComplete();
                     }
                 }
             }

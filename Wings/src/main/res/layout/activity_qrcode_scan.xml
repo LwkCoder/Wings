@@ -21,7 +21,6 @@
         app:all_text_color="@android:color/white"
         app:bg_color="#40000000"
         app:is_left_as_back_without_text="true"
-        app:right_text01="@string/qrcodescan_sub_title"
         app:title_text="@string/qrcodescan_title"/>
 
     <ImageView
