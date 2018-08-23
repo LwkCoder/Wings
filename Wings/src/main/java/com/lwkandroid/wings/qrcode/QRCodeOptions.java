@@ -232,9 +232,9 @@ public class QRCodeOptions implements Parcelable
             return this;
         }
 
-        public Builder setFullScreenScan(boolean showAlbum)
+        public Builder setFullScreenScan(boolean fullScreenScan)
         {
-            options.setFullScreenScan(showAlbum);
+            options.setFullScreenScan(fullScreenScan);
             return this;
         }
 
