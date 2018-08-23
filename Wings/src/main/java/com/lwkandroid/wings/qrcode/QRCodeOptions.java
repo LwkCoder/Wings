@@ -234,7 +234,7 @@ public class QRCodeOptions implements Parcelable
 
         public Builder setFullScreenScan(boolean showAlbum)
         {
-            options.setShowAlbum(showAlbum);
+            options.setFullScreenScan(showAlbum);
             return this;
         }
 
