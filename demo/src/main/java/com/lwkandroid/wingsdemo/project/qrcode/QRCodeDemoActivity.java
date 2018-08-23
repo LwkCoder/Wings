@@ -2,6 +2,7 @@ package com.lwkandroid.wingsdemo.project.qrcode;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -67,8 +68,13 @@ public class QRCodeDemoActivity extends AppBaseActivity<QRCodeDemoPresenter> imp
     public void startToScanCode()
     {
         QRCodeOptions options =new QRCodeOptions.Builder()
-                .setShowAlbum(false)
                 .setHintText("扫码啊啊啊啊啊啊")
+                .setHintColor(Color.RED)
+                .setRectColor(Color.YELLOW)
+                .setRectCornerColor(Color.BLUE)
+                .setScanLineAnimDuration(2000)
+                .setFullScreenScan(false)
+                .setScanLineColor(Color.GREEN)
                 .build();
         QRCodeUtils.startScanQRCode(this, REQUEST_CODE_SCAN,options);
     }

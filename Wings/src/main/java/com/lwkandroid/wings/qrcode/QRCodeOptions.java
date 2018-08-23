@@ -19,7 +19,7 @@ public class QRCodeOptions implements Parcelable
     //是否显示相册入口
     private boolean showAlbum = true;
     //是否全屏扫描
-    private boolean fullScreenScan = false;
+    private boolean fullScreenScan = true;
     //ActionBar的标题
     private String actionBarTitle = ResourceUtils.getString(R.string.qrcodescan_title);
     //ActionBar的背景色
