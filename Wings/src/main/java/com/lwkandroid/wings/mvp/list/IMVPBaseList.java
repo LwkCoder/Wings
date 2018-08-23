@@ -14,9 +14,9 @@ import java.util.List;
  * TODO 定义列表界面公共逻辑方法
  */
 
-public interface IWingsList
+public interface IMVPBaseList
 {
-    interface ICommon<D> extends IMVPBaseView
+    interface IViewCommon<D> extends IMVPBaseView
     {
         void onRefreshSuccess(int pageIndex, List<D> dataList);
 
@@ -26,7 +26,7 @@ public interface IWingsList
 
         void onLoadMoreFail(String errorMsg);
 
-        WingsListOptions getListOptions();
+        MVPListOptions getListOptions();
 
         SwipeRefreshLayout getRefreshLayout();
 
@@ -35,9 +35,9 @@ public interface IWingsList
         RcvMultiAdapter<D> getAdapter();
     }
 
-    interface IView<D>
+    interface IViewSubClass<D>
     {
-        WingsListOptions setListOptions();
+        MVPListOptions setListOptions();
 
         RcvMultiAdapter<D> setAdapter();
 
@@ -46,9 +46,9 @@ public interface IWingsList
         void requestLoadMore();
     }
 
-    interface ILogic<D>
+    interface ILogicCommon<D>
     {
-        void init(WingsListOptions options, View contentView, RcvMultiAdapter<D> adapter);
+        void init(MVPListOptions options, View contentView, RcvMultiAdapter<D> adapter);
     }
 
 }

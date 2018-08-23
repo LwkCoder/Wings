@@ -18,9 +18,9 @@ import java.util.List;
  */
 
 public abstract class WingsListActivity<P extends MVPBasePresenter, D> extends WingsBaseActivity<P> implements
-        IWingsList.ICommon<D>, IWingsList.IView<D>, WingsListImpl.Listener
+        IMVPBaseList.IViewCommon<D>, IMVPBaseList.IViewSubClass<D>, MVPListImpl.Listener
 {
-    private WingsListImpl<D> mListImpl = new WingsListImpl<>(this);
+    private MVPListImpl<D> mListImpl = new MVPListImpl<>(this);
 
     @Override
     protected void initUI(View contentView)
@@ -72,7 +72,7 @@ public abstract class WingsListActivity<P extends MVPBasePresenter, D> extends W
     }
 
     @Override
-    public WingsListOptions getListOptions()
+    public MVPListOptions getListOptions()
     {
         return mListImpl.getListOptions();
     }

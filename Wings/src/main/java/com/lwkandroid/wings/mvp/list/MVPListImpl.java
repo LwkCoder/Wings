@@ -21,24 +21,24 @@ import io.reactivex.subjects.PublishSubject;
  * TODO 列表界面公共部分实现类
  */
 
-class WingsListImpl<D> implements IWingsList.ILogic<D>, IWingsList.ICommon<D>,
+class MVPListImpl<D> implements IMVPBaseList.ILogicCommon<D>, IMVPBaseList.IViewCommon<D>,
         SwipeRefreshLayout.OnRefreshListener, RcvLoadMoreListener
 {
     private MVPBaseViewImpl mBaseViewImpl = new MVPBaseViewImpl();
     private SwipeRefreshLayout mRefreshLayout;
     private RecyclerView mRecyclerView;
-    private WingsListOptions mOptions;
+    private MVPListOptions mOptions;
     private RcvMultiAdapter<D> mAdapter;
     private int mCurrentIndex;
     private Listener mListener;
 
-    public WingsListImpl(Listener listener)
+    public MVPListImpl(Listener listener)
     {
         this.mListener = listener;
     }
 
     @Override
-    public void init(WingsListOptions options, View contentView, RcvMultiAdapter<D> adapter)
+    public void init(MVPListOptions options, View contentView, RcvMultiAdapter<D> adapter)
     {
         mOptions = options;
         mAdapter = adapter;
@@ -118,9 +118,9 @@ class WingsListImpl<D> implements IWingsList.ILogic<D>, IWingsList.ICommon<D>,
     }
 
     @Override
-    public WingsListOptions getListOptions()
+    public MVPListOptions getListOptions()
     {
-        return mOptions == null ? new WingsListOptions() : mOptions;
+        return mOptions == null ? new MVPListOptions() : mOptions;
     }
 
     @Override

@@ -11,7 +11,7 @@ import com.lwkandroid.wings.utils.Utils;
  * TODO 列表界面配置
  */
 
-public class WingsListOptions
+public class MVPListOptions
 {
     //是否允许下拉刷新
     private boolean enableRefresh = true;
@@ -89,11 +89,11 @@ public class WingsListOptions
 
     public static class Builder
     {
-        private WingsListOptions options;
+        private MVPListOptions options;
 
         public Builder()
         {
-            this.options = new WingsListOptions();
+            this.options = new MVPListOptions();
         }
 
         public Builder enableRefresh(boolean enable)
@@ -132,7 +132,7 @@ public class WingsListOptions
             return this;
         }
 
-        public WingsListOptions build()
+        public MVPListOptions build()
         {
             return options;
         }

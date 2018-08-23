@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.lwkandroid.rcvadapter.RcvMultiAdapter;
-import com.lwkandroid.wings.mvp.list.WingsListOptions;
+import com.lwkandroid.wings.mvp.list.MVPListOptions;
 import com.lwkandroid.wingsdemo.R;
 import com.lwkandroid.wingsdemo.app.AppListActivity;
 
@@ -21,9 +21,9 @@ public class ListDemoActivity extends AppListActivity<ListDemoPresenter, String>
         ListDemoContract.IView<String>
 {
     @Override
-    public WingsListOptions setListOptions()
+    public MVPListOptions setListOptions()
     {
-        return new WingsListOptions.Builder()
+        return new MVPListOptions.Builder()
                 .enableRefresh(true)
                 .enableLoadMore(true)
                 .setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false))
