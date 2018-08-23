@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.lwkandroid.imagepicker.ImagePicker;
 import com.lwkandroid.imagepicker.data.ImageBean;
 import com.lwkandroid.imagepicker.data.ImagePickType;
+import com.lwkandroid.wings.qrcode.QRCodeOptions;
 import com.lwkandroid.wings.qrcode.QRCodeUtils;
 import com.lwkandroid.wings.utils.ClipboardUtils;
 import com.lwkandroid.wings.utils.StringUtils;
@@ -65,7 +66,11 @@ public class QRCodeDemoActivity extends AppBaseActivity<QRCodeDemoPresenter> imp
     @Override
     public void startToScanCode()
     {
-        QRCodeUtils.startScanQRCode(this, REQUEST_CODE_SCAN);
+        QRCodeOptions options =new QRCodeOptions.Builder()
+                .setShowAlbum(false)
+                .setHintText("扫码啊啊啊啊啊啊")
+                .build();
+        QRCodeUtils.startScanQRCode(this, REQUEST_CODE_SCAN,options);
     }
 
     @Override
