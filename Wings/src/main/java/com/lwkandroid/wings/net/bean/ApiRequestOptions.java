@@ -337,6 +337,51 @@ public abstract class ApiRequestOptions<T extends ApiRequestOptions>
         return (T) this;
     }
 
+    public T addFormData(@NonNull String key, short value)
+    {
+        if (mFormDatasMap == null)
+            mFormDatasMap = new FormDataMap();
+        if (StringUtils.isNotEmpty(key))
+            mFormDatasMap.addParam(key, value);
+        return (T) this;
+    }
+
+    public T addFormData(@NonNull String key, int value)
+    {
+        if (mFormDatasMap == null)
+            mFormDatasMap = new FormDataMap();
+        if (StringUtils.isNotEmpty(key))
+            mFormDatasMap.addParam(key, value);
+        return (T) this;
+    }
+
+    public T addFormData(@NonNull String key, long value)
+    {
+        if (mFormDatasMap == null)
+            mFormDatasMap = new FormDataMap();
+        if (StringUtils.isNotEmpty(key))
+            mFormDatasMap.addParam(key, value);
+        return (T) this;
+    }
+
+    public T addFormData(@NonNull String key, double value)
+    {
+        if (mFormDatasMap == null)
+            mFormDatasMap = new FormDataMap();
+        if (StringUtils.isNotEmpty(key))
+            mFormDatasMap.addParam(key, value);
+        return (T) this;
+    }
+
+    public T addFormData(@NonNull String key, float value)
+    {
+        if (mFormDatasMap == null)
+            mFormDatasMap = new FormDataMap();
+        if (StringUtils.isNotEmpty(key))
+            mFormDatasMap.addParam(key, value);
+        return (T) this;
+    }
+
     /**
      * 获取该次请求添加的Header
      */

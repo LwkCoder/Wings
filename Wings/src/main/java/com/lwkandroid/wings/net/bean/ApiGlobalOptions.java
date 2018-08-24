@@ -249,6 +249,51 @@ public class ApiGlobalOptions
         return this;
     }
 
+    public ApiGlobalOptions addFormData(@NonNull String key, short value)
+    {
+        if (mFormDatasMap == null)
+            mFormDatasMap = new FormDataMap();
+        if (StringUtils.isNotEmpty(key))
+            mFormDatasMap.addParam(key, value);
+        return this;
+    }
+
+    public ApiGlobalOptions addFormData(@NonNull String key, int value)
+    {
+        if (mFormDatasMap == null)
+            mFormDatasMap = new FormDataMap();
+        if (StringUtils.isNotEmpty(key))
+            mFormDatasMap.addParam(key, value);
+        return this;
+    }
+
+    public ApiGlobalOptions addFormData(@NonNull String key, long value)
+    {
+        if (mFormDatasMap == null)
+            mFormDatasMap = new FormDataMap();
+        if (StringUtils.isNotEmpty(key))
+            mFormDatasMap.addParam(key, value);
+        return this;
+    }
+
+    public ApiGlobalOptions addFormData(@NonNull String key, double value)
+    {
+        if (mFormDatasMap == null)
+            mFormDatasMap = new FormDataMap();
+        if (StringUtils.isNotEmpty(key))
+            mFormDatasMap.addParam(key, value);
+        return this;
+    }
+
+    public ApiGlobalOptions addFormData(@NonNull String key, float value)
+    {
+        if (mFormDatasMap == null)
+            mFormDatasMap = new FormDataMap();
+        if (StringUtils.isNotEmpty(key))
+            mFormDatasMap.addParam(key, value);
+        return this;
+    }
+
     public ApiGlobalOptions removeFormData(String key)
     {
         if (mFormDatasMap != null)

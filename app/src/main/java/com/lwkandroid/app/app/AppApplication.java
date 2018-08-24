@@ -42,8 +42,8 @@ public class AppApplication extends WingsApplication
         super.onCreate();
         if (DebugTools.DEBUG)
         {
-            StringBuffer buffer = new StringBuffer();
-            buffer.append("\n********************************************************\n")
+            KLog.i(new StringBuilder()
+                    .append("\n********************************************************\n")
                     .append("| AppName=").append(AppUtils.getAppName()).append("\n")
                     .append("| VersionName=").append(AppUtils.getAppVersionName()).append("\n")
                     .append("| VersionCode=").append(AppUtils.getAppVersionCode()).append("\n")
@@ -55,8 +55,7 @@ public class AppApplication extends WingsApplication
                     .append("| DeviceModel=").append(Build.MODEL).append("\n")
                     .append("| AndroidVersion=").append(Build.VERSION.RELEASE).append("\n")
                     .append("| AndroidSdk=").append(Build.VERSION.SDK_INT).append("\n")
-                    .append("********************************************************");
-            KLog.i(buffer.toString());
+                    .append("********************************************************"));
         }
     }
 }
