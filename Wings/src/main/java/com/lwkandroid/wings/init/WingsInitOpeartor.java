@@ -2,7 +2,6 @@ package com.lwkandroid.wings.init;
 
 import android.app.Activity;
 import android.app.Application;
-import android.content.Context;
 import android.os.Bundle;
 
 import com.lwkandroid.wings.DebugTools;
@@ -22,21 +21,16 @@ import com.socks.library.KLog;
 
 public abstract class WingsInitOpeartor implements Application.ActivityLifecycleCallbacks
 {
-    private Context context;
+    private Application context;
 
-    public WingsInitOpeartor(Context appContext)
-    {
-        this.context = appContext.getApplicationContext();
-    }
-
-    public Context getContext()
-    {
-        return context;
-    }
-
-    public void setContext(Context context)
+    public WingsInitOpeartor(Application context)
     {
         this.context = context;
+    }
+
+    public Application getContext()
+    {
+        return context;
     }
 
     public void init()
@@ -50,8 +44,8 @@ public abstract class WingsInitOpeartor implements Application.ActivityLifecycle
         {
             DebugTools.init(getContext());
             RxHttp.getGlobalOptions().addInterceptor(ApiConstants.TAG_LOG_INTERCEPTOR, new ApiLogInterceptor());
-            if (getContext() != null && getContext() instanceof Application)
-                ((Application) getContext()).registerActivityLifecycleCallbacks(this);
+            if (getContext() != null)
+                getContext().registerActivityLifecycleCallbacks(this);
         }
     }
 

@@ -21,6 +21,7 @@ public class AppApplication extends WingsApplication
     protected void initBuildConfig()
     {
         ApiURL.HOST = BuildConfig.HOST;
+        AppConfig.CHANNEL_NAME = BuildConfig.APP_CHANNEL;
     }
 
     @Override
@@ -46,6 +47,7 @@ public class AppApplication extends WingsApplication
                     .append("| AppName=").append(AppUtils.getAppName()).append("\n")
                     .append("| VersionName=").append(AppUtils.getAppVersionName()).append("\n")
                     .append("| VersionCode=").append(AppUtils.getAppVersionCode()).append("\n")
+                    .append("| ChannelName=").append(AppConfig.CHANNEL_NAME).append("\n")
                     .append("| PackageName=").append(AppUtils.getPackageName()).append("\n")
                     .append("| SHA1=").append(AppUtils.getAppSignatureSHA1()).append("\n")
                     .append("| ApiURL.HOST=").append(ApiURL.HOST).append("\n")

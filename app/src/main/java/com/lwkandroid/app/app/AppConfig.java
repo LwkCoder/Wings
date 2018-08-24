@@ -7,4 +7,5 @@ package com.lwkandroid.app.app;
 
 public final class AppConfig
 {
+    public static String CHANNEL_NAME;
 }

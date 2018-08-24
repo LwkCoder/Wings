@@ -18,6 +18,7 @@ android {
         targetSdkVersion appConfig.targetSdkVersion
         versionCode appConfig.versionCode
         versionName appConfig.versionName
+        flavorDimensions appConfig.versionName
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -64,6 +65,13 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
+        }
+    }
+
+    productFlavors {
+        normal {
+            manifestPlaceholders = [CHANNEL_NAME: "default"]
+            buildConfigField("String", "APP_CHANNEL", "\"default\"")
         }
     }
 

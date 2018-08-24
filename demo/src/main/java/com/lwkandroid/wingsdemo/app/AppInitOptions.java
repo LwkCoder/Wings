@@ -1,6 +1,6 @@
 package com.lwkandroid.wingsdemo.app;
 
-import android.content.Context;
+import android.app.Application;
 
 import com.lwkandroid.wings.init.WingsInitOpeartor;
 import com.lwkandroid.wings.net.RxHttp;
@@ -15,7 +15,7 @@ import com.lwkandroid.wingsdemo.net.TestSignInterceptor;
 
 public class AppInitOptions extends WingsInitOpeartor
 {
-    public AppInitOptions(Context appContext)
+    public AppInitOptions(Application appContext)
     {
         super(appContext);
     }

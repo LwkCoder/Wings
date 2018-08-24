@@ -1,6 +1,6 @@
 package com.lwkandroid.wings;
 
-import android.content.Context;
+import android.app.Application;
 
 import com.lwkandroid.wings.app.ActivityStack;
 import com.lwkandroid.wings.init.WingsInitOpeartor;
@@ -18,12 +18,10 @@ public final class Wings
 
     /**
      * 初始化操作
-     *
-     * @param appContext
      */
-    public static void init(Context appContext)
+    public static void init(Application context)
     {
-        WingsInitOpeartor options = new WingsInitOpeartor(appContext)
+        WingsInitOpeartor options = new WingsInitOpeartor(context)
         {
             @Override
             protected String getApiBaseUrl()

@@ -1,6 +1,6 @@
 package com.lwkandroid.app.app;
 
-import android.content.Context;
+import android.app.Application;
 
 import com.lwkandroid.app.net.ApiURL;
 import com.lwkandroid.wings.init.WingsInitOpeartor;
@@ -12,9 +12,9 @@ import com.lwkandroid.wings.init.WingsInitOpeartor;
 
 public class AppInitOptions extends WingsInitOpeartor
 {
-    public AppInitOptions(Context appContext)
+    public AppInitOptions(Application context)
     {
-        super(appContext);
+        super(context);
     }
 
     @Override
