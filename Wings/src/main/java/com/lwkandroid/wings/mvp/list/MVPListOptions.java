@@ -3,7 +3,6 @@ package com.lwkandroid.wings.mvp.list;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.lwkandroid.rcvadapter.base.RcvBaseLoadMoreView;
 import com.lwkandroid.wings.utils.Utils;
 
 /**
@@ -24,8 +23,6 @@ public class MVPListOptions
     //RecyclerView的LayoutManger
     private RecyclerView.LayoutManager layoutManager =
             new LinearLayoutManager(Utils.getContext(), LinearLayoutManager.VERTICAL, false);
-    //适配器的LoadMoreView
-    private RcvBaseLoadMoreView loadMoreView;
 
     public boolean isEnableRefresh()
     {
@@ -77,16 +74,6 @@ public class MVPListOptions
         this.layoutManager = layoutManager;
     }
 
-    public RcvBaseLoadMoreView getLoadMoreView()
-    {
-        return loadMoreView;
-    }
-
-    public void setLoadMoreView(RcvBaseLoadMoreView loadMoreView)
-    {
-        this.loadMoreView = loadMoreView;
-    }
-
     public static class Builder
     {
         private MVPListOptions options;
@@ -123,12 +110,6 @@ public class MVPListOptions
         public Builder setLayoutManager(RecyclerView.LayoutManager layoutManager)
         {
             options.setLayoutManager(layoutManager);
-            return this;
-        }
-
-        public Builder setLoadMoreView(RcvBaseLoadMoreView loadMoreView)
-        {
-            options.setLoadMoreView(loadMoreView);
             return this;
         }
 

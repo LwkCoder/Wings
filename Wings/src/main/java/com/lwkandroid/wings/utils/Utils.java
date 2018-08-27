@@ -27,6 +27,6 @@ public final class Utils
         if (mContext != null)
             return mContext;
         else
-            throw new UnsupportedOperationException("You should invoke Utils.init(Context context) in Application !");
+            throw new UnsupportedOperationException("You should invoke Utils.wrap(Context context) in Application !");
     }
 }

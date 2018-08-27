@@ -9,6 +9,10 @@ def keystorePropertiesFile = rootProject.file("key/keystore.properties")
 def keystoreProperties = new Properties()
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
+def formatDate() {
+    return new Date().format("yyyyMMdd", TimeZone.getTimeZone("UTC"))
+}
+
 android {
     compileSdkVersion appConfig.compileSdkVersion
 
@@ -72,6 +76,12 @@ android {
         normal {
             manifestPlaceholders = [CHANNEL_NAME: "default"]
             buildConfigField("String", "APP_CHANNEL", "\"default\"")
+        }
+    }
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "app_v${appConfig.versionName}_${formatDate()}_${variant.productFlavors[0].name}.apk"
         }
     }
 

@@ -1,6 +1,5 @@
 package com.lwkandroid.wings.mvp.list;
 
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -28,7 +27,7 @@ public interface IMVPBaseList
 
         MVPListOptions getListOptions();
 
-        SwipeRefreshLayout getRefreshLayout();
+        IRefreshView getRefreshLayout();
 
         RecyclerView getRecyclerView();
 
@@ -41,6 +40,10 @@ public interface IMVPBaseList
 
         RcvMultiAdapter<D> setAdapter();
 
+        IRefreshView findRefreshView(MVPListOptions options, View contentView);
+
+        RecyclerView findRecyclerView(MVPListOptions options, View contentView);
+
         void requestRefresh();
 
         void requestLoadMore();
@@ -48,7 +51,15 @@ public interface IMVPBaseList
 
     interface ILogicCommon<D>
     {
-        void init(MVPListOptions options, View contentView, RcvMultiAdapter<D> adapter);
+        IRefreshView findRefreshView(MVPListOptions options, View contentView);
+
+        RecyclerView findRecyclerView(MVPListOptions options, View contentView);
+
+        void init(MVPListOptions options, View contentView,
+                  IRefreshView refreshView, RecyclerView recyclerView,
+                  RcvMultiAdapter<D> adapter);
+
+        void onDestroy();
     }
 
 }

@@ -1,7 +1,6 @@
 package com.lwkandroid.wings.mvp.list;
 
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -20,13 +19,27 @@ import java.util.List;
 public abstract class WingsListActivity<P extends MVPBasePresenter, D> extends WingsBaseActivity<P> implements
         IMVPBaseList.IViewCommon<D>, IMVPBaseList.IViewSubClass<D>, MVPListImpl.Listener
 {
-    private MVPListImpl<D> mListImpl = new MVPListImpl<>(this);
+    private MVPListImpl<D> mListImpl;
 
     @Override
     protected void initUI(View contentView)
     {
-        mListImpl.init(setListOptions(), contentView, setAdapter());
+        mListImpl = new MVPListImpl<>(this);
+        mListImpl.init(setListOptions(), contentView, findRefreshView(getListOptions(), contentView)
+                , findRecyclerView(getListOptions(), contentView), setAdapter());
         _initUI(contentView);
+    }
+
+    @Override
+    public IRefreshView findRefreshView(MVPListOptions options, View contentView)
+    {
+        return mListImpl.findRefreshView(options, contentView);
+    }
+
+    @Override
+    public RecyclerView findRecyclerView(MVPListOptions options, View contentView)
+    {
+        return mListImpl.findRecyclerView(options, contentView);
     }
 
     @Override
@@ -38,7 +51,7 @@ public abstract class WingsListActivity<P extends MVPBasePresenter, D> extends W
     @Override
     public void requestRefresh()
     {
-        mListImpl.onRefresh();
+        mListImpl.onRefreshRequest();
     }
 
     @Override
@@ -78,7 +91,7 @@ public abstract class WingsListActivity<P extends MVPBasePresenter, D> extends W
     }
 
     @Override
-    public SwipeRefreshLayout getRefreshLayout()
+    public IRefreshView getRefreshLayout()
     {
         return mListImpl.getRefreshLayout();
     }
@@ -93,6 +106,13 @@ public abstract class WingsListActivity<P extends MVPBasePresenter, D> extends W
     public RcvMultiAdapter<D> getAdapter()
     {
         return mListImpl.getAdapter();
+    }
+
+    @Override
+    protected void onDestroy()
+    {
+        mListImpl.onDestroy();
+        super.onDestroy();
     }
 
     protected abstract void _initUI(View contentView);

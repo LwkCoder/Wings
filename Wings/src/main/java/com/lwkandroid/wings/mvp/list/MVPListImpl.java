@@ -22,10 +22,10 @@ import io.reactivex.subjects.PublishSubject;
  */
 
 class MVPListImpl<D> implements IMVPBaseList.ILogicCommon<D>, IMVPBaseList.IViewCommon<D>,
-        SwipeRefreshLayout.OnRefreshListener, RcvLoadMoreListener
+        RcvLoadMoreListener, IRefreshView.onRefreshListener
 {
     private MVPBaseViewImpl mBaseViewImpl = new MVPBaseViewImpl();
-    private SwipeRefreshLayout mRefreshLayout;
+    private IRefreshView mRefreshLayout;
     private RecyclerView mRecyclerView;
     private MVPListOptions mOptions;
     private RcvMultiAdapter<D> mAdapter;
@@ -38,34 +38,49 @@ class MVPListImpl<D> implements IMVPBaseList.ILogicCommon<D>, IMVPBaseList.IView
     }
 
     @Override
-    public void init(MVPListOptions options, View contentView, RcvMultiAdapter<D> adapter)
+    public IRefreshView findRefreshView(MVPListOptions options, View contentView)
+    {
+        SwipeRefreshLayout layout = contentView.findViewById(R.id.id_common_refresh_view);
+        return new SwipeRefreshWrapper(layout);
+    }
+
+    @Override
+    public RecyclerView findRecyclerView(MVPListOptions options, View contentView)
+    {
+        return contentView.findViewById(R.id.id_common_recyclerview);
+    }
+
+    @Override
+    public void init(MVPListOptions options, View contentView,
+                     IRefreshView refreshView, RecyclerView recyclerView,
+                     RcvMultiAdapter<D> adapter)
     {
         mOptions = options;
         mAdapter = adapter;
-        mRefreshLayout = contentView.findViewById(R.id.srl_common);
-        mRecyclerView = contentView.findViewById((R.id.rcv_common));
+        mRefreshLayout = refreshView;
+        mRecyclerView = recyclerView;
 
         if (mRefreshLayout == null)
-            throw new IllegalStateException("RefreshLayout can not be null! You can include the R.layout.layout_common_list into your XML.");
+            throw new IllegalStateException("RefreshLayout can not be null! ");
         if (mRecyclerView == null)
-            throw new IllegalStateException("RecyclerView can not be null! You can include the R.layout.layout_common_list into your XML.");
+            throw new IllegalStateException("RecyclerView can not be null!");
         if (mAdapter == null)
             throw new IllegalStateException("RecyclerView's Adapter can not be null!");
-        if (mOptions.getLoadMoreView() == null)
-            mOptions.setLoadMoreView(new RcvDefLoadMoreView(contentView.getContext()));
 
-        mRefreshLayout.setEnabled(getListOptions().isEnableRefresh());
+        mRefreshLayout.enableRefresh(getListOptions().isEnableRefresh());
         mRefreshLayout.setOnRefreshListener(this);
-        mAdapter.enableLoadMore(false);//首先先禁止，刷新后再配置
+        if (mOptions.isEnableLoadMore() && mAdapter.isLoadMoreLayoutEmpty())
+            mAdapter.setLoadMoreLayout(new RcvDefLoadMoreView.Builder().build(contentView.getContext()));
+        mAdapter.disableLoadMore();//首先先禁止，刷新后再配置
         mRecyclerView.setLayoutManager(getListOptions().getLayoutManager());
         mRecyclerView.setAdapter(mAdapter);
     }
 
     @Override
-    public void onRefresh()
+    public void onRefreshRequest()
     {
-        mAdapter.enableLoadMore(false);
-        mRefreshLayout.setRefreshing(true);
+        mAdapter.disableLoadMore();//刷新的时候禁止加载更多
+        mRefreshLayout.enableRefresh(true);
         if (mListener != null)
             mListener.doRefresh(System.currentTimeMillis(), 0, mOptions.getPageSize());
     }
@@ -74,12 +89,11 @@ class MVPListImpl<D> implements IMVPBaseList.ILogicCommon<D>, IMVPBaseList.IView
     public void onRefreshSuccess(int pageIndex, List<D> dataList)
     {
         this.mCurrentIndex = pageIndex;
-        mRefreshLayout.setRefreshing(false);
+        mRefreshLayout.enableRefresh(false);
         mAdapter.refreshDatas(dataList);
         if (dataList == null || dataList.size() == 0)
             return;
-        getListOptions().getLoadMoreView().handleLoadInit();
-        mAdapter.enableLoadMore(getListOptions().isEnableLoadMore(), getListOptions().getLoadMoreView(), this);
+        mAdapter.enableLoadMore(this);
         if (getListOptions().isEnableLoadMore() &&
                 dataList.size() < getListOptions().getPageSize())
             mAdapter.notifyLoadMoreHasNoMoreData();
@@ -88,7 +102,7 @@ class MVPListImpl<D> implements IMVPBaseList.ILogicCommon<D>, IMVPBaseList.IView
     @Override
     public void onRefreshFail(String errorMsg)
     {
-        mRefreshLayout.setRefreshing(false);
+        mRefreshLayout.enableRefresh(false);
         if (StringUtils.isNotEmpty(errorMsg))
             ToastUtils.showShort(errorMsg);
     }
@@ -124,7 +138,7 @@ class MVPListImpl<D> implements IMVPBaseList.ILogicCommon<D>, IMVPBaseList.IView
     }
 
     @Override
-    public SwipeRefreshLayout getRefreshLayout()
+    public IRefreshView getRefreshLayout()
     {
         return mRefreshLayout;
     }
@@ -169,6 +183,13 @@ class MVPListImpl<D> implements IMVPBaseList.ILogicCommon<D>, IMVPBaseList.IView
     public PublishSubject<Integer> getLifecycleSubject()
     {
         return mBaseViewImpl.getLifecycleSubject();
+    }
+
+    @Override
+    public void onDestroy()
+    {
+        if (getRefreshLayout() != null)
+            getRefreshLayout().onDestroy();
     }
 
     public interface Listener
