@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.text.TextUtils;
 
 import com.lwkandroid.wings.net.ApiService;
+import com.lwkandroid.wings.net.constants.ApiConstants;
 import com.lwkandroid.wings.net.constants.ApiRequestType;
 import com.lwkandroid.wings.net.convert.ApiResponseConvert;
 import com.lwkandroid.wings.net.error.ApiExceptionTransformer;
@@ -14,7 +15,7 @@ import com.lwkandroid.wings.net.parser.ApiIS2FileParser;
 import com.lwkandroid.wings.net.response.IApiBytesArrayResponse;
 import com.lwkandroid.wings.net.response.IApiInputSreamResponse;
 import com.lwkandroid.wings.net.retry.AutoRetryFunc;
-import com.socks.library.KLog;
+import com.lwkandroid.wings.net.utils.RequestBodyUtils;
 
 import java.io.File;
 import java.io.InputStream;
@@ -95,15 +96,23 @@ public class ApiDownloadRequest extends ApiBaseRequest<ApiDownloadRequest> imple
     {
         if (objectRequestBody != null)
         {
-            KLog.w("RxHttp method DOWNLOAD must not have a request body：\n" + objectRequestBody.toString());
+            return service.downloadFile(getUrl(), headersMap, objectRequestBody);
         } else if (okHttp3RequestBody != null)
         {
-            KLog.w("RxHttp method DOWNLOAD must not have a request body：\n" + okHttp3RequestBody.toString());
+            return service.downloadFile(getUrl(), headersMap, okHttp3RequestBody);
         } else if (!TextUtils.isEmpty(jsonBody))
         {
-            KLog.w("RxHttp method DOWNLOAD must not have a request body：\n" + jsonBody);
+            RequestBody jsonRequestBody = RequestBodyUtils.createJsonBody(jsonBody);
+            headersMap.put(ApiConstants.HEADER_KEY_CONTENT_TYPE, ApiConstants.HEADER_VALUE_JSON);
+            headersMap.put(ApiConstants.HEADER_KEY_ACCEPT, ApiConstants.HEADER_VALUE_JSON);
+            return service.downloadFile(getUrl(), headersMap, jsonRequestBody);
+        } else if (formDatasMap != null && formDatasMap.size() > 0)
+        {
+            return service.downloadFile(getUrl(), headersMap, formDatasMap);
+        } else
+        {
+            return service.downloadFile(getUrl(), headersMap);
         }
-        return service.downloadFile(getUrl(), headersMap, formDatasMap);
     }
 
     @Override

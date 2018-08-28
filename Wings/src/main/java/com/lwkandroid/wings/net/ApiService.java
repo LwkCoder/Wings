@@ -70,5 +70,18 @@ public interface ApiService
 
     @Streaming
     @GET
+    Observable<ResponseBody> downloadFile(@Url String fileUrl, @HeaderMap Map<String, String> headerMap);
+
+    @Streaming
+    @POST
     Observable<ResponseBody> downloadFile(@Url String fileUrl, @HeaderMap Map<String, String> headerMap, @QueryMap Map<String, String> maps);
+
+    @Streaming
+    @POST()
+    Observable<ResponseBody> downloadFile(@Url String url, @HeaderMap Map<String, String> headerMap, @Body Object object);
+
+    @Streaming
+    @POST()
+    Observable<ResponseBody> downloadFile(@Url String url, @HeaderMap Map<String, String> headerMap, @Body RequestBody body);
+
 }

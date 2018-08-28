@@ -54,21 +54,21 @@ public abstract class ApiRequestOptions<T extends ApiRequestOptions>
     /*单次请求的Header*/
     private Map<String, String> mHeadersMap;
     /*单次请求需要排除的全局拦截器TAG集合*/
-    private Set<String> mRemoveInterceptorSet;
+    private Set<String> mIgnoreInterceptorSet;
     /*单次请求需要排除的全局网络拦截器TAG集合*/
-    private Set<String> mRemoveNetInterceptorSet;
+    private Set<String> mIgnoreNetInterceptorSet;
     /*单次请求需要排除的全局表单参数Key集合*/
-    private Set<String> mRemoveFormDatasSet;
+    private Set<String> mIgnoreFormDatasSet;
     /*单次请求需要排除的全局Header参数Key集合*/
-    private Set<String> mRemoveHeaderSet;
+    private Set<String> mIgnoreHeaderSet;
     /*单次请求是否去除所有全局拦截器*/
-    private boolean mIsRemoveAllGlobalInterceptors = false;
+    private boolean mIsIgnoreAllGlobalInterceptors = false;
     /*单次请求是否去除所有网络拦截器*/
-    private boolean mIsRemoveAllGlobalNetInterceptors = false;
+    private boolean mIsIgnoreAllGlobalNetInterceptors = false;
     /*单次请求是否去除所有全局参数*/
-    private boolean mIsRemoveAllGlobalFormDatas = false;
+    private boolean mIsIgnoreAllGlobalFormDatas = false;
     /*单次请求是否去除所有全局Header*/
-    private boolean mIsRemoveAllGlobalHeaders = false;
+    private boolean mIsIgnoreAllGlobalHeaders = false;
     /*单次请求的ObjectBody*/
     private Object mObjectReqeustBody;
     /*单次请求的RequestBody*/
@@ -425,196 +425,196 @@ public abstract class ApiRequestOptions<T extends ApiRequestOptions>
     /**
      * 获取该次请求需要排除的拦截器
      */
-    public Set<String> getRemoveInterceptors()
+    public Set<String> getIgnoreInterceptors()
     {
-        return mRemoveInterceptorSet;
+        return mIgnoreInterceptorSet;
     }
 
     /**
      * 设置该次请求需要排除的拦截器
      */
-    public T setRemoveInterceptors(Set<String> removeInterceptorList)
+    public T setIgnoreInterceptors(Set<String> tags)
     {
-        this.mRemoveInterceptorSet = removeInterceptorList;
+        this.mIgnoreInterceptorSet = tags;
         return (T) this;
     }
 
     /**
      * 添加该次请求需要排除的拦截器
      */
-    public T addRemoveInterceptors(Set<String> tags)
+    public T addIgnoreInterceptors(Set<String> tags)
     {
-        if (mRemoveInterceptorSet == null)
-            mRemoveInterceptorSet = new HashSet<>();
+        if (mIgnoreInterceptorSet == null)
+            mIgnoreInterceptorSet = new HashSet<>();
         if (tags != null && tags.size() > 0)
-            mRemoveInterceptorSet.addAll(tags);
+            mIgnoreInterceptorSet.addAll(tags);
         return (T) this;
     }
 
     /**
      * 添加该次请求需要排除的拦截器
      */
-    public T addRemoveInterceptors(String tag)
+    public T addIgnoreInterceptors(String tag)
     {
-        if (mRemoveInterceptorSet == null)
-            mRemoveInterceptorSet = new HashSet<>();
-        mRemoveInterceptorSet.add(tag);
+        if (mIgnoreInterceptorSet == null)
+            mIgnoreInterceptorSet = new HashSet<>();
+        mIgnoreInterceptorSet.add(tag);
         return (T) this;
     }
 
     /**
      * 获取该次请求需要排除的网络拦截器
      */
-    public Set<String> getRemoveNetInterceptors()
+    public Set<String> getIgnoreNetInterceptors()
     {
-        return mRemoveNetInterceptorSet;
+        return mIgnoreNetInterceptorSet;
     }
 
     /**
      * 设置该次请求需要排除的网络拦截器
      */
-    public T setRemoveNetInterceptors(Set<String> tags)
+    public T setIgnoreNetInterceptors(Set<String> tags)
     {
-        this.mRemoveNetInterceptorSet = tags;
+        this.mIgnoreNetInterceptorSet = tags;
         return (T) this;
     }
 
     /**
      * 添加该次请求需要排除的网络拦截器
      */
-    public T addRemoveNetInterceptors(Set<String> tagList)
+    public T addIgnoreNetInterceptors(Set<String> tagList)
     {
-        if (mRemoveNetInterceptorSet == null)
-            mRemoveNetInterceptorSet = new HashSet<>();
+        if (mIgnoreNetInterceptorSet == null)
+            mIgnoreNetInterceptorSet = new HashSet<>();
         if (tagList != null && tagList.size() > 0)
-            mRemoveNetInterceptorSet.addAll(tagList);
+            mIgnoreNetInterceptorSet.addAll(tagList);
         return (T) this;
     }
 
     /**
      * 添加该次请求需要排除的网络拦截器
      */
-    public T addRemoveNetInterceptor(String tag)
+    public T addIgnoreNetInterceptor(String tag)
     {
-        if (mRemoveNetInterceptorSet == null)
-            mRemoveNetInterceptorSet = new HashSet<>();
-        mRemoveNetInterceptorSet.add(tag);
+        if (mIgnoreNetInterceptorSet == null)
+            mIgnoreNetInterceptorSet = new HashSet<>();
+        mIgnoreNetInterceptorSet.add(tag);
         return (T) this;
     }
 
     /**
      * 获取该次请求需要排除的表单文本数据
      */
-    public Set<String> getRemoveFormDatas()
+    public Set<String> getIgnoreFormDatas()
     {
-        return mRemoveFormDatasSet;
+        return mIgnoreFormDatasSet;
     }
 
     /**
      * 设置该次请求需要排除的表单文本数据
      */
-    public T setRemoveFormDatasList(Set<String> keys)
+    public T setIgnoreFormDatasList(Set<String> keys)
     {
-        this.mRemoveFormDatasSet = keys;
+        this.mIgnoreFormDatasSet = keys;
         return (T) this;
     }
 
     /**
      * 添加该次请求需要排除的表单文本数据
      */
-    public T addRemoveFormDatas(Set<String> keys)
+    public T addIgnoreFormDatas(Set<String> keys)
     {
-        if (mRemoveFormDatasSet == null)
-            mRemoveFormDatasSet = new HashSet<>();
+        if (mIgnoreFormDatasSet == null)
+            mIgnoreFormDatasSet = new HashSet<>();
         if (keys != null & keys.size() > 0)
-            mRemoveFormDatasSet.addAll(keys);
+            mIgnoreFormDatasSet.addAll(keys);
         return (T) this;
     }
 
     /**
      * 添加该次请求需要排除的表单文本数据
      */
-    public T addRemoveFormData(String key)
+    public T addIgnoreFormData(String key)
     {
-        if (mRemoveFormDatasSet == null)
-            mRemoveFormDatasSet = new HashSet<>();
-        mRemoveFormDatasSet.add(key);
+        if (mIgnoreFormDatasSet == null)
+            mIgnoreFormDatasSet = new HashSet<>();
+        mIgnoreFormDatasSet.add(key);
         return (T) this;
     }
 
     /**
      * 获取该次请求需要排除的Header
      */
-    public Set<String> getRemoveHeaders()
+    public Set<String> getIgnoreHeaders()
     {
-        return mRemoveHeaderSet;
+        return mIgnoreHeaderSet;
     }
 
     /**
      * 设置该次请求需要排除的Header
      */
-    public T setRemoveHeaderList(Set<String> tags)
+    public T setIgnoreHeaderList(Set<String> tags)
     {
-        this.mRemoveHeaderSet = tags;
+        this.mIgnoreHeaderSet = tags;
         return (T) this;
     }
 
     /**
      * 添加该次请求需要排除的Header
      */
-    public T addRemoveHeaderList(Set<String> tags)
+    public T addIgnoreHeaderList(Set<String> tags)
     {
-        if (mRemoveHeaderSet == null)
-            mRemoveHeaderSet = new HashSet<>();
+        if (mIgnoreHeaderSet == null)
+            mIgnoreHeaderSet = new HashSet<>();
         if (tags != null & tags.size() > 0)
-            mRemoveHeaderSet.addAll(tags);
+            mIgnoreHeaderSet.addAll(tags);
         return (T) this;
     }
 
     /**
      * 添加该次请求需要排除的Header
      */
-    public T addRemoveHeader(String tag)
+    public T addIgnoreHeader(String tag)
     {
-        if (mRemoveHeaderSet == null)
-            mRemoveHeaderSet = new HashSet<>();
-        mRemoveHeaderSet.add(tag);
+        if (mIgnoreHeaderSet == null)
+            mIgnoreHeaderSet = new HashSet<>();
+        mIgnoreHeaderSet.add(tag);
         return (T) this;
     }
 
     /**
      * 该次请求排除所有全局拦截器
      */
-    public T removeAllGlobalInterceptors()
+    public T ignoreAllGlobalInterceptors()
     {
-        mIsRemoveAllGlobalInterceptors = true;
+        mIsIgnoreAllGlobalInterceptors = true;
         return (T) this;
     }
 
     /**
      * 该次请求排除所有全局网络拦截器
      */
-    public T removeAllGlobalNetInterceptors()
+    public T ignoreAllGlobalNetInterceptors()
     {
-        mIsRemoveAllGlobalNetInterceptors = true;
+        mIsIgnoreAllGlobalNetInterceptors = true;
         return (T) this;
     }
 
     /**
      * 该次请求排除所有全局表单文本数据
      */
-    public T removeAllGlobalFormDatas()
+    public T ignoreAllGlobalFormDatas()
     {
-        mIsRemoveAllGlobalFormDatas = true;
+        mIsIgnoreAllGlobalFormDatas = true;
         return (T) this;
     }
 
     /**
      * 该次请求排除所有全局Header
      */
-    public T removeAllGlobalHeaders()
+    public T ignoreAllGlobalHeaders()
     {
-        mIsRemoveAllGlobalHeaders = true;
+        mIsIgnoreAllGlobalHeaders = true;
         return (T) this;
     }
 
@@ -672,33 +672,33 @@ public abstract class ApiRequestOptions<T extends ApiRequestOptions>
     /**
      * 该次请求是否排除所有全局拦截器
      */
-    public boolean isRemoveAllGlobalInterceptors()
+    public boolean isIgnoreAllGlobalInterceptors()
     {
-        return mIsRemoveAllGlobalInterceptors;
+        return mIsIgnoreAllGlobalInterceptors;
     }
 
     /**
      * 该次请求是否排除所有全局网络拦截器
      */
-    public boolean isRemoveAllGlobalNetInterceptors()
+    public boolean isIgnoreAllGlobalNetInterceptors()
     {
-        return mIsRemoveAllGlobalNetInterceptors;
+        return mIsIgnoreAllGlobalNetInterceptors;
     }
 
     /**
      * 该次请求是否排除所有全局表单文本数据
      */
-    public boolean isRemoveAllGlobalFormDatas()
+    public boolean isIgnoreAllGlobalFormDatas()
     {
-        return mIsRemoveAllGlobalFormDatas;
+        return mIsIgnoreAllGlobalFormDatas;
     }
 
     /**
      * 该次请求是否排除所有全局Header
      */
-    public boolean isRemoveAllGlobalHeaders()
+    public boolean isIgnoreAllGlobalHeaders()
     {
-        return mIsRemoveAllGlobalHeaders;
+        return mIsIgnoreAllGlobalHeaders;
     }
 
     public List<Cookie> getCookieList()

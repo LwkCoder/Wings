@@ -55,8 +55,8 @@ public abstract class ApiBaseRequest<T extends ApiRequestOptions> extends ApiReq
         //设置拦截器
         Map<String, Interceptor> allInterceptorMap = mergeParams(
                 RxHttp.getGlobalOptions().getInterceptorMap(),
-                getInterceptorMap(), getRemoveInterceptors(),
-                isRemoveAllGlobalInterceptors());
+                getInterceptorMap(), getIgnoreInterceptors(),
+                isIgnoreAllGlobalInterceptors());
         if (allInterceptorMap.size() > 0)
         {
             for (Interceptor interceptor : allInterceptorMap.values())
@@ -68,8 +68,8 @@ public abstract class ApiBaseRequest<T extends ApiRequestOptions> extends ApiReq
         //设置网络拦截器
         Map<String, Interceptor> allNetInterceptorMap = mergeParams(
                 RxHttp.getGlobalOptions().getNetInterceptorMap(),
-                getNetInterceptorMap(), getRemoveNetInterceptors(),
-                isRemoveAllGlobalNetInterceptors());
+                getNetInterceptorMap(), getIgnoreNetInterceptors(),
+                isIgnoreAllGlobalNetInterceptors());
         if (allNetInterceptorMap.size() > 0)
         {
             for (Interceptor interceptor : allNetInterceptorMap.values())
@@ -81,14 +81,14 @@ public abstract class ApiBaseRequest<T extends ApiRequestOptions> extends ApiReq
         //获取Headers
         Map<String, String> allHeadersMap = mergeParams(
                 RxHttp.getGlobalOptions().getHeadersMap(),
-                getHeadersMap(), getRemoveHeaders(),
-                isRemoveAllGlobalHeaders());
+                getHeadersMap(), getIgnoreHeaders(),
+                isIgnoreAllGlobalHeaders());
 
         //获取表单参数
         Map<String, String> allFormDatasMap = mergeParams(
                 RxHttp.getGlobalOptions().getFormDatasMap(),
-                getFormDatasMap(), getRemoveFormDatas(),
-                isRemoveAllGlobalFormDatas());
+                getFormDatasMap(), getIgnoreFormDatas(),
+                isIgnoreAllGlobalFormDatas());
 
         //添加Cookie管理类
         RxHttp.getGlobalOptions().getCookieManager().add(getCookieList());

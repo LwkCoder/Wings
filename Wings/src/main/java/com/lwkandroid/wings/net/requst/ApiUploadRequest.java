@@ -107,7 +107,7 @@ public class ApiUploadRequest extends ApiBaseRequest<ApiUploadRequest> implement
         checkBodyListNotNull();
         if (objectRequestBody != null)
         {
-            KLog.w("RxHttp method PATCH must not have a Object body：\n" + objectRequestBody.toString());
+            KLog.w("RxHttp method UPLOAD must not have a Object body：\n" + objectRequestBody.toString());
         } else if (okHttp3RequestBody != null)
         {
             checkBodyListNotNull();

@@ -184,6 +184,13 @@ public class ApiGlobalOptions
         return this;
     }
 
+    public ApiGlobalOptions clearInterceptors()
+    {
+        if (mInterceptorMap != null)
+            mInterceptorMap.clear();
+        return this;
+    }
+
     public Map<String, Interceptor> getNetInterceptorMap()
     {
         return mNetInterceptorMap;
@@ -217,6 +224,13 @@ public class ApiGlobalOptions
     {
         if (mNetInterceptorMap != null)
             mNetInterceptorMap.remove(tag);
+        return this;
+    }
+
+    public ApiGlobalOptions clearNetInterceptors()
+    {
+        if (mNetInterceptorMap != null)
+            mNetInterceptorMap.clear();
         return this;
     }
 
@@ -301,6 +315,13 @@ public class ApiGlobalOptions
         return this;
     }
 
+    public ApiGlobalOptions clearFormDatas()
+    {
+        if (mFormDatasMap != null)
+            mFormDatasMap.clear();
+        return this;
+    }
+
     public Map<String, String> getHeadersMap()
     {
         return mHeadersMap;
@@ -334,6 +355,13 @@ public class ApiGlobalOptions
     {
         if (mHeadersMap != null)
             mHeadersMap.remove(key);
+        return this;
+    }
+
+    public ApiGlobalOptions clearHeaders()
+    {
+        if (mHeadersMap != null)
+            mHeadersMap.clear();
         return this;
     }
 
