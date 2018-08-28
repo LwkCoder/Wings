@@ -74,7 +74,8 @@ public interface ApiService
 
     @Streaming
     @POST
-    Observable<ResponseBody> downloadFile(@Url String fileUrl, @HeaderMap Map<String, String> headerMap, @QueryMap Map<String, String> maps);
+    @FormUrlEncoded
+    Observable<ResponseBody> downloadFile(@Url String fileUrl, @HeaderMap Map<String, String> headerMap, @FieldMap Map<String, String> maps);
 
     @Streaming
     @POST()
