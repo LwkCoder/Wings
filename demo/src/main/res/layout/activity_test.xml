@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/spacing_normal"
+    tools:context=".project.test.TestActivity">
+
+    <EditText
+        android:id="@+id/ed_test_ip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="输入ip"/>
+
+    <EditText
+        android:id="@+id/ed_test_port"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="输入port"
+        android:inputType="number"/>
+
+    <EditText
+        android:id="@+id/ed_test_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="输入消息"/>
+
+    <Button
+        android:id="@+id/btn_test_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="启动线程"/>
+
+    <Button
+        android:id="@+id/btn_test_send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="发送消息"/>
+</LinearLayout>

@@ -51,8 +51,8 @@ public class RxHttpDemoModel extends RxHttpDemoContract.Model
     Observable<File> requestMovieData()
     {
         return RxHttp.DOWNLOAD(ApiURL.DOWNLOAD_TEST) //下载链接的请求域名和全局域名不一样没关系，内部retrofit会自动识别
-                .removeAllGlobalFormDatas() //去除所有的全局参数，避免无法监听下载过程
-                .addRemoveInterceptors("sign") //去除模拟签名用的拦截器，避免无法监听下载过程
+                .ignoreAllGlobalFormDatas() //去除所有的全局参数，避免无法监听下载过程
+                .addIgnoreInterceptors("sign") //去除模拟签名用的拦截器，避免无法监听下载过程
                 .setFileName("app.apk")
                 .setSaveFloderPath(SDCardUtils.getSDCardPath() + "/WingsDemo/")
                 .parseAsFileFromIS();
@@ -76,8 +76,8 @@ public class RxHttpDemoModel extends RxHttpDemoContract.Model
     Observable<Bitmap> requestBitmapData()
     {
         return RxHttp.DOWNLOAD("http://oi5vnsj5b.bkt.clouddn.com/good_pic02.jpg")
-                .removeAllGlobalFormDatas() //去除所有的全局参数，避免无法监听下载过程
-                .addRemoveInterceptors("sign") //去除模拟签名用的拦截器，避免无法监听下载过程
+                .ignoreAllGlobalFormDatas() //去除所有的全局参数，避免无法监听下载过程
+                .addIgnoreInterceptors("sign") //去除模拟签名用的拦截器，避免无法监听下载过程
                 .setBitmapMaxSize(400, 400)
                 .parseAsBitmapFromBytes();
     }
@@ -91,5 +91,108 @@ public class RxHttpDemoModel extends RxHttpDemoContract.Model
                 .setConnectTimeOut(600000)
                 .addFiles("image", files)
                 .returnStringResponse();
+    }
+
+    private class Request
+    {
+        private String name;
+        private String time;
+        private String token;
+        private String source;
+        private String user_level;
+        private String devs;
+        private String count_types;
+        private String start_time;
+        private String end_time;
+
+        public String getName()
+        {
+            return name;
+        }
+
+        public void setName(String name)
+        {
+            this.name = name;
+        }
+
+        public String getTime()
+        {
+            return time;
+        }
+
+        public void setTime(String time)
+        {
+            this.time = time;
+        }
+
+        public String getToken()
+        {
+            return token;
+        }
+
+        public void setToken(String token)
+        {
+            this.token = token;
+        }
+
+        public String getSource()
+        {
+            return source;
+        }
+
+        public void setSource(String source)
+        {
+            this.source = source;
+        }
+
+        public String getUser_level()
+        {
+            return user_level;
+        }
+
+        public void setUser_level(String user_level)
+        {
+            this.user_level = user_level;
+        }
+
+        public String getDevs()
+        {
+            return devs;
+        }
+
+        public void setDevs(String devs)
+        {
+            this.devs = devs;
+        }
+
+        public String getCount_types()
+        {
+            return count_types;
+        }
+
+        public void setCount_types(String count_types)
+        {
+            this.count_types = count_types;
+        }
+
+        public String getStart_time()
+        {
+            return start_time;
+        }
+
+        public void setStart_time(String start_time)
+        {
+            this.start_time = start_time;
+        }
+
+        public String getEnd_time()
+        {
+            return end_time;
+        }
+
+        public void setEnd_time(String end_time)
+        {
+            this.end_time = end_time;
+        }
     }
 }

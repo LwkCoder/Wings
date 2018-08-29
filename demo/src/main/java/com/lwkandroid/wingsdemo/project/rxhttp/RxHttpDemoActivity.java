@@ -165,7 +165,6 @@ public class RxHttpDemoActivity extends AppBaseActivity<RxHttpDemoPresenter> imp
     }
 
 
-
     @Override
     public void setWeatherHttpResultData(List<TabsBean> dataList)
     {

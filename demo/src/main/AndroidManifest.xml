@@ -39,6 +39,11 @@
             android:name=".project.list.ListDemoActivity"
             android:theme="@style/BaseActivityStyle">
         </activity>
+        <activity
+            android:name=".project.test.TestActivity"
+            android:theme="@style/BaseActivityStyle">
+        </activity>
+
     </application>
 
 </manifest>
