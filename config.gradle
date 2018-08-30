@@ -4,7 +4,7 @@ ext {
             minSdkVersion    : 14,
             targetSdkVersion : 27,
             compileSdkVersion: 27,
-            applicationId    : "com.lwkandroid.wingsdemo",
+            applicationId    : "com.lwkandroid.app",
             versionCode      : 1,
             versionName      : "1.0.0"
     ]

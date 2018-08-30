@@ -5,6 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.lwkandroid.app.project.home.HomeActivity">
+    tools:context="com.sources.javacode.project.home.HomeActivity">
 
 </FrameLayout>

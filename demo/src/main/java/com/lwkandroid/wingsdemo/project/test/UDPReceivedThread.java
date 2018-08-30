@@ -78,7 +78,7 @@ public class UDPReceivedThread extends Thread
                 DatagramPacket packet = new DatagramPacket(datas, datas.length);
                 if (mSocket != null && !mSocket.isClosed())
                     mSocket.receive(packet);
-                String receiveMsg = new String(packet.getData()).trim();
+                String receiveMsg = new String(packet.getData(), "utf-8").trim();
                 KLog.e("接收到消息：" + receiveMsg);
             } catch (IOException e)
             {

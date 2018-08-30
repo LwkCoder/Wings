@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.lwkandroid.app"
+<manifest package="com.sources.javacode"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
@@ -30,6 +30,10 @@
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".project.test.TestActivity"
+            android:theme="@style/BaseActivityStyle">
         </activity>
     </application>
 

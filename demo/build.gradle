@@ -11,7 +11,8 @@ keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 android {
     compileSdkVersion appConfig.compileSdkVersion
     defaultConfig {
-        applicationId appConfig.applicationId
+//        applicationId appConfig.applicationId
+        applicationId "com.lwkandroid.wingsdemo"
         minSdkVersion appConfig.minSdkVersion
         targetSdkVersion appConfig.targetSdkVersion
         versionCode appConfig.versionCode
