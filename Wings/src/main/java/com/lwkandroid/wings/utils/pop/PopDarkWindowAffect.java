@@ -46,6 +46,10 @@ public class PopDarkWindowAffect implements IPopAffect
         {
             Window window = ((Activity) context).getWindow();
             WindowManager.LayoutParams lp = window.getAttributes();
+            if (bgAlpha != 1.0f)
+                window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+            else
+                window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
             lp.alpha = bgAlpha; //0.0-1.0
             window.setAttributes(lp);
         }
