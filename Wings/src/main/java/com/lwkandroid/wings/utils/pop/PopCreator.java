@@ -1,7 +1,9 @@
 package com.lwkandroid.wings.utils.pop;
 
 import android.animation.ValueAnimator;
+import android.app.Activity;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.view.Gravity;
@@ -38,7 +40,7 @@ public class PopCreator implements IPopOperator, PopupWindow.OnDismissListener
     @Override
     public PopCreator showAtLocation(View parent, int gravity, int x, int y, PopOptions options)
     {
-        init(parent.getContext(), options);
+        init(getActivityFromView(parent), options);
         mPopupWindow.showAtLocation(parent, gravity, x, y);
         applyProgressAffect();
         return this;
@@ -59,7 +61,7 @@ public class PopCreator implements IPopOperator, PopupWindow.OnDismissListener
     @Override
     public PopCreator showAsDropDown(View anchor, int xoff, int yoff, int gravity, PopOptions options)
     {
-        init(anchor.getContext(), options);
+        init(getActivityFromView(anchor), options);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
             mPopupWindow.showAsDropDown(anchor, xoff, yoff, gravity);
         else
@@ -120,6 +122,18 @@ public class PopCreator implements IPopOperator, PopupWindow.OnDismissListener
     public PopBaseContentView getContentView()
     {
         return mPopContentView;
+    }
+
+    private Activity getActivityFromView(View view)
+    {
+        if (null != view)
+        {
+            Context context = view.getContext();
+            while (!(context instanceof Activity))
+                context = ((ContextWrapper) context).getBaseContext();
+            return (Activity) context;
+        }
+        return null;
     }
 
     //初始化配置
