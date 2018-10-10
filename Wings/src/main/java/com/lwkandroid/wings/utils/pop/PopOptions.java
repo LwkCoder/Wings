@@ -190,4 +190,10 @@ public class PopOptions<T extends PopOptions> implements IPopProxy
     {
         return new PopCreator().showAsDropDown(anchor, xoff, yoff, gravity, this);
     }
+
+    @Override
+    public PopCreator showWithAnchor(View anchor, @XGravity int xGravity, @YGravity int yGravity, int xoff, int yoff)
+    {
+        return new PopCreator().showWithAnchor(anchor, xGravity, yGravity, xoff, yoff, this);
+    }
 }

@@ -55,6 +55,19 @@ public interface IPopOperator
     PopCreator showAsDropDown(View anchor, int xoff, int yoff, int gravity, PopOptions options);
 
     /**
+     * 作为某view的菜单且支持水平和垂直权重
+     *
+     * @param anchor   依赖的View
+     * @param xGravity 水平方向权重
+     * @param yGravity 垂直方向权重
+     * @param xoff     x偏移量
+     * @param yoff     y偏移量
+     * @param options  配置参数
+     * @return PopCreater对象
+     */
+    PopCreator showWithAnchor(View anchor, @XGravity int xGravity, @YGravity int yGravity, int xoff, int yoff, PopOptions options);
+
+    /**
      * Updates the state of the popup window, if it is currently being displayed,
      * from the currently set state.
      * 更新PopupWindow状态，如果当前已是显示状态，就从当前状态更新

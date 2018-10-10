@@ -30,10 +30,31 @@
         android:text="Dialog式弹窗"/>
 
     <Button
-        android:id="@+id/btn_pop_menu"
+        android:id="@+id/btn_pop_menu_left"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="450dp"
-        android:text="弹出菜单"/>
+        android:layout_gravity="right"
+        android:text="左边弹出菜单"/>
+
+    <Button
+        android:id="@+id/btn_pop_menu_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:text="右边弹出菜单"/>
+
+    <Button
+        android:id="@+id/btn_pop_menu_above"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="上面弹出菜单"/>
+
+    <Button
+        android:id="@+id/btn_pop_menu_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="下面弹出菜单"/>
 
 </LinearLayout>

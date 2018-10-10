@@ -12,7 +12,7 @@ public interface IPopProxy
     /**
      * 显示在指定位置
      *
-     * @param parent  父View
+     * @param parent  依赖的View
      * @param gravity 重心
      * @param x       x偏移量
      * @param y       y偏移量
@@ -23,7 +23,7 @@ public interface IPopProxy
     /**
      * 作为某View的菜单
      *
-     * @param anchor 父View
+     * @param anchor 依赖的View
      * @return PopCreater对象
      */
     PopCreator showAsDropDown(View anchor);
@@ -31,7 +31,7 @@ public interface IPopProxy
     /**
      * 作为某View的菜单
      *
-     * @param anchor 父View
+     * @param anchor 依赖的View
      * @param xoff   x偏移量
      * @param yoff   y偏移量
      * @return PopCreater对象
@@ -41,11 +41,23 @@ public interface IPopProxy
     /**
      * 作为某View的菜单
      *
-     * @param anchor  父View
+     * @param anchor  依赖的View
      * @param xoff    x偏移量
      * @param yoff    y偏移量
      * @param gravity 重心，Sdk>=19有效
      * @return PopCreater对象
      */
     PopCreator showAsDropDown(View anchor, int xoff, int yoff, int gravity);
+
+    /**
+     * 作为某view的菜单且支持水平和垂直权重
+     *
+     * @param anchor   依赖的View
+     * @param xGravity 水平方向权重
+     * @param yGravity 垂直方向权重
+     * @param xoff     x偏移量
+     * @param yoff     y偏移量
+     * @return PopCreater对象
+     */
+    PopCreator showWithAnchor(View anchor, @XGravity int xGravity, @YGravity int yGravity, int xoff, int yoff);
 }

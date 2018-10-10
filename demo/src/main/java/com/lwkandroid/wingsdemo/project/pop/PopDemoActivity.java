@@ -13,13 +13,18 @@ import com.lwkandroid.wings.mvp.base.MVPBasePresenter;
 import com.lwkandroid.wings.utils.ScreenUtils;
 import com.lwkandroid.wings.utils.pop.PopCreator;
 import com.lwkandroid.wings.utils.pop.PopDarkWindowAffect;
+import com.lwkandroid.wings.utils.pop.XGravity;
+import com.lwkandroid.wings.utils.pop.YGravity;
 import com.lwkandroid.wingsdemo.R;
 import com.lwkandroid.wingsdemo.app.AppBaseActivity;
 
 public class PopDemoActivity extends AppBaseActivity<MVPBasePresenter>
 {
     ComActionBar mActionBar;
-    private Button mBtnMenu;
+    private Button mBtnMenuLeft;
+    private Button mBtnMenuRight;
+    private Button mBtnMenuAbove;
+    private Button mBtnMenuBottom;
 
     @Override
     public int getContentViewId()
@@ -32,11 +37,17 @@ public class PopDemoActivity extends AppBaseActivity<MVPBasePresenter>
     {
         mActionBar = find(R.id.comactionbar);
         mActionBar.setRightClickListener01(this);
-        mBtnMenu = find(R.id.btn_pop_menu);
+        mBtnMenuLeft = find(R.id.btn_pop_menu_left);
+        mBtnMenuRight = find(R.id.btn_pop_menu_right);
+        mBtnMenuAbove = find(R.id.btn_pop_menu_above);
+        mBtnMenuBottom = find(R.id.btn_pop_menu_bottom);
 
         addClick(R.id.btn_pop_bottom_menu);
         addClick(R.id.btn_pop_dialog);
-        addClick(R.id.btn_pop_menu);
+        addClick(R.id.btn_pop_menu_left);
+        addClick(R.id.btn_pop_menu_right);
+        addClick(R.id.btn_pop_menu_above);
+        addClick(R.id.btn_pop_menu_bottom);
     }
 
     @Override
@@ -49,9 +60,21 @@ public class PopDemoActivity extends AppBaseActivity<MVPBasePresenter>
     {
         switch (id)
         {
-            case R.id.btn_pop_menu:
+            case R.id.btn_pop_menu_left:
                 PopCreator.create(new ActionBarMenuPop())
-                        .showAsDropDown(mBtnMenu);
+                        .showWithAnchor(mBtnMenuLeft, XGravity.LEFT, YGravity.ALIGN_BOTTOM, 0, 0);
+                break;
+            case R.id.btn_pop_menu_right:
+                PopCreator.create(new ActionBarMenuPop())
+                        .showWithAnchor(mBtnMenuRight, XGravity.RIGHT, YGravity.ALIGN_BOTTOM, 0, 0);
+                break;
+            case R.id.btn_pop_menu_above:
+                PopCreator.create(new ActionBarMenuPop())
+                        .showWithAnchor(mBtnMenuAbove, XGravity.CENTER, YGravity.ABOVE, 0, 0);
+                break;
+            case R.id.btn_pop_menu_bottom:
+                PopCreator.create(new ActionBarMenuPop())
+                        .showWithAnchor(mBtnMenuBottom, XGravity.CENTER, YGravity.BELOW, 0, 0);
                 break;
             case R.id.fl_comactionbar_right01:
                 PopCreator.create(new ActionBarMenuPop())
