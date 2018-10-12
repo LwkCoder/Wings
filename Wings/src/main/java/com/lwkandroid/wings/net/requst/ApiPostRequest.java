@@ -60,7 +60,7 @@ public class ApiPostRequest extends ApiBaseRequest<ApiPostRequest> implements IA
     }
 
     @Override
-    public Observable<ApiResultCacheWrapper<String>> returnStringResponseWithCacheWraped()
+    public Observable<ApiResultCacheWrapper<String>> returnStringResponseWithCacheWrapped()
     {
         return invokeRequest()
                 .compose(ApiResponseConvert.responseToString())
@@ -72,35 +72,35 @@ public class ApiPostRequest extends ApiBaseRequest<ApiPostRequest> implements IA
     @Override
     public Observable<String> returnStringResponse()
     {
-        return returnStringResponseWithCacheWraped()
+        return returnStringResponseWithCacheWrapped()
                 .map(new ApiCacheDataGetterFunc<String>());
     }
 
     @Override
-    public <T> Observable<ApiResultCacheWrapper<T>> parseAsObjectWithCacheWraped(final Class<T> tOfClass)
+    public <T> Observable<ApiResultCacheWrapper<T>> parseAsObjectWithCacheWrapped(final Class<T> tOfClass)
     {
-        return returnStringResponseWithCacheWraped()
+        return returnStringResponseWithCacheWrapped()
                 .flatMap(new ApiCacheDataParseAsDataFunc<T>(getApiStringParser(), tOfClass));
     }
 
     @Override
     public <T> Observable<T> parseAsObject(Class<T> tOfClass)
     {
-        return parseAsObjectWithCacheWraped(tOfClass)
+        return parseAsObjectWithCacheWrapped(tOfClass)
                 .map(new ApiCacheDataGetterFunc<T>());
     }
 
     @Override
-    public <T> Observable<ApiResultCacheWrapper<List<T>>> parseAsListWithCacheWraped(final Class<T> tOfClass)
+    public <T> Observable<ApiResultCacheWrapper<List<T>>> parseAsListWithCacheWrapped(final Class<T> tOfClass)
     {
-        return returnStringResponseWithCacheWraped()
+        return returnStringResponseWithCacheWrapped()
                 .flatMap(new ApiCacheDataParseAsListFunc<T>(getApiStringParser(), tOfClass));
     }
 
     @Override
     public <T> Observable<List<T>> parseAsList(Class<T> tOfClass)
     {
-        return parseAsListWithCacheWraped(tOfClass)
+        return parseAsListWithCacheWrapped(tOfClass)
                 .map(new ApiCacheDataGetterFunc<List<T>>());
     }
 }

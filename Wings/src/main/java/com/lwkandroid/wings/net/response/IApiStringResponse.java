@@ -16,7 +16,7 @@ public interface IApiStringResponse
     /**
      * 获取缓存结果包装的字符串类型的网络请求结果
      */
-    Observable<ApiResultCacheWrapper<String>> returnStringResponseWithCacheWraped();
+    Observable<ApiResultCacheWrapper<String>> returnStringResponseWithCacheWrapped();
 
     /**
      * 直接获取字符串类型的网络请求结果
@@ -26,7 +26,7 @@ public interface IApiStringResponse
     /**
      * 获取缓存结果包装的某一个对象的网络请求结果
      */
-    <T> Observable<ApiResultCacheWrapper<T>> parseAsObjectWithCacheWraped(Class<T> tOfClass);
+    <T> Observable<ApiResultCacheWrapper<T>> parseAsObjectWithCacheWrapped(Class<T> tOfClass);
 
     /**
      * 直接获取某一个对象的网络请求结果
@@ -36,7 +36,7 @@ public interface IApiStringResponse
     /**
      * 获取缓存结果包装的某个一对象的集合的网络请求结果
      */
-    <T> Observable<ApiResultCacheWrapper<List<T>>> parseAsListWithCacheWraped(Class<T> tOfClass);
+    <T> Observable<ApiResultCacheWrapper<List<T>>> parseAsListWithCacheWrapped(Class<T> tOfClass);
 
     /**
      * 直接获取某一个对象的集合的网络请求结果

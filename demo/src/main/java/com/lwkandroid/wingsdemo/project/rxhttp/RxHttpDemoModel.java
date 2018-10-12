@@ -69,7 +69,7 @@ public class RxHttpDemoModel extends RxHttpDemoContract.Model
                 .addFormData("q", "iphone")
                 .setApiResultStringParser(new NonRestFulStringResultParser())
                 //                .parseAsObject(NonRestFulResult.class);
-                .parseAsObjectWithCacheWraped(NonRestFulResult.class);
+                .parseAsObjectWithCacheWrapped(NonRestFulResult.class);
     }
 
     @Override
