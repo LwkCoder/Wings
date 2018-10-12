@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.FloatRange;
@@ -365,6 +366,54 @@ public final class BarUtils
                 height = rs.getDimensionPixelSize(id);
         }
         return height;
+    }
+
+    /**
+     * 获取导航栏高度，有且显示就返回具体高度，否则返回0
+     *
+     * @param activity Activity对象
+     */
+    public static int getNavigationBarHeightIfShowing(Activity activity)
+    {
+        if (isNavigationBarExist(activity))
+        {
+            Rect outRect1 = new Rect();
+            activity.getWindow().getDecorView().getWindowVisibleDisplayFrame(outRect1);
+            int activityHeight = outRect1.height();
+            //判断是否显示
+            if (activityHeight == ScreenUtils.getScreenHeight() - getStatusBarHeight())
+                return getNavigationBarHeight();
+        }
+        return 0;
+    }
+
+    /**
+     * 判断导航栏是否显示
+     */
+    public static boolean isNavigationBarShowing(Activity activity)
+    {
+        if (!isNavigationBarExist(activity.getApplicationContext()))
+            return false;
+
+        //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
+        //        {
+        //            Display display = activity.getWindowManager().getDefaultDisplay();
+        //            Point size = new Point();
+        //            Point realSize = new Point();
+        //            display.getSize(size);
+        //            display.getRealSize(realSize);
+        //            return realSize.y != size.y;
+        //        } else
+        //        {
+        //            boolean menu = ViewConfiguration.get(activity.getApplicationContext()).hasPermanentMenuKey();
+        //            boolean back = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
+        //            return !(menu || back);
+        //        }
+        Rect outRect1 = new Rect();
+        activity.getWindow().getDecorView().getWindowVisibleDisplayFrame(outRect1);
+        int activityHeight = outRect1.height();
+        //判断是否显示
+        return activityHeight == ScreenUtils.getScreenHeight() - getStatusBarHeight();
     }
 
     /**
