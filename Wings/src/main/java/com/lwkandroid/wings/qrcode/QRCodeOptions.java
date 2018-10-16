@@ -160,6 +160,25 @@ public class QRCodeOptions implements Parcelable
     }
 
     @Override
+    public String toString()
+    {
+        return "QRCodeOptions{" +
+                "isBarCodeMode=" + isBarCodeMode +
+                ", showAlbum=" + showAlbum +
+                ", fullScreenScan=" + fullScreenScan +
+                ", actionBarTitle='" + actionBarTitle + '\'' +
+                ", actionBarBgColor=" + actionBarBgColor +
+                ", actionBarTextColor=" + actionBarTextColor +
+                ", rectColor=" + rectColor +
+                ", rectCornerColor=" + rectCornerColor +
+                ", scanLineColor=" + scanLineColor +
+                ", scanLineAnimDuration=" + scanLineAnimDuration +
+                ", hintText='" + hintText + '\'' +
+                ", hintColor=" + hintColor +
+                '}';
+    }
+
+    @Override
     public int describeContents()
     {
         return 0;

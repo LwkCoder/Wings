@@ -33,7 +33,7 @@ dependencies {
     api "com.lwkandroid:RTPermissionLib:$RTPermissionVersion"
     api "com.lwkandroid.widget:ComActionBar:$ComActionBarVersion"
     api "com.squareup.okhttp3:okhttp:$OkHttp3Version"
-    api "com.google.zxing:core:$ZXingVersion"
+//    api "com.google.zxing:core:$ZXingVersion"
     api "cn.bingoogolapple:bga-qrcode-zxing:$BGACodeVersion"
 //    api "cn.bingoogolapple:bga-zxing:$BGACodeVersion@aar"
     api "io.reactivex.rxjava2:rxjava:$RXJava2Version"
