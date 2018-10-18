@@ -144,14 +144,11 @@ public class QRCodeScanActivity extends WingsBaseActivity<MVPBasePresenter>
         viewStub.inflate();
         mZXingView = find(R.id.zxv_qrcode);
         mZXingView.getScanBoxView().setIsBarcode(mOptions.isBarCodeMode());
-        //FIXME 代码中设置此项无效
         mZXingView.getScanBoxView().setOnlyDecodeScanBoxArea(mOptions.isFullScreenScan());
         mZXingView.getScanBoxView().setBorderColor(mOptions.getRectColor());
         mZXingView.getScanBoxView().setCornerColor(mOptions.getRectCornerColor());
         mZXingView.getScanBoxView().setScanLineColor(mOptions.getScanLineColor());
-        //FIXME 代码中设置此项无效
         mZXingView.getScanBoxView().setAnimTime(mOptions.getScanLineAnimDuration());
-        //FIXME 代码中设置文案相关参数都无效
         mZXingView.getScanBoxView().setTipText(mOptions.getHintText());
         mZXingView.getScanBoxView().setQRCodeTipText(mOptions.getHintText());
         mZXingView.getScanBoxView().setBarCodeTipText(mOptions.getHintText());
