@@ -1,6 +1,7 @@
 package com.lwkandroid.wings.net.interceptor;
 
-import com.socks.library.KLog;
+
+import com.lwkandroid.wings.log.KLog;
 
 import java.io.IOException;
 import java.util.Map;

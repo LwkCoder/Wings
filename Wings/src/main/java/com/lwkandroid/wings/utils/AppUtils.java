@@ -12,7 +12,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.support.v4.content.FileProvider;
 
-import com.socks.library.KLog;
+import com.lwkandroid.wings.log.KLog;
 
 import java.io.File;
 import java.util.List;

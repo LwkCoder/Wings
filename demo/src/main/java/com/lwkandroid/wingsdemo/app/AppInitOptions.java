@@ -2,7 +2,7 @@ package com.lwkandroid.wingsdemo.app;
 
 import android.app.Application;
 
-import com.lwkandroid.wings.init.WingsInitOpeartor;
+import com.lwkandroid.wings.init.WingsInitOperator;
 import com.lwkandroid.wings.net.RxHttp;
 import com.lwkandroid.wingsdemo.bean.WeatherHttpResult;
 import com.lwkandroid.wingsdemo.net.ApiURL;
@@ -13,7 +13,7 @@ import com.lwkandroid.wingsdemo.net.TestSignInterceptor;
  * TODO 定制化Wings初始化参数
  */
 
-public class AppInitOptions extends WingsInitOpeartor
+public class AppInitOptions extends WingsInitOperator
 {
     public AppInitOptions(Application appContext)
     {

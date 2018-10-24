@@ -17,7 +17,7 @@
 package com.lwkandroid.wings.net.https;
 
 
-import com.socks.library.KLog;
+import com.lwkandroid.wings.log.KLog;
 
 import java.io.InputStream;
 import java.security.KeyManagementException;

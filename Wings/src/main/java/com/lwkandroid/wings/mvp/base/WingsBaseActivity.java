@@ -7,9 +7,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.lwkandroid.wings.log.KLog;
 import com.lwkandroid.wings.rx.constant.RxLifecycle;
 import com.lwkandroid.wings.utils.ReflectUtils;
-import com.socks.library.KLog;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;

@@ -15,10 +15,10 @@ import com.lwkandroid.wings.image.ILoaderStrategy;
 import com.lwkandroid.wings.image.ImageLoader;
 import com.lwkandroid.wings.image.callback.ImageDownLoadCallBack;
 import com.lwkandroid.wings.image.constants.ImageDiskCacheType;
+import com.lwkandroid.wings.log.KLog;
 import com.lwkandroid.wings.utils.SDCardUtils;
 import com.lwkandroid.wings.utils.StringUtils;
 import com.lwkandroid.wings.utils.Utils;
-import com.socks.library.KLog;
 
 import java.io.File;
 

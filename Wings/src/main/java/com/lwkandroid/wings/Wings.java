@@ -3,7 +3,7 @@ package com.lwkandroid.wings;
 import android.app.Application;
 
 import com.lwkandroid.wings.app.ActivityStack;
-import com.lwkandroid.wings.init.WingsInitOpeartor;
+import com.lwkandroid.wings.init.WingsInitOperator;
 
 /**
  * Created by LWK
@@ -21,7 +21,7 @@ public final class Wings
      */
     public static void init(Application context)
     {
-        WingsInitOpeartor options = new WingsInitOpeartor(context)
+        WingsInitOperator options = new WingsInitOperator(context)
         {
             @Override
             protected String getApiBaseUrl()
@@ -37,7 +37,7 @@ public final class Wings
      *
      * @param options 定制化参数
      */
-    public static void init(WingsInitOpeartor options)
+    public static void init(WingsInitOperator options)
     {
         options.init();
     }

@@ -8,9 +8,9 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
+import com.lwkandroid.wings.log.KLog;
 import com.lwkandroid.wings.widget.AdvancedWebView;
 import com.lwkandroid.wingsdemo.R;
-import com.socks.library.KLog;
 
 /**
  * Created by LWK

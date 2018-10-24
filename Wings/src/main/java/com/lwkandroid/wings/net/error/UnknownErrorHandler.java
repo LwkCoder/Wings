@@ -1,6 +1,7 @@
 package com.lwkandroid.wings.net.error;
 
-import com.socks.library.KLog;
+
+import com.lwkandroid.wings.log.KLog;
 
 import io.reactivex.functions.Consumer;
 

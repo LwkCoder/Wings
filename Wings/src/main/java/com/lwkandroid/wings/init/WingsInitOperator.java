@@ -6,24 +6,24 @@ import android.os.Bundle;
 
 import com.lwkandroid.wings.DebugTools;
 import com.lwkandroid.wings.app.ActivityStack;
+import com.lwkandroid.wings.log.KLog;
 import com.lwkandroid.wings.net.RxHttp;
 import com.lwkandroid.wings.net.constants.ApiConstants;
 import com.lwkandroid.wings.net.interceptor.ApiLogInterceptor;
 import com.lwkandroid.wings.utils.AppUtils;
 import com.lwkandroid.wings.utils.CrashUtils;
 import com.lwkandroid.wings.utils.Utils;
-import com.socks.library.KLog;
 
 /**
  * Created by LWK
  * TODO Wings初始化配置操作
  */
 
-public abstract class WingsInitOpeartor implements Application.ActivityLifecycleCallbacks
+public abstract class WingsInitOperator implements Application.ActivityLifecycleCallbacks
 {
     private Application context;
 
-    public WingsInitOpeartor(Application context)
+    public WingsInitOperator(Application context)
     {
         this.context = context;
     }

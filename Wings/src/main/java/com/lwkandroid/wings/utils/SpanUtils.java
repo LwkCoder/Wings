@@ -51,7 +51,7 @@ import android.text.style.UnderlineSpan;
 import android.text.style.UpdateAppearance;
 import android.util.Log;
 
-import com.socks.library.KLog;
+import com.lwkandroid.wings.log.KLog;
 
 import java.io.IOException;
 import java.io.InputStream;

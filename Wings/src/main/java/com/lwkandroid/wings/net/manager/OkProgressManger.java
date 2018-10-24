@@ -5,10 +5,10 @@ import android.os.Looper;
 import android.os.SystemClock;
 import android.text.TextUtils;
 
+import com.lwkandroid.wings.log.KLog;
 import com.lwkandroid.wings.net.bean.ProgressRequestBody;
 import com.lwkandroid.wings.net.bean.ProgressResponseBody;
 import com.lwkandroid.wings.net.listener.OnProgressListener;
-import com.socks.library.KLog;
 
 import java.util.LinkedList;
 import java.util.List;

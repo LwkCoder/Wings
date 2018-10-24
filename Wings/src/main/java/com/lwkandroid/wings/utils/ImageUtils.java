@@ -10,7 +10,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.NinePatchDrawable;
 import android.media.ExifInterface;
 
-import com.socks.library.KLog;
+import com.lwkandroid.wings.log.KLog;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -390,7 +390,7 @@ public final class ImageUtils
             return file.getAbsolutePath();
         } catch (Exception e)
         {
-            KLog.e("Can not sava bitmap : " + e.toString());
+            KLog.e("Can not save bitmap : " + e.toString());
         } finally
         {
             closeIO(os);

@@ -20,7 +20,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
-import com.socks.library.KLog;
+import com.lwkandroid.wings.log.KLog;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

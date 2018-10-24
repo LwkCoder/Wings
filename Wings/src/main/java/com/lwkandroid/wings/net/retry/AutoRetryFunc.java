@@ -1,6 +1,7 @@
 package com.lwkandroid.wings.net.retry;
 
-import com.socks.library.KLog;
+
+import com.lwkandroid.wings.log.KLog;
 
 import java.util.concurrent.TimeUnit;
 

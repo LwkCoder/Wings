@@ -3,7 +3,7 @@ package com.lwkandroid.wings.app;
 import android.app.Application;
 
 import com.lwkandroid.wings.Wings;
-import com.lwkandroid.wings.init.WingsInitOpeartor;
+import com.lwkandroid.wings.init.WingsInitOperator;
 
 /**
  * Created by LWK
@@ -24,10 +24,10 @@ public abstract class WingsApplication extends Application
     /*初始化Wings*/
     protected void initWings()
     {
-        WingsInitOpeartor options = getWingsInitOptions();
+        WingsInitOperator options = getWingsInitOptions();
         if (options == null)
         {
-            options = new WingsInitOpeartor(this)
+            options = new WingsInitOperator(this)
             {
                 @Override
                 protected String getApiBaseUrl()
@@ -54,7 +54,7 @@ public abstract class WingsApplication extends Application
     /**
      * 获取Wings的初始化参数
      */
-    protected abstract WingsInitOpeartor getWingsInitOptions();
+    protected abstract WingsInitOperator getWingsInitOptions();
 
     /**
      * 子类实现初始化第三方库的方法

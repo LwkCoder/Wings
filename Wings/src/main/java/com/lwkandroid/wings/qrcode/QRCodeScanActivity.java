@@ -22,10 +22,10 @@ import com.lwkandroid.rtpermission.RTPermission;
 import com.lwkandroid.rtpermission.listener.OnPermissionResultListener;
 import com.lwkandroid.widget.comactionbar.ComActionBar;
 import com.lwkandroid.wings.R;
+import com.lwkandroid.wings.log.KLog;
 import com.lwkandroid.wings.mvp.base.MVPBasePresenter;
 import com.lwkandroid.wings.mvp.base.WingsBaseActivity;
 import com.lwkandroid.wings.utils.BarUtils;
-import com.socks.library.KLog;
 
 import java.util.List;
 

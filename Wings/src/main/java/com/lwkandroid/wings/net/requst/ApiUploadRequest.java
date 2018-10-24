@@ -2,6 +2,7 @@ package com.lwkandroid.wings.net.requst;
 
 import android.text.TextUtils;
 
+import com.lwkandroid.wings.log.KLog;
 import com.lwkandroid.wings.net.ApiService;
 import com.lwkandroid.wings.net.bean.ApiResultCacheWrapper;
 import com.lwkandroid.wings.net.cache.RxCache;
@@ -16,7 +17,6 @@ import com.lwkandroid.wings.net.retry.AutoRetryFunc;
 import com.lwkandroid.wings.net.utils.MultipartBodyList;
 import com.lwkandroid.wings.net.utils.MultipartBodyUtils;
 import com.lwkandroid.wings.net.utils.RequestBodyUtils;
-import com.socks.library.KLog;
 
 import java.io.File;
 import java.io.InputStream;

@@ -9,9 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.lwkandroid.wings.log.KLog;
 import com.lwkandroid.wings.rx.constant.RxLifecycle;
 import com.lwkandroid.wings.utils.ReflectUtils;
-import com.socks.library.KLog;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;

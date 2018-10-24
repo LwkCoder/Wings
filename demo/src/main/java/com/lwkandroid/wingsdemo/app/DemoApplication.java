@@ -1,10 +1,10 @@
 package com.lwkandroid.wingsdemo.app;
 
 import com.lwkandroid.wings.app.WingsApplication;
-import com.lwkandroid.wings.init.WingsInitOpeartor;
+import com.lwkandroid.wings.init.WingsInitOperator;
+import com.lwkandroid.wings.log.KLog;
 import com.lwkandroid.wingsdemo.BuildConfig;
 import com.lwkandroid.wingsdemo.net.ApiURL;
-import com.socks.library.KLog;
 
 /**
  * Created by LWK
@@ -24,7 +24,7 @@ public class DemoApplication extends WingsApplication
     }
 
     @Override
-    protected WingsInitOpeartor getWingsInitOptions()
+    protected WingsInitOperator getWingsInitOptions()
     {
         return new AppInitOptions(this);
     }

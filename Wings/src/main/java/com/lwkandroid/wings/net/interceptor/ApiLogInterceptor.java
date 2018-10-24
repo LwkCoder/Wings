@@ -1,7 +1,7 @@
 package com.lwkandroid.wings.net.interceptor;
 
+import com.lwkandroid.wings.log.KLog;
 import com.lwkandroid.wings.utils.json.JsonUtils;
-import com.socks.library.KLog;
 
 import org.json.JSONArray;
 import org.json.JSONException;

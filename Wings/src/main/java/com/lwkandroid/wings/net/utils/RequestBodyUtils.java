@@ -1,7 +1,7 @@
 package com.lwkandroid.wings.net.utils;
 
+import com.lwkandroid.wings.log.KLog;
 import com.lwkandroid.wings.utils.StringUtils;
-import com.socks.library.KLog;
 
 import java.io.File;
 import java.io.IOException;

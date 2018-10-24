@@ -1,11 +1,11 @@
 package com.lwkandroid.wings.net.parser;
 
+import com.lwkandroid.wings.log.KLog;
 import com.lwkandroid.wings.net.bean.ApiException;
 import com.lwkandroid.wings.net.constants.ApiExceptionCode;
 import com.lwkandroid.wings.utils.FileIOUtils;
 import com.lwkandroid.wings.utils.StringUtils;
 import com.lwkandroid.wings.utils.Utils;
-import com.socks.library.KLog;
 
 import java.io.File;
 
