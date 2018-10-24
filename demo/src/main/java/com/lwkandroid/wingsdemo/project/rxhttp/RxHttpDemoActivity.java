@@ -1,6 +1,5 @@
 package com.lwkandroid.wingsdemo.project.rxhttp;
 
-import android.Manifest;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -12,15 +11,17 @@ import android.widget.TextView;
 import com.lwkandroid.imagepicker.ImagePicker;
 import com.lwkandroid.imagepicker.data.ImageBean;
 import com.lwkandroid.imagepicker.data.ImagePickType;
-import com.lwkandroid.rtpermission.RTPermission;
-import com.lwkandroid.rtpermission.listener.OnPermissionResultListener;
 import com.lwkandroid.wings.log.KLog;
 import com.lwkandroid.wings.net.bean.ApiException;
 import com.lwkandroid.wings.net.bean.ProgressInfo;
+import com.lwkandroid.wings.permission.PermissionDialogUtils;
 import com.lwkandroid.wingsdemo.R;
 import com.lwkandroid.wingsdemo.app.AppBaseActivity;
 import com.lwkandroid.wingsdemo.bean.NonRestFulResult;
 import com.lwkandroid.wingsdemo.bean.TabsBean;
+import com.yanzhenjie.permission.Action;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.Permission;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -74,22 +75,27 @@ public class RxHttpDemoActivity extends AppBaseActivity<RxHttpDemoPresenter> imp
             @Override
             public void onClick(View v)
             {
-                new RTPermission.Builder()
-                        .permissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        .start(RxHttpDemoActivity.this, new OnPermissionResultListener()
+                AndPermission.with(RxHttpDemoActivity.this)
+                        .runtime()
+                        .permission(Permission.WRITE_EXTERNAL_STORAGE)
+                        .rationale(PermissionDialogUtils.showRuntimeRationaleDialog())
+                        .onGranted(new Action<List<String>>()
                         {
                             @Override
-                            public void onAllGranted(String[] allPermissions)
+                            public void onAction(List<String> data)
                             {
                                 getPresenter().requestMovieData();
                             }
-
+                        })
+                        .onDenied(new Action<List<String>>()
+                        {
                             @Override
-                            public void onDeined(String[] dinedPermissions)
+                            public void onAction(List<String> data)
                             {
+                                PermissionDialogUtils.showSettingIfNeverAskDialog(RxHttpDemoActivity.this, data, null);
                                 showShortToast("不给权限我咋下载啊大兄弟");
                             }
-                        });
+                        }).start();
             }
         });
         addClick(R.id.btn_rxhttp_demo03, new View.OnClickListener()
@@ -115,24 +121,9 @@ public class RxHttpDemoActivity extends AppBaseActivity<RxHttpDemoPresenter> imp
             @Override
             public void onClick(View v)
             {
-                new RTPermission.Builder()
-                        .permissions(Manifest.permission.READ_EXTERNAL_STORAGE)
-                        .start(RxHttpDemoActivity.this, new OnPermissionResultListener()
-                        {
-                            @Override
-                            public void onAllGranted(String[] allPermissions)
-                            {
-                                new ImagePicker().pickType(ImagePickType.MULTI)
-                                        .maxNum(9)
-                                        .start(RxHttpDemoActivity.this, 105);
-                            }
-
-                            @Override
-                            public void onDeined(String[] dinedPermissions)
-                            {
-                                showLongToast("给权限啊大佬");
-                            }
-                        });
+                new ImagePicker().pickType(ImagePickType.MULTI)
+                        .maxNum(9)
+                        .start(RxHttpDemoActivity.this, 105);
             }
         });
     }

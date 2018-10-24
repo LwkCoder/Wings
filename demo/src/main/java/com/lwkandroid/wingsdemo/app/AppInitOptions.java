@@ -2,7 +2,7 @@ package com.lwkandroid.wingsdemo.app;
 
 import android.app.Application;
 
-import com.lwkandroid.wings.init.WingsInitOperator;
+import com.lwkandroid.wings.app.WingsInitOperator;
 import com.lwkandroid.wings.net.RxHttp;
 import com.lwkandroid.wingsdemo.bean.WeatherHttpResult;
 import com.lwkandroid.wingsdemo.net.ApiURL;

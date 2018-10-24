@@ -3,7 +3,7 @@ package com.lwkandroid.wings;
 import android.app.Application;
 
 import com.lwkandroid.wings.app.ActivityStack;
-import com.lwkandroid.wings.init.WingsInitOperator;
+import com.lwkandroid.wings.app.WingsInitOperator;
 
 /**
  * Created by LWK

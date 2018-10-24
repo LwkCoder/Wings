@@ -29,7 +29,7 @@ dependencies {
     api "com.android.support:support-annotations:$SupportVersion"
     api "com.android.support:recyclerview-v7:$SupportVersion"
     api "com.google.code.gson:gson:$GsonVersion"
-    api "com.lwkandroid:RTPermissionLib:$RTPermissionVersion"
+    api "com.yanzhenjie:permission:${AndPermissionVersion}"
     api "com.lwkandroid.widget:ComActionBar:$ComActionBarVersion"
     api "com.squareup.okhttp3:okhttp:$OkHttp3Version"
     api "cn.bingoogolapple:bga-qrcode-zxing:$BGACodeVersion"

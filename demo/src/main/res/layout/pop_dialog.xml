@@ -42,7 +42,7 @@
         android:paddingLeft="@dimen/spacing_small"
         android:paddingTop="@dimen/spacing_normal"
         android:text="好了我知道了"
-        android:textColor="@color/green_rtdialog"
+        android:textColor="@android:color/holo_green_light"
         android:textSize="13sp"/>
 
 </LinearLayout>

@@ -4,7 +4,7 @@ import android.os.Build;
 
 import com.lwkandroid.wings.DebugTools;
 import com.lwkandroid.wings.app.WingsApplication;
-import com.lwkandroid.wings.init.WingsInitOperator;
+import com.lwkandroid.wings.app.WingsInitOperator;
 import com.lwkandroid.wings.log.KLog;
 import com.lwkandroid.wings.utils.AppUtils;
 import com.sources.javacode.BuildConfig;

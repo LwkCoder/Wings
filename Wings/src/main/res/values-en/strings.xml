@@ -1,0 +1,25 @@
+<resources>
+    <!--常用文案-->
+    <string name="done">Done</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string name="back">Back</string>
+
+    <!--二维码扫描界面-->
+    <string name="qrcodescan_title">QR Code / Bar Code</string>
+    <string name="qrcodescan_album">Album</string>
+    <string name="qrcodescan_hint">The QR code / bar code can be automatically scanned in the box</string>
+    <string name="qrcodescan_error">Unable to identify QR code / bar code</string>
+    <string name="qrcodescan_decode_error">Unable to identify QR code / bar code</string>
+    <string name="qrcode_dialog_message">Identifying...</string>
+
+    <string name="dialog_permission_title">Permissions prompt</string>
+    <string name="dialog_runtime_rationale_message">%1$s needs to use the following permissions, which may cause the program to fail if be rejected:\n\n%2$s</string>
+    <string name="dialog_runtime_rationale_process">Authorize</string>
+    <string name="dialog_runtime_neverask_message">%1$s can not obtain the following permissions, you can manually open the interface to ensure the normal operation of the program:\n\n%2$s</string>
+    <string name="dialog_runtime_neverask_process">To Setting</string>
+    <string name="dialog_install_rationale_message">%1$s needs the permission of installing application</string>
+    <string name="dialog_install_rationale_process">Authorize</string>
+    <string name="dialog_overlay_rationale_message">%1$s needs the permission of drawing on other applications</string>
+    <string name="dialog_overlay_rationale_process">Authorize</string>
+</resources>

@@ -3,7 +3,7 @@ package com.sources.javacode.app;
 import android.app.Application;
 
 import com.sources.javacode.net.ApiURL;
-import com.lwkandroid.wings.init.WingsInitOperator;
+import com.lwkandroid.wings.app.WingsInitOperator;
 
 /**
  * Created by LWK

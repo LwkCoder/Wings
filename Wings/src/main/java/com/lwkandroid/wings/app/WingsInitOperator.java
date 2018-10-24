@@ -1,11 +1,10 @@
-package com.lwkandroid.wings.init;
+package com.lwkandroid.wings.app;
 
 import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
 
 import com.lwkandroid.wings.DebugTools;
-import com.lwkandroid.wings.app.ActivityStack;
 import com.lwkandroid.wings.log.KLog;
 import com.lwkandroid.wings.net.RxHttp;
 import com.lwkandroid.wings.net.constants.ApiConstants;

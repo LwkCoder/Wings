@@ -1,7 +1,7 @@
 package com.lwkandroid.wingsdemo.app;
 
 import com.lwkandroid.wings.app.WingsApplication;
-import com.lwkandroid.wings.init.WingsInitOperator;
+import com.lwkandroid.wings.app.WingsInitOperator;
 import com.lwkandroid.wings.log.KLog;
 import com.lwkandroid.wingsdemo.BuildConfig;
 import com.lwkandroid.wingsdemo.net.ApiURL;
