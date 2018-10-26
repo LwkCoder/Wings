@@ -1,7 +1,7 @@
 package com.lwkandroid.wings.image.bean;
 
 import android.graphics.drawable.Drawable;
-import android.support.annotation.DrawableRes;
+import androidx.annotation.DrawableRes;
 
 import com.lwkandroid.wings.image.constants.ImageDiskCacheType;
 

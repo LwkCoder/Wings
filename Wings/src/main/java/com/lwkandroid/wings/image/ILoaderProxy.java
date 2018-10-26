@@ -18,5 +18,5 @@ public interface ILoaderProxy
 
     void show(Fragment fragment, ImageView imageView);
 
-    void show(android.support.v4.app.Fragment fragment, ImageView imageView);
+    void show(androidx.fragment.app.Fragment fragment, ImageView imageView);
 }

@@ -63,7 +63,7 @@ public class GlideLoader implements ILoaderStrategy<GlideLoaderOptions>
     }
 
     @Override
-    public void show(android.support.v4.app.Fragment context, ImageView imageView, GlideLoaderOptions options)
+    public void show(androidx.fragment.app.Fragment context, ImageView imageView, GlideLoaderOptions options)
     {
         RequestBuilder requestBuilder = options.isAsGif() ?
                 Glide.with(context).asGif() : Glide.with(context).asBitmap();

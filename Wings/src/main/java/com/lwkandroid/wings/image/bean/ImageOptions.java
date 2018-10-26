@@ -6,7 +6,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.support.annotation.DrawableRes;
+import androidx.annotation.DrawableRes;
 import android.widget.ImageView;
 
 import com.lwkandroid.wings.image.ILoaderProxy;
@@ -279,7 +279,7 @@ public class ImageOptions<T extends ImageOptions> implements ILoaderProxy
     }
 
     @Override
-    public void show(android.support.v4.app.Fragment fragment, ImageView imageView)
+    public void show(androidx.fragment.app.Fragment fragment, ImageView imageView)
     {
         ImageLoader.getLoader().show(fragment, imageView, this);
     }

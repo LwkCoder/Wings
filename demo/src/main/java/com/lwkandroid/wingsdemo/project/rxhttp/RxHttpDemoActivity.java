@@ -3,7 +3,6 @@ package com.lwkandroid.wingsdemo.project.rxhttp;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -26,6 +25,8 @@ import com.yanzhenjie.permission.Permission;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.Nullable;
 
 /**
  * 网络请求框架使用示例

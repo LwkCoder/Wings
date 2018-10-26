@@ -1,6 +1,6 @@
 package com.lwkandroid.wings.utils.pop;
 
-import android.support.annotation.StyleRes;
+import androidx.annotation.StyleRes;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupWindow;

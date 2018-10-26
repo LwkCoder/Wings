@@ -52,7 +52,7 @@ public interface ILoaderStrategy<T extends ImageOptions>
      * @param imageView 待加载对象
      * @param options   加载参数
      */
-    void show(android.support.v4.app.Fragment context, ImageView imageView, T options);
+    void show(androidx.fragment.app.Fragment context, ImageView imageView, T options);
 
     /**
      * 下载图片保存为File

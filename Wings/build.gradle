@@ -24,10 +24,10 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    api "com.android.support:support-v4:$SupportVersion"
-    api "com.android.support:appcompat-v7:$SupportVersion"
-    api "com.android.support:support-annotations:$SupportVersion"
-    api "com.android.support:recyclerview-v7:$SupportVersion"
+    api "androidx.legacy:legacy-support-v4:$AndroidXVersion"
+    api "androidx.appcompat:appcompat:$AndroidXVersion"
+    api "androidx.annotation:annotation:$AndroidXVersion"
+    api "androidx.recyclerview:recyclerview:$AndroidXVersion"
     api "com.google.code.gson:gson:$GsonVersion"
     api "com.yanzhenjie:permission:${AndPermissionVersion}"
     api "com.lwkandroid.widget:ComActionBar:$ComActionBarVersion"
@@ -36,40 +36,14 @@ dependencies {
     api "io.reactivex.rxjava2:rxjava:$RXJava2Version"
     api "io.reactivex.rxjava2:rxandroid:$RXAndroidVersion"
     api "com.jakewharton:disklrucache:$DiskLruCacheVersion"
-    api("com.lwkandroid:recyclerviewadapter:$RcvAdapterVersion") {
-        exclude group: 'com.android.support', module: 'recyclerview-v7'
-    }
-    api("com.github.bumptech.glide:glide:$GlideVersion") {
-        exclude group: 'com.android.support', module: 'support-v4'
-        exclude group: 'com.android.support', module: 'appcompat-v7'
-        exclude group: 'com.android.support', module: 'support-annotations'
-        exclude group: 'com.squareup.okhttp3', module: 'okhttp3'
-    }
-    api("com.github.bumptech.glide:okhttp3-integration:$GlideVersion") {
-        exclude group: 'com.android.support', module: 'support-v4'
-        exclude group: 'com.android.support', module: 'appcompat-v7'
-        exclude group: 'com.android.support', module: 'support-annotations'
-        exclude group: 'com.squareup.okhttp3', module: 'okhttp3'
-    }
-    annotationProcessor("com.github.bumptech.glide:compiler:$GlideVersion") {
-        exclude group: 'com.android.support', module: 'support-v4'
-        exclude group: 'com.android.support', module: 'appcompat-v7'
-        exclude group: 'com.android.support', module: 'support-annotations'
-        exclude group: 'com.squareup.okhttp3', module: 'okhttp3'
-    }
-    api("com.lwkandroid:ImagePicker:$ImagePickerVersion") {
-        exclude group: 'com.android.support', module: 'support-v4'
-        exclude group: 'com.github.bumptech.glide', module: 'glide'
-    }
-    api("com.squareup.retrofit2:retrofit:$RetrofitVersion") {
-        exclude group: 'com.squareup.okhttp3', module: 'okhttp3'
-    }
-    api("com.squareup.retrofit2:converter-gson:$RetrofitVersion") {
-        exclude group: 'com.google.code.gson', module: 'gson'
-    }
-    api("com.squareup.retrofit2:adapter-rxjava2:$RetrofitVersion") {
-        exclude group: 'io.reactivex.rxjava2', module: 'rxjava'
-    }
+    api "com.lwkandroid:recyclerviewadapter:$RcvAdapterVersion"
+    api "com.github.bumptech.glide:glide:$GlideVersion"
+    api "com.github.bumptech.glide:okhttp3-integration:$GlideVersion"
+    annotationProcessor "com.github.bumptech.glide:compiler:$GlideVersion"
+    api "com.lwkandroid:ImagePicker:$ImagePickerVersion"
+    api "com.squareup.retrofit2:retrofit:$RetrofitVersion"
+    api "com.squareup.retrofit2:converter-gson:$RetrofitVersion"
+    api "com.squareup.retrofit2:adapter-rxjava2:$RetrofitVersion"
 
     debugApi "com.squareup.leakcanary:leakcanary-android:$LeakCanaryVersion"
     debugApi "com.facebook.stetho:stetho:$StethoVersion"

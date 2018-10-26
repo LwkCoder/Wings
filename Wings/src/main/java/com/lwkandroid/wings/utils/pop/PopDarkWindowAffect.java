@@ -2,7 +2,7 @@ package com.lwkandroid.wings.utils.pop;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.annotation.FloatRange;
+import androidx.annotation.FloatRange;
 import android.view.Window;
 import android.view.WindowManager;
 

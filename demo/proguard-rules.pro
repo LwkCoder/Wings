@@ -1,5 +1,7 @@
 -keep class com.lwkandroid.wingsdemo.BuildConfig
 -keep class com.lwkandroid.wingsdemo.bean.**{*;}
+#AndPermission
+-dontwarn com.yanzhenjie.permission.**
 #自定义注解NotProguard
 -keepattributes *Annotation*
 -keep @com.lwkandroid.wings.annotation.NotProguard class * {*;}

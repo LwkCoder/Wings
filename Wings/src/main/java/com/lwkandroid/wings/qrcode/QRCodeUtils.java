@@ -8,6 +8,7 @@ import android.graphics.Color;
 import com.lwkandroid.wings.rx.utils.RxSchedulers;
 import com.lwkandroid.wings.utils.StringUtils;
 
+import androidx.fragment.app.Fragment;
 import cn.bingoogolapple.qrcode.zxing.QRCodeDecoder;
 import cn.bingoogolapple.qrcode.zxing.QRCodeEncoder;
 import io.reactivex.Observable;
@@ -56,7 +57,7 @@ public final class QRCodeUtils
     /**
      * 跳转扫码界面
      */
-    public static void startScanQRCode(android.support.v4.app.Fragment fragment, int requestCode)
+    public static void startScanQRCode(Fragment fragment, int requestCode)
     {
         QRCodeScanActivity.start(fragment.getActivity(), requestCode);
     }
@@ -64,7 +65,7 @@ public final class QRCodeUtils
     /**
      * 跳转扫码界面
      */
-    public static void startScanQRCode(android.support.v4.app.Fragment fragment, int requestCode, QRCodeOptions options)
+    public static void startScanQRCode(Fragment fragment, int requestCode, QRCodeOptions options)
     {
         QRCodeScanActivity.start(fragment.getActivity(), requestCode, options);
     }

@@ -1,6 +1,6 @@
 package com.lwkandroid.wings.net.bean;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.lwkandroid.wings.net.RxHttp;
 import com.lwkandroid.wings.net.constants.ApiCacheMode;

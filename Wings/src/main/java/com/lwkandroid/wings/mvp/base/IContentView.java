@@ -1,6 +1,6 @@
 package com.lwkandroid.wings.mvp.base;
 
-import android.support.annotation.IdRes;
+import androidx.annotation.IdRes;
 import android.view.View;
 
 /**

@@ -1,6 +1,6 @@
 package com.lwkandroid.wings.mvp.base;
 
-import android.support.annotation.StringRes;
+import androidx.annotation.StringRes;
 
 import io.reactivex.subjects.PublishSubject;
 
