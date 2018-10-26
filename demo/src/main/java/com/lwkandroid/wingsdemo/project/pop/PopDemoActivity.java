@@ -11,10 +11,10 @@ import android.widget.Button;
 import com.lwkandroid.widget.comactionbar.ComActionBar;
 import com.lwkandroid.wings.mvp.base.MVPBasePresenter;
 import com.lwkandroid.wings.utils.ScreenUtils;
-import com.lwkandroid.wings.utils.pop.PopCreator;
-import com.lwkandroid.wings.utils.pop.PopDarkWindowAffect;
-import com.lwkandroid.wings.utils.pop.XGravity;
-import com.lwkandroid.wings.utils.pop.YGravity;
+import com.lwkandroid.wings.widget.pop.PopCreator;
+import com.lwkandroid.wings.widget.pop.PopDarkWindowAffect;
+import com.lwkandroid.wings.widget.pop.XGravity;
+import com.lwkandroid.wings.widget.pop.YGravity;
 import com.lwkandroid.wingsdemo.R;
 import com.lwkandroid.wingsdemo.app.AppBaseActivity;
 

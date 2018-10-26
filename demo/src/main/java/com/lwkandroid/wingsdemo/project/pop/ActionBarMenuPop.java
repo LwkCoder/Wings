@@ -2,9 +2,9 @@ package com.lwkandroid.wingsdemo.project.pop;
 
 import android.view.View;
 
-import com.lwkandroid.wings.utils.pop.PopBaseContentView;
-import com.lwkandroid.wings.utils.pop.PopCreator;
-import com.lwkandroid.wings.utils.pop.PopOptions;
+import com.lwkandroid.wings.widget.pop.PopBaseContentView;
+import com.lwkandroid.wings.widget.pop.PopCreator;
+import com.lwkandroid.wings.widget.pop.PopOptions;
 import com.lwkandroid.wingsdemo.R;
 
 /**
