@@ -78,6 +78,7 @@ android {
     }
     lintOptions {
         abortOnError false
+        disable 'GoogleAppIndexingWarning'
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7

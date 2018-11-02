@@ -169,17 +169,7 @@ public class RxHttpDemoActivity extends AppBaseActivity<RxHttpDemoPresenter> imp
     public void showDownloadResult(final File file)
     {
         mTextView.setText("下载完成：" + file.getAbsolutePath());
-        AndPermission.with(this)
-                .install()
-                .file(file)
-                .onGranted(new Action<File>()
-                {
-                    @Override
-                    public void onAction(File data)
-                    {
-                        AppUtils.installApk(file.getAbsolutePath());
-                    }
-                }).start();
+        AppUtils.installApk(file.getAbsolutePath());
     }
 
     @Override

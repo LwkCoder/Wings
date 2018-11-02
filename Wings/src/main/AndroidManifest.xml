@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest package="com.lwkandroid.wings"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+          xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
@@ -20,7 +21,9 @@
             android:authorities="${applicationId}.wings.provider"
             android:exported="false"
             android:grantUriPermissions="true"
-            android:multiprocess="true">
+            android:multiprocess="true"
+            android:networkSecurityConfig="@xml/network_security_config"
+            tools:targetApi="n">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/apk_path"/>
