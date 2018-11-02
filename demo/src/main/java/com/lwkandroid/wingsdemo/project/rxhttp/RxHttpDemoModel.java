@@ -48,7 +48,7 @@ public class RxHttpDemoModel extends RxHttpDemoContract.Model
     }
 
     @Override
-    Observable<File> requestMovieData()
+    Observable<File> requestFileData()
     {
         return RxHttp.DOWNLOAD(ApiURL.DOWNLOAD_TEST) //下载链接的请求域名和全局域名不一样没关系，内部retrofit会自动识别
                 .ignoreAllGlobalFormDatas() //去除所有的全局参数，避免无法监听下载过程

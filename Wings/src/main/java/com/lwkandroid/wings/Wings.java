@@ -4,6 +4,9 @@ import android.app.Application;
 
 import com.lwkandroid.wings.app.ActivityStack;
 import com.lwkandroid.wings.app.WingsInitOperator;
+import com.lwkandroid.wings.utils.AppUtils;
+
+import androidx.core.content.FileProvider;
 
 /**
  * Created by LWK
@@ -45,8 +48,29 @@ public final class Wings
     /**
      * Application的onTerminate()调用
      */
-    public static void onDestory()
+    public static void onDestroy()
     {
         ActivityStack.get().finishAll();
     }
+
+    /**
+     * 授权Uri的FileProvider
+     */
+    public static class WingsFileProvider extends FileProvider
+    {
+        @Override
+        public boolean onCreate()
+        {
+            return super.onCreate();
+        }
+
+        public static String createAuthorities()
+        {
+            return new StringBuilder()
+                    .append(AppUtils.getPackageName())
+                    .append(".wings.provider")
+                    .toString();
+        }
+    }
+
 }

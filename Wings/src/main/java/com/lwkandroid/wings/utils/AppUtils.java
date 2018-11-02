@@ -10,7 +10,6 @@ import android.content.pm.Signature;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
-import androidx.core.content.FileProvider;
 
 import com.lwkandroid.wings.log.KLog;
 
@@ -36,17 +35,15 @@ public final class AppUtils
     public static String getProcessName(int pid)
     {
         ActivityManager am = (ActivityManager) Utils.getContext().getSystemService(Context.ACTIVITY_SERVICE);
+        if (am == null)
+            return null;
         List<ActivityManager.RunningAppProcessInfo> runningApps = am.getRunningAppProcesses();
         if (runningApps == null)
-        {
             return null;
-        }
         for (ActivityManager.RunningAppProcessInfo procInfo : runningApps)
         {
             if (procInfo.pid == pid)
-            {
                 return procInfo.processName;
-            }
         }
         return null;
     }
@@ -250,7 +247,7 @@ public final class AppUtils
     {
         if (StringUtils.isEmpty(apkPath) || !new File(apkPath).exists())
         {
-            KLog.e("Can't install apk due to an invaild path !!!");
+            KLog.e("Can't install apk due to an invalid path !!!");
             return null;
         }
 
@@ -264,8 +261,7 @@ public final class AppUtils
         } else
         {
             intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            data = FileProvider.getUriForFile(Utils.getContext()
-                    , InstallApkFileProvider.getAuthorities(Utils.getContext()), file);
+            data = UriUtils.file2Uri(file);
         }
         intent.setDataAndType(data, type);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -294,20 +290,6 @@ public final class AppUtils
         intent.setData(Uri.parse("package:" + Utils.getContext().getPackageName()));
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         Utils.getContext().startActivity(intent);
-    }
-
-    /**
-     * 安装apk授权的FileProvider
-     */
-    public final static class InstallApkFileProvider extends FileProvider
-    {
-        public static String getAuthorities(Context context)
-        {
-            return new StringBuilder()
-                    .append(context.getPackageName())
-                    .append("_install.provider")
-                    .toString();
-        }
     }
 
     /**

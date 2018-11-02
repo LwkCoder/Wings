@@ -27,7 +27,7 @@ public abstract class ApiBaseObserver<T> implements Observer<T>
     public void onError(Throwable e)
     {
         ApiException apiException = ApiException.handleThrowable(e);
-        onApiExcetion(apiException);
+        onApiException(apiException);
     }
 
     @Override
@@ -39,6 +39,6 @@ public abstract class ApiBaseObserver<T> implements Observer<T>
 
     public abstract void _OnNext(T t);
 
-    public abstract void onApiExcetion(ApiException e);
+    public abstract void onApiException(ApiException e);
 
 }

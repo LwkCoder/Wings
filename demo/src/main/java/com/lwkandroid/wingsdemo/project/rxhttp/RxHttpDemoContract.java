@@ -57,7 +57,7 @@ public interface RxHttpDemoContract
         /**
          * 七牛上的静态资源
          */
-        abstract Observable<File> requestMovieData();
+        abstract Observable<File> requestFileData();
 
         /**
          * 请求非RestFul风格的数据
@@ -75,7 +75,7 @@ public interface RxHttpDemoContract
 
         abstract void requestDataByService();
 
-        abstract void requestMovieData();
+        abstract void requestFileData();
 
         abstract void requestNonRestFul();
 

@@ -41,7 +41,7 @@ public abstract class WingsApplication extends Application
     @Override
     public void onTerminate()
     {
-        Wings.onDestory();
+        Wings.onDestroy();
         super.onTerminate();
     }
 

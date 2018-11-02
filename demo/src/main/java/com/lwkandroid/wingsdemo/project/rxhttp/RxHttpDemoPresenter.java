@@ -46,7 +46,7 @@ public class RxHttpDemoPresenter extends RxHttpDemoContract.Presenter
                     }
 
                     @Override
-                    public void onApiExcetion(ApiException e)
+                    public void onApiException(ApiException e)
                     {
                         KLog.e("无法获取数据：" + e.toString());
                         getViewImpl().showHttpError(e);
@@ -75,7 +75,7 @@ public class RxHttpDemoPresenter extends RxHttpDemoContract.Presenter
                     }
 
                     @Override
-                    public void onApiExcetion(ApiException e)
+                    public void onApiException(ApiException e)
                     {
                         getViewImpl().showHttpError(e);
                     }
@@ -83,9 +83,9 @@ public class RxHttpDemoPresenter extends RxHttpDemoContract.Presenter
     }
 
     @Override
-    void requestMovieData()
+    void requestFileData()
     {
-        getModelImpl().requestMovieData()
+        getModelImpl().requestFileData()
                 .compose(this.<File>applyIo2MainWithLifeCycle())
                 .subscribe(new ApiBaseObserver<File>()
                 {
@@ -104,7 +104,7 @@ public class RxHttpDemoPresenter extends RxHttpDemoContract.Presenter
                     }
 
                     @Override
-                    public void onApiExcetion(ApiException e)
+                    public void onApiException(ApiException e)
                     {
                         getViewImpl().showHttpError(e);
                         getViewImpl().setDownLoadEnable(true);
@@ -149,7 +149,7 @@ public class RxHttpDemoPresenter extends RxHttpDemoContract.Presenter
                     }
 
                     @Override
-                    public void onApiExcetion(ApiException e)
+                    public void onApiException(ApiException e)
                     {
                         getViewImpl().showHttpError(e);
                     }
@@ -171,7 +171,7 @@ public class RxHttpDemoPresenter extends RxHttpDemoContract.Presenter
         //                    }
         //
         //                    @Override
-        //                    public void onApiExcetion(ApiException e)
+        //                    public void onApiException(ApiException e)
         //                    {
         //                        getViewImpl().showHttpError(e);
         //                    }
@@ -192,7 +192,7 @@ public class RxHttpDemoPresenter extends RxHttpDemoContract.Presenter
                     }
 
                     @Override
-                    public void onApiExcetion(ApiException e)
+                    public void onApiException(ApiException e)
                     {
                         getViewImpl().showHttpError(e);
                     }
@@ -213,7 +213,7 @@ public class RxHttpDemoPresenter extends RxHttpDemoContract.Presenter
                     }
 
                     @Override
-                    public void onApiExcetion(ApiException e)
+                    public void onApiException(ApiException e)
                     {
                         getViewImpl().showHttpError(e);
                     }

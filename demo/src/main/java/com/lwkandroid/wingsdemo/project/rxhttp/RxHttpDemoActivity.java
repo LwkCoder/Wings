@@ -10,10 +10,10 @@ import android.widget.TextView;
 import com.lwkandroid.imagepicker.ImagePicker;
 import com.lwkandroid.imagepicker.data.ImageBean;
 import com.lwkandroid.imagepicker.data.ImagePickType;
-import com.lwkandroid.wings.log.KLog;
 import com.lwkandroid.wings.net.bean.ApiException;
 import com.lwkandroid.wings.net.bean.ProgressInfo;
 import com.lwkandroid.wings.permission.PermissionDialogUtils;
+import com.lwkandroid.wings.utils.AppUtils;
 import com.lwkandroid.wingsdemo.R;
 import com.lwkandroid.wingsdemo.app.AppBaseActivity;
 import com.lwkandroid.wingsdemo.bean.NonRestFulResult;
@@ -85,7 +85,7 @@ public class RxHttpDemoActivity extends AppBaseActivity<RxHttpDemoPresenter> imp
                             @Override
                             public void onAction(List<String> data)
                             {
-                                getPresenter().requestMovieData();
+                                getPresenter().requestFileData();
                             }
                         })
                         .onDenied(new Action<List<String>>()
@@ -139,7 +139,6 @@ public class RxHttpDemoActivity extends AppBaseActivity<RxHttpDemoPresenter> imp
             List<File> files = new ArrayList<>();
             for (ImageBean bean : imageBeans)
             {
-                KLog.e("选择图片：" + bean.getImagePath());
                 files.add(new File(bean.getImagePath()));
             }
             getPresenter().uploadImages(files);
@@ -167,9 +166,20 @@ public class RxHttpDemoActivity extends AppBaseActivity<RxHttpDemoPresenter> imp
     }
 
     @Override
-    public void showDownloadResult(File file)
+    public void showDownloadResult(final File file)
     {
         mTextView.setText("下载完成：" + file.getAbsolutePath());
+        AndPermission.with(this)
+                .install()
+                .file(file)
+                .onGranted(new Action<File>()
+                {
+                    @Override
+                    public void onAction(File data)
+                    {
+                        AppUtils.installApk(file.getAbsolutePath());
+                    }
+                }).start();
     }
 
     @Override

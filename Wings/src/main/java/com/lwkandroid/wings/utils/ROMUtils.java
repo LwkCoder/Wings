@@ -2,7 +2,8 @@ package com.lwkandroid.wings.utils;
 
 import android.os.Build;
 import android.text.TextUtils;
-import android.util.Log;
+
+import com.lwkandroid.wings.log.KLog;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -111,7 +112,7 @@ public class ROMUtils
         return sName.equals(rom);
     }
 
-    public static String getProp(String name)
+    private static String getProp(String name)
     {
         String line = null;
         BufferedReader input = null;
@@ -123,7 +124,7 @@ public class ROMUtils
             input.close();
         } catch (IOException ex)
         {
-            Log.e(TAG, "Unable to read prop " + name, ex);
+            KLog.e(TAG, "Unable to read prop " + name, ex);
             return null;
         } finally
         {

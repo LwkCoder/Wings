@@ -26,7 +26,7 @@ public class ListDemoPresenter extends ListDemoContract.Presenter
                     }
 
                     @Override
-                    public void onApiExcetion(ApiException e)
+                    public void onApiException(ApiException e)
                     {
                         getViewImpl().onRefreshFail(e.getDisplayMessage());
                     }
@@ -47,7 +47,7 @@ public class ListDemoPresenter extends ListDemoContract.Presenter
                     }
 
                     @Override
-                    public void onApiExcetion(ApiException e)
+                    public void onApiException(ApiException e)
                     {
                         getViewImpl().onLoadMoreFail(e.getDisplayMessage());
                     }
