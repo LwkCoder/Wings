@@ -3,15 +3,19 @@ package com.lwkandroid.wings.utils;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.os.Build;
-import androidx.annotation.ColorInt;
-import androidx.annotation.FloatRange;
-import androidx.annotation.RequiresApi;
+import android.provider.Settings;
 import android.util.TypedValue;
+import android.view.Display;
+import android.view.KeyCharacterMap;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
@@ -19,6 +23,11 @@ import android.view.WindowManager;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.regex.Pattern;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.FloatRange;
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 
 /**
  * 状态栏、导航栏相关工具类
@@ -76,7 +85,19 @@ public final class BarUtils
     @TargetApi(Build.VERSION_CODES.KITKAT)
     public static void setStatusBarColor(Activity activity, @ColorInt int color)
     {
-        setStatusBarColor(activity, color, DEFAULT_ALPHA);
+        setStatusBarColor(activity, color, DEFAULT_ALPHA, true);
+    }
+
+    /**
+     * 设置状态栏颜色
+     *
+     * @param activity 需要设置的activity
+     * @param color    状态栏颜色值
+     */
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    public static void setStatusBarColor(Activity activity, @ColorInt int color, boolean fitSystemWindow)
+    {
+        setStatusBarColor(activity, color, DEFAULT_ALPHA, fitSystemWindow);
     }
 
     /**
@@ -88,6 +109,20 @@ public final class BarUtils
      */
     public static void setStatusBarColor(Activity activity, @ColorInt int color
             , @FloatRange(from = 0.0, to = 1.0) float alpha)
+    {
+        setStatusBarColor(activity, color, alpha, true);
+    }
+
+    /**
+     * 改变状态栏颜色的方法
+     *
+     * @param activity        依附的Activity
+     * @param color           状态栏颜色值
+     * @param alpha           状态栏透明度【不是颜色透明度】
+     * @param firSystemWindow 是否自动调整布局间距
+     */
+    public static void setStatusBarColor(Activity activity, @ColorInt int color
+            , @FloatRange(from = 0.0, to = 1.0) float alpha, boolean firSystemWindow)
     {
         if (Build.VERSION.SDK_INT < MIN_API)
             return;
@@ -104,7 +139,7 @@ public final class BarUtils
             setStatusBarColorForKitkat((ViewGroup) window.getDecorView(), color, alpha);
         }
         //设置窗口根布局自动调整间距
-        fitSystemWindow(activity, true);
+        fitSystemWindow(activity, firSystemWindow);
     }
 
     //4.4创建假的透明栏
@@ -161,12 +196,12 @@ public final class BarUtils
         if (isFlyme4Later())
         {
             darkModeForFlyme4(activity.getWindow(), dark);
-        } else if (isMIUI6Later())
-        {
-            darkModeForMIUI6(activity.getWindow(), dark);
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
         {
             darkModeForM(activity.getWindow(), dark);
+        } else if (isMIUI6Later())
+        {
+            darkModeForMIUI6(activity.getWindow(), dark);
         }
     }
 
@@ -369,51 +404,68 @@ public final class BarUtils
     }
 
     /**
-     * 获取导航栏高度，有且显示就返回具体高度，否则返回0
-     *
-     * @param activity Activity对象
-     */
-    public static int getNavigationBarHeightIfShowing(Activity activity)
-    {
-        if (isNavigationBarExist(activity))
-        {
-            Rect outRect1 = new Rect();
-            activity.getWindow().getDecorView().getWindowVisibleDisplayFrame(outRect1);
-            int activityHeight = outRect1.height();
-            //判断是否显示
-            if (activityHeight == ScreenUtils.getScreenHeight() - getStatusBarHeight())
-                return getNavigationBarHeight();
-        }
-        return 0;
-    }
-
-    /**
-     * 判断导航栏是否显示
+     * 是否显示了虚拟导航栏
      */
     public static boolean isNavigationBarShowing(Activity activity)
     {
-        if (!isNavigationBarExist(activity.getApplicationContext()))
-            return false;
+        if (ROMUtils.isMiui() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
+        {
+            //小米系统判断全面屏手势是否开启,true为开启（不显示导航栏），false为关闭（显示导航栏）
+            if (Settings.Global.getInt(activity.getContentResolver(), "force_fsg_nav_bar", 0) != 0)
+            {
+                //开启手势，不显示虚拟键
+                return false;
+            } else
+            {
+                return true;
+            }
+        }
 
-        //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
-        //        {
-        //            Display display = activity.getWindowManager().getDefaultDisplay();
-        //            Point size = new Point();
-        //            Point realSize = new Point();
-        //            display.getSize(size);
-        //            display.getRealSize(realSize);
-        //            return realSize.y != size.y;
-        //        } else
-        //        {
-        //            boolean menu = ViewConfiguration.get(activity.getApplicationContext()).hasPermanentMenuKey();
-        //            boolean back = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
-        //            return !(menu || back);
-        //        }
-        Rect outRect1 = new Rect();
-        activity.getWindow().getDecorView().getWindowVisibleDisplayFrame(outRect1);
-        int activityHeight = outRect1.height();
-        //判断是否显示
-        return activityHeight == ScreenUtils.getScreenHeight() - getStatusBarHeight();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
+        {
+            Display display = activity.getWindowManager().getDefaultDisplay();
+            Point size = new Point();
+            Point realSize = new Point();
+            display.getSize(size);
+            display.getRealSize(realSize);
+            return realSize.y != size.y;
+        } else
+        {
+            boolean menu = ViewConfiguration.get(activity).hasPermanentMenuKey();
+            boolean back = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
+            return !(menu || back);
+        }
+    }
+
+
+    /**
+     * 判断虚拟导航栏是否显示
+     *
+     * @param context 上下文对象
+     * @param window  当前窗口
+     * @return true(显示虚拟导航栏)，false(不显示或不支持虚拟导航栏)
+     */
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+    public static boolean checkNavigationBarShow(@NonNull Context context, @NonNull Window window)
+    {
+        boolean show;
+        Display display = window.getWindowManager().getDefaultDisplay();
+        Point point = new Point();
+        display.getRealSize(point);
+
+        View decorView = window.getDecorView();
+        Configuration conf = context.getResources().getConfiguration();
+        if (Configuration.ORIENTATION_LANDSCAPE == conf.orientation)
+        {
+            View contentView = decorView.findViewById(android.R.id.content);
+            show = (point.x != contentView.getWidth());
+        } else
+        {
+            Rect rect = new Rect();
+            decorView.getWindowVisibleDisplayFrame(rect);
+            show = (rect.bottom != point.y);
+        }
+        return show;
     }
 
     /**
@@ -544,30 +596,6 @@ public final class BarUtils
             //设置状态栏和导航栏透明
             window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-        }
-    }
-
-    /**
-     * 设置全屏
-     * [fixme 似乎在MIUI上按下home再回到app会有问题]
-     */
-    public static void setFullScreen(Activity activity)
-    {
-        if (Build.VERSION.SDK_INT >= MIN_API)
-        {
-            View decorView = activity.getWindow().getDecorView();
-            decorView.setSystemUiVisibility(
-                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                            | View.SYSTEM_UI_FLAG_FULLSCREEN
-                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
-        } else
-        {
-            View decorView = activity.getWindow().getDecorView();
-            int option = View.SYSTEM_UI_FLAG_FULLSCREEN;
-            decorView.setSystemUiVisibility(option);
         }
     }
 
