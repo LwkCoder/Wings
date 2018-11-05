@@ -9,7 +9,7 @@ import android.content.Context;
 
 public interface IPopAffect
 {
-    void onShowingProgress(Context context, PopOptions options, float progress);
+    void onShowingProgress(Context context, PopCreator creator, PopOptions options, float progress);
 
-    void onDismissed(Context context, PopOptions options);
+    void onDismissed(Context context, PopCreator creator, PopOptions options);
 }

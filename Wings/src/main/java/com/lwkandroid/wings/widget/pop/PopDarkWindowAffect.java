@@ -2,9 +2,10 @@ package com.lwkandroid.wings.widget.pop;
 
 import android.app.Activity;
 import android.content.Context;
-import androidx.annotation.FloatRange;
 import android.view.Window;
 import android.view.WindowManager;
+
+import androidx.annotation.FloatRange;
 
 /**
  * Created by LWK
@@ -26,14 +27,14 @@ public class PopDarkWindowAffect implements IPopAffect
     }
 
     @Override
-    public void onShowingProgress(Context context, PopOptions options, float progress)
+    public void onShowingProgress(Context context, PopCreator creator, PopOptions options, float progress)
     {
         //根据value计算透明度
         updateBgAlpha(context, 1.0f - (1.0f - mDarkWindowDegree) * progress);
     }
 
     @Override
-    public void onDismissed(Context context, PopOptions options)
+    public void onDismissed(Context context, PopCreator creator, PopOptions options)
     {
         //恢复透明度
         updateBgAlpha(context, 1.0f);

@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
-import androidx.core.widget.PopupWindowCompat;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -19,6 +18,8 @@ import android.widget.PopupWindow;
 import com.lwkandroid.wings.utils.Utils;
 
 import java.lang.ref.WeakReference;
+
+import androidx.core.widget.PopupWindowCompat;
 
 /**
  * Created by LWK
@@ -362,7 +363,7 @@ public class PopCreator implements IPopOperator, PopupWindow.OnDismissListener
             @Override
             public void onAnimationUpdate(ValueAnimator animation)
             {
-                mOptions.getAffect().onShowingProgress(getContext(), mOptions, (Float) animation.getAnimatedValue());
+                mOptions.getAffect().onShowingProgress(getContext(), PopCreator.this, mOptions, (Float) animation.getAnimatedValue());
             }
         });
         mAnimator.start();
@@ -376,7 +377,7 @@ public class PopCreator implements IPopOperator, PopupWindow.OnDismissListener
         if (mAnimator != null)
             mAnimator.cancel();
 
-        mOptions.getAffect().onDismissed(getContext(), mOptions);
+        mOptions.getAffect().onDismissed(getContext(), PopCreator.this, mOptions);
     }
 
     protected Context getContext()
