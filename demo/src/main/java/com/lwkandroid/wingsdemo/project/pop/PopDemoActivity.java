@@ -89,7 +89,7 @@ public class PopDemoActivity extends AppBaseActivity<MVPBasePresenter>
                 break;
             case R.id.btn_pop_dialog:
                 PopCreator.create(new DialogPop())
-                        .setCancelOutsideTouched(false)
+                        .setCanceledOnTouchOutside(false)
                         .setAffectParams(new PopDarkWindowAffect(), 200)
                         .setLayoutParams(ScreenUtils.getScreenWidth() / 3 * 2, ViewGroup.LayoutParams.WRAP_CONTENT)
                         .showAtLocation(getContentView(), Gravity.CENTER, 0, 0);

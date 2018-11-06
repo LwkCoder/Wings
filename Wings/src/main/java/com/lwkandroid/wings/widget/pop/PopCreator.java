@@ -248,7 +248,7 @@ public class PopCreator implements IPopOperator, PopupWindow.OnDismissListener
             mPopupWindow.setAnimationStyle(mOptions.getAnimStyle());
 
         //针对外部点击是否消失需要额外处理
-        boolean cancelOutsideTouched = mOptions.isCancelOutsideTouched();
+        boolean cancelOutsideTouched = mOptions.isCanceledOnTouchOutside();
         mPopupWindow.setOutsideTouchable(cancelOutsideTouched);
         if (cancelOutsideTouched)
         {

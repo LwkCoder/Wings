@@ -1,11 +1,14 @@
 package com.lwkandroid.wings.widget.dialog;
 
 import android.content.DialogInterface;
+import android.view.Gravity;
+import android.view.ViewGroup;
 
 import com.lwkandroid.wings.R;
 
 import java.io.Serializable;
 
+import androidx.annotation.FloatRange;
 import androidx.annotation.StyleRes;
 import androidx.fragment.app.FragmentActivity;
 
@@ -21,6 +24,13 @@ public class DialogOptions<T extends DialogOptions> implements IDialogProxy, Ser
     private boolean canceledOnTouchOutside = true;
     private @StyleRes
     int themeStyle = R.style.BaseDialogStyle;
+    private @FloatRange(from = 0.0, to = 1.0f)
+    float darkWindowDegree = 0.5f;
+    private @StyleRes
+    int animStyle = android.R.style.Animation_Dialog;
+    private int layoutGravity = Gravity.CENTER;
+    private ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
     private DialogBaseContentView contentView;
     private DialogInterface.OnShowListener showListener;
     private DialogInterface.OnDismissListener dismissListener;
@@ -57,6 +67,50 @@ public class DialogOptions<T extends DialogOptions> implements IDialogProxy, Ser
     public T setCanceledOnTouchOutside(boolean canceledOnTouchOutside)
     {
         this.canceledOnTouchOutside = canceledOnTouchOutside;
+        return (T) this;
+    }
+
+    public float getDarkWindowDegree()
+    {
+        return darkWindowDegree;
+    }
+
+    public T setDarkWindowDegree(float darkWindowDegree)
+    {
+        this.darkWindowDegree = darkWindowDegree;
+        return (T) this;
+    }
+
+    public int getAnimStyle()
+    {
+        return animStyle;
+    }
+
+    public T setAnimStyle(int animStyle)
+    {
+        this.animStyle = animStyle;
+        return (T) this;
+    }
+
+    public int getLayoutGravity()
+    {
+        return layoutGravity;
+    }
+
+    public T setLayoutGravity(int layoutGravity)
+    {
+        this.layoutGravity = layoutGravity;
+        return (T) this;
+    }
+
+    public ViewGroup.LayoutParams getLayoutParams()
+    {
+        return layoutParams;
+    }
+
+    public T setLayoutParams(ViewGroup.LayoutParams layoutParams)
+    {
+        this.layoutParams = layoutParams;
         return (T) this;
     }
 

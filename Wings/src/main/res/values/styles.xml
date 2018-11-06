@@ -65,6 +65,8 @@
         <item name="android:backgroundDimEnabled">true</item>
         <!--显示区域以外黑色半透明程度，取值范围[0-1],值越大越不透明-->
         <item name="android:backgroundDimAmount">0.5</item>
+        <!--显示动画-->
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
         <item name="android:windowContentOverlay">@null</item>
     </style>
 

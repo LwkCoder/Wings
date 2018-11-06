@@ -52,6 +52,14 @@ public abstract class DialogBaseContentView
     }
 
     /**
+     * 获取Creator对象
+     */
+    public DialogCreator getCreator()
+    {
+        return mCreator;
+    }
+
+    /**
      * 获取配置参数
      */
     public DialogOptions getOptions()

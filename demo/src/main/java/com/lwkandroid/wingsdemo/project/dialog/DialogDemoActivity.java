@@ -2,7 +2,9 @@ package com.lwkandroid.wingsdemo.project.dialog;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.lwkandroid.wings.mvp.base.MVPBasePresenter;
 import com.lwkandroid.wings.widget.dialog.DialogCreator;
@@ -35,10 +37,28 @@ public class DialogDemoActivity extends AppBaseActivity<MVPBasePresenter>
             @Override
             public void onClick(View v)
             {
-                DialogCreator.create(new ProgressContentView("Loading"))
+                DialogCreator.create(new ProgressDialog("Loading"))
                         .setCancelable(true)
                         .setCanceledOnTouchOutside(false)
                         .setThemeStyle(R.style.BaseDialogStyle)
+                        .setDarkWindowDegree(0.2f)
+                        .show(DialogDemoActivity.this);
+            }
+        });
+
+        addClick(R.id.btn_bottom_menu, new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                DialogCreator.create(new BottomMenuDialog())
+                        .setCancelable(true)
+                        .setCanceledOnTouchOutside(true)
+                        .setDarkWindowDegree(0.5f)
+                        .setAnimStyle(R.style.PopBottomMenuStyle)
+                        .setLayoutGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL)
+                        .setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                                ViewGroup.LayoutParams.WRAP_CONTENT))
                         .show(DialogDemoActivity.this);
             }
         });

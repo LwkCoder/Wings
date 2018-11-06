@@ -1,9 +1,12 @@
 package com.lwkandroid.wings.widget.dialog;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,7 +19,6 @@ import androidx.fragment.app.DialogFragment;
 public class RealDialog extends DialogFragment
 {
     private static final String KEY_BUNDLE = "options";
-    private static final String KEY_LAYOUT = "layout";
     private DialogOptions mOptions;
 
     public static RealDialog create(DialogOptions options)
@@ -39,10 +41,16 @@ public class RealDialog extends DialogFragment
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
-        if (savedInstanceState != null)
-            mOptions = (DialogOptions) savedInstanceState.getSerializable(KEY_LAYOUT);
-
         setStyle(DialogFragment.STYLE_NO_TITLE, mOptions.getThemeStyle());
+        Window window = getDialog().getWindow();
+        if (window != null)
+        {
+            window.setGravity(mOptions.getLayoutGravity());
+            window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            window.setDimAmount(mOptions.getDarkWindowDegree());
+            window.setWindowAnimations(mOptions.getAnimStyle());
+        }
+
         getDialog().setCancelable(mOptions.isCancelable());
         getDialog().setCanceledOnTouchOutside(mOptions.isCanceledOnTouchOutside());
         getDialog().setOnCancelListener(mOptions.getCancelListener());
@@ -53,16 +61,12 @@ public class RealDialog extends DialogFragment
     }
 
     @Override
-    public void onSaveInstanceState(@NonNull Bundle outState)
-    {
-        super.onSaveInstanceState(outState);
-        outState.putSerializable(KEY_LAYOUT, mOptions);
-    }
-
-    @Override
     public void onStart()
     {
         super.onStart();
+        Window window = getDialog().getWindow();
+        if (window != null)
+            window.setLayout(mOptions.getLayoutParams().width, mOptions.getLayoutParams().height);
         getDialog().setOnKeyListener(mOptions.getKeyListener());
     }
 

@@ -1,18 +1,17 @@
-package com.lwkandroid.wingsdemo.project.pop;
+package com.lwkandroid.wingsdemo.project.dialog;
 
 import android.view.View;
 
-import com.lwkandroid.wings.widget.pop.PopBaseContentView;
-import com.lwkandroid.wings.widget.pop.PopCreator;
-import com.lwkandroid.wings.widget.pop.PopOptions;
+import com.lwkandroid.wings.widget.dialog.DialogBaseContentView;
+import com.lwkandroid.wings.widget.dialog.DialogCreator;
+import com.lwkandroid.wings.widget.dialog.DialogOptions;
 import com.lwkandroid.wingsdemo.R;
 
 /**
  * Created by LWK
- * TODO 底部弹出式菜单
+ * TODO
  */
-
-public class BottomMenuPop extends PopBaseContentView implements View.OnClickListener
+public class BottomMenuDialog extends DialogBaseContentView implements View.OnClickListener
 {
     @Override
     public int getContentViewLayoutResId()
@@ -21,7 +20,7 @@ public class BottomMenuPop extends PopBaseContentView implements View.OnClickLis
     }
 
     @Override
-    public <T extends PopOptions<T>> void initUIAndData(View contentView, T options, PopCreator popCreator)
+    public <T extends DialogOptions<T>> void initUIAndData(View contentView, T options, DialogCreator creator)
     {
         contentView.findViewById(R.id.tv_pop_bottom_menu01).setOnClickListener(this);
         contentView.findViewById(R.id.tv_pop_bottom_menu02).setOnClickListener(this);

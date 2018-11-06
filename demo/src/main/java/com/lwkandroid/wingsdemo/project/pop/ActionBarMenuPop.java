@@ -33,6 +33,6 @@ public class ActionBarMenuPop extends PopBaseContentView implements View.OnClick
     @Override
     public void onClick(View v)
     {
-        getPopCreator().dismiss();
+        getCreator().dismiss();
     }
 }

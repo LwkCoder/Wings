@@ -13,11 +13,11 @@ import com.lwkandroid.wingsdemo.R;
  * Created by LWK
  * TODO
  */
-public class ProgressContentView extends DialogBaseContentView
+public class ProgressDialog extends DialogBaseContentView
 {
     private String mMessage;
 
-    public ProgressContentView(String message)
+    public ProgressDialog(String message)
     {
         this.mMessage = message;
     }

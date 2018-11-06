@@ -29,6 +29,6 @@ public class DialogPop extends PopBaseContentView implements View.OnClickListene
     @Override
     public void onClick(View v)
     {
-        getPopCreator().dismiss();
+        getCreator().dismiss();
     }
 }

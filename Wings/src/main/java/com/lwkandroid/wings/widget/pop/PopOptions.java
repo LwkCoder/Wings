@@ -1,9 +1,10 @@
 package com.lwkandroid.wings.widget.pop;
 
-import androidx.annotation.StyleRes;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupWindow;
+
+import androidx.annotation.StyleRes;
 
 /**
  * Created by LWK
@@ -14,7 +15,7 @@ public class PopOptions<T extends PopOptions> implements IPopProxy
 {
     private PopBaseContentView popContentView;
     private boolean focusable = true;
-    private boolean cancelOutsideTouched = true;
+    private boolean canceledOnTouchOutside = true;
     private @StyleRes
     int animStyle = -1;
     private IPopAffect affect;
@@ -39,9 +40,9 @@ public class PopOptions<T extends PopOptions> implements IPopProxy
         return (T) this;
     }
 
-    public boolean isCancelOutsideTouched()
+    public boolean isCanceledOnTouchOutside()
     {
-        return cancelOutsideTouched;
+        return canceledOnTouchOutside;
     }
 
     /**
@@ -50,9 +51,9 @@ public class PopOptions<T extends PopOptions> implements IPopProxy
      * @param b True：是 False：否
      * @return
      */
-    public T setCancelOutsideTouched(boolean b)
+    public T setCanceledOnTouchOutside(boolean b)
     {
-        this.cancelOutsideTouched = b;
+        this.canceledOnTouchOutside = b;
         return (T) this;
     }
 
