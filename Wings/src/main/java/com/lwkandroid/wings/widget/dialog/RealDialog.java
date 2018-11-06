@@ -74,4 +74,10 @@ public class RealDialog extends DialogFragment
     {
         return !isHidden() && !isRemoving() && getDialog() != null && getDialog().isShowing();
     }
+
+    public void cancel()
+    {
+        if (getDialog() != null)
+            getDialog().cancel();
+    }
 }

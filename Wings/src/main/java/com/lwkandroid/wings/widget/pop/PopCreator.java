@@ -240,7 +240,7 @@ public class PopCreator implements IPopOperator, PopupWindow.OnDismissListener
         mPopContentView = mOptions.getPopContentView();
         if (mPopContentView == null)
             throw new IllegalArgumentException("You have to set a NonNull PopBaseContentView object!!!");
-        mPopContentView.attach(context, options, this);
+        mPopContentView.attachToCreator(context, options, this);
 
         mPopupWindow = new PopupWindow(mPopContentView.getRealContentView(), mOptions.getLayoutParams().width, mOptions.getLayoutParams().height);
         mPopupWindow.setFocusable(mOptions.isFocusable());
@@ -312,11 +312,8 @@ public class PopCreator implements IPopOperator, PopupWindow.OnDismissListener
                             || (y < 0) || (y >= mPopupWindow.getContentView().getHeight())))
                     {
                         return true;
-                    } else if (event.getAction() == MotionEvent.ACTION_OUTSIDE)
-                    {
-                        return true;
-                    }
-                    return false;
+                    } else
+                        return event.getAction() == MotionEvent.ACTION_OUTSIDE;
                 }
             });
         }

@@ -62,6 +62,18 @@ public class DialogDemoActivity extends AppBaseActivity<MVPBasePresenter>
                         .show(DialogDemoActivity.this);
             }
         });
+
+        addClick(R.id.btn_input, new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                DialogCreator.create(new InputDialog())
+                        .setCancelable(false)
+                        .setCanceledOnTouchOutside(false)
+                        .show(DialogDemoActivity.this);
+            }
+        });
     }
 
     @Override

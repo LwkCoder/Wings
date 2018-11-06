@@ -57,6 +57,13 @@ public class DialogCreator implements IDialogOperator
         mRealDialog = null;
     }
 
+    @Override
+    public void cancel()
+    {
+        if (mRealDialog != null)
+            mRealDialog.cancel();
+    }
+
     /**
      * 初始化
      */

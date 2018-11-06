@@ -13,4 +13,6 @@ public interface IDialogOperator
     boolean isShowing();
 
     void dismiss();
+
+    void cancel();
 }

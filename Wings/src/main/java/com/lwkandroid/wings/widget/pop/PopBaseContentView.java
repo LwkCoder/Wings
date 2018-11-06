@@ -26,7 +26,7 @@ public abstract class PopBaseContentView
     /**
      * 和PopCreator关联起来，子类不需要调用这个方法
      */
-    void attach(Context context, PopOptions options, PopCreator popCreator)
+    void attachToCreator(Context context, PopOptions options, PopCreator popCreator)
     {
         this.mContextReference = new WeakReference<>(context != null ? context : Utils.getContext());
         this.mOptions = options;

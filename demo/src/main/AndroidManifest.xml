@@ -48,6 +48,7 @@
         </activity>
         <activity
             android:name=".project.dialog.DialogDemoActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/BaseActivityStyle">
         </activity>
 
