@@ -2,18 +2,20 @@ package com.lwkandroid.wingsdemo.project;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
 import android.view.View;
 
 import com.lwkandroid.widget.comactionbar.ComActionBar;
 import com.lwkandroid.wingsdemo.R;
 import com.lwkandroid.wingsdemo.app.AppBaseActivity;
+import com.lwkandroid.wingsdemo.project.dialog.DialogDemoActivity;
 import com.lwkandroid.wingsdemo.project.image.ImageLoaderDemoActivity;
 import com.lwkandroid.wingsdemo.project.list.ListDemoActivity;
 import com.lwkandroid.wingsdemo.project.pop.PopDemoActivity;
 import com.lwkandroid.wingsdemo.project.qrcode.QRCodeDemoActivity;
 import com.lwkandroid.wingsdemo.project.rxhttp.RxHttpDemoActivity;
 import com.lwkandroid.wingsdemo.project.test.TestActivity;
+
+import androidx.annotation.Nullable;
 
 /**
  * RxHttpDemoActivity
@@ -78,6 +80,14 @@ public class MainActivity extends AppBaseActivity<MainPresenter> implements Main
             public void onClick(View v)
             {
                 startActivity(new Intent(MainActivity.this, TestActivity.class));
+            }
+        });
+        addClick(R.id.btn_main_dialog, new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                startActivity(new Intent(MainActivity.this, DialogDemoActivity.class));
             }
         });
     }

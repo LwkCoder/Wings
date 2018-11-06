@@ -1,4 +1,4 @@
-package com.lwkandroid.wings.widget.pop;
+package com.lwkandroid.wings.widget.dialog;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,33 +12,35 @@ import java.lang.ref.WeakReference;
 
 /**
  * Created by LWK
- * TODO PopupWindow UI层，继承该类实现数据处理和UI交互
- * 【该类下不应调用PopCreator实现的IPopOperator显示方法】
+ * TODO Dialog UI层，继承该类实现数据处理和UI交互
  */
-
-public abstract class PopBaseContentView
+public abstract class DialogBaseContentView
 {
     private WeakReference<Context> mContextReference;
-    private PopCreator mPopCreator;
-    private PopOptions mOptions;
+    private DialogCreator mCreator;
+    private DialogOptions mOptions;
     private ViewGroup mRealContentView;
 
     /**
-     * 和PopCreator关联起来，子类不需要调用这个方法
+     * 和DialogCreator关联起来，子类不需要调用这个方法
      */
-    void attach(Context context, PopOptions options, PopCreator popCreator)
+    void attachToCreator(Context context, DialogOptions options, DialogCreator creator)
     {
         this.mContextReference = new WeakReference<>(context != null ? context : Utils.getContext());
         this.mOptions = options;
-        this.mPopCreator = popCreator;
+        mCreator = creator;
+    }
 
+    /**
+     * 初始化布局
+     */
+    void initContentView(LayoutInflater inflater)
+    {
         //解决xml根布局定义宽高无效的问题
-        mRealContentView = new FrameLayout(context);
-        mRealContentView.setFocusable(options.isFocusable());
-        mRealContentView.setFocusableInTouchMode(options.isCancelOutsideTouched());
-        View layout = LayoutInflater.from(context).inflate(getContentViewLayoutResId(), mRealContentView, false);
+        mRealContentView = new FrameLayout(getContext());
+        View layout = inflater.inflate(getContentViewLayoutResId(), mRealContentView, false);
         mRealContentView.addView(layout);
-        initUIAndData(getRealContentView(), options, popCreator);
+        initUIAndData(getRealContentView(), mOptions, mCreator);
     }
 
     /**
@@ -52,7 +54,7 @@ public abstract class PopBaseContentView
     /**
      * 获取配置参数
      */
-    public PopOptions getOptions()
+    public DialogOptions getOptions()
     {
         return mOptions;
     }
@@ -66,14 +68,6 @@ public abstract class PopBaseContentView
     }
 
     /**
-     * 获取PopCreator对象
-     */
-    public PopCreator getPopCreator()
-    {
-        return mPopCreator;
-    }
-
-    /**
      * 子类实现，指定布局id
      */
     public abstract int getContentViewLayoutResId();
@@ -81,10 +75,10 @@ public abstract class PopBaseContentView
     /**
      * 子类实现，设置UI和数据
      *
-     * @param contentView PopupWindow的ContentView
+     * @param contentView Dialog的ContentView
      * @param options     配置参数
-     * @param popCreator  PopCreator对象
+     * @param creator     DialogCreator对象
      * @param <T>         配置参数的泛型
      */
-    public abstract <T extends PopOptions<T>> void initUIAndData(View contentView, T options, PopCreator popCreator);
+    public abstract <T extends DialogOptions<T>> void initUIAndData(View contentView, T options, DialogCreator creator);
 }

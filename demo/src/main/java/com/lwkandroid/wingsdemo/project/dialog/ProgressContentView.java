@@ -1,0 +1,45 @@
+package com.lwkandroid.wingsdemo.project.dialog;
+
+import android.view.View;
+import android.widget.TextView;
+
+import com.lwkandroid.wings.utils.StringUtils;
+import com.lwkandroid.wings.widget.dialog.DialogBaseContentView;
+import com.lwkandroid.wings.widget.dialog.DialogCreator;
+import com.lwkandroid.wings.widget.dialog.DialogOptions;
+import com.lwkandroid.wingsdemo.R;
+
+/**
+ * Created by LWK
+ * TODO
+ */
+public class ProgressContentView extends DialogBaseContentView
+{
+    private String mMessage;
+
+    public ProgressContentView(String message)
+    {
+        this.mMessage = message;
+    }
+
+    @Override
+    public int getContentViewLayoutResId()
+    {
+        return R.layout.dialog_progress;
+    }
+
+    @Override
+    public <T extends DialogOptions<T>> void initUIAndData(View contentView, T options, DialogCreator creator)
+    {
+        TextView textView = contentView.findViewById(R.id.tv_progress_message);
+        if (StringUtils.isTrimNotEmpty(mMessage))
+        {
+            textView.setVisibility(View.VISIBLE);
+            textView.setText(mMessage);
+        } else
+        {
+            textView.setVisibility(View.GONE);
+            textView.setText(mMessage);
+        }
+    }
+}

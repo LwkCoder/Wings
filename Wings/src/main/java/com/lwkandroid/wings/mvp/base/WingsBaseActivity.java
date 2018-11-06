@@ -2,9 +2,6 @@ package com.lwkandroid.wings.mvp.base;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.IdRes;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 
 import com.lwkandroid.wings.log.KLog;
@@ -14,6 +11,9 @@ import com.lwkandroid.wings.utils.ReflectUtils;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
+import androidx.annotation.IdRes;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import io.reactivex.subjects.PublishSubject;
 
 /**
@@ -196,7 +196,6 @@ public abstract class WingsBaseActivity<P extends MVPBasePresenter> extends AppC
             }
         } catch (Exception e)
         {
-            e.printStackTrace();
             KLog.w(TAG, "Can not reflect instance of Presenter:" + e.toString());
         }
 

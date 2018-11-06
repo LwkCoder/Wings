@@ -44,6 +44,12 @@
                 android:text="PopCreater"/>
 
             <Button
+                android:id="@+id/btn_main_dialog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DialogCreator"/>
+
+            <Button
                 android:id="@+id/btn_main_qrcode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

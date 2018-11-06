@@ -35,6 +35,10 @@ public class PopCreator implements IPopOperator, PopupWindow.OnDismissListener
     private PopOptions mOptions;
     private PopBaseContentView mPopContentView;
 
+    PopCreator()
+    {
+    }
+
     public static PopOptions create(PopBaseContentView contentView)
     {
         return new PopOptions().setContentView(contentView);

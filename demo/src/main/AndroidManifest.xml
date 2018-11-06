@@ -46,6 +46,10 @@
             android:name=".project.test.TestActivity"
             android:theme="@style/BaseActivityStyle">
         </activity>
+        <activity
+            android:name=".project.dialog.DialogDemoActivity"
+            android:theme="@style/BaseActivityStyle">
+        </activity>
 
     </application>
 
