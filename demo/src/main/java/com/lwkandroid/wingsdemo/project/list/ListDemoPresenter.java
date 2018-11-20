@@ -4,6 +4,7 @@ import com.lwkandroid.wings.net.bean.ApiException;
 import com.lwkandroid.wings.net.observer.ApiBaseObserver;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by LWK
@@ -16,6 +17,7 @@ public class ListDemoPresenter extends ListDemoContract.Presenter
     void doRefresh(long timeStamp, final int pageIndex, int pageSize)
     {
         getModelImpl().getRefreshData(timeStamp, pageIndex, pageSize)
+                .delay(2, TimeUnit.SECONDS)
                 .compose(this.<List<String>>applyIo2MainWithLifeCycle())
                 .subscribe(new ApiBaseObserver<List<String>>()
                 {
@@ -37,6 +39,7 @@ public class ListDemoPresenter extends ListDemoContract.Presenter
     void doLoadMore(long timeStamp, final int pageIndex, int pageSize, int currentDataCount)
     {
         getModelImpl().getLoadMoreData(timeStamp, pageIndex, pageSize, currentDataCount)
+                .delay(2, TimeUnit.SECONDS)
                 .compose(this.<List<String>>applyIo2MainWithLifeCycle())
                 .subscribe(new ApiBaseObserver<List<String>>()
                 {

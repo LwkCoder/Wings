@@ -1,12 +1,13 @@
 package com.lwkandroid.wings.mvp.list;
 
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 
 import com.lwkandroid.rcvadapter.RcvMultiAdapter;
 import com.lwkandroid.wings.mvp.base.IMVPBaseView;
 
 import java.util.List;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by LWK
@@ -17,6 +18,8 @@ public interface IMVPBaseList
 {
     interface IViewCommon<D> extends IMVPBaseView
     {
+        void autoRefresh();
+
         void onRefreshSuccess(int pageIndex, List<D> dataList);
 
         void onRefreshFail(String errorMsg);
@@ -27,7 +30,7 @@ public interface IMVPBaseList
 
         MVPListOptions getListOptions();
 
-        IRefreshView getRefreshLayout();
+        IRefreshWrapper getRefreshWrapper();
 
         RecyclerView getRecyclerView();
 
@@ -40,23 +43,19 @@ public interface IMVPBaseList
 
         RcvMultiAdapter<D> setAdapter();
 
-        IRefreshView findRefreshView(MVPListOptions options, View contentView);
+        IRefreshWrapper findRefreshView(MVPListOptions options, View contentView);
 
         RecyclerView findRecyclerView(MVPListOptions options, View contentView);
-
-        void requestRefresh();
-
-        void requestLoadMore();
     }
 
     interface ILogicCommon<D>
     {
-        IRefreshView findRefreshView(MVPListOptions options, View contentView);
+        IRefreshWrapper findRefreshView(MVPListOptions options, View contentView);
 
         RecyclerView findRecyclerView(MVPListOptions options, View contentView);
 
         void init(MVPListOptions options, View contentView,
-                  IRefreshView refreshView, RecyclerView recyclerView,
+                  IRefreshWrapper refreshView, RecyclerView recyclerView,
                   RcvMultiAdapter<D> adapter);
 
         void onDestroy();

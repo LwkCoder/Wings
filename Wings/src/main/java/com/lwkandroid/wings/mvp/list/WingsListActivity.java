@@ -1,14 +1,16 @@
 package com.lwkandroid.wings.mvp.list;
 
 import android.os.Bundle;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 
 import com.lwkandroid.rcvadapter.RcvMultiAdapter;
 import com.lwkandroid.wings.mvp.base.MVPBasePresenter;
 import com.lwkandroid.wings.mvp.base.WingsBaseActivity;
+import com.lwkandroid.wings.widget.ptr.PTRLayout;
 
 import java.util.List;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by LWK
@@ -19,19 +21,21 @@ import java.util.List;
 public abstract class WingsListActivity<P extends MVPBasePresenter, D> extends WingsBaseActivity<P> implements
         IMVPBaseList.IViewCommon<D>, IMVPBaseList.IViewSubClass<D>, MVPListImpl.Listener
 {
-    private MVPListImpl<D> mListImpl;
+    //    private SRVMVPListImpl<D> mListImpl;
+    private PTRMVPListImpl<D> mListImpl;
 
     @Override
     protected void initUI(View contentView)
     {
-        mListImpl = new MVPListImpl<>(this);
+        //        mListImpl = new SRVMVPListImpl<>(this);
+        mListImpl = new PTRMVPListImpl<>(this);
         mListImpl.init(setListOptions(), contentView, findRefreshView(getListOptions(), contentView)
                 , findRecyclerView(getListOptions(), contentView), setAdapter());
         _initUI(contentView);
     }
 
     @Override
-    public IRefreshView findRefreshView(MVPListOptions options, View contentView)
+    public IRefreshWrapper findRefreshView(MVPListOptions options, View contentView)
     {
         return mListImpl.findRefreshView(options, contentView);
     }
@@ -45,13 +49,13 @@ public abstract class WingsListActivity<P extends MVPBasePresenter, D> extends W
     @Override
     protected void initData(Bundle savedInstanceState)
     {
-        requestRefresh();
+        autoRefresh();
     }
 
     @Override
-    public void requestRefresh()
+    public void autoRefresh()
     {
-        mListImpl.onRefreshRequest();
+        mListImpl.autoRefresh();
     }
 
     @Override
@@ -64,12 +68,6 @@ public abstract class WingsListActivity<P extends MVPBasePresenter, D> extends W
     public void onRefreshFail(String errorMsg)
     {
         mListImpl.onRefreshFail(errorMsg);
-    }
-
-    @Override
-    public void requestLoadMore()
-    {
-        mListImpl.onLoadMoreRequest();
     }
 
     @Override
@@ -90,10 +88,16 @@ public abstract class WingsListActivity<P extends MVPBasePresenter, D> extends W
         return mListImpl.getListOptions();
     }
 
+    //    @Override
+    //    public IRefreshWrapper<SwipeRefreshLayout> getRefreshWrapper()
+    //    {
+    //        return mListImpl.getRefreshWrapper();
+    //    }
+
     @Override
-    public IRefreshView getRefreshLayout()
+    public IRefreshWrapper<PTRLayout> getRefreshWrapper()
     {
-        return mListImpl.getRefreshLayout();
+        return mListImpl.getRefreshWrapper();
     }
 
     @Override

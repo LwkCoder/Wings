@@ -1,7 +1,5 @@
 package com.lwkandroid.wings.mvp.list;
 
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 
 import com.lwkandroid.rcvadapter.RcvMultiAdapter;
@@ -14,6 +12,7 @@ import com.lwkandroid.wings.utils.ToastUtils;
 
 import java.util.List;
 
+import androidx.recyclerview.widget.RecyclerView;
 import io.reactivex.subjects.PublishSubject;
 
 /**
@@ -21,11 +20,11 @@ import io.reactivex.subjects.PublishSubject;
  * TODO 列表界面公共部分实现类
  */
 
-class MVPListImpl<D> implements IMVPBaseList.ILogicCommon<D>, IMVPBaseList.IViewCommon<D>,
-        RcvLoadMoreListener, IRefreshView.onRefreshListener
+public abstract class MVPListImpl<D, RV> implements IMVPBaseList.ILogicCommon<D>, IMVPBaseList.IViewCommon<D>,
+        RcvLoadMoreListener, IRefreshWrapper.onRefreshListener
 {
     private MVPBaseViewImpl mBaseViewImpl = new MVPBaseViewImpl();
-    private IRefreshView mRefreshLayout;
+    private IRefreshWrapper<RV> mRefreshWrapper;
     private RecyclerView mRecyclerView;
     private MVPListOptions mOptions;
     private RcvMultiAdapter<D> mAdapter;
@@ -38,13 +37,6 @@ class MVPListImpl<D> implements IMVPBaseList.ILogicCommon<D>, IMVPBaseList.IView
     }
 
     @Override
-    public IRefreshView findRefreshView(MVPListOptions options, View contentView)
-    {
-        SwipeRefreshLayout layout = contentView.findViewById(R.id.id_common_refresh_view);
-        return new SwipeRefreshWrapper(layout);
-    }
-
-    @Override
     public RecyclerView findRecyclerView(MVPListOptions options, View contentView)
     {
         return contentView.findViewById(R.id.id_common_recyclerview);
@@ -52,23 +44,23 @@ class MVPListImpl<D> implements IMVPBaseList.ILogicCommon<D>, IMVPBaseList.IView
 
     @Override
     public void init(MVPListOptions options, View contentView,
-                     IRefreshView refreshView, RecyclerView recyclerView,
+                     IRefreshWrapper refreshWrapper, RecyclerView recyclerView,
                      RcvMultiAdapter<D> adapter)
     {
         mOptions = options;
         mAdapter = adapter;
-        mRefreshLayout = refreshView;
+        mRefreshWrapper = refreshWrapper;
         mRecyclerView = recyclerView;
 
-        if (mRefreshLayout == null)
+        if (mRefreshWrapper == null)
             throw new IllegalStateException("RefreshLayout can not be null! ");
         if (mRecyclerView == null)
             throw new IllegalStateException("RecyclerView can not be null!");
         if (mAdapter == null)
             throw new IllegalStateException("RecyclerView's Adapter can not be null!");
 
-        mRefreshLayout.enableRefresh(getListOptions().isEnableRefresh());
-        mRefreshLayout.setOnRefreshListener(this);
+        mRefreshWrapper.enableRefresh(getListOptions().isEnableRefresh());
+        mRefreshWrapper.setOnRefreshListener(this);
         if (mOptions.isEnableLoadMore() && mAdapter.isLoadMoreLayoutEmpty())
             mAdapter.setLoadMoreLayout(new RcvDefLoadMoreView.Builder().build(contentView.getContext()));
         mAdapter.disableLoadMore();//首先先禁止，刷新后再配置
@@ -77,10 +69,15 @@ class MVPListImpl<D> implements IMVPBaseList.ILogicCommon<D>, IMVPBaseList.IView
     }
 
     @Override
+    public void autoRefresh()
+    {
+        mRefreshWrapper.autoRefresh();
+    }
+
+    @Override
     public void onRefreshRequest()
     {
         mAdapter.disableLoadMore();//刷新的时候禁止加载更多
-        mRefreshLayout.enableRefresh(true);
         if (mListener != null)
             mListener.doRefresh(System.currentTimeMillis(), 0, mOptions.getPageSize());
     }
@@ -89,7 +86,7 @@ class MVPListImpl<D> implements IMVPBaseList.ILogicCommon<D>, IMVPBaseList.IView
     public void onRefreshSuccess(int pageIndex, List<D> dataList)
     {
         this.mCurrentIndex = pageIndex;
-        mRefreshLayout.enableRefresh(false);
+        mRefreshWrapper.finishRefresh();//结束刷新
         mAdapter.refreshDatas(dataList);
         if (dataList == null || dataList.size() == 0)
             return;
@@ -102,7 +99,7 @@ class MVPListImpl<D> implements IMVPBaseList.ILogicCommon<D>, IMVPBaseList.IView
     @Override
     public void onRefreshFail(String errorMsg)
     {
-        mRefreshLayout.enableRefresh(false);
+        mRefreshWrapper.finishRefresh();
         if (StringUtils.isNotEmpty(errorMsg))
             ToastUtils.showShort(errorMsg);
     }
@@ -138,9 +135,9 @@ class MVPListImpl<D> implements IMVPBaseList.ILogicCommon<D>, IMVPBaseList.IView
     }
 
     @Override
-    public IRefreshView getRefreshLayout()
+    public IRefreshWrapper<RV> getRefreshWrapper()
     {
-        return mRefreshLayout;
+        return mRefreshWrapper;
     }
 
     @Override
@@ -188,8 +185,8 @@ class MVPListImpl<D> implements IMVPBaseList.ILogicCommon<D>, IMVPBaseList.IView
     @Override
     public void onDestroy()
     {
-        if (getRefreshLayout() != null)
-            getRefreshLayout().onDestroy();
+        if (getRefreshWrapper() != null)
+            getRefreshWrapper().onDestroy();
     }
 
     public interface Listener

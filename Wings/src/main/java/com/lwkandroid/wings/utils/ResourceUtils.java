@@ -1,8 +1,11 @@
 package com.lwkandroid.wings.utils;
 
 import android.content.res.ColorStateList;
+import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.util.TypedValue;
+
 import androidx.annotation.ArrayRes;
 import androidx.annotation.BoolRes;
 import androidx.annotation.ColorRes;
@@ -11,6 +14,7 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.FontRes;
 import androidx.annotation.IntegerRes;
 import androidx.annotation.StringRes;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 
@@ -91,5 +95,50 @@ public final class ResourceUtils
     public static Typeface getTypeface(@FontRes int resId)
     {
         return ResourcesCompat.getFont(Utils.getContext(), resId);
+    }
+
+    public static float getAttrFloatValue(int attrRes)
+    {
+        TypedValue typedValue = new TypedValue();
+        Utils.getContext().getTheme().resolveAttribute(attrRes, typedValue, true);
+        return typedValue.getFloat();
+    }
+
+    public static int getAttrColor(int attrRes)
+    {
+        TypedValue typedValue = new TypedValue();
+        Utils.getContext().getTheme().resolveAttribute(attrRes, typedValue, true);
+        return typedValue.data;
+    }
+
+    public static ColorStateList getAttrColorStateList(int attrRes)
+    {
+        TypedValue typedValue = new TypedValue();
+        Utils.getContext().getTheme().resolveAttribute(attrRes, typedValue, true);
+        return ContextCompat.getColorStateList(Utils.getContext(), typedValue.resourceId);
+    }
+
+    public static Drawable getAttrDrawable(int attrRes)
+    {
+        int[] attrs = new int[]{attrRes};
+        TypedArray ta = Utils.getContext().obtainStyledAttributes(attrs);
+        Drawable drawable = getAttrDrawable(ta, 0);
+        ta.recycle();
+        return drawable;
+    }
+
+    public static Drawable getAttrDrawable(TypedArray typedArray, int index)
+    {
+        TypedValue value = typedArray.peekValue(index);
+        if (value != null && value.type != TypedValue.TYPE_ATTRIBUTE && value.resourceId != 0)
+            return AppCompatResources.getDrawable(Utils.getContext(), value.resourceId);
+        return null;
+    }
+
+    public static int getAttrDimen(int attrRes)
+    {
+        TypedValue typedValue = new TypedValue();
+        Utils.getContext().getTheme().resolveAttribute(attrRes, typedValue, true);
+        return TypedValue.complexToDimensionPixelSize(typedValue.data, Utils.getContext().getResources().getDisplayMetrics());
     }
 }

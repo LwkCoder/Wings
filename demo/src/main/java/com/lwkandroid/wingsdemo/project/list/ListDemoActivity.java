@@ -2,15 +2,18 @@ package com.lwkandroid.wingsdemo.project.list;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.lwkandroid.rcvadapter.RcvMultiAdapter;
 import com.lwkandroid.wings.mvp.list.MVPListOptions;
+import com.lwkandroid.wings.widget.ptr.PTRDefaultRefreshHeader;
 import com.lwkandroid.wingsdemo.R;
 import com.lwkandroid.wingsdemo.app.AppListActivity;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by LWK
@@ -26,7 +29,7 @@ public class ListDemoActivity extends AppListActivity<ListDemoPresenter, String>
         return new MVPListOptions.Builder()
                 .enableRefresh(true)
                 .enableLoadMore(true)
-                .setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false))
+                .setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false))
                 .build();
     }
 
@@ -44,7 +47,6 @@ public class ListDemoActivity extends AppListActivity<ListDemoPresenter, String>
     @Override
     protected void getIntentData(Intent intent, boolean newIntent)
     {
-
     }
 
     @Override
@@ -57,7 +59,9 @@ public class ListDemoActivity extends AppListActivity<ListDemoPresenter, String>
     @Override
     protected void _initUI(View contentView)
     {
-
+        PTRDefaultRefreshHeader refreshView = new PTRDefaultRefreshHeader(this);
+        refreshView.setColorSchemeResources(R.color.deep_darker, R.color.colorAccent);
+        getRefreshWrapper().getRefreshView().setRefreshHeader(refreshView);
     }
 
     @Override

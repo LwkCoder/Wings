@@ -7,12 +7,12 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
  * TODO SwipeRefreshLayout的封装实现
  */
 
-public class SwipeRefreshWrapper implements IRefreshView<SwipeRefreshLayout>, SwipeRefreshLayout.OnRefreshListener
+public class SRVWrapper implements IRefreshWrapper<SwipeRefreshLayout>, SwipeRefreshLayout.OnRefreshListener
 {
     private SwipeRefreshLayout mRefreshLayout;
     private onRefreshListener mListener;
 
-    public SwipeRefreshWrapper(SwipeRefreshLayout layout)
+    public SRVWrapper(SwipeRefreshLayout layout)
     {
         wrap(layout);
     }
@@ -28,7 +28,22 @@ public class SwipeRefreshWrapper implements IRefreshView<SwipeRefreshLayout>, Sw
     public void enableRefresh(boolean enable)
     {
         if (getRefreshView() != null)
-            getRefreshView().setRefreshing(enable);
+            getRefreshView().setEnabled(enable);
+    }
+
+    @Override
+    public void autoRefresh()
+    {
+        if (getRefreshView() != null)
+            getRefreshView().setRefreshing(true);
+        onRefresh();
+    }
+
+    @Override
+    public void finishRefresh()
+    {
+        if (getRefreshView() != null)
+            getRefreshView().setRefreshing(false);
     }
 
     @Override
