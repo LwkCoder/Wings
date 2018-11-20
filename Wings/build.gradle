@@ -48,4 +48,5 @@ dependencies {
     debugApi "com.squareup.leakcanary:leakcanary-android:$LeakCanaryVersion"
     debugApi "com.facebook.stetho:stetho:$StethoVersion"
     debugApi "com.facebook.stetho:stetho-okhttp3:$StethoVersion"
+    debugApi "com.readystatesoftware.chuck:library:$ChuckVersion"
 }

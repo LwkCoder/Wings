@@ -6,6 +6,7 @@ import com.facebook.stetho.Stetho;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.lwkandroid.wings.image.glide.GlideOkClient;
 import com.lwkandroid.wings.net.RxHttp;
+import com.readystatesoftware.chuck.ChuckInterceptor;
 import com.squareup.leakcanary.AndroidExcludedRefs;
 import com.squareup.leakcanary.DisplayLeakService;
 import com.squareup.leakcanary.ExcludedRefs;
@@ -29,6 +30,7 @@ public class DebugTools
                 .enableDumpapp(Stetho.defaultDumperPluginsProvider(context.getApplicationContext()))
                 .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(context.getApplicationContext()))
                 .build());
+        RxHttp.getGlobalOptions().addInterceptor("Chuck", new ChuckInterceptor(context.getApplicationContext()));
         RxHttp.getGlobalOptions().addNetInterceptor("Stetho", new StethoInterceptor());
         GlideOkClient.get().getBuilder().addNetworkInterceptor(new StethoInterceptor());
         //Square的LeakCanary

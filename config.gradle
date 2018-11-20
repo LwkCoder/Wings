@@ -1,7 +1,7 @@
 ext {
     /*项目基础配置*/
     appConfig = [
-            minSdkVersion    : 14,
+            minSdkVersion    : 16,
             targetSdkVersion : 28,
             compileSdkVersion: 28,
             applicationId    : "com.lwkandroid.app",
@@ -38,4 +38,5 @@ ext {
     LeakCanaryVersion = "1.6.1"
     StethoVersion = "1.5.0"
     DiskLruCacheVersion = "2.0.2"
+    ChuckVersion = "1.1.0"
 }
