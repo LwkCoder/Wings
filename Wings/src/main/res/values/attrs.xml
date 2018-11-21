@@ -88,7 +88,7 @@
         <attr name="text_typeface" format="string"/>
     </declare-styleable>
 
-    <!--**************** PullRefreshLayout ******************-->
+    <!--PTRLayout-->
     <declare-styleable name="PTRLayout">
         <!-- RefreshView的初始offset -->
         <attr name="refresh_init_offset" format="dimension"/>
@@ -106,5 +106,12 @@
         <attr name="equal_target_refresh_offset_to_refresh_view_height" format="boolean"/>
     </declare-styleable>
     <attr name="WingsPullRefreshLayoutDefStyle" format="reference"/>
+
+    <!--LoadingView-->
+    <declare-styleable name="LoadingView">
+        <attr name="loading_view_size" format="dimension"/>
+        <attr name="android:color"/>
+    </declare-styleable>
+    <attr name="LoadingViewStyle" format="reference"/>
 
 </resources>
