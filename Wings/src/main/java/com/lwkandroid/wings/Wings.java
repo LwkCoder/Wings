@@ -66,10 +66,7 @@ public final class Wings
 
         public static String createAuthorities()
         {
-            return new StringBuilder()
-                    .append(AppUtils.getPackageName())
-                    .append(".wings.provider")
-                    .toString();
+            return AppUtils.getPackageName() + ".wings.provider";
         }
     }
 

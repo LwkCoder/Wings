@@ -1,6 +1,7 @@
 package com.lwkandroid.wings;
 
 import android.content.Context;
+import android.os.StrictMode;
 
 import com.facebook.stetho.Stetho;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
@@ -24,6 +25,9 @@ public class DebugTools
 
     public static void init(Context context)
     {
+        //启动严格模式
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectAll().penaltyLog().build());
+        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().detectAll().penaltyLog().build());
         //Debug环境下可以初始化debug工具
         //Facebook的Stetho
         Stetho.initialize(Stetho.newInitializerBuilder(context.getApplicationContext())

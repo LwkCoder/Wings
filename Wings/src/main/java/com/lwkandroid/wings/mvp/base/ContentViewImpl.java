@@ -1,12 +1,13 @@
 package com.lwkandroid.wings.mvp.base;
 
 import android.content.Context;
-import androidx.annotation.LayoutRes;
-import androidx.annotation.Nullable;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.LayoutRes;
+import androidx.annotation.Nullable;
 
 /**
  * Created by LWK
@@ -18,25 +19,25 @@ class ContentViewImpl implements IContentView, View.OnClickListener
     private SparseArray<View> mViews;
     private onClickListenerDispatcher mClickDispatcher;
 
-    public ContentViewImpl(onClickListenerDispatcher clickDispather)
+    ContentViewImpl(onClickListenerDispatcher dispatcher)
     {
         this.mViews = new SparseArray<>();
-        this.mClickDispatcher = clickDispather;
+        this.mClickDispatcher = dispatcher;
     }
 
-    public View inflateContentView(Context context, @LayoutRes int layoutResId)
+    View inflateContentView(Context context, @LayoutRes int layoutResId)
     {
         mContentView = LayoutInflater.from(context).inflate(layoutResId, null);
         return mContentView;
     }
 
-    public View inflateContentView(Context context, @LayoutRes int layoutResId, @Nullable ViewGroup container)
+    View inflateContentView(Context context, @LayoutRes int layoutResId, @Nullable ViewGroup container)
     {
         mContentView = LayoutInflater.from(context).inflate(layoutResId, container, false);
         return mContentView;
     }
 
-    public View inflateContentView(LayoutInflater inflater, @LayoutRes int layoutResId, @Nullable ViewGroup container)
+    View inflateContentView(LayoutInflater inflater, @LayoutRes int layoutResId, @Nullable ViewGroup container)
     {
         mContentView = inflater.inflate(layoutResId, container, false);
         return mContentView;
