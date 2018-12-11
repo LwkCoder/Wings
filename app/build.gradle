@@ -109,7 +109,6 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
     debugImplementation project(':Wings')
     releaseImplementation project(':Wings')
 

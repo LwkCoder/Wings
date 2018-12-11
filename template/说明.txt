@@ -1,0 +1,5 @@
+动态模版
+
+1.将上面的文件夹复制到 AndroidStudio安装路径\plugins\android\lib\templates\activities\内
+2.重启AS
+3.在项目java路径下新建Activity\Fragment的时候就可以一键生成

@@ -1,4 +1,4 @@
-package com.sources.javacode.project.test;
+package com.sources.javacode.project.splash;
 
 import com.sources.javacode.app.AppBaseModel;
 import com.sources.javacode.app.AppBasePresenter;
@@ -6,10 +6,9 @@ import com.sources.javacode.app.IAppBaseView;
 
 /**
  * Created by LWK
- * TODO 契约类
+ * TODO 契约层
  */
-
-public interface TestContract
+interface Contract
 {
     interface IView extends IAppBaseView
     {
@@ -19,7 +18,8 @@ public interface TestContract
     {
     }
 
-    abstract class Presenter extends AppBasePresenter<IView, Model>
+    abstract class Presenter extends AppBasePresenter
     {
     }
+
 }

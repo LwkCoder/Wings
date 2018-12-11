@@ -6,10 +6,9 @@ import com.sources.javacode.app.IAppBaseView;
 
 /**
  * Created by LWK
- * TODO 主页契约类
+ * TODO 契约层
  */
-
-public interface HomeContract
+interface Contract
 {
     interface IView extends IAppBaseView
     {
@@ -19,7 +18,8 @@ public interface HomeContract
     {
     }
 
-    abstract class Presenter extends AppBasePresenter<IView, Model>
+    abstract class Presenter extends AppBasePresenter
     {
     }
+
 }

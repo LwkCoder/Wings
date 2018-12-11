@@ -1,20 +1,18 @@
-package com.sources.javacode.project.home;
+package ${packageName};
 
-import android.content.Intent;
+import ${superClassFqcn};
 import android.os.Bundle;
+import android.content.Intent;
 import android.view.View;
-
-import com.sources.javacode.R;
-import com.sources.javacode.app.AppBaseActivity;
+import androidx.annotation.Nullable;
 
 /**
  * Created by LWK
  * TODO View层
  */
-public class HomeActivity extends AppBaseActivity<Presenter> implements Contract.IView
-{
+public class ${activityClass} extends AppBaseActivity<Presenter> implements Contract.IView {
 
-    @Override
+	@Override
     protected void getIntentData(Intent intent, boolean newIntent)
     {
 
@@ -23,17 +21,21 @@ public class HomeActivity extends AppBaseActivity<Presenter> implements Contract
     @Override
     protected int getContentViewId()
     {
-        return R.layout.activity_home;
+		<#if generateLayout>
+		return R.layout.${layoutName};
+		<#else>	
+		return 0;
+		</#if>
     }
-
-    @Override
+	
+	@Override
     protected void initUI(View contentView)
     {
 
     }
 
     @Override
-    protected void initData(Bundle savedInstanceState)
+    protected void initData(@Nullable Bundle savedInstanceState)
     {
 
     }
@@ -43,5 +45,5 @@ public class HomeActivity extends AppBaseActivity<Presenter> implements Contract
     {
 
     }
-
+	
 }

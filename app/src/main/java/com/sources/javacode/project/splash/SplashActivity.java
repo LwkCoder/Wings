@@ -8,10 +8,12 @@ import com.sources.javacode.R;
 import com.sources.javacode.app.AppBaseActivity;
 
 /**
- * 开屏页View层
+ * Created by LWK
+ * TODO View层
  */
-public class SplashActivity extends AppBaseActivity<SplashPresenter> implements SplashContract.IView
+public class SplashActivity extends AppBaseActivity<Presenter> implements Contract.IView
 {
+
     @Override
     protected void getIntentData(Intent intent, boolean newIntent)
     {
@@ -41,4 +43,5 @@ public class SplashActivity extends AppBaseActivity<SplashPresenter> implements 
     {
 
     }
+
 }
