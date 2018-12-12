@@ -8,7 +8,7 @@ import com.sources.javacode.app.IAppBaseView;
  * Created by LWK
  * TODO 契约层
  */
-interface Contract
+interface ${className}Contract
 {
   interface IView extends IAppBaseView{}
   

@@ -4,11 +4,11 @@ package ${packageName};
  * Created by LWK
  * TODO Presenter层
  */
-class Presenter extends Contract.Presenter
+class ${activityClass}Presenter extends ${activityClass}Contract.Presenter
 {
     @Override
-    public Contract.Model createModel()
+    public ${activityClass}Contract.Model createModel()
     {
-        return new Model();
+        return new ${activityClass}Model();
     }
 }

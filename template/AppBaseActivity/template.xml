@@ -2,7 +2,7 @@
 <template
     format="5"
     revision="5"
-    name="AppBaseActivity with MVP Template(Java)"
+    name="AppBaseActivity with MVP template(Java)"
     minApi="16"
     minBuildApi="16"
     description="Creates a new AppBaseActivity with MVP">
@@ -16,7 +16,7 @@
         type="string"
         constraints="class|unique|nonempty"
         suggest="${layoutToActivity(layoutName)}"
-        default="AppActivity"
+        default="App"
         help="The name of the activity class to create" />
 
     <parameter

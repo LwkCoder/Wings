@@ -11,7 +11,7 @@ import com.sources.javacode.app.AppBaseActivity;
  * Created by LWK
  * TODO View层
  */
-public class SplashActivity extends AppBaseActivity<Presenter> implements Contract.IView
+public class SplashActivity extends AppBaseActivity<SplashPresenter> implements SplashContract.IView
 {
 
     @Override

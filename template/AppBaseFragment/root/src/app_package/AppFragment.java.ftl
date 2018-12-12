@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
  * Created by LWK
  * TODO View层
  */
-public class ${className} extends AppBaseFragment<Presenter> implements Contract.IView {
+public class ${className}Fragment extends AppBaseFragment<${className}Presenter> implements ${className}Contract.IView {
 
 	@Override
     protected void getArgumentsData(Bundle bundle, Bundle savedInstanceState)

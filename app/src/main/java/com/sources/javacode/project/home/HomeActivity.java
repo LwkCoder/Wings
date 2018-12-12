@@ -11,7 +11,7 @@ import com.sources.javacode.app.AppBaseActivity;
  * Created by LWK
  * TODO View层
  */
-public class HomeActivity extends AppBaseActivity<Presenter> implements Contract.IView
+public class HomeActivity extends AppBaseActivity<HomePresenter> implements HomeContract.IView
 {
 
     @Override

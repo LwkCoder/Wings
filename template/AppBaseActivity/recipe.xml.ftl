@@ -11,19 +11,19 @@
 </#if>
 
 	<instantiate from="root/src/app_package/Contract.${ktOrJavaExt}.ftl"
-                   to="${escapeXmlAttribute(srcOut)}/Contract.${ktOrJavaExt}" />
-    <open file="${escapeXmlAttribute(srcOut)}/Contract.${ktOrJavaExt}" />
+                   to="${escapeXmlAttribute(srcOut)}/${activityClass}Contract.${ktOrJavaExt}" />
+    <open file="${escapeXmlAttribute(srcOut)}/${activityClass}Contract.${ktOrJavaExt}" />
 	
 	<instantiate from="root/src/app_package/Model.${ktOrJavaExt}.ftl"
-                   to="${escapeXmlAttribute(srcOut)}/Model.${ktOrJavaExt}" />
-    <open file="${escapeXmlAttribute(srcOut)}/Model.${ktOrJavaExt}" />
+                   to="${escapeXmlAttribute(srcOut)}/${activityClass}Model.${ktOrJavaExt}" />
+    <open file="${escapeXmlAttribute(srcOut)}/${activityClass}Model.${ktOrJavaExt}" />
 	
 	<instantiate from="root/src/app_package/Presenter.${ktOrJavaExt}.ftl"
-                   to="${escapeXmlAttribute(srcOut)}/Presenter.${ktOrJavaExt}" />
-    <open file="${escapeXmlAttribute(srcOut)}/Presenter.${ktOrJavaExt}" />
+                   to="${escapeXmlAttribute(srcOut)}/${activityClass}Presenter.${ktOrJavaExt}" />
+    <open file="${escapeXmlAttribute(srcOut)}/${activityClass}Presenter.${ktOrJavaExt}" />
 
     <instantiate from="root/src/app_package/AppActivity.${ktOrJavaExt}.ftl"
-                   to="${escapeXmlAttribute(srcOut)}/${activityClass}.${ktOrJavaExt}" />
-    <open file="${escapeXmlAttribute(srcOut)}/${activityClass}.${ktOrJavaExt}" />
+                   to="${escapeXmlAttribute(srcOut)}/${activityClass}Activity.${ktOrJavaExt}" />
+    <open file="${escapeXmlAttribute(srcOut)}/${activityClass}Activity.${ktOrJavaExt}" />
 
 </recipe>

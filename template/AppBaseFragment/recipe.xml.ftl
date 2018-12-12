@@ -9,19 +9,19 @@
     </#if>
 
 	<instantiate from="root/src/app_package/Contract.${ktOrJavaExt}.ftl"
-                   to="${escapeXmlAttribute(srcOut)}/Contract.${ktOrJavaExt}" />
-    <open file="${escapeXmlAttribute(srcOut)}/Contract.${ktOrJavaExt}" />
+                   to="${escapeXmlAttribute(srcOut)}/${className}Contract.${ktOrJavaExt}" />
+    <open file="${escapeXmlAttribute(srcOut)}/${className}Contract.${ktOrJavaExt}" />
 	
 	<instantiate from="root/src/app_package/Model.${ktOrJavaExt}.ftl"
-                   to="${escapeXmlAttribute(srcOut)}/Model.${ktOrJavaExt}" />
-    <open file="${escapeXmlAttribute(srcOut)}/Model.${ktOrJavaExt}" />
+                   to="${escapeXmlAttribute(srcOut)}/${className}Model.${ktOrJavaExt}" />
+    <open file="${escapeXmlAttribute(srcOut)}/${className}Model.${ktOrJavaExt}" />
 	
 	<instantiate from="root/src/app_package/Presenter.${ktOrJavaExt}.ftl"
-                   to="${escapeXmlAttribute(srcOut)}/Presenter.${ktOrJavaExt}" />
-    <open file="${escapeXmlAttribute(srcOut)}/Presenter.${ktOrJavaExt}" />
+                   to="${escapeXmlAttribute(srcOut)}/${className}Presenter.${ktOrJavaExt}" />
+    <open file="${escapeXmlAttribute(srcOut)}/${className}Presenter.${ktOrJavaExt}" />
 
     <instantiate from="root/src/app_package/AppFragment.${ktOrJavaExt}.ftl"
-                   to="${escapeXmlAttribute(srcOut)}/${className}.${ktOrJavaExt}" />
-    <open file="${escapeXmlAttribute(srcOut)}/${className}.${ktOrJavaExt}" />
+                   to="${escapeXmlAttribute(srcOut)}/${className}Fragment.${ktOrJavaExt}" />
+    <open file="${escapeXmlAttribute(srcOut)}/${className}Fragment.${ktOrJavaExt}" />
 
 </recipe>
