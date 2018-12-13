@@ -20,7 +20,6 @@ import android.net.http.SslError;
 import android.os.Build;
 import android.os.Environment;
 import android.os.Message;
-import androidx.fragment.app.Fragment;
 import android.util.AttributeSet;
 import android.util.Base64;
 import android.view.KeyEvent;
@@ -56,6 +55,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.MissingResourceException;
+
+import androidx.fragment.app.Fragment;
 
 /**
  * Advanced WebView component for Android that works as intended out of the box
@@ -1295,8 +1296,20 @@ public class AdvancedWebView extends WebView
             return true;
         }
 
-        // get the actual hostname of the URL that is to be checked
-        final String actualHost = Uri.parse(url).getHost();
+        final Uri parsedUrl = Uri.parse(url);
+        // get the hostname of the URL that is to be checked
+        final String actualHost = parsedUrl.getHost();
+        // if the hostname could not be determined, usually because the URL has been invalid
+        if (actualHost == null)
+            return false;
+        // if the host contains invalid characters (e.g. a backslash)
+        if (!actualHost.matches("^[a-zA-Z0-9._!~*')(;:&=+$,%\\[\\]-]*$"))
+            return false;
+        // get the user information from the authority part of the URL that is to be checked
+        final String actualUserInformation = parsedUrl.getUserInfo();
+        // if the user information contains invalid characters (e.g. a backslash)
+        if (actualUserInformation != null && !actualUserInformation.matches("^[a-zA-Z0-9._!~*')(;:&=+$,%-]*$"))
+            return false;
 
         // for every hostname in the set of permitted hosts
         for (String expectedHost : mPermittedHostnames)
