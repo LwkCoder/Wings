@@ -50,14 +50,14 @@ public class ListDemoActivity extends AppListActivity<ListDemoPresenter, PTRLayo
     @Override
     public IRefreshWrapper<PTRLayout> findRefreshWrapper(MVPListOptions options, View contentView)
     {
-        PTRLayout layout = find(R.id.id_common_refresh_view);
+        PTRLayout layout = find(R.id.ptr_list);
         return new PTRWrapper(layout);
     }
 
     @Override
     public RecyclerView findRecyclerView(MVPListOptions options, View contentView)
     {
-        return find(R.id.id_common_recyclerview);
+        return find(R.id.ptr_list);
     }
 
     @Override

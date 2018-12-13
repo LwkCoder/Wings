@@ -14,9 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * Created by LWK
  * TODO 列表界面基类
- * [xml中include布局layout_common_list]
  */
-
 public abstract class WingsListActivity<P extends MVPBasePresenter, RV, D> extends WingsBaseActivity<P> implements
         IMVPListContract.IViewCommon<D>, IMVPListContract.IViewSpecial<RV, D>, MVPListImpl.Listener
 {
