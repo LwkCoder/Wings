@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
  * Created by LWK
  * TODO View层
  */
-public class ${className}Fragment extends AppBaseFragment<${className}Presenter> implements ${className}Contract.IView {
+public class ${fragmentClass}Fragment extends AppBaseFragment<${fragmentClass}Presenter> implements ${fragmentClass}Contract.IView {
 
 	@Override
     protected void getArgumentsData(Bundle bundle, Bundle savedInstanceState)
@@ -21,8 +21,8 @@ public class ${className}Fragment extends AppBaseFragment<${className}Presenter>
     @Override
     protected int getContentViewId()
     {
-		<#if includeLayout>
-		return R.layout.${fragmentName};
+		<#if generateLayout>
+		return R.layout.${layoutName};
 		<#else>	
 		return 0;
 		</#if>

@@ -1,5 +1,6 @@
 package ${packageName};
 
+
 import com.sources.javacode.app.AppBaseModel;
 import com.sources.javacode.app.AppBasePresenter;
 import com.sources.javacode.app.IAppBaseView;
@@ -10,10 +11,9 @@ import com.sources.javacode.app.IAppBaseView;
  */
 interface ${fragmentClass}Contract
 {
-  interface IView extends IAppBaseView{}
+  interface IView<${fragmentClass}> extends IAppBaseView,IMVPListContract.IViewCommon<${fragmentClass}>{}
   
   abstract class Model extends AppBaseModel{}
   
   abstract class Presenter extends AppBasePresenter{}
-  
 }

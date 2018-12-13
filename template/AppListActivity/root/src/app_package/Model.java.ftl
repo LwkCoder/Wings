@@ -4,6 +4,6 @@ package ${packageName};
  * Created by LWK
  * TODO Model层
  */
-class ${fragmentClass}Model extends ${fragmentClass}Contract.Model
+class ${activityClass}Model extends ${activityClass}Contract.Model
 {
 }
