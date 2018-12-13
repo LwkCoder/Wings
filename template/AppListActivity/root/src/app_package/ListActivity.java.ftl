@@ -33,18 +33,14 @@ public class ${activityClass}Activity extends AppListActivity<${activityClass}Pr
 	@Override
     public IRefreshWrapper<PTRLayout> findRefreshWrapper(MVPListOptions options, View contentView)
     {
-		//TODO Init your IRefreshWrapper here like the code below
-		return null;
-        //PTRLayout layout = find(R.id.ptr_list);
-        //return new PTRWrapper(layout);
+        PTRLayout layout = find(R.id.ptr_list);
+        return new PTRWrapper(layout);
     }
 
     @Override
     public RecyclerView findRecyclerView(MVPListOptions options, View contentView)
     {
-		//TODO Init your RecyclerView here like the code below
-		return null;
-        //return find(R.id.ptr_list);
+       return find(R.id.ptr_list);
     }
 
 	@Override
