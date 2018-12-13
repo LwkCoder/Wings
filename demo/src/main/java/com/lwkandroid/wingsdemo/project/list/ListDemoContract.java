@@ -1,8 +1,9 @@
 package com.lwkandroid.wingsdemo.project.list;
 
+import com.lwkandroid.wings.mvp.list.IMVPListContract;
 import com.lwkandroid.wingsdemo.app.AppBaseModel;
 import com.lwkandroid.wingsdemo.app.AppBasePresenter;
-import com.lwkandroid.wingsdemo.app.IAppListView;
+import com.lwkandroid.wingsdemo.app.IAppBaseView;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ import io.reactivex.Observable;
 
 public interface ListDemoContract
 {
-    interface IView<D> extends IAppListView<D>
+    interface IView<D> extends IAppBaseView, IMVPListContract.IViewCommon<D>
     {
     }
 

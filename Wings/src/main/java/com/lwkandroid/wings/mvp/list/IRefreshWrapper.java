@@ -5,9 +5,9 @@ package com.lwkandroid.wings.mvp.list;
  * TODO 下拉刷新控件的接口
  */
 
-public interface IRefreshWrapper<R>
+public interface IRefreshWrapper<RV>
 {
-    void wrap(R r);
+    void wrap(RV RV);
 
     void enableRefresh(boolean enable);
 
@@ -15,7 +15,7 @@ public interface IRefreshWrapper<R>
 
     void finishRefresh();
 
-    R getRefreshView();
+    RV getRefreshView();
 
     void onDestroy();
 

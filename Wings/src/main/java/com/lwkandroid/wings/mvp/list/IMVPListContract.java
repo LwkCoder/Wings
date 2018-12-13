@@ -3,7 +3,6 @@ package com.lwkandroid.wings.mvp.list;
 import android.view.View;
 
 import com.lwkandroid.rcvadapter.RcvMultiAdapter;
-import com.lwkandroid.wings.mvp.base.IMVPBaseView;
 
 import java.util.List;
 
@@ -11,12 +10,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by LWK
- * TODO 定义列表界面公共逻辑方法
+ * TODO 定义列表界面公共方法
  */
 
-public interface IMVPBaseList
+public interface IMVPListContract
 {
-    interface IViewCommon<D> extends IMVPBaseView
+    interface IViewCommon<D>
     {
         void autoRefresh();
 
@@ -37,28 +36,14 @@ public interface IMVPBaseList
         RcvMultiAdapter<D> getAdapter();
     }
 
-    interface IViewSubClass<D>
+    interface IViewSpecial<RV, D>
     {
         MVPListOptions setListOptions();
 
+        IRefreshWrapper<RV> findRefreshWrapper(MVPListOptions options, View contentView);
+
+        RecyclerView findRecyclerView(MVPListOptions options, View contentView);
+
         RcvMultiAdapter<D> setAdapter();
-
-        IRefreshWrapper findRefreshView(MVPListOptions options, View contentView);
-
-        RecyclerView findRecyclerView(MVPListOptions options, View contentView);
     }
-
-    interface ILogicCommon<D>
-    {
-        IRefreshWrapper findRefreshView(MVPListOptions options, View contentView);
-
-        RecyclerView findRecyclerView(MVPListOptions options, View contentView);
-
-        void init(MVPListOptions options, View contentView,
-                  IRefreshWrapper refreshView, RecyclerView recyclerView,
-                  RcvMultiAdapter<D> adapter);
-
-        void onDestroy();
-    }
-
 }

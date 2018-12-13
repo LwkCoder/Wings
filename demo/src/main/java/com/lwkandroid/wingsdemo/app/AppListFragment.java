@@ -1,4 +1,4 @@
-package com.sources.javacode.app;
+package com.lwkandroid.wingsdemo.app;
 
 import com.lwkandroid.wings.mvp.base.MVPBasePresenter;
 import com.lwkandroid.wings.mvp.list.WingsListFragment;

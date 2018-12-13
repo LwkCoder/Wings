@@ -6,7 +6,6 @@ import android.view.View;
 import com.lwkandroid.rcvadapter.RcvMultiAdapter;
 import com.lwkandroid.wings.mvp.base.MVPBasePresenter;
 import com.lwkandroid.wings.mvp.base.WingsBaseActivity;
-import com.lwkandroid.wings.widget.ptr.PTRLayout;
 
 import java.util.List;
 
@@ -18,32 +17,18 @@ import androidx.recyclerview.widget.RecyclerView;
  * [xml中include布局layout_common_list]
  */
 
-public abstract class WingsListActivity<P extends MVPBasePresenter, D> extends WingsBaseActivity<P> implements
-        IMVPBaseList.IViewCommon<D>, IMVPBaseList.IViewSubClass<D>, MVPListImpl.Listener
+public abstract class WingsListActivity<P extends MVPBasePresenter, RV, D> extends WingsBaseActivity<P> implements
+        IMVPListContract.IViewCommon<D>, IMVPListContract.IViewSpecial<RV, D>, MVPListImpl.Listener
 {
-    //    private SRVMVPListImpl<D> mListImpl;
-    private PTRMVPListImpl<D> mListImpl;
+    private MVPListImpl<RV, D> mListImpl;
 
     @Override
     protected void initUI(View contentView)
     {
-        //        mListImpl = new SRVMVPListImpl<>(this);
-        mListImpl = new PTRMVPListImpl<>(this);
-        mListImpl.init(setListOptions(), contentView, findRefreshView(getListOptions(), contentView)
+        mListImpl = new MVPListImpl<RV, D>(this);
+        mListImpl.init(setListOptions(), contentView, findRefreshWrapper(getListOptions(), contentView)
                 , findRecyclerView(getListOptions(), contentView), setAdapter());
         _initUI(contentView);
-    }
-
-    @Override
-    public IRefreshWrapper findRefreshView(MVPListOptions options, View contentView)
-    {
-        return mListImpl.findRefreshView(options, contentView);
-    }
-
-    @Override
-    public RecyclerView findRecyclerView(MVPListOptions options, View contentView)
-    {
-        return mListImpl.findRecyclerView(options, contentView);
     }
 
     @Override
@@ -88,14 +73,8 @@ public abstract class WingsListActivity<P extends MVPBasePresenter, D> extends W
         return mListImpl.getListOptions();
     }
 
-    //    @Override
-    //    public IRefreshWrapper<SwipeRefreshLayout> getRefreshWrapper()
-    //    {
-    //        return mListImpl.getRefreshWrapper();
-    //    }
-
     @Override
-    public IRefreshWrapper<PTRLayout> getRefreshWrapper()
+    public IRefreshWrapper<RV> getRefreshWrapper()
     {
         return mListImpl.getRefreshWrapper();
     }

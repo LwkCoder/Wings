@@ -7,8 +7,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.lwkandroid.rcvadapter.RcvMultiAdapter;
+import com.lwkandroid.wings.mvp.list.IRefreshWrapper;
 import com.lwkandroid.wings.mvp.list.MVPListOptions;
+import com.lwkandroid.wings.mvp.list.PTRWrapper;
 import com.lwkandroid.wings.widget.ptr.PTRDefaultRefreshHeader;
+import com.lwkandroid.wings.widget.ptr.PTRLayout;
 import com.lwkandroid.wingsdemo.R;
 import com.lwkandroid.wingsdemo.app.AppListActivity;
 
@@ -20,7 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * TODO 列表Demo
  */
 
-public class ListDemoActivity extends AppListActivity<ListDemoPresenter, String> implements
+public class ListDemoActivity extends AppListActivity<ListDemoPresenter, PTRLayout, String> implements
         ListDemoContract.IView<String>
 {
     @Override
@@ -42,6 +45,19 @@ public class ListDemoActivity extends AppListActivity<ListDemoPresenter, String>
         ListDemoAdapter adapter = new ListDemoAdapter(this, null);
         adapter.setEmptyView(emptyHolder);
         return adapter;
+    }
+
+    @Override
+    public IRefreshWrapper<PTRLayout> findRefreshWrapper(MVPListOptions options, View contentView)
+    {
+        PTRLayout layout = find(R.id.id_common_refresh_view);
+        return new PTRWrapper(layout);
+    }
+
+    @Override
+    public RecyclerView findRecyclerView(MVPListOptions options, View contentView)
+    {
+        return find(R.id.id_common_recyclerview);
     }
 
     @Override

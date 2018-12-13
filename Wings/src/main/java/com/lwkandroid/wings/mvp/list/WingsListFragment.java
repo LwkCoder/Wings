@@ -17,30 +17,18 @@ import androidx.recyclerview.widget.RecyclerView;
  * [xml中include布局layout_common_list]
  */
 
-public abstract class WingsListFragment<P extends MVPBasePresenter, D> extends WingsBaseFragment<P> implements
-        IMVPBaseList.IViewCommon<D>, IMVPBaseList.IViewSubClass<D>, MVPListImpl.Listener
+public abstract class WingsListFragment<P extends MVPBasePresenter, RV, D> extends WingsBaseFragment<P> implements
+        IMVPListContract.IViewCommon<D>, IMVPListContract.IViewSpecial<RV, D>, MVPListImpl.Listener
 {
-    private PTRMVPListImpl<D> mListImpl;
+    private MVPListImpl<RV, D> mListImpl;
 
     @Override
     protected void initUI(View contentView)
     {
-        mListImpl = new PTRMVPListImpl<>(this);
-        mListImpl.init(setListOptions(), contentView, findRefreshView(getListOptions(), contentView)
+        mListImpl = new MVPListImpl<RV, D>(this);
+        mListImpl.init(setListOptions(), contentView, findRefreshWrapper(getListOptions(), contentView)
                 , findRecyclerView(getListOptions(), contentView), setAdapter());
         _initUI(contentView);
-    }
-
-    @Override
-    public IRefreshWrapper findRefreshView(MVPListOptions options, View contentView)
-    {
-        return mListImpl.findRefreshView(options, contentView);
-    }
-
-    @Override
-    public RecyclerView findRecyclerView(MVPListOptions options, View contentView)
-    {
-        return mListImpl.findRecyclerView(options, contentView);
     }
 
     @Override
@@ -86,7 +74,7 @@ public abstract class WingsListFragment<P extends MVPBasePresenter, D> extends W
     }
 
     @Override
-    public IRefreshWrapper getRefreshWrapper()
+    public IRefreshWrapper<RV> getRefreshWrapper()
     {
         return mListImpl.getRefreshWrapper();
     }

@@ -7,7 +7,7 @@ import com.lwkandroid.wings.net.bean.ApiException;
 import com.lwkandroid.wings.net.bean.ProgressInfo;
 import com.lwkandroid.wingsdemo.app.AppBaseModel;
 import com.lwkandroid.wingsdemo.app.AppBasePresenter;
-import com.lwkandroid.wingsdemo.app.AppBaseView;
+import com.lwkandroid.wingsdemo.app.IAppBaseView;
 import com.lwkandroid.wingsdemo.bean.NonRestFulResult;
 import com.lwkandroid.wingsdemo.bean.TabsBean;
 
@@ -23,7 +23,7 @@ import io.reactivex.Observable;
 
 public interface RxHttpDemoContract
 {
-    interface View extends AppBaseView
+    interface View extends IAppBaseView
     {
         void setWeatherHttpResultData(List<TabsBean> dataList);
 

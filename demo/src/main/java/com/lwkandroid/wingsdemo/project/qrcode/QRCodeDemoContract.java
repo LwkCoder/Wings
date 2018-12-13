@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 
 import com.lwkandroid.wingsdemo.app.AppBaseModel;
 import com.lwkandroid.wingsdemo.app.AppBasePresenter;
-import com.lwkandroid.wingsdemo.app.AppBaseView;
+import com.lwkandroid.wingsdemo.app.IAppBaseView;
 
 import io.reactivex.Observable;
 
@@ -15,7 +15,7 @@ import io.reactivex.Observable;
 
 public interface QRCodeDemoContract
 {
-    interface View extends AppBaseView
+    interface View extends IAppBaseView
     {
         void startToScanCode();
 

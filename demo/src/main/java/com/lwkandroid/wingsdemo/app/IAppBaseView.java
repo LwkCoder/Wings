@@ -7,6 +7,6 @@ import com.lwkandroid.wings.mvp.base.IMVPBaseView;
  * TODO 项目定制View层接口基类,定制公共UI方法
  */
 
-public interface AppBaseView extends IMVPBaseView
+public interface IAppBaseView extends IMVPBaseView
 {
 }

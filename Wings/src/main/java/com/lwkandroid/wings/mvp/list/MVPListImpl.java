@@ -5,25 +5,21 @@ import android.view.View;
 import com.lwkandroid.rcvadapter.RcvMultiAdapter;
 import com.lwkandroid.rcvadapter.listener.RcvLoadMoreListener;
 import com.lwkandroid.rcvadapter.ui.RcvDefLoadMoreView;
-import com.lwkandroid.wings.R;
-import com.lwkandroid.wings.mvp.base.MVPBaseViewImpl;
 import com.lwkandroid.wings.utils.StringUtils;
 import com.lwkandroid.wings.utils.ToastUtils;
 
 import java.util.List;
 
 import androidx.recyclerview.widget.RecyclerView;
-import io.reactivex.subjects.PublishSubject;
 
 /**
  * Created by LWK
  * TODO 列表界面公共部分实现类
  */
 
-public abstract class MVPListImpl<D, RV> implements IMVPBaseList.ILogicCommon<D>, IMVPBaseList.IViewCommon<D>,
+class MVPListImpl<RV, D> implements IMVPListContract.IViewCommon<D>,
         RcvLoadMoreListener, IRefreshWrapper.onRefreshListener
 {
-    private MVPBaseViewImpl mBaseViewImpl = new MVPBaseViewImpl();
     private IRefreshWrapper<RV> mRefreshWrapper;
     private RecyclerView mRecyclerView;
     private MVPListOptions mOptions;
@@ -31,20 +27,13 @@ public abstract class MVPListImpl<D, RV> implements IMVPBaseList.ILogicCommon<D>
     private int mCurrentIndex;
     private Listener mListener;
 
-    public MVPListImpl(Listener listener)
+    MVPListImpl(Listener listener)
     {
         this.mListener = listener;
     }
 
-    @Override
-    public RecyclerView findRecyclerView(MVPListOptions options, View contentView)
-    {
-        return contentView.findViewById(R.id.id_common_recyclerview);
-    }
-
-    @Override
     public void init(MVPListOptions options, View contentView,
-                     IRefreshWrapper refreshWrapper, RecyclerView recyclerView,
+                     IRefreshWrapper<RV> refreshWrapper, RecyclerView recyclerView,
                      RcvMultiAdapter<D> adapter)
     {
         mOptions = options;
@@ -152,37 +141,6 @@ public abstract class MVPListImpl<D, RV> implements IMVPBaseList.ILogicCommon<D>
         return mAdapter;
     }
 
-    @Override
-    public void showShortToast(int resId)
-    {
-        mBaseViewImpl.showShortToast(resId);
-    }
-
-    @Override
-    public void showShortToast(CharSequence message)
-    {
-        mBaseViewImpl.showShortToast(message);
-    }
-
-    @Override
-    public void showLongToast(int resId)
-    {
-        mBaseViewImpl.showLongToast(resId);
-    }
-
-    @Override
-    public void showLongToast(CharSequence message)
-    {
-        mBaseViewImpl.showLongToast(message);
-    }
-
-    @Override
-    public PublishSubject<Integer> getLifecycleSubject()
-    {
-        return mBaseViewImpl.getLifecycleSubject();
-    }
-
-    @Override
     public void onDestroy()
     {
         if (getRefreshWrapper() != null)

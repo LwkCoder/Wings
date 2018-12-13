@@ -8,7 +8,7 @@ import com.lwkandroid.wings.widget.ptr.PTRLayout;
  */
 public class PTRWrapper implements IRefreshWrapper<PTRLayout>, PTRLayout.OnPullListener
 {
-    private PTRLayout mPTRlayout;
+    private PTRLayout mPTRLayout;
     private onRefreshListener mListener;
 
     public PTRWrapper(PTRLayout layout)
@@ -19,8 +19,8 @@ public class PTRWrapper implements IRefreshWrapper<PTRLayout>, PTRLayout.OnPullL
     @Override
     public void wrap(PTRLayout layout)
     {
-        this.mPTRlayout = layout;
-        mPTRlayout.setOnPullListener(this);
+        this.mPTRLayout = layout;
+        mPTRLayout.setOnPullListener(this);
     }
 
     @Override
@@ -34,7 +34,7 @@ public class PTRWrapper implements IRefreshWrapper<PTRLayout>, PTRLayout.OnPullL
     public void autoRefresh()
     {
         // 自动刷新
-        mPTRlayout.autoRefresh();
+        mPTRLayout.autoRefresh();
     }
 
     @Override
@@ -48,7 +48,7 @@ public class PTRWrapper implements IRefreshWrapper<PTRLayout>, PTRLayout.OnPullL
     @Override
     public PTRLayout getRefreshView()
     {
-        return mPTRlayout;
+        return mPTRLayout;
     }
 
     @Override

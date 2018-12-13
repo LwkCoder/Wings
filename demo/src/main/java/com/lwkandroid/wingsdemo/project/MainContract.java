@@ -2,7 +2,7 @@ package com.lwkandroid.wingsdemo.project;
 
 import com.lwkandroid.wingsdemo.app.AppBaseModel;
 import com.lwkandroid.wingsdemo.app.AppBasePresenter;
-import com.lwkandroid.wingsdemo.app.AppBaseView;
+import com.lwkandroid.wingsdemo.app.IAppBaseView;
 
 /**
  * Created by LWK
@@ -11,7 +11,7 @@ import com.lwkandroid.wingsdemo.app.AppBaseView;
 
 public interface MainContract
 {
-    interface View extends AppBaseView
+    interface View extends IAppBaseView
     {
     }
 
