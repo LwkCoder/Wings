@@ -11,7 +11,7 @@ import com.sources.javacode.app.IAppBaseView;
  */
 interface ${activityClass}Contract
 {
-  interface IView<${dataClass}> extends IAppBaseView,IMVPListContract.IViewCommon<${dataClass}>{}
+  interface IView<D> extends IAppBaseView,IMVPListContract.IViewCommon<D>{}
   
   abstract class Model extends AppBaseModel{}
   

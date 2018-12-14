@@ -11,7 +11,7 @@ import com.sources.javacode.app.IAppBaseView;
  */
 interface ${fragmentClass}Contract
 {
-  interface IView<${fragmentClass}> extends IAppBaseView,IMVPListContract.IViewCommon<${fragmentClass}>{}
+  interface IView<D> extends IAppBaseView,IMVPListContract.IViewCommon<D>{}
   
   abstract class Model extends AppBaseModel{}
   
