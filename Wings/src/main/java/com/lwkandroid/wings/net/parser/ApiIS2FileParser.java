@@ -44,7 +44,7 @@ public class ApiIS2FileParser implements IApiInputStreamParser.FileParser
                     @Override
                     public File apply(InputStream inputStream) throws Exception
                     {
-                        return writeIntoStroage(inputStream);
+                        return writeIntoStorage(inputStream);
                     }
                 });
             }
@@ -52,7 +52,7 @@ public class ApiIS2FileParser implements IApiInputStreamParser.FileParser
     }
 
     //将数据写入存储
-    private File writeIntoStroage(InputStream inputStream) throws ApiException
+    private File writeIntoStorage(InputStream inputStream) throws ApiException
     {
         if (StringUtils.isEmpty(mFileName))
             mFileName = String.valueOf(System.currentTimeMillis());

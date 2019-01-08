@@ -43,7 +43,7 @@ public class ApiBytes2FileParser implements IApiBytesArrayParser.FileParser
                     @Override
                     public File apply(byte[] bytes) throws Exception
                     {
-                        return writeIntoStroage(bytes);
+                        return writeIntoStorage(bytes);
                     }
                 });
             }
@@ -51,7 +51,7 @@ public class ApiBytes2FileParser implements IApiBytesArrayParser.FileParser
     }
 
     //将数据写入存储
-    private File writeIntoStroage(byte[] bytes) throws ApiException
+    private File writeIntoStorage(byte[] bytes) throws ApiException
     {
         if (StringUtils.isEmpty(mFileName))
             mFileName = String.valueOf(System.currentTimeMillis());
