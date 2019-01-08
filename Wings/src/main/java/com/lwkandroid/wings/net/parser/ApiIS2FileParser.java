@@ -70,7 +70,7 @@ public class ApiIS2FileParser implements IApiInputStreamParser.FileParser
                 throw new ApiException(ApiExceptionCode.IO_EXCEPTION, null);
         } catch (Exception e)
         {
-            KLog.e("ApiIS2FileParser writeIntoStroge exception:" + e.toString());
+            KLog.e("ApiIS2FileParser writeIntoStorage exception:" + e.toString());
             throw new ApiException(ApiExceptionCode.IO_EXCEPTION, e.toString());
         }
     }

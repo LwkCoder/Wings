@@ -69,7 +69,7 @@ public class ApiBytes2FileParser implements IApiBytesArrayParser.FileParser
                 throw new ApiException(ApiExceptionCode.IO_EXCEPTION, null);
         } catch (Exception e)
         {
-            KLog.e("ApiBytes2FileParser writeIntoStroge exception:" + e.toString());
+            KLog.e("ApiBytes2FileParser writeIntoStorage exception:" + e.toString());
             throw new ApiException(ApiExceptionCode.IO_EXCEPTION, e.toString());
         }
     }
