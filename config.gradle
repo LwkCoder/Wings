@@ -26,7 +26,7 @@ ext {
     AndroidXVersion = "1.0.0"
     ImagePickerVersion = "1.4.3"
     AndPermissionVersion = "2.0.0-rc12"
-    RcvAdapterVersion = "1.4.0"
+    RcvAdapterVersion = "1.4.1"
     OkHttp3Version = "3.11.0"
     GlideVersion = "4.8.0"
     GsonVersion = "2.8.5"
