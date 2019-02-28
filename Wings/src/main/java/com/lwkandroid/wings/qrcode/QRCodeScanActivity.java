@@ -161,6 +161,7 @@ public class QRCodeScanActivity extends WingsBaseActivity<MVPBasePresenter>
                         mZXingView.getScanBoxView().setQRCodeTipText(mOptions.getHintText());
                         mZXingView.getScanBoxView().setBarCodeTipText(mOptions.getHintText());
                         mZXingView.getScanBoxView().setTipTextColor(mOptions.getHintColor());
+                        mZXingView.getScanBoxView().setAutoZoom(mOptions.isAutoZoom());
                         mZXingView.setDelegate(QRCodeScanActivity.this);
                         mZXingView.startSpotAndShowRect();
                     }

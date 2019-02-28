@@ -67,7 +67,7 @@ public class QRCodeDemoActivity extends AppBaseActivity<QRCodeDemoPresenter> imp
     @Override
     public void startToScanCode()
     {
-        QRCodeOptions options =new QRCodeOptions.Builder()
+        QRCodeOptions options = new QRCodeOptions.Builder()
                 .setHintText("扫码啊啊啊啊啊啊")
                 .setHintColor(Color.RED)
                 .setRectColor(Color.YELLOW)
@@ -75,8 +75,9 @@ public class QRCodeDemoActivity extends AppBaseActivity<QRCodeDemoPresenter> imp
                 .setScanLineAnimDuration(2000)
                 .setFullScreenScan(false)
                 .setScanLineColor(Color.GREEN)
+                .setAutoZoom(true)
                 .build();
-        QRCodeUtils.startScanQRCode(this, REQUEST_CODE_SCAN,options);
+        QRCodeUtils.startScanQRCode(this, REQUEST_CODE_SCAN, options);
     }
 
     @Override

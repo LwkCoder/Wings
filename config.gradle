@@ -33,7 +33,7 @@ ext {
     RetrofitVersion = "2.4.0"
     RXJava2Version = "2.2.3"
     RXAndroidVersion = "2.1.0"
-    BGACodeVersion = "1.3.4"
+    BGACodeVersion = "1.3.6"
     ComActionBarVersion = "1.1.6"
     LeakCanaryVersion = "1.6.1"
     StethoVersion = "1.5.0"

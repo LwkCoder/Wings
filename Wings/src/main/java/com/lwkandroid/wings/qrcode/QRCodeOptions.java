@@ -38,6 +38,12 @@ public class QRCodeOptions implements Parcelable
     private String hintText = ResourceUtils.getString(R.string.qrcodescan_hint);
     //提示语颜色
     private int hintColor = ResourceUtils.getColor(R.color.gray_darker);
+    //二维码太小自动缩放
+    private boolean autoZoom = false;
+
+    public QRCodeOptions()
+    {
+    }
 
     public boolean isBarCodeMode()
     {
@@ -159,6 +165,16 @@ public class QRCodeOptions implements Parcelable
         this.rectColor = rectColor;
     }
 
+    public boolean isAutoZoom()
+    {
+        return autoZoom;
+    }
+
+    public void setAutoZoom(boolean autoZoom)
+    {
+        this.autoZoom = autoZoom;
+    }
+
     @Override
     public String toString()
     {
@@ -175,6 +191,7 @@ public class QRCodeOptions implements Parcelable
                 ", scanLineAnimDuration=" + scanLineAnimDuration +
                 ", hintText='" + hintText + '\'' +
                 ", hintColor=" + hintColor +
+                ", autoZoom=" + autoZoom +
                 '}';
     }
 
@@ -199,10 +216,7 @@ public class QRCodeOptions implements Parcelable
         dest.writeInt(this.scanLineAnimDuration);
         dest.writeString(this.hintText);
         dest.writeInt(this.hintColor);
-    }
-
-    public QRCodeOptions()
-    {
+        dest.writeByte(this.autoZoom ? (byte) 1 : (byte) 0);
     }
 
     protected QRCodeOptions(Parcel in)
@@ -219,6 +233,7 @@ public class QRCodeOptions implements Parcelable
         this.scanLineAnimDuration = in.readInt();
         this.hintText = in.readString();
         this.hintColor = in.readInt();
+        this.autoZoom = in.readByte() != 0;
     }
 
     public static final Creator<QRCodeOptions> CREATOR = new Creator<QRCodeOptions>()
@@ -314,6 +329,12 @@ public class QRCodeOptions implements Parcelable
         public Builder setRectColor(int color)
         {
             options.setRectColor(color);
+            return this;
+        }
+
+        public Builder setAutoZoom(boolean autoZoom)
+        {
+            options.setAutoZoom(autoZoom);
             return this;
         }
 
