@@ -267,7 +267,7 @@ public class QRCodeScanActivity extends WingsBaseActivity<MVPBasePresenter>
                     .start(this, REQUEST_CODE_IMAGEPICKER);
         } else if (id == R.id.img_qrcode_light)
         {
-            swithLight();
+            switchLight();
         }
     }
 
@@ -301,6 +301,7 @@ public class QRCodeScanActivity extends WingsBaseActivity<MVPBasePresenter>
                             @Override
                             public void onNext(String s)
                             {
+                                dismissDialog();
                                 onScanQRCodeSuccess(s);
                             }
 
@@ -372,7 +373,7 @@ public class QRCodeScanActivity extends WingsBaseActivity<MVPBasePresenter>
     }
 
     //切换闪光灯
-    private void swithLight()
+    private void switchLight()
     {
         if (mIsLightOn)
         {
