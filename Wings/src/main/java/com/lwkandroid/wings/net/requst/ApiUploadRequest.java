@@ -93,7 +93,9 @@ public class ApiUploadRequest extends ApiBaseRequest<ApiUploadRequest> implement
     private void checkBodyListNotNull()
     {
         if (mBodyList == null)
+        {
             mBodyList = new MultipartBodyList();
+        }
     }
 
     @Override

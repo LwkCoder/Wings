@@ -29,7 +29,9 @@ public class ApiHeaderInterceptor implements Interceptor
     {
         Request.Builder builder = chain.request().newBuilder();
         if (mHeaderMap == null || mHeaderMap.isEmpty())
+        {
             return chain.proceed(builder.build());
+        }
 
         try
         {

@@ -38,7 +38,9 @@ public abstract class AppWebBaseActivity<P extends AppBasePresenter> extends App
             mWebView.setThirdPartyCookiesEnabled(true);
             //允许远程调试
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
-                mWebView.setWebContentsDebuggingEnabled(true);
+            {
+                AdvancedWebView.setWebContentsDebuggingEnabled(true);
+            }
             WebSettings settings = mWebView.getSettings();
             settings.setAppCacheEnabled(true);
             settings.setAppCachePath(getExternalCacheDir().getAbsolutePath());
@@ -142,7 +144,9 @@ public abstract class AppWebBaseActivity<P extends AppBasePresenter> extends App
     public void onBackPressed()
     {
         if (handleBackPressEvent() && mWebView != null && !mWebView.onBackPressed())
+        {
             return;
+        }
         super.onBackPressed();
     }
 

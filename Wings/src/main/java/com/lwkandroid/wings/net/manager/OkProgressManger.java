@@ -33,12 +33,12 @@ public class OkProgressManger
 
     private static final class Holder
     {
-        public static final OkProgressManger instance = new OkProgressManger();
+        public static final OkProgressManger INSTANCE = new OkProgressManger();
     }
 
     public static OkProgressManger get()
     {
-        return Holder.instance;
+        return Holder.INSTANCE;
     }
 
     //默认的进度刷新时间：100ms
@@ -269,14 +269,18 @@ public class OkProgressManger
     public Request wrapRequestBody(Request request)
     {
         if (request == null)
+        {
             return request;
+        }
 
         String key = request.url().toString();
         KLog.d("OkHttpManager.wrapRequestBody.Url=" + key);
         request = pruneIdentification(key, request);
 
         if (request.body() == null)
+        {
             return request;
+        }
         if (mUploadListeners.containsKey(key))
         {
             List<OnProgressListener> listeners = mUploadListeners.get(key);
@@ -291,7 +295,9 @@ public class OkProgressManger
     {
         boolean needPrune = url.contains(IDENTIFICATION_NUMBER);
         if (!needPrune)
+        {
             return request;
+        }
         return request.newBuilder()
                 .url(url.substring(0, url.indexOf(IDENTIFICATION_NUMBER))) //删除掉标识符
                 .header(IDENTIFICATION_HEADER, url) //将有标识符的 url 加入 header中, 便于wrapResponseBody(Response) 做处理
@@ -304,7 +310,9 @@ public class OkProgressManger
     public Response wrapResponseBody(Response response)
     {
         if (response == null)
+        {
             return response;
+        }
 
         String key = response.request().url().toString();
         KLog.d("OkHttpManager.wrapResponseBody.Url=" + key);
@@ -322,7 +330,9 @@ public class OkProgressManger
         }
 
         if (response.body() == null)
+        {
             return response;
+        }
 
         if (mDownloadListeners.containsKey(key))
         {

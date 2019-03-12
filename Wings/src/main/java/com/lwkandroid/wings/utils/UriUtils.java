@@ -29,10 +29,13 @@ public final class UriUtils
     public static Uri file2Uri(@NonNull final File file)
     {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+        {
             return FileProvider.getUriForFile(Utils.getContext(),
                     Wings.WingsFileProvider.createAuthorities(), file);
-        else
+        } else
+        {
             return Uri.fromFile(file);
+        }
     }
 
     /**
@@ -41,7 +44,9 @@ public final class UriUtils
     public static File uri2File(@NonNull final Uri uri, final String columnName)
     {
         if (uri == null)
+        {
             return null;
+        }
         if (ContentResolver.SCHEME_FILE.equals(uri.getScheme()))
         {
             return new File(uri.getPath());
@@ -59,7 +64,9 @@ public final class UriUtils
         } finally
         {
             if (cursor != null)
+            {
                 cursor.close();
+            }
         }
     }
 }

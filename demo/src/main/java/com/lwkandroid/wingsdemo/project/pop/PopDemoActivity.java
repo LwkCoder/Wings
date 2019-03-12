@@ -2,7 +2,6 @@ package com.lwkandroid.wingsdemo.project.pop;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +16,8 @@ import com.lwkandroid.wings.widget.pop.XGravity;
 import com.lwkandroid.wings.widget.pop.YGravity;
 import com.lwkandroid.wingsdemo.R;
 import com.lwkandroid.wingsdemo.app.AppBaseActivity;
+
+import androidx.annotation.Nullable;
 
 public class PopDemoActivity extends AppBaseActivity<MVPBasePresenter>
 {
@@ -93,6 +94,8 @@ public class PopDemoActivity extends AppBaseActivity<MVPBasePresenter>
                         .setAffectParams(new PopDarkWindowAffect(), 200)
                         .setLayoutParams(ScreenUtils.getScreenWidth() / 3 * 2, ViewGroup.LayoutParams.WRAP_CONTENT)
                         .showAtLocation(getContentView(), Gravity.CENTER, 0, 0);
+                break;
+            default:
                 break;
         }
     }

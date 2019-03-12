@@ -22,7 +22,7 @@ public class ListDemoPresenter extends ListDemoContract.Presenter
                 .subscribe(new ApiBaseObserver<List<String>>()
                 {
                     @Override
-                    public void _OnNext(List<String> strings)
+                    public void _onNext(List<String> strings)
                     {
                         getViewImpl().onRefreshSuccess(pageIndex, strings);
                     }
@@ -44,7 +44,7 @@ public class ListDemoPresenter extends ListDemoContract.Presenter
                 .subscribe(new ApiBaseObserver<List<String>>()
                 {
                     @Override
-                    public void _OnNext(List<String> strings)
+                    public void _onNext(List<String> strings)
                     {
                         getViewImpl().onLoadMoreSuccess(pageIndex, strings);
                     }

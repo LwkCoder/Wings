@@ -203,23 +203,35 @@ public class PTRLayout extends ViewGroup implements NestedScrollingParent
     private void addRefreshHeader()
     {
         if (mRefreshHeader == null)
+        {
             mRefreshHeader = createRefreshHeader();
+        }
         if (!(mRefreshHeader instanceof IPTRRefreshHeader))
-            throw new RuntimeException("RefreshView must be a instance of IPTRRefreshHeader");
+        {
+            throw new RuntimeException("RefreshView must be a INSTANCE of IPTRRefreshHeader");
+        }
         mIRefreshHeader = (IPTRRefreshHeader) mRefreshHeader;
         if (mRefreshHeader.getLayoutParams() == null)
+        {
             mRefreshHeader.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+        }
         addView(mRefreshHeader);
     }
 
     public void setRefreshHeader(View refreshHeader)
     {
         if (refreshHeader == null)
+        {
             return;
+        }
         if (!(refreshHeader instanceof IPTRRefreshHeader))
-            throw new RuntimeException("RefreshView must be a instance of IPTRRefreshHeader");
+        {
+            throw new RuntimeException("RefreshView must be a INSTANCE of IPTRRefreshHeader");
+        }
         if (mRefreshHeader != null)
+        {
             removeView(mRefreshHeader);
+        }
         mRefreshHeader = refreshHeader;
         mIRefreshHeader = (IPTRRefreshHeader) mRefreshHeader;
         addView(mRefreshHeader);
@@ -280,7 +292,9 @@ public class PTRLayout extends ViewGroup implements NestedScrollingParent
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         ensureTargetView();
         if (mTargetView == null)
+        {
             return;
+        }
         int targetMeasureWidthSpec = MeasureSpec.makeMeasureSpec(
                 getMeasuredWidth() - getPaddingLeft() - getPaddingRight(), MeasureSpec.EXACTLY);
         int targetMeasureHeightSpec = MeasureSpec.makeMeasureSpec(
@@ -327,7 +341,9 @@ public class PTRLayout extends ViewGroup implements NestedScrollingParent
         }
         ensureTargetView();
         if (mTargetView == null)
+        {
             return;
+        }
 
         final int childLeft = getPaddingLeft();
         final int childTop = getPaddingTop();
@@ -393,6 +409,8 @@ public class PTRLayout extends ViewGroup implements NestedScrollingParent
             case MotionEvent.ACTION_CANCEL:
                 mIsDragging = false;
                 mActivePointerId = INVALID_POINTER;
+                break;
+            default:
                 break;
         }
 
@@ -501,7 +519,9 @@ public class PTRLayout extends ViewGroup implements NestedScrollingParent
                     mVelocityTracker.computeCurrentVelocity(1000, mMaxVelocity);
                     float vy = mVelocityTracker.getYVelocity(mActivePointerId);
                     if (Math.abs(vy) < mMiniVelocity)
+                    {
                         vy = 0;
+                    }
                     finishPull((int) vy);
                 }
                 mActivePointerId = INVALID_POINTER;
@@ -511,6 +531,8 @@ public class PTRLayout extends ViewGroup implements NestedScrollingParent
             case MotionEvent.ACTION_CANCEL:
                 releaseVelocityTracker();
                 return false;
+            default:
+                break;
         }
 
         return true;
@@ -645,11 +667,15 @@ public class PTRLayout extends ViewGroup implements NestedScrollingParent
     protected void onRefresh()
     {
         if (mIsRefreshing)
+        {
             return;
+        }
         mIsRefreshing = true;
         mIRefreshHeader.doRefresh();
         if (mListener != null)
+        {
             mListener.onRefresh();
+        }
     }
 
     public void finishRefresh()
@@ -727,7 +753,9 @@ public class PTRLayout extends ViewGroup implements NestedScrollingParent
     public boolean canChildScrollUp()
     {
         if (mChildScrollUpCallback != null)
+        {
             return mChildScrollUpCallback.canChildScrollUp(this, mTargetView);
+        }
         return mTargetView != null && mTargetView.canScrollVertically(-1);
     }
 
@@ -1004,7 +1032,7 @@ public class PTRLayout extends ViewGroup implements NestedScrollingParent
                 if (mTargetView instanceof RecyclerView)
                 {
                     ((RecyclerView) mTargetView).fling(0, (int) mScroller.getCurrVelocity());
-                } else if (mTargetView instanceof AbsListView && android.os.Build.VERSION.SDK_INT >= 21)
+                } else if (mTargetView instanceof AbsListView && android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
                 {
                     ((AbsListView) mTargetView).fling((int) mScroller.getCurrVelocity());
                 }

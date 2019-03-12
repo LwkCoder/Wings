@@ -52,6 +52,8 @@ class BaseLog
             case KLog.A:
                 Log.wtf(tag, sub);
                 break;
+            default:
+                break;
         }
     }
 }

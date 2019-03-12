@@ -70,9 +70,12 @@ public class PopCreator implements IPopOperator, PopupWindow.OnDismissListener
     {
         init(getActivityFromView(anchor), options);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+        {
             mPopupWindow.showAsDropDown(anchor, xoff, yoff, Gravity.NO_GRAVITY);
-        else
+        } else
+        {
             mPopupWindow.showAsDropDown(anchor, xoff, yoff);
+        }
         applyProgressAffect();
         return this;
     }
@@ -87,15 +90,20 @@ public class PopCreator implements IPopOperator, PopupWindow.OnDismissListener
             public void onGlobalLayout()
             {
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN)
+                {
                     mPopContentView.getRealContentView().getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                else
+                } else
+                {
                     mPopContentView.getRealContentView().getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                }
                 int width = mPopContentView.getRealContentView().getWidth();
                 int height = mPopContentView.getRealContentView().getHeight();
                 int realXOffset = calculateX(anchor, xGravity, width, xoff);
                 int realYOffset = calculateY(anchor, yGravity, height, yoff);
                 if (isShowing())
+                {
                     mPopupWindow.update(anchor, realXOffset, realYOffset, width, height);
+                }
             }
         });
         PopupWindowCompat.showAsDropDown(mPopupWindow, anchor.getRootView(), 0, 0, Gravity.NO_GRAVITY);
@@ -130,6 +138,8 @@ public class PopCreator implements IPopOperator, PopupWindow.OnDismissListener
                 //anchor view右侧
                 x += anchor.getWidth();
                 break;
+            default:
+                break;
         }
         return x;
     }
@@ -161,6 +171,8 @@ public class PopCreator implements IPopOperator, PopupWindow.OnDismissListener
                 //anchor view之下
                 // Default position.
                 break;
+            default:
+                break;
         }
         return y;
     }
@@ -169,42 +181,54 @@ public class PopCreator implements IPopOperator, PopupWindow.OnDismissListener
     public void update()
     {
         if (mPopupWindow != null)
+        {
             mPopupWindow.update();
+        }
     }
 
     @Override
     public void update(int width, int height)
     {
         if (mPopupWindow != null)
+        {
             mPopupWindow.update(width, height);
+        }
     }
 
     @Override
     public void update(int x, int y, int width, int height)
     {
         if (mPopupWindow != null)
+        {
             mPopupWindow.update(x, y, width, height);
+        }
     }
 
     @Override
     public void update(int x, int y, int width, int height, boolean force)
     {
         if (mPopupWindow != null)
+        {
             mPopupWindow.update(x, y, width, height, false);
+        }
     }
 
     @Override
     public void update(View anchor, int width, int height)
     {
         if (mPopupWindow != null)
+        {
             mPopupWindow.update(anchor, width, height);
+        }
     }
 
     @Override
     public void update(View anchor, int xoff, int yoff, int width, int height)
     {
         if (mPopupWindow != null)
+        {
             mPopupWindow.update(anchor, xoff, yoff, width, height);
+        }
     }
 
     @Override
@@ -225,7 +249,9 @@ public class PopCreator implements IPopOperator, PopupWindow.OnDismissListener
         {
             Context context = view.getContext();
             while (!(context instanceof Activity))
+            {
                 context = ((ContextWrapper) context).getBaseContext();
+            }
             return (Activity) context;
         }
         return null;
@@ -239,13 +265,17 @@ public class PopCreator implements IPopOperator, PopupWindow.OnDismissListener
 
         mPopContentView = mOptions.getPopContentView();
         if (mPopContentView == null)
+        {
             throw new IllegalArgumentException("You have to set a NonNull PopBaseContentView object!!!");
+        }
         mPopContentView.attachToCreator(context, options, this);
 
         mPopupWindow = new PopupWindow(mPopContentView.getRealContentView(), mOptions.getLayoutParams().width, mOptions.getLayoutParams().height);
         mPopupWindow.setFocusable(mOptions.isFocusable());
         if (mOptions.getAnimStyle() != -1)
+        {
             mPopupWindow.setAnimationStyle(mOptions.getAnimStyle());
+        }
 
         //针对外部点击是否消失需要额外处理
         boolean cancelOutsideTouched = mOptions.isCanceledOnTouchOutside();
@@ -313,7 +343,9 @@ public class PopCreator implements IPopOperator, PopupWindow.OnDismissListener
                     {
                         return true;
                     } else
+                    {
                         return event.getAction() == MotionEvent.ACTION_OUTSIDE;
+                    }
                 }
             });
         }
@@ -334,7 +366,9 @@ public class PopCreator implements IPopOperator, PopupWindow.OnDismissListener
     public void dismiss()
     {
         if (isShowing())
+        {
             mPopupWindow.dismiss();
+        }
     }
 
     @Override
@@ -342,7 +376,9 @@ public class PopCreator implements IPopOperator, PopupWindow.OnDismissListener
     {
         applyDismissAffect();
         if (mOptions != null && mOptions.getDismissListener() != null)
+        {
             mOptions.getDismissListener().onDismiss();
+        }
         mPopupWindow = null;
         mContextReference = null;
     }
@@ -351,10 +387,14 @@ public class PopCreator implements IPopOperator, PopupWindow.OnDismissListener
     private void applyProgressAffect()
     {
         if (mOptions == null || mOptions.getAffect() == null)
+        {
             return;
+        }
 
         if (mAnimator != null)
+        {
             mAnimator.cancel();
+        }
 
         mAnimator = ValueAnimator.ofFloat(0f, 1.0f);
         mAnimator.setDuration(mOptions.getAffectDuration());
@@ -374,9 +414,13 @@ public class PopCreator implements IPopOperator, PopupWindow.OnDismissListener
     private void applyDismissAffect()
     {
         if (mOptions == null || mOptions.getAffect() == null)
+        {
             return;
+        }
         if (mAnimator != null)
+        {
             mAnimator.cancel();
+        }
 
         mOptions.getAffect().onDismissed(getContext(), PopCreator.this, mOptions);
     }

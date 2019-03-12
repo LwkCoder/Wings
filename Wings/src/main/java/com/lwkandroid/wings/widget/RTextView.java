@@ -10,8 +10,6 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
-import androidx.appcompat.content.res.AppCompatResources;
-import androidx.appcompat.widget.AppCompatTextView;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -20,6 +18,9 @@ import android.view.MotionEvent;
 import android.view.ViewConfiguration;
 
 import com.lwkandroid.wings.R;
+
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.appcompat.widget.AppCompatTextView;
 
 /**
  * 支持直接xml定义各种selector属性的TextView
@@ -80,7 +81,7 @@ public class RTextView extends AppCompatTextView
 
     private int[][] states = new int[4][];
     private StateListDrawable mStateBackground;
-    private float mBorderRadii[] = new float[8];
+    private float[] mBorderRadii = new float[8];
 
     /**
      * Cache the touch slop from the context that created the view.
@@ -167,6 +168,8 @@ public class RTextView extends AppCompatTextView
                     setIcon();
                 }
                 break;
+            default:
+                break;
         }
         return super.onTouchEvent(event);
     }
@@ -214,11 +217,17 @@ public class RTextView extends AppCompatTextView
             int unableId = a.getResourceId(R.styleable.RTextView_icon_src_unable, -1);
 
             if (normalId != -1)
+            {
                 mIconNormal = AppCompatResources.getDrawable(context, normalId);
+            }
             if (pressedId != -1)
+            {
                 mIconPressed = AppCompatResources.getDrawable(context, pressedId);
+            }
             if (unableId != -1)
+            {
                 mIconUnable = AppCompatResources.getDrawable(context, unableId);
+            }
         }
         mIconWidth = a.getDimensionPixelSize(R.styleable.RTextView_icon_width, 0);
         mIconHeight = a.getDimensionPixelSize(R.styleable.RTextView_icon_height, 0);
@@ -611,6 +620,8 @@ public class RTextView extends AppCompatTextView
                     break;
                 case ICON_DIR_BOTTOM:
                     setCompoundDrawables(null, null, null, drawable);
+                    break;
+                default:
                     break;
             }
         }

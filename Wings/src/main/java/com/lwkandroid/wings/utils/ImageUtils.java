@@ -45,7 +45,9 @@ public final class ImageUtils
     public static byte[] bitmap2Bytes(Bitmap bitmap, Bitmap.CompressFormat format)
     {
         if (bitmap == null)
+        {
             return null;
+        }
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(format, 100, baos);
         return baos.toByteArray();
@@ -136,7 +138,9 @@ public final class ImageUtils
     public static Bitmap getBitmap(File file, int maxWidth, int maxHeight)
     {
         if (file == null)
+        {
             return null;
+        }
         InputStream is = null;
         try
         {
@@ -168,7 +172,9 @@ public final class ImageUtils
     public static Bitmap getBitmap(String filePath, int maxWidth, int maxHeight)
     {
         if (StringUtils.isSpace(filePath))
+        {
             return null;
+        }
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(filePath, options);
@@ -188,7 +194,9 @@ public final class ImageUtils
     public static Bitmap getBitmap(InputStream is, int maxWidth, int maxHeight) throws IOException
     {
         if (is == null)
+        {
             return null;
+        }
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeStream(is, null, options);
@@ -216,7 +224,9 @@ public final class ImageUtils
     public static Bitmap getBitmap(Resources res, int id, int maxWidth, int maxHeight)
     {
         if (res == null)
+        {
             return null;
+        }
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeResource(res, id, options);
@@ -237,7 +247,9 @@ public final class ImageUtils
     public static Bitmap getBitmap(byte[] data, int offset, int maxWidth, int maxHeight)
     {
         if (data == null || data.length == 0)
+        {
             return null;
+        }
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeByteArray(data, offset, data.length, options);
@@ -293,7 +305,9 @@ public final class ImageUtils
     public static int calculateInSampleSize(int originWidth, int originHeight, int maxWidth, int maxHeight)
     {
         if (originWidth == 0 || originHeight == 0 || maxWidth == 0 || maxHeight == 0)
+        {
             return 1;
+        }
 
         //        int inSampleSize = 1;
         //        if (originWidth > maxWidth || originHeight > maxHeight)
@@ -322,14 +336,18 @@ public final class ImageUtils
     public static Bitmap compressBySampleSize(Bitmap src, int sampleSize, boolean recycle)
     {
         if (src == null || src.getWidth() <= 0 || src.getHeight() <= 0)
+        {
             return null;
+        }
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inSampleSize = sampleSize;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         src.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] bytes = baos.toByteArray();
         if (recycle && !src.isRecycled())
+        {
             src.recycle();
+        }
         return BitmapFactory.decodeByteArray(bytes, 0, bytes.length, options);
     }
 
@@ -344,7 +362,9 @@ public final class ImageUtils
     public static Bitmap compressByQuality(Bitmap src, long maxByteSize, boolean recycle)
     {
         if (src == null || src.getWidth() <= 0 || src.getHeight() <= 0 || maxByteSize <= 0)
+        {
             return null;
+        }
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         int quality = 100;
         src.compress(Bitmap.CompressFormat.JPEG, quality, baos);
@@ -354,10 +374,14 @@ public final class ImageUtils
             src.compress(Bitmap.CompressFormat.JPEG, quality -= 5, baos);
         }
         if (quality < 0)
+        {
             return null;
+        }
         byte[] bytes = baos.toByteArray();
         if (recycle && !src.isRecycled())
+        {
             src.recycle();
+        }
         return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
     }
 
@@ -374,19 +398,25 @@ public final class ImageUtils
     public static String saveBitmap(Bitmap src, String savaPath, String savaName, Bitmap.CompressFormat format, boolean recycle)
     {
         if (src == null || StringUtils.isSpace(savaPath) || StringUtils.isSpace(savaName))
+        {
             return null;
+        }
 
         OutputStream os = null;
         try
         {
             File file = new File(savaPath, savaName);
             if (file.exists())
+            {
                 file.delete();
+            }
 
             os = new BufferedOutputStream(new FileOutputStream(file));
             src.compress(format, 100, os);
             if (recycle && !src.isRecycled())
+            {
                 src.recycle();
+            }
             return file.getAbsolutePath();
         } catch (Exception e)
         {
@@ -407,7 +437,9 @@ public final class ImageUtils
     private static void closeIO(Closeable... closeables)
     {
         if (closeables == null)
+        {
             return;
+        }
         for (Closeable closeable : closeables)
         {
             if (closeable != null)

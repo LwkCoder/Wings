@@ -26,12 +26,12 @@ public final class GlideOkClient
 
     private static final class Holder
     {
-        public static final GlideOkClient instance = new GlideOkClient();
+        public static final GlideOkClient INSTANCE = new GlideOkClient();
     }
 
     public static GlideOkClient get()
     {
-        return Holder.instance;
+        return Holder.INSTANCE;
     }
 
     private OkHttpClient.Builder mBuilder;
@@ -45,7 +45,9 @@ public final class GlideOkClient
     public OkHttpClient getClient()
     {
         if (mClient == null)
+        {
             mClient = mBuilder.build();
+        }
         return mClient;
     }
 }

@@ -53,13 +53,17 @@ class ContentViewImpl implements IContentView, View.OnClickListener
     public <T extends View> T find(int resId)
     {
         if (mContentView == null)
+        {
             throw new IllegalStateException("You must invoke inflateContentView() first !");
+        }
         View view = mViews.get(resId);
         if (view == null)
         {
             view = mContentView.findViewById(resId);
             if (view != null)
+            {
                 mViews.put(resId, view);
+            }
         }
         return (T) view;
     }
@@ -68,27 +72,37 @@ class ContentViewImpl implements IContentView, View.OnClickListener
     public void addClick(int resId)
     {
         if (mContentView == null)
+        {
             return;
+        }
         View view = find(resId);
         if (view != null)
+        {
             view.setOnClickListener(this);
+        }
     }
 
     @Override
     public void addClick(int resId, View.OnClickListener listener)
     {
         if (mContentView == null)
+        {
             return;
+        }
         View view = find(resId);
         if (view != null)
+        {
             view.setOnClickListener(listener);
+        }
     }
 
     @Override
     public void addClick(int... resIds)
     {
         if (mContentView == null || resIds == null)
+        {
             return;
+        }
         for (int resId : resIds)
         {
             addClick(resId);
@@ -99,21 +113,27 @@ class ContentViewImpl implements IContentView, View.OnClickListener
     public void addClick(View view)
     {
         if (view != null)
+        {
             view.setOnClickListener(this);
+        }
     }
 
     @Override
     public void addClick(View view, View.OnClickListener listener)
     {
         if (view != null)
+        {
             view.setOnClickListener(listener);
+        }
     }
 
     @Override
     public void addClick(View... views)
     {
         if (views == null)
+        {
             return;
+        }
         for (View view : views)
         {
             addClick(view);
@@ -124,7 +144,9 @@ class ContentViewImpl implements IContentView, View.OnClickListener
     public void onClick(View v)
     {
         if (mClickDispatcher != null)
+        {
             mClickDispatcher.onClick(v.getId(), v);
+        }
     }
 
     public interface onClickListenerDispatcher

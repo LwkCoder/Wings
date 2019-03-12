@@ -20,7 +20,7 @@ public abstract class ApiBaseObserver<T> implements Observer<T>
     @Override
     public void onNext(T t)
     {
-        _OnNext(t);
+        _onNext(t);
     }
 
     @Override
@@ -37,7 +37,7 @@ public abstract class ApiBaseObserver<T> implements Observer<T>
     }
 
 
-    public abstract void _OnNext(T t);
+    public abstract void _onNext(T t);
 
     public abstract void onApiException(ApiException e);
 

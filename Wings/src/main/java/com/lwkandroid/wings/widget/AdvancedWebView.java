@@ -82,6 +82,8 @@ public class AdvancedWebView extends WebView
     protected static final String DATABASES_SUB_FOLDER = "/databases";
     protected static final String LANGUAGE_DEFAULT_ISO3 = "eng";
     protected static final String CHARSET_DEFAULT = "UTF-8";
+    protected static final String HTTP = "http://";
+    protected static final String HTTPS = "https://";
     /**
      * Alternative browsers that have their own rendering engine and *may* be installed on this device
      */
@@ -199,7 +201,7 @@ public class AdvancedWebView extends WebView
     {
         final Activity activity;
 
-        if (mFragmentReference != null && mFragmentReference.get() != null && Build.VERSION.SDK_INT >= 11 && mFragmentReference.get().getActivity() != null)
+        if (mFragmentReference != null && mFragmentReference.get() != null && mFragmentReference.get().getActivity() != null)
         {
             activity = mFragmentReference.get().getActivity();
         } else if (mActivityReference != null && mActivityReference.get() != null)
@@ -264,6 +266,7 @@ public class AdvancedWebView extends WebView
         loadDataWithBaseURL(baseUrl, html, "text/html", encoding, historyUrl);
     }
 
+    @Override
     @SuppressLint("NewApi")
     @SuppressWarnings("all")
     public void onResume()
@@ -275,6 +278,7 @@ public class AdvancedWebView extends WebView
         resumeTimers();
     }
 
+    @Override
     @SuppressLint("NewApi")
     @SuppressWarnings("all")
     public void onPause()
@@ -342,7 +346,7 @@ public class AdvancedWebView extends WebView
                                 dataUris = new Uri[]{Uri.parse(intent.getDataString())};
                             } else
                             {
-                                if (Build.VERSION.SDK_INT >= 16)
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
                                 {
                                     if (intent.getClipData() != null)
                                     {
@@ -451,7 +455,7 @@ public class AdvancedWebView extends WebView
     @SuppressLint("NewApi")
     protected static void setAllowAccessFromFileUrls(final WebSettings webSettings, final boolean allowed)
     {
-        if (Build.VERSION.SDK_INT >= 16)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
         {
             webSettings.setAllowFileAccessFromFileURLs(allowed);
             webSettings.setAllowUniversalAccessFromFileURLs(allowed);
@@ -467,7 +471,7 @@ public class AdvancedWebView extends WebView
     @SuppressLint("NewApi")
     public void setThirdPartyCookiesEnabled(final boolean enabled)
     {
-        if (Build.VERSION.SDK_INT >= 21)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         {
             CookieManager.getInstance().setAcceptThirdPartyCookies(this, enabled);
         }
@@ -482,7 +486,7 @@ public class AdvancedWebView extends WebView
     @SuppressLint("NewApi")
     protected void setMixedContentAllowed(final WebSettings webSettings, final boolean allowed)
     {
-        if (Build.VERSION.SDK_INT >= 21)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         {
             webSettings.setMixedContentMode(allowed ? WebSettings.MIXED_CONTENT_ALWAYS_ALLOW : WebSettings.MIXED_CONTENT_NEVER_ALLOW);
         }
@@ -539,12 +543,12 @@ public class AdvancedWebView extends WebView
         webSettings.setBuiltInZoomControls(false);
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);
-        if (Build.VERSION.SDK_INT < 18)
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2)
         {
             webSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);
         }
         webSettings.setDatabaseEnabled(true);
-        if (Build.VERSION.SDK_INT < 19)
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
         {
             webSettings.setDatabasePath(databaseDir);
         }
@@ -611,8 +615,10 @@ public class AdvancedWebView extends WebView
                 //非Http或Https请求都拦截掉
                 Uri uri = Uri.parse(url);
                 String scheme = uri.getScheme();
-                if (!scheme.startsWith("http") && !scheme.startsWith("https"))
+                if (!scheme.startsWith(HTTP) && !scheme.startsWith(HTTPS))
+                {
                     return true;
+                }
 
                 // if the hostname may not be accessed
                 if (!isHostnameAllowed(url))
@@ -658,6 +664,7 @@ public class AdvancedWebView extends WebView
                 }
             }
 
+            @Override
             @SuppressLint("NewApi")
             @SuppressWarnings("all")
             public WebResourceResponse shouldInterceptRequest(WebView view, String url)
@@ -677,6 +684,7 @@ public class AdvancedWebView extends WebView
                 }
             }
 
+            @Override
             @SuppressLint("NewApi")
             @SuppressWarnings("all")
             public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request)
@@ -732,6 +740,7 @@ public class AdvancedWebView extends WebView
                 }
             }
 
+            @Override
             @SuppressLint("NewApi")
             @SuppressWarnings("all")
             public void onReceivedClientCertRequest(WebView view, ClientCertRequest request)
@@ -810,6 +819,7 @@ public class AdvancedWebView extends WebView
                 }
             }
 
+            @Override
             @SuppressLint("NewApi")
             @SuppressWarnings("all")
             public void onReceivedLoginRequest(WebView view, String realm, String account, String args)
@@ -852,6 +862,7 @@ public class AdvancedWebView extends WebView
             }
 
             // file upload callback (Android 5.0 (API level 21) -- current) (public method)
+            @Override
             @SuppressWarnings("all")
             public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback, FileChooserParams fileChooserParams)
             {
@@ -928,6 +939,7 @@ public class AdvancedWebView extends WebView
                 }
             }
 
+            @Override
             @SuppressLint("NewApi")
             @SuppressWarnings("all")
             public void onShowCustomView(View view, int requestedOrientation, CustomViewCallback callback)
@@ -1070,6 +1082,7 @@ public class AdvancedWebView extends WebView
                 }
             }
 
+            @Override
             @SuppressLint("NewApi")
             @SuppressWarnings("all")
             public void onPermissionRequest(PermissionRequest request)
@@ -1086,6 +1099,7 @@ public class AdvancedWebView extends WebView
                 }
             }
 
+            @Override
             @SuppressLint("NewApi")
             @SuppressWarnings("all")
             public void onPermissionRequestCanceled(PermissionRequest request)
@@ -1301,15 +1315,21 @@ public class AdvancedWebView extends WebView
         final String actualHost = parsedUrl.getHost();
         // if the hostname could not be determined, usually because the URL has been invalid
         if (actualHost == null)
+        {
             return false;
+        }
         // if the host contains invalid characters (e.g. a backslash)
         if (!actualHost.matches("^[a-zA-Z0-9._!~*')(;:&=+$,%\\[\\]-]*$"))
+        {
             return false;
+        }
         // get the user information from the authority part of the URL that is to be checked
         final String actualUserInformation = parsedUrl.getUserInfo();
         // if the user information contains invalid characters (e.g. a backslash)
         if (actualUserInformation != null && !actualUserInformation.matches("^[a-zA-Z0-9._!~*')(;:&=+$,%-]*$"))
+        {
             return false;
+        }
 
         // for every hostname in the set of permitted hosts
         for (String expectedHost : mPermittedHostnames)
@@ -1356,54 +1376,79 @@ public class AdvancedWebView extends WebView
     {
         try
         {
-            if (mLanguageIso3.equals("zho"))
+            if ("zho".equals(mLanguageIso3))
+            {
                 return decodeBase64("6YCJ5oup5LiA5Liq5paH5Lu2");
-            else if (mLanguageIso3.equals("spa"))
+            } else if ("spa".equals(mLanguageIso3))
+            {
                 return decodeBase64("RWxpamEgdW4gYXJjaGl2bw==");
-            else if (mLanguageIso3.equals("hin"))
+            } else if ("hin".equals(mLanguageIso3))
+            {
                 return decodeBase64("4KSP4KSVIOCkq+CkvOCkvuCkh+CksiDgpJrgpYHgpKjgpYfgpII=");
-            else if (mLanguageIso3.equals("ben"))
+            } else if ("ben".equals(mLanguageIso3))
+            {
                 return decodeBase64("4KaP4KaV4Kaf4Ka/IOCmq+CmvuCmh+CmsiDgpqjgpr/gprDgp43gpqzgpr7gpprgpqg=");
-            else if (mLanguageIso3.equals("ara"))
+            } else if ("ara".equals(mLanguageIso3))
+            {
                 return decodeBase64("2KfYrtiq2YrYp9ixINmF2YTZgSDZiNin2K3Yrw==");
-            else if (mLanguageIso3.equals("por"))
+            } else if ("por".equals(mLanguageIso3))
+            {
                 return decodeBase64("RXNjb2xoYSB1bSBhcnF1aXZv");
-            else if (mLanguageIso3.equals("rus"))
+            } else if ("rus".equals(mLanguageIso3))
+            {
                 return decodeBase64("0JLRi9Cx0LXRgNC40YLQtSDQvtC00LjQvSDRhNCw0LnQuw==");
-            else if (mLanguageIso3.equals("jpn"))
+            } else if ("jpn".equals(mLanguageIso3))
+            {
                 return decodeBase64("MeODleOCoeOCpOODq+OCkumBuOaKnuOBl+OBpuOBj+OBoOOBleOBhA==");
-            else if (mLanguageIso3.equals("pan"))
+            } else if ("pan".equals(mLanguageIso3))
+            {
                 return decodeBase64("4KiH4Kmx4KiVIOCoq+CovuCoh+CosiDgqJrgqYHgqKPgqYs=");
-            else if (mLanguageIso3.equals("deu"))
+            } else if ("deu".equals(mLanguageIso3))
+            {
                 return decodeBase64("V8OkaGxlIGVpbmUgRGF0ZWk=");
-            else if (mLanguageIso3.equals("jav"))
+            } else if ("jav".equals(mLanguageIso3))
+            {
                 return decodeBase64("UGlsaWggc2lqaSBiZXJrYXM=");
-            else if (mLanguageIso3.equals("msa"))
+            } else if ("msa".equals(mLanguageIso3))
+            {
                 return decodeBase64("UGlsaWggc2F0dSBmYWls");
-            else if (mLanguageIso3.equals("tel"))
+            } else if ("tel".equals(mLanguageIso3))
+            {
                 return decodeBase64("4LCS4LCVIOCwq+CxhuCxluCwsuCxjeCwqOCxgSDgsI7gsILgsJrgsYHgsJXgsYvgsILgsKHgsL8=");
-            else if (mLanguageIso3.equals("vie"))
+            } else if ("vie".equals(mLanguageIso3))
+            {
                 return decodeBase64("Q2jhu41uIG3hu5l0IHThuq1wIHRpbg==");
-            else if (mLanguageIso3.equals("kor"))
+            } else if ("kor".equals(mLanguageIso3))
+            {
                 return decodeBase64("7ZWY64KY7J2YIO2MjOydvOydhCDshKDtg50=");
-            else if (mLanguageIso3.equals("fra"))
+            } else if ("fra".equals(mLanguageIso3))
+            {
                 return decodeBase64("Q2hvaXNpc3NleiB1biBmaWNoaWVy");
-            else if (mLanguageIso3.equals("mar"))
+            } else if ("mar".equals(mLanguageIso3))
+            {
                 return decodeBase64("4KSr4KS+4KSH4KSyIOCkqOCkv+CkteCkoeCkvg==");
-            else if (mLanguageIso3.equals("tam"))
+            } else if ("tam".equals(mLanguageIso3))
+            {
                 return decodeBase64("4K6S4K6w4K+BIOCuleCvh+CuvuCuquCvjeCuquCviCDgrqTgr4fgrrDgr43grrXgr4E=");
-            else if (mLanguageIso3.equals("urd"))
+            } else if ("urd".equals(mLanguageIso3))
+            {
                 return decodeBase64("2KfbjNqpINmB2KfYptmEINmF24zauiDYs9uSINin2YbYqtiu2KfYqCDaqdix24zaug==");
-            else if (mLanguageIso3.equals("fas"))
+            } else if ("fas".equals(mLanguageIso3))
+            {
                 return decodeBase64("2LHYpyDYp9mG2KrYrtin2Kgg2qnZhtuM2K8g24zaqSDZgdin24zZhA==");
-            else if (mLanguageIso3.equals("tur"))
+            } else if ("tur".equals(mLanguageIso3))
+            {
                 return decodeBase64("QmlyIGRvc3lhIHNlw6dpbg==");
-            else if (mLanguageIso3.equals("ita"))
+            } else if ("ita".equals(mLanguageIso3))
+            {
                 return decodeBase64("U2NlZ2xpIHVuIGZpbGU=");
-            else if (mLanguageIso3.equals("tha"))
+            } else if ("tha".equals(mLanguageIso3))
+            {
                 return decodeBase64("4LmA4Lil4Li34Lit4LiB4LmE4Lif4Lil4LmM4Lir4LiZ4Li24LmI4LiH");
-            else if (mLanguageIso3.equals("guj"))
+            } else if ("guj".equals(mLanguageIso3))
+            {
                 return decodeBase64("4KqP4KqVIOCqq+CqvuCqh+CqsuCqqOCrhyDgqqrgqrjgqoLgqqY=");
+            }
         } catch (Exception ignored)
         {
         }

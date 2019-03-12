@@ -19,7 +19,9 @@ public class AutoRetryJudgeImpl implements IAutoRetry
     {
         int errCode = -1;
         if (throwable instanceof ApiException)
+        {
             errCode = ((ApiException) throwable).getCode();
+        }
 
         return errCode == ApiExceptionCode.CONNECT_ERROR
                 || errCode == ApiExceptionCode.TIMEOUT_ERROR

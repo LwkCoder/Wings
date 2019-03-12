@@ -43,7 +43,9 @@ public abstract class BaseCache
     {
         //1.先检查key
         if (TextUtils.isEmpty(key))
+        {
             return null;
+        }
 
         //2.判断key是否存在,key不存在去读缓存没意义
         if (!containsKey(key))
@@ -81,7 +83,9 @@ public abstract class BaseCache
     {
         //1.先检查key
         if (TextUtils.isEmpty(key))
+        {
             return false;
+        }
 
         //2.如果要保存的值为空,则删除
         if (value == null)

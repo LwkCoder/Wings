@@ -51,7 +51,9 @@ public class ActivityStack
     public Activity getTop()
     {
         if (mStack != null && !mStack.isEmpty())
+        {
             return mStack.lastElement();
+        }
         return null;
     }
 
@@ -61,7 +63,9 @@ public class ActivityStack
     public void removeAll()
     {
         if (mStack != null)
+        {
             mStack.removeAllElements();
+        }
     }
 
     /**

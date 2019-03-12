@@ -32,12 +32,21 @@ public class NetworkUtils
     }
 
     /**
-     * 判断Wifi是否连接
+     * 判断是否使用Wifi
      */
-    public static boolean isWifiConnected()
+    public static boolean isUsingWifi()
     {
         NetworkInfo info = getActiveNetworkInfo();
         return info != null && info.isConnected() && info.getType() == ConnectivityManager.TYPE_WIFI;
+    }
+
+    /**
+     * 判断是否使用手机网络
+     */
+    public static boolean isUsingMoblieNet()
+    {
+        NetworkInfo info = getActiveNetworkInfo();
+        return info != null && info.isConnected() && info.getType() == ConnectivityManager.TYPE_MOBILE;
     }
 
     /**

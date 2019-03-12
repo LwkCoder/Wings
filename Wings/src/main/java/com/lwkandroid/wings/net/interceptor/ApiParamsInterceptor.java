@@ -28,16 +28,18 @@ public abstract class ApiParamsInterceptor implements Interceptor
 {
     private static final Charset UTF8 = Charset.forName("UTF-8");
     private HttpUrl mHttpUrl;
+    private final String GET = "GET";
+    private final String POST = "POST";
 
     @Override
     public Response intercept(Chain chain) throws IOException
     {
         Request request = chain.request();
-        if (request.method().equals("GET"))
+        if (GET.equals(request.method()))
         {
             this.mHttpUrl = HttpUrl.parse(parseUrl(request.url().url().toString()));
             request = addGetParamsSign(request);
-        } else if (request.method().equals("POST"))
+        } else if (POST.equals(request.method()))
         {
             this.mHttpUrl = request.url();
             request = addPostParamsSign(request);
@@ -49,7 +51,9 @@ public abstract class ApiParamsInterceptor implements Interceptor
     private String parseUrl(String url)
     {
         if (!"".equals(url) && url.contains("?"))
+        {
             url = url.substring(0, url.indexOf('?'));
+        }
         return url;
     }
 
@@ -78,7 +82,9 @@ public abstract class ApiParamsInterceptor implements Interceptor
         {
             String urlValue = URLEncoder.encode(entry.getValue(), UTF8.name());
             if (!nameKeys.contains(entry.getKey()))
+            {
                 newBuilder.addQueryParameter(entry.getKey(), urlValue);
+            }
         }
 
         httpUrl = newBuilder.build();

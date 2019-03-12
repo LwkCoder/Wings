@@ -19,6 +19,7 @@ package com.lwkandroid.wings.widget.shapeimage;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.view.View;
 
 /**
@@ -32,10 +33,10 @@ class Compat
     static
     {
         final int version = android.os.Build.VERSION.SDK_INT;
-        if (version >= 21)
+        if (version >= Build.VERSION_CODES.LOLLIPOP)
         {
             IMPL = new LollipopCompatPlusImpl();
-        } else if (version >= 17)
+        } else if (version >= Build.VERSION_CODES.JELLY_BEAN_MR1)
         {
             IMPL = new JbMr1CompatPlusImpl();
         } else
@@ -101,7 +102,7 @@ class Compat
         @SuppressWarnings("all")
         public Drawable getDrawable(Context context, int id)
         {
-            return context.getResources().getDrawable(id);
+            return context.getResources().getDrawable(id, context.getTheme());
         }
 
         @Override

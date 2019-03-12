@@ -55,14 +55,18 @@ public class DiskLruCacheWrapper extends BaseCache
     protected <T> ApiDiskCacheBean<T> doLoad(Class<T> clazz, String key)
     {
         if (mDiskLruCache == null)
+        {
             return null;
+        }
 
         InputStream source = null;
         try
         {
             DiskLruCache.Editor edit = mDiskLruCache.edit(key);
             if (edit == null)
+            {
                 return null;
+            }
 
             source = edit.newInputStream(0);
             ApiDiskCacheBean<T> value;
@@ -87,14 +91,18 @@ public class DiskLruCacheWrapper extends BaseCache
     protected <T> boolean doSave(String key, T value)
     {
         if (mDiskLruCache == null)
+        {
             return false;
+        }
 
         OutputStream sink = null;
         try
         {
             DiskLruCache.Editor edit = mDiskLruCache.edit(key);
             if (edit == null)
+            {
                 return false;
+            }
 
             sink = edit.newOutputStream(0);
             if (sink != null)
@@ -118,7 +126,9 @@ public class DiskLruCacheWrapper extends BaseCache
     protected boolean doContainsKey(String key)
     {
         if (mDiskLruCache == null)
+        {
             return false;
+        }
 
         try
         {
@@ -134,7 +144,9 @@ public class DiskLruCacheWrapper extends BaseCache
     protected boolean doRemove(String key)
     {
         if (mDiskLruCache == null)
+        {
             return false;
+        }
 
         try
         {
@@ -188,7 +200,9 @@ public class DiskLruCacheWrapper extends BaseCache
     private boolean isCacheDataFailure(File dataFile, long time)
     {
         if (!dataFile.exists())
+        {
             return false;
+        }
 
         long existTime = System.currentTimeMillis() - dataFile.lastModified();
         return existTime > time;

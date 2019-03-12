@@ -43,7 +43,7 @@ public final class ReflectUtils
      * Reflect the class.
      *
      * @param className The name of class.
-     * @return the single {@link ReflectUtils} instance
+     * @return the single {@link ReflectUtils} INSTANCE
      * @throws ReflectException if reflect unsuccessfully
      */
     public static ReflectUtils reflect(final String className)
@@ -57,7 +57,7 @@ public final class ReflectUtils
      *
      * @param className   The name of class.
      * @param classLoader The loader of class.
-     * @return the single {@link ReflectUtils} instance
+     * @return the single {@link ReflectUtils} INSTANCE
      * @throws ReflectException if reflect unsuccessfully
      */
     public static ReflectUtils reflect(final String className, final ClassLoader classLoader)
@@ -70,7 +70,7 @@ public final class ReflectUtils
      * Reflect the class.
      *
      * @param clazz The class.
-     * @return the single {@link ReflectUtils} instance
+     * @return the single {@link ReflectUtils} INSTANCE
      * @throws ReflectException if reflect unsuccessfully
      */
     public static ReflectUtils reflect(final Class<?> clazz)
@@ -83,7 +83,7 @@ public final class ReflectUtils
      * Reflect the class.
      *
      * @param object The object.
-     * @return the single {@link ReflectUtils} instance
+     * @return the single {@link ReflectUtils} INSTANCE
      * @throws ReflectException if reflect unsuccessfully
      */
     public static ReflectUtils reflect(final Object object)
@@ -119,9 +119,9 @@ public final class ReflectUtils
     ///////////////////////////////////////////////////////////////////////////
 
     /**
-     * Create and initialize a new instance.
+     * Create and initialize a new INSTANCE.
      *
-     * @return the single {@link ReflectUtils} instance
+     * @return the single {@link ReflectUtils} INSTANCE
      */
     public ReflectUtils newInstance()
     {
@@ -129,10 +129,10 @@ public final class ReflectUtils
     }
 
     /**
-     * Create and initialize a new instance.
+     * Create and initialize a new INSTANCE.
      *
      * @param args The args.
-     * @return the single {@link ReflectUtils} instance
+     * @return the single {@link ReflectUtils} INSTANCE
      */
     public ReflectUtils newInstance(Object... args)
     {
@@ -165,7 +165,9 @@ public final class ReflectUtils
     private Class<?>[] getArgsType(final Object... args)
     {
         if (args == null)
+        {
             return new Class[0];
+        }
         Class<?>[] result = new Class[args.length];
         for (int i = 0; i < args.length; i++)
         {
@@ -225,7 +227,7 @@ public final class ReflectUtils
      * Get the field.
      *
      * @param name The name of field.
-     * @return the single {@link ReflectUtils} instance
+     * @return the single {@link ReflectUtils} INSTANCE
      */
     public ReflectUtils field(final String name)
     {
@@ -244,7 +246,7 @@ public final class ReflectUtils
      *
      * @param name  The name of field.
      * @param value The value.
-     * @return the single {@link ReflectUtils} instance
+     * @return the single {@link ReflectUtils} INSTANCE
      */
     public ReflectUtils field(String name, Object value)
     {
@@ -316,7 +318,7 @@ public final class ReflectUtils
      * Invoke the method.
      *
      * @param name The name of method.
-     * @return the single {@link ReflectUtils} instance
+     * @return the single {@link ReflectUtils} INSTANCE
      * @throws ReflectException if reflect unsuccessfully
      */
     public ReflectUtils method(final String name) throws ReflectException
@@ -329,7 +331,7 @@ public final class ReflectUtils
      *
      * @param name The name of method.
      * @param args The args.
-     * @return the single {@link ReflectUtils} instance
+     * @return the single {@link ReflectUtils} INSTANCE
      * @throws ReflectException if reflect unsuccessfully
      */
     public ReflectUtils method(final String name, final Object... args) throws ReflectException
@@ -491,7 +493,9 @@ public final class ReflectUtils
     private <T extends AccessibleObject> T accessible(T accessible)
     {
         if (accessible == null)
+        {
             return null;
+        }
         if (accessible instanceof Member)
         {
             Member member = (Member) accessible;
@@ -502,7 +506,9 @@ public final class ReflectUtils
             }
         }
         if (!accessible.isAccessible())
+        {
             accessible.setAccessible(true);
+        }
         return accessible;
     }
 

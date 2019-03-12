@@ -55,9 +55,13 @@ public class ApiIS2FileParser implements IApiInputStreamParser.FileParser
     private File writeIntoStorage(InputStream inputStream) throws ApiException
     {
         if (StringUtils.isEmpty(mFileName))
+        {
             mFileName = String.valueOf(System.currentTimeMillis());
+        }
         if (StringUtils.isEmpty(mSavePath))
+        {
             mSavePath = Utils.getContext().getExternalCacheDir().getAbsolutePath();
+        }
         mSavePath = mSavePath.replaceAll("//", "/");
 
         try
@@ -65,9 +69,12 @@ public class ApiIS2FileParser implements IApiInputStreamParser.FileParser
             File file = new File(mSavePath, mFileName);
             KLog.i("ApiIS2FileParser create absolutely path = " + file.getAbsolutePath());
             if (FileIOUtils.writeFileFromIS(file, inputStream))
+            {
                 return file;
-            else
+            } else
+            {
                 throw new ApiException(ApiExceptionCode.IO_EXCEPTION, null);
+            }
         } catch (Exception e)
         {
             KLog.e("ApiIS2FileParser writeIntoStorage exception:" + e.toString());

@@ -46,11 +46,15 @@ public abstract class ApiBaseRequest<T extends ApiRequestOptions> extends ApiReq
 
         /*设置HostnameVerifier*/
         if (getHostnameVerifier() != null)
+        {
             okBuilder.hostnameVerifier(getHostnameVerifier());
+        }
 
         /*设置Https证书*/
         if (getSslParams() != null)
+        {
             okBuilder.sslSocketFactory(getSslParams().sSLSocketFactory, getSslParams().trustManager);
+        }
 
         //设置拦截器
         Map<String, Interceptor> allInterceptorMap = mergeParams(
@@ -144,10 +148,14 @@ public abstract class ApiBaseRequest<T extends ApiRequestOptions> extends ApiReq
         Map<String, P> resultMap = new HashMap<>();
         //添加全局参数
         if (!ignoreGlobal && globalParams != null)
+        {
             resultMap.putAll(globalParams);
+        }
         //添加自定义参数
         if (customParams != null)
+        {
             resultMap.putAll(customParams);
+        }
         //去除忽略的参数
         if (ignoreParams != null)
         {

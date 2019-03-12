@@ -40,6 +40,8 @@
 -dontwarn javax.annotation.**
 -dontwarn org.conscrypt.**
 -keepnames class okhttp3.internal.publicsuffix.PublicSuffixDatabase
+-dontwarn org.codehaus.mojo.animal_sniffer.*
+-dontwarn okhttp3.internal.platform.ConscryptPlatform
 #KLog不需要额外指定混淆规则
 #Glide
 -keep public class * implements com.bumptech.glide.module.GlideModule

@@ -15,15 +15,19 @@ public final class SpUtils
     private static SharedPreferences getSp()
     {
         if (mSharedPreferences == null)
+        {
             mSharedPreferences = Utils.getContext()
                     .getSharedPreferences(Utils.getContext().getPackageName(), Context.MODE_PRIVATE);
+        }
         return mSharedPreferences;
     }
 
     private static SharedPreferences.Editor getEditor()
     {
         if (mEditor == null)
+        {
             mEditor = getSp().edit();
+        }
         return mEditor;
     }
 

@@ -6,6 +6,7 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
@@ -145,7 +146,14 @@ public class LoadingView extends View implements ValueAnimator.AnimatorUpdateLis
     protected void onDraw(Canvas canvas)
     {
         super.onDraw(canvas);
-        int saveCount = canvas.saveLayer(0, 0, getWidth(), getHeight(), null, Canvas.ALL_SAVE_FLAG);
+        int saveCount = 0;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+        {
+            saveCount = canvas.saveLayer(0, 0, getWidth(), getHeight(), null);
+        } else
+        {
+            saveCount = canvas.saveLayer(0, 0, getWidth(), getHeight(), null, Canvas.ALL_SAVE_FLAG);
+        }
         drawLoading(canvas, mAnimateValue * DEGREE_PER_LINE);
         canvas.restoreToCount(saveCount);
     }

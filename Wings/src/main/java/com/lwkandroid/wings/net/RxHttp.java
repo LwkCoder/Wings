@@ -29,8 +29,8 @@ public class RxHttp
 {
     static
     {
-        mDefaultGlobalOptions = new ApiGlobalOptions();
-        mRetrofitUtils = new RetrofitUtils();
+        DEFAULT_GLOBAL_OPTIONS = new ApiGlobalOptions();
+        RETROFIT = new RetrofitUtils();
     }
 
     private RxHttp()
@@ -38,9 +38,9 @@ public class RxHttp
     }
 
     private static Context mContext;
-    private static final ApiGlobalOptions mDefaultGlobalOptions;
+    private static final ApiGlobalOptions DEFAULT_GLOBAL_OPTIONS;
     private static ApiGlobalOptions mCustomDefaultGlobalOptions;
-    private static final RetrofitUtils mRetrofitUtils;
+    private static final RetrofitUtils RETROFIT;
 
     /**
      * 初始化公共配置
@@ -51,11 +51,11 @@ public class RxHttp
      */
     public static ApiGlobalOptions init(Context context, String baseUrl)
     {
-        mDefaultGlobalOptions.setBaseUrl(baseUrl);
-        mDefaultGlobalOptions.setApiResultType(ApiResult.class);
-        mDefaultGlobalOptions.setCookieManager(new CookieManager());
-        mDefaultGlobalOptions.addInterceptor(ApiConstants.TAG_PROGRESS_INTERCEPTOR, new OkProgressInterceptor());
-        return init(context, mDefaultGlobalOptions);
+        DEFAULT_GLOBAL_OPTIONS.setBaseUrl(baseUrl);
+        DEFAULT_GLOBAL_OPTIONS.setApiResultType(ApiResult.class);
+        DEFAULT_GLOBAL_OPTIONS.setCookieManager(new CookieManager());
+        DEFAULT_GLOBAL_OPTIONS.addInterceptor(ApiConstants.TAG_PROGRESS_INTERCEPTOR, new OkProgressInterceptor());
+        return init(context, DEFAULT_GLOBAL_OPTIONS);
     }
 
     /**
@@ -76,7 +76,9 @@ public class RxHttp
     public static Context getContext()
     {
         if (mContext == null)
+        {
             return Utils.getContext();
+        }
         return mContext;
     }
 
@@ -85,7 +87,7 @@ public class RxHttp
      */
     public static ApiGlobalOptions getGlobalOptions()
     {
-        return mCustomDefaultGlobalOptions != null ? mCustomDefaultGlobalOptions : mDefaultGlobalOptions;
+        return mCustomDefaultGlobalOptions != null ? mCustomDefaultGlobalOptions : DEFAULT_GLOBAL_OPTIONS;
     }
 
     /**
@@ -149,6 +151,6 @@ public class RxHttp
      */
     public static RetrofitUtils RETROFIT()
     {
-        return mRetrofitUtils;
+        return RETROFIT;
     }
 }

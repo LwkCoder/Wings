@@ -39,7 +39,9 @@ public final class KeyboardUtils
         InputMethodManager imm =
                 (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
         if (imm == null)
+        {
             return;
+        }
         View view = activity.getCurrentFocus();
         if (view == null)
         {
@@ -61,7 +63,9 @@ public final class KeyboardUtils
         InputMethodManager imm =
                 (InputMethodManager) Utils.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm == null)
+        {
             return;
+        }
         view.setFocusable(true);
         view.setFocusableInTouchMode(true);
         view.requestFocus();
@@ -78,10 +82,14 @@ public final class KeyboardUtils
         InputMethodManager imm =
                 (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
         if (imm == null)
+        {
             return;
+        }
         View view = activity.getCurrentFocus();
         if (view == null)
+        {
             view = new View(activity);
+        }
         imm.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
     }
 
@@ -95,7 +103,9 @@ public final class KeyboardUtils
         InputMethodManager imm =
                 (InputMethodManager) Utils.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm == null)
+        {
             return;
+        }
         imm.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
     }
 
@@ -107,7 +117,9 @@ public final class KeyboardUtils
         InputMethodManager imm =
                 (InputMethodManager) Utils.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm == null)
+        {
             return;
+        }
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.RESULT_UNCHANGED_SHOWN);
     }
 
@@ -242,26 +254,34 @@ public final class KeyboardUtils
     public static void fixSoftInputLeaks(final Context context)
     {
         if (context == null)
+        {
             return;
+        }
         InputMethodManager imm =
                 (InputMethodManager) Utils.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm == null)
+        {
             return;
+        }
         String[] strArr = new String[]{"mCurRootView", "mServedView", "mNextServedView"};
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < strArr.length; i++)
         {
             try
             {
                 Field declaredField = imm.getClass().getDeclaredField(strArr[i]);
                 if (declaredField == null)
+                {
                     continue;
+                }
                 if (!declaredField.isAccessible())
                 {
                     declaredField.setAccessible(true);
                 }
                 Object obj = declaredField.get(imm);
                 if (obj == null || !(obj instanceof View))
+                {
                     continue;
+                }
                 View view = (View) obj;
                 if (view.getContext() == context)
                 {

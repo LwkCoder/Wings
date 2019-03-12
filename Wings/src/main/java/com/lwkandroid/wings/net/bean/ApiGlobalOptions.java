@@ -1,7 +1,5 @@
 package com.lwkandroid.wings.net.bean;
 
-import androidx.annotation.NonNull;
-
 import com.lwkandroid.wings.net.cache.opeartor.IDiskCacheOpeartor;
 import com.lwkandroid.wings.net.constants.ApiCacheMode;
 import com.lwkandroid.wings.net.constants.ApiConstants;
@@ -23,6 +21,7 @@ import java.util.Map;
 
 import javax.net.ssl.HostnameVerifier;
 
+import androidx.annotation.NonNull;
 import okhttp3.Interceptor;
 
 /**
@@ -162,32 +161,44 @@ public class ApiGlobalOptions
     public ApiGlobalOptions addInterceptorsMap(Map<String, Interceptor> interceptorMap)
     {
         if (mInterceptorMap == null)
+        {
             mInterceptorMap = new HashMap<>();
+        }
         if (interceptorMap != null && interceptorMap.size() > 0)
+        {
             mInterceptorMap.putAll(interceptorMap);
+        }
         return this;
     }
 
     public ApiGlobalOptions addInterceptor(@NonNull String tag, @NonNull Interceptor interceptor)
     {
         if (mInterceptorMap == null)
+        {
             mInterceptorMap = new HashMap<>();
+        }
         if (StringUtils.isNotEmpty(tag) && interceptor != null)
+        {
             mInterceptorMap.put(tag, interceptor);
+        }
         return this;
     }
 
     public ApiGlobalOptions removeInterceptor(String tag)
     {
         if (mInterceptorMap != null)
+        {
             mInterceptorMap.remove(tag);
+        }
         return this;
     }
 
     public ApiGlobalOptions clearInterceptors()
     {
         if (mInterceptorMap != null)
+        {
             mInterceptorMap.clear();
+        }
         return this;
     }
 
@@ -205,32 +216,44 @@ public class ApiGlobalOptions
     public ApiGlobalOptions addNetInterceptorsMap(Map<String, Interceptor> interceptorMap)
     {
         if (mNetInterceptorMap == null)
+        {
             mNetInterceptorMap = new HashMap<>();
+        }
         if (interceptorMap != null && interceptorMap.size() > 0)
+        {
             mNetInterceptorMap.putAll(interceptorMap);
+        }
         return this;
     }
 
     public ApiGlobalOptions addNetInterceptor(@NonNull String tag, @NonNull Interceptor interceptor)
     {
         if (mNetInterceptorMap == null)
+        {
             mNetInterceptorMap = new HashMap<>();
+        }
         if (StringUtils.isNotEmpty(tag) && interceptor != null)
+        {
             mNetInterceptorMap.put(tag, interceptor);
+        }
         return this;
     }
 
     public ApiGlobalOptions removeNetInterceptor(String tag)
     {
         if (mNetInterceptorMap != null)
+        {
             mNetInterceptorMap.remove(tag);
+        }
         return this;
     }
 
     public ApiGlobalOptions clearNetInterceptors()
     {
         if (mNetInterceptorMap != null)
+        {
             mNetInterceptorMap.clear();
+        }
         return this;
     }
 
@@ -248,77 +271,109 @@ public class ApiGlobalOptions
     public ApiGlobalOptions addFormDatasMap(Map<String, String> formDatasMap)
     {
         if (mFormDatasMap == null)
+        {
             mFormDatasMap = new FormDataMap();
+        }
         if (formDatasMap != null && formDatasMap.size() > 0)
+        {
             mFormDatasMap.putAll(formDatasMap);
+        }
         return this;
     }
 
     public ApiGlobalOptions addFormData(@NonNull String key, String value)
     {
         if (mFormDatasMap == null)
+        {
             mFormDatasMap = new FormDataMap();
+        }
         if (StringUtils.isNotEmpty(key))
+        {
             mFormDatasMap.addParam(key, value);
+        }
         return this;
     }
 
     public ApiGlobalOptions addFormData(@NonNull String key, short value)
     {
         if (mFormDatasMap == null)
+        {
             mFormDatasMap = new FormDataMap();
+        }
         if (StringUtils.isNotEmpty(key))
+        {
             mFormDatasMap.addParam(key, value);
+        }
         return this;
     }
 
     public ApiGlobalOptions addFormData(@NonNull String key, int value)
     {
         if (mFormDatasMap == null)
+        {
             mFormDatasMap = new FormDataMap();
+        }
         if (StringUtils.isNotEmpty(key))
+        {
             mFormDatasMap.addParam(key, value);
+        }
         return this;
     }
 
     public ApiGlobalOptions addFormData(@NonNull String key, long value)
     {
         if (mFormDatasMap == null)
+        {
             mFormDatasMap = new FormDataMap();
+        }
         if (StringUtils.isNotEmpty(key))
+        {
             mFormDatasMap.addParam(key, value);
+        }
         return this;
     }
 
     public ApiGlobalOptions addFormData(@NonNull String key, double value)
     {
         if (mFormDatasMap == null)
+        {
             mFormDatasMap = new FormDataMap();
+        }
         if (StringUtils.isNotEmpty(key))
+        {
             mFormDatasMap.addParam(key, value);
+        }
         return this;
     }
 
     public ApiGlobalOptions addFormData(@NonNull String key, float value)
     {
         if (mFormDatasMap == null)
+        {
             mFormDatasMap = new FormDataMap();
+        }
         if (StringUtils.isNotEmpty(key))
+        {
             mFormDatasMap.addParam(key, value);
+        }
         return this;
     }
 
     public ApiGlobalOptions removeFormData(String key)
     {
         if (mFormDatasMap != null)
+        {
             mFormDatasMap.remove(key);
+        }
         return this;
     }
 
     public ApiGlobalOptions clearFormDatas()
     {
         if (mFormDatasMap != null)
+        {
             mFormDatasMap.clear();
+        }
         return this;
     }
 
@@ -336,32 +391,44 @@ public class ApiGlobalOptions
     public ApiGlobalOptions addHeadersMap(Map<String, String> headersMap)
     {
         if (mHeadersMap == null)
+        {
             mHeadersMap = new FormDataMap();
+        }
         if (headersMap != null && headersMap.size() > 0)
+        {
             mHeadersMap.putAll(headersMap);
+        }
         return this;
     }
 
     public ApiGlobalOptions addHeader(@NonNull String key, String value)
     {
         if (mHeadersMap == null)
+        {
             mHeadersMap = new FormDataMap();
+        }
         if (StringUtils.isNotEmpty(key))
+        {
             mHeadersMap.put(key, value);
+        }
         return this;
     }
 
     public ApiGlobalOptions removeHeader(String key)
     {
         if (mHeadersMap != null)
+        {
             mHeadersMap.remove(key);
+        }
         return this;
     }
 
     public ApiGlobalOptions clearHeaders()
     {
         if (mHeadersMap != null)
+        {
             mHeadersMap.clear();
+        }
         return this;
     }
 

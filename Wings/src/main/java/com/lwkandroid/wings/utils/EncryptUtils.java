@@ -107,7 +107,9 @@ public final class EncryptUtils
     public static String encryptMD5ToString(byte[] data, byte[] salt)
     {
         if (data == null || salt == null)
+        {
             return null;
+        }
         byte[] dataSalt = new byte[data.length + salt.length];
         System.arraycopy(data, 0, dataSalt, 0, data.length);
         System.arraycopy(salt, 0, dataSalt, data.length, salt.length);
@@ -169,7 +171,9 @@ public final class EncryptUtils
     public static byte[] encryptMD5File(File file)
     {
         if (file == null)
+        {
             return null;
+        }
         FileInputStream fis = null;
         DigestInputStream digestInputStream;
         try
@@ -181,7 +185,9 @@ public final class EncryptUtils
             while (true)
             {
                 if (!(digestInputStream.read(buffer) > 0))
+                {
                     break;
+                }
             }
             md = digestInputStream.getMessageDigest();
             return md.digest();
@@ -195,7 +201,9 @@ public final class EncryptUtils
             try
             {
                 if (fis != null)
+                {
                     fis.close();
+                }
             } catch (IOException e)
             {
                 e.printStackTrace();
@@ -378,7 +386,9 @@ public final class EncryptUtils
     private static byte[] hashTemplate(byte[] data, String algorithm)
     {
         if (data == null || data.length <= 0)
+        {
             return null;
+        }
         try
         {
             MessageDigest md = MessageDigest.getInstance(algorithm);
@@ -618,7 +628,9 @@ public final class EncryptUtils
     private static byte[] hmacTemplate(byte[] data, byte[] key, String algorithm)
     {
         if (data == null || data.length == 0 || key == null || key.length == 0)
+        {
             return null;
+        }
         try
         {
             SecretKeySpec secretKey = new SecretKeySpec(key, algorithm);
@@ -643,7 +655,7 @@ public final class EncryptUtils
      * <p>填充方式有：NoPadding、ZerosPadding、PKCS5Padding</p>
      */
     public static String DES_Transformation = "DES/ECB/NoPadding";
-    private static final String DES_Algorithm = "DES";
+    private static final String DES_ALGORITHM = "DES";
 
     /**
      * DES加密后转为Base64编码
@@ -678,7 +690,7 @@ public final class EncryptUtils
      */
     public static byte[] encryptDES(byte[] data, byte[] key)
     {
-        return desTemplate(data, key, DES_Algorithm, DES_Transformation, true);
+        return desTemplate(data, key, DES_ALGORITHM, DES_Transformation, true);
     }
 
     /**
@@ -688,7 +700,7 @@ public final class EncryptUtils
      * @param key  8字节秘钥
      * @return 明文
      */
-    public static byte[] decryptBase64DES(byte[] data, byte[] key)
+    public static byte[] decryptBase64ByDES(byte[] data, byte[] key)
     {
         return decryptDES(base64Decode(data), key);
     }
@@ -700,7 +712,7 @@ public final class EncryptUtils
      * @param key  8字节秘钥
      * @return 明文
      */
-    public static byte[] decryptHexStringDES(String data, byte[] key)
+    public static byte[] decryptHexStringByDES(String data, byte[] key)
     {
         return decryptDES(hexString2Bytes(data), key);
     }
@@ -714,7 +726,7 @@ public final class EncryptUtils
      */
     public static byte[] decryptDES(byte[] data, byte[] key)
     {
-        return desTemplate(data, key, DES_Algorithm, DES_Transformation, false);
+        return desTemplate(data, key, DES_ALGORITHM, DES_Transformation, false);
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -728,7 +740,7 @@ public final class EncryptUtils
      * <p>填充方式有：NoPadding、ZerosPadding、PKCS5Padding</p>
      */
     public static String TripleDES_Transformation = "DESede/ECB/NoPadding";
-    private static final String TripleDES_Algorithm = "DESede";
+    private static final String TRIPLE_DES_ALGORITHM = "DESede";
 
 
     /**
@@ -764,7 +776,7 @@ public final class EncryptUtils
      */
     public static byte[] encrypt3DES(byte[] data, byte[] key)
     {
-        return desTemplate(data, key, TripleDES_Algorithm, TripleDES_Transformation, true);
+        return desTemplate(data, key, TRIPLE_DES_ALGORITHM, TripleDES_Transformation, true);
     }
 
     /**
@@ -774,7 +786,7 @@ public final class EncryptUtils
      * @param key  24字节秘钥
      * @return 明文
      */
-    public static byte[] decryptBase64_3DES(byte[] data, byte[] key)
+    public static byte[] decryptBase64By3DES(byte[] data, byte[] key)
     {
         return decrypt3DES(base64Decode(data), key);
     }
@@ -786,7 +798,7 @@ public final class EncryptUtils
      * @param key  24字节秘钥
      * @return 明文
      */
-    public static byte[] decryptHexString3DES(String data, byte[] key)
+    public static byte[] decryptHexStringBy3DES(String data, byte[] key)
     {
         return decrypt3DES(hexString2Bytes(data), key);
     }
@@ -800,7 +812,7 @@ public final class EncryptUtils
      */
     public static byte[] decrypt3DES(byte[] data, byte[] key)
     {
-        return desTemplate(data, key, TripleDES_Algorithm, TripleDES_Transformation, false);
+        return desTemplate(data, key, TRIPLE_DES_ALGORITHM, TripleDES_Transformation, false);
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -814,7 +826,7 @@ public final class EncryptUtils
      * <p>填充方式有：NoPadding、ZerosPadding、PKCS5Padding</p>
      */
     public static String AES_Transformation = "AES/ECB/NoPadding";
-    private static final String AES_Algorithm = "AES";
+    private static final String AES_ALGORITHM = "AES";
 
 
     /**
@@ -850,7 +862,7 @@ public final class EncryptUtils
      */
     public static byte[] encryptAES(byte[] data, byte[] key)
     {
-        return desTemplate(data, key, AES_Algorithm, AES_Transformation, true);
+        return desTemplate(data, key, AES_ALGORITHM, AES_Transformation, true);
     }
 
     /**
@@ -860,7 +872,7 @@ public final class EncryptUtils
      * @param key  16、24、32字节秘钥
      * @return 明文
      */
-    public static byte[] decryptBase64AES(byte[] data, byte[] key)
+    public static byte[] decryptBase64ByAES(byte[] data, byte[] key)
     {
         return decryptAES(base64Decode(data), key);
     }
@@ -886,7 +898,7 @@ public final class EncryptUtils
      */
     public static byte[] decryptAES(byte[] data, byte[] key)
     {
-        return desTemplate(data, key, AES_Algorithm, AES_Transformation, false);
+        return desTemplate(data, key, AES_ALGORITHM, AES_Transformation, false);
     }
 
     /**
@@ -902,7 +914,9 @@ public final class EncryptUtils
     public static byte[] desTemplate(byte[] data, byte[] key, String algorithm, String transformation, boolean isEncrypt)
     {
         if (data == null || data.length == 0 || key == null || key.length == 0)
+        {
             return null;
+        }
         try
         {
             SecretKeySpec keySpec = new SecretKeySpec(key, algorithm);
@@ -917,7 +931,7 @@ public final class EncryptUtils
         }
     }
 
-    private static final char hexDigits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+    private static final char[] HEX_DIGITS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
     /**
      * byteArr转hexString
@@ -930,15 +944,19 @@ public final class EncryptUtils
     private static String bytes2HexString(byte[] bytes)
     {
         if (bytes == null)
+        {
             return null;
+        }
         int len = bytes.length;
         if (len <= 0)
+        {
             return null;
+        }
         char[] ret = new char[len << 1];
         for (int i = 0, j = 0; i < len; i++)
         {
-            ret[j++] = hexDigits[bytes[i] >>> 4 & 0x0f];
-            ret[j++] = hexDigits[bytes[i] & 0x0f];
+            ret[j++] = HEX_DIGITS[bytes[i] >>> 4 & 0x0f];
+            ret[j++] = HEX_DIGITS[bytes[i] & 0x0f];
         }
         return new String(ret);
     }
@@ -955,7 +973,9 @@ public final class EncryptUtils
     private static byte[] hexString2Bytes(String hexString)
     {
         if (isSpace(hexString))
+        {
             return null;
+        }
         int len = hexString.length();
         if (len % 2 != 0)
         {
@@ -1016,7 +1036,9 @@ public final class EncryptUtils
     private static boolean isSpace(String s)
     {
         if (s == null)
+        {
             return true;
+        }
         for (int i = 0, len = s.length(); i < len; ++i)
         {
             if (!Character.isWhitespace(s.charAt(i)))

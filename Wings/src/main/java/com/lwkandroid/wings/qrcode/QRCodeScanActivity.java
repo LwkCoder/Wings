@@ -107,9 +107,13 @@ public class QRCodeScanActivity extends WingsBaseActivity<MVPBasePresenter>
     protected void getIntentData(Intent intent, boolean newIntent)
     {
         if (intent != null)
+        {
             mOptions = intent.getParcelableExtra(KEY_OPTIONS);
+        }
         if (mOptions == null)
+        {
             mOptions = new QRCodeOptions();
+        }
     }
 
     @Override
@@ -190,7 +194,9 @@ public class QRCodeScanActivity extends WingsBaseActivity<MVPBasePresenter>
     {
         super.onStart();
         if (!mIsDecoding && mZXingView != null)
+        {
             mZXingView.startSpotAndShowRect();
+        }
     }
 
     @Override
@@ -211,11 +217,17 @@ public class QRCodeScanActivity extends WingsBaseActivity<MVPBasePresenter>
         super.onDestroy();
         dismissDialog();
         if (mZXingView != null)
+        {
             mZXingView.onDestroy();
+        }
         if (mDisposable != null && !mDisposable.isDisposed())
+        {
             mDisposable.dispose();
+        }
         if (mVibrator != null)
+        {
             mVibrator.cancel();
+        }
         mVibrator = null;
     }
 
@@ -298,7 +310,9 @@ public class QRCodeScanActivity extends WingsBaseActivity<MVPBasePresenter>
                                 dismissDialog();
                                 showLongToast(R.string.qrcodescan_decode_error);
                                 if (mZXingView != null)
+                                {
                                     mZXingView.startSpotAndShowRect();
+                                }
                                 mIsDecoding = false;
                             }
 
@@ -311,7 +325,9 @@ public class QRCodeScanActivity extends WingsBaseActivity<MVPBasePresenter>
             } else
             {
                 if (mZXingView != null)
+                {
                     mZXingView.startSpotAndShowRect();
+                }
                 mIsDecoding = false;
             }
         }
@@ -321,13 +337,18 @@ public class QRCodeScanActivity extends WingsBaseActivity<MVPBasePresenter>
     private void startVibrate()
     {
         if (mVibrator == null)
+        {
             mVibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        }
         if (mVibrator.hasVibrator())
         {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+            {
                 mVibrator.vibrate(VibrationEffect.createOneShot(200, 200));
-            else
+            } else
+            {
                 mVibrator.vibrate(200);
+            }
         }
     }
 
@@ -344,7 +365,9 @@ public class QRCodeScanActivity extends WingsBaseActivity<MVPBasePresenter>
     private void dismissDialog()
     {
         if (mProgressDialog != null && mProgressDialog.isShowing())
+        {
             mProgressDialog.dismiss();
+        }
         mProgressDialog = null;
     }
 
@@ -352,9 +375,12 @@ public class QRCodeScanActivity extends WingsBaseActivity<MVPBasePresenter>
     private void swithLight()
     {
         if (mIsLightOn)
+        {
             lightOff();
-        else
+        } else
+        {
             lightOn();
+        }
     }
 
     //关闭闪光灯

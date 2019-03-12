@@ -41,18 +41,25 @@ public class ApiStringParser implements IApiStringParser
                     {
                         IApiResult<Object> result = JSON_PARSER.parseJsonObject(s, RxHttp.getGlobalOptions().getApiResultType());
                         if (result == null)
+                        {
                             throw new ApiException(ApiExceptionCode.RESPONSE_EMPTY, "Could not get any Response");
+                        }
                         if (!result.isResultOK())
+                        {
                             throw new ApiException(result.getCode(), result.getMessage());
+                        }
 
                         String dataJsonString = result.getData() != null ?
                                 JSON_PARSER.toJson(result.getData()) : null;
                         if (clazz == String.class)
+                        {
                             return StringUtils.isNotEmpty(dataJsonString) ?
                                     (T) dataJsonString : (T) "";
-                        else
+                        } else
+                        {
                             return StringUtils.isNotEmpty(dataJsonString) ?
                                     JSON_PARSER.parseJsonObject(dataJsonString, clazz) : clazz.newInstance();
+                        }
                     }
                 });
             }
@@ -74,9 +81,13 @@ public class ApiStringParser implements IApiStringParser
                     {
                         IApiResult<Object> result = JSON_PARSER.parseJsonObject(s, RxHttp.getGlobalOptions().getApiResultType());
                         if (result == null)
+                        {
                             throw new ApiException(ApiExceptionCode.RESPONSE_EMPTY, "Could not get any Response");
+                        }
                         if (!result.isResultOK())
+                        {
                             throw new ApiException(result.getCode(), result.getMessage());
+                        }
 
                         String dataJsonString = result.getData() != null ?
                                 JSON_PARSER.toJson(result.getData()) : null;

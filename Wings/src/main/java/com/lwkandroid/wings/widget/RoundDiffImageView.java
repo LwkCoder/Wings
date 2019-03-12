@@ -30,6 +30,7 @@ import android.view.MotionEvent;
 import android.widget.ImageView;
 
 import com.lwkandroid.wings.R;
+import com.lwkandroid.wings.log.KLog;
 
 /**
  * 圆角ImageView，支持四个角不一样
@@ -41,7 +42,7 @@ public class RoundDiffImageView extends ImageView
 {
     public static final String TAG = "RoundImageView";
     private int mResource = 0;
-    private static final ScaleType[] sScaleTypeArray = {
+    private static final ScaleType[] SCALE_TYPES = {
             ScaleType.MATRIX,
             ScaleType.FIT_XY,
             ScaleType.FIT_START,
@@ -108,7 +109,9 @@ public class RoundDiffImageView extends ImageView
         {
             final int scaleTypeIndex = a.getInt(R.styleable.RoundDiffImageView_android_scaleType, -1);
             if (scaleTypeIndex >= 0)
-                setScaleType(sScaleTypeArray[scaleTypeIndex]);
+            {
+                setScaleType(SCALE_TYPES[scaleTypeIndex]);
+            }
 
             mRadius = a.getDimensionPixelSize(R.styleable.RoundDiffImageView_riv_radius, 0);
             mLeftTopRadius = a.getDimensionPixelSize(R.styleable.RoundDiffImageView_riv_left_top_radius, 0);
@@ -121,15 +124,25 @@ public class RoundDiffImageView extends ImageView
             mPressFeedBack = a.getBoolean(R.styleable.ShapeImageView_siv_press_feedback, false);
 
             if (mRadius < 0.0f)
+            {
                 mRadius = 0.0f;
+            }
             if (mLeftTopRadius <= 0.0f)
+            {
                 mLeftTopRadius = mRadius == 0.0f ? 0.0f : mRadius;
+            }
             if (mRightTopRadius <= 0.0f)
+            {
                 mRightTopRadius = mRadius == 0.0f ? 0.0f : mRadius;
+            }
             if (mLeftBottomRadius <= 0.0f)
+            {
                 mLeftBottomRadius = mRadius == 0.0f ? 0.0f : mRadius;
+            }
             if (mRightBottomRadius <= 0.0f)
+            {
                 mRightBottomRadius = mRadius == 0.0f ? 0.0f : mRadius;
+            }
 
             mRadiusArray = new float[]{
                     mLeftTopRadius, mLeftTopRadius,
@@ -140,18 +153,24 @@ public class RoundDiffImageView extends ImageView
             mBorderWidth = a.getDimensionPixelSize(
                     R.styleable.RoundDiffImageView_riv_border_width, 0);
             if (mBorderWidth < 00.f)
+            {
                 mBorderWidth = 0.0f;
+            }
 
             mBorderColor = a.getColorStateList(R.styleable.RoundDiffImageView_riv_border_color);
             if (mBorderColor == null)
+            {
                 mBorderColor = ColorStateList.valueOf(DEFAULT_BORDER_COLOR);
+            }
 
             isOval = a.getBoolean(R.styleable.RoundDiffImageView_riv_is_oval, false);
             a.recycle();
         }
 
         if (mPressFeedBack)
+        {
             setClickable(true);
+        }
         setFixedSize(widthScale, heightScale);
         setScaleTarget(scaleTarget);
         updateDrawable();
@@ -262,7 +281,9 @@ public class RoundDiffImageView extends ImageView
     {
         Resources rsrc = getResources();
         if (rsrc == null)
+        {
             return null;
+        }
 
         Drawable d = null;
 
@@ -273,7 +294,7 @@ public class RoundDiffImageView extends ImageView
                 d = rsrc.getDrawable(mResource);
             } catch (NotFoundException e)
             {
-                Log.w(TAG, "RoundImageView Unable to find resource: " + mResource, e);
+                KLog.w(TAG, "RoundImageView Unable to find resource: " + mResource, e);
                 // Don't try again.
                 mResource = 0;
             }
@@ -284,7 +305,9 @@ public class RoundDiffImageView extends ImageView
     private void updateDrawable()
     {
         if (mDrawable == null)
+        {
             return;
+        }
 
         ((RoundedDrawable) mDrawable).setScaleType(mScaleType);
         ((RoundedDrawable) mDrawable).setCornerRadiusArray(mRadiusArray);
@@ -382,7 +405,9 @@ public class RoundDiffImageView extends ImageView
     {
         float scaledWidth = getResources().getDisplayMetrics().density * width;
         if (mBorderWidth == scaledWidth)
+        {
             return;
+        }
 
         mBorderWidth = scaledWidth;
         updateDrawable();
@@ -470,7 +495,9 @@ public class RoundDiffImageView extends ImageView
     {
         if (target != SCALE_TARGET_INSIDE && target != SCALE_TARGET_HEIGHT
                 && target != SCALE_TARGET_WIDTH && target != SCALE_TARGET_EXPAND)
+        {
             return;
+        }
         if (mScaleTarget != target)
         {
             mScaleTarget = target;
@@ -503,12 +530,16 @@ public class RoundDiffImageView extends ImageView
         if (action == MotionEvent.ACTION_DOWN)
         {
             if (mPressFeedBack)
+            {
                 setAlpha(0.8f);
+            }
         } else if (action == MotionEvent.ACTION_UP ||
                 action == MotionEvent.ACTION_CANCEL)
         {
             if (mPressFeedBack)
+            {
                 setAlpha(1.0f);
+            }
         }
         return super.dispatchTouchEvent(event);
     }
@@ -572,9 +603,12 @@ public class RoundDiffImageView extends ImageView
         public static RoundedDrawable fromBitmap(Bitmap bitmap, Resources r)
         {
             if (bitmap != null)
+            {
                 return new RoundedDrawable(bitmap, r);
-            else
+            } else
+            {
                 return null;
+            }
         }
 
         public static Drawable fromDrawable(Drawable drawable, Resources r)
@@ -814,7 +848,9 @@ public class RoundDiffImageView extends ImageView
         public void setCornerRadiusArray(float[] radius)
         {
             if (radius == null)
+            {
                 return;
+            }
 
             if (radius.length != 8)
             {

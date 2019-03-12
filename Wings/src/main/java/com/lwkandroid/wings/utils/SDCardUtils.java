@@ -30,7 +30,9 @@ public final class SDCardUtils
     public static String getSDCardPath()
     {
         if (!isSDCardEnable())
+        {
             return null;
+        }
         String path = Environment.getExternalStorageDirectory().getAbsolutePath();
         return path.endsWith(File.separator) ? path : path + File.separatorChar;
     }
@@ -43,7 +45,9 @@ public final class SDCardUtils
     public static String getExternalCachePath()
     {
         if (!isSDCardEnable())
+        {
             return null;
+        }
 
         File file = Utils.getContext().getExternalCacheDir();
         if (file == null)
@@ -70,7 +74,9 @@ public final class SDCardUtils
     public static long getFreeSpace()
     {
         if (!isSDCardEnable())
+        {
             return 0;
+        }
         StatFs stat = new StatFs(getSDCardPath());
         long blockSize, availableBlocks;
         availableBlocks = stat.getAvailableBlocks();

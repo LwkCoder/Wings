@@ -39,7 +39,9 @@ public class DebugTools
         GlideOkClient.get().getBuilder().addNetworkInterceptor(new StethoInterceptor());
         //Square的LeakCanary
         if (LeakCanary.isInAnalyzerProcess(context.getApplicationContext()))
+        {
             return;
+        }
         ExcludedRefs excludedRefs = AndroidExcludedRefs.createAppDefaults()
                 .instanceField("android.view.inputmethod.InputMethodManager", "sInstance")
                 .instanceField("android.view.inputmethod.InputMethodManager", "mLastSrvView")

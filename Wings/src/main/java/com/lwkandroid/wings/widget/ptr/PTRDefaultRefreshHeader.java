@@ -49,11 +49,15 @@ public class PTRDefaultRefreshHeader extends AppCompatImageView implements PTRLa
     public void onPull(int offset, int total, int overPull)
     {
         if (mProgress.isRunning())
+        {
             return;
+        }
         float end = TRIM_RATE * offset / total;
         float rotate = TRIM_OFFSET * offset / total;
         if (overPull > 0)
+        {
             rotate += TRIM_OFFSET * overPull / total;
+        }
         mProgress.setArrowEnabled(true);
         mProgress.setStartEndTrim(0, end);
         mProgress.setProgressRotation(rotate);
@@ -62,13 +66,18 @@ public class PTRDefaultRefreshHeader extends AppCompatImageView implements PTRLa
     public void setSize(@CircularProgressDrawable.ProgressDrawableSize int size)
     {
         if (size != CircularProgressDrawable.LARGE && size != CircularProgressDrawable.DEFAULT)
+        {
             return;
+        }
 
         final DisplayMetrics metrics = getResources().getDisplayMetrics();
         if (size == CircularProgressDrawable.LARGE)
+        {
             mCircleDiameter = (int) (CIRCLE_DIAMETER_LARGE * metrics.density);
-        else
+        } else
+        {
             mCircleDiameter = (int) (CIRCLE_DIAMETER * metrics.density);
+        }
 
         // force the bounds of the progress circle inside the circle view to
         // update by setting it to null before updating its size and then
@@ -78,11 +87,13 @@ public class PTRDefaultRefreshHeader extends AppCompatImageView implements PTRLa
         setImageDrawable(mProgress);
     }
 
+    @Override
     public void stop()
     {
         mProgress.stop();
     }
 
+    @Override
     public void doRefresh()
     {
         mProgress.start();

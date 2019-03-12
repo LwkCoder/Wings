@@ -25,8 +25,11 @@ public final class Utils
     public static Context getContext()
     {
         if (mContext != null)
+        {
             return mContext;
-        else
+        } else
+        {
             throw new UnsupportedOperationException("You should invoke Utils.wrap(Context context) in Application !");
+        }
     }
 }

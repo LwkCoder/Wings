@@ -62,7 +62,9 @@ public abstract class WingsBaseFragment<P extends MVPBasePresenter> extends Frag
         getArgumentsData(getArguments(), savedInstanceState);
         mPresenter = createPresenter();
         if (getPresenter() != null)
+        {
             getPresenter().attachWithView(this);
+        }
         initUI(getContentView());
         initData(savedInstanceState);
         getLifecycleSubject().onNext(RxLifecycle.ON_ACTIVITY_CREATED);
@@ -108,7 +110,9 @@ public abstract class WingsBaseFragment<P extends MVPBasePresenter> extends Frag
     {
         getLifecycleSubject().onNext(RxLifecycle.ON_DESTROY);
         if (getPresenter() != null)
+        {
             getPresenter().onDestoryPresenter();
+        }
         super.onDestroy();
     }
 
@@ -223,12 +227,12 @@ public abstract class WingsBaseFragment<P extends MVPBasePresenter> extends Frag
                 }
             } else
             {
-                KLog.w(TAG, "Can not reflect instance of Presenter: can not get super class ParameterizedType.");
+                KLog.w(TAG, "Can not reflect INSTANCE of Presenter: can not get super class ParameterizedType.");
             }
         } catch (Exception e)
         {
             e.printStackTrace();
-            KLog.w(TAG, "Can not reflect instance of Presenter:" + e.toString());
+            KLog.w(TAG, "Can not reflect INSTANCE of Presenter:" + e.toString());
         }
 
         return (P) new DefaultMVPPresenter();

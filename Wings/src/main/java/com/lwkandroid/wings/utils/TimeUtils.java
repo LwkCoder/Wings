@@ -654,8 +654,8 @@ public final class TimeUtils
     public static String getFriendlyTimeSpanByNow(long millis)
     {
         String format;
-        boolean isChinese = Utils.getContext().getResources()
-                .getConfiguration().locale.getCountry().equals("CN");
+        boolean isChinese = "CN".equals(Utils.getContext().getResources()
+                .getConfiguration().locale.getCountry());
         long now = System.currentTimeMillis();
         long span = now - millis;
 
@@ -677,54 +677,78 @@ public final class TimeUtils
                 if (hour >= 0 && hour < 6)
                 {
                     if (isChinese)
+                    {
                         format = "凌晨 HH:mm";
-                    else
+                    } else
+                    {
                         format = "Morning HH:mm";
+                    }
                 } else if (hour >= 6 && hour < 12)
                 {
                     if (isChinese)
+                    {
                         format = "上午 HH:mm";
-                    else
+                    } else
+                    {
                         format = "Morning HH:mm";
+                    }
                 } else if (hour >= 12 && hour < 15)
                 {
                     if (isChinese)
+                    {
                         format = "中午 HH:mm";
-                    else
+                    } else
+                    {
                         format = "Noon HH:mm";
+                    }
                 } else if (hour >= 15 && hour < 18)
                 {
                     if (isChinese)
+                    {
                         format = "下午 HH:mm";
-                    else
+                    } else
+                    {
                         format = "Afternoon HH:mm";
+                    }
                 } else
                 {
                     if (isChinese)
+                    {
                         format = "晚上 HH:mm";
-                    else
+                    } else
+                    {
                         format = "Night HH:mm";
+                    }
                 }
             } else if (millis >= wee - TimeConstants.DAY)
             {
                 //昨天
                 if (isChinese)
+                {
                     format = "昨天 HH:mm";
-                else
+                } else
+                {
                     format = "Yesterday HH:mm";
+                }
             } else
             {
                 if (isChinese)
+                {
                     format = "M月d日 HH:mm";
-                else
+                } else
+                {
                     format = "MM-dd HH:mm";
+                }
             }
         }
 
         if (isChinese)
+        {
             return new SimpleDateFormat(format, Locale.CHINA).format(millis);
-        else
+        } else
+        {
             return new SimpleDateFormat(format, Locale.US).format(millis);
+        }
     }
 
     /**
@@ -1678,11 +1702,15 @@ public final class TimeUtils
     private static String millis2FitTimeSpan(long millis, int precision)
     {
         if (millis < 0 || precision <= 0)
+        {
             return null;
+        }
         precision = Math.min(precision, 5);
         String[] units = {"天", "小时", "分钟", "秒", "毫秒"};
         if (millis == 0)
+        {
             return 0 + units[precision - 1];
+        }
         StringBuilder sb = new StringBuilder();
         int[] unitLen = {86400000, 3600000, 60000, 1000, 1};
         for (int i = 0; i < precision; i++)
@@ -1716,11 +1744,15 @@ public final class TimeUtils
     private static String millis2FitTimeSpanWithUnit(long millis, int precision)
     {
         if (millis < 0 || precision <= 0)
+        {
             return null;
+        }
         precision = Math.min(precision, 5);
         String[] units = {"天", "小时", "分钟", "秒", "毫秒"};
         if (millis == 0)
+        {
             return 0 + units[precision - 1];
+        }
         StringBuilder sb = new StringBuilder();
         int[] unitLen = {86400000, 3600000, 60000, 1000, 1};
         for (int i = 0; i < precision; i++)

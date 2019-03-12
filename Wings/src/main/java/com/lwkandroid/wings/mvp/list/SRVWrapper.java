@@ -28,14 +28,18 @@ public class SRVWrapper implements IRefreshWrapper<SwipeRefreshLayout>, SwipeRef
     public void enableRefresh(boolean enable)
     {
         if (getRefreshView() != null)
+        {
             getRefreshView().setEnabled(enable);
+        }
     }
 
     @Override
     public void autoRefresh()
     {
         if (getRefreshView() != null)
+        {
             getRefreshView().setRefreshing(true);
+        }
         onRefresh();
     }
 
@@ -43,7 +47,9 @@ public class SRVWrapper implements IRefreshWrapper<SwipeRefreshLayout>, SwipeRef
     public void finishRefresh()
     {
         if (getRefreshView() != null)
+        {
             getRefreshView().setRefreshing(false);
+        }
     }
 
     @Override
@@ -68,6 +74,8 @@ public class SRVWrapper implements IRefreshWrapper<SwipeRefreshLayout>, SwipeRef
     public void onRefresh()
     {
         if (mListener != null)
+        {
             mListener.onRefreshRequest();
+        }
     }
 }

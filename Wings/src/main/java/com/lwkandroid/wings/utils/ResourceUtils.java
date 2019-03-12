@@ -131,7 +131,9 @@ public final class ResourceUtils
     {
         TypedValue value = typedArray.peekValue(index);
         if (value != null && value.type != TypedValue.TYPE_ATTRIBUTE && value.resourceId != 0)
+        {
             return AppCompatResources.getDrawable(Utils.getContext(), value.resourceId);
+        }
         return null;
     }
 

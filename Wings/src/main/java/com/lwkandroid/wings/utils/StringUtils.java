@@ -63,7 +63,9 @@ public final class StringUtils
     public static boolean isSpace(String s)
     {
         if (s == null)
+        {
             return true;
+        }
         for (int i = 0, len = s.length(); i < len; ++i)
         {
             if (!Character.isWhitespace(s.charAt(i)))
@@ -84,7 +86,9 @@ public final class StringUtils
     public static boolean isEquals(CharSequence a, CharSequence b)
     {
         if (a == b)
+        {
             return true;
+        }
         int length;
         if (a != null && b != null && (length = a.length()) == b.length())
         {
@@ -96,7 +100,9 @@ public final class StringUtils
                 for (int i = 0; i < length; i++)
                 {
                     if (a.charAt(i) != b.charAt(i))
+                    {
                         return false;
+                    }
                 }
                 return true;
             }
@@ -136,7 +142,9 @@ public final class StringUtils
     public static String upperFirstLetter(String s)
     {
         if (isEmpty(s) || !Character.isLowerCase(s.charAt(0)))
+        {
             return s;
+        }
         return String.valueOf((char) (s.charAt(0) - 32)) + s.substring(1);
     }
 
@@ -149,7 +157,9 @@ public final class StringUtils
     public static String lowerFirstLetter(String s)
     {
         if (isEmpty(s) || !Character.isUpperCase(s.charAt(0)))
+        {
             return s;
+        }
         return String.valueOf((char) (s.charAt(0) + 32)) + s.substring(1);
     }
 
@@ -163,7 +173,9 @@ public final class StringUtils
     {
         int len = length(s);
         if (len <= 1)
+        {
             return s;
+        }
         int mid = len >> 1;
         char[] chars = s.toCharArray();
         char c;
@@ -185,7 +197,9 @@ public final class StringUtils
     public static String toDBC(String s)
     {
         if (isEmpty(s))
+        {
             return s;
+        }
         char[] chars = s.toCharArray();
         for (int i = 0, len = chars.length; i < len; i++)
         {
@@ -212,7 +226,9 @@ public final class StringUtils
     public static String toSBC(String s)
     {
         if (isEmpty(s))
+        {
             return s;
+        }
         char[] chars = s.toCharArray();
         for (int i = 0, len = chars.length; i < len; i++)
         {

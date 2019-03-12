@@ -958,7 +958,9 @@ public final class SpanUtils
     private void updateCharCharSequence()
     {
         if (mText.length() == 0)
+        {
             return;
+        }
         int start = mBuilder.length();
         mBuilder.append(mText);
         int end = mBuilder.length();
@@ -1242,11 +1244,13 @@ public final class SpanUtils
             this.gapWidth = gapWidth;
         }
 
+        @Override
         public int getLeadingMargin(final boolean first)
         {
             return stripeWidth + gapWidth;
         }
 
+        @Override
         public void drawLeadingMargin(final Canvas c, final Paint p, final int x, final int dir,
                                       final int top, final int baseline, final int bottom,
                                       final CharSequence text, final int start, final int end,
@@ -1284,11 +1288,13 @@ public final class SpanUtils
             this.gapWidth = gapWidth;
         }
 
+        @Override
         public int getLeadingMargin(final boolean first)
         {
             return 2 * radius + gapWidth;
         }
 
+        @Override
         public void drawLeadingMargin(final Canvas c, final Paint p, final int x, final int dir,
                                       final int top, final int baseline, final int bottom,
                                       final CharSequence text, final int start, final int end,
@@ -1417,11 +1423,13 @@ public final class SpanUtils
             return bitmap;
         }
 
+        @Override
         public int getLeadingMargin(final boolean first)
         {
             return mBitmap.getWidth() + mPad;
         }
 
+        @Override
         public void drawLeadingMargin(Canvas c, Paint p, int x, int dir,
                                       int top, int baseline, int bottom,
                                       CharSequence text, int start, int end,
@@ -1431,7 +1439,9 @@ public final class SpanUtils
             int itop = layout.getLineTop(layout.getLineForOffset(st));
 
             if (dir < 0)
+            {
                 x -= mBitmap.getWidth();
+            }
 
             int delta = totalHeight - mBitmap.getHeight();
 
@@ -1453,6 +1463,7 @@ public final class SpanUtils
             }
         }
 
+        @Override
         public void chooseHeight(CharSequence text, int start, int end,
                                  int istartv, int v, Paint.FontMetricsInt fm)
         {
@@ -1476,35 +1487,51 @@ public final class SpanUtils
                     if (end == ((Spanned) text).getSpanEnd(this))
                     {
                         if (need0 > 0)
+                        {
                             fm.descent += need0;
+                        }
                         if (need1 > 0)
+                        {
                             fm.bottom += need1;
+                        }
                     }
                 } else if (mVerticalAlignment == ALIGN_CENTER)
                 {
                     if (start == ((Spanned) text).getSpanStart(this))
                     {
                         if (need0 > 0)
+                        {
                             fm.ascent -= need0 / 2;
+                        }
                         if (need1 > 0)
+                        {
                             fm.top -= need1 / 2;
+                        }
                     } else
                     {
                         if (!flag)
                         {
                             if (need0 > 0)
+                            {
                                 fm.ascent += need0 / 2;
+                            }
                             if (need1 > 0)
+                            {
                                 fm.top += need1 / 2;
+                            }
                             flag = true;
                         }
                     }
                     if (end == ((Spanned) text).getSpanEnd(this))
                     {
                         if (need0 > 0)
+                        {
                             fm.descent += need0 / 2;
+                        }
                         if (need1 > 0)
+                        {
                             fm.bottom += need1 / 2;
+                        }
                     }
                 } else
                 {
@@ -1512,17 +1539,25 @@ public final class SpanUtils
                     if (start == ((Spanned) text).getSpanStart(this))
                     {
                         if (need0 > 0)
+                        {
                             fm.ascent -= need0;
+                        }
                         if (need1 > 0)
+                        {
                             fm.top -= need1;
+                        }
                     } else
                     {
                         if (!flag)
                         {
                             if (need0 > 0)
+                            {
                                 fm.ascent += need0;
+                            }
                             if (need1 > 0)
+                            {
                                 fm.top += need1;
+                            }
                             flag = true;
                         }
                     }
@@ -1758,7 +1793,9 @@ public final class SpanUtils
             WeakReference<Drawable> wr = mDrawableRef;
             Drawable d = null;
             if (wr != null)
+            {
                 d = wr.get();
+            }
             if (d == null)
             {
                 d = getDrawable();

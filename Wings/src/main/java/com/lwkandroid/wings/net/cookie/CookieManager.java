@@ -20,7 +20,9 @@ public class CookieManager implements ICookieJar
     private void checkNotNull()
     {
         if (cookieStore == null)
+        {
             cookieStore = new PersistentCookieStore(RxHttp.getContext());
+        }
     }
 
     @Override

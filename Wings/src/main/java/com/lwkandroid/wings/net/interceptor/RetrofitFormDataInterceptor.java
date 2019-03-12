@@ -21,7 +21,9 @@ public final class RetrofitFormDataInterceptor extends ApiParamsInterceptor
     public TreeMap<String, String> dynamic(TreeMap<String, String> oldParams)
     {
         if (mNewParamsMap != null && mNewParamsMap.size() > 0)
+        {
             oldParams.putAll(mNewParamsMap);
+        }
         return oldParams;
     }
 }

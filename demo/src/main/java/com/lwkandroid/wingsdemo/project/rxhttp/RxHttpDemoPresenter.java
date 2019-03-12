@@ -40,7 +40,7 @@ public class RxHttpDemoPresenter extends RxHttpDemoContract.Presenter
                     }
 
                     @Override
-                    public void _OnNext(List<TabsBean> dataList)
+                    public void _onNext(List<TabsBean> dataList)
                     {
                         getViewImpl().setWeatherHttpResultData(dataList);
                     }
@@ -69,7 +69,7 @@ public class RxHttpDemoPresenter extends RxHttpDemoContract.Presenter
                     }
 
                     @Override
-                    public void _OnNext(List<TabsBean> dataList)
+                    public void _onNext(List<TabsBean> dataList)
                     {
                         getViewImpl().setWeatherHttpResultData(dataList);
                     }
@@ -97,7 +97,7 @@ public class RxHttpDemoPresenter extends RxHttpDemoContract.Presenter
                     }
 
                     @Override
-                    public void _OnNext(File file)
+                    public void _onNext(File file)
                     {
                         getViewImpl().showDownloadResult(file);
                         getViewImpl().setDownLoadEnable(true);
@@ -142,7 +142,7 @@ public class RxHttpDemoPresenter extends RxHttpDemoContract.Presenter
                     }
 
                     @Override
-                    public void _OnNext(ApiResultCacheWrapper<NonRestFulResult> resultBean)
+                    public void _onNext(ApiResultCacheWrapper<NonRestFulResult> resultBean)
                     {
                         KLog.i("是否为缓存：" + resultBean.isCache());
                         getViewImpl().showNonRestFulResult(resultBean.getData());
@@ -164,7 +164,7 @@ public class RxHttpDemoPresenter extends RxHttpDemoContract.Presenter
         //                    }
         //
         //                    @Override
-        //                    public void _OnNext(NonRestFulResult nonRestFulResult)
+        //                    public void _onNext(NonRestFulResult nonRestFulResult)
         //                    {
         //                        KLog.e();
         //                        getViewImpl().showNonRestFulResult(nonRestFulResult);
@@ -186,7 +186,7 @@ public class RxHttpDemoPresenter extends RxHttpDemoContract.Presenter
                 .subscribe(new ApiBaseObserver<Bitmap>()
                 {
                     @Override
-                    public void _OnNext(Bitmap bitmap)
+                    public void _onNext(Bitmap bitmap)
                     {
                         getViewImpl().showImageBitmap(bitmap);
                     }
@@ -207,7 +207,7 @@ public class RxHttpDemoPresenter extends RxHttpDemoContract.Presenter
                 .subscribe(new ApiBaseObserver<String>()
                 {
                     @Override
-                    public void _OnNext(String s)
+                    public void _onNext(String s)
                     {
                         getViewImpl().showShortToast("上传成功");
                     }

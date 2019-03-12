@@ -41,7 +41,9 @@ public class SerializableOkHttpCookies implements Serializable
     {
         Cookie bestCookies = cookies;
         if (clientCookies != null)
+        {
             bestCookies = clientCookies;
+        }
         return bestCookies;
     }
 

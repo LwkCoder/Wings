@@ -55,7 +55,9 @@ public class ApiIS2BitmapParser implements IApiInputStreamParser.BitmapParser
     private byte[] readStream(InputStream inStream) throws Exception
     {
         if (inStream == null)
+        {
             return null;
+        }
 
         ByteArrayOutputStream outStream = null;
         try

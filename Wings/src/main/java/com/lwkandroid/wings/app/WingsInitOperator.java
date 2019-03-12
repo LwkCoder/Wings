@@ -44,7 +44,9 @@ public abstract class WingsInitOperator implements Application.ActivityLifecycle
             DebugTools.init(getContext());
             RxHttp.getGlobalOptions().addInterceptor(ApiConstants.TAG_LOG_INTERCEPTOR, new ApiLogInterceptor());
             if (getContext() != null)
+            {
                 getContext().registerActivityLifecycleCallbacks(this);
+            }
         }
     }
 

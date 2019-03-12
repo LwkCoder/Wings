@@ -39,7 +39,9 @@ public class DialogCreator implements IDialogOperator
     {
         init(activity, options);
         if (mRealDialog != null)
+        {
             mRealDialog.show(activity.getSupportFragmentManager(), TAG);
+        }
         return this;
     }
 
@@ -53,7 +55,9 @@ public class DialogCreator implements IDialogOperator
     public void dismiss()
     {
         if (isShowing())
+        {
             mRealDialog.dismiss();
+        }
         mRealDialog = null;
     }
 
@@ -61,7 +65,9 @@ public class DialogCreator implements IDialogOperator
     public void cancel()
     {
         if (mRealDialog != null)
+        {
             mRealDialog.cancel();
+        }
     }
 
     /**
@@ -74,7 +80,9 @@ public class DialogCreator implements IDialogOperator
 
         mContentView = mOptions.getContentView();
         if (mContentView == null)
+        {
             throw new IllegalArgumentException("You have to set a NonNull DialogBaseContentView object!!!");
+        }
         mOptions.getContentView().attachToCreator(context, mOptions, this);
         mRealDialog = RealDialog.create(mOptions);
     }

@@ -78,9 +78,12 @@ public final class QRCodeUtils
     public static String parseScanResult(int resultCode, Intent data)
     {
         if (resultCode == Activity.RESULT_OK && data != null)
+        {
             return data.getStringExtra(QRCodeScanActivity.KEY_RESULT);
-        else
+        } else
+        {
             return null;
+        }
     }
 
     /**

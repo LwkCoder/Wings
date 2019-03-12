@@ -178,22 +178,32 @@ public class ApiCacheOptions
         {
             //检查app版本
             if (options.getAppVersion() < 1)
+            {
                 options.setAppVersion(1);
+            }
             //检查缓存地址
             if (TextUtils.isEmpty(options.getCachePath()))
+            {
                 options.setCachePath(new StringBuffer()
                         .append(SDCardUtils.getExternalCachePath())
                         .append("net_cache/")
                         .toString());
+            }
             File cacheFile = new File(options.getCachePath());
             if (!cacheFile.exists())
+            {
                 cacheFile.mkdirs();
+            }
             //检查转换器
             if (options.getCacheOpeartor() == null)
+            {
                 options.setCacheOpeartor(new GsonDiskOpeartor());
+            }
             //检查缓存磁盘容量
             if (options.getDiskMaxSize() < ApiConstants.DISK_CACHE_MIN_SIZE)
+            {
                 options.setDiskMaxSize(ApiConstants.DISK_CACHE_MIN_SIZE);
+            }
             //设置缓存核心管理
             DiskLruCacheWrapper diskLruCache = new DiskLruCacheWrapper(
                     options.getCacheOpeartor(),

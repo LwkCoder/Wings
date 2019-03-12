@@ -90,7 +90,9 @@ public class ShapeImageView extends ImageView
 
         TypedArray custom = context.obtainStyledAttributes(attrs, R.styleable.ShapeImageView);
         if (custom == null)
+        {
             return;
+        }
 
         int shapeType = custom.getInt(R.styleable.ShapeImageView_siv_shape, 0);
         int roundRectRadius = custom.getDimensionPixelSize(
@@ -100,7 +102,9 @@ public class ShapeImageView extends ImageView
         int borderColor = custom.getColor(R.styleable.ShapeImageView_siv_border_color, 0x00000000);
         Drawable foreground = null;
         if (custom.hasValue(R.styleable.ShapeImageView_siv_foreground))
+        {
             foreground = custom.getDrawable(R.styleable.ShapeImageView_siv_foreground);
+        }
         int widthScale = custom.getInteger(R.styleable.ShapeImageView_siv_width_scale, 0);
         int heightScale = custom.getInteger(R.styleable.ShapeImageView_siv_height_scale, 0);
         int scaleTarget = custom.getInt(
@@ -122,7 +126,9 @@ public class ShapeImageView extends ImageView
         }
 
         if (mPressFeedBack)
+        {
             setClickable(true);
+        }
         setImageShape(shape);
         setRoundRectRadius(roundRectRadius);
         setBorderColor(borderColor);
@@ -409,6 +415,7 @@ public class ShapeImageView extends ImageView
      *
      * @return 前景图
      */
+    @Override
     public Drawable getForeground()
     {
         if (android.os.Build.VERSION.SDK_INT >= 23)
@@ -423,6 +430,7 @@ public class ShapeImageView extends ImageView
      *
      * @param foreground 图片
      */
+    @Override
     public void setForeground(Drawable foreground)
     {
         if (android.os.Build.VERSION.SDK_INT >= 23)
@@ -462,7 +470,9 @@ public class ShapeImageView extends ImageView
     {
         if (target != SCALE_TARGET_INSIDE && target != SCALE_TARGET_HEIGHT
                 && target != SCALE_TARGET_WIDTH && target != SCALE_TARGET_EXPAND)
+        {
             return;
+        }
         if (mScaleTarget != target)
         {
             mScaleTarget = target;
@@ -507,12 +517,16 @@ public class ShapeImageView extends ImageView
         if (action == MotionEvent.ACTION_DOWN)
         {
             if (mPressFeedBack)
+            {
                 setAlpha(0.8f);
+            }
         } else if (action == MotionEvent.ACTION_UP ||
                 action == MotionEvent.ACTION_CANCEL)
         {
             if (mPressFeedBack)
+            {
                 setAlpha(1.0f);
+            }
         }
         return super.dispatchTouchEvent(event);
     }

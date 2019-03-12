@@ -114,19 +114,27 @@ public class GlideLoader implements ILoaderStrategy<GlideLoaderOptions>
     private <T> RequestBuilder<T> loadResource(RequestBuilder<T> builder, GlideLoaderOptions options)
     {
         if (StringUtils.isNotEmpty(options.getUrl()))
+        {
             return builder.load(options.getUrl());
-        else if (options.getUri() != null)
+        } else if (options.getUri() != null)
+        {
             return builder.load(options.getUri());
-        else if (options.getDrawable() != null)
+        } else if (options.getDrawable() != null)
+        {
             return builder.load(options.getDrawable());
-        else if (options.getResId() != -1)
+        } else if (options.getResId() != -1)
+        {
             return builder.load(options.getResId());
-        else if (options.getBitmap() != null)
+        } else if (options.getBitmap() != null)
+        {
             return builder.load(options.getBitmap());
-        else if (options.getBytes() != null)
+        } else if (options.getBytes() != null)
+        {
             return builder.load(options.getBytes());
-        else
+        } else
+        {
             throw new IllegalArgumentException("You must set an resource to Glide");
+        }
     }
 
     private RequestOptions getRequestOptions(RequestBuilder builder, GlideLoaderOptions options)
@@ -135,42 +143,62 @@ public class GlideLoader implements ILoaderStrategy<GlideLoaderOptions>
 
         //设置加载占位图
         if (options.getPlaceHolder() != -1)
+        {
             requestOptions.placeholder(options.getPlaceHolder());
-        else if (options.getPlaceHolderDrawable() != null)
+        } else if (options.getPlaceHolderDrawable() != null)
+        {
             requestOptions.placeholder(options.getPlaceHolderDrawable());
-        else if (ImageLoader.getGlobalOptions().getPlaceHolder() != -1)
+        } else if (ImageLoader.getGlobalOptions().getPlaceHolder() != -1)
+        {
             requestOptions.placeholder(ImageLoader.getGlobalOptions().getPlaceHolder());
-        else if (ImageLoader.getGlobalOptions().getPlaceHolderDrawable() != null)
+        } else if (ImageLoader.getGlobalOptions().getPlaceHolderDrawable() != null)
+        {
             requestOptions.placeholder(ImageLoader.getGlobalOptions().getErrorHolderDrawable());
+        }
         //设置错误占位图
         if (options.getErrorHolder() != -1)
+        {
             requestOptions.error(options.getErrorHolder());
-        else if (options.getErrorHolderDrawable() != null)
+        } else if (options.getErrorHolderDrawable() != null)
+        {
             requestOptions.error(options.getErrorHolderDrawable());
-        else if (ImageLoader.getGlobalOptions().getErrorHolder() != -1)
+        } else if (ImageLoader.getGlobalOptions().getErrorHolder() != -1)
+        {
             requestOptions.error(ImageLoader.getGlobalOptions().getErrorHolder());
-        else if (ImageLoader.getGlobalOptions().getErrorHolderDrawable() != null)
+        } else if (ImageLoader.getGlobalOptions().getErrorHolderDrawable() != null)
+        {
             requestOptions.error(ImageLoader.getGlobalOptions().getErrorHolderDrawable());
+        }
         //设置加载大小
         if (options.getWidth() != 0 && options.getHeight() != 0)
+        {
             requestOptions.override(options.getWidth(), options.getHeight());
+        }
         //设置外部缓存策略
         int diskCacheType = options.getDiskCacheType();
         if (diskCacheType == ImageDiskCacheType.ALL)
+        {
             requestOptions.diskCacheStrategy(DiskCacheStrategy.ALL);
-        else if (diskCacheType == ImageDiskCacheType.NONE)
+        } else if (diskCacheType == ImageDiskCacheType.NONE)
+        {
             requestOptions.diskCacheStrategy(DiskCacheStrategy.NONE);
-        else if (diskCacheType == ImageDiskCacheType.RESOURCE)
+        } else if (diskCacheType == ImageDiskCacheType.RESOURCE)
+        {
             requestOptions.diskCacheStrategy(DiskCacheStrategy.RESOURCE);
-        else if (diskCacheType == ImageDiskCacheType.DATA)
+        } else if (diskCacheType == ImageDiskCacheType.DATA)
+        {
             requestOptions.diskCacheStrategy(DiskCacheStrategy.DATA);
-        else
+        } else
+        {
             requestOptions.diskCacheStrategy(DiskCacheStrategy.AUTOMATIC);
+        }
         //设置内存缓存策略
         requestOptions.skipMemoryCache(options.isSkipMemoryCache());
         //设置Transformation
         if (options.getTransformation() != null)
+        {
             requestOptions.transform(options.getTransformation());
+        }
         //设置显示动画
         if (options.isCrossFade())
         {
@@ -182,7 +210,9 @@ public class GlideLoader implements ILoaderStrategy<GlideLoaderOptions>
         }
         //设置缩略图比例
         if (options.getThumbRate() != 0)
+        {
             builder.thumbnail(options.getThumbRate());
+        }
 
         return requestOptions;
     }
@@ -226,10 +256,13 @@ public class GlideLoader implements ILoaderStrategy<GlideLoaderOptions>
     public String getCachePath()
     {
         if (StringUtils.isNotEmpty(ImageLoader.getGlobalOptions().getCachePath()))
+        {
             return ImageLoader.getGlobalOptions().getCachePath();
-        else
+        } else
+        {
             return new StringBuffer()
                     .append(SDCardUtils.getExternalCachePath())
                     .append("glide/").toString();
+        }
     }
 }

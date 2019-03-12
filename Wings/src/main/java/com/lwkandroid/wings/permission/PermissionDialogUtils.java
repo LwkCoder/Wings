@@ -43,7 +43,9 @@ public final class PermissionDialogUtils
     public static void showSettingIfNeverAskDialog(final Context context, final List<String> permissions, final Setting.Action callBackAction)
     {
         if (!AndPermission.hasAlwaysDeniedPermission(context, permissions))
+        {
             return;
+        }
         List<String> permissionNames = Permission.transformText(context, permissions);
         String message = context.getString(R.string.dialog_runtime_neverask_message,
                 AppUtils.getAppName(), TextUtils.join("\n", permissionNames));

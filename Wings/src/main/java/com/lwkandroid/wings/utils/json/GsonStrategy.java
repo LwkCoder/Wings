@@ -18,11 +18,11 @@ import java.util.List;
  */
 public final class GsonStrategy implements IJsonStrategy
 {
-    private static final Gson mGson;
+    private static final Gson GSON;
 
     static
     {
-        mGson = new GsonBuilder()
+        GSON = new GsonBuilder()
                 .setPrettyPrinting()
                 .registerTypeAdapter(Date.class, new DateTypeAdapter())
                 .create();
@@ -44,13 +44,13 @@ public final class GsonStrategy implements IJsonStrategy
     @Override
     public <T> T parseJsonObject(String json, Class<T> classOfT)
     {
-        return mGson.fromJson(json, classOfT);
+        return GSON.fromJson(json, classOfT);
     }
 
     @Override
     public <T> T parseJsonObject(String json, Type typeOfT)
     {
-        return mGson.fromJson(json, typeOfT);
+        return GSON.fromJson(json, typeOfT);
     }
 
     @Override
@@ -60,7 +60,7 @@ public final class GsonStrategy implements IJsonStrategy
         JsonArray array = new JsonParser().parse(json).getAsJsonArray();
         for (final JsonElement elem : array)
         {
-            lst.add(mGson.fromJson(elem, classOfT));
+            lst.add(GSON.fromJson(elem, classOfT));
         }
         return lst;
     }
@@ -72,7 +72,7 @@ public final class GsonStrategy implements IJsonStrategy
         JsonArray array = new JsonParser().parse(json).getAsJsonArray();
         for (final JsonElement elem : array)
         {
-            lst.add(mGson.<T>fromJson(elem, typeOfT));
+            lst.add(GSON.<T>fromJson(elem, typeOfT));
         }
         return lst;
     }
@@ -80,7 +80,7 @@ public final class GsonStrategy implements IJsonStrategy
     @Override
     public String toJson(Object o)
     {
-        return mGson.toJson(o);
+        return GSON.toJson(o);
     }
 
 }

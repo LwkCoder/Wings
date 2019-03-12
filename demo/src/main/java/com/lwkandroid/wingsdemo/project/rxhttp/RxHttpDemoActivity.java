@@ -160,9 +160,12 @@ public class RxHttpDemoActivity extends AppBaseActivity<RxHttpDemoPresenter> imp
     public void setWeatherHttpResultData(List<TabsBean> dataList)
     {
         if (dataList == null)
+        {
             mTextView.setText(null);
-        else
+        } else
+        {
             mTextView.setText(dataList.toString());
+        }
     }
 
     @Override
@@ -194,9 +197,12 @@ public class RxHttpDemoActivity extends AppBaseActivity<RxHttpDemoPresenter> imp
     public void showNonRestFulResult(NonRestFulResult result)
     {
         if (result == null)
+        {
             mTextView.setText(null);
-        else
+        } else
+        {
             mTextView.setText(result.toString());
+        }
     }
 
     @Override

@@ -105,7 +105,9 @@ public class CacheCore
     public synchronized boolean clear()
     {
         if (mDiskLruCache != null)
+        {
             return mDiskLruCache.clear();
+        }
         return false;
     }
 

@@ -143,6 +143,8 @@ public class QRCodeDemoActivity extends AppBaseActivity<QRCodeDemoPresenter> imp
                 }
                 getPresenter().createQRCode(qrContent);
                 break;
+            default:
+                break;
         }
     }
 }

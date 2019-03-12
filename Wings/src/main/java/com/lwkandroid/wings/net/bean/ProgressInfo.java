@@ -112,7 +112,9 @@ public class ProgressInfo implements Parcelable
     public int getPercent()
     {
         if (getCurrentBytes() <= 0 || getContentLength() <= 0)
+        {
             return 0;
+        }
         return (int) ((100 * getCurrentBytes()) / getContentLength());
     }
 
@@ -124,7 +126,9 @@ public class ProgressInfo implements Parcelable
     public long getSpeed()
     {
         if (getEachBytes() <= 0 || getIntervalTime() <= 0)
+        {
             return 0;
+        }
         return getEachBytes() * 1000 / getIntervalTime();
     }
 

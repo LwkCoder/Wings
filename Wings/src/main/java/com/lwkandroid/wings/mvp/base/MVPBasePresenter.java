@@ -38,6 +38,7 @@ public abstract class MVPBasePresenter<V extends IMVPBaseView, M> implements IMV
     /**
      * 创建Model层对象
      */
+    @Override
     public abstract M createModel();
 
     @Override
@@ -62,7 +63,9 @@ public abstract class MVPBasePresenter<V extends IMVPBaseView, M> implements IMV
     public void addComposites(Disposable... disposable)
     {
         if (mCompositeDisposable != null)
+        {
             mCompositeDisposable.addAll(disposable);
+        }
     }
 
     @Override
@@ -87,6 +90,7 @@ public abstract class MVPBasePresenter<V extends IMVPBaseView, M> implements IMV
     /**
      * 线程绑定IO到Main，并监听生命周期OnDestroy
      */
+    @Override
     public <T> ObservableTransformer<T, T> applyIo2MainWithLifeCycle()
     {
         return new ObservableTransformer<T, T>()
@@ -103,6 +107,7 @@ public abstract class MVPBasePresenter<V extends IMVPBaseView, M> implements IMV
     /**
      * 线程绑定IO到Main，并监听指定生命周期
      */
+    @Override
     public <T> ObservableTransformer<T, T> applyIo2MainWithLifeCycle(@RxLifecycle.Event final int target)
     {
         return new ObservableTransformer<T, T>()
@@ -119,6 +124,7 @@ public abstract class MVPBasePresenter<V extends IMVPBaseView, M> implements IMV
     /**
      * 线程绑定Computation到Main，并监听生命周期OnDestroy
      */
+    @Override
     public <T> ObservableTransformer<T, T> applyComputation2MainWithLifeCycle()
     {
         return new ObservableTransformer<T, T>()
@@ -135,6 +141,7 @@ public abstract class MVPBasePresenter<V extends IMVPBaseView, M> implements IMV
     /**
      * 线程绑定Computation到Main，并监听指定生命周期
      */
+    @Override
     public <T> ObservableTransformer<T, T> applyComputation2MainWithLifeCycle(@RxLifecycle.Event final int target)
     {
         return new ObservableTransformer<T, T>()
@@ -151,6 +158,7 @@ public abstract class MVPBasePresenter<V extends IMVPBaseView, M> implements IMV
     /**
      * 线程绑定NewThread到Main，并监听生命周期OnDestroy
      */
+    @Override
     public <T> ObservableTransformer<T, T> applyNewThread2MainWithLifeCycle()
     {
         return new ObservableTransformer<T, T>()
@@ -167,6 +175,7 @@ public abstract class MVPBasePresenter<V extends IMVPBaseView, M> implements IMV
     /**
      * 线程绑定NewThread到Main，并监听指定生命周期
      */
+    @Override
     public <T> ObservableTransformer<T, T> applyNewThread2MainWithLifeCycle(@RxLifecycle.Event final int target)
     {
         return new ObservableTransformer<T, T>()
@@ -189,8 +198,12 @@ public abstract class MVPBasePresenter<V extends IMVPBaseView, M> implements IMV
             mCompositeDisposable = null;
         }
         if (mView != null)
+        {
             mView = null;
+        }
         if (mModel != null)
+        {
             mModel = null;
+        }
     }
 }

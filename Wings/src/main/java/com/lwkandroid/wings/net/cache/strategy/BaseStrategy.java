@@ -32,6 +32,7 @@ public abstract class BaseStrategy implements IStrategy
                 });
 
         if (needEmpty)
+        {
             observable = observable.onErrorResumeNext(new Function<Throwable, ObservableSource<? extends ApiResultCacheWrapper<T>>>()
             {
                 @Override
@@ -40,6 +41,7 @@ public abstract class BaseStrategy implements IStrategy
                     return Observable.empty();
                 }
             });
+        }
 
         return observable;
     }
@@ -74,6 +76,7 @@ public abstract class BaseStrategy implements IStrategy
         });
 
         if (needEmpty)
+        {
             observable = observable.onErrorResumeNext(new Function<Throwable, ObservableSource<? extends ApiResultCacheWrapper<T>>>()
             {
                 @Override
@@ -82,6 +85,7 @@ public abstract class BaseStrategy implements IStrategy
                     return Observable.empty();
                 }
             });
+        }
 
         return observable;
     }

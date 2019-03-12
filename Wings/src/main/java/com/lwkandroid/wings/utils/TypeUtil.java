@@ -92,7 +92,7 @@ public final class TypeUtil
 
     public static boolean isEmpty(String value)
     {
-        if (value == null || value.equals(""))
+        if (value == null || "".equals(value))
         {
             return true;
         }
@@ -158,7 +158,9 @@ public final class TypeUtil
     public static int getIntValue(String str, int defaultValue)
     {
         if (TextUtils.isEmpty(str))
+        {
             return defaultValue;
+        }
 
         try
         {

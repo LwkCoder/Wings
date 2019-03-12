@@ -36,14 +36,20 @@ public final class AppUtils
     {
         ActivityManager am = (ActivityManager) Utils.getContext().getSystemService(Context.ACTIVITY_SERVICE);
         if (am == null)
+        {
             return null;
+        }
         List<ActivityManager.RunningAppProcessInfo> runningApps = am.getRunningAppProcesses();
         if (runningApps == null)
+        {
             return null;
+        }
         for (ActivityManager.RunningAppProcessInfo procInfo : runningApps)
         {
             if (procInfo.pid == pid)
+            {
                 return procInfo.processName;
+            }
         }
         return null;
     }
@@ -101,13 +107,13 @@ public final class AppUtils
      *
      * @return App版本号
      */
-    public static int getAppVersionCode()
+    public static long getAppVersionCode()
     {
         try
         {
             PackageManager pm = Utils.getContext().getPackageManager();
             PackageInfo pi = pm.getPackageInfo(getPackageName(), 0);
-            return pi == null ? -1 : pi.versionCode;
+            return pi == null ? -1 : (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P ? pi.getLongVersionCode() : pi.versionCode);
         } catch (PackageManager.NameNotFoundException e)
         {
             e.printStackTrace();
@@ -145,8 +151,15 @@ public final class AppUtils
         try
         {
             PackageManager pm = Utils.getContext().getPackageManager();
-            PackageInfo pi = pm.getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
-            return pi == null ? null : pi.signatures;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
+            {
+                PackageInfo pi = pm.getPackageInfo(getPackageName(), PackageManager.GET_SIGNING_CERTIFICATES);
+                return pi != null ? pi.signingInfo.getApkContentsSigners() : null;
+            } else
+            {
+                PackageInfo pi = pm.getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
+                return pi != null ? pi.signatures : null;
+            }
         } catch (PackageManager.NameNotFoundException e)
         {
             e.printStackTrace();
@@ -163,7 +176,9 @@ public final class AppUtils
     {
         Signature[] signature = getAppSignature();
         if (signature == null)
+        {
             return null;
+        }
         return EncryptUtils.encryptSHA1ToString(signature[0].toByteArray()).
                 replaceAll("(?<=[0-9A-F]{2})[0-9A-F]{2}", ":$0");
     }
@@ -181,12 +196,16 @@ public final class AppUtils
         ActivityManager manager = (ActivityManager) Utils.getContext().getSystemService(Context.ACTIVITY_SERVICE);
         List<ActivityManager.RunningAppProcessInfo> infos = manager.getRunningAppProcesses();
         if (infos == null || infos.size() == 0)
+        {
             return false;
+        }
 
         for (ActivityManager.RunningAppProcessInfo info : infos)
         {
             if (info != null && info.pid == pid && StringUtils.isEquals(packageName, info.processName))
+            {
                 return true;
+            }
         }
         return false;
     }
@@ -204,12 +223,16 @@ public final class AppUtils
         ActivityManager manager = (ActivityManager) Utils.getContext().getSystemService(Context.ACTIVITY_SERVICE);
         List<ActivityManager.RunningAppProcessInfo> infos = manager.getRunningAppProcesses();
         if (infos == null || infos.size() == 0)
+        {
             return false;
+        }
 
         for (ActivityManager.RunningAppProcessInfo info : infos)
         {
             if (info != null && info.pid == pid && StringUtils.isEquals(packageName, info.processName))
+            {
                 return info.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND;
+            }
         }
         return false;
     }
@@ -227,12 +250,17 @@ public final class AppUtils
         ActivityManager manager = (ActivityManager) Utils.getContext().getSystemService(Context.ACTIVITY_SERVICE);
         List<ActivityManager.RunningAppProcessInfo> infos = manager.getRunningAppProcesses();
         if (infos == null || infos.size() == 0)
+        {
             return false;
+        }
 
         for (ActivityManager.RunningAppProcessInfo info : infos)
         {
             if (info != null && info.pid == pid && StringUtils.isEquals(packageName, info.processName))
-                return info.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_BACKGROUND;
+            {
+                return info.importance == (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O ?
+                        ActivityManager.RunningAppProcessInfo.IMPORTANCE_CACHED : ActivityManager.RunningAppProcessInfo.IMPORTANCE_BACKGROUND);
+            }
         }
         return false;
     }
@@ -278,7 +306,9 @@ public final class AppUtils
     {
         Intent intent = createInstallIntent(apkPath);
         if (intent != null)
+        {
             Utils.getContext().startActivity(intent);
+        }
     }
 
     /**
@@ -308,7 +338,9 @@ public final class AppUtils
             {
                 String pkName = packageInfos.get(i).packageName;
                 if (pkName.equals(packageName))
+                {
                     return true;
+                }
             }
         }
         return false;

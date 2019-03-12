@@ -27,7 +27,9 @@ public class PTRWrapper implements IRefreshWrapper<PTRLayout>, PTRLayout.OnPullL
     public void enableRefresh(boolean enable)
     {
         if (getRefreshView() != null)
+        {
             getRefreshView().setEnabled(enable);
+        }
     }
 
     @Override
@@ -42,7 +44,9 @@ public class PTRWrapper implements IRefreshWrapper<PTRLayout>, PTRLayout.OnPullL
     {
         //结束刷新
         if (getRefreshView() != null)
+        {
             getRefreshView().finishRefresh();
+        }
     }
 
     @Override
@@ -79,6 +83,8 @@ public class PTRWrapper implements IRefreshWrapper<PTRLayout>, PTRLayout.OnPullL
     public void onRefresh()
     {
         if (mListener != null)
+        {
             mListener.onRefreshRequest();
+        }
     }
 }

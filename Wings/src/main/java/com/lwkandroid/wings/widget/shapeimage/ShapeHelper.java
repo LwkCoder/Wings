@@ -134,7 +134,9 @@ public class ShapeHelper
         if (shape.isClipPathEnable())
         {
             if (mPath == null)
+            {
                 mPath = new Path();
+            }
             mPath.rewind();
             shape.makeShapeByClipPath(view, mPath);
             int saveCount = canvas.save();
@@ -162,11 +164,17 @@ public class ShapeHelper
     {
         ImageShape shape = view.getImageShape();
         if (shape == null)
+        {
             return;
+        }
         if (shape.isOutlineEnable())
+        {
             return;
+        }
         if (shape.isClipPathEnable())
+        {
             return;
+        }
         update(view, shape, w, h);
     }
 
@@ -178,11 +186,15 @@ public class ShapeHelper
             view.setClipToOutline(false);
         }
         if (shape == null)
+        {
             return;
+        }
         if (shape.isOutlineEnable())
         {
             if (android.os.Build.VERSION.SDK_INT < 21)
+            {
                 return;
+            }
             setOutlineProvider(view, shape);
             return;
         }
@@ -200,15 +212,23 @@ public class ShapeHelper
     private void update(ShapeImageView view, ImageShape shape, int width, int height)
     {
         if (shape == null)
+        {
             return;
+        }
         if (width == 0 || height == 0)
+        {
             return;
+        }
         // 修改或创建Bitmap
         mBitmap = createBitmap(mBitmap, width, height);
         if (mBitmap == null)
+        {
             return;
+        }
         if (mBitmapCanvas == null)
+        {
             mBitmapCanvas = new Canvas();
+        }
         if (mBitmapPaint == null)
         {
             mBitmapPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -226,7 +246,9 @@ public class ShapeHelper
     {
         ImageShape shape = view.getImageShape();
         if (shape == null)
+        {
             return;
+        }
         if (shape.isOutlineEnable())
         {
             Compat.invalidateOutline(view);
@@ -239,7 +261,9 @@ public class ShapeHelper
             return;
         }
         if (mBitmap == null)
+        {
             return;
+        }
         mBitmap.eraseColor(Color.TRANSPARENT);
         mBitmapCanvas.setBitmap(mBitmap);
         shape.makeShapeByPorterDuff(view, mBitmapCanvas, mBitmapPaint);

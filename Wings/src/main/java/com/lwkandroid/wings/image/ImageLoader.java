@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import androidx.annotation.DrawableRes;
 
 import com.lwkandroid.wings.image.bean.ImageGlobalOptions;
 import com.lwkandroid.wings.image.callback.ImageDownLoadCallBack;
@@ -12,6 +11,8 @@ import com.lwkandroid.wings.image.glide.GlideLoader;
 import com.lwkandroid.wings.image.glide.GlideLoaderOptions;
 
 import java.io.File;
+
+import androidx.annotation.DrawableRes;
 
 /**
  * Created by LWK
@@ -21,11 +22,11 @@ public final class ImageLoader
 {
     static
     {
-        mGlobalOptions = new ImageGlobalOptions();
+        GLOBAL_OPTIONS = new ImageGlobalOptions();
         LOADER = new GlideLoader();
     }
 
-    private static final ImageGlobalOptions mGlobalOptions;
+    private static final ImageGlobalOptions GLOBAL_OPTIONS;
 
     private static final ILoaderStrategy LOADER;
 
@@ -38,7 +39,7 @@ public final class ImageLoader
      */
     public static ImageGlobalOptions getGlobalOptions()
     {
-        return mGlobalOptions;
+        return GLOBAL_OPTIONS;
     }
 
     /**

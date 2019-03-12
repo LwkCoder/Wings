@@ -39,7 +39,9 @@ public final class PinyinUtils
     public static String ccs2Pinyin(final CharSequence ccs, final CharSequence split)
     {
         if (ccs == null || ccs.length() == 0)
+        {
             return null;
+        }
         StringBuilder sb = new StringBuilder();
         for (int i = 0, len = ccs.length(); i < len; i++)
         {
@@ -47,7 +49,7 @@ public final class PinyinUtils
             if (ch >= 0x4E00 && ch <= 0x9FA5)
             {
                 int sp = (ch - 0x4E00) * 6;
-                sb.append(pinyinTable.substring(sp, sp + 6).trim());
+                sb.append(PINYIN_TABLE.substring(sp, sp + 6).trim());
             } else
             {
                 sb.append(ch);
@@ -66,7 +68,9 @@ public final class PinyinUtils
     public static String getPinyinFirstLetter(final CharSequence ccs)
     {
         if (ccs == null || ccs.length() == 0)
+        {
             return null;
+        }
         return ccs2Pinyin(String.valueOf(ccs.charAt(0))).substring(0, 1);
     }
 
@@ -91,7 +95,9 @@ public final class PinyinUtils
     public static String getPinyinFirstLetters(final CharSequence ccs, final CharSequence split)
     {
         if (ccs == null || ccs.length() == 0)
+        {
             return null;
+        }
         int len = ccs.length();
         StringBuilder sb = new StringBuilder(len);
         for (int i = 0; i < len; i++)
@@ -110,28 +116,35 @@ public final class PinyinUtils
     public static String getSurnamePinyin(final CharSequence name)
     {
         if (name == null || name.length() == 0)
+        {
             return null;
+        }
         if (name.length() >= 2)
         {
             CharSequence str = name.subSequence(0, 2);
-            if (str.equals("澹台"))
+            if ("澹台".equals(str))
+            {
                 return "tantai";
-            else if (str.equals("尉迟"))
+            } else if ("尉迟".equals(str))
+            {
                 return "yuchi";
-            else if (str.equals("万俟"))
+            } else if ("万俟".equals(str))
+            {
                 return "moqi";
-            else if (str.equals("单于"))
+            } else if ("单于".equals(str))
+            {
                 return "chanyu";
+            }
         }
         char ch = name.charAt(0);
-        if (surnames.containsKey(ch))
+        if (SURNAMES.containsKey(ch))
         {
-            return surnames.get(ch);
+            return SURNAMES.get(ch);
         }
         if (ch >= 0x4E00 && ch <= 0x9FA5)
         {
             int sp = (ch - 0x4E00) * 6;
-            return pinyinTable.substring(sp, sp + 6).trim();
+            return PINYIN_TABLE.substring(sp, sp + 6).trim();
         } else
         {
             return String.valueOf(ch);
@@ -148,12 +161,14 @@ public final class PinyinUtils
     {
         String surname = getSurnamePinyin(name);
         if (surname == null || surname.length() == 0)
+        {
             return null;
+        }
         return String.valueOf(surname.charAt(0));
     }
 
     // 多音字姓氏映射表
-    private static final SimpleArrayMap<Character, String> surnames;
+    private static final SimpleArrayMap<Character, String> SURNAMES;
 
     /**
      * 获取拼音对照表，对比过pinyin4j和其他方式，这样查表设计的好处就是读取快
@@ -161,49 +176,49 @@ public final class PinyinUtils
      * <p>如果你想存进文件，然后读取操作的话也是可以，但速度肯定没有这样空间换时间快，毕竟现在设备内存都很大</p>
      * <p>如需更多用法可以用pinyin4j开源库</p>
      */
-    private static final String pinyinTable;
+    private static final String PINYIN_TABLE;
 
     static
     {
-        surnames = new SimpleArrayMap<>(35);
-        surnames.put('乐', "yue");
-        surnames.put('乘', "sheng");
-        surnames.put('乜', "nie");
-        surnames.put('仇', "qiu");
-        surnames.put('会', "gui");
-        surnames.put('便', "pian");
-        surnames.put('区', "ou");
-        surnames.put('单', "shan");
-        surnames.put('参', "shen");
-        surnames.put('句', "gou");
-        surnames.put('召', "shao");
-        surnames.put('员', "yun");
-        surnames.put('宓', "fu");
-        surnames.put('弗', "fei");
-        surnames.put('折', "she");
-        surnames.put('曾', "zeng");
-        surnames.put('朴', "piao");
-        surnames.put('查', "zha");
-        surnames.put('洗', "xian");
-        surnames.put('盖', "ge");
-        surnames.put('祭', "zhai");
-        surnames.put('种', "chong");
-        surnames.put('秘', "bi");
-        surnames.put('繁', "po");
-        surnames.put('缪', "miao");
-        surnames.put('能', "nai");
-        surnames.put('蕃', "pi");
-        surnames.put('覃', "qin");
-        surnames.put('解', "xie");
-        surnames.put('谌', "shan");
-        surnames.put('适', "kuo");
-        surnames.put('都', "du");
-        surnames.put('阿', "e");
-        surnames.put('难', "ning");
-        surnames.put('黑', "he");
+        SURNAMES = new SimpleArrayMap<>(35);
+        SURNAMES.put('乐', "yue");
+        SURNAMES.put('乘', "sheng");
+        SURNAMES.put('乜', "nie");
+        SURNAMES.put('仇', "qiu");
+        SURNAMES.put('会', "gui");
+        SURNAMES.put('便', "pian");
+        SURNAMES.put('区', "ou");
+        SURNAMES.put('单', "shan");
+        SURNAMES.put('参', "shen");
+        SURNAMES.put('句', "gou");
+        SURNAMES.put('召', "shao");
+        SURNAMES.put('员', "yun");
+        SURNAMES.put('宓', "fu");
+        SURNAMES.put('弗', "fei");
+        SURNAMES.put('折', "she");
+        SURNAMES.put('曾', "zeng");
+        SURNAMES.put('朴', "piao");
+        SURNAMES.put('查', "zha");
+        SURNAMES.put('洗', "xian");
+        SURNAMES.put('盖', "ge");
+        SURNAMES.put('祭', "zhai");
+        SURNAMES.put('种', "chong");
+        SURNAMES.put('秘', "bi");
+        SURNAMES.put('繁', "po");
+        SURNAMES.put('缪', "miao");
+        SURNAMES.put('能', "nai");
+        SURNAMES.put('蕃', "pi");
+        SURNAMES.put('覃', "qin");
+        SURNAMES.put('解', "xie");
+        SURNAMES.put('谌', "shan");
+        SURNAMES.put('适', "kuo");
+        SURNAMES.put('都', "du");
+        SURNAMES.put('阿', "e");
+        SURNAMES.put('难', "ning");
+        SURNAMES.put('黑', "he");
 
         //noinspection StringBufferReplaceableByString
-        pinyinTable = new StringBuilder(125412)
+        PINYIN_TABLE = new StringBuilder(125412)
                 .append("yi    ding  kao   qi    shang xia   none  wan   zhang san   shang xia   ji    bu    yu    mian  gai   chou  chou  zhuan qie   pi    shi   shi   qiu   bing  ye    cong  dong  si    cheng diu   qiu   liang diu   you   liang yan   bing  sang  shu   jiu   ge    ya    qiang zhong ji    jie   feng  guan  chuan chan  lin   zhuo  zhu   none  wan   dan   wei   zhu   jing  li    ju    pie   fu    yi    yi    nai   none  jiu   jiu   tuo   me    yi    none  zhi   wu    zha   hu    fa    le    zhong ping  pang  qiao  hu    guai  cheng cheng yi    yin   none  mie   jiu   qi    ye    xi    xiang gai   diu   none  none  shu   none  shi   ji    nang  jia   none  shi   none  none  mai   luan  none  ru    xi    yan   fu    sha   na    gan   none  none  none  none  qian  zhi   gui   gan   luan  lin   yi    jue   le    none  yu    zheng shi   shi   er    chu   yu    kui   yu    yun   hu    qi    wu    jing  si    sui   gen   gen   ya    xie   ya    qi    ya    ji    tou   wang  kang  ta    jiao  hai   yi    chan  heng  mu    none  xiang jing  ting  liang heng  jing  ye    qin   bo    you   xie   dan   lian  duo   wei   ren   ren   ji    none  wang  yi    shen  ren   le    ding  ze    jin   pu    chou  ba    zhang jin   jie   bing  reng  cong  fo    san   lun   none  cang  zi    shi   ta    zhang fu    xian  xian  cha   hong  tong  ren   qian  gan   ge    di    dai   ling  yi    chao  chang sa    shang yi    mu    men   ren   jia   chao  yang  qian  zhong pi    wan   wu    jian  jia   yao   feng  cang  ren   wang  fen   di    fang  zhong qi    pei   yu    diao  dun   wen   yi    xin   kang  yi    ji    ai    wu    ji    fu    fa    xiu   jin   bei   chen  fu    tang  zhong you   huo   hui   yu    cui   yun   san   wei   chuan che   ya    xian  shang chang lun   cang  xun   xin   wei   zhu   chi   xuan  nao   bo    gu    ni    ni    xie   ban   xu    ling  zhou  shen  qu    si    beng  si    jia   pi    yi    si    ai    zheng dian  han   mai   dan   zhu   bu    qu    bi    shao  ci    wei   di    zhu   zuo   you   yang  ti    zhan  he    bi    tuo   she   yu    yi    fo    zuo   gou   ning  tong  ni    xuan  ju    yong  wa    qian  none  ka    none  pei   huai  he    lao   xiang ge    yang  bai   fa    ming  jia   nai   bing  ji    heng  huo   gui   quan  tiao  jiao  ci    yi    shi   xing  shen  tuo   kan   zhi   gai   lai   yi    chi   kua   guang li    yin   shi   mi    zhu   xu    you   an    lu    mou   er    lun   dong  cha   chi   xun   gong  zhou  yi    ru    jian  xia   jia   zai   lu:   none  jiao  zhen  ce    qiao  kuai  chai  ning  nong  jin   wu    hou   jiong cheng zhen  cuo   chou  qin   lu:   ju    shu   ting  shen  tuo   bo    nan   hao   bian  tui   yu    xi    cu    e     qiu   xu    kuang ku    wu    jun   yi    fu    lang  zu    qiao  li    yong  hun   jing  xian  san   pai   su    fu    xi    li    mian  ping  bao   yu    si    xia   xin   xiu   yu    ti    che   chou  none  yan   liang li    lai   si    jian  xiu   fu    he    ju    xiao  pai   jian  biao  ti    fei   feng  ya    an    bei   yu    xin   bi    chi   chang zhi   bing  zan   yao   cui   lia   wan   lai   cang  zong  ge    guan  bei   tian  shu   shu   men   dao   tan   jue   chui  xing  peng  tang  hou   yi    qi    ti    gan   jing  jie   xu    chang jie   fang  zhi   kong  juan  zong  ju    qian  ni    lun   zhuo  wo    luo   song  leng  hun   dong  zi    ben   wu    ju    nai   cai   jian  zhai  ye    zhi   sha   qing  none  ying  cheng qian  yan   nuan  zhong chun  jia   jie   wei   yu    bing  ruo   ti    wei   pian  yan   feng  tang  wo    e     xie   che   sheng kan   di    zuo   cha   ting  bei   ye    huang yao   zhan  qiu   yan   you   jian  xu    zha   chai  fu    bi    zhi   zong  mian  ji    yi    xie   xun   si    duan  ce    zhen  ou    tou   tou   bei   za    lou   jie   wei   fen   chang kui   sou   chi   su    xia   fu    yuan  rong  li    ru    yun   gou   ma    bang  dian  tang  hao   jie   xi    shan  qian  jue   cang  chu   san   bei   xiao  yong  yao   ta    suo   wang  fa    bing  jia   dai   zai   tang  none  bin   chu   nuo   zan   lei   cui   yong  zao   zong  peng  song  ao    chuan yu    zhai  zu    shang qian")
                 .append("g qiang chi   sha   han   zhang qing  yan   di    xi    lou   bei   piao  jin   lian  lu    man   qian  xian  qiu   ying  dong  zhuan xiang shan  qiao  jiong tui   zun   pu    xi    lao   chang guang liao  qi    deng  chan  wei   zhang fan   hui   chuan tie   dan   jiao  jiu   seng  fen   xian  jue   e     jiao  jian  tong  lin   bo    gu    xian  su    xian  jiang min   ye    jin   jia   qiao  pi    feng  zhou  ai    sai   yi    jun   nong  shan  yi    dang  jing  xuan  kuai  jian  chu   dan   jiao  sha   zai   none  bin   an    ru    tai   chou  chai  lan   ni    jin   qian  meng  wu    neng  qiong ni    chang lie   lei   lu:   kuang bao   du    biao  zan   zhi   si    you   hao   qin   chen  li    teng  wei   long  chu   chan  rang  shu   hui   li    luo   zan   nuo   tang  yan   lei   nang  er    wu    yun   zan   yuan  xiong chong zhao  xiong xian  guang dui   ke    dui   mian  tu    chang er    dui   er    jin   tu    si    yan   yan   shi   shi   dang  qian  dou   fen   mao   xin   dou   bai   jing  li    kuang ru    wang  nei   quan  liang yu    ba    gong  liu   xi    none  lan   gong  tian  guan  xing  bing  qi    ju    dian  zi    none  yang  jian  shou  ji    yi    ji    chan  jiong mao   ran   nei   yuan  mao   gang  ran   ce    jiong ce    zai   gua   jiong mao   zhou  mao   gou   xu    mian  mi    rong  yin   xie   kan   jun   nong  yi    mi    shi   guan  meng  zhong zui   yuan  ming  kou   none  fu    xie   mi    bing  dong  tai   gang  feng  bing  hu    chong jue   hu    kuang ye    leng  pan   fu    min   dong  xian  lie   xia   jian  jing  shu   mei   shang qi    gu    zhun  song  jing  liang qing  diao  ling  dong  gan   jian  yin   cou   ai    li    cang  ming  zhun  cui   si    duo   jin   lin   lin   ning  xi    du    ji    fan   fan   fan   feng  ju    chu   none  feng  none  none  fu    feng  ping  feng  kai   huang kai   gan   deng  ping  qu    xiong kuai  tu    ao    chu   ji    dang  han   han   zao   dao   diao  dao   ren   ren   chuangfen   qie   yi    ji    kan   qian  cun   chu   wen   ji    dan   xing  hua   wan   jue   li    yue   lie   liu   ze    gang  chuangfu    chu   qu    ju    shan  min   ling  zhong pan   bie   jie   jie   bao   li    shan  bie   chan  jing  gua   gen   dao   chuangkui   ku    duo   er    zhi   shua  quan  cha   ci    ke    jie   gui   ci    gui   kai   duo   ji    ti    jing  lou   luo   ze    yuan  cuo   xue   ke    la    qian  cha   chuan gua   jian  cuo   li    ti    fei   pou   chan  qi    chuangzi    gang  wan   bo    ji    duo   qing  yan   zhuo  jian  ji    bo    yan   ju    huo   sheng jian  duo   duan  wu    gua   fu    sheng jian  ge    zha   kai   chuangjuan  chan  tuan  lu    li    fou   shan  piao  kou   jiao  gua   qiao  jue   hua   zha   zhuo  lian  ju    pi    liu   gui   jiao  gui   jian  jian  tang  huo   ji    jian  yi    jian  zhi   chan  cuan  mo    li    zhu   li    ya    quan  ban   gong  jia   wu    mai   lie   jing  keng  xie   zhi   dong  zhu   nu    jie   qu    shao  yi    zhu   mo    li    jing  lao   lao   juan  kou   yang  wa    xiao  mou   kuang jie   lie   he    shi   ke    jing  hao   bo    min   chi   lang  yong  yong  mian  ke    xun   juan  qing  lu    bu    meng  lai   le    kai   mian  dong  xu    xu    kan   wu    yi    xun   weng  sheng lao   mu    lu    piao  shi   ji    qin   qiang jiao  quan  xiang yi    qiao  fan   juan  tong  ju    dan   xie   mai   xun   xun   lu:   li    che   rang  quan  bao   shao  yun   jiu   bao   gou   wu    yun   none  none  gai   gai   bao   cong  none  xiong peng  ju    tao   ge    pu    an    pao   fu    gong  da    jiu   qiong bi    hua   bei   nao   chi   fang  jiu   yi    za    jiang kang  jiang kuang hu    xia   qu    fan   gui   qie   cang  kuang fei   hu    yu    gui   kui   hui   dan   kui   lian  lian  suan  du    jiu   qu    xi    pi    qu    yi    an    yan   bian  ni    qu    shi   xin   qian  nian  sa    zu    sheng wu    hui   ban   shi   xi    wan   hua   xie   wan   bei   zu    zhuo  xie   dan   mai   nan   dan   ji    bo    shuai bu    kuang bian  bu    zhan  ka    lu    you   lu    xi    gua   wo    xie   jie   jie   wei   ang   qiong zhi   mao   yin   we")
                 .append("i   shao  ji    que   luan  shi   juan  xie   xu    jin   que   wu    ji    e     qing  xi    none  chang han   e     ting  li    zhe   an    li    ya    ya    yan   she   zhi   zha   pang  none  ke    ya    zhi   ce    pang  ti    li    she   hou   ting  zui   cuo   fei   yuan  ce    yuan  xiang yan   li    jue   sha   dian  chu   jiu   qin   ao    gui   yan   si    li    chang lan   li    yan   yan   yuan  si    si    lin   qiu   qu    qu    none  lei   du    xian  zhuan san   can   can   san   can   ai    dai   you   cha   ji    you   shuangfan   shou  guai  ba    fa    ruo   shi   shu   zhui  qu    shou  bian  xu    jia   pan   sou   ji    yu    sou   die   rui   cong  kou   gu    ju    ling  gua   tao   kou   zhi   jiao  zhao  ba    ding  ke    tai   chi   shi   you   qiu   po    ye    hao   si    tan   chi   le    diao  ji    none  hong  mie   yu    mang  chi   ge    xuan  yao   zi    he    ji    diao  cun   tong  ming  hou   li    tu    xiang zha   he    ye    lu:   a     ma    ou    xue   yi    jun   chou  lin   tun   yin   fei   bi    qin   qin   jie   pou   fou   ba    dun   fen   e     han   ting  hang  shun  qi    hu    zhi   yin   wu    wu    chao  na    chuo  xi    chui  dou   wen   hou   ou    wu    gao   ya    jun   lu:   e     ge    mei   dai   qi    cheng wu    gao   fu    jiao  hong  chi   sheng na    tun   m     yi    dai   ou    li    bei   yuan  guo   none  qiang wu    e     shi   quan  pen   wen   ni    mou   ling  ran   you   di    zhou  shi   zhou  zhan  ling  yi    qi    ping  zi    gua   ci    wei   xu    he    nao   xia   pei   yi    xiao  shen  hu    ming  da    qu    ju    gan   za    tuo   duo   pou   pao   bie   fu    bi    he    za    he    hai   jiu   yong  fu    da    zhou  wa    ka    gu    ka    zuo   bu    long  dong  ning  zha   si    xian  huo   qi    er    e     guang zha   xi    yi    lie   zi    mie   mi    zhi   yao   ji    zhou  ge    shuai zan   xiao  ke    hui   kua   huai  tao   xian  e     xuan  xiu   guo   yan   lao   yi    ai    pin   shen  tong  hong  xiong duo   wa    ha    zai   you   di    pai   xiang ai    gen   kuang ya    da    xiao  bi    hui   none  hua   none  kuai  duo   none  ji    nong  mou   yo    hao   yuan  long  pou   mang  ge    e     chi   shao  li    na    zu    he    ku    xiao  xian  lao   bei   zhe   zha   liang ba    mi    le    sui   fou   bu    han   heng  geng  shuo  ge    you   yan   gu    gu    bai   han   suo   chun  yi    ai    jia   tu    xian  guan  li    xi    tang  zuo   miu   che   wu    zao   ya    dou   qi    di    qin   ma    none  gong  dou   none  lao   liang suo   zao   huan  none  gou   ji    zuo   wo    feng  yin   hu    qi    shou  wei   shua  chang er    li    qiang an    jie   yo    nian  yu    tian  lai   sha   xi    tuo   hu    ai    zhou  nou   ken   zhuo  zhuo  shang di    heng  lin   a     xiao  xiang tun   wu    wen   cui   jie   hu    qi    qi    tao   dan   dan   wan   zi    bi    cui   chuo  he    ya    qi    zhe   fei   liang xian  pi    sha   la    ze    qing  gua   pa    zhe   se    zhuan nie   guo   luo   yan   di    quan  tan   bo    ding  lang  xiao  none  tang  chi   ti    an    jiu   dan   ka    yong  wei   nan   shan  yu    zhe   la    jie   hou   han   die   zhou  chai  kuai  re    yu    yin   zan   yao   wo    mian  hu    yun   chuan hui   huan  huan  xi    he    ji    kui   zhong wei   sha   xu    huang du    nie   xuan  liang yu    sang  chi   qiao  yan   dan   pen   shi   li    yo    zha   wei   miao  ying  pen   none  kui   xi    yu    jie   lou   ku    cao   huo   ti    yao   he    a     xiu   qiang se    yong  su    hong  xie   ai    suo   ma    cha   hai   ke    da    sang  chen  ru    sou   gong  ji    pang  wu    qian  shi   ge    zi    jie   luo   weng  wa    si    chi   hao   suo   jia   hai   suo   qin   nie   he    none  sai   ng    ge    na    dia   ai    none  tong  bi    ao    ao    lian  cui   zhe   mo    sou   sou   tan   di    qi    jiao  chong jiao  kai   tan   san   cao   jia   none  xiao  piao  lou   ga    gu    xiao  hu    hui   guo   ou    xian  ze    chang xu    po    de    ma    ma    hu    lei   du    ga    tang  ye    beng  ying  none  jiao  mi    xiao  hua   ")

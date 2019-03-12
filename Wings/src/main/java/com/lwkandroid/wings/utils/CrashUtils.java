@@ -5,7 +5,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Environment;
-import androidx.annotation.NonNull;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -16,7 +15,12 @@ import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
+import androidx.annotation.NonNull;
 
 /**
  * 崩溃相关工具类
@@ -27,7 +31,7 @@ public final class CrashUtils
     private static String defaultDir;
     private static String dir;
     private static String versionName;
-    private static int versionCode;
+    private static long versionCode;
 
     private static ExecutorService sExecutor;
 
@@ -52,7 +56,7 @@ public final class CrashUtils
             if (pi != null)
             {
                 versionName = pi.versionName;
-                versionCode = pi.versionCode;
+                versionCode = Build.VERSION.SDK_INT >= Build.VERSION_CODES.P ? pi.getLongVersionCode() : pi.versionCode;
             }
         } catch (PackageManager.NameNotFoundException e)
         {
@@ -95,10 +99,21 @@ public final class CrashUtils
                 String fileName = FORMAT.format(now) + ".txt";
                 final String fullPath = (dir == null ? defaultDir : dir) + fileName;
                 if (!createOrExistsFile(fullPath))
+                {
                     return;
+                }
                 if (sExecutor == null)
                 {
-                    sExecutor = Executors.newSingleThreadExecutor();
+                    sExecutor = new ThreadPoolExecutor(1, 1,
+                            0L, TimeUnit.MILLISECONDS,
+                            new LinkedBlockingQueue<Runnable>(), new ThreadFactory()
+                    {
+                        @Override
+                        public Thread newThread(Runnable r)
+                        {
+                            return new Thread(r, "CrashLogPrinter");
+                        }
+                    });
                 }
                 sExecutor.execute(new Runnable()
                 {
@@ -214,8 +229,9 @@ public final class CrashUtils
         }
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
                 && Utils.getContext().getExternalCacheDir() != null)
+        {
             defaultDir = Utils.getContext().getExternalCacheDir() + FILE_SEP + "crash" + FILE_SEP;
-        else
+        } else
         {
             defaultDir = Utils.getContext().getCacheDir() + FILE_SEP + "crash" + FILE_SEP;
         }
@@ -227,9 +243,13 @@ public final class CrashUtils
     {
         File file = new File(filePath);
         if (file.exists())
+        {
             return file.isFile();
+        }
         if (!createOrExistsDir(file.getParentFile()))
+        {
             return false;
+        }
         try
         {
             return file.createNewFile();
@@ -248,7 +268,9 @@ public final class CrashUtils
     private static boolean isSpace(final String s)
     {
         if (s == null)
+        {
             return true;
+        }
         for (int i = 0, len = s.length(); i < len; ++i)
         {
             if (!Character.isWhitespace(s.charAt(i)))

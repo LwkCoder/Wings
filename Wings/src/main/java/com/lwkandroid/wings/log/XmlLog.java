@@ -33,7 +33,9 @@ class XmlLog
         for (String line : lines)
         {
             if (!LogUtil.isEmpty(line))
+            {
                 Log.d(tag, "║ " + line);
+            }
         }
         LogUtil.printLine(tag, false);
     }

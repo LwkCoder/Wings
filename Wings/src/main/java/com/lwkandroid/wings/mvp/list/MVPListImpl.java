@@ -42,16 +42,24 @@ class MVPListImpl<RV, D> implements IMVPListContract.IViewCommon<D>,
         mRecyclerView = recyclerView;
 
         if (mRefreshWrapper == null)
+        {
             throw new IllegalStateException("RefreshLayout can not be null! ");
+        }
         if (mRecyclerView == null)
+        {
             throw new IllegalStateException("RecyclerView can not be null!");
+        }
         if (mAdapter == null)
+        {
             throw new IllegalStateException("RecyclerView's Adapter can not be null!");
+        }
 
         mRefreshWrapper.enableRefresh(getListOptions().isEnableRefresh());
         mRefreshWrapper.setOnRefreshListener(this);
         if (mOptions.isEnableLoadMore() && mAdapter.isLoadMoreLayoutEmpty())
+        {
             mAdapter.setLoadMoreLayout(new RcvDefLoadMoreView.Builder().build(contentView.getContext()));
+        }
         mAdapter.disableLoadMore();//首先先禁止，刷新后再配置
         mRecyclerView.setLayoutManager(getListOptions().getLayoutManager());
         mRecyclerView.setAdapter(mAdapter);
@@ -68,7 +76,9 @@ class MVPListImpl<RV, D> implements IMVPListContract.IViewCommon<D>,
     {
         mAdapter.disableLoadMore();//刷新的时候禁止加载更多
         if (mListener != null)
+        {
             mListener.doRefresh(System.currentTimeMillis(), 0, mOptions.getPageSize());
+        }
     }
 
     @Override
@@ -78,11 +88,15 @@ class MVPListImpl<RV, D> implements IMVPListContract.IViewCommon<D>,
         mRefreshWrapper.finishRefresh();//结束刷新
         mAdapter.refreshDatas(dataList);
         if (dataList == null || dataList.size() == 0)
+        {
             return;
+        }
         mAdapter.enableLoadMore(this);
         if (getListOptions().isEnableLoadMore() &&
                 dataList.size() < getListOptions().getPageSize())
+        {
             mAdapter.notifyLoadMoreHasNoMoreData();
+        }
     }
 
     @Override
@@ -90,15 +104,19 @@ class MVPListImpl<RV, D> implements IMVPListContract.IViewCommon<D>,
     {
         mRefreshWrapper.finishRefresh();
         if (StringUtils.isNotEmpty(errorMsg))
+        {
             ToastUtils.showShort(errorMsg);
+        }
     }
 
     @Override
     public void onLoadMoreRequest()
     {
         if (mListener != null)
+        {
             mListener.doLoadMore(System.currentTimeMillis(), mCurrentIndex + 1,
                     getListOptions().getPageSize(), mAdapter.getDataSize());
+        }
     }
 
     @Override
@@ -114,7 +132,9 @@ class MVPListImpl<RV, D> implements IMVPListContract.IViewCommon<D>,
     {
         mAdapter.notifyLoadMoreFail();
         if (StringUtils.isNotEmpty(errorMsg))
+        {
             ToastUtils.showShort(errorMsg);
+        }
     }
 
     @Override
@@ -144,7 +164,9 @@ class MVPListImpl<RV, D> implements IMVPListContract.IViewCommon<D>,
     public void onDestroy()
     {
         if (getRefreshWrapper() != null)
+        {
             getRefreshWrapper().onDestroy();
+        }
     }
 
     public interface Listener

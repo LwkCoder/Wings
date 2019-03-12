@@ -35,10 +35,12 @@ import androidx.annotation.RequiresApi;
 public final class BarUtils
 {
     private static final String FAKE_STATUS_BAR_TAG = "FakeStatusBar";
-
+    private static final Pattern PATTERN_FLYME = Pattern.compile("Flyme OS [4|5]", Pattern.CASE_INSENSITIVE);
     private static final int MIN_API = Build.VERSION_CODES.KITKAT;
 
-    //默认透明度为1.0f（不透明）
+    /**
+     * 默认透明度为1.0f（不透明）
+     */
     private static final float DEFAULT_ALPHA = 1.0f;
 
     private BarUtils()
@@ -125,7 +127,9 @@ public final class BarUtils
             , @FloatRange(from = 0.0, to = 1.0) float alpha, boolean firSystemWindow)
     {
         if (Build.VERSION.SDK_INT < MIN_API)
+        {
             return;
+        }
 
         Window window = activity.getWindow();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
@@ -167,7 +171,9 @@ public final class BarUtils
     private static int mixtureColor(int color, @FloatRange(from = 0.0, to = 1.0) float alpha)
     {
         if (color == Color.TRANSPARENT)
+        {
             return Color.TRANSPARENT;
+        }
 
         int a = (color & 0xff000000) == 0 ? 0xff : color >>> 24;
         return (color & 0x00ffffff) | (((int) (a * alpha)) << 24);
@@ -193,7 +199,7 @@ public final class BarUtils
      */
     public static void setStatusBarDarkMode(Activity activity, boolean dark)
     {
-        if (isFlyme4Later())
+        if (isFlyMe4Later())
         {
             darkModeForFlyme4(activity.getWindow(), dark);
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
@@ -208,11 +214,11 @@ public final class BarUtils
     /**
      * 判断是否Flyme4以上
      */
-    private static boolean isFlyme4Later()
+    private static boolean isFlyMe4Later()
     {
         return Build.FINGERPRINT.contains("Flyme_OS_4")
                 || Build.VERSION.INCREMENTAL.contains("Flyme_OS_4")
-                || Pattern.compile("Flyme OS [4|5]", Pattern.CASE_INSENSITIVE).matcher(Build.DISPLAY).find();
+                || PATTERN_FLYME.matcher(Build.DISPLAY).find();
     }
 
     /**
@@ -234,9 +240,12 @@ public final class BarUtils
                 int bit = darkFlag.getInt(null);
                 int value = meizuFlags.getInt(e);
                 if (dark)
+                {
                     value |= bit;
-                else
+                } else
+                {
                     value &= ~bit;
+                }
 
                 meizuFlags.setInt(e, value);
                 window.setAttributes(e);
@@ -300,9 +309,12 @@ public final class BarUtils
     {
         int systemUiVisibility = window.getDecorView().getSystemUiVisibility();
         if (dark)
+        {
             systemUiVisibility |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
-        else
+        } else
+        {
             systemUiVisibility &= ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+        }
         window.getDecorView().setSystemUiVisibility(systemUiVisibility);
     }
 
@@ -312,7 +324,9 @@ public final class BarUtils
     public static void compatPaddingWithStatusBar(final View view)
     {
         if (Build.VERSION.SDK_INT < MIN_API || view == null)
+        {
             return;
+        }
 
         final int statusBarHeight = getStatusBarHeight();
         final ViewGroup.LayoutParams lp = view.getLayoutParams();
@@ -347,7 +361,9 @@ public final class BarUtils
     public static void compatMarginWithStatusBar(View view)
     {
         if (Build.VERSION.SDK_INT < MIN_API)
+        {
             return;
+        }
 
         ViewGroup.LayoutParams lp = view.getLayoutParams();
         if (lp != null && lp instanceof ViewGroup.MarginLayoutParams)
@@ -368,16 +384,21 @@ public final class BarUtils
         Resources rs = context.getResources();
         int id = rs.getIdentifier("config_showNavigationBar", "bool", "android");
         if (id > 0)
+        {
             hasNavigationBar = rs.getBoolean(id);
+        }
         try
         {
             Class systemPropertiesClass = Class.forName("android.os.SystemProperties");
             Method m = systemPropertiesClass.getMethod("getStrategy", String.class);
             String navBarOverride = (String) m.invoke(systemPropertiesClass, "qemu.hw.mainkeys");
             if ("1".equals(navBarOverride))
+            {
                 hasNavigationBar = false;
-            else if ("0".equals(navBarOverride))
+            } else if ("0".equals(navBarOverride))
+            {
                 hasNavigationBar = true;
+            }
         } catch (Exception e)
         {
             e.printStackTrace();
@@ -398,7 +419,9 @@ public final class BarUtils
             Resources rs = Utils.getContext().getResources();
             int id = rs.getIdentifier("navigation_bar_height", "dimen", "android");
             if (id > 0)
+            {
                 height = rs.getDimensionPixelSize(id);
+            }
         }
         return height;
     }
@@ -484,7 +507,9 @@ public final class BarUtils
             , @FloatRange(from = 0.0, to = 1.0) float alpha)
     {
         if (!isNavigationBarExist(activity))
+        {
             return;
+        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         {
@@ -502,12 +527,16 @@ public final class BarUtils
     public static void compatPaddingWithNavigationBar(View view)
     {
         if (Build.VERSION.SDK_INT < MIN_API)
+        {
             return;
+        }
 
         int navigationBarHeight = getNavigationBarHeight();
         ViewGroup.LayoutParams lp = view.getLayoutParams();
         if (lp != null && lp.height > 0)
+        {
             lp.height += navigationBarHeight;//增高
+        }
         view.setLayoutParams(lp);
         view.setPadding(view.getPaddingLeft(), view.getPaddingTop(),
                 view.getPaddingRight(), view.getPaddingBottom() + navigationBarHeight);
@@ -520,11 +549,15 @@ public final class BarUtils
     public static void compatMarginWithNavigationBar(View view)
     {
         if (Build.VERSION.SDK_INT < MIN_API)
+        {
             return;
+        }
 
         ViewGroup.LayoutParams lp = view.getLayoutParams();
         if (lp instanceof ViewGroup.MarginLayoutParams)
+        {
             ((ViewGroup.MarginLayoutParams) lp).bottomMargin += getNavigationBarHeight();//增高
+        }
         view.setLayoutParams(lp);
     }
 
@@ -548,7 +581,9 @@ public final class BarUtils
     public static void setStatusBarTransparent(Activity activity)
     {
         if (Build.VERSION.SDK_INT < MIN_API)
+        {
             return;
+        }
 
         Window window = activity.getWindow();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
@@ -575,7 +610,9 @@ public final class BarUtils
     public static void setAllBarTransparent(Activity activity)
     {
         if (Build.VERSION.SDK_INT < MIN_API)
+        {
             return;
+        }
 
         Window window = activity.getWindow();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
@@ -605,7 +642,9 @@ public final class BarUtils
     public static void immsiveMode(Activity activity, boolean hasFocus)
     {
         if (Build.VERSION.SDK_INT < MIN_API)
+        {
             return;
+        }
 
         if (hasFocus)
         {

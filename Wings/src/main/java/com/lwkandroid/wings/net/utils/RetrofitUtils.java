@@ -38,20 +38,28 @@ public final class RetrofitUtils
 
          /*设置HostnameVerifier*/
         if (globalOptions.getHostnameVerifier() != null)
+        {
             builder.hostnameVerifier(globalOptions.getHostnameVerifier());
+        }
 
         /*设置Https证书*/
         if (globalOptions.getSslParams() != null)
+        {
             builder.sslSocketFactory(globalOptions.getSslParams().sSLSocketFactory,
                     globalOptions.getSslParams().trustManager);
+        }
 
         /*添加全局参数和Header*/
         Map<String, String> globalFormDatasMap = globalOptions.getFormDatasMap();
         Map<String, String> globalHeadersMap = globalOptions.getHeadersMap();
         if (globalFormDatasMap != null && globalFormDatasMap.size() > 0)
+        {
             builder.addInterceptor(new RetrofitFormDataInterceptor(globalFormDatasMap));
+        }
         if (globalHeadersMap != null && globalHeadersMap.size() > 0)
+        {
             builder.addInterceptor(new ApiHeaderInterceptor(globalHeadersMap));
+        }
 
         /*添加全局拦截器*/
         Map<String, Interceptor> interceptorMap = globalOptions.getInterceptorMap();

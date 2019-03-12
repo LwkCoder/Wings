@@ -10,6 +10,8 @@ import android.telephony.TelephonyManager;
 
 import java.io.File;
 
+import androidx.annotation.RequiresPermission;
+
 /**
  * 手机设备相关工具类
  */
@@ -83,9 +85,12 @@ public final class PhoneUtils
     {
         String model = Build.MODEL;
         if (model != null)
+        {
             model = model.trim().replaceAll("\\s*", "");
-        else
+        } else
+        {
             model = "";
+        }
         return model;
     }
 
@@ -104,12 +109,35 @@ public final class PhoneUtils
     }
 
     /**
-     * 获取设备唯一识别码【IMEI码】
+     * 获取设备IMEI码
      */
+    @RequiresPermission(android.Manifest.permission.READ_PHONE_STATE)
     public static String getIMEI()
     {
         TelephonyManager manager = getTeleManager();
-        return manager != null ? manager.getDeviceId() : null;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+        {
+            return manager != null ? manager.getImei() : null;
+        } else
+        {
+            return manager != null ? manager.getDeviceId() : null;
+        }
+    }
+
+    /**
+     * 获取设备MEID码
+     */
+    @RequiresPermission(android.Manifest.permission.READ_PHONE_STATE)
+    public static String getMEID()
+    {
+        TelephonyManager manager = getTeleManager();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+        {
+            return manager != null ? manager.getMeid() : null;
+        } else
+        {
+            return manager != null ? manager.getDeviceId() : null;
+        }
     }
 
     /**

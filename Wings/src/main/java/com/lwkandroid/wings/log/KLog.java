@@ -1,12 +1,13 @@
 package com.lwkandroid.wings.log;
 
 
-import androidx.annotation.Nullable;
 import android.text.TextUtils;
 
 import java.io.File;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+
+import androidx.annotation.Nullable;
 
 /**
  * Github开源项目KLog
@@ -201,7 +202,9 @@ public final class KLog
     private static void printStackTrace()
     {
         if (!IS_SHOW_LOG)
+        {
             return;
+        }
 
         Throwable tr = new Throwable();
         StringWriter sw = new StringWriter();
@@ -210,13 +213,15 @@ public final class KLog
         pw.flush();
         String message = sw.toString();
 
-        String traceString[] = message.split("\\n\\t");
+        String[] traceString = message.split("\\n\\t");
         StringBuilder sb = new StringBuilder();
         sb.append("\n");
         for (String trace : traceString)
         {
             if (trace.contains("at com.lwkandroid.wings.log.KLog"))
+            {
                 continue;
+            }
             sb.append(trace).append("\n");
         }
         String[] contents = wrapperContent(STACK_TRACE_INDEX_4, null, sb.toString());
@@ -229,7 +234,9 @@ public final class KLog
     private static void printLog(int type, String tagStr, Object... objects)
     {
         if (!IS_SHOW_LOG)
+        {
             return;
+        }
 
         String[] contents = wrapperContent(STACK_TRACE_INDEX_5, tagStr, objects);
         String tag = contents[0];
@@ -252,6 +259,8 @@ public final class KLog
             case XML:
                 XmlLog.printXml(tag, msg, headString);
                 break;
+            default:
+                break;
         }
     }
 
@@ -267,7 +276,9 @@ public final class KLog
     private static void printFile(String tagStr, File targetDirectory, String fileName, Object objectMsg)
     {
         if (!IS_SHOW_LOG)
+        {
             return;
+        }
 
         String[] contents = wrapperContent(STACK_TRACE_INDEX_5, tagStr, objectMsg);
         String tag = contents[0];
@@ -285,23 +296,32 @@ public final class KLog
         String className = targetElement.getClassName();
         String[] classNameInfo = className.split("\\.");
         if (classNameInfo.length > 0)
+        {
             className = classNameInfo[classNameInfo.length - 1] + SUFFIX;
+        }
 
         if (className.contains("$"))
+        {
             className = className.split("\\$")[0] + SUFFIX;
+        }
 
         String methodName = targetElement.getMethodName();
         int lineNumber = targetElement.getLineNumber();
 
         if (lineNumber < 0)
+        {
             lineNumber = 0;
+        }
 
         String tag = (tagStr == null ? className : tagStr);
 
         if (mIsGlobalTagEmpty && TextUtils.isEmpty(tag))
+        {
             tag = TAG_DEFAULT;
-        else if (!mIsGlobalTagEmpty)
+        } else if (!mIsGlobalTagEmpty)
+        {
             tag = mGlobalTag;
+        }
 
         String msg = (objects == null) ? NULL_TIPS : getObjectsString(objects);
         String headString = "[ (" + className + ":" + lineNumber + ")#" + methodName + " ] ";

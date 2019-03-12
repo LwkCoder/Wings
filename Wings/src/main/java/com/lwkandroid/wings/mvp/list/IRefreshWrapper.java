@@ -7,7 +7,7 @@ package com.lwkandroid.wings.mvp.list;
 
 public interface IRefreshWrapper<RV>
 {
-    void wrap(RV RV);
+    void wrap(RV rv);
 
     void enableRefresh(boolean enable);
 

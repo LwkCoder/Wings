@@ -11,16 +11,19 @@ import org.json.JSONObject;
  */
 class JsonLog
 {
+    static final String BRACT = "{";
+    static final String BRACKET = "[";
+
     static void printJson(String tag, String msg, String headString)
     {
         String message;
         try
         {
-            if (msg.startsWith("{"))
+            if (BRACT.startsWith(msg))
             {
                 JSONObject jsonObject = new JSONObject(msg);
                 message = jsonObject.toString(KLog.JSON_INDENT);
-            } else if (msg.startsWith("["))
+            } else if (BRACKET.startsWith(msg))
             {
                 JSONArray jsonArray = new JSONArray(msg);
                 message = jsonArray.toString(KLog.JSON_INDENT);

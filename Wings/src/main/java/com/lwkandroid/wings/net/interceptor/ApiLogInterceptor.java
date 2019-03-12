@@ -37,6 +37,13 @@ public class ApiLogInterceptor implements Interceptor
     private static final String END = "————————————↑ OkHttp ↑————————————————————————————————————————";
     private static final String SEPARATOR = "| ";
     private static final String NEXT_LINE = "\n";
+    private static final String TEXT_TYPE = "text";
+    private static final String FORM_URLENCODED = "x-www-form-urlencoded";
+    private static final String XML = "xml";
+    private static final String JSON = "json";
+    private static final String HTML = "html";
+    private static final String BRACE = "{";
+    private static final String BRACKET = "[";
 
     @Override
     public Response intercept(Chain chain) throws IOException
@@ -105,13 +112,16 @@ public class ApiLogInterceptor implements Interceptor
 
             Headers headers = request.headers();
             if (headers != null && headers.size() > 0)
+            {
                 buffer.append(NEXT_LINE)
                         .append(SEPARATOR)
                         .append("Headers=");
-            else
+            } else
+            {
                 buffer.append(NEXT_LINE)
                         .append(SEPARATOR)
                         .append("Headers=null");
+            }
             for (int i = 0, size = headers.size(); i < size; i++)
             {
                 buffer.append("[" + headers.name(i) + "=" + headers.value(i) + "] ");
@@ -194,13 +204,16 @@ public class ApiLogInterceptor implements Interceptor
 
             Headers headers = clone.headers();
             if (headers != null && headers.size() > 0)
+            {
                 buffer.append(NEXT_LINE)
                         .append(SEPARATOR)
                         .append("Headers=");
-            else
+            } else
+            {
                 buffer.append(NEXT_LINE)
                         .append(SEPARATOR)
                         .append("Headers=null");
+            }
             for (int i = 0, size = headers.size(); i < size; i++)
             {
                 buffer.append("[" + headers.name(i) + "=" + headers.value(i) + "] ");
@@ -290,17 +303,23 @@ public class ApiLogInterceptor implements Interceptor
     private static boolean isPlaintext(MediaType mediaType)
     {
         if (mediaType == null)
+        {
             return false;
-        if (mediaType.type() != null && mediaType.type().equals("text"))
+        }
+        if (mediaType.type() != null && TEXT_TYPE.equals(mediaType.type()))
+        {
             return true;
+        }
 
         String subtype = mediaType.subtype();
         if (subtype != null)
         {
             subtype = subtype.toLowerCase();
-            if (subtype.contains("x-www-form-urlencoded") || subtype.contains("json")
-                    || subtype.contains("xml") || subtype.contains("html"))
+            if (subtype.contains(FORM_URLENCODED) || subtype.contains(JSON)
+                    || subtype.contains(XML) || subtype.contains(HTML))
+            {
                 return true;
+            }
         }
         return false;
     }
@@ -324,7 +343,9 @@ public class ApiLogInterceptor implements Interceptor
             int len;
             byte[] buffer = new byte[2048];
             while ((len = input.read(buffer)) != -1)
+            {
                 output.write(buffer, 0, len);
+            }
             output.flush();
             return output.toByteArray();
         } catch (IOException e)
@@ -336,7 +357,9 @@ public class ApiLogInterceptor implements Interceptor
             try
             {
                 if (output != null)
+                {
                     output.close();
+                }
             } catch (IOException e)
             {
                 e.printStackTrace();
@@ -351,7 +374,9 @@ public class ApiLogInterceptor implements Interceptor
         int len;
         byte[] buffer = new byte[2048];
         while ((len = input.read(buffer)) != -1)
+        {
             output.write(buffer, 0, len);
+        }
         output.flush();
         output.close();
         return output.toString(String.valueOf(UTF8));  // 依据需求可以选择要要的字符编码格式
@@ -363,11 +388,11 @@ public class ApiLogInterceptor implements Interceptor
         String message;
         try
         {
-            if (json.startsWith("{"))
+            if (BRACE.startsWith(json))
             {
                 JSONObject jsonObject = new JSONObject(json);
                 message = jsonObject.toString(KLog.JSON_INDENT);
-            } else if (json.startsWith("["))
+            } else if (BRACKET.startsWith(json))
             {
                 JSONArray jsonArray = new JSONArray(json);
                 message = jsonArray.toString(KLog.JSON_INDENT);

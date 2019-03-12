@@ -66,7 +66,9 @@ public class RealDialog extends DialogFragment
         super.onStart();
         Window window = getDialog().getWindow();
         if (window != null)
+        {
             window.setLayout(mOptions.getLayoutParams().width, mOptions.getLayoutParams().height);
+        }
         getDialog().setOnKeyListener(mOptions.getKeyListener());
     }
 
@@ -78,6 +80,8 @@ public class RealDialog extends DialogFragment
     public void cancel()
     {
         if (getDialog() != null)
+        {
             getDialog().cancel();
+        }
     }
 }

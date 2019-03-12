@@ -82,9 +82,12 @@ public class RxCache
             {
                 long time;
                 if (cacheTime < -1)
+                {
                     time = -1;
-                else
+                } else
+                {
                     time = cacheTime;
+                }
                 ApiDiskCacheBean<T> entity = new ApiDiskCacheBean<>(value, time);
                 entity.setUpdateDate(System.currentTimeMillis());
                 return cacheCore.save(cacheKey, entity);
@@ -125,13 +128,17 @@ public class RxCache
             } catch (Throwable e)
             {
                 if (!subscriber.isDisposed())
+                {
                     subscriber.onError(e);
+                }
                 Exceptions.throwIfFatal(e);
                 return;
             }
 
             if (!subscriber.isDisposed())
+            {
                 subscriber.onComplete();
+            }
         }
 
         abstract T execute() throws Throwable;

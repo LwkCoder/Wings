@@ -1,7 +1,5 @@
 package com.lwkandroid.wings.net.bean;
 
-import androidx.annotation.NonNull;
-
 import com.lwkandroid.wings.net.RxHttp;
 import com.lwkandroid.wings.net.constants.ApiCacheMode;
 import com.lwkandroid.wings.net.constants.ApiRequestType;
@@ -21,6 +19,7 @@ import java.util.Set;
 
 import javax.net.ssl.HostnameVerifier;
 
+import androidx.annotation.NonNull;
 import okhttp3.Cookie;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
@@ -239,9 +238,13 @@ public abstract class ApiRequestOptions<T extends ApiRequestOptions>
     public T addInterceptorMap(Map<String, Interceptor> interceptorMap)
     {
         if (mInterceptorMap == null)
+        {
             mInterceptorMap = new HashMap<>();
+        }
         if (interceptorMap != null && interceptorMap.size() > 0)
+        {
             mInterceptorMap.putAll(interceptorMap);
+        }
         return (T) this;
     }
 
@@ -251,9 +254,13 @@ public abstract class ApiRequestOptions<T extends ApiRequestOptions>
     public T addInterceptor(@NonNull String tag, @NonNull Interceptor interceptor)
     {
         if (mInterceptorMap == null)
+        {
             mInterceptorMap = new HashMap<>();
+        }
         if (StringUtils.isNotEmpty(tag) && interceptor != null)
+        {
             mInterceptorMap.put(tag, interceptor);
+        }
         return (T) this;
     }
 
@@ -280,7 +287,9 @@ public abstract class ApiRequestOptions<T extends ApiRequestOptions>
     public T addNetInterceptorMap(Map<String, Interceptor> interceptorMap)
     {
         if (mNetInterceptorMap == null)
+        {
             mNetInterceptorMap = new HashMap<>();
+        }
         mNetInterceptorMap.putAll(interceptorMap);
         return (T) this;
     }
@@ -291,9 +300,13 @@ public abstract class ApiRequestOptions<T extends ApiRequestOptions>
     public T addNetInterceptor(@NonNull String tag, @NonNull Interceptor interceptor)
     {
         if (mNetInterceptorMap == null)
+        {
             mNetInterceptorMap = new HashMap<>();
+        }
         if (StringUtils.isNotEmpty(tag) && interceptor != null)
+        {
             mNetInterceptorMap.put(tag, interceptor);
+        }
         return (T) this;
     }
 
@@ -320,7 +333,9 @@ public abstract class ApiRequestOptions<T extends ApiRequestOptions>
     public T addFormDatasMap(Map<String, String> formDatasMap)
     {
         if (mFormDatasMap == null)
+        {
             mFormDatasMap = new FormDataMap();
+        }
         mFormDatasMap.putAll(formDatasMap);
         return (T) this;
     }
@@ -331,54 +346,78 @@ public abstract class ApiRequestOptions<T extends ApiRequestOptions>
     public T addFormData(@NonNull String key, String value)
     {
         if (mFormDatasMap == null)
+        {
             mFormDatasMap = new FormDataMap();
+        }
         if (StringUtils.isNotEmpty(key))
+        {
             mFormDatasMap.addParam(key, value);
+        }
         return (T) this;
     }
 
     public T addFormData(@NonNull String key, short value)
     {
         if (mFormDatasMap == null)
+        {
             mFormDatasMap = new FormDataMap();
+        }
         if (StringUtils.isNotEmpty(key))
+        {
             mFormDatasMap.addParam(key, value);
+        }
         return (T) this;
     }
 
     public T addFormData(@NonNull String key, int value)
     {
         if (mFormDatasMap == null)
+        {
             mFormDatasMap = new FormDataMap();
+        }
         if (StringUtils.isNotEmpty(key))
+        {
             mFormDatasMap.addParam(key, value);
+        }
         return (T) this;
     }
 
     public T addFormData(@NonNull String key, long value)
     {
         if (mFormDatasMap == null)
+        {
             mFormDatasMap = new FormDataMap();
+        }
         if (StringUtils.isNotEmpty(key))
+        {
             mFormDatasMap.addParam(key, value);
+        }
         return (T) this;
     }
 
     public T addFormData(@NonNull String key, double value)
     {
         if (mFormDatasMap == null)
+        {
             mFormDatasMap = new FormDataMap();
+        }
         if (StringUtils.isNotEmpty(key))
+        {
             mFormDatasMap.addParam(key, value);
+        }
         return (T) this;
     }
 
     public T addFormData(@NonNull String key, float value)
     {
         if (mFormDatasMap == null)
+        {
             mFormDatasMap = new FormDataMap();
+        }
         if (StringUtils.isNotEmpty(key))
+        {
             mFormDatasMap.addParam(key, value);
+        }
         return (T) this;
     }
 
@@ -405,7 +444,9 @@ public abstract class ApiRequestOptions<T extends ApiRequestOptions>
     public T addHeadersMap(Map<String, String> headersMap)
     {
         if (mHeadersMap == null)
+        {
             mHeadersMap = new FormDataMap();
+        }
         mHeadersMap.putAll(headersMap);
         return (T) this;
     }
@@ -416,9 +457,13 @@ public abstract class ApiRequestOptions<T extends ApiRequestOptions>
     public T addHeader(@NonNull String tag, String value)
     {
         if (mHeadersMap == null)
+        {
             mHeadersMap = new FormDataMap();
+        }
         if (StringUtils.isNotEmpty(tag))
+        {
             mHeadersMap.put(tag, value);
+        }
         return (T) this;
     }
 
@@ -445,9 +490,13 @@ public abstract class ApiRequestOptions<T extends ApiRequestOptions>
     public T addIgnoreInterceptors(Set<String> tags)
     {
         if (mIgnoreInterceptorSet == null)
+        {
             mIgnoreInterceptorSet = new HashSet<>();
+        }
         if (tags != null && tags.size() > 0)
+        {
             mIgnoreInterceptorSet.addAll(tags);
+        }
         return (T) this;
     }
 
@@ -457,7 +506,9 @@ public abstract class ApiRequestOptions<T extends ApiRequestOptions>
     public T addIgnoreInterceptors(String tag)
     {
         if (mIgnoreInterceptorSet == null)
+        {
             mIgnoreInterceptorSet = new HashSet<>();
+        }
         mIgnoreInterceptorSet.add(tag);
         return (T) this;
     }
@@ -485,9 +536,13 @@ public abstract class ApiRequestOptions<T extends ApiRequestOptions>
     public T addIgnoreNetInterceptors(Set<String> tagList)
     {
         if (mIgnoreNetInterceptorSet == null)
+        {
             mIgnoreNetInterceptorSet = new HashSet<>();
+        }
         if (tagList != null && tagList.size() > 0)
+        {
             mIgnoreNetInterceptorSet.addAll(tagList);
+        }
         return (T) this;
     }
 
@@ -497,7 +552,9 @@ public abstract class ApiRequestOptions<T extends ApiRequestOptions>
     public T addIgnoreNetInterceptor(String tag)
     {
         if (mIgnoreNetInterceptorSet == null)
+        {
             mIgnoreNetInterceptorSet = new HashSet<>();
+        }
         mIgnoreNetInterceptorSet.add(tag);
         return (T) this;
     }
@@ -525,9 +582,13 @@ public abstract class ApiRequestOptions<T extends ApiRequestOptions>
     public T addIgnoreFormDatas(Set<String> keys)
     {
         if (mIgnoreFormDatasSet == null)
+        {
             mIgnoreFormDatasSet = new HashSet<>();
+        }
         if (keys != null & keys.size() > 0)
+        {
             mIgnoreFormDatasSet.addAll(keys);
+        }
         return (T) this;
     }
 
@@ -537,7 +598,9 @@ public abstract class ApiRequestOptions<T extends ApiRequestOptions>
     public T addIgnoreFormData(String key)
     {
         if (mIgnoreFormDatasSet == null)
+        {
             mIgnoreFormDatasSet = new HashSet<>();
+        }
         mIgnoreFormDatasSet.add(key);
         return (T) this;
     }
@@ -565,9 +628,13 @@ public abstract class ApiRequestOptions<T extends ApiRequestOptions>
     public T addIgnoreHeaderList(Set<String> tags)
     {
         if (mIgnoreHeaderSet == null)
+        {
             mIgnoreHeaderSet = new HashSet<>();
+        }
         if (tags != null & tags.size() > 0)
+        {
             mIgnoreHeaderSet.addAll(tags);
+        }
         return (T) this;
     }
 
@@ -577,7 +644,9 @@ public abstract class ApiRequestOptions<T extends ApiRequestOptions>
     public T addIgnoreHeader(String tag)
     {
         if (mIgnoreHeaderSet == null)
+        {
             mIgnoreHeaderSet = new HashSet<>();
+        }
         mIgnoreHeaderSet.add(tag);
         return (T) this;
     }
