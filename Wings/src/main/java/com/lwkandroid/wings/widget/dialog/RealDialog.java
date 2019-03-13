@@ -1,5 +1,6 @@
 package com.lwkandroid.wings.widget.dialog;
 
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -58,6 +59,16 @@ public class RealDialog extends DialogFragment
         getDialog().setOnDismissListener(mOptions.getDismissListener());
         mOptions.getContentView().initContentView(inflater);
         return mOptions.getContentView().getRealContentView();
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog)
+    {
+        super.onDismiss(dialog);
+        if (mOptions != null)
+        {
+            mOptions.getContentView().onDismiss();
+        }
     }
 
     @Override

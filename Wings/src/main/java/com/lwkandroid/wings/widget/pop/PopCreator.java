@@ -375,12 +375,21 @@ public class PopCreator implements IPopOperator, PopupWindow.OnDismissListener
     public void onDismiss()
     {
         applyDismissAffect();
+        if (mPopContentView != null)
+        {
+            mPopContentView.onDismiss();
+        }
+        mPopContentView = null;
         if (mOptions != null && mOptions.getDismissListener() != null)
         {
             mOptions.getDismissListener().onDismiss();
         }
-        mPopupWindow = null;
+        if (mContextReference != null)
+        {
+            mContextReference.clear();
+        }
         mContextReference = null;
+        mPopupWindow = null;
     }
 
     //显示过程中的效果

@@ -43,10 +43,12 @@ public class DebugTools
             return;
         }
         ExcludedRefs excludedRefs = AndroidExcludedRefs.createAppDefaults()
-                .instanceField("android.view.inputmethod.InputMethodManager", "sInstance")
-                .instanceField("android.view.inputmethod.InputMethodManager", "mLastSrvView")
-                .instanceField("com.android.internal.policy.PhoneWindow$DecorView", "mContext")
-                .instanceField("android.support.v7.widget.SearchView$SearchAutoComplete", "mContext")
+                .instanceField("android.view.inputmethod.InputMethodManager", "sInstance").alwaysExclude()
+                .instanceField("android.view.inputmethod.InputMethodManager", "mLastSrvView").alwaysExclude()
+                .instanceField("com.android.internal.policy.PhoneWindow$DecorView", "mContext").alwaysExclude()
+                .instanceField("android.support.v7.widget.SearchView$SearchAutoComplete", "mContext").alwaysExclude()
+                .instanceField("android.view.ViewGroup$ViewLocationHolder", "mRoot").alwaysExclude()
+                .instanceField("android.view.ViewGroup$ViewLocationHolder", "sPool").alwaysExclude()
                 .build();
         LeakCanary
                 .refWatcher(context)
