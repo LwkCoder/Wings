@@ -41,6 +41,15 @@ public abstract class PopBaseContentView
         initUIAndData(getRealContentView(), options, popCreator);
     }
 
+    void onDismiss()
+    {
+        if (mContextReference != null)
+        {
+            mContextReference.clear();
+        }
+        mContextReference = null;
+    }
+
     /**
      * 获取Context对象
      */
@@ -87,4 +96,5 @@ public abstract class PopBaseContentView
      * @param <T>         配置参数的泛型
      */
     public abstract <T extends PopOptions<T>> void initUIAndData(View contentView, T options, PopCreator popCreator);
+
 }

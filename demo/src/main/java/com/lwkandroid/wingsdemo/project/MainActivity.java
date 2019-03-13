@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.lwkandroid.widget.comactionbar.ComActionBar;
-import com.lwkandroid.wings.log.KLog;
-import com.lwkandroid.wings.utils.NetworkUtils;
 import com.lwkandroid.wingsdemo.R;
 import com.lwkandroid.wingsdemo.app.AppBaseActivity;
 import com.lwkandroid.wingsdemo.project.dialog.DialogDemoActivity;
@@ -97,8 +95,6 @@ public class MainActivity extends AppBaseActivity<MainPresenter> implements Main
     @Override
     protected void initData(@Nullable Bundle savedInstanceState)
     {
-        KLog.e("isNetworkConnected="+ NetworkUtils.isNetworkConnected()+" isUsingWifi="+NetworkUtils.isUsingWifi()
-        +" isUsingMoblieNet="+NetworkUtils.isUsingMoblieNet());
     }
 
     @Override

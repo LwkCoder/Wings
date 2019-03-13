@@ -43,6 +43,15 @@ public abstract class DialogBaseContentView
         initUIAndData(getRealContentView(), mOptions, mCreator);
     }
 
+    void onDismiss()
+    {
+        if (mContextReference != null)
+        {
+            mContextReference.clear();
+        }
+        mContextReference = null;
+    }
+
     /**
      * 获取Context对象
      */
