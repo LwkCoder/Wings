@@ -179,7 +179,7 @@ public final class AppUtils
         {
             return null;
         }
-        return EncryptUtils.encryptSHA1ToString(signature[0].toByteArray()).
+        return EncryptUtils.encryptSHA1ToHexString(signature[0].toByteArray()).
                 replaceAll("(?<=[0-9A-F]{2})[0-9A-F]{2}", ":$0");
     }
 
