@@ -5,6 +5,7 @@ import android.util.Base64;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.security.DigestInputStream;
 import java.security.InvalidKeyException;
 import java.security.Key;
@@ -28,12 +29,7 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 /**
- * <pre>
- *     author: Blankj
- *     blog  : http://blankj.com
- *     time  : 2016/08/02
- *     desc  : utils about encrypt
- * </pre>
+ * 加密工具类
  */
 public final class EncryptUtils
 {
@@ -43,15 +39,26 @@ public final class EncryptUtils
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
+    private static final Charset UTF8 = Charset.forName("UTF-8");
+    /**
+     * RSA最大加密明文大小
+     */
+    private static final int RSA_MAX_ENCRYPT_BLOCK = 117;
+
+    /**
+     * RSA最大解密密文大小
+     */
+    private static final int RSA_MAX_DECRYPT_BLOCK = 128;
+
     ///////////////////////////////////////////////////////////////////////////
     // hash encryption
     ///////////////////////////////////////////////////////////////////////////
 
     /**
-     * Return the hex string of MD2 encryption.
+     * 返回MD2加密后的字符串
      *
-     * @param data The data.
-     * @return the hex string of MD2 encryption
+     * @param data 待加密字符串
+     * @return MD2加密字符串
      */
     public static String encryptMD2ToString(final String data)
     {
@@ -63,21 +70,47 @@ public final class EncryptUtils
     }
 
     /**
-     * Return the hex string of MD2 encryption.
+     * 返回MD2加密后的字符串
      *
-     * @param data The data.
-     * @return the hex string of MD2 encryption
+     * @param data 待加密字节数组
+     * @return MD2加密字符串
      */
     public static String encryptMD2ToString(final byte[] data)
+    {
+        return bytes2String(encryptMD2(data));
+    }
+
+    /**
+     * 返回MD2加密后的16进制字符串
+     *
+     * @param data 待加密字符串
+     * @return MD2加密的16进制字符串
+     */
+    public static String encryptMD2ToHexString(final String data)
+    {
+        if (data == null || data.length() == 0)
+        {
+            return "";
+        }
+        return encryptMD2ToHexString(data.getBytes());
+    }
+
+    /**
+     * 返回MD2加密后的16进制字符串
+     *
+     * @param data 待加密字节数组
+     * @return MD2加密的16进制字符串
+     */
+    public static String encryptMD2ToHexString(final byte[] data)
     {
         return bytes2HexString(encryptMD2(data));
     }
 
     /**
-     * Return the bytes of MD2 encryption.
+     * 返回MD2加密后的字节数组
      *
-     * @param data The data.
-     * @return the bytes of MD2 encryption
+     * @param data 待加密字节数组
+     * @return MD2加密后的的字节数组
      */
     public static byte[] encryptMD2(final byte[] data)
     {
@@ -85,10 +118,36 @@ public final class EncryptUtils
     }
 
     /**
-     * Return the hex string of MD5 encryption.
+     * 返回MD5加密后的字符串
      *
-     * @param data The data.
-     * @return the hex string of MD5 encryption
+     * @param data 待加密字符串
+     * @return MD5加密后的字符串
+     */
+    public static String encryptMD5ToString(final String data)
+    {
+        if (data == null || data.length() == 0)
+        {
+            return "";
+        }
+        return encryptMD5ToString(data.getBytes());
+    }
+
+    /**
+     * 返回MD5加密后的字符串
+     *
+     * @param data 待加密字节数组
+     * @return MD5加密后的字符串
+     */
+    public static String encryptMD5ToString(final byte[] data)
+    {
+        return bytes2String(encryptMD5(data));
+    }
+
+    /**
+     * 返回MD5加密后的16进制字符串
+     *
+     * @param data 待加密字符串
+     * @return MD5加密后的16进制字符串
      */
     public static String encryptMD5ToHexString(final String data)
     {
@@ -100,34 +159,10 @@ public final class EncryptUtils
     }
 
     /**
-     * Return the hex string of MD5 encryption.
+     * 返回MD5加密后的16进制字符串
      *
-     * @param data The data.
-     * @param salt The salt.
-     * @return the hex string of MD5 encryption
-     */
-    public static String encryptMD5ToHexString(final String data, final String salt)
-    {
-        if (data == null && salt == null)
-        {
-            return "";
-        }
-        if (salt == null)
-        {
-            return bytes2HexString(encryptMD5(data.getBytes()));
-        }
-        if (data == null)
-        {
-            return bytes2HexString(encryptMD5(salt.getBytes()));
-        }
-        return bytes2HexString(encryptMD5((data + salt).getBytes()));
-    }
-
-    /**
-     * Return the hex string of MD5 encryption.
-     *
-     * @param data The data.
-     * @return the hex string of MD5 encryption
+     * @param data 待加密字节数组
+     * @return MD5加密后的16进制字符串
      */
     public static String encryptMD5ToHexString(final byte[] data)
     {
@@ -135,37 +170,10 @@ public final class EncryptUtils
     }
 
     /**
-     * Return the hex string of MD5 encryption.
+     * 返回MD5加密后的字节数组
      *
-     * @param data The data.
-     * @param salt The salt.
-     * @return the hex string of MD5 encryption
-     */
-    public static String encryptMD5ToHexString(final byte[] data, final byte[] salt)
-    {
-        if (data == null && salt == null)
-        {
-            return "";
-        }
-        if (salt == null)
-        {
-            return bytes2HexString(encryptMD5(data));
-        }
-        if (data == null)
-        {
-            return bytes2HexString(encryptMD5(salt));
-        }
-        byte[] dataSalt = new byte[data.length + salt.length];
-        System.arraycopy(data, 0, dataSalt, 0, data.length);
-        System.arraycopy(salt, 0, dataSalt, data.length, salt.length);
-        return bytes2HexString(encryptMD5(dataSalt));
-    }
-
-    /**
-     * Return the bytes of MD5 encryption.
-     *
-     * @param data The data.
-     * @return the bytes of MD5 encryption
+     * @param data 待加密字节数组
+     * @return MD5加密后的字节数组
      */
     public static byte[] encryptMD5(final byte[] data)
     {
@@ -173,10 +181,10 @@ public final class EncryptUtils
     }
 
     /**
-     * Return the hex string of file's MD5 encryption.
+     * 返回MD5加密后的文件的16进制字符串
      *
-     * @param filePath The path of file.
-     * @return the hex string of file's MD5 encryption
+     * @param filePath 文件地址
+     * @return MD5加密后的文件的16进制字符串
      */
     public static String encryptMD5File2HexString(final String filePath)
     {
@@ -185,10 +193,44 @@ public final class EncryptUtils
     }
 
     /**
-     * Return the bytes of file's MD5 encryption.
+     * 返回MD5加密后的文件的字符串
      *
-     * @param filePath The path of file.
-     * @return the bytes of file's MD5 encryption
+     * @param filePath 文件地址
+     * @return MD5加密后的文件的字符串
+     */
+    public static String encryptMD5File2String(final String filePath)
+    {
+        File file = isSpace(filePath) ? null : new File(filePath);
+        return encryptMD5File2String(file);
+    }
+
+    /**
+     * 返回MD5加密后的文件的字符串
+     *
+     * @param file 文件对象
+     * @return MD5加密后的文件的字符串
+     */
+    public static String encryptMD5File2String(final File file)
+    {
+        return bytes2String(encryptMD5File(file));
+    }
+
+    /**
+     * 返回MD5加密后的文件的16进制字符串
+     *
+     * @param file 文件对象
+     * @return MD5加密后的文件的16进制字符串
+     */
+    public static String encryptMD5File2HexString(final File file)
+    {
+        return bytes2HexString(encryptMD5File(file));
+    }
+
+    /**
+     * 返回MD5加密后的文件的字节数组
+     *
+     * @param filePath 文件地址
+     * @return MD5加密后的文件的字节数组
      */
     public static byte[] encryptMD5File(final String filePath)
     {
@@ -197,21 +239,10 @@ public final class EncryptUtils
     }
 
     /**
-     * Return the hex string of file's MD5 encryption.
+     * 返回MD5加密后的文件的字节数组
      *
-     * @param file The file.
-     * @return the hex string of file's MD5 encryption
-     */
-    public static String encryptMD5File2HexString(final File file)
-    {
-        return bytes2HexString(encryptMD5File(file));
-    }
-
-    /**
-     * Return the bytes of file's MD5 encryption.
-     *
-     * @param file The file.
-     * @return the bytes of file's MD5 encryption
+     * @param file 文件对象
+     * @return MD5加密后的文件的字节数组
      */
     public static byte[] encryptMD5File(final File file)
     {
@@ -256,10 +287,36 @@ public final class EncryptUtils
     }
 
     /**
-     * Return the hex string of SHA1 encryption.
+     * 返回SHA1加密后的字符串
      *
-     * @param data The data.
-     * @return the hex string of SHA1 encryption
+     * @param data 待加密字符串
+     * @return SHA1加密后的16进制字符串
+     */
+    public static String encryptSHA1ToString(final String data)
+    {
+        if (data == null || data.length() == 0)
+        {
+            return "";
+        }
+        return encryptSHA1ToString(data.getBytes());
+    }
+
+    /**
+     * 返回SHA1加密后的字符串
+     *
+     * @param data 待加密字节数组
+     * @return SHA1加密后的字符串
+     */
+    public static String encryptSHA1ToString(final byte[] data)
+    {
+        return bytes2String(encryptSHA1(data));
+    }
+
+    /**
+     * 返回SHA1加密后的16进制字符串
+     *
+     * @param data 待加密字符串
+     * @return SHA1加密后的16进制字符串
      */
     public static String encryptSHA1ToHexString(final String data)
     {
@@ -271,10 +328,10 @@ public final class EncryptUtils
     }
 
     /**
-     * Return the hex string of SHA1 encryption.
+     * 返回SHA1加密后的16进制字符串
      *
-     * @param data The data.
-     * @return the hex string of SHA1 encryption
+     * @param data 待加密字节数组
+     * @return SHA1加密后的16进制字符串
      */
     public static String encryptSHA1ToHexString(final byte[] data)
     {
@@ -282,10 +339,10 @@ public final class EncryptUtils
     }
 
     /**
-     * Return the bytes of SHA1 encryption.
+     * 返回SHA1加密后的字节数组
      *
-     * @param data The data.
-     * @return the bytes of SHA1 encryption
+     * @param data 待加密字节数组
+     * @return SHA1加密后的字节数组
      */
     public static byte[] encryptSHA1(final byte[] data)
     {
@@ -293,10 +350,36 @@ public final class EncryptUtils
     }
 
     /**
-     * Return the hex string of SHA224 encryption.
+     * 返回SHA224加密后的字符串
      *
-     * @param data The data.
-     * @return the hex string of SHA224 encryption
+     * @param data 待加密字符串
+     * @return SHA224加密后的字符串
+     */
+    public static String encryptSHA224ToString(final String data)
+    {
+        if (data == null || data.length() == 0)
+        {
+            return "";
+        }
+        return encryptSHA224ToString(data.getBytes());
+    }
+
+    /**
+     * 返回SHA224加密后的字符串
+     *
+     * @param data 待加密字节数组
+     * @return SHA224加密后的字符串
+     */
+    public static String encryptSHA224ToString(final byte[] data)
+    {
+        return bytes2String(encryptSHA224(data));
+    }
+
+    /**
+     * 返回SHA224加密后的16进制字符串
+     *
+     * @param data 待加密字符串
+     * @return SHA224加密后的16进制字符串
      */
     public static String encryptSHA224ToHexString(final String data)
     {
@@ -308,10 +391,10 @@ public final class EncryptUtils
     }
 
     /**
-     * Return the hex string of SHA224 encryption.
+     * 返回SHA224加密后的16进制字符串
      *
-     * @param data The data.
-     * @return the hex string of SHA224 encryption
+     * @param data 待加密字节数组
+     * @return SHA224加密后的16进制字符串
      */
     public static String encryptSHA224ToHexString(final byte[] data)
     {
@@ -319,10 +402,10 @@ public final class EncryptUtils
     }
 
     /**
-     * Return the bytes of SHA224 encryption.
+     * 返回SHA224加密后的字节数组
      *
-     * @param data The data.
-     * @return the bytes of SHA224 encryption
+     * @param data 待加密字节数组
+     * @return SHA224加密后的字节数组
      */
     public static byte[] encryptSHA224(final byte[] data)
     {
@@ -330,10 +413,36 @@ public final class EncryptUtils
     }
 
     /**
-     * Return the hex string of SHA256 encryption.
+     * 返回SHA256加密后的字符串
      *
-     * @param data The data.
-     * @return the hex string of SHA256 encryption
+     * @param data 待加密字符串
+     * @return SHA256加密后的字符串
+     */
+    public static String encryptSHA256ToString(final String data)
+    {
+        if (data == null || data.length() == 0)
+        {
+            return "";
+        }
+        return encryptSHA256ToString(data.getBytes());
+    }
+
+    /**
+     * 返回SHA256加密后的字符串
+     *
+     * @param data 待加密字节数组
+     * @return SHA256加密后的字符串
+     */
+    public static String encryptSHA256ToString(final byte[] data)
+    {
+        return bytes2String(encryptSHA256(data));
+    }
+
+    /**
+     * 返回SHA256加密后的16进制字符串
+     *
+     * @param data 待加密字符串
+     * @return SHA256加密后的16进制字符串
      */
     public static String encryptSHA256ToHexString(final String data)
     {
@@ -345,10 +454,10 @@ public final class EncryptUtils
     }
 
     /**
-     * Return the hex string of SHA256 encryption.
+     * 返回SHA256加密后的16进制字符串
      *
-     * @param data The data.
-     * @return the hex string of SHA256 encryption
+     * @param data 待加密字节数组
+     * @return SHA256加密后的16进制字符串
      */
     public static String encryptSHA256ToHexString(final byte[] data)
     {
@@ -356,10 +465,10 @@ public final class EncryptUtils
     }
 
     /**
-     * Return the bytes of SHA256 encryption.
+     * 返回SHA256加密后的字节数组
      *
-     * @param data The data.
-     * @return the bytes of SHA256 encryption
+     * @param data 待加密字节数组
+     * @return SHA256加密后的字节数组
      */
     public static byte[] encryptSHA256(final byte[] data)
     {
@@ -367,10 +476,36 @@ public final class EncryptUtils
     }
 
     /**
-     * Return the hex string of SHA384 encryption.
+     * 返回SHA384加密后的字符串
      *
-     * @param data The data.
-     * @return the hex string of SHA384 encryption
+     * @param data 待加密字符串
+     * @return SHA384加密后的字符串
+     */
+    public static String encryptSHA384ToString(final String data)
+    {
+        if (data == null || data.length() == 0)
+        {
+            return "";
+        }
+        return encryptSHA384ToString(data.getBytes());
+    }
+
+    /**
+     * 返回SHA384加密后的字符串
+     *
+     * @param data 待加密字节数组
+     * @return SHA384加密后的字符串
+     */
+    public static String encryptSHA384ToString(final byte[] data)
+    {
+        return bytes2String(encryptSHA384(data));
+    }
+
+    /**
+     * 返回SHA384加密后的16进制字符串
+     *
+     * @param data 待加密字符串
+     * @return SHA384加密后的16进制字符串
      */
     public static String encryptSHA384ToHexString(final String data)
     {
@@ -382,10 +517,10 @@ public final class EncryptUtils
     }
 
     /**
-     * Return the hex string of SHA384 encryption.
+     * 返回SHA384加密后的16进制字符串
      *
-     * @param data The data.
-     * @return the hex string of SHA384 encryption
+     * @param data 待加密字节数组
+     * @return SHA384加密后的16进制字符串
      */
     public static String encryptSHA384ToHexString(final byte[] data)
     {
@@ -393,10 +528,10 @@ public final class EncryptUtils
     }
 
     /**
-     * Return the bytes of SHA384 encryption.
+     * 返回SHA384加密后的字节数组
      *
-     * @param data The data.
-     * @return the bytes of SHA384 encryption
+     * @param data 待加密字节数组
+     * @return SHA384加密后的字节数组
      */
     public static byte[] encryptSHA384(final byte[] data)
     {
@@ -404,10 +539,36 @@ public final class EncryptUtils
     }
 
     /**
-     * Return the hex string of SHA512 encryption.
+     * 返回SHA512加密后的字符串
      *
-     * @param data The data.
-     * @return the hex string of SHA512 encryption
+     * @param data 待加密字符串
+     * @return SHA512加密后的字符串
+     */
+    public static String encryptSHA512ToString(final String data)
+    {
+        if (data == null || data.length() == 0)
+        {
+            return "";
+        }
+        return encryptSHA512ToString(data.getBytes());
+    }
+
+    /**
+     * 返回SHA512加密后的字符串
+     *
+     * @param data 待加密字符数组
+     * @return SHA512加密后的字符串
+     */
+    public static String encryptSHA512ToString(final byte[] data)
+    {
+        return bytes2String(encryptSHA512(data));
+    }
+
+    /**
+     * 返回SHA512加密后的16进制字符串
+     *
+     * @param data 待加密字符串
+     * @return SHA512加密后的16进制字符串
      */
     public static String encryptSHA512ToHexString(final String data)
     {
@@ -419,10 +580,10 @@ public final class EncryptUtils
     }
 
     /**
-     * Return the hex string of SHA512 encryption.
+     * 返回SHA512加密后的16进制字符串
      *
-     * @param data The data.
-     * @return the hex string of SHA512 encryption
+     * @param data 待加密字符数组
+     * @return SHA512加密后的16进制字符串
      */
     public static String encryptSHA512ToHexString(final byte[] data)
     {
@@ -430,10 +591,10 @@ public final class EncryptUtils
     }
 
     /**
-     * Return the bytes of SHA512 encryption.
+     * 返回SHA512加密后的字符数组
      *
-     * @param data The data.
-     * @return the bytes of SHA512 encryption
+     * @param data 待加密字符数组
+     * @return SHA512加密后的字符数组
      */
     public static byte[] encryptSHA512(final byte[] data)
     {
@@ -441,11 +602,11 @@ public final class EncryptUtils
     }
 
     /**
-     * Return the bytes of hash encryption.
+     * 返回加密算法结果
      *
-     * @param data      The data.
-     * @param algorithm The name of hash encryption.
-     * @return the bytes of hash encryption
+     * @param data      待加密数据
+     * @param algorithm 加密算法
+     * @return 加密结果
      */
     private static byte[] hashTemplate(final byte[] data, final String algorithm)
     {
@@ -470,11 +631,39 @@ public final class EncryptUtils
     ///////////////////////////////////////////////////////////////////////////
 
     /**
-     * Return the hex string of HmacMD5 encryption.
+     * 返回HmacMD5加密后的字符串
      *
-     * @param data The data.
-     * @param key  The key.
-     * @return the hex string of HmacMD5 encryption
+     * @param data 待加密字符串
+     * @param key  密钥
+     * @return HmacMD5加密后的16进制字符串
+     */
+    public static String encryptHmacMD5ToString(final String data, final String key)
+    {
+        if (data == null || data.length() == 0 || key == null || key.length() == 0)
+        {
+            return "";
+        }
+        return encryptHmacMD5ToString(data.getBytes(), key.getBytes());
+    }
+
+    /**
+     * 返回HmacMD5加密后的字符串
+     *
+     * @param data 待加密字符数组
+     * @param key  密钥
+     * @return HmacMD5加密后的16进制字符串
+     */
+    public static String encryptHmacMD5ToString(final byte[] data, final byte[] key)
+    {
+        return bytes2String(encryptHmacMD5(data, key));
+    }
+
+    /**
+     * 返回HmacMD5加密后的16进制字符串
+     *
+     * @param data 待加密字符串
+     * @param key  密钥
+     * @return HmacMD5加密后的16进制字符串
      */
     public static String encryptHmacMD5ToHexString(final String data, final String key)
     {
@@ -486,11 +675,11 @@ public final class EncryptUtils
     }
 
     /**
-     * Return the hex string of HmacMD5 encryption.
+     * 返回HmacMD5加密后的16进制字符串
      *
-     * @param data The data.
-     * @param key  The key.
-     * @return the hex string of HmacMD5 encryption
+     * @param data 待加密字符数组
+     * @param key  密钥
+     * @return HmacMD5加密后的16进制字符串
      */
     public static String encryptHmacMD5ToHexString(final byte[] data, final byte[] key)
     {
@@ -498,11 +687,11 @@ public final class EncryptUtils
     }
 
     /**
-     * Return the bytes of HmacMD5 encryption.
+     * 返回HmacMD5加密后的字节数组
      *
-     * @param data The data.
-     * @param key  The key.
-     * @return the bytes of HmacMD5 encryption
+     * @param data 待加密字符数组
+     * @param key  密钥
+     * @return HmacMD5加密后的字符数组
      */
     public static byte[] encryptHmacMD5(final byte[] data, final byte[] key)
     {
@@ -510,11 +699,39 @@ public final class EncryptUtils
     }
 
     /**
-     * Return the hex string of HmacSHA1 encryption.
+     * 返回HmacSHA1加密后的字符串
      *
-     * @param data The data.
-     * @param key  The key.
-     * @return the hex string of HmacSHA1 encryption
+     * @param data 待加密字符串
+     * @param key  密钥
+     * @return HmacSHA1加密后的字符串
+     */
+    public static String encryptHmacSHA1ToString(final String data, final String key)
+    {
+        if (data == null || data.length() == 0 || key == null || key.length() == 0)
+        {
+            return "";
+        }
+        return encryptHmacSHA1ToString(data.getBytes(), key.getBytes());
+    }
+
+    /**
+     * 返回HmacSHA1加密后的字符串
+     *
+     * @param data 待加密字符数组
+     * @param key  密钥
+     * @return HmacSHA1加密后的字符串
+     */
+    public static String encryptHmacSHA1ToString(final byte[] data, final byte[] key)
+    {
+        return bytes2String(encryptHmacSHA1(data, key));
+    }
+
+    /**
+     * 返回HmacSHA1加密后的16进制字符串
+     *
+     * @param data 待加密字符串
+     * @param key  密钥
+     * @return HmacSHA1加密后的16进制字符串
      */
     public static String encryptHmacSHA1ToHexString(final String data, final String key)
     {
@@ -526,11 +743,11 @@ public final class EncryptUtils
     }
 
     /**
-     * Return the hex string of HmacSHA1 encryption.
+     * 返回HmacSHA1加密后的16进制字符串
      *
-     * @param data The data.
-     * @param key  The key.
-     * @return the hex string of HmacSHA1 encryption
+     * @param data 待加密字符数组
+     * @param key  密钥
+     * @return HmacSHA1加密后的16进制字符串
      */
     public static String encryptHmacSHA1ToHexString(final byte[] data, final byte[] key)
     {
@@ -538,11 +755,11 @@ public final class EncryptUtils
     }
 
     /**
-     * Return the bytes of HmacSHA1 encryption.
+     * 返回HmacSHA1加密后的字节数组
      *
-     * @param data The data.
-     * @param key  The key.
-     * @return the bytes of HmacSHA1 encryption
+     * @param data 待加密字符数组
+     * @param key  密钥
+     * @return HmacSHA1加密后的字符数组
      */
     public static byte[] encryptHmacSHA1(final byte[] data, final byte[] key)
     {
@@ -550,11 +767,39 @@ public final class EncryptUtils
     }
 
     /**
-     * Return the hex string of HmacSHA224 encryption.
+     * 返回HmacSHA224加密后的字符串
      *
-     * @param data The data.
-     * @param key  The key.
-     * @return the hex string of HmacSHA224 encryption
+     * @param data 待加密字符串
+     * @param key  密钥
+     * @return HmacSHA224加密后的字符串
+     */
+    public static String encryptHmacSHA224ToString(final String data, final String key)
+    {
+        if (data == null || data.length() == 0 || key == null || key.length() == 0)
+        {
+            return "";
+        }
+        return encryptHmacSHA224ToString(data.getBytes(), key.getBytes());
+    }
+
+    /**
+     * 返回HmacSHA224加密后的字符串
+     *
+     * @param data 待加密字符数组
+     * @param key  密钥
+     * @return HmacSHA224加密后的字符串
+     */
+    public static String encryptHmacSHA224ToString(final byte[] data, final byte[] key)
+    {
+        return bytes2String(encryptHmacSHA224(data, key));
+    }
+
+    /**
+     * 返回HmacSHA224加密后的16进制字符串
+     *
+     * @param data 待加密字符串
+     * @param key  密钥
+     * @return HmacSHA224加密后的16进制字符串
      */
     public static String encryptHmacSHA224ToHexString(final String data, final String key)
     {
@@ -566,11 +811,11 @@ public final class EncryptUtils
     }
 
     /**
-     * Return the hex string of HmacSHA224 encryption.
+     * 返回HmacSHA224加密后的16进制字符串
      *
-     * @param data The data.
-     * @param key  The key.
-     * @return the hex string of HmacSHA224 encryption
+     * @param data 待加密字节数组
+     * @param key  密钥
+     * @return HmacSHA224加密后的16进制字符串
      */
     public static String encryptHmacSHA224ToHexString(final byte[] data, final byte[] key)
     {
@@ -578,11 +823,11 @@ public final class EncryptUtils
     }
 
     /**
-     * Return the bytes of HmacSHA224 encryption.
+     * 返回HmacSHA224加密后的字节数组
      *
-     * @param data The data.
-     * @param key  The key.
-     * @return the bytes of HmacSHA224 encryption
+     * @param data 待加密字节数组
+     * @param key  密钥
+     * @return HmacSHA224加密后的字节数组
      */
     public static byte[] encryptHmacSHA224(final byte[] data, final byte[] key)
     {
@@ -590,11 +835,39 @@ public final class EncryptUtils
     }
 
     /**
-     * Return the hex string of HmacSHA256 encryption.
+     * 返回HmacSHA256加密后的字符串
      *
-     * @param data The data.
-     * @param key  The key.
-     * @return the hex string of HmacSHA256 encryption
+     * @param data 待加密字符串
+     * @param key  密钥
+     * @return HmacSHA256加密后的字符串
+     */
+    public static String encryptHmacSHA256ToString(final String data, final String key)
+    {
+        if (data == null || data.length() == 0 || key == null || key.length() == 0)
+        {
+            return "";
+        }
+        return encryptHmacSHA256ToString(data.getBytes(), key.getBytes());
+    }
+
+    /**
+     * 返回HmacSHA256加密后的字符串
+     *
+     * @param data 待加密字节数组
+     * @param key  密钥
+     * @return HmacSHA256加密后的字符串
+     */
+    public static String encryptHmacSHA256ToString(final byte[] data, final byte[] key)
+    {
+        return bytes2String(encryptHmacSHA256(data, key));
+    }
+
+    /**
+     * 返回HmacSHA256加密后的16进制字符串
+     *
+     * @param data 待加密字符串
+     * @param key  密钥
+     * @return HmacSHA256加密后的16进制字符串
      */
     public static String encryptHmacSHA256ToHexString(final String data, final String key)
     {
@@ -606,11 +879,11 @@ public final class EncryptUtils
     }
 
     /**
-     * Return the hex string of HmacSHA256 encryption.
+     * 返回HmacSHA256加密后的16进制字符串
      *
-     * @param data The data.
-     * @param key  The key.
-     * @return the hex string of HmacSHA256 encryption
+     * @param data 待加密字节数组
+     * @param key  密钥
+     * @return HmacSHA256加密后的字节数组
      */
     public static String encryptHmacSHA256ToHexString(final byte[] data, final byte[] key)
     {
@@ -618,11 +891,11 @@ public final class EncryptUtils
     }
 
     /**
-     * Return the bytes of HmacSHA256 encryption.
+     * 返回HmacSHA256加密后的字节数组
      *
-     * @param data The data.
-     * @param key  The key.
-     * @return the bytes of HmacSHA256 encryption
+     * @param data 待加密字节数组
+     * @param key  密钥
+     * @return HmacSHA256加密后的字节数组
      */
     public static byte[] encryptHmacSHA256(final byte[] data, final byte[] key)
     {
@@ -630,11 +903,39 @@ public final class EncryptUtils
     }
 
     /**
-     * Return the hex string of HmacSHA384 encryption.
+     * 返回HmacSHA384加密后的字符串
      *
-     * @param data The data.
-     * @param key  The key.
-     * @return the hex string of HmacSHA384 encryption
+     * @param data 待加密字符串
+     * @param key  密钥
+     * @return HmacSHA384加密后的字符串
+     */
+    public static String encryptHmacSHA384ToString(final String data, final String key)
+    {
+        if (data == null || data.length() == 0 || key == null || key.length() == 0)
+        {
+            return "";
+        }
+        return encryptHmacSHA384ToString(data.getBytes(), key.getBytes());
+    }
+
+    /**
+     * 返回HmacSHA384加密后的字符串
+     *
+     * @param data 待加密字节数组
+     * @param key  密钥
+     * @return HmacSHA384加密后的字符串
+     */
+    public static String encryptHmacSHA384ToString(final byte[] data, final byte[] key)
+    {
+        return bytes2String(encryptHmacSHA384(data, key));
+    }
+
+    /**
+     * 返回HmacSHA384加密后的16进制字符串
+     *
+     * @param data 待加密字符串
+     * @param key  密钥
+     * @return HmacSHA384加密后的16进制字符串
      */
     public static String encryptHmacSHA384ToHexString(final String data, final String key)
     {
@@ -646,11 +947,11 @@ public final class EncryptUtils
     }
 
     /**
-     * Return the hex string of HmacSHA384 encryption.
+     * 返回HmacSHA384加密后的16进制字符串
      *
-     * @param data The data.
-     * @param key  The key.
-     * @return the hex string of HmacSHA384 encryption
+     * @param data 待加密字节数组
+     * @param key  密钥
+     * @return HmacSHA384加密后的16进制字符串
      */
     public static String encryptHmacSHA384ToHexString(final byte[] data, final byte[] key)
     {
@@ -658,11 +959,11 @@ public final class EncryptUtils
     }
 
     /**
-     * Return the bytes of HmacSHA384 encryption.
+     * 返回HmacSHA384加密后的字节数组
      *
-     * @param data The data.
-     * @param key  The key.
-     * @return the bytes of HmacSHA384 encryption
+     * @param data 待加密字节数组
+     * @param key  密钥
+     * @return HmacSHA384加密后的字节数组
      */
     public static byte[] encryptHmacSHA384(final byte[] data, final byte[] key)
     {
@@ -670,11 +971,39 @@ public final class EncryptUtils
     }
 
     /**
-     * Return the hex string of HmacSHA512 encryption.
+     * 返回HmacSHA512加密后的字符串
      *
-     * @param data The data.
-     * @param key  The key.
-     * @return the hex string of HmacSHA512 encryption
+     * @param data 待加密字符串
+     * @param key  密钥
+     * @return HmacSHA512加密后的16进制字符串
+     */
+    public static String encryptHmacSHA512ToString(final String data, final String key)
+    {
+        if (data == null || data.length() == 0 || key == null || key.length() == 0)
+        {
+            return "";
+        }
+        return encryptHmacSHA512ToString(data.getBytes(), key.getBytes());
+    }
+
+    /**
+     * 返回HmacSHA512加密后的字符串
+     *
+     * @param data 待加密字节数组
+     * @param key  密钥
+     * @return HmacSHA512加密后的字符串
+     */
+    public static String encryptHmacSHA512ToString(final byte[] data, final byte[] key)
+    {
+        return bytes2String(encryptHmacSHA512(data, key));
+    }
+
+    /**
+     * 返回HmacSHA512加密后的16进制字符串
+     *
+     * @param data 待加密字符串
+     * @param key  密钥
+     * @return HmacSHA512加密后的16进制字符串
      */
     public static String encryptHmacSHA512ToHexString(final String data, final String key)
     {
@@ -686,11 +1015,11 @@ public final class EncryptUtils
     }
 
     /**
-     * Return the hex string of HmacSHA512 encryption.
+     * 返回HmacSHA512加密后的16进制字符串
      *
-     * @param data The data.
-     * @param key  The key.
-     * @return the hex string of HmacSHA512 encryption
+     * @param data 待加密字节数组
+     * @param key  密钥
+     * @return HmacSHA512加密后的16进制字符串
      */
     public static String encryptHmacSHA512ToHexString(final byte[] data, final byte[] key)
     {
@@ -698,11 +1027,11 @@ public final class EncryptUtils
     }
 
     /**
-     * Return the bytes of HmacSHA512 encryption.
+     * 返回HmacSHA512加密后的字节数组
      *
-     * @param data The data.
-     * @param key  The key.
-     * @return the bytes of HmacSHA512 encryption
+     * @param data 待加密字节数组
+     * @param key  密钥
+     * @return HmacSHA512加密后的字节数组
      */
     public static byte[] encryptHmacSHA512(final byte[] data, final byte[] key)
     {
@@ -710,12 +1039,12 @@ public final class EncryptUtils
     }
 
     /**
-     * Return the bytes of hmac encryption.
+     * 返回hmac加密算法结果
      *
-     * @param data      The data.
-     * @param key       The key.
-     * @param algorithm The name of hmac encryption.
-     * @return the bytes of hmac encryption
+     * @param data      待加密数据
+     * @param key       密钥
+     * @param algorithm 算法类型
+     * @return 加密算法结果
      */
     private static byte[] hmacTemplate(final byte[] data,
                                        final byte[] key,
@@ -776,6 +1105,14 @@ public final class EncryptUtils
                                               final byte[] iv)
     {
         return bytes2HexString(encryptDES(data, key, transformation, iv));
+    }
+
+    public static String encryptDES2String(final byte[] data,
+                                           final byte[] key,
+                                           final String transformation,
+                                           final byte[] iv)
+    {
+        return bytes2String(encryptDES(data, key, transformation, iv));
     }
 
     /**
@@ -890,6 +1227,14 @@ public final class EncryptUtils
         return bytes2HexString(encrypt3DES(data, key, transformation, iv));
     }
 
+    public static String encrypt3DES2String(final byte[] data,
+                                            final byte[] key,
+                                            final String transformation,
+                                            final byte[] iv)
+    {
+        return bytes2String(encrypt3DES(data, key, transformation, iv));
+    }
+
     /**
      * Return the bytes of 3DES encryption.
      *
@@ -1000,6 +1345,14 @@ public final class EncryptUtils
                                               final byte[] iv)
     {
         return bytes2HexString(encryptAES(data, key, transformation, iv));
+    }
+
+    public static String encryptAES2String(final byte[] data,
+                                           final byte[] key,
+                                           final String transformation,
+                                           final byte[] iv)
+    {
+        return bytes2String(encryptAES(data, key, transformation, iv));
     }
 
     /**
@@ -1162,6 +1515,14 @@ public final class EncryptUtils
         return bytes2HexString(encryptRSA(data, key, isPublicKey, transformation));
     }
 
+    public static String encryptRSA2String(final byte[] data,
+                                           final byte[] key,
+                                           final boolean isPublicKey,
+                                           final String transformation)
+    {
+        return bytes2String(encryptRSA(data, key, isPublicKey, transformation));
+    }
+
     /**
      * Return the bytes of RSA encryption.
      *
@@ -1269,7 +1630,7 @@ public final class EncryptUtils
             Cipher cipher = Cipher.getInstance(transformation);
             cipher.init(isEncrypt ? Cipher.ENCRYPT_MODE : Cipher.DECRYPT_MODE, rsaKey);
             int len = data.length;
-            int maxLen = isEncrypt ? 117 : 128;
+            int maxLen = isEncrypt ? RSA_MAX_ENCRYPT_BLOCK : RSA_MAX_DECRYPT_BLOCK;
             int count = len / maxLen;
             if (count > 0)
             {
@@ -1326,6 +1687,15 @@ public final class EncryptUtils
         System.arraycopy(prefix, 0, ret, 0, prefix.length);
         System.arraycopy(suffix, 0, ret, prefix.length, suffix.length);
         return ret;
+    }
+
+    private static String bytes2String(final byte[] bytes)
+    {
+        if (bytes == null || bytes.length <= 0)
+        {
+            return "";
+        }
+        return new String(bytes, UTF8);
     }
 
     private static final char HEX_DIGITS[] =
