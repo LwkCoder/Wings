@@ -1,6 +1,7 @@
 package com.lwkandroid.wings.utils;
 
 import android.util.Base64;
+import android.util.Pair;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,12 +11,17 @@ import java.security.DigestInputStream;
 import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.KeyFactory;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.interfaces.RSAPrivateKey;
+import java.security.interfaces.RSAPublicKey;
 import java.security.spec.AlgorithmParameterSpec;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
+import java.util.UUID;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -1312,6 +1318,17 @@ public final class EncryptUtils
     ///////////////////////////////////////////////////////////////////////////
 
     /**
+     * 产生随机密钥(这里产生密钥必须是16位)
+     */
+    public static String generateAESKey()
+    {
+        String key = UUID.randomUUID().toString();
+        // 替换掉-号
+        key = key.replace("-", "").substring(0, 16);
+        return key;
+    }
+
+    /**
      * Return the Base64-encode bytes of AES encryption.
      *
      * @param data           The data.
@@ -1572,6 +1589,23 @@ public final class EncryptUtils
                                              final String transformation)
     {
         return decryptRSA(hexString2Bytes(data), key, isPublicKey, transformation);
+    }
+
+    /**
+     * 生成RSA公钥和私钥
+     *
+     * @return 公钥和私钥的pair对象
+     */
+    public static Pair<String, String> generateRSAKeys() throws NoSuchAlgorithmException
+    {
+        KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance("RSA");
+        keyPairGen.initialize(1024);
+        KeyPair keyPair = keyPairGen.generateKeyPair();
+        RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
+        RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
+        String publicKeyStr = new String(EncodeUtils.base64Encode(publicKey.getEncoded()), UTF8);
+        String privateKeyStr = new String(EncodeUtils.base64Encode(privateKey.getEncoded()), UTF8);
+        return new Pair<>(publicKeyStr, privateKeyStr);
     }
 
     /**
