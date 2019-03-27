@@ -43,7 +43,11 @@ public class ${fragmentClass}Fragment extends AppBaseFragment<${fragmentClass}Pr
     @Override
     public void onClick(int id, View view)
     {
-
+		switch (id)
+        {
+            default:
+                break;
+        }
     }
 	
 }

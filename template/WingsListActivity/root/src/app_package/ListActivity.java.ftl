@@ -92,7 +92,11 @@ public class ${activityClass}Activity extends WingsListActivity<${activityClass}
     @Override
     public void onClick(int id, View view)
     {
-
+		switch (id)
+        {
+            default:
+                break;
+        }
     }
 	
 }

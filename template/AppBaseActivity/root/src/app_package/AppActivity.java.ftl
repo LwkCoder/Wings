@@ -43,7 +43,11 @@ public class ${activityClass}Activity extends AppBaseActivity<${activityClass}Pr
     @Override
     public void onClick(int id, View view)
     {
-
+		switch (id)
+        {
+            default:
+                break;
+        }
     }
 	
 }
