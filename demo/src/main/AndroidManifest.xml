@@ -13,6 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="n">
+        <activity android:name=".project.encrypt.EncryptActivity">
+        </activity>
         <activity
             android:name=".project.MainActivity"
             android:theme="@style/BaseActivityStyle">
@@ -51,7 +53,6 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/BaseActivityStyle">
         </activity>
-
     </application>
 
 </manifest>

@@ -47,10 +47,26 @@ public final class EncryptUtils
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
-    private static final Charset UTF8 = Charset.forName("UTF-8");
+    public static final Charset UTF8 = Charset.forName("UTF-8");
 
     /**
      * AES加密默认Transformation
+     * 算法/模式/填充                16字节加密后数据长度        不满16字节加密后长度
+     * AES/CBC/NoPadding             16                          不支持
+     * AES/CBC/PKCS5Padding          32                          16
+     * AES/CBC/ISO10126Padding       32                          16
+     * AES/CFB/NoPadding             16                          原始数据长度
+     * AES/CFB/PKCS5Padding          32                          16
+     * AES/CFB/ISO10126Padding       32                          16
+     * AES/ECB/NoPadding             16                          不支持
+     * AES/ECB/PKCS5Padding          32                          16
+     * AES/ECB/ISO10126Padding       32                          16
+     * AES/OFB/NoPadding             16                          原始数据长度
+     * AES/OFB/PKCS5Padding          32                          16
+     * AES/OFB/ISO10126Padding       32                          16
+     * AES/PCBC/NoPadding            16                          不支持
+     * AES/PCBC/PKCS5Padding         32                          16
+     * AES/PCBC/ISO10126Padding      32                          16
      */
     public static final String AES_DEFAULT_TRANSFORMATION = "AES/CBC/PKCS5Padding";
     /**
@@ -1407,7 +1423,7 @@ public final class EncryptUtils
     }
 
     /**
-     * 【不推荐】AES加密，结果转为普通字符串
+     * AES加密，结果转为普通字符串
      * 使用默认的Transformation"AES/CBC/PKCS5Padding",AES代表加密算法，ECS代表工作模式，NoPadding代表填充方式
      *
      * @param data 待加密数据
@@ -1425,7 +1441,7 @@ public final class EncryptUtils
     }
 
     /**
-     * 【不推荐】AES加密，结果转为普通字符串
+     * AES加密，结果转为普通字符串
      * 使用默认的Transformation"AES/CBC/PKCS5Padding",AES代表加密算法，ECS代表工作模式，NoPadding代表填充方式
      *
      * @param data 待加密数据
@@ -1438,7 +1454,7 @@ public final class EncryptUtils
     }
 
     /**
-     * 【不推荐】AES加密，结果转为普通字符串
+     * AES加密，结果转为普通字符串
      *
      * @param data           待加密数据
      * @param key            密钥
@@ -1528,22 +1544,6 @@ public final class EncryptUtils
         return symmetricTemplate(data, key, "AES", transformation, iv, true);
     }
 
-    /**
-     * 【不推荐】AES解密，返回普通字符串数据
-     * 使用默认的Transformation"AES/CBC/PKCS5Padding",AES代表加密算法，ECS代表工作模式，NoPadding代表填充方式
-     *
-     * @param data 待解密数据
-     * @param key  密钥
-     * @return 解密结果
-     */
-    public static String decryptStringAES(final String data, final byte[] key)
-    {
-        if (StringUtils.isEmpty(data))
-        {
-            return null;
-        }
-        return decryptStringAES(data.getBytes(UTF8), key);
-    }
 
     /**
      * 【不推荐】AES解密，返回普通字符串数据
@@ -1553,9 +1553,9 @@ public final class EncryptUtils
      * @param key  密钥
      * @return 解密结果
      */
-    public static String decryptStringAES(final byte[] data, final byte[] key)
+    public static String decryptAES2String(final byte[] data, final byte[] key)
     {
-        return decryptStringAES(data, key, AES_DEFAULT_TRANSFORMATION, AES_DEFAULT_IV);
+        return decryptAES2String(data, key, AES_DEFAULT_TRANSFORMATION, AES_DEFAULT_IV);
     }
 
     /**
@@ -1567,47 +1567,59 @@ public final class EncryptUtils
      * @param iv             偏移量，例如"16-Bytes--String"
      * @return 解密结果
      */
-    public static String decryptStringAES(final byte[] data,
-                                          final byte[] key,
-                                          final String transformation,
-                                          final byte[] iv)
+    public static String decryptAES2String(final byte[] data,
+                                           final byte[] key,
+                                           final String transformation,
+                                           final byte[] iv)
     {
         return new String(decryptAES(data, key, transformation, iv), UTF8);
     }
 
-
     /**
-     * AES解密Base64编码的数据
+     * 【不推荐】AES解密Base64编码数据,返回普通字符串
      * 使用默认的Transformation"AES/CBC/PKCS5Padding",AES代表加密算法，ECS代表工作模式，NoPadding代表填充方式
      *
      * @param data 待解密数据
      * @param key  密钥
      * @return 解密结果
      */
-    public static String decryptBase64AES(final String data, final byte[] key)
+    public static String decryptBase64AES2String(final byte[] data, final byte[] key)
     {
-        if (StringUtils.isEmpty(data))
-        {
-            return null;
-        }
-        return decryptBase64AES(data.getBytes(UTF8), key);
+        return decryptBase64AES2String(data, key, AES_DEFAULT_TRANSFORMATION, AES_DEFAULT_IV);
     }
 
     /**
-     * AES解密Base64编码的数据
-     * 使用默认的Transformation"AES/CBC/PKCS5Padding",AES代表加密算法，ECS代表工作模式，NoPadding代表填充方式
+     * 【不推荐】AES解密Base64编码数据,返回普通字符串
+     *
+     * @param data           待解密数据
+     * @param key            密钥
+     * @param transformation Transformation方式，例如"AES/CBC/PKCS5Padding"
+     * @param iv             偏移量，例如"16-Bytes--String"
+     * @return 解密结果
+     */
+    public static String decryptBase64AES2String(final byte[] data,
+                                                 final byte[] key,
+                                                 final String transformation,
+                                                 final byte[] iv)
+    {
+        return new String(decryptBase64AES(data, key, transformation, iv), UTF8);
+    }
+
+    /**
+     * AES解密Base64编码数据,返回字节数组
      *
      * @param data 待解密数据
      * @param key  密钥
      * @return 解密结果
      */
-    public static String decryptBase64AES(final byte[] data, final byte[] key)
+    public static byte[] decryptBase64AES(final byte[] data,
+                                          final byte[] key)
     {
         return decryptBase64AES(data, key, AES_DEFAULT_TRANSFORMATION, AES_DEFAULT_IV);
     }
 
     /**
-     * AES解密Base64编码的数据
+     * AES解密Base64编码数据,返回字节数组
      *
      * @param data           待解密数据
      * @param key            密钥
@@ -1615,29 +1627,29 @@ public final class EncryptUtils
      * @param iv             偏移量，例如"16-Bytes--String"
      * @return 解密结果
      */
-    public static String decryptBase64AES(final byte[] data,
+    public static byte[] decryptBase64AES(final byte[] data,
                                           final byte[] key,
                                           final String transformation,
                                           final byte[] iv)
     {
-        return new String(decryptAES(base64Decode(data), key, transformation, iv), UTF8);
+        return decryptAES(base64Decode(data), key, transformation, iv);
     }
 
     /**
-     * AES解密16进制字符串数据
+     * 【不推荐】 AES解密16进制字符串数据,返回普通字符串
      * 使用默认的Transformation"AES/CBC/PKCS5Padding",AES代表加密算法，ECS代表工作模式，NoPadding代表填充方式
      *
      * @param data 待解密数据
      * @param key  密钥
      * @return 解密结果
      */
-    public static String decryptHexStringAES(final String data, final byte[] key)
+    public static String decryptHexStringAES2String(final String data, final byte[] key)
     {
-        return decryptHexStringAES(data, key, AES_DEFAULT_TRANSFORMATION, AES_DEFAULT_IV);
+        return decryptHexStringAES2String(data, key, AES_DEFAULT_TRANSFORMATION, AES_DEFAULT_IV);
     }
 
     /**
-     * AES解密16进制字符串数据
+     * 【不推荐】AES解密16进制字符串数据,返回普通字符串
      *
      * @param data           待解密数据
      * @param key            密钥
@@ -1645,7 +1657,37 @@ public final class EncryptUtils
      * @param iv             偏移量，例如"16-Bytes--String"
      * @return 解密结果
      */
-    public static String decryptHexStringAES(final String data,
+    public static String decryptHexStringAES2String(final String data,
+                                                    final byte[] key,
+                                                    final String transformation,
+                                                    final byte[] iv)
+    {
+        return new String(decryptHexStringAES(data, key, transformation, iv), UTF8);
+    }
+
+    /**
+     * AES解密16进制字符串数据,返回字节数组
+     *
+     * @param data 待解密数据
+     * @param key  密钥
+     * @return 解密结果
+     */
+    public static byte[] decryptHexStringAES(final String data,
+                                             final byte[] key)
+    {
+        return decryptHexStringAES(data, key);
+    }
+
+    /**
+     * AES解密16进制字符串数据,返回字节数组
+     *
+     * @param data           待解密数据
+     * @param key            密钥
+     * @param transformation Transformation方式，例如"AES/CBC/PKCS5Padding"
+     * @param iv             偏移量，例如"16-Bytes--String"
+     * @return 解密结果
+     */
+    public static byte[] decryptHexStringAES(final String data,
                                              final byte[] key,
                                              final String transformation,
                                              final byte[] iv)
@@ -1654,7 +1696,20 @@ public final class EncryptUtils
         {
             return null;
         }
-        return new String(decryptAES(hexString2Bytes(data), key, transformation, iv), UTF8);
+        return decryptAES(hexString2Bytes(data), key, transformation, iv);
+    }
+
+    /**
+     * AES解密字节数组
+     *
+     * @param data 待解密数据
+     * @param key  密钥
+     * @return 解密结果
+     */
+    public static byte[] decryptAES(final byte[] data,
+                                    final byte[] key)
+    {
+        return decryptAES(data, key, AES_DEFAULT_TRANSFORMATION, AES_DEFAULT_IV);
     }
 
     /**
@@ -1856,7 +1911,7 @@ public final class EncryptUtils
     }
 
     /**
-     * RSA加密，返回Base64字节数组
+     * RSA解密Base64数据，返回字节数组
      *
      * @param data        待解密数据
      * @param key         密钥
@@ -1871,7 +1926,7 @@ public final class EncryptUtils
     }
 
     /**
-     * RSA加密，返回Base64字节数组
+     * RSA解密Base64数据，返回字节数组
      *
      * @param data           待解密数据
      * @param key            密钥
@@ -1888,7 +1943,39 @@ public final class EncryptUtils
     }
 
     /**
-     * RSA解密，返回16进制字符串
+     * 【不推荐】RSA解密Base64数据，返回普通字符串
+     *
+     * @param data        待解密数据
+     * @param key         密钥
+     * @param isPublicKey 是否为公钥
+     * @return 解密结果
+     */
+    public static String decryptBase64RSA2String(final byte[] data,
+                                                 final byte[] key,
+                                                 final boolean isPublicKey)
+    {
+        return decryptBase64RSA2String(data, key, isPublicKey, RSA_DEFAULT_TRANSFORMATION);
+    }
+
+    /**
+     * 【不推荐】RSA解密Base64数据，返回普通字符串
+     *
+     * @param data           待解密数据
+     * @param key            密钥
+     * @param isPublicKey    是否为公钥
+     * @param transformation transformation
+     * @return 解密结果
+     */
+    public static String decryptBase64RSA2String(final byte[] data,
+                                                 final byte[] key,
+                                                 final boolean isPublicKey,
+                                                 final String transformation)
+    {
+        return new String(decryptBase64RSA(data, key, isPublicKey, transformation));
+    }
+
+    /**
+     * RSA解密16进制HexString，返回字节数组
      *
      * @param data        待解密数据
      * @param key         密钥
@@ -1903,7 +1990,7 @@ public final class EncryptUtils
     }
 
     /**
-     * RSA解密，返回16进制字符串
+     * RSA解密16进制HexString，返回字节数组
      *
      * @param data           待解密数据
      * @param key            密钥
@@ -1920,22 +2007,54 @@ public final class EncryptUtils
     }
 
     /**
-     * 【不推荐】RSA解密普通字符串
+     * 【不推荐】RSA解密16进制HexString，返回普通字符串
      *
      * @param data        待解密数据
      * @param key         密钥
      * @param isPublicKey 是否为公钥
      * @return 解密结果
      */
-    public static byte[] decryptStringRSA(final byte[] data,
-                                          final byte[] key,
-                                          final boolean isPublicKey)
+    public static String decryptHexStringRSA2String(final String data,
+                                                    final byte[] key,
+                                                    final boolean isPublicKey)
     {
-        return decryptStringRSA(data, key, isPublicKey, RSA_DEFAULT_TRANSFORMATION);
+        return decryptHexStringRSA2String(data, key, isPublicKey, RSA_DEFAULT_TRANSFORMATION);
     }
 
     /**
-     * 【不推荐】RSA解密普通字符串
+     * RSA解密16进制HexString，返回普通字符串
+     *
+     * @param data           待解密数据
+     * @param key            密钥
+     * @param isPublicKey    是否为公钥
+     * @param transformation Transformation
+     * @return 解密结果
+     */
+    public static String decryptHexStringRSA2String(final String data,
+                                                    final byte[] key,
+                                                    final boolean isPublicKey,
+                                                    final String transformation)
+    {
+        return new String(decryptHexStringRSA(data, key, isPublicKey, transformation), UTF8);
+    }
+
+    /**
+     * 【不推荐】RSA解密，返回普通字符串
+     *
+     * @param data        待解密数据
+     * @param key         密钥
+     * @param isPublicKey 是否为公钥
+     * @return 解密结果
+     */
+    public static String decryptRSA2String(final byte[] data,
+                                           final byte[] key,
+                                           final boolean isPublicKey)
+    {
+        return decryptRSA2String(data, key, isPublicKey, RSA_DEFAULT_TRANSFORMATION);
+    }
+
+    /**
+     * 【不推荐】RSA解密，返回普通字符串
      *
      * @param data           待解密数据
      * @param key            密钥
@@ -1943,12 +2062,12 @@ public final class EncryptUtils
      * @param transformation transformation
      * @return 解密结果
      */
-    public static byte[] decryptStringRSA(final byte[] data,
-                                          final byte[] key,
-                                          final boolean isPublicKey,
-                                          final String transformation)
+    public static String decryptRSA2String(final byte[] data,
+                                           final byte[] key,
+                                           final boolean isPublicKey,
+                                           final String transformation)
     {
-        return decryptRSA(data, key, isPublicKey, transformation);
+        return new String(decryptRSA(data, key, isPublicKey, transformation), UTF8);
     }
 
     /**
