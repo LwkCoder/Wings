@@ -10,8 +10,8 @@
     <com.lwkandroid.widget.comactionbar.ComActionBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:is_left_as_back="true"
         app:bg_color="@color/deep_dark"
+        app:is_left_as_back="true"
         app:title_text="AES/RSA加密解密"/>
 
     <ScrollView
@@ -50,6 +50,7 @@
                 android:id="@+id/tv_encrypt_result"
                 style="@style/MediumTextStyle"
                 android:layout_marginTop="@dimen/spacing_small"
+                android:textIsSelectable="true"
                 tools:text="AESAESARSARS"/>
 
         </LinearLayout>
