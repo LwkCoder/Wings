@@ -285,4 +285,23 @@ public final class StringUtils
         }
         return new String(baos.toByteArray());
     }
+
+    /**
+     * String转ASCII
+     *
+     * @param content 待转换字符串
+     * @return ASCII
+     */
+    public static String stringToAscii(String content)
+    {
+        String result = "";
+        int max = content.length();
+        for (int i = 0; i < max; i++)
+        {
+            char c = content.charAt(i);
+            int b = (int) c;
+            result = result + b;
+        }
+        return result;
+    }
 }
