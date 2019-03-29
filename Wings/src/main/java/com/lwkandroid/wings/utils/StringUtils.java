@@ -289,19 +289,83 @@ public final class StringUtils
     /**
      * String转ASCII
      *
-     * @param content 待转换字符串
+     * @param value 待转换字符串
      * @return ASCII
      */
-    public static String stringToAscii(String content)
+    public static String stringToAscii(String value)
     {
-        String result = "";
-        int max = content.length();
-        for (int i = 0; i < max; i++)
+        if (isEmpty(value))
         {
-            char c = content.charAt(i);
-            int b = (int) c;
-            result = result + b;
+            return null;
         }
-        return result;
+        StringBuffer sbu = new StringBuffer();
+        char[] chars = value.toCharArray();
+        for (int i = 0; i < chars.length; i++)
+        {
+            if (i != chars.length - 1)
+            {
+                sbu.append((int) chars[i]).append(",");
+            } else
+            {
+                sbu.append((int) chars[i]);
+            }
+        }
+        return sbu.toString();
+    }
+
+    /**
+     * ASCII转String
+     *
+     * @param value     ASCII码组成的字符串
+     * @param splitChar ASCII码之间的分隔符
+     * @return 普通字符串
+     */
+    public static String asciiToString(String value, String splitChar)
+    {
+        if (isEmpty(value))
+        {
+            return null;
+        }
+        if (isEmpty(splitChar))
+        {
+            splitChar = " ";
+        }
+        StringBuilder builder = new StringBuilder();
+        String[] valueChars = value.split(splitChar);
+        for (String valueChar : valueChars)
+        {
+            builder.append(((char) Integer.parseInt(valueChar)));
+        }
+
+        return builder.toString();
+    }
+
+    /**
+     * String转ASCII
+     *
+     * @param value     普通字符串
+     * @param splitChar ASCII码之间的分隔符
+     * @return ASCII码组成的字符串
+     */
+    public static String string2Ascii(String value, String splitChar)
+    {
+        if (isEmpty(value))
+        {
+            return null;
+        }
+        if (isEmpty(splitChar))
+        {
+            splitChar = " ";
+        }
+
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0, length = value.length(); i < length; i++)
+        {
+            char vchar = value.charAt(i);
+            builder.append(Integer.valueOf(vchar))
+                    .append(splitChar);
+        }
+
+        return builder.toString();
     }
 }
