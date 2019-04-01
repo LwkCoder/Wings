@@ -14,6 +14,6 @@ interface ${activityClass}Contract
   
   abstract class Model extends AppBaseModel{}
   
-  abstract class Presenter extends AppBasePresenter{}
+  abstract class Presenter extends AppBasePresenter<IView,Model>{}
   
 }
