@@ -104,6 +104,8 @@ public class MainActivity extends AppBaseActivity<MainPresenter> implements Main
     @Override
     protected void initData(@Nullable Bundle savedInstanceState)
     {
+        //测试合并数据
+        getPresenter().queryTestDataList();
     }
 
     @Override

@@ -22,13 +22,13 @@ public class ListDemoPresenter extends ListDemoContract.Presenter
                 .subscribe(new ApiBaseObserver<List<String>>()
                 {
                     @Override
-                    public void _onNext(List<String> strings)
+                    public void subOnNext(List<String> strings)
                     {
                         getViewImpl().onRefreshSuccess(pageIndex, strings);
                     }
 
                     @Override
-                    public void onApiException(ApiException e)
+                    public void subOnError(ApiException e)
                     {
                         getViewImpl().onRefreshFail(e.getDisplayMessage());
                     }
@@ -44,13 +44,13 @@ public class ListDemoPresenter extends ListDemoContract.Presenter
                 .subscribe(new ApiBaseObserver<List<String>>()
                 {
                     @Override
-                    public void _onNext(List<String> strings)
+                    public void subOnNext(List<String> strings)
                     {
                         getViewImpl().onLoadMoreSuccess(pageIndex, strings);
                     }
 
                     @Override
-                    public void onApiException(ApiException e)
+                    public void subOnError(ApiException e)
                     {
                         getViewImpl().onLoadMoreFail(e.getDisplayMessage());
                     }

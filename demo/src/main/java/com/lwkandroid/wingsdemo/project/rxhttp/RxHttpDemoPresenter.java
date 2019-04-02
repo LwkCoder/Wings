@@ -40,13 +40,13 @@ public class RxHttpDemoPresenter extends RxHttpDemoContract.Presenter
                     }
 
                     @Override
-                    public void _onNext(List<TabsBean> dataList)
+                    public void subOnNext(List<TabsBean> dataList)
                     {
                         getViewImpl().setWeatherHttpResultData(dataList);
                     }
 
                     @Override
-                    public void onApiException(ApiException e)
+                    public void subOnError(ApiException e)
                     {
                         KLog.e("无法获取数据：" + e.toString());
                         getViewImpl().showHttpError(e);
@@ -69,13 +69,13 @@ public class RxHttpDemoPresenter extends RxHttpDemoContract.Presenter
                     }
 
                     @Override
-                    public void _onNext(List<TabsBean> dataList)
+                    public void subOnNext(List<TabsBean> dataList)
                     {
                         getViewImpl().setWeatherHttpResultData(dataList);
                     }
 
                     @Override
-                    public void onApiException(ApiException e)
+                    public void subOnError(ApiException e)
                     {
                         getViewImpl().showHttpError(e);
                     }
@@ -97,14 +97,14 @@ public class RxHttpDemoPresenter extends RxHttpDemoContract.Presenter
                     }
 
                     @Override
-                    public void _onNext(File file)
+                    public void subOnNext(File file)
                     {
                         getViewImpl().showDownloadResult(file);
                         getViewImpl().setDownLoadEnable(true);
                     }
 
                     @Override
-                    public void onApiException(ApiException e)
+                    public void subOnError(ApiException e)
                     {
                         getViewImpl().showHttpError(e);
                         getViewImpl().setDownLoadEnable(true);
@@ -142,14 +142,14 @@ public class RxHttpDemoPresenter extends RxHttpDemoContract.Presenter
                     }
 
                     @Override
-                    public void _onNext(ApiResultCacheWrapper<NonRestFulResult> resultBean)
+                    public void subOnNext(ApiResultCacheWrapper<NonRestFulResult> resultBean)
                     {
                         KLog.i("是否为缓存：" + resultBean.isCache());
                         getViewImpl().showNonRestFulResult(resultBean.getData());
                     }
 
                     @Override
-                    public void onApiException(ApiException e)
+                    public void subOnError(ApiException e)
                     {
                         getViewImpl().showHttpError(e);
                     }
@@ -164,14 +164,14 @@ public class RxHttpDemoPresenter extends RxHttpDemoContract.Presenter
         //                    }
         //
         //                    @Override
-        //                    public void _onNext(NonRestFulResult nonRestFulResult)
+        //                    public void subOnNext(NonRestFulResult nonRestFulResult)
         //                    {
         //                        KLog.e();
         //                        getViewImpl().showNonRestFulResult(nonRestFulResult);
         //                    }
         //
         //                    @Override
-        //                    public void onApiException(ApiException e)
+        //                    public void subOnError(ApiException e)
         //                    {
         //                        getViewImpl().showHttpError(e);
         //                    }
@@ -186,13 +186,13 @@ public class RxHttpDemoPresenter extends RxHttpDemoContract.Presenter
                 .subscribe(new ApiBaseObserver<Bitmap>()
                 {
                     @Override
-                    public void _onNext(Bitmap bitmap)
+                    public void subOnNext(Bitmap bitmap)
                     {
                         getViewImpl().showImageBitmap(bitmap);
                     }
 
                     @Override
-                    public void onApiException(ApiException e)
+                    public void subOnError(ApiException e)
                     {
                         getViewImpl().showHttpError(e);
                     }
@@ -207,13 +207,13 @@ public class RxHttpDemoPresenter extends RxHttpDemoContract.Presenter
                 .subscribe(new ApiBaseObserver<String>()
                 {
                     @Override
-                    public void _onNext(String s)
+                    public void subOnNext(String s)
                     {
                         getViewImpl().showShortToast("上传成功");
                     }
 
                     @Override
-                    public void onApiException(ApiException e)
+                    public void subOnError(ApiException e)
                     {
                         getViewImpl().showHttpError(e);
                     }
