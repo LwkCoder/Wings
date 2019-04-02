@@ -91,7 +91,7 @@ public class MVPListOptions
 
         public Builder enableLoadMore(boolean enable)
         {
-            options.setEnableRefresh(enable);
+            options.setEnableLoadMore(enable);
             return this;
         }
 
