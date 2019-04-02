@@ -49,7 +49,7 @@ public class ${fragmentClass}Fragment extends AppListFragment<${fragmentClass}Pr
     @Override
     public RecyclerView findRecyclerView(MVPListOptions options, View contentView)
     {
-        return find(R.id.ptr_list);
+        return find(R.id.rcv_list);
     }
 
 	@Override
