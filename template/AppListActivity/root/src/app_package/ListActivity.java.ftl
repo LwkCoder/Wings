@@ -60,7 +60,7 @@ public class ${activityClass}Activity extends AppListActivity<${activityClass}Pr
     }
 	
 	@Override
-    protected void _initUI(View contentView)
+    protected void subInitUI(View contentView)
     {
 		
     }

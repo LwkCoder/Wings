@@ -26,7 +26,7 @@ public abstract class WingsListActivity<P extends MVPBasePresenter, RV, D> exten
         mListImpl = new MVPListImpl<RV, D>(this);
         mListImpl.init(setListOptions(), contentView, findRefreshWrapper(getListOptions(), contentView)
                 , findRecyclerView(getListOptions(), contentView), setAdapter());
-        _initUI(contentView);
+        subInitUI(contentView);
     }
 
     @Override
@@ -96,5 +96,10 @@ public abstract class WingsListActivity<P extends MVPBasePresenter, RV, D> exten
         super.onDestroy();
     }
 
-    protected abstract void _initUI(View contentView);
+    /**
+     * 子类初始化UI的方法
+     *
+     * @param contentView 布局
+     */
+    protected abstract void subInitUI(View contentView);
 }

@@ -73,7 +73,7 @@ public class ListDemoActivity extends AppListActivity<ListDemoPresenter, PTRLayo
 
 
     @Override
-    protected void _initUI(View contentView)
+    protected void subInitUI(View contentView)
     {
         PTRDefaultRefreshHeader refreshView = new PTRDefaultRefreshHeader(this);
         refreshView.setColorSchemeResources(R.color.deep_darker, R.color.colorAccent);

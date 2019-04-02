@@ -69,7 +69,7 @@ public class ${fragmentClass}Fragment extends AppListFragment<${fragmentClass}Pr
     }
 	
 	@Override
-    protected void _initUI(View contentView)
+    protected void subInitUI(View contentView)
     {
 		
     }

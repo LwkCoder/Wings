@@ -66,7 +66,7 @@ public class ${activityClass}Activity extends WingsListActivity<${activityClass}
     }
 	
 	@Override
-    protected void _initUI(View contentView)
+    protected void subInitUI(View contentView)
     {
 		
     }

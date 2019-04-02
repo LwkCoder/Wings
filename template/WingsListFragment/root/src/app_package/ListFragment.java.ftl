@@ -70,7 +70,7 @@ public class ${fragmentClass}Fragment extends WingsListFragment<${fragmentClass}
     }
 	
 	@Override
-    protected void _initUI(View contentView)
+    protected void subInitUI(View contentView)
     {
 		
     }
