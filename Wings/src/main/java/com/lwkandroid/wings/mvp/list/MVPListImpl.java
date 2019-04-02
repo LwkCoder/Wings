@@ -77,7 +77,7 @@ class MVPListImpl<RV, D> implements IMVPListContract.IViewCommon<D>,
         mAdapter.disableLoadMore();//刷新的时候禁止加载更多
         if (mListener != null)
         {
-            mListener.doRefresh(System.currentTimeMillis(), 0, mOptions.getPageSize());
+            mListener.doRefresh(System.currentTimeMillis(), mOptions.getPageStartIndex(), mOptions.getPageSize());
         }
     }
 

@@ -95,9 +95,9 @@ public class MVPListOptions
             return this;
         }
 
-        public Builder setPageNum(int pageNum)
+        public Builder setPageSize(int pageSize)
         {
-            options.setPageSize(pageNum);
+            options.setPageSize(pageSize);
             return this;
         }
 
