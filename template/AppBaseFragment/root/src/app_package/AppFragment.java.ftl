@@ -12,6 +12,15 @@ import androidx.annotation.Nullable;
  */
 public class ${fragmentClass}Fragment extends AppBaseFragment<${fragmentClass}Presenter> implements ${fragmentClass}Contract.IView {
 
+	/**
+     * 创建该Fragment的静态方法
+     */
+    public static ${fragmentClass}Fragment createInstance()
+    {
+        ${fragmentClass}Fragment fragment = new ${fragmentClass}Fragment();
+        return fragment;
+    }
+
 	@Override
     protected void getArgumentsData(Bundle bundle, Bundle savedInstanceState)
     {

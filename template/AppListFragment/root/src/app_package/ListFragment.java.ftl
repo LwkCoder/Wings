@@ -14,6 +14,15 @@ import androidx.annotation.Nullable;
 public class ${fragmentClass}Fragment extends AppListFragment<${fragmentClass}Presenter,PTRLayout,${dataClass}> implements 
 		${fragmentClass}Contract.IView<${dataClass}> 
 {
+	/**
+     * 创建该Fragment的静态方法
+     */
+    public static ${fragmentClass}Fragment createInstance()
+    {
+        ${fragmentClass}Fragment fragment = new ${fragmentClass}Fragment();
+        return fragment;
+    }
+
 	@Override
     public MVPListOptions setListOptions()
     {
