@@ -8,9 +8,9 @@ import android.text.TextUtils;
 import com.lwkandroid.wings.R;
 import com.lwkandroid.wings.utils.AppUtils;
 import com.lwkandroid.wings.utils.ResourceUtils;
-import com.yanzhenjie.permission.Permission;
 import com.yanzhenjie.permission.Rationale;
 import com.yanzhenjie.permission.RequestExecutor;
+import com.yanzhenjie.permission.runtime.Permission;
 
 import java.util.List;
 

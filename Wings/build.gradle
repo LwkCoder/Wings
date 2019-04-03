@@ -24,12 +24,11 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    api "androidx.legacy:legacy-support-v4:$AndroidXVersion"
-    api "androidx.appcompat:appcompat:$AndroidXVersion"
-    api "androidx.annotation:annotation:$AndroidXVersion"
-    api "androidx.recyclerview:recyclerview:$AndroidXVersion"
+    api "androidx.appcompat:appcompat:$AppCompatXVersion"
+    api "androidx.annotation:annotation:$AnnotationXVersion"
+    api "androidx.recyclerview:recyclerview:$RecyclerViewXVersion"
     api "com.google.code.gson:gson:$GsonVersion"
-    api "com.yanzhenjie:permission:${AndPermissionVersion}"
+    api "com.yanzhenjie.permission:x:${AndPermissionVersion}"
     api "com.lwkandroid.widget:ComActionBar:$ComActionBarVersion"
     api "com.squareup.okhttp3:okhttp:$OkHttp3Version"
     api "cn.bingoogolapple:bga-qrcode-zxing:$BGACodeVersion"

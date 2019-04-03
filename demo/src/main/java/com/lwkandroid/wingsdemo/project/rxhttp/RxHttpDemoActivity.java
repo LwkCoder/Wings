@@ -20,7 +20,7 @@ import com.lwkandroid.wingsdemo.bean.NonRestFulResult;
 import com.lwkandroid.wingsdemo.bean.TabsBean;
 import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
-import com.yanzhenjie.permission.Permission;
+import com.yanzhenjie.permission.runtime.Permission;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -93,7 +93,7 @@ public class RxHttpDemoActivity extends AppBaseActivity<RxHttpDemoPresenter> imp
                             @Override
                             public void onAction(List<String> data)
                             {
-                                PermissionDialogUtils.showSettingIfNeverAskDialog(RxHttpDemoActivity.this, data, null);
+                                PermissionDialogUtils.showSettingIfNeverAskDialog(RxHttpDemoActivity.this, data, 100);
                                 showShortToast("不给权限我咋下载啊大兄弟");
                             }
                         }).start();

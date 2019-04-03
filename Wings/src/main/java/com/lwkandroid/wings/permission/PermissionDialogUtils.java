@@ -8,9 +8,8 @@ import android.text.TextUtils;
 import com.lwkandroid.wings.R;
 import com.lwkandroid.wings.utils.AppUtils;
 import com.yanzhenjie.permission.AndPermission;
-import com.yanzhenjie.permission.Permission;
 import com.yanzhenjie.permission.Rationale;
-import com.yanzhenjie.permission.Setting;
+import com.yanzhenjie.permission.runtime.Permission;
 
 import java.io.File;
 import java.util.List;
@@ -36,11 +35,11 @@ public final class PermissionDialogUtils
     /**
      * 永不询问的被拒权限的解释说明弹窗
      *
-     * @param context        Context
-     * @param permissions    被拒权限
-     * @param callBackAction 设置界面返回回调
+     * @param context     Context
+     * @param permissions 被拒权限
+     * @param requestCode 跳转设置界面的RequestCode
      */
-    public static void showSettingIfNeverAskDialog(final Context context, final List<String> permissions, final Setting.Action callBackAction)
+    public static void showSettingIfNeverAskDialog(final Context context, final List<String> permissions, final int requestCode)
     {
         if (!AndPermission.hasAlwaysDeniedPermission(context, permissions))
         {
@@ -62,8 +61,7 @@ public final class PermissionDialogUtils
                         AndPermission.with(context)
                                 .runtime()
                                 .setting()
-                                .onComeback(callBackAction)
-                                .start();
+                                .start(requestCode);
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener()

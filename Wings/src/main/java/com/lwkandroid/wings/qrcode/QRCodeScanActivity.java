@@ -25,8 +25,7 @@ import com.lwkandroid.wings.permission.PermissionDialogUtils;
 import com.lwkandroid.wings.utils.BarUtils;
 import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
-import com.yanzhenjie.permission.Permission;
-import com.yanzhenjie.permission.Setting;
+import com.yanzhenjie.permission.runtime.Permission;
 
 import java.util.List;
 
@@ -67,11 +66,13 @@ public class QRCodeScanActivity extends WingsBaseActivity<MVPBasePresenter>
         activity.startActivityForResult(intent, requestCode);
     }
 
+    @Deprecated
     public static void start(Fragment fragment, int requestCode)
     {
         start(fragment, requestCode, new QRCodeOptions());
     }
 
+    @Deprecated
     public static void start(Fragment fragment, int requestCode, QRCodeOptions options)
     {
         Intent intent = new Intent(fragment.getActivity(), QRCodeScanActivity.class);
@@ -175,14 +176,7 @@ public class QRCodeScanActivity extends WingsBaseActivity<MVPBasePresenter>
                     @Override
                     public void onAction(List<String> data)
                     {
-                        PermissionDialogUtils.showSettingIfNeverAskDialog(QRCodeScanActivity.this, data, new Setting.Action()
-                        {
-                            @Override
-                            public void onAction()
-                            {
-                                requestCameraBeforeStarted();
-                            }
-                        });
+                        PermissionDialogUtils.showSettingIfNeverAskDialog(QRCodeScanActivity.this, data, 100);
                         showLongToast(R.string.qrcodescan_error);
                     }
                 })

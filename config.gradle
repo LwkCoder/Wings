@@ -22,10 +22,11 @@ ext {
     ]
 
     /*依赖库的版本号*/
-    SupportVersion = "28.0.0"
-    AndroidXVersion = "1.0.0"
+    AppCompatXVersion = "1.0.2"
+    AnnotationXVersion = "1.0.2"
+    RecyclerViewXVersion="1.0.0"
     ImagePickerVersion = "1.4.4"
-    AndPermissionVersion = "2.0.0-rc12"
+    AndPermissionVersion = "2.0.1"
     RcvAdapterVersion = "1.4.1"
     OkHttp3Version = "3.12.1"
     GlideVersion = "4.9.0"
