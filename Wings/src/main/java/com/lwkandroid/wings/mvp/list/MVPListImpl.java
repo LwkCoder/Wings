@@ -56,7 +56,7 @@ class MVPListImpl<RV, D> implements IMVPListContract.IViewCommon<D>,
 
         mRefreshWrapper.enableRefresh(getListOptions().isEnableRefresh());
         mRefreshWrapper.setOnRefreshListener(this);
-        if (mOptions.isEnableLoadMore() && mAdapter.isLoadMoreLayoutEmpty())
+        if (mOptions.isEnableLoadMore() && !mAdapter.isLoadMoreLayoutEmpty())
         {
             mAdapter.setLoadMoreLayout(new RcvDefLoadMoreView.Builder().build(contentView.getContext()));
         }
@@ -74,7 +74,8 @@ class MVPListImpl<RV, D> implements IMVPListContract.IViewCommon<D>,
     @Override
     public void onRefreshRequest()
     {
-        mAdapter.disableLoadMore();//刷新的时候禁止加载更多
+        //刷新的时候禁止加载更多
+        mAdapter.disableLoadMore();
         if (mListener != null)
         {
             mListener.doRefresh(System.currentTimeMillis(), mOptions.getPageStartIndex(), mOptions.getPageSize());
@@ -85,17 +86,21 @@ class MVPListImpl<RV, D> implements IMVPListContract.IViewCommon<D>,
     public void onRefreshSuccess(int pageIndex, List<D> dataList)
     {
         this.mCurrentIndex = pageIndex;
-        mRefreshWrapper.finishRefresh();//结束刷新
+        //结束刷新
+        mRefreshWrapper.finishRefresh();
         mAdapter.refreshDatas(dataList);
         if (dataList == null || dataList.size() == 0)
         {
             return;
         }
-        mAdapter.enableLoadMore(this);
-        if (getListOptions().isEnableLoadMore() &&
-                dataList.size() < getListOptions().getPageSize())
+        if (mOptions.isEnableLoadMore())
         {
-            mAdapter.notifyLoadMoreHasNoMoreData();
+            mAdapter.enableLoadMore(this);
+            if (getListOptions().isEnableLoadMore() &&
+                    dataList.size() < getListOptions().getPageSize())
+            {
+                mAdapter.notifyLoadMoreHasNoMoreData();
+            }
         }
     }
 
