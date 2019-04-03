@@ -369,7 +369,7 @@ public class PTRLayout extends ViewGroup implements NestedScrollingParent
         {
             if (BuildConfig.DEBUG)
             {
-                KLog.d(TAG, "fast end onIntercept: isEnabled = " + isEnabled() + "; canChildScrollUp = "
+                info("fast end onIntercept: isEnabled = " + isEnabled() + "; canChildScrollUp = "
                         + canChildScrollUp() + " ; mNestedScrollInProgress = " + mNestedScrollInProgress);
             }
             return false;
@@ -1044,7 +1044,7 @@ public class PTRLayout extends ViewGroup implements NestedScrollingParent
     {
         if (BuildConfig.DEBUG)
         {
-            KLog.i(TAG, msg);
+//            KLog.i(TAG, msg);
         }
     }
 
