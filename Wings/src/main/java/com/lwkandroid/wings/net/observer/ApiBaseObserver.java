@@ -3,6 +3,7 @@ package com.lwkandroid.wings.net.observer;
 import com.lwkandroid.wings.net.bean.ApiException;
 
 import io.reactivex.Observer;
+import io.reactivex.SingleObserver;
 import io.reactivex.disposables.Disposable;
 
 /**
@@ -10,11 +11,17 @@ import io.reactivex.disposables.Disposable;
  * TODO 网络请求Observer基类（非必须）
  */
 
-public abstract class ApiBaseObserver<T> implements Observer<T>
+public abstract class ApiBaseObserver<T> implements Observer<T>, SingleObserver<T>
 {
     @Override
     public void onSubscribe(Disposable d)
     {
+    }
+
+    @Override
+    public void onSuccess(T t)
+    {
+        subOnNext(t);
     }
 
     @Override
