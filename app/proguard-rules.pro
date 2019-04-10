@@ -1,3 +1,5 @@
+#实体类不混淆
+-keep class com.sources.javacode.bean.** {*;}
 #AndPermission
 -dontwarn com.yanzhenjie.permission.**
 #自定义注解NotProguard

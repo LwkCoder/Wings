@@ -4,6 +4,7 @@ apply plugin: 'com.getkeepsafe.dexcount'
 def appConfig = rootProject.ext.appConfig
 def urls = rootProject.ext.url
 def libsConfig = rootProject.ext.libsConfig
+def appName = rootProject.ext.appName
 
 def keystorePropertiesFile = rootProject.file("key/keystore.properties")
 def keystoreProperties = new Properties()
@@ -53,6 +54,8 @@ android {
 
     buildTypes {
         debug {
+            applicationIdSuffix ".dev"
+            resValue "string", "app_name", appName.debug
             buildConfigField("String", "HOST", "\"${urls.debugUrl}\"")
 
             zipAlignEnabled false
@@ -62,6 +65,8 @@ android {
             signingConfig signingConfigs.debug
         }
         release {
+            applicationIdSuffix ".release"
+            resValue "string", "app_name", appName.release
             buildConfigField("String", "HOST", "\"${urls.releaseUrl}\"")
 
             zipAlignEnabled true

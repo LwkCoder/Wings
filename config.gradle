@@ -15,6 +15,12 @@ ext {
             "releaseUrl": "http://lf.snssdk.com/neihan/"
     ]
 
+    /*App名称*/
+    appName = [
+            "debug"  : "WingsAppDebug",
+            "release": "WingsAppRelease"
+    ]
+
     /*依赖库参数*/
     libsConfig = [
             "WX_APP_ID"    : "这里写微信AppId",
@@ -24,7 +30,7 @@ ext {
     /*依赖库的版本号*/
     AppCompatXVersion = "1.0.2"
     AnnotationXVersion = "1.0.2"
-    RecyclerViewXVersion="1.0.0"
+    RecyclerViewXVersion = "1.0.0"
     ImagePickerVersion = "1.4.4"
     AndPermissionVersion = "2.0.1"
     RcvAdapterVersion = "1.4.1"
