@@ -56,7 +56,7 @@ public class MainPresenter extends MainContract.Presenter
                         });
                     }
                 })
-                .compose(this.<TestData>applyComputation2MainAsObservableWithLifeCycle())
+                .compose(this.<TestData>applyComputation2MainWithLifeCycle())
                 .subscribe(new ApiBaseObserver<TestData>()
                 {
                     @Override
@@ -79,5 +79,10 @@ public class MainPresenter extends MainContract.Presenter
                         KLog.e("最终数据：" + resultList.toString());
                     }
                 });
+    }
+
+    @Override
+    public void test()
+    {
     }
 }

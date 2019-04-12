@@ -106,6 +106,7 @@ public class MainActivity extends AppBaseActivity<MainPresenter> implements Main
     {
         //测试合并数据
         getPresenter().queryTestDataList();
+        getPresenter().test();
     }
 
     @Override

@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.lwkandroid.wings.log.KLog;
-import com.lwkandroid.wings.rx.constant.RxLifecycle;
+import com.lwkandroid.wings.rx.constant.RxLifeCycle;
 import com.lwkandroid.wings.utils.ReflectUtils;
 
 import java.lang.reflect.ParameterizedType;
@@ -17,7 +17,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import io.reactivex.subjects.PublishSubject;
-import io.reactivex.subjects.SingleSubject;
 
 /**
  * Created by LWK
@@ -37,16 +36,14 @@ public abstract class WingsBaseFragment<P extends MVPBasePresenter> extends Frag
     public void onAttach(Context context)
     {
         super.onAttach(context);
-        getLifecyclePublishSubject().onNext(RxLifecycle.ON_ATTACH);
-        getLifecycleSingleSubject().onSuccess(RxLifecycle.ON_ATTACH);
+        getLifecyclePublishSubject().onNext(RxLifeCycle.ON_ATTACH);
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        getLifecyclePublishSubject().onNext(RxLifecycle.ON_CREATE);
-        getLifecycleSingleSubject().onSuccess(RxLifecycle.ON_CREATE);
+        getLifecyclePublishSubject().onNext(RxLifeCycle.ON_CREATE);
     }
 
     @Nullable
@@ -54,8 +51,7 @@ public abstract class WingsBaseFragment<P extends MVPBasePresenter> extends Frag
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
         mContentViewImpl.inflateContentView(inflater, getContentViewId(), container);
-        getLifecyclePublishSubject().onNext(RxLifecycle.ON_CREATE_VIEW);
-        getLifecycleSingleSubject().onSuccess(RxLifecycle.ON_CREATE_VIEW);
+        getLifecyclePublishSubject().onNext(RxLifeCycle.ON_CREATE_VIEW);
         return mContentViewImpl.getContentView();
     }
 
@@ -63,8 +59,7 @@ public abstract class WingsBaseFragment<P extends MVPBasePresenter> extends Frag
     public void onActivityCreated(@Nullable Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
-        getLifecyclePublishSubject().onNext(RxLifecycle.ON_ACTIVITY_CREATED);
-        getLifecycleSingleSubject().onSuccess(RxLifecycle.ON_ACTIVITY_CREATED);
+        getLifecyclePublishSubject().onNext(RxLifeCycle.ON_ACTIVITY_CREATED);
         getArgumentsData(getArguments(), savedInstanceState);
         mPresenter = createPresenter();
         if (getPresenter() != null)
@@ -79,47 +74,41 @@ public abstract class WingsBaseFragment<P extends MVPBasePresenter> extends Frag
     public void onStart()
     {
         super.onStart();
-        getLifecyclePublishSubject().onNext(RxLifecycle.ON_START);
-        getLifecycleSingleSubject().onSuccess(RxLifecycle.ON_START);
+        getLifecyclePublishSubject().onNext(RxLifeCycle.ON_START);
     }
 
     @Override
     public void onResume()
     {
         super.onResume();
-        getLifecyclePublishSubject().onNext(RxLifecycle.ON_RESUME);
-        getLifecycleSingleSubject().onSuccess(RxLifecycle.ON_RESUME);
+        getLifecyclePublishSubject().onNext(RxLifeCycle.ON_RESUME);
     }
 
     @Override
     public void onPause()
     {
         super.onPause();
-        getLifecyclePublishSubject().onNext(RxLifecycle.ON_PAUSE);
-        getLifecycleSingleSubject().onSuccess(RxLifecycle.ON_PAUSE);
+        getLifecyclePublishSubject().onNext(RxLifeCycle.ON_PAUSE);
     }
 
     @Override
     public void onStop()
     {
         super.onStop();
-        getLifecyclePublishSubject().onNext(RxLifecycle.ON_STOP);
-        getLifecycleSingleSubject().onSuccess(RxLifecycle.ON_STOP);
+        getLifecyclePublishSubject().onNext(RxLifeCycle.ON_STOP);
     }
 
     @Override
     public void onDestroyView()
     {
         super.onDestroyView();
-        getLifecyclePublishSubject().onNext(RxLifecycle.ON_DESTROY_VIEW);
-        getLifecycleSingleSubject().onSuccess(RxLifecycle.ON_DESTROY_VIEW);
+        getLifecyclePublishSubject().onNext(RxLifeCycle.ON_DESTROY_VIEW);
     }
 
     @Override
     public void onDestroy()
     {
-        getLifecyclePublishSubject().onNext(RxLifecycle.ON_DESTROY);
-        getLifecycleSingleSubject().onSuccess(RxLifecycle.ON_DESTROY);
+        getLifecyclePublishSubject().onNext(RxLifeCycle.ON_DESTROY);
         if (getPresenter() != null)
         {
             getPresenter().onDestroyPresenter();
@@ -131,8 +120,7 @@ public abstract class WingsBaseFragment<P extends MVPBasePresenter> extends Frag
     public void onDetach()
     {
         super.onDetach();
-        getLifecyclePublishSubject().onNext(RxLifecycle.ON_DETACH);
-        getLifecycleSingleSubject().onSuccess(RxLifecycle.ON_DETACH);
+        getLifecyclePublishSubject().onNext(RxLifeCycle.ON_DETACH);
     }
 
     @Override
@@ -211,12 +199,6 @@ public abstract class WingsBaseFragment<P extends MVPBasePresenter> extends Frag
     public PublishSubject<Integer> getLifecyclePublishSubject()
     {
         return mMVPViewImpl.getLifecyclePublishSubject();
-    }
-
-    @Override
-    public SingleSubject<Integer> getLifecycleSingleSubject()
-    {
-        return mMVPViewImpl.getLifecycleSingleSubject();
     }
 
     @Override

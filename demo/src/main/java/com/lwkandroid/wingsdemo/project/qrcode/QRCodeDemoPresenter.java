@@ -15,7 +15,7 @@ public class QRCodeDemoPresenter extends QRCodeDemoContract.Presenter
     void parseImageQRCode(String imagePath)
     {
         getModelImpl().parseImageQRCode(imagePath)
-                .compose(this.<String>applyIo2MainAsObservableWithLifeCycle())
+                .compose(this.<String>applyIo2MainWithLifeCycle())
                 .subscribe(new Consumer<String>()
                 {
                     @Override
@@ -39,7 +39,7 @@ public class QRCodeDemoPresenter extends QRCodeDemoContract.Presenter
     void createQRCode(String content)
     {
         getModelImpl().createQRCode(content)
-                .compose(this.<Bitmap>applyIo2MainAsObservableWithLifeCycle())
+                .compose(this.<Bitmap>applyIo2MainWithLifeCycle())
                 .subscribe(new Consumer<Bitmap>()
                 {
                     @Override

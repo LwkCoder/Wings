@@ -30,5 +30,7 @@ public interface MainContract
     abstract class Presenter extends AppBasePresenter<View, Model>
     {
         public abstract void queryTestDataList();
+
+        public abstract void test();
     }
 }
