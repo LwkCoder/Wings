@@ -1,8 +1,8 @@
 package com.lwkandroid.wings.mvp.base;
 
 import androidx.annotation.StringRes;
-
 import io.reactivex.subjects.PublishSubject;
+import io.reactivex.subjects.SingleSubject;
 
 /**
  * Created by LWK
@@ -11,7 +11,9 @@ import io.reactivex.subjects.PublishSubject;
 
 public interface IMVPBaseView
 {
-    PublishSubject<Integer> LIFECYCLE_SUBJECT = PublishSubject.create();
+    PublishSubject<Integer> LIFECYCLE_PUBLISH_SUBJECT = PublishSubject.create();
+
+    SingleSubject<Integer> LIFECYCLE_SINGLE_SUBJECT = SingleSubject.create();
 
     void showShortToast(@StringRes int resId);
 
@@ -21,5 +23,7 @@ public interface IMVPBaseView
 
     void showLongToast(CharSequence message);
 
-    PublishSubject<Integer> getLifecycleSubject();
+    PublishSubject<Integer> getLifecyclePublishSubject();
+
+    SingleSubject<Integer> getLifecycleSingleSubject();
 }

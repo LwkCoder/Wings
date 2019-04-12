@@ -3,6 +3,7 @@ package com.lwkandroid.wings.mvp.base;
 import com.lwkandroid.wings.utils.ToastUtils;
 
 import io.reactivex.subjects.PublishSubject;
+import io.reactivex.subjects.SingleSubject;
 
 /**
  * Created by LWK
@@ -36,9 +37,14 @@ public class MVPBaseViewImpl implements IMVPBaseView
     }
 
     @Override
-    public PublishSubject<Integer> getLifecycleSubject()
+    public PublishSubject<Integer> getLifecyclePublishSubject()
     {
-        return LIFECYCLE_SUBJECT;
+        return LIFECYCLE_PUBLISH_SUBJECT;
     }
 
+    @Override
+    public SingleSubject<Integer> getLifecycleSingleSubject()
+    {
+        return LIFECYCLE_SINGLE_SUBJECT;
+    }
 }

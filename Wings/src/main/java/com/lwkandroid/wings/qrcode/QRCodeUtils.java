@@ -137,7 +137,7 @@ public final class QRCodeUtils
                     }
                 }
             }
-        }).compose(RxSchedulers.<String>applyIo2Main());
+        }).compose(RxSchedulers.<String>applyIo2MainAsObservable());
     }
 
     /**
@@ -168,7 +168,7 @@ public final class QRCodeUtils
                     }
                 }
             }
-        }).compose(RxSchedulers.<String>applyIo2Main());
+        }).compose(RxSchedulers.<String>applyIo2MainAsObservable());
     }
 
     /**
@@ -313,6 +313,6 @@ public final class QRCodeUtils
                     }
                 }
             }
-        }).compose(RxSchedulers.<Bitmap>applyIo2Main());
+        }).compose(RxSchedulers.<Bitmap>applyIo2MainAsObservable());
     }
 }

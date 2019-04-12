@@ -56,7 +56,7 @@ public class MainPresenter extends MainContract.Presenter
                         });
                     }
                 })
-                .compose(this.<TestData>applyComputation2MainWithLifeCycle())
+                .compose(this.<TestData>applyComputation2MainAsObservableWithLifeCycle())
                 .subscribe(new ApiBaseObserver<TestData>()
                 {
                     @Override

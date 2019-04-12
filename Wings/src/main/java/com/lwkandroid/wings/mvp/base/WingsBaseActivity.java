@@ -15,6 +15,7 @@ import androidx.annotation.IdRes;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import io.reactivex.subjects.PublishSubject;
+import io.reactivex.subjects.SingleSubject;
 
 /**
  * Created by LWK
@@ -34,6 +35,8 @@ public abstract class WingsBaseActivity<P extends MVPBasePresenter> extends AppC
     {
         setBarColor();
         super.onCreate(savedInstanceState);
+        getLifecyclePublishSubject().onNext(RxLifecycle.ON_CREATE);
+        getLifecycleSingleSubject().onSuccess(RxLifecycle.ON_CREATE);
         getIntentData(getIntent(), false);
         setContentView(mContentViewImpl.inflateContentView(this, getContentViewId()));
         mPresenter = createPresenter();
@@ -43,7 +46,6 @@ public abstract class WingsBaseActivity<P extends MVPBasePresenter> extends AppC
         }
         initUI(getContentView());
         initData(savedInstanceState);
-        getLifecycleSubject().onNext(RxLifecycle.ON_CREATE);
     }
 
     @Override
@@ -57,37 +59,42 @@ public abstract class WingsBaseActivity<P extends MVPBasePresenter> extends AppC
     protected void onStart()
     {
         super.onStart();
-        getLifecycleSubject().onNext(RxLifecycle.ON_START);
+        getLifecyclePublishSubject().onNext(RxLifecycle.ON_START);
+        getLifecycleSingleSubject().onSuccess(RxLifecycle.ON_START);
     }
 
     @Override
     protected void onResume()
     {
         super.onResume();
-        getLifecycleSubject().onNext(RxLifecycle.ON_RESUME);
+        getLifecyclePublishSubject().onNext(RxLifecycle.ON_RESUME);
+        getLifecycleSingleSubject().onSuccess(RxLifecycle.ON_RESUME);
     }
 
     @Override
     protected void onPause()
     {
         super.onPause();
-        getLifecycleSubject().onNext(RxLifecycle.ON_PAUSE);
+        getLifecyclePublishSubject().onNext(RxLifecycle.ON_PAUSE);
+        getLifecycleSingleSubject().onSuccess(RxLifecycle.ON_PAUSE);
     }
 
     @Override
     protected void onStop()
     {
         super.onStop();
-        getLifecycleSubject().onNext(RxLifecycle.ON_STOP);
+        getLifecyclePublishSubject().onNext(RxLifecycle.ON_STOP);
+        getLifecycleSingleSubject().onSuccess(RxLifecycle.ON_STOP);
     }
 
     @Override
     protected void onDestroy()
     {
-        getLifecycleSubject().onNext(RxLifecycle.ON_DESTROY);
+        getLifecyclePublishSubject().onNext(RxLifecycle.ON_DESTROY);
+        getLifecycleSingleSubject().onSuccess(RxLifecycle.ON_DESTROY);
         if (getPresenter() != null)
         {
-            getPresenter().onDestoryPresenter();
+            getPresenter().onDestroyPresenter();
         }
         super.onDestroy();
     }
@@ -165,9 +172,15 @@ public abstract class WingsBaseActivity<P extends MVPBasePresenter> extends AppC
     }
 
     @Override
-    public PublishSubject<Integer> getLifecycleSubject()
+    public PublishSubject<Integer> getLifecyclePublishSubject()
     {
-        return mMVPViewImpl.getLifecycleSubject();
+        return mMVPViewImpl.getLifecyclePublishSubject();
+    }
+
+    @Override
+    public SingleSubject<Integer> getLifecycleSingleSubject()
+    {
+        return mMVPViewImpl.getLifecycleSingleSubject();
     }
 
     @Override

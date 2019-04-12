@@ -4,8 +4,10 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
 import io.reactivex.Scheduler;
+import io.reactivex.Single;
+import io.reactivex.SingleSource;
+import io.reactivex.SingleTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -14,76 +16,78 @@ import io.reactivex.schedulers.Schedulers;
 
 public final class RxSchedulers
 {
-
     /**
-     * 操作在IO，观察在AndroidMain
+     * 绑定某个Dispose到IO_MAIN调度中
      */
-    private static ObservableTransformer<Object, Object> IO_MAIN = new ObservableTransformer<Object, Object>()
+    public static <T> ObservableTransformer<T, T> applyIo2MainAsObservable()
     {
-        @Override
-        public ObservableSource<Object> apply(@NonNull Observable<Object> upstream)
-        {
-            return upstream.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
-        }
-    };
-
-    /**
-     * 操作在Computation，观察在AndroidMain
-     */
-    private static ObservableTransformer<Object, Object> COMPUTATION_MAIN = new ObservableTransformer<Object, Object>()
-    {
-        @Override
-        public ObservableSource<Object> apply(@NonNull Observable<Object> upstream)
-        {
-            return upstream.subscribeOn(Schedulers.computation()).observeOn(AndroidSchedulers.mainThread());
-        }
-    };
-
-    /**
-     * 操作在newThread，观察在AndroidMain
-     */
-    private static ObservableTransformer<Object, Object> NEWTHREAD_MAIN = new ObservableTransformer<Object, Object>()
-    {
-        @Override
-        public ObservableSource<Object> apply(@NonNull Observable<Object> upstream)
-        {
-            return upstream.subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread());
-        }
-    };
+        return applyAsObservable(Schedulers.io(), AndroidSchedulers.mainThread());
+    }
 
     /**
      * 绑定某个Dispose到IO_MAIN调度中
      */
-    public static <T> ObservableTransformer<T, T> applyIo2Main()
+    public static <T> SingleTransformer<T, T> applyIo2MainAsSingle()
     {
-        return (ObservableTransformer<T, T>) IO_MAIN;
+        return applyAsSingle(Schedulers.io(), AndroidSchedulers.mainThread());
     }
 
     /**
      * 绑定某个Dispose到COMPUTATION_MAIN调度中
      */
-    public static <T> ObservableTransformer<T, T> applyComputation2Main()
+    public static <T> ObservableTransformer<T, T> applyComputation2MainAsObservable()
     {
-        return (ObservableTransformer<T, T>) COMPUTATION_MAIN;
+        return applyAsObservable(Schedulers.computation(), AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 绑定某个Dispose到COMPUTATION_MAIN调度中
+     */
+    public static <T> SingleTransformer<T, T> applyComputation2MainAsSingle()
+    {
+        return applyAsSingle(Schedulers.computation(), AndroidSchedulers.mainThread());
     }
 
     /**
      * 绑定某个Dispose到NEWTHREAD_MAIN调度中
      */
-    public static <T> ObservableTransformer<T, T> applyNewThread2Main()
+    public static <T> ObservableTransformer<T, T> applyNewThread2MainAsObservable()
     {
-        return (ObservableTransformer<T, T>) NEWTHREAD_MAIN;
+        return applyAsObservable(Schedulers.newThread(), AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 绑定某个Dispose到NEWTHREAD_MAIN调度中
+     */
+    public static <T> SingleTransformer<T, T> applyNewThread2MainAsSingle()
+    {
+        return applyAsSingle(Schedulers.newThread(), AndroidSchedulers.mainThread());
     }
 
     /**
      * 绑定某个Dispose到任意两个线程
      */
-    public static <T> ObservableTransformer<T, T> apply(final Scheduler up, final Scheduler down)
+    public static <T> ObservableTransformer<T, T> applyAsObservable(final Scheduler up, final Scheduler down)
     {
         return new ObservableTransformer<T, T>()
         {
             @Override
             public ObservableSource<T> apply(Observable<T> upstream)
+            {
+                return upstream.subscribeOn(up).observeOn(down);
+            }
+        };
+    }
+
+    /**
+     * 绑定某个Dispose到任意两个线程
+     */
+    public static <T> SingleTransformer<T, T> applyAsSingle(final Scheduler up, final Scheduler down)
+    {
+        return new SingleTransformer<T, T>()
+        {
+            @Override
+            public SingleSource<T> apply(Single<T> upstream)
             {
                 return upstream.subscribeOn(up).observeOn(down);
             }
