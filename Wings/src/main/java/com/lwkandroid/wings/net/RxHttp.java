@@ -1,7 +1,5 @@
 package com.lwkandroid.wings.net;
 
-import android.content.Context;
-
 import com.lwkandroid.wings.net.bean.ApiGlobalOptions;
 import com.lwkandroid.wings.net.bean.ApiResult;
 import com.lwkandroid.wings.net.constants.ApiConstants;
@@ -16,7 +14,6 @@ import com.lwkandroid.wings.net.requst.ApiPostRequest;
 import com.lwkandroid.wings.net.requst.ApiPutRequest;
 import com.lwkandroid.wings.net.requst.ApiUploadRequest;
 import com.lwkandroid.wings.net.utils.RetrofitUtils;
-import com.lwkandroid.wings.utils.Utils;
 
 import io.reactivex.plugins.RxJavaPlugins;
 
@@ -37,49 +34,23 @@ public class RxHttp
     {
     }
 
-    private static Context mContext;
     private static final ApiGlobalOptions DEFAULT_GLOBAL_OPTIONS;
-    private static ApiGlobalOptions mCustomDefaultGlobalOptions;
     private static final RetrofitUtils RETROFIT;
 
     /**
      * 初始化公共配置
      *
-     * @param context Context
      * @param baseUrl 网络请求域名，用来配置Retrofit，结尾必须是“/”
      * @return 公共配置对象
      */
-    public static ApiGlobalOptions init(Context context, String baseUrl)
+    public static ApiGlobalOptions init(String baseUrl)
     {
         DEFAULT_GLOBAL_OPTIONS.setBaseUrl(baseUrl);
         DEFAULT_GLOBAL_OPTIONS.setApiResultType(ApiResult.class);
         DEFAULT_GLOBAL_OPTIONS.setCookieManager(new CookieManager());
         DEFAULT_GLOBAL_OPTIONS.addInterceptor(ApiConstants.TAG_PROGRESS_INTERCEPTOR, new OkProgressInterceptor());
-        return init(context, DEFAULT_GLOBAL_OPTIONS);
-    }
-
-    /**
-     * 初始化公共配置
-     *
-     * @param context Context
-     * @param options 自定义配置参数
-     * @return 公共配置对象
-     */
-    public static ApiGlobalOptions init(Context context, ApiGlobalOptions options)
-    {
-        mContext = context.getApplicationContext();
-        mCustomDefaultGlobalOptions = options;
         RxJavaPlugins.setErrorHandler(new UnknownErrorHandler());
-        return mCustomDefaultGlobalOptions;
-    }
-
-    public static Context getContext()
-    {
-        if (mContext == null)
-        {
-            return Utils.getContext();
-        }
-        return mContext;
+        return DEFAULT_GLOBAL_OPTIONS;
     }
 
     /**
@@ -87,7 +58,7 @@ public class RxHttp
      */
     public static ApiGlobalOptions getGlobalOptions()
     {
-        return mCustomDefaultGlobalOptions != null ? mCustomDefaultGlobalOptions : DEFAULT_GLOBAL_OPTIONS;
+        return DEFAULT_GLOBAL_OPTIONS;
     }
 
     /**

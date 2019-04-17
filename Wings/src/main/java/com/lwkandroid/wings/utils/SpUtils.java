@@ -12,7 +12,7 @@ public final class SpUtils
     private static SharedPreferences mSharedPreferences;
     private static SharedPreferences.Editor mEditor;
 
-    private static SharedPreferences getSp()
+    public static SharedPreferences getSp()
     {
         if (mSharedPreferences == null)
         {
@@ -22,7 +22,7 @@ public final class SpUtils
         return mSharedPreferences;
     }
 
-    private static SharedPreferences.Editor getEditor()
+    public static SharedPreferences.Editor getEditor()
     {
         if (mEditor == null)
         {

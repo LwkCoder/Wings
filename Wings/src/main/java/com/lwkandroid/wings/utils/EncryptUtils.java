@@ -2212,7 +2212,7 @@ public final class EncryptUtils
     private static final char HEX_DIGITS[] =
             {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
-    private static String bytes2HexString(final byte[] bytes)
+    public static String bytes2HexString(final byte[] bytes)
     {
         if (bytes == null)
         {
@@ -2232,7 +2232,7 @@ public final class EncryptUtils
         return new String(ret);
     }
 
-    private static byte[] hexString2Bytes(String hexString)
+    public static byte[] hexString2Bytes(String hexString)
     {
         if (isSpace(hexString))
         {

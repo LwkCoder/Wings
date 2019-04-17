@@ -16,11 +16,11 @@
 
 package com.lwkandroid.wings.net.cookie;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
 import com.lwkandroid.wings.log.KLog;
+import com.lwkandroid.wings.utils.SpUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -47,9 +47,9 @@ public class PersistentCookieStore
     private final Map<String, ConcurrentHashMap<String, Cookie>> cookies;
     private final SharedPreferences cookiePrefs;
 
-    public PersistentCookieStore(Context context)
+    public PersistentCookieStore()
     {
-        cookiePrefs = context.getSharedPreferences(COOKIE_PREFS, 0);
+        cookiePrefs = SpUtils.getSp();
         cookies = new HashMap<>();
         Map<String, ?> prefsMap = cookiePrefs.getAll();
         for (Map.Entry<String, ?> entry : prefsMap.entrySet())

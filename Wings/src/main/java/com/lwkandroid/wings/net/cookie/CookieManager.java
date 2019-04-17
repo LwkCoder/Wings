@@ -1,7 +1,5 @@
 package com.lwkandroid.wings.net.cookie;
 
-import com.lwkandroid.wings.net.RxHttp;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +19,7 @@ public class CookieManager implements ICookieJar
     {
         if (cookieStore == null)
         {
-            cookieStore = new PersistentCookieStore(RxHttp.getContext());
+            cookieStore = new PersistentCookieStore();
         }
     }
 

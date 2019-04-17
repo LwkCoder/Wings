@@ -71,7 +71,7 @@ public abstract class WingsInitOperator implements Application.ActivityLifecycle
     /*初始化RxHttp*/
     protected void initRxHttp()
     {
-        RxHttp.init(getContext(), getApiBaseUrl());
+        RxHttp.init(getApiBaseUrl());
     }
 
     @Override
