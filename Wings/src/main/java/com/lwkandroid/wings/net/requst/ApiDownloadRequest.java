@@ -88,7 +88,7 @@ public class ApiDownloadRequest extends ApiBaseRequest<ApiDownloadRequest> imple
 
     @Override
     protected Observable<ResponseBody> buildResponse(Map<String, String> headersMap,
-                                                     Map<String, Object> formDatasMap,
+                                                     Map<String, Object> formDataMap,
                                                      Object objectRequestBody,
                                                      RequestBody okHttp3RequestBody,
                                                      String jsonBody,
@@ -106,9 +106,9 @@ public class ApiDownloadRequest extends ApiBaseRequest<ApiDownloadRequest> imple
             headersMap.put(ApiConstants.HEADER_KEY_CONTENT_TYPE, ApiConstants.HEADER_VALUE_JSON);
             headersMap.put(ApiConstants.HEADER_KEY_ACCEPT, ApiConstants.HEADER_VALUE_JSON);
             return service.downloadFile(getSubUrl(), headersMap, jsonRequestBody);
-        } else if (formDatasMap != null && formDatasMap.size() > 0)
+        } else if (formDataMap != null && formDataMap.size() > 0)
         {
-            return service.downloadFile(getSubUrl(), headersMap, formDatasMap);
+            return service.downloadFile(getSubUrl(), headersMap, formDataMap);
         } else
         {
             return service.downloadFile(getSubUrl(), headersMap);

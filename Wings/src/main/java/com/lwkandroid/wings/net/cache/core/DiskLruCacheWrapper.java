@@ -35,13 +35,13 @@ import java.io.OutputStream;
  */
 public class DiskLruCacheWrapper extends BaseCache
 {
-    private IDiskCacheOperator mDiskOpeartor;
+    private IDiskCacheOperator mDiskOperator;
     private DiskLruCache mDiskLruCache;
 
 
-    public DiskLruCacheWrapper(IDiskCacheOperator opeartor, File diskDir, int appVersion, long diskMaxSize)
+    public DiskLruCacheWrapper(IDiskCacheOperator operator, File diskDir, int appVersion, long diskMaxSize)
     {
-        this.mDiskOpeartor = opeartor;
+        this.mDiskOperator = operator;
         try
         {
             mDiskLruCache = DiskLruCache.open(diskDir, appVersion, 1, diskMaxSize);
@@ -72,7 +72,7 @@ public class DiskLruCacheWrapper extends BaseCache
             ApiDiskCacheBean<T> value;
             if (source != null)
             {
-                value = mDiskOpeartor.load(source, clazz);
+                value = mDiskOperator.load(source, clazz);
                 edit.commit();
                 return value;
             }
@@ -107,7 +107,7 @@ public class DiskLruCacheWrapper extends BaseCache
             sink = edit.newOutputStream(0);
             if (sink != null)
             {
-                boolean result = mDiskOpeartor.writer(sink, value);
+                boolean result = mDiskOperator.writer(sink, value);
                 edit.commit();
                 return result;
             }

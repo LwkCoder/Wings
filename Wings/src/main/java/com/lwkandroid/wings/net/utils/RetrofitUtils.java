@@ -50,11 +50,11 @@ public final class RetrofitUtils
         }
 
         /*添加全局参数和Header*/
-        Map<String, Object> globalFormDatasMap = globalOptions.getFormDataMap();
+        Map<String, Object> globalFormDataMap = globalOptions.getFormDataMap();
         Map<String, String> globalHeadersMap = globalOptions.getHeadersMap();
-        if (globalFormDatasMap != null && globalFormDatasMap.size() > 0)
+        if (globalFormDataMap != null && globalFormDataMap.size() > 0)
         {
-            builder.addInterceptor(new RetrofitFormDataInterceptor(globalFormDatasMap));
+            builder.addInterceptor(new RetrofitFormDataInterceptor(globalFormDataMap));
         }
         if (globalHeadersMap != null && globalHeadersMap.size() > 0)
         {

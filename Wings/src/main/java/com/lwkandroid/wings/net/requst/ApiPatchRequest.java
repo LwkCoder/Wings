@@ -36,7 +36,7 @@ public class ApiPatchRequest extends ApiBaseRequest<ApiPatchRequest> implements 
 
     @Override
     protected Observable<ResponseBody> buildResponse(Map<String, String> headersMap,
-                                                     Map<String, Object> formDatasMap,
+                                                     Map<String, Object> formDataMap,
                                                      Object objectRequestBody,
                                                      RequestBody okHttp3RequestBody,
                                                      String jsonBody,
@@ -53,7 +53,7 @@ public class ApiPatchRequest extends ApiBaseRequest<ApiPatchRequest> implements 
             KLog.w("RXHttp method PATCH must not have a request body：\n" + jsonBody);
         }
 
-        return service.patch(getSubUrl(), headersMap, formDatasMap);
+        return service.patch(getSubUrl(), headersMap, formDataMap);
     }
 
     @Override

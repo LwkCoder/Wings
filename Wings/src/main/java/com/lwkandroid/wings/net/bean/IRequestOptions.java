@@ -75,8 +75,6 @@ public interface IRequestOptions
 
         T setFormDataMap(FormDataMap formDataMap);
 
-        T addFormDataMap(Map<String, String> formDataMap);
-
         T addFormData(@NonNull String key, byte value);
 
         T addFormData(@NonNull String key, int value);

@@ -1,8 +1,10 @@
 package com.lwkandroid.wings.net.bean;
 
+import com.lwkandroid.wings.BuildConfig;
 import com.lwkandroid.wings.net.cache.opeartor.IDiskCacheOperator;
 import com.lwkandroid.wings.net.constants.ApiCacheMode;
 import com.lwkandroid.wings.net.constants.ApiConstants;
+import com.lwkandroid.wings.net.cookie.CookieManager;
 import com.lwkandroid.wings.net.cookie.ICookieJar;
 import com.lwkandroid.wings.net.error.ApiExceptionMsgImpl;
 import com.lwkandroid.wings.net.error.IApiExceptionMsg;
@@ -34,7 +36,7 @@ public class ApiGlobalOptions implements IRequestOptions.Common<ApiGlobalOptions
     /*Cookie管理类*/
     private ICookieJar mCookieJar;
     //App版本
-    private int mCacheVersion = 1;
+    private int mCacheVersion = -1;
     //缓存路径
     private String mCachePath;
     //硬盘缓存大小
@@ -55,6 +57,9 @@ public class ApiGlobalOptions implements IRequestOptions.Common<ApiGlobalOptions
         setApiExceptionMsg(new ApiExceptionMsgImpl());
         setAutoRetryJudge(new AutoRetryJudgeImpl());
         setAutoRetryDelay(1000);
+        setCacheMode(ApiCacheMode.NO_CACHE);
+        setCacheVersion(BuildConfig.VERSION_CODE);
+        setCookieManager(new CookieManager());
     }
 
     @Override
@@ -199,13 +204,6 @@ public class ApiGlobalOptions implements IRequestOptions.Common<ApiGlobalOptions
     public ApiGlobalOptions setFormDataMap(FormDataMap formDataMap)
     {
         mCommonImpl.setFormDataMap(formDataMap);
-        return this;
-    }
-
-    @Override
-    public ApiGlobalOptions addFormDataMap(Map<String, String> formDataMap)
-    {
-        mCommonImpl.addFormDataMap(formDataMap);
         return this;
     }
 

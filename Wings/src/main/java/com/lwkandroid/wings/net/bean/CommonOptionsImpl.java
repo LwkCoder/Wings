@@ -46,7 +46,7 @@ class CommonOptionsImpl implements IRequestOptions.Common<CommonOptionsImpl>
     private IApiStringParser mStringParser;
     //缓存类型
     private @ApiCacheMode.Mode
-    int mCacheMode = ApiCacheMode.NO_CACHE;
+    int mCacheMode;
     //缓存时长
     private long mCacheTime = -1;
     //自动重试次数
@@ -222,72 +222,65 @@ class CommonOptionsImpl implements IRequestOptions.Common<CommonOptionsImpl>
     }
 
     @Override
-    public CommonOptionsImpl addFormDataMap(Map<String, String> formDataMap)
-    {
-        getFormDataMap().putAll(formDataMap);
-        return this;
-    }
-
-    @Override
     public CommonOptionsImpl addFormData(@NonNull String key, byte value)
     {
-        getFormDataMap().put(key, value);
+        getFormDataMap().addParam(key, value);
         return this;
     }
 
     @Override
     public CommonOptionsImpl addFormData(@NonNull String key, int value)
     {
-        getFormDataMap().put(key, value);
+        getFormDataMap().addParam(key, value);
         return this;
     }
 
     @Override
     public CommonOptionsImpl addFormData(@NonNull String key, float value)
     {
-        getFormDataMap().put(key, value);
+        getFormDataMap().addParam(key, value);
         return this;
     }
 
     @Override
     public CommonOptionsImpl addFormData(@NonNull String key, short value)
     {
-        getFormDataMap().put(key, value);
+        getFormDataMap().addParam(key, value);
         return this;
     }
 
     @Override
     public CommonOptionsImpl addFormData(@NonNull String key, long value)
     {
-        getFormDataMap().put(key, value);
+        getFormDataMap().addParam(key, value);
         return this;
     }
 
     @Override
     public CommonOptionsImpl addFormData(@NonNull String key, double value)
     {
-        getFormDataMap().put(key, value);
+        getFormDataMap().addParam(key, value);
         return this;
     }
 
     @Override
     public CommonOptionsImpl addFormData(@NonNull String key, boolean value)
     {
-        getFormDataMap().put(key, value);
+        getFormDataMap().addParam(key, value);
         return this;
     }
 
     @Override
     public CommonOptionsImpl addFormData(@NonNull String key, String value)
     {
-        getFormDataMap().put(key, value);
+        getFormDataMap().addParam(key, value);
         return this;
     }
 
     @Override
     public CommonOptionsImpl addFormData(@NonNull String key, Object value)
     {
-        getFormDataMap().put(key, value);
+        getFormDataMap().addParam(key, value);
         return this;
     }
 

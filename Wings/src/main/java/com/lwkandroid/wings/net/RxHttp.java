@@ -1,9 +1,7 @@
 package com.lwkandroid.wings.net;
 
 import com.lwkandroid.wings.net.bean.ApiGlobalOptions;
-import com.lwkandroid.wings.net.bean.ApiResult;
 import com.lwkandroid.wings.net.constants.ApiConstants;
-import com.lwkandroid.wings.net.cookie.CookieManager;
 import com.lwkandroid.wings.net.error.UnknownErrorHandler;
 import com.lwkandroid.wings.net.interceptor.OkProgressInterceptor;
 import com.lwkandroid.wings.net.requst.ApiDeleteRequest;
@@ -46,8 +44,6 @@ public class RxHttp
     public static ApiGlobalOptions init(String baseUrl)
     {
         DEFAULT_GLOBAL_OPTIONS.setBaseUrl(baseUrl);
-        DEFAULT_GLOBAL_OPTIONS.setApiResultType(ApiResult.class);
-        DEFAULT_GLOBAL_OPTIONS.setCookieManager(new CookieManager());
         DEFAULT_GLOBAL_OPTIONS.addInterceptor(ApiConstants.TAG_PROGRESS_INTERCEPTOR, new OkProgressInterceptor());
         RxJavaPlugins.setErrorHandler(new UnknownErrorHandler());
         return DEFAULT_GLOBAL_OPTIONS;

@@ -40,7 +40,7 @@ public class RequestBodyUtils
             KLog.e("Can not invoke 'createFormDataBody()' because of a null object");
             return null;
         }
-        return RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(content));
+        return RequestBody.create(MediaType.parse("application/x-www-form-urlencoded"), String.valueOf(content));
     }
 
     /**

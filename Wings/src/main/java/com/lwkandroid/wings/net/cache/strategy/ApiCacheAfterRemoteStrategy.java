@@ -12,10 +12,10 @@ import io.reactivex.functions.Predicate;
  * TODO 先返回本地缓存，然后获取网络数据，回调2次的策略
  */
 
-public class CacheAfterRemoteStrategy extends BaseStrategy
+public class ApiCacheAfterRemoteStrategy extends ApiCacheBaseStrategy
 {
     @Override
-    public <T> Observable<ApiResultCacheWrapper<T>> excute(ApiCacheOptions options, Observable<T> source, Class<T> clazz)
+    public <T> Observable<ApiResultCacheWrapper<T>> execute(ApiCacheOptions options, Observable<T> source, Class<T> clazz)
     {
         Observable<ApiResultCacheWrapper<T>> cache = loadCache(options, clazz, true);
         Observable<ApiResultCacheWrapper<T>> remote = loadRemote(options, clazz, source, false);

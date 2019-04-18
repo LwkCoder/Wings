@@ -5,14 +5,14 @@ import com.lwkandroid.wings.net.bean.ApiDiskCacheBean;
 import com.lwkandroid.wings.net.bean.ApiResultCacheWrapper;
 import com.lwkandroid.wings.net.bean.ApiException;
 import com.lwkandroid.wings.net.cache.core.CacheCore;
-import com.lwkandroid.wings.net.cache.strategy.CacheAfterRemoteDiffStrategy;
-import com.lwkandroid.wings.net.cache.strategy.CacheAfterRemoteStrategy;
-import com.lwkandroid.wings.net.cache.strategy.CacheFirstStrategy;
-import com.lwkandroid.wings.net.cache.strategy.CacheOnlyStrategy;
-import com.lwkandroid.wings.net.cache.strategy.IStrategy;
-import com.lwkandroid.wings.net.cache.strategy.NoCacheStrategy;
-import com.lwkandroid.wings.net.cache.strategy.RemoteFirstStrategy;
-import com.lwkandroid.wings.net.cache.strategy.RemoteOnlyStrategy;
+import com.lwkandroid.wings.net.cache.strategy.ApiCacheAfterRemoteDiffStrategy;
+import com.lwkandroid.wings.net.cache.strategy.ApiCacheAfterRemoteStrategy;
+import com.lwkandroid.wings.net.cache.strategy.ApiCacheFirstStrategy;
+import com.lwkandroid.wings.net.cache.strategy.ApiCacheOnlyStrategy;
+import com.lwkandroid.wings.net.cache.strategy.IApiCacheStrategy;
+import com.lwkandroid.wings.net.cache.strategy.ApiNoCacheStrategy;
+import com.lwkandroid.wings.net.cache.strategy.ApiRemoteFirstStrategy;
+import com.lwkandroid.wings.net.cache.strategy.ApiRemoteOnlyStrategy;
 import com.lwkandroid.wings.net.constants.ApiCacheMode;
 import com.lwkandroid.wings.net.constants.ApiExceptionCode;
 
@@ -37,13 +37,13 @@ public class RxCache
      */
     public static <T> ObservableTransformer<T, ApiResultCacheWrapper<T>> transform(final ApiCacheOptions options, final Class<T> clazz)
     {
-        final IStrategy strategy = getStrategy(options.getCacheMode());
+        final IApiCacheStrategy strategy = getStrategy(options.getCacheMode());
         return new ObservableTransformer<T, ApiResultCacheWrapper<T>>()
         {
             @Override
             public ObservableSource<ApiResultCacheWrapper<T>> apply(Observable<T> upstream)
             {
-                return strategy.excute(options, upstream, clazz);
+                return strategy.execute(options, upstream, clazz);
             }
         };
     }
@@ -144,29 +144,29 @@ public class RxCache
         abstract T execute() throws Throwable;
     }
 
-    private static IStrategy getStrategy(@ApiCacheMode.Mode int mode)
+    private static IApiCacheStrategy getStrategy(@ApiCacheMode.Mode int mode)
     {
         if (mode == ApiCacheMode.NO_CACHE)
         {
-            return new NoCacheStrategy();
+            return new ApiNoCacheStrategy();
         } else if (mode == ApiCacheMode.REMOTE_FIRST_OR_CACHE)
         {
-            return new RemoteFirstStrategy();
+            return new ApiRemoteFirstStrategy();
         } else if (mode == ApiCacheMode.CACHE_FIRST_OR_REMOTE)
         {
-            return new CacheFirstStrategy();
+            return new ApiCacheFirstStrategy();
         } else if (mode == ApiCacheMode.REMOTE_ONLY)
         {
-            return new RemoteOnlyStrategy();
+            return new ApiRemoteOnlyStrategy();
         } else if (mode == ApiCacheMode.CACHE_ONLY)
         {
-            return new CacheOnlyStrategy();
+            return new ApiCacheOnlyStrategy();
         } else if (mode == ApiCacheMode.CACHE_FIRST_AFTER_REMOTE)
         {
-            return new CacheAfterRemoteStrategy();
+            return new ApiCacheAfterRemoteStrategy();
         } else if (mode == ApiCacheMode.CACHE_FIRST_AFTER_REMOTE_IF_DIFF)
         {
-            return new CacheAfterRemoteDiffStrategy();
+            return new ApiCacheAfterRemoteDiffStrategy();
         }
         return null;
     }

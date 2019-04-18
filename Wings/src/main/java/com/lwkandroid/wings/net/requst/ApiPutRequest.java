@@ -37,7 +37,7 @@ public class ApiPutRequest extends ApiBaseRequest<ApiPutRequest> implements IApi
 
     @Override
     protected Observable<ResponseBody> buildResponse(Map<String, String> headersMap,
-                                                     Map<String, Object> formDatasMap,
+                                                     Map<String, Object> formDataMap,
                                                      Object objectRequestBody,
                                                      RequestBody okHttp3RequestBody,
                                                      String jsonBody,
@@ -57,7 +57,7 @@ public class ApiPutRequest extends ApiBaseRequest<ApiPutRequest> implements IApi
             return service.put(getSubUrl(), headersMap, jsonRequestBody);
         } else
         {
-            return service.put(getSubUrl(), headersMap, formDatasMap);
+            return service.put(getSubUrl(), headersMap, formDataMap);
         }
     }
 

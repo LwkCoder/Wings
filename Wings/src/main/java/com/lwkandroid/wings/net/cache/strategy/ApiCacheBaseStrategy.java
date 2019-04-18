@@ -14,7 +14,7 @@ import io.reactivex.functions.Function;
  * TODO 缓存策略基类
  */
 
-public abstract class BaseStrategy implements IStrategy
+public abstract class ApiCacheBaseStrategy implements IApiCacheStrategy
 {
     /**
      * 加载本地缓存

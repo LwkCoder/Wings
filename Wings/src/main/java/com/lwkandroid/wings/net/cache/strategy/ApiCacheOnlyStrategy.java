@@ -10,10 +10,10 @@ import io.reactivex.Observable;
  * TODO 只读取缓存的策略
  */
 
-public class CacheOnlyStrategy  extends BaseStrategy
+public class ApiCacheOnlyStrategy extends ApiCacheBaseStrategy
 {
     @Override
-    public <T> Observable<ApiResultCacheWrapper<T>> excute(ApiCacheOptions options, Observable<T> source, Class<T> clazz)
+    public <T> Observable<ApiResultCacheWrapper<T>> execute(ApiCacheOptions options, Observable<T> source, Class<T> clazz)
     {
         return loadCache(options, clazz, true);
     }

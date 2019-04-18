@@ -14,10 +14,10 @@ import okio.ByteString;
  * TODO 先返回本地缓存，然后获取网络数据，如果数据一样就忽略的策略
  */
 
-public class CacheAfterRemoteDiffStrategy extends BaseStrategy
+public class ApiCacheAfterRemoteDiffStrategy extends ApiCacheBaseStrategy
 {
     @Override
-    public <T> Observable<ApiResultCacheWrapper<T>> excute(ApiCacheOptions options, Observable<T> source, Class<T> clazz)
+    public <T> Observable<ApiResultCacheWrapper<T>> execute(ApiCacheOptions options, Observable<T> source, Class<T> clazz)
     {
         Observable<ApiResultCacheWrapper<T>> cache = loadCache(options, clazz, true);
         Observable<ApiResultCacheWrapper<T>> remote = loadRemote(options, clazz, source, false);

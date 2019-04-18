@@ -100,7 +100,7 @@ public class ApiUploadRequest extends ApiBaseRequest<ApiUploadRequest> implement
 
     @Override
     protected Observable<ResponseBody> buildResponse(Map<String, String> headersMap,
-                                                     Map<String, Object> formDatasMap,
+                                                     Map<String, Object> formDataMap,
                                                      Object objectRequestBody,
                                                      RequestBody okHttp3RequestBody,
                                                      String jsonBody,
@@ -122,7 +122,7 @@ public class ApiUploadRequest extends ApiBaseRequest<ApiUploadRequest> implement
         } else
         {
             checkBodyListNotNull();
-            for (Map.Entry<String, Object> entry : formDatasMap.entrySet())
+            for (Map.Entry<String, Object> entry : formDataMap.entrySet())
             {
                 mBodyList.addFormData(entry.getKey(), entry.getValue());
             }

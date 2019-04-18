@@ -10,7 +10,7 @@ import io.reactivex.Observable;
  * TODO 实现缓存策略的接口，可以自定义缓存实现方式
  */
 
-public interface IStrategy
+public interface IApiCacheStrategy
 {
-    <T> Observable<ApiResultCacheWrapper<T>> excute(ApiCacheOptions options, Observable<T> source, Class<T> clazz);
+    <T> Observable<ApiResultCacheWrapper<T>> execute(ApiCacheOptions options, Observable<T> source, Class<T> clazz);
 }

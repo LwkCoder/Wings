@@ -27,8 +27,6 @@ public class ApiConstants
     public static final String HEADER_KEY_ACCEPT = "Accept";
     /*请求头Json*/
     public static final String HEADER_VALUE_JSON = "application/json";
-    /*OkHttp3 Json MediaType*/
-    public static final String OKHPPT3_MEDIA_TYPE_JSON = "application/json; charset=utf-8";
 
     /*默认磁盘缓存最小容量，10Mb*/
     public static final long DISK_CACHE_MIN_SIZE = 10 * 1024 * 1024;

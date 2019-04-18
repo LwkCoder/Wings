@@ -226,13 +226,6 @@ public class ApiRequestOptions<T extends ApiRequestOptions> implements IRequestO
     }
 
     @Override
-    public T addFormDataMap(Map<String, String> formDataMap)
-    {
-        mCommonImpl.addFormDataMap(formDataMap);
-        return (T) this;
-    }
-
-    @Override
     public T addFormData(@NonNull String key, byte value)
     {
         mCommonImpl.addFormData(key, value);

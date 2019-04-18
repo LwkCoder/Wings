@@ -37,7 +37,7 @@ public class ApiDeleteRequest extends ApiBaseRequest<ApiDeleteRequest> implement
 
     @Override
     protected Observable<ResponseBody> buildResponse(Map<String, String> headersMap,
-                                                     Map<String, Object> formDatasMap,
+                                                     Map<String, Object> formDataMap,
                                                      Object objectRequestBody,
                                                      RequestBody okHttp3RequestBody,
                                                      String jsonBody,
@@ -57,7 +57,7 @@ public class ApiDeleteRequest extends ApiBaseRequest<ApiDeleteRequest> implement
             return service.delete(getSubUrl(), headersMap, jsonRequestBody);
         } else
         {
-            return service.delete(getSubUrl(), headersMap, formDatasMap);
+            return service.delete(getSubUrl(), headersMap, formDataMap);
         }
     }
 

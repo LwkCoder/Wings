@@ -11,10 +11,10 @@ import io.reactivex.functions.Function;
  * TODO 无缓存策略
  */
 
-public class NoCacheStrategy  extends BaseStrategy
+public class ApiNoCacheStrategy extends ApiCacheBaseStrategy
 {
     @Override
-    public <T> Observable<ApiResultCacheWrapper<T>> excute(ApiCacheOptions options, Observable<T> source, Class<T> clazz)
+    public <T> Observable<ApiResultCacheWrapper<T>> execute(ApiCacheOptions options, Observable<T> source, Class<T> clazz)
     {
         return source.map(new Function<T, ApiResultCacheWrapper<T>>()
         {
