@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URLDecoder;
 import java.nio.charset.Charset;
 
 import okhttp3.Connection;
@@ -330,7 +331,19 @@ public class ApiLogInterceptor implements Interceptor
         Buffer buffer = new Buffer();
         body.writeTo(buffer);
         Charset charset = mediaType != null ? mediaType.charset(UTF8) : UTF8;
-        return buffer.readString(charset);
+        String strBody = buffer.readString(charset);
+        try
+        {
+            String copy = new String(strBody);
+            copy = copy.replaceAll("%(?![0-9a-fA-F]{2})", "%25").
+                    replaceAll("\\+", "%2B");
+            copy = URLDecoder.decode(copy, UTF8.name());
+            return copy;
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return strBody;
     }
 
     //将InputStream转为字节数组
