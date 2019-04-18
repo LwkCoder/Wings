@@ -28,7 +28,7 @@ public abstract class ApiBaseRequest<T extends ApiRequestOptions> extends ApiReq
 {
     public ApiBaseRequest(String url, @ApiRequestType.Type int type)
     {
-        setUrl(url);
+        setSubUrl(url);
         setRequestType(type);
     }
 
@@ -51,9 +51,9 @@ public abstract class ApiBaseRequest<T extends ApiRequestOptions> extends ApiReq
         }
 
         /*设置Https证书*/
-        if (getSslParams() != null)
+        if (getHttpsSSLParams() != null)
         {
-            okBuilder.sslSocketFactory(getSslParams().sSLSocketFactory, getSslParams().trustManager);
+            okBuilder.sslSocketFactory(getHttpsSSLParams().sSLSocketFactory, getHttpsSSLParams().trustManager);
         }
 
         //设置拦截器
@@ -89,10 +89,10 @@ public abstract class ApiBaseRequest<T extends ApiRequestOptions> extends ApiReq
                 isIgnoreAllGlobalHeaders());
 
         //获取表单参数
-        Map<String, String> allFormDatasMap = mergeParams(
-                RxHttp.getGlobalOptions().getFormDatasMap(),
-                getFormDatasMap(), getIgnoreFormDatas(),
-                isIgnoreAllGlobalFormDatas());
+        Map<String, Object> allFormDatasMap = mergeParams(
+                RxHttp.getGlobalOptions().getFormDataMap(),
+                getFormDataMap(), getIgnoreFormDataSet(),
+                isIgnoreAllGlobalFormData());
 
         //添加Cookie管理类
         RxHttp.getGlobalOptions().getCookieManager().add(getCookieList());
@@ -176,7 +176,7 @@ public abstract class ApiBaseRequest<T extends ApiRequestOptions> extends ApiReq
         cacheBuilder.appVersion(RxHttp.getGlobalOptions().getCacheVersion());
         cacheBuilder.cachePath(RxHttp.getGlobalOptions().getCachePath());
         cacheBuilder.diskMaxSize(RxHttp.getGlobalOptions().getCacheDiskMaxSize());
-        cacheBuilder.cacheOpeartor(RxHttp.getGlobalOptions().getCacheOpeartor());
+        cacheBuilder.cacheOpeartor(RxHttp.getGlobalOptions().getCacheOperator());
         cacheBuilder.cacheMode(getCacheMode());
         cacheBuilder.cacheTime(getCacheTime());
         cacheBuilder.cacheKey(getCacheKey());
@@ -186,9 +186,17 @@ public abstract class ApiBaseRequest<T extends ApiRequestOptions> extends ApiReq
 
     /**
      * 子类实现该方法执行网络请求过程
+     *
+     * @param headersMap         所有Header的Map
+     * @param formDataMap        所有QueryParams的Map
+     * @param objectRequestBody  Object对象的请求体
+     * @param okHttp3RequestBody OK3RequestBody对象的请求体
+     * @param jsonBody           Json格式String对象的请求体
+     * @param service            Retrofit请求模版Service对象
+     * @return Observable
      */
     protected abstract Observable<ResponseBody> buildResponse(Map<String, String> headersMap,
-                                                              Map<String, String> formDatasMap,
+                                                              Map<String, Object> formDataMap,
                                                               Object objectRequestBody,
                                                               RequestBody okHttp3RequestBody,
                                                               String jsonBody,

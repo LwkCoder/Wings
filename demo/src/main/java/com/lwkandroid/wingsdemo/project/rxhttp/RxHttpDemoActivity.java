@@ -68,7 +68,7 @@ public class RxHttpDemoActivity extends AppBaseActivity<RxHttpDemoPresenter> imp
             @Override
             public void onClick(View v)
             {
-                getPresenter().requestDataByService();
+                getPresenter().requestCustomGet();
             }
         });
         addClick(R.id.btn_rxhttp_download, new View.OnClickListener()

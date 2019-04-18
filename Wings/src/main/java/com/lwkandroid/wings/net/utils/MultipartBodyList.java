@@ -17,7 +17,7 @@ public class MultipartBodyList extends ArrayList<okhttp3.MultipartBody.Part>
     /**
      * 添加表单参数
      */
-    public MultipartBodyList addFormData(String key, String value)
+    public MultipartBodyList addFormData(String key, Object value)
     {
         add(MultipartBodyUtils.createFormDataPart(key, value));
         return this;

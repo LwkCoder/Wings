@@ -37,7 +37,7 @@ public class ApiDeleteRequest extends ApiBaseRequest<ApiDeleteRequest> implement
 
     @Override
     protected Observable<ResponseBody> buildResponse(Map<String, String> headersMap,
-                                                     Map<String, String> formDatasMap,
+                                                     Map<String, Object> formDatasMap,
                                                      Object objectRequestBody,
                                                      RequestBody okHttp3RequestBody,
                                                      String jsonBody,
@@ -45,19 +45,19 @@ public class ApiDeleteRequest extends ApiBaseRequest<ApiDeleteRequest> implement
     {
         if (objectRequestBody != null)
         {
-            return service.delete(getUrl(), headersMap, objectRequestBody);
+            return service.delete(getSubUrl(), headersMap, objectRequestBody);
         } else if (okHttp3RequestBody != null)
         {
-            return service.delete(getUrl(), headersMap, okHttp3RequestBody);
+            return service.delete(getSubUrl(), headersMap, okHttp3RequestBody);
         } else if (!TextUtils.isEmpty(jsonBody))
         {
             RequestBody jsonRequestBody = RequestBodyUtils.createJsonBody(jsonBody);
             headersMap.put(ApiConstants.HEADER_KEY_CONTENT_TYPE, ApiConstants.HEADER_VALUE_JSON);
             headersMap.put(ApiConstants.HEADER_KEY_ACCEPT, ApiConstants.HEADER_VALUE_JSON);
-            return service.delete(getUrl(), headersMap, jsonRequestBody);
+            return service.delete(getSubUrl(), headersMap, jsonRequestBody);
         } else
         {
-            return service.delete(getUrl(), headersMap, formDatasMap);
+            return service.delete(getSubUrl(), headersMap, formDatasMap);
         }
     }
 
@@ -68,7 +68,7 @@ public class ApiDeleteRequest extends ApiBaseRequest<ApiDeleteRequest> implement
                 .compose(ApiResponseConvert.responseToString())
                 .compose(RxCache.transform(getFinalCacheOptions(), String.class))
                 .compose(new ApiExceptionTransformer<ApiResultCacheWrapper<String>>())
-                .retryWhen(new AutoRetryFunc(getUrl(), getAutoRetryCount(), getAutoRetryDelay(), getAutoRetryJudge()));
+                .retryWhen(new AutoRetryFunc(getSubUrl(), getAutoRetryCount(), getAutoRetryDelay(), getAutoRetryJudge()));
     }
 
     @Override

@@ -30,12 +30,18 @@ public class MultipartBodyUtils
         return okhttp3.MultipartBody.Part.create(headers, requestBody);
     }
 
-    /**
-     * 创建单独的Multipart.Body.Part对象
-     */
-    public static okhttp3.MultipartBody.Part createFormDataPart(String key, String value)
+    //    /**
+    //     * 创建单独的Multipart.Body.Part对象
+    //     */
+    //    public static okhttp3.MultipartBody.Part createFormDataPart(String key, String value)
+    //    {
+    //        return okhttp3.MultipartBody.Part.createFormData(key, value);
+    //    }
+
+    public static okhttp3.MultipartBody.Part createFormDataPart(String key, Object value)
     {
-        return okhttp3.MultipartBody.Part.createFormData(key, value);
+        return okhttp3.MultipartBody.Part.createFormData(key, null,
+                RequestBody.create(null, String.valueOf(value)));
     }
 
     /**

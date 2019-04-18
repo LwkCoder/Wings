@@ -100,7 +100,7 @@ public class ApiUploadRequest extends ApiBaseRequest<ApiUploadRequest> implement
 
     @Override
     protected Observable<ResponseBody> buildResponse(Map<String, String> headersMap,
-                                                     Map<String, String> formDatasMap,
+                                                     Map<String, Object> formDatasMap,
                                                      Object objectRequestBody,
                                                      RequestBody okHttp3RequestBody,
                                                      String jsonBody,
@@ -122,13 +122,13 @@ public class ApiUploadRequest extends ApiBaseRequest<ApiUploadRequest> implement
         } else
         {
             checkBodyListNotNull();
-            for (Map.Entry<String, String> entry : formDatasMap.entrySet())
+            for (Map.Entry<String, Object> entry : formDatasMap.entrySet())
             {
                 mBodyList.addFormData(entry.getKey(), entry.getValue());
             }
         }
 
-        return service.uploadFiles(getUrl(), headersMap, mBodyList);
+        return service.uploadFiles(getSubUrl(), headersMap, mBodyList);
     }
 
     @Override
@@ -138,7 +138,7 @@ public class ApiUploadRequest extends ApiBaseRequest<ApiUploadRequest> implement
                 .compose(ApiResponseConvert.responseToString())
                 .compose(RxCache.transform(getFinalCacheOptions(), String.class))
                 .compose(new ApiExceptionTransformer<ApiResultCacheWrapper<String>>())
-                .retryWhen(new AutoRetryFunc(getUrl(), getAutoRetryCount(), getAutoRetryDelay(), getAutoRetryJudge()));
+                .retryWhen(new AutoRetryFunc(getSubUrl(), getAutoRetryCount(), getAutoRetryDelay(), getAutoRetryJudge()));
     }
 
     @Override

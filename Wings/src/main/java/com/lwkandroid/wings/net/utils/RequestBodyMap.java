@@ -19,7 +19,7 @@ public class RequestBodyMap extends HashMap<String, RequestBody>
     /**
      * 添加表单文本的参数
      */
-    public RequestBodyMap addFormData(String key, String value)
+    public RequestBodyMap addFormData(String key, Object value)
     {
         put(key, RequestBodyUtils.createFormDataBody(value));
         return this;

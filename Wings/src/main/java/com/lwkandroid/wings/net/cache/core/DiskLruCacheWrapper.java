@@ -19,7 +19,7 @@ package com.lwkandroid.wings.net.cache.core;
 
 import com.jakewharton.disklrucache.DiskLruCache;
 import com.lwkandroid.wings.net.bean.ApiDiskCacheBean;
-import com.lwkandroid.wings.net.cache.opeartor.IDiskCacheOpeartor;
+import com.lwkandroid.wings.net.cache.opeartor.IDiskCacheOperator;
 import com.lwkandroid.wings.utils.CloseUtils;
 
 import java.io.File;
@@ -35,11 +35,11 @@ import java.io.OutputStream;
  */
 public class DiskLruCacheWrapper extends BaseCache
 {
-    private IDiskCacheOpeartor mDiskOpeartor;
+    private IDiskCacheOperator mDiskOpeartor;
     private DiskLruCache mDiskLruCache;
 
 
-    public DiskLruCacheWrapper(IDiskCacheOpeartor opeartor, File diskDir, int appVersion, long diskMaxSize)
+    public DiskLruCacheWrapper(IDiskCacheOperator opeartor, File diskDir, int appVersion, long diskMaxSize)
     {
         this.mDiskOpeartor = opeartor;
         try

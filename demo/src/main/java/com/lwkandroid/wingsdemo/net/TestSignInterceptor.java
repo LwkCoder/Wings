@@ -12,7 +12,7 @@ import java.util.TreeMap;
 public class TestSignInterceptor extends ApiParamsInterceptor
 {
     @Override
-    public TreeMap<String, String> dynamic(TreeMap<String, String> oldParams)
+    public TreeMap<String, Object> dynamic(TreeMap<String, Object> oldParams)
     {
         //模拟添加密钥
         oldParams.put("secret", "secretValue");

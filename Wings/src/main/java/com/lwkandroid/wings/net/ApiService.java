@@ -31,11 +31,13 @@ import retrofit2.http.Url;
 public interface ApiService
 {
     @GET()
-    Observable<ResponseBody> get(@Url String url, @HeaderMap Map<String, String> headerMap, @QueryMap Map<String, String> maps);
+    Observable<ResponseBody> get(@Url String url, @HeaderMap Map<String, String> headerMap,
+                                 @QueryMap Map<String, Object> maps);
 
     @POST()
     @FormUrlEncoded
-    Observable<ResponseBody> post(@Url String url, @HeaderMap Map<String, String> headerMap, @FieldMap Map<String, String> maps);
+    Observable<ResponseBody> post(@Url String url, @HeaderMap Map<String, String> headerMap,
+                                  @FieldMap Map<String, Object> maps);
 
     @POST()
     Observable<ResponseBody> post(@Url String url, @HeaderMap Map<String, String> headerMap, @Body Object object);
@@ -44,7 +46,8 @@ public interface ApiService
     Observable<ResponseBody> post(@Url String url, @HeaderMap Map<String, String> headerMap, @Body RequestBody body);
 
     @DELETE()
-    Observable<ResponseBody> delete(@Url String url, @HeaderMap Map<String, String> headerMap, @QueryMap Map<String, String> maps);
+    Observable<ResponseBody> delete(@Url String url, @HeaderMap Map<String, String> headerMap,
+                                    @QueryMap Map<String, Object> maps);
 
     @HTTP(method = "DELETE", hasBody = true)
     Observable<ResponseBody> delete(@Url String url, @HeaderMap Map<String, String> headerMap, @Body Object object);
@@ -53,7 +56,8 @@ public interface ApiService
     Observable<ResponseBody> delete(@Url String url, @HeaderMap Map<String, String> headerMap, @Body RequestBody object);
 
     @PUT()
-    Observable<ResponseBody> put(@Url String url, @HeaderMap Map<String, String> headerMap, @QueryMap Map<String, String> maps);
+    Observable<ResponseBody> put(@Url String url, @HeaderMap Map<String, String> headerMap,
+                                 @QueryMap Map<String, Object> maps);
 
     @PUT()
     Observable<ResponseBody> put(@Url String url, @HeaderMap Map<String, String> headerMap, @Body Object object);
@@ -62,11 +66,13 @@ public interface ApiService
     Observable<ResponseBody> put(@Url String url, @HeaderMap Map<String, String> headerMap, @Body RequestBody body);
 
     @PATCH()
-    Observable<ResponseBody> patch(@Url String url, @HeaderMap Map<String, String> headerMap, @QueryMap Map<String, String> maps);
+    Observable<ResponseBody> patch(@Url String url, @HeaderMap Map<String, String> headerMap,
+                                   @QueryMap Map<String, Object> maps);
 
     @Multipart
     @POST()
-    Observable<ResponseBody> uploadFiles(@Url String url, @HeaderMap Map<String, String> headerMap, @Part() List<MultipartBody.Part> parts);
+    Observable<ResponseBody> uploadFiles(@Url String url, @HeaderMap Map<String, String> headerMap,
+                                         @Part() List<MultipartBody.Part> parts);
 
     @Streaming
     @GET
@@ -75,7 +81,8 @@ public interface ApiService
     @Streaming
     @POST
     @FormUrlEncoded
-    Observable<ResponseBody> downloadFile(@Url String fileUrl, @HeaderMap Map<String, String> headerMap, @FieldMap Map<String, String> maps);
+    Observable<ResponseBody> downloadFile(@Url String fileUrl, @HeaderMap Map<String, String> headerMap,
+                                          @FieldMap Map<String, Object> maps);
 
     @Streaming
     @POST()

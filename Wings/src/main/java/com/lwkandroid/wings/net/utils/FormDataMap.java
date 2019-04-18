@@ -9,68 +9,89 @@ import java.util.HashMap;
  * Created by LWK
  * TODO 网络请求QueryMap、FieldMap参数辅助工具
  */
-
-public class FormDataMap extends HashMap<String, String>
+public class FormDataMap extends HashMap<String, Object>
 {
     private static final String TAG = "FormDataMap";
     private static final long serialVersionUID = 1124339485844644063L;
 
-    /**
-     * 添加文本参数
-     */
-    public FormDataMap addParam(String key, String value)
+    public FormDataMap addParam(String key, byte value)
     {
-        if (StringUtils.isEmpty(key) || StringUtils.isEmpty(value))
+        checkKeyNotNull(key);
+        put(key, value);
+        return this;
+    }
+
+    public FormDataMap addParam(String key, short value)
+    {
+        checkKeyNotNull(key);
+        put(key, value);
+        return this;
+    }
+
+    public FormDataMap addParam(String key, float value)
+    {
+        checkKeyNotNull(key);
+        put(key, value);
+        return this;
+    }
+
+    public FormDataMap addParam(String key, int value)
+    {
+        checkKeyNotNull(key);
+        put(key, value);
+        return this;
+    }
+
+    public FormDataMap addParam(String key, long value)
+    {
+        checkKeyNotNull(key);
+        put(key, value);
+        return this;
+    }
+
+    public FormDataMap addParam(String key, double value)
+    {
+        checkKeyNotNull(key);
+        put(key, value);
+        return this;
+    }
+
+    public FormDataMap addParam(String key, boolean value)
+    {
+        checkKeyNotNull(key);
+        put(key, value);
+        return this;
+    }
+
+    public FormDataMap addParam(String key, Object value)
+    {
+        checkKeyNotNull(key);
+        if (null == value)
         {
-            KLog.e(TAG, "FormDataMap's params can't be null ! Ignore the params: key=" + key + " value=" + value);
+            KLog.e(TAG, "RxHttp query param's value can not be null , Ignore key=" + key);
             return this;
         }
         put(key, value);
         return this;
     }
 
-    /**
-     * 添加short参数
-     */
-    public FormDataMap addParam(String key, short value)
+    public FormDataMap addParam(String key, String value)
     {
-        put(key, String.valueOf(value));
+        checkKeyNotNull(key);
+        if (StringUtils.isEmpty(value))
+        {
+            KLog.e(TAG, "RxHttp query param's value can not be null , Ignore key=" + key);
+            return this;
+        }
+        put(key, value);
         return this;
     }
 
-    /**
-     * 添加int参数
-     */
-    public FormDataMap addParam(String key, int value)
+    private void checkKeyNotNull(String key)
     {
-        put(key, String.valueOf(value));
-        return this;
-    }
-
-    /**
-     * 添加long参数
-     */
-    public FormDataMap addParam(String key, long value)
-    {
-        put(key, String.valueOf(value));
-        return this;
-    }
-
-    /**
-     * 添加double参数
-     */
-    public FormDataMap addParam(String key, double value)
-    {
-        put(key, String.valueOf(value));
-        return this;
-    }
-
-    /**
-     * 添加float参数
-     */
-    public FormDataMap addParam(String key, float value)
-    {
-        put(key, String.valueOf(value));
-        return this;
+        if (StringUtils.isTrimEmpty(key))
+        {
+            throw new IllegalArgumentException("RxHttp query param's key can not be trim empty !");
+        }
     }
 }

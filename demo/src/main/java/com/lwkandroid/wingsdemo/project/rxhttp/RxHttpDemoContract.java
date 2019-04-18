@@ -52,7 +52,9 @@ public interface RxHttpDemoContract
         /**
          * 获取的数据来自开源接口：https://github.com/jokermonn/-Api/blob/master/Neihan.md#recommend
          */
-        abstract Observable<List<TabsBean>> requestDataByService();
+        abstract Observable<List<TabsBean>> requestCustomGet();
+
+        abstract Observable<String> requestCustomPost();
 
         /**
          * 七牛上的静态资源
@@ -73,7 +75,9 @@ public interface RxHttpDemoContract
     {
         abstract void requestData();
 
-        abstract void requestDataByService();
+        abstract void requestCustomGet();
+
+        abstract void requestCustomPost();
 
         abstract void requestFileData();
 

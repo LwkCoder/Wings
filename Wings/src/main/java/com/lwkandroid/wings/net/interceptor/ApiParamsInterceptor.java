@@ -1,5 +1,7 @@
 package com.lwkandroid.wings.net.interceptor;
 
+import com.lwkandroid.wings.net.utils.MultipartBodyUtils;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -67,7 +69,7 @@ public abstract class ApiParamsInterceptor implements Interceptor
         Set<String> nameSet = httpUrl.queryParameterNames();
         ArrayList<String> nameList = new ArrayList<>();
         nameList.addAll(nameSet);
-        TreeMap<String, String> oldparams = new TreeMap<>();
+        TreeMap<String, Object> oldparams = new TreeMap<>();
         for (int i = 0; i < nameList.size(); i++)
         {
             String value = httpUrl.queryParameterValues(nameList.get(i)) != null
@@ -77,10 +79,10 @@ public abstract class ApiParamsInterceptor implements Interceptor
         }
         String nameKeys = Collections.singletonList(nameList).toString();
         //组装新的参数
-        TreeMap<String, String> newParams = dynamic(oldparams);
-        for (Map.Entry<String, String> entry : newParams.entrySet())
+        TreeMap<String, Object> newParams = dynamic(oldparams);
+        for (Map.Entry<String, Object> entry : newParams.entrySet())
         {
-            String urlValue = URLEncoder.encode(entry.getValue(), UTF8.name());
+            String urlValue = URLEncoder.encode(String.valueOf(entry.getValue()), UTF8.name());
             if (!nameKeys.contains(entry.getKey()))
             {
                 newBuilder.addQueryParameter(entry.getKey(), urlValue);
@@ -101,17 +103,17 @@ public abstract class ApiParamsInterceptor implements Interceptor
             FormBody formBody = (FormBody) request.body();
 
             //原有的参数
-            TreeMap<String, String> oldparams = new TreeMap<>();
+            TreeMap<String, Object> oldparams = new TreeMap<>();
             for (int i = 0; i < formBody.size(); i++)
             {
                 oldparams.put(formBody.encodedName(i), formBody.encodedValue(i));
             }
 
             //拼装新的参数
-            TreeMap<String, String> newParams = dynamic(oldparams);
-            for (Map.Entry<String, String> entry : newParams.entrySet())
+            TreeMap<String, Object> newParams = dynamic(oldparams);
+            for (Map.Entry<String, Object> entry : newParams.entrySet())
             {
-                String value = URLDecoder.decode(entry.getValue(), UTF8.name());
+                String value = URLDecoder.decode(String.valueOf(entry.getValue()), UTF8.name());
                 bodyBuilder.addEncoded(entry.getKey(), value);
             }
             formBody = bodyBuilder.build();
@@ -120,19 +122,18 @@ public abstract class ApiParamsInterceptor implements Interceptor
         {
             MultipartBody multipartBody = (MultipartBody) request.body();
             MultipartBody.Builder bodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
-            List<MultipartBody.Part> oldparts = multipartBody.parts();
+            List<MultipartBody.Part> oldParts = multipartBody.parts();
 
             //拼装新的参数
-            List<MultipartBody.Part> newparts = new ArrayList<>();
-            newparts.addAll(oldparts);
-            TreeMap<String, String> oldparams = new TreeMap<>();
-            TreeMap<String, String> newParams = dynamic(oldparams);
-            for (Map.Entry<String, String> stringStringEntry : newParams.entrySet())
+            List<MultipartBody.Part> newParts = new ArrayList<>(oldParts);
+            TreeMap<String, Object> oldParams = new TreeMap<>();
+            TreeMap<String, Object> newParams = dynamic(oldParams);
+            for (Map.Entry<String, Object> entry : newParams.entrySet())
             {
-                MultipartBody.Part part = MultipartBody.Part.createFormData(stringStringEntry.getKey(), stringStringEntry.getValue());
-                newparts.add(part);
+                MultipartBody.Part part = MultipartBodyUtils.createFormDataPart(entry.getKey(), entry.getValue());
+                newParts.add(part);
             }
-            for (MultipartBody.Part part : newparts)
+            for (MultipartBody.Part part : newParts)
             {
                 bodyBuilder.addPart(part);
             }
@@ -145,5 +146,5 @@ public abstract class ApiParamsInterceptor implements Interceptor
     /**
      * 子类实现该方法对参数进行动态修改
      */
-    public abstract TreeMap<String, String> dynamic(TreeMap<String, String> oldParams);
+    public abstract TreeMap<String, Object> dynamic(TreeMap<String, Object> oldParams);
 }

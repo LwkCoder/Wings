@@ -24,7 +24,7 @@ import java.io.OutputStream;
 /**
  * 硬盘缓存接口
  */
-public interface IDiskCacheOpeartor
+public interface IDiskCacheOperator
 {
     /**
      * 读取

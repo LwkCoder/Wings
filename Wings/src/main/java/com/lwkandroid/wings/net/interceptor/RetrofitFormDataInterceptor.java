@@ -10,15 +10,15 @@ import java.util.TreeMap;
 
 public final class RetrofitFormDataInterceptor extends ApiParamsInterceptor
 {
-    private Map<String, String> mNewParamsMap;
+    private Map<String, Object> mNewParamsMap;
 
-    public RetrofitFormDataInterceptor(Map<String, String> newParamsMap)
+    public RetrofitFormDataInterceptor(Map<String, Object> newParamsMap)
     {
         this.mNewParamsMap = newParamsMap;
     }
 
     @Override
-    public TreeMap<String, String> dynamic(TreeMap<String, String> oldParams)
+    public TreeMap<String, Object> dynamic(TreeMap<String, Object> oldParams)
     {
         if (mNewParamsMap != null && mNewParamsMap.size() > 0)
         {

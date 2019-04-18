@@ -36,21 +36,21 @@ public final class RetrofitUtils
         builder.writeTimeout(globalOptions.getWriteTimeOut(), TimeUnit.MILLISECONDS);
         builder.connectTimeout(globalOptions.getConnectTimeOut(), TimeUnit.MILLISECONDS);
 
-         /*设置HostnameVerifier*/
+        /*设置HostnameVerifier*/
         if (globalOptions.getHostnameVerifier() != null)
         {
             builder.hostnameVerifier(globalOptions.getHostnameVerifier());
         }
 
         /*设置Https证书*/
-        if (globalOptions.getSslParams() != null)
+        if (globalOptions.getHttpsSSLParams() != null)
         {
-            builder.sslSocketFactory(globalOptions.getSslParams().sSLSocketFactory,
-                    globalOptions.getSslParams().trustManager);
+            builder.sslSocketFactory(globalOptions.getHttpsSSLParams().sSLSocketFactory,
+                    globalOptions.getHttpsSSLParams().trustManager);
         }
 
         /*添加全局参数和Header*/
-        Map<String, String> globalFormDatasMap = globalOptions.getFormDatasMap();
+        Map<String, Object> globalFormDatasMap = globalOptions.getFormDataMap();
         Map<String, String> globalHeadersMap = globalOptions.getHeadersMap();
         if (globalFormDatasMap != null && globalFormDatasMap.size() > 0)
         {

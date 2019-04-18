@@ -55,9 +55,9 @@ public class RxHttpDemoPresenter extends RxHttpDemoContract.Presenter
     }
 
     @Override
-    void requestDataByService()
+    void requestCustomGet()
     {
-        getModelImpl().requestDataByService()
+        getModelImpl().requestCustomGet()
                 .compose(this.<List<TabsBean>>applyIo2MainWithLifeCycle())
                 .subscribe(new ApiBaseObserver<List<TabsBean>>()
                 {
@@ -78,6 +78,27 @@ public class RxHttpDemoPresenter extends RxHttpDemoContract.Presenter
                     public void subOnError(ApiException e)
                     {
                         getViewImpl().showHttpError(e);
+                    }
+                });
+    }
+
+    @Override
+    void requestCustomPost()
+    {
+        getModelImpl().requestCustomPost()
+                .compose(this.<String>applyIo2MainWithLifeCycle())
+                .subscribe(new ApiBaseObserver<String>()
+                {
+                    @Override
+                    public void subOnNext(String s)
+                    {
+                        KLog.e("结果：" + s);
+                    }
+
+                    @Override
+                    public void subOnError(ApiException e)
+                    {
+                        KLog.e("错误：" + e.toString());
                     }
                 });
     }

@@ -23,16 +23,16 @@ import java.io.OutputStream;
  * 每次都要转换性能略低，但是以现在的手机性能可以忽略不计了。
  */
 
-public class GsonDiskOpeartor implements IDiskCacheOpeartor
+public class GsonDiskOperator implements IDiskCacheOperator
 {
     private Gson mGson;
 
-    public GsonDiskOpeartor()
+    public GsonDiskOperator()
     {
         this.mGson = new Gson();
     }
 
-    public GsonDiskOpeartor(Gson gson)
+    public GsonDiskOperator(Gson gson)
     {
         this.mGson = mGson;
     }

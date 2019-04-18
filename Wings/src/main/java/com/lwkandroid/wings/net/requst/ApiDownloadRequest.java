@@ -88,7 +88,7 @@ public class ApiDownloadRequest extends ApiBaseRequest<ApiDownloadRequest> imple
 
     @Override
     protected Observable<ResponseBody> buildResponse(Map<String, String> headersMap,
-                                                     Map<String, String> formDatasMap,
+                                                     Map<String, Object> formDatasMap,
                                                      Object objectRequestBody,
                                                      RequestBody okHttp3RequestBody,
                                                      String jsonBody,
@@ -96,22 +96,22 @@ public class ApiDownloadRequest extends ApiBaseRequest<ApiDownloadRequest> imple
     {
         if (objectRequestBody != null)
         {
-            return service.downloadFile(getUrl(), headersMap, objectRequestBody);
+            return service.downloadFile(getSubUrl(), headersMap, objectRequestBody);
         } else if (okHttp3RequestBody != null)
         {
-            return service.downloadFile(getUrl(), headersMap, okHttp3RequestBody);
+            return service.downloadFile(getSubUrl(), headersMap, okHttp3RequestBody);
         } else if (!TextUtils.isEmpty(jsonBody))
         {
             RequestBody jsonRequestBody = RequestBodyUtils.createJsonBody(jsonBody);
             headersMap.put(ApiConstants.HEADER_KEY_CONTENT_TYPE, ApiConstants.HEADER_VALUE_JSON);
             headersMap.put(ApiConstants.HEADER_KEY_ACCEPT, ApiConstants.HEADER_VALUE_JSON);
-            return service.downloadFile(getUrl(), headersMap, jsonRequestBody);
+            return service.downloadFile(getSubUrl(), headersMap, jsonRequestBody);
         } else if (formDatasMap != null && formDatasMap.size() > 0)
         {
-            return service.downloadFile(getUrl(), headersMap, formDatasMap);
+            return service.downloadFile(getSubUrl(), headersMap, formDatasMap);
         } else
         {
-            return service.downloadFile(getUrl(), headersMap);
+            return service.downloadFile(getSubUrl(), headersMap);
         }
     }
 
@@ -121,7 +121,7 @@ public class ApiDownloadRequest extends ApiBaseRequest<ApiDownloadRequest> imple
         return invokeRequest()
                 .compose(ApiResponseConvert.responseToInputStream())
                 .compose(new ApiExceptionTransformer<InputStream>())
-                .retryWhen(new AutoRetryFunc(getUrl(), getAutoRetryCount(), getAutoRetryDelay(), getAutoRetryJudge()));
+                .retryWhen(new AutoRetryFunc(getSubUrl(), getAutoRetryCount(), getAutoRetryDelay(), getAutoRetryJudge()));
     }
 
     @Override
@@ -144,7 +144,7 @@ public class ApiDownloadRequest extends ApiBaseRequest<ApiDownloadRequest> imple
         return invokeRequest()
                 .compose(ApiResponseConvert.responseToBytes())
                 .compose(new ApiExceptionTransformer<byte[]>())
-                .retryWhen(new AutoRetryFunc(getUrl(), getAutoRetryCount(), getAutoRetryDelay(), getAutoRetryJudge()));
+                .retryWhen(new AutoRetryFunc(getSubUrl(), getAutoRetryCount(), getAutoRetryDelay(), getAutoRetryJudge()));
     }
 
     @Override

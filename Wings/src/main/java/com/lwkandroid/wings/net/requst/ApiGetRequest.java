@@ -37,7 +37,7 @@ public class ApiGetRequest extends ApiBaseRequest<ApiGetRequest> implements IApi
 
     @Override
     protected Observable<ResponseBody> buildResponse(Map<String, String> headersMap,
-                                                     Map<String, String> formDatasMap,
+                                                     Map<String, Object> formDataMap,
                                                      Object objectRequestBody,
                                                      RequestBody okHttp3RequestBody,
                                                      String jsonBody,
@@ -53,7 +53,7 @@ public class ApiGetRequest extends ApiBaseRequest<ApiGetRequest> implements IApi
         {
             KLog.w("RXHttp method GET must not have a request body：\n" + jsonBody);
         }
-        return service.get(getUrl(), headersMap, formDatasMap);
+        return service.get(getSubUrl(), headersMap, formDataMap);
     }
 
     @Override
@@ -63,7 +63,7 @@ public class ApiGetRequest extends ApiBaseRequest<ApiGetRequest> implements IApi
                 .compose(ApiResponseConvert.responseToString())
                 .compose(RxCache.transform(getFinalCacheOptions(), String.class))
                 .compose(new ApiExceptionTransformer<ApiResultCacheWrapper<String>>())
-                .retryWhen(new AutoRetryFunc(getUrl(), getAutoRetryCount(), getAutoRetryDelay(), getAutoRetryJudge()));
+                .retryWhen(new AutoRetryFunc(getSubUrl(), getAutoRetryCount(), getAutoRetryDelay(), getAutoRetryJudge()));
     }
 
     @Override

@@ -37,7 +37,7 @@ public class ApiPutRequest extends ApiBaseRequest<ApiPutRequest> implements IApi
 
     @Override
     protected Observable<ResponseBody> buildResponse(Map<String, String> headersMap,
-                                                     Map<String, String> formDatasMap,
+                                                     Map<String, Object> formDatasMap,
                                                      Object objectRequestBody,
                                                      RequestBody okHttp3RequestBody,
                                                      String jsonBody,
@@ -45,19 +45,19 @@ public class ApiPutRequest extends ApiBaseRequest<ApiPutRequest> implements IApi
     {
         if (objectRequestBody != null)
         {
-            return service.put(getUrl(), headersMap, objectRequestBody);
+            return service.put(getSubUrl(), headersMap, objectRequestBody);
         } else if (okHttp3RequestBody != null)
         {
-            return service.put(getUrl(), headersMap, okHttp3RequestBody);
+            return service.put(getSubUrl(), headersMap, okHttp3RequestBody);
         } else if (!TextUtils.isEmpty(jsonBody))
         {
             RequestBody jsonRequestBody = RequestBodyUtils.createJsonBody(jsonBody);
             headersMap.put(ApiConstants.HEADER_KEY_CONTENT_TYPE, ApiConstants.HEADER_VALUE_JSON);
             headersMap.put(ApiConstants.HEADER_KEY_ACCEPT, ApiConstants.HEADER_VALUE_JSON);
-            return service.put(getUrl(), headersMap, jsonRequestBody);
+            return service.put(getSubUrl(), headersMap, jsonRequestBody);
         } else
         {
-            return service.put(getUrl(), headersMap, formDatasMap);
+            return service.put(getSubUrl(), headersMap, formDatasMap);
         }
     }
 
@@ -68,7 +68,7 @@ public class ApiPutRequest extends ApiBaseRequest<ApiPutRequest> implements IApi
                 .compose(ApiResponseConvert.responseToString())
                 .compose(RxCache.transform(getFinalCacheOptions(), String.class))
                 .compose(new ApiExceptionTransformer<ApiResultCacheWrapper<String>>())
-                .retryWhen(new AutoRetryFunc(getUrl(), getAutoRetryCount(), getAutoRetryDelay(), getAutoRetryJudge()));
+                .retryWhen(new AutoRetryFunc(getSubUrl(), getAutoRetryCount(), getAutoRetryDelay(), getAutoRetryJudge()));
     }
 
     @Override

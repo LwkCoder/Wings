@@ -1,6 +1,6 @@
 package com.lwkandroid.wings.net.bean;
 
-import com.lwkandroid.wings.net.cache.opeartor.IDiskCacheOpeartor;
+import com.lwkandroid.wings.net.cache.opeartor.IDiskCacheOperator;
 import com.lwkandroid.wings.net.constants.ApiCacheMode;
 import com.lwkandroid.wings.net.constants.ApiConstants;
 import com.lwkandroid.wings.net.cookie.ICookieJar;
@@ -12,11 +12,9 @@ import com.lwkandroid.wings.net.parser.IApiStringParser;
 import com.lwkandroid.wings.net.retry.AutoRetryJudgeImpl;
 import com.lwkandroid.wings.net.retry.IAutoRetry;
 import com.lwkandroid.wings.net.utils.FormDataMap;
-import com.lwkandroid.wings.utils.StringUtils;
 
 import java.io.InputStream;
 import java.lang.reflect.Type;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.net.ssl.HostnameVerifier;
@@ -26,580 +24,502 @@ import okhttp3.Interceptor;
 
 /**
  * Created by LWK
- * TODO 全局请求参数
+ * TODO 网络请求全局配置对象
  */
-
-public class ApiGlobalOptions
+public class ApiGlobalOptions implements IRequestOptions.Common<ApiGlobalOptions>, IRequestOptions.Global<ApiGlobalOptions>
 {
-    /*网络请求结果对象Type*/
-    private Type mApiResultType;
+    private IRequestOptions.Common mCommonImpl = new CommonOptionsImpl();
     /*网络请求正常的状态码*/
-    private int mResultOkCode = ApiConstants.RESULT_OK_CODE;
-    /*读取超时时间*/
-    private long mReadTimeOut = ApiConstants.READ_TIMEOUT;
-    /*写入超时时间*/
-    private long mWriteTimeOut = ApiConstants.WRITE_TIMEOUT;
-    /*连接超时时间*/
-    private long mConnectTimeOut = ApiConstants.CONNECT_TIMEOUT;
-    /*请求域名*/
-    private String mBaseUrl;
-    /*全局请求需要添加的拦截器*/
-    private Map<String, Interceptor> mInterceptorMap;
-    /*全局请求需要添加的网络拦截器*/
-    private Map<String, Interceptor> mNetInterceptorMap;
-    /*全局表单参数*/
-    private FormDataMap mFormDatasMap;
-    /*全局Header*/
-    private Map<String, String> mHeadersMap;
-    /*全局String类型网络请求结果的解析器*/
-    private IApiStringParser mStringParser = new ApiStringParser();
+    private int mResultOkCode;
     /*Cookie管理类*/
     private ICookieJar mCookieJar;
-    /*Https证书*/
-    protected HttpsUtils.SSLParams mSslParams;
-    /*Https全局访问规则*/
-    protected HostnameVerifier mHostnameVerifier;
-    //缓存类型
-    private @ApiCacheMode.Mode
-    int mCacheMode = ApiCacheMode.NO_CACHE;
     //App版本
     private int mCacheVersion = 1;
     //缓存路径
     private String mCachePath;
-    //缓存时长
-    private long mCacheTime = -1;
     //硬盘缓存大小
     private long mDiskMaxSize = -1;
     //缓存转换器
-    private IDiskCacheOpeartor mCacheOpeartor = null;
-    //自动重试次数
-    private int mAutoRetryCount = 0;
-    //自动重试间隔,ms
-    private int mAutoRetryDelay = 1000;
-    //判断自动重试时机的对象
-    private IAutoRetry mAutoRetry = new AutoRetryJudgeImpl();
+    private IDiskCacheOperator mCacheOperator = null;
     //设置错误描述的对象
-    private IApiExceptionMsg mApiExceptionMsg = new ApiExceptionMsgImpl();
+    private IApiExceptionMsg mApiExceptionMsg;
 
-    public ApiGlobalOptions setApiResultType(Type type)
+    public ApiGlobalOptions()
     {
-        this.mApiResultType = type;
+        setConnectTimeOut(ApiConstants.CONNECT_TIMEOUT);
+        setWriteTimeOut(ApiConstants.WRITE_TIMEOUT);
+        setReadTimeOut(ApiConstants.READ_TIMEOUT);
+        setApiResultType(ApiResult.class);
+        setApiResultOkCode(ApiConstants.RESULT_OK_CODE);
+        setApiResultStringParser(new ApiStringParser());
+        setApiExceptionMsg(new ApiExceptionMsgImpl());
+        setAutoRetryJudge(new AutoRetryJudgeImpl());
+        setAutoRetryDelay(1000);
+    }
+
+    @Override
+    public ApiGlobalOptions setApiResultStringParser(IApiStringParser parser)
+    {
+        mCommonImpl.setApiResultStringParser(parser);
         return this;
     }
 
-    public Type getApiResultType()
+    @Override
+    public IApiStringParser getApiStringParser()
     {
-        return mApiResultType;
+        return mCommonImpl.getApiStringParser();
     }
 
+    @Override
+    public ApiGlobalOptions setApiResultType(Type type)
+    {
+        mCommonImpl.setApiResultType(type);
+        return this;
+    }
+
+    @Override
+    public Type getApiResultType()
+    {
+        return mCommonImpl.getApiResultType();
+    }
+
+    @Override
+    public ApiGlobalOptions setReadTimeOut(long readTimeOut)
+    {
+        mCommonImpl.setReadTimeOut(readTimeOut);
+        return this;
+    }
+
+    @Override
+    public long getReadTimeOut()
+    {
+        return mCommonImpl.getReadTimeOut();
+    }
+
+    @Override
+    public ApiGlobalOptions setWriteTimeOut(long writeTimeOut)
+    {
+        mCommonImpl.setWriteTimeOut(writeTimeOut);
+        return this;
+    }
+
+    @Override
+    public long getWriteTimeOut()
+    {
+        return mCommonImpl.getWriteTimeOut();
+    }
+
+    @Override
+    public ApiGlobalOptions setConnectTimeOut(long connectTimeOut)
+    {
+        mCommonImpl.setConnectTimeOut(connectTimeOut);
+        return this;
+    }
+
+    @Override
+    public long getConnectTimeOut()
+    {
+        return mCommonImpl.getConnectTimeOut();
+    }
+
+    @Override
+    public ApiGlobalOptions setBaseUrl(String baseUrl)
+    {
+        mCommonImpl.setBaseUrl(baseUrl);
+        return this;
+    }
+
+    @Override
+    public String getBaseUrl()
+    {
+        return mCommonImpl.getBaseUrl();
+    }
+
+    @Override
+    public Map<String, Interceptor> getInterceptorMap()
+    {
+        return mCommonImpl.getInterceptorMap();
+    }
+
+    @Override
+    public ApiGlobalOptions setInterceptorMap(Map<String, Interceptor> interceptorMap)
+    {
+        mCommonImpl.setInterceptorMap(interceptorMap);
+        return this;
+    }
+
+    @Override
+    public ApiGlobalOptions addInterceptorMap(Map<String, Interceptor> interceptorMap)
+    {
+        mCommonImpl.addInterceptorMap(interceptorMap);
+        return this;
+    }
+
+    @Override
+    public ApiGlobalOptions addInterceptor(@NonNull String tag, @NonNull Interceptor interceptor)
+    {
+        mCommonImpl.addInterceptor(tag, interceptor);
+        return this;
+    }
+
+    @Override
+    public Map<String, Interceptor> getNetInterceptorMap()
+    {
+        return mCommonImpl.getNetInterceptorMap();
+    }
+
+    @Override
+    public ApiGlobalOptions setNetInterceptorMap(Map<String, Interceptor> netInterceptorMap)
+    {
+        mCommonImpl.setNetInterceptorMap(netInterceptorMap);
+        return this;
+    }
+
+    @Override
+    public ApiGlobalOptions addNetInterceptorMap(Map<String, Interceptor> interceptorMap)
+    {
+        mCommonImpl.addNetInterceptorMap(interceptorMap);
+        return this;
+    }
+
+    @Override
+    public ApiGlobalOptions addNetInterceptor(@NonNull String tag, @NonNull Interceptor interceptor)
+    {
+        mCommonImpl.addNetInterceptor(tag, interceptor);
+        return this;
+    }
+
+    @Override
+    public FormDataMap getFormDataMap()
+    {
+        return mCommonImpl.getFormDataMap();
+    }
+
+    @Override
+    public ApiGlobalOptions setFormDataMap(FormDataMap formDataMap)
+    {
+        mCommonImpl.setFormDataMap(formDataMap);
+        return this;
+    }
+
+    @Override
+    public ApiGlobalOptions addFormDataMap(Map<String, String> formDataMap)
+    {
+        mCommonImpl.addFormDataMap(formDataMap);
+        return this;
+    }
+
+    @Override
+    public ApiGlobalOptions addFormData(@NonNull String key, byte value)
+    {
+        mCommonImpl.addFormData(key, value);
+        return this;
+    }
+
+    @Override
+    public ApiGlobalOptions addFormData(@NonNull String key, int value)
+    {
+        mCommonImpl.addFormData(key, value);
+        return this;
+    }
+
+    @Override
+    public ApiGlobalOptions addFormData(@NonNull String key, float value)
+    {
+        mCommonImpl.addFormData(key, value);
+        return this;
+    }
+
+    @Override
+    public ApiGlobalOptions addFormData(@NonNull String key, short value)
+    {
+        mCommonImpl.addFormData(key, value);
+        return this;
+    }
+
+    @Override
+    public ApiGlobalOptions addFormData(@NonNull String key, long value)
+    {
+        mCommonImpl.addFormData(key, value);
+        return this;
+    }
+
+    @Override
+    public ApiGlobalOptions addFormData(@NonNull String key, double value)
+    {
+        mCommonImpl.addFormData(key, value);
+        return this;
+    }
+
+    @Override
+    public ApiGlobalOptions addFormData(@NonNull String key, boolean value)
+    {
+        mCommonImpl.addFormData(key, value);
+        return this;
+    }
+
+    @Override
+    public ApiGlobalOptions addFormData(@NonNull String key, String value)
+    {
+        mCommonImpl.addFormData(key, value);
+        return this;
+    }
+
+    @Override
+    public ApiGlobalOptions addFormData(@NonNull String key, Object value)
+    {
+        mCommonImpl.addFormData(key, value);
+        return this;
+    }
+
+    @Override
+    public Map<String, String> getHeadersMap()
+    {
+        return mCommonImpl.getHeadersMap();
+    }
+
+    @Override
+    public ApiGlobalOptions setHeadersMap(Map<String, String> headersMap)
+    {
+        mCommonImpl.setHeadersMap(headersMap);
+        return this;
+    }
+
+    @Override
+    public ApiGlobalOptions addHeadersMap(Map<String, String> headersMap)
+    {
+        mCommonImpl.addHeadersMap(headersMap);
+        return this;
+    }
+
+    @Override
+    public ApiGlobalOptions addHeader(@NonNull String tag, String value)
+    {
+        mCommonImpl.addHeader(tag, value);
+        return this;
+    }
+
+    @Override
+    public ApiGlobalOptions setCacheMode(@ApiCacheMode.Mode int mode)
+    {
+        mCommonImpl.setCacheMode(mode);
+        return this;
+    }
+
+    @Override
+    public int getCacheMode()
+    {
+        return mCommonImpl.getCacheMode();
+    }
+
+    @Override
+    public ApiGlobalOptions setCacheTime(long cacheTime)
+    {
+        mCommonImpl.setCacheTime(cacheTime);
+        return this;
+    }
+
+    @Override
+    public long getCacheTime()
+    {
+        return mCommonImpl.getCacheTime();
+    }
+
+    @Override
+    public ApiGlobalOptions setAutoRetryJudge(IAutoRetry autoRetry)
+    {
+        mCommonImpl.setAutoRetryJudge(autoRetry);
+        return this;
+    }
+
+    @Override
+    public IAutoRetry getAutoRetryJudge()
+    {
+        return mCommonImpl.getAutoRetryJudge();
+    }
+
+    @Override
+    public ApiGlobalOptions setAutoRetryCount(int count)
+    {
+        mCommonImpl.setAutoRetryCount(count);
+        return this;
+    }
+
+    @Override
+    public int getAutoRetryCount()
+    {
+        return mCommonImpl.getAutoRetryCount();
+    }
+
+    @Override
+    public ApiGlobalOptions setAutoRetryDelay(int delay)
+    {
+        mCommonImpl.setAutoRetryDelay(delay);
+        return this;
+    }
+
+    @Override
+    public int getAutoRetryDelay()
+    {
+        return mCommonImpl.getAutoRetryDelay();
+    }
+
+    @Override
+    public ApiGlobalOptions setHttpsCertificates(InputStream... certificates)
+    {
+        mCommonImpl.setHttpsCertificates(certificates);
+        return this;
+    }
+
+    @Override
+    public ApiGlobalOptions setHttpsCertificates(InputStream bksFile, String password, InputStream... certificates)
+    {
+        mCommonImpl.setHttpsCertificates(bksFile, password, certificates);
+        return this;
+    }
+
+    @Override
+    public ApiGlobalOptions setHttpsSSLParams(HttpsUtils.SSLParams params)
+    {
+        mCommonImpl.setHttpsSSLParams(params);
+        return this;
+    }
+
+    @Override
+    public HttpsUtils.SSLParams getHttpsSSLParams()
+    {
+        return mCommonImpl.getHttpsSSLParams();
+    }
+
+    @Override
+    public ApiGlobalOptions setHostnameVerifier(HostnameVerifier verifier)
+    {
+        mCommonImpl.setHostnameVerifier(verifier);
+        return this;
+    }
+
+    @Override
+    public HostnameVerifier getHostnameVerifier()
+    {
+        return mCommonImpl.getHostnameVerifier();
+    }
+
+    @Override
     public ApiGlobalOptions setApiResultOkCode(int code)
     {
         this.mResultOkCode = code;
         return this;
     }
 
+    @Override
     public int getApiResultOkCode()
     {
         return mResultOkCode;
     }
 
-    public long getReadTimeOut()
-    {
-        return mReadTimeOut;
-    }
-
-    public ApiGlobalOptions setReadTimeOut(long readTimeOut)
-    {
-        this.mReadTimeOut = readTimeOut;
-        return this;
-    }
-
-    public long getWriteTimeOut()
-    {
-        return mWriteTimeOut;
-    }
-
-    public ApiGlobalOptions setWriteTimeOut(long writeTimeOut)
-    {
-        this.mWriteTimeOut = writeTimeOut;
-        return this;
-    }
-
-    public long getConnectTimeOut()
-    {
-        return mConnectTimeOut;
-    }
-
-    public ApiGlobalOptions setConnectTimeOut(long connectTimeOut)
-    {
-        this.mConnectTimeOut = connectTimeOut;
-        return this;
-    }
-
-    public String getBaseUrl()
-    {
-        return mBaseUrl;
-    }
-
-    public ApiGlobalOptions setBaseUrl(String baseUrl)
-    {
-        this.mBaseUrl = baseUrl;
-        return this;
-    }
-
-    public Map<String, Interceptor> getInterceptorMap()
-    {
-        return mInterceptorMap;
-    }
-
-    public ApiGlobalOptions setInterceptorMap(Map<String, Interceptor> interceptorMap)
-    {
-        this.mInterceptorMap = interceptorMap;
-        return this;
-    }
-
-    public ApiGlobalOptions addInterceptorsMap(Map<String, Interceptor> interceptorMap)
-    {
-        if (mInterceptorMap == null)
-        {
-            mInterceptorMap = new HashMap<>();
-        }
-        if (interceptorMap != null && interceptorMap.size() > 0)
-        {
-            mInterceptorMap.putAll(interceptorMap);
-        }
-        return this;
-    }
-
-    public ApiGlobalOptions addInterceptor(@NonNull String tag, @NonNull Interceptor interceptor)
-    {
-        if (mInterceptorMap == null)
-        {
-            mInterceptorMap = new HashMap<>();
-        }
-        if (StringUtils.isNotEmpty(tag) && interceptor != null)
-        {
-            mInterceptorMap.put(tag, interceptor);
-        }
-        return this;
-    }
-
-    public ApiGlobalOptions removeInterceptor(String tag)
-    {
-        if (mInterceptorMap != null)
-        {
-            mInterceptorMap.remove(tag);
-        }
-        return this;
-    }
-
-    public ApiGlobalOptions clearInterceptors()
-    {
-        if (mInterceptorMap != null)
-        {
-            mInterceptorMap.clear();
-        }
-        return this;
-    }
-
-    public Map<String, Interceptor> getNetInterceptorMap()
-    {
-        return mNetInterceptorMap;
-    }
-
-    public ApiGlobalOptions setNetInterceptorMap(Map<String, Interceptor> netInterceptorMap)
-    {
-        this.mNetInterceptorMap = netInterceptorMap;
-        return this;
-    }
-
-    public ApiGlobalOptions addNetInterceptorsMap(Map<String, Interceptor> interceptorMap)
-    {
-        if (mNetInterceptorMap == null)
-        {
-            mNetInterceptorMap = new HashMap<>();
-        }
-        if (interceptorMap != null && interceptorMap.size() > 0)
-        {
-            mNetInterceptorMap.putAll(interceptorMap);
-        }
-        return this;
-    }
-
-    public ApiGlobalOptions addNetInterceptor(@NonNull String tag, @NonNull Interceptor interceptor)
-    {
-        if (mNetInterceptorMap == null)
-        {
-            mNetInterceptorMap = new HashMap<>();
-        }
-        if (StringUtils.isNotEmpty(tag) && interceptor != null)
-        {
-            mNetInterceptorMap.put(tag, interceptor);
-        }
-        return this;
-    }
-
-    public ApiGlobalOptions removeNetInterceptor(String tag)
-    {
-        if (mNetInterceptorMap != null)
-        {
-            mNetInterceptorMap.remove(tag);
-        }
-        return this;
-    }
-
-    public ApiGlobalOptions clearNetInterceptors()
-    {
-        if (mNetInterceptorMap != null)
-        {
-            mNetInterceptorMap.clear();
-        }
-        return this;
-    }
-
-    public Map<String, String> getFormDatasMap()
-    {
-        return mFormDatasMap;
-    }
-
-    public ApiGlobalOptions setFormDatasMap(FormDataMap formDatasMap)
-    {
-        this.mFormDatasMap = formDatasMap;
-        return this;
-    }
-
-    public ApiGlobalOptions addFormDatasMap(Map<String, String> formDatasMap)
-    {
-        if (mFormDatasMap == null)
-        {
-            mFormDatasMap = new FormDataMap();
-        }
-        if (formDatasMap != null && formDatasMap.size() > 0)
-        {
-            mFormDatasMap.putAll(formDatasMap);
-        }
-        return this;
-    }
-
-    public ApiGlobalOptions addFormData(@NonNull String key, String value)
-    {
-        if (mFormDatasMap == null)
-        {
-            mFormDatasMap = new FormDataMap();
-        }
-        if (StringUtils.isNotEmpty(key))
-        {
-            mFormDatasMap.addParam(key, value);
-        }
-        return this;
-    }
-
-    public ApiGlobalOptions addFormData(@NonNull String key, short value)
-    {
-        if (mFormDatasMap == null)
-        {
-            mFormDatasMap = new FormDataMap();
-        }
-        if (StringUtils.isNotEmpty(key))
-        {
-            mFormDatasMap.addParam(key, value);
-        }
-        return this;
-    }
-
-    public ApiGlobalOptions addFormData(@NonNull String key, int value)
-    {
-        if (mFormDatasMap == null)
-        {
-            mFormDatasMap = new FormDataMap();
-        }
-        if (StringUtils.isNotEmpty(key))
-        {
-            mFormDatasMap.addParam(key, value);
-        }
-        return this;
-    }
-
-    public ApiGlobalOptions addFormData(@NonNull String key, long value)
-    {
-        if (mFormDatasMap == null)
-        {
-            mFormDatasMap = new FormDataMap();
-        }
-        if (StringUtils.isNotEmpty(key))
-        {
-            mFormDatasMap.addParam(key, value);
-        }
-        return this;
-    }
-
-    public ApiGlobalOptions addFormData(@NonNull String key, double value)
-    {
-        if (mFormDatasMap == null)
-        {
-            mFormDatasMap = new FormDataMap();
-        }
-        if (StringUtils.isNotEmpty(key))
-        {
-            mFormDatasMap.addParam(key, value);
-        }
-        return this;
-    }
-
-    public ApiGlobalOptions addFormData(@NonNull String key, float value)
-    {
-        if (mFormDatasMap == null)
-        {
-            mFormDatasMap = new FormDataMap();
-        }
-        if (StringUtils.isNotEmpty(key))
-        {
-            mFormDatasMap.addParam(key, value);
-        }
-        return this;
-    }
-
+    @Override
     public ApiGlobalOptions removeFormData(String key)
     {
-        if (mFormDatasMap != null)
-        {
-            mFormDatasMap.remove(key);
-        }
+        getFormDataMap().remove(key);
         return this;
     }
 
-    public ApiGlobalOptions clearFormDatas()
+    @Override
+    public ApiGlobalOptions clearFormData()
     {
-        if (mFormDatasMap != null)
-        {
-            mFormDatasMap.clear();
-        }
+        getFormDataMap().clear();
         return this;
     }
 
-    public Map<String, String> getHeadersMap()
-    {
-        return mHeadersMap;
-    }
-
-    public ApiGlobalOptions setHeadersMap(Map<String, String> headersMap)
-    {
-        this.mHeadersMap = headersMap;
-        return this;
-    }
-
-    public ApiGlobalOptions addHeadersMap(Map<String, String> headersMap)
-    {
-        if (mHeadersMap == null)
-        {
-            mHeadersMap = new FormDataMap();
-        }
-        if (headersMap != null && headersMap.size() > 0)
-        {
-            mHeadersMap.putAll(headersMap);
-        }
-        return this;
-    }
-
-    public ApiGlobalOptions addHeader(@NonNull String key, String value)
-    {
-        if (mHeadersMap == null)
-        {
-            mHeadersMap = new FormDataMap();
-        }
-        if (StringUtils.isNotEmpty(key))
-        {
-            mHeadersMap.put(key, value);
-        }
-        return this;
-    }
-
+    @Override
     public ApiGlobalOptions removeHeader(String key)
     {
-        if (mHeadersMap != null)
-        {
-            mHeadersMap.remove(key);
-        }
+        getHeadersMap().remove(key);
         return this;
     }
 
+    @Override
     public ApiGlobalOptions clearHeaders()
     {
-        if (mHeadersMap != null)
-        {
-            mHeadersMap.clear();
-        }
+        getHeadersMap().clear();
         return this;
     }
 
-    public void setApiStringParser(IApiStringParser parser)
-    {
-        this.mStringParser = parser;
-    }
-
-    public IApiStringParser getApiStringParser()
-    {
-        return mStringParser;
-    }
-
+    @Override
     public ApiGlobalOptions setCookieManager(ICookieJar cookieJarImpl)
     {
         this.mCookieJar = cookieJarImpl;
         return this;
     }
 
+    @Override
     public ICookieJar getCookieManager()
     {
         return mCookieJar;
     }
 
-    /**
-     * https的自签名证书
-     */
-    public ApiGlobalOptions setHttpsCertificates(InputStream... certificates)
-    {
-        this.mSslParams = HttpsUtils.getSslSocketFactory(null, null, certificates);
-        return this;
-    }
-
-    /**
-     * https的双向认证证书
-     */
-    public ApiGlobalOptions setHttpsCertificates(InputStream bksFile, String password, InputStream... certificates)
-    {
-        this.mSslParams = HttpsUtils.getSslSocketFactory(bksFile, password, certificates);
-        return this;
-    }
-
-    public HttpsUtils.SSLParams getSslParams()
-    {
-        return mSslParams;
-    }
-
-    /**
-     * 设置全局请求访问规则
-     *
-     * @param verifier
-     * @return
-     */
-    public ApiGlobalOptions setHostnameVerifier(HostnameVerifier verifier)
-    {
-        this.mHostnameVerifier = verifier;
-        return this;
-    }
-
-    public HostnameVerifier getHostnameVerifier()
-    {
-        return mHostnameVerifier;
-    }
-
-    public ApiGlobalOptions setCacheMode(@ApiCacheMode.Mode int mode)
-    {
-        this.mCacheMode = mode;
-        return this;
-    }
-
+    @Override
     public ApiGlobalOptions setCacheVersion(int version)
     {
         this.mCacheVersion = version;
         return this;
     }
 
+    @Override
+    public int getCacheVersion()
+    {
+        return mCacheVersion;
+    }
+
+    @Override
     public ApiGlobalOptions setCachePath(String path)
     {
         this.mCachePath = path;
         return this;
     }
 
-    public ApiGlobalOptions setCacheTime(long cacheTime)
+    @Override
+    public String getCachePath()
     {
-        this.mCacheTime = cacheTime;
-        return this;
+        return mCachePath;
     }
 
+    @Override
     public ApiGlobalOptions setCacheDiskMaxSize(long maxSize)
     {
         this.mDiskMaxSize = maxSize;
         return this;
     }
 
-    public ApiGlobalOptions setCacheOpeartor(IDiskCacheOpeartor opeartor)
-    {
-        this.mCacheOpeartor = opeartor;
-        return this;
-    }
-
-    public int getCacheMode()
-    {
-        return mCacheMode;
-    }
-
-    public int getCacheVersion()
-    {
-        return mCacheVersion;
-    }
-
-    public String getCachePath()
-    {
-        return mCachePath;
-    }
-
-    public long getCacheTime()
-    {
-        return mCacheTime;
-    }
-
+    @Override
     public long getCacheDiskMaxSize()
     {
         return mDiskMaxSize;
     }
 
-    public IDiskCacheOpeartor getCacheOpeartor()
+    @Override
+    public ApiGlobalOptions setCacheOperator(IDiskCacheOperator operator)
     {
-        return mCacheOpeartor;
-    }
-
-    public int getAutoRetryCount()
-    {
-        return mAutoRetryCount;
-    }
-
-    public ApiGlobalOptions setAutoRetryCount(int count)
-    {
-        this.mAutoRetryCount = count;
+        this.mCacheOperator = operator;
         return this;
     }
 
-    public int getAutoRetryDelay()
+    @Override
+    public IDiskCacheOperator getCacheOperator()
     {
-        return mAutoRetryDelay;
+        return mCacheOperator;
     }
 
-    public ApiGlobalOptions setAutoRetryDelay(int delay)
-    {
-        this.mAutoRetryDelay = mAutoRetryDelay;
-        return this;
-    }
-
-    public IAutoRetry getAutoRetryJudge()
-    {
-        return mAutoRetry;
-    }
-
-    public ApiGlobalOptions setAutoRetryJudge(IAutoRetry autoRetry)
-    {
-        this.mAutoRetry = autoRetry;
-        return this;
-    }
-
-    public IApiExceptionMsg getApiExceptionMsg()
-    {
-        return mApiExceptionMsg;
-    }
-
+    @Override
     public ApiGlobalOptions setApiExceptionMsg(IApiExceptionMsg apiExceptionMsg)
     {
         this.mApiExceptionMsg = apiExceptionMsg;
         return this;
+    }
+
+    @Override
+    public IApiExceptionMsg getApiExceptionMsg()
+    {
+        return mApiExceptionMsg;
     }
 }

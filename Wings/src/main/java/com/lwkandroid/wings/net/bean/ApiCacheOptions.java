@@ -4,8 +4,8 @@ import android.text.TextUtils;
 
 import com.lwkandroid.wings.net.cache.core.CacheCore;
 import com.lwkandroid.wings.net.cache.core.DiskLruCacheWrapper;
-import com.lwkandroid.wings.net.cache.opeartor.GsonDiskOpeartor;
-import com.lwkandroid.wings.net.cache.opeartor.IDiskCacheOpeartor;
+import com.lwkandroid.wings.net.cache.opeartor.GsonDiskOperator;
+import com.lwkandroid.wings.net.cache.opeartor.IDiskCacheOperator;
 import com.lwkandroid.wings.net.constants.ApiCacheMode;
 import com.lwkandroid.wings.net.constants.ApiConstants;
 import com.lwkandroid.wings.utils.SDCardUtils;
@@ -33,7 +33,7 @@ public class ApiCacheOptions
     //硬盘缓存大小
     private long diskMaxSize = -1;
     //缓存转换器
-    private IDiskCacheOpeartor cacheOpeartor = null;
+    private IDiskCacheOperator cacheOpeartor = null;
     //缓存核心管理类
     private CacheCore cacheCore;
 
@@ -101,12 +101,12 @@ public class ApiCacheOptions
         this.diskMaxSize = diskMaxSize;
     }
 
-    public IDiskCacheOpeartor getCacheOpeartor()
+    public IDiskCacheOperator getCacheOpeartor()
     {
         return cacheOpeartor;
     }
 
-    public void setCacheOpeartor(IDiskCacheOpeartor cacheOpeartor)
+    public void setCacheOpeartor(IDiskCacheOperator cacheOpeartor)
     {
         this.cacheOpeartor = cacheOpeartor;
     }
@@ -168,7 +168,7 @@ public class ApiCacheOptions
             return this;
         }
 
-        public Builder cacheOpeartor(IDiskCacheOpeartor opeartor)
+        public Builder cacheOpeartor(IDiskCacheOperator opeartor)
         {
             options.setCacheOpeartor(opeartor);
             return this;
@@ -197,7 +197,7 @@ public class ApiCacheOptions
             //检查转换器
             if (options.getCacheOpeartor() == null)
             {
-                options.setCacheOpeartor(new GsonDiskOpeartor());
+                options.setCacheOpeartor(new GsonDiskOperator());
             }
             //检查缓存磁盘容量
             if (options.getDiskMaxSize() < ApiConstants.DISK_CACHE_MIN_SIZE)

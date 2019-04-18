@@ -33,14 +33,14 @@ public class RequestBodyUtils
      * @param content 参数
      * @return 请求体
      */
-    public static RequestBody createFormDataBody(String content)
+    public static RequestBody createFormDataBody(Object content)
     {
-        if (StringUtils.isEmpty(content))
+        if (null == content)
         {
-            KLog.e("Can not invoke 'createFormDataBody()' because of a null text");
+            KLog.e("Can not invoke 'createFormDataBody()' because of a null object");
             return null;
         }
-        return RequestBody.create(MediaType.parse("multipart/form-data"), content);
+        return RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(content));
     }
 
     /**
