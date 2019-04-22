@@ -13,6 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="n">
+
         <meta-data
             android:name="CHANNEL_NAME"
             android:value="${CHANNEL_NAME}"/>

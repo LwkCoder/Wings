@@ -2,7 +2,7 @@
 <template
     format="5"
     revision="5"
-    name="AppBaseActivity with MVP template(Java)"
+    name="Wings AppBaseActivity(Java)"
     minApi="16"
     minBuildApi="16"
     description="Creates a new AppBaseActivity with MVP">

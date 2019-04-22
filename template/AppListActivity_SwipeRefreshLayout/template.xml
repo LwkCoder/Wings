@@ -2,10 +2,10 @@
 <template
     format="5"
     revision="5"
-    name="Wings WingsBaseActivity(Java)"
+    name="Wings AppListActivity SwipeRefreshLayout(Java)"
     minApi="16"
     minBuildApi="16"
-    description="Creates a new WingsBaseActivity">
+    description="Creates a new AppListActivity with SwipeRefreshLayout">
 
     <category value="Activity" />
     <formfactor value="Mobile" />
@@ -18,6 +18,14 @@
         suggest="${layoutToActivity(layoutName)}"
         default="App"
         help="The name of the activity class to create" />
+		
+	<parameter
+        id="dataClass"
+        name="Adapter's Data Class Name"
+        type="string"
+        constraints="class|unique|nonempty"
+        default="String"
+        help="The name of the adapter's data class" />
 
     <parameter
         id="generateLayout"

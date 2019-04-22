@@ -2,10 +2,10 @@
 <template
     format="5"
     revision="5"
-    name="WingsBaseFragment with MVP Template(Java)"
+    name="Wings WingsBaseFragment(Java)"
     minApi="16"
     minBuildApi="16"
-    description="Creates a new WingsBaseFragment with MVP">
+    description="Creates a new WingsBaseFragment">
 
     <category value="Fragment" />
 

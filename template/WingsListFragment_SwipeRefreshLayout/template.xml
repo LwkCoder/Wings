@@ -2,12 +2,12 @@
 <template
     format="5"
     revision="5"
-    name="Wings AppBaseFragment(Java)"
+    name="Wings WingsListFragment SwipeRefreshLayout(Java)"
     minApi="16"
     minBuildApi="16"
-    description="Creates a new AppBaseFragment with MVP">
+    description="Creates a new WingsListFragment with SwipeRefreshLayout">
 
-    <category value="Fragment" />
+   <category value="Fragment" />
 
     <parameter
         id="fragmentClass"
@@ -16,6 +16,14 @@
         constraints="class|nonempty|unique"
         default="AppFragment"
         help="The name of the fragment class to create" />
+		
+	<parameter
+        id="dataClass"
+        name="Adapter's Data Class Name"
+        type="string"
+        constraints="class|unique|nonempty"
+        default="String"
+        help="The name of the adapter's data class" />
 
     <parameter
         id="generateLayout"
@@ -29,12 +37,12 @@
         name="Fragment Layout Name"
         type="string"
         constraints="layout|nonempty|unique"
-        default="fragment_app"
+        default="fragment_list"
         visibility="generateLayout"
         suggest="fragment_${classToResource(fragmentClass)}"
         help="The name of the layout to create" />
-		
-    
+
+    <!-- 128x128 thumbnails relative to template.xml -->
     <thumbs>
         <!-- default thumbnail is required -->
         <thumb>Fragment_template.png</thumb>

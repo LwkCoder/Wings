@@ -2,4 +2,8 @@
 
 1.将上面的文件夹复制到 AndroidStudio安装路径\plugins\android\lib\templates\activities\内
 2.重启AS
-3.在项目java路径下新建Activity\Fragment的时候就可以一键生成
+3.在项目java路径下新建Activity\Fragment的时候就可以一键生成，详细参照图解
+
+【注意】
+在线升级AndroidStudio前，需要将路径\plugins\android\lib\templates\activities\下自定义的模版全部剪切出去，
+待升级完成后再粘贴回来，否则无法升级！！！
