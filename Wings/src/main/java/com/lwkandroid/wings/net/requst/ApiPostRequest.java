@@ -13,6 +13,7 @@ import com.lwkandroid.wings.net.error.ApiExceptionTransformer;
 import com.lwkandroid.wings.net.response.IApiStringResponse;
 import com.lwkandroid.wings.net.retry.AutoRetryFunc;
 import com.lwkandroid.wings.net.utils.RequestBodyUtils;
+import com.lwkandroid.wings.utils.json.JsonUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -28,9 +29,22 @@ import okhttp3.ResponseBody;
 
 public class ApiPostRequest extends ApiBaseRequest<ApiPostRequest> implements IApiStringResponse
 {
+    private boolean mIsFormDataJson = false;
+
     public ApiPostRequest(String url)
     {
         super(url, ApiRequestType.POST);
+    }
+
+    public ApiPostRequest convertToJsonRequest()
+    {
+        mIsFormDataJson = true;
+        return this;
+    }
+
+    public boolean isConvertToJsonRequest()
+    {
+        return mIsFormDataJson;
     }
 
     @Override
@@ -53,7 +67,15 @@ public class ApiPostRequest extends ApiBaseRequest<ApiPostRequest> implements IA
             headersMap.put(ApiConstants.HEADER_KEY_CONTENT_TYPE, ApiConstants.HEADER_VALUE_JSON);
             headersMap.put(ApiConstants.HEADER_KEY_ACCEPT, ApiConstants.HEADER_VALUE_JSON);
             return service.post(getSubUrl(), headersMap, jsonRequestBody);
-        } else
+        } else if (mIsFormDataJson)
+        {
+            Map<String, Object> jsonMap = getFormDataMap();
+            String jsonString = JsonUtils.get().toJson(jsonMap);
+            RequestBody jsonRequestBody = RequestBodyUtils.createJsonBody(jsonString);
+            headersMap.put(ApiConstants.HEADER_KEY_CONTENT_TYPE, ApiConstants.HEADER_VALUE_JSON);
+            headersMap.put(ApiConstants.HEADER_KEY_ACCEPT, ApiConstants.HEADER_VALUE_JSON);
+            return service.post(getSubUrl(), headersMap, jsonRequestBody);
+        }
         {
             return service.post(getSubUrl(), headersMap, formDataMap);
         }
