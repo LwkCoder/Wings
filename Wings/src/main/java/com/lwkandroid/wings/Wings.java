@@ -10,7 +10,7 @@ import androidx.core.content.FileProvider;
 
 /**
  * Created by LWK
- * TODO 入口类
+ *  入口类
  */
 
 public final class Wings

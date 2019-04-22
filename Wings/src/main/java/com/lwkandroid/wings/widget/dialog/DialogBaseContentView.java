@@ -12,7 +12,7 @@ import java.lang.ref.WeakReference;
 
 /**
  * Created by LWK
- * TODO Dialog UI层，继承该类实现数据处理和UI交互
+ *  Dialog UI层，继承该类实现数据处理和UI交互
  */
 public abstract class DialogBaseContentView
 {

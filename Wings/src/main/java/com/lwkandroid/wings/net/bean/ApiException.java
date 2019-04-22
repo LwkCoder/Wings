@@ -19,7 +19,7 @@ import retrofit2.HttpException;
 
 /**
  * Created by LWK
- * TODO 自定义异常：网络请求错误
+ *  自定义异常：网络请求错误
  */
 public class ApiException extends Exception
 {

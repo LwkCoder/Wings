@@ -17,7 +17,7 @@ import io.reactivex.ObservableOnSubscribe;
 
 /**
  * Created by LWK
- * TODO 二维码工具类
+ *  二维码工具类
  */
 
 public final class QRCodeUtils

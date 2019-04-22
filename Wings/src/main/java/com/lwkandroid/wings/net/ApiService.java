@@ -25,7 +25,7 @@ import retrofit2.http.Url;
 
 /**
  * Created by LWK
- * TODO Retrofit请求模版
+ *  Retrofit请求模版
  */
 
 public interface ApiService

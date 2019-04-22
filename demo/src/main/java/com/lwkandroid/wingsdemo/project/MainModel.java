@@ -11,7 +11,7 @@ import io.reactivex.ObservableOnSubscribe;
 
 /**
  * Created by LWK
- * TODO RxHttpDemoActivity Model层
+ * RxHttpDemoActivity Model层
  */
 
 public class MainModel extends MainContract.Model

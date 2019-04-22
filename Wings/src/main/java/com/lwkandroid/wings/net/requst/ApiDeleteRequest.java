@@ -25,7 +25,7 @@ import okhttp3.ResponseBody;
 
 /**
  * Created by LWK
- * TODO Delete请求
+ *  Delete请求
  */
 
 public class ApiDeleteRequest extends ApiBaseRequest<ApiDeleteRequest> implements IApiStringResponse

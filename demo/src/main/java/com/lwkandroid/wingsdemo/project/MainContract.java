@@ -11,7 +11,7 @@ import io.reactivex.Observable;
 
 /**
  * Created by LWK
- * TODO MainActivity契约类
+ * MainActivity契约类
  */
 
 public interface MainContract

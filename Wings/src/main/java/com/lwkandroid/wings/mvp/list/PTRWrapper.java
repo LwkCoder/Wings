@@ -4,7 +4,7 @@ import com.lwkandroid.wings.widget.ptr.PTRLayout;
 
 /**
  * Created by LWK
- * TODO PTRLayout的封装实现
+ *  PTRLayout的封装实现
  */
 public class PTRWrapper implements IRefreshWrapper<PTRLayout>, PTRLayout.OnPullListener
 {

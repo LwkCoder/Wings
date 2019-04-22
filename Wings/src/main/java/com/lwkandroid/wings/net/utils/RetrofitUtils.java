@@ -16,7 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by LWK
- * TODO Retrofit辅助工具
+ *  Retrofit辅助工具
  */
 
 public final class RetrofitUtils

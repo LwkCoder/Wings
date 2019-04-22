@@ -20,7 +20,7 @@ import io.reactivex.disposables.Disposable;
 
 /**
  * Created by LWK
- * TODO RxHttpDemo Presenter层
+ *  RxHttpDemo Presenter层
  */
 
 public class RxHttpDemoPresenter extends RxHttpDemoContract.Presenter

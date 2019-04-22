@@ -13,7 +13,7 @@ import java.io.File;
 
 /**
  * Created by LWK
- * TODO 定义图片加载方法
+ *  定义图片加载方法
  */
 
 public interface ILoaderStrategy<T extends ImageOptions>

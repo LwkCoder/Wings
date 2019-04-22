@@ -14,7 +14,7 @@ import java.io.File;
 
 /**
  * Created by LWK
- * TODO 默认安装Apk权限提示框
+ *  默认安装Apk权限提示框
  */
 class DefInstallRationaleDialog implements Rationale<File>
 {

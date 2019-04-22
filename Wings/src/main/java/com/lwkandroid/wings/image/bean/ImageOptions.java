@@ -15,7 +15,7 @@ import com.lwkandroid.wings.image.constants.ImageDiskCacheType;
 
 /**
  * Created by LWK
- * TODO 图片加载配置参数基类
+ *  图片加载配置参数基类
  */
 
 public class ImageOptions<T extends ImageOptions> implements ILoaderProxy

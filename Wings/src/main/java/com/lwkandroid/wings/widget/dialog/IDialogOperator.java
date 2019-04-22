@@ -4,7 +4,7 @@ import androidx.fragment.app.FragmentActivity;
 
 /**
  * Created by LWK
- * TODO 定义DialogCreator外部可调方法的接口
+ *  定义DialogCreator外部可调方法的接口
  */
 public interface IDialogOperator
 {

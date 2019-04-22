@@ -32,13 +32,13 @@ import okio.Okio;
 import okio.Sink;
 
 /**
- * TODO OkHttp上传二进制数据过程请求体包装类
+ * OkHttp上传二进制数据过程请求体包装类
  */
 public class ProgressRequestBody extends RequestBody
 {
     protected Handler mHandler;
     protected int mRefreshTime;
-    protected final RequestBody mRequstBody;
+    protected final RequestBody mRequestBody;
     protected final OnProgressListener[] mListeners;
     protected final ProgressInfo mProgressInfo;
     private BufferedSink mBufferedSink;
@@ -46,7 +46,7 @@ public class ProgressRequestBody extends RequestBody
     public ProgressRequestBody(Handler handler, RequestBody requestBody,
                                List<OnProgressListener> listeners, int refreshTime)
     {
-        this.mRequstBody = requestBody;
+        this.mRequestBody = requestBody;
         this.mListeners = listeners.toArray(new OnProgressListener[listeners.size()]);
         this.mHandler = handler;
         this.mRefreshTime = refreshTime;
@@ -56,7 +56,7 @@ public class ProgressRequestBody extends RequestBody
     @Override
     public MediaType contentType()
     {
-        return mRequstBody.contentType();
+        return mRequestBody.contentType();
     }
 
     @Override
@@ -64,7 +64,7 @@ public class ProgressRequestBody extends RequestBody
     {
         try
         {
-            return mRequstBody.contentLength();
+            return mRequestBody.contentLength();
         } catch (IOException e)
         {
             e.printStackTrace();
@@ -81,7 +81,7 @@ public class ProgressRequestBody extends RequestBody
         }
         try
         {
-            mRequstBody.writeTo(mBufferedSink);
+            mRequestBody.writeTo(mBufferedSink);
             mBufferedSink.flush();
         } catch (IOException e)
         {

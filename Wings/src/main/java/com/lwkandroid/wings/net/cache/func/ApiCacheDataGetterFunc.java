@@ -6,7 +6,7 @@ import io.reactivex.functions.Function;
 
 /**
  * Created by LWK
- * TODO 获取缓存包装体内数据的转换方法
+ *  获取缓存包装体内数据的转换方法
  */
 
 public class ApiCacheDataGetterFunc<T> implements Function<ApiResultCacheWrapper<T>, T>

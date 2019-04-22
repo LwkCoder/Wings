@@ -2,7 +2,7 @@ package com.lwkandroid.wingsdemo.bean;
 
 /**
  * Created by LWK
- * TODO 内涵段子tab数据
+ * 内涵段子tab数据
  */
 
 public class TabsBean

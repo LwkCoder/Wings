@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 /**
  * Created by LWK
- * TODO 网络请求QueryMap、FieldMap参数辅助工具
+ *  网络请求QueryMap、FieldMap参数辅助工具
  */
 public class FormDataMap extends HashMap<String, Object>
 {

@@ -32,7 +32,7 @@ import okio.Okio;
 import okio.Source;
 
 /**
- * TODO OkHttp下载二进制数据过程请求体包装类
+ * OkHttp下载二进制数据过程请求体包装类
  */
 public class ProgressResponseBody extends ResponseBody
 {

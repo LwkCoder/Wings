@@ -20,7 +20,7 @@ import io.reactivex.subjects.PublishSubject;
 
 /**
  * Created by LWK
- * TODO Fragment基类
+ *  Fragment基类
  */
 
 public abstract class WingsBaseFragment<P extends MVPBasePresenter> extends Fragment implements

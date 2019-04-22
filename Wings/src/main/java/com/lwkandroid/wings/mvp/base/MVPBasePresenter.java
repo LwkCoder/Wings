@@ -13,7 +13,7 @@ import io.reactivex.functions.Predicate;
 
 /**
  * Created by LWK
- * TODO MVP模版中Presenter基类
+ *  MVP模版中Presenter基类
  */
 
 public abstract class MVPBasePresenter<V extends IMVPBaseView, M> implements IMVPBasePresenter<V, M>

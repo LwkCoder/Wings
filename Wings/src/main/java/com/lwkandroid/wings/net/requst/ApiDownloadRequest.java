@@ -27,7 +27,7 @@ import okhttp3.ResponseBody;
 
 /**
  * Created by LWK
- * TODO Download请求
+ *  Download请求
  */
 
 public class ApiDownloadRequest extends ApiBaseRequest<ApiDownloadRequest> implements IApiInputSreamResponse,

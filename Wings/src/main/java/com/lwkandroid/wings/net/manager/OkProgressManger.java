@@ -20,7 +20,7 @@ import okhttp3.Response;
 
 /**
  * Created by LWK
- * TODO 基于OkHttp做网络请求的所有过程监听管理类
+ *  基于OkHttp做网络请求的所有过程监听管理类
  * 需要OkHttp添加{@link com.lwkandroid.wings.net.interceptor.OkProgressInterceptor}
  */
 

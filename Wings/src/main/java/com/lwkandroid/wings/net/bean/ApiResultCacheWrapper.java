@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * Created by LWK
- * TODO 请求结果的缓存封装
+ *  请求结果的缓存封装
  */
 
 public class ApiResultCacheWrapper<T> implements Serializable

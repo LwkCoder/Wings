@@ -9,7 +9,6 @@ import io.reactivex.ObservableOnSubscribe;
 
 /**
  * Created by LWK
- * TODO
  */
 
 public class ListDemoModel extends ListDemoContract.Model

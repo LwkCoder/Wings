@@ -18,7 +18,7 @@ import io.reactivex.subjects.PublishSubject;
 
 /**
  * Created by LWK
- * TODO Activity基类
+ *  Activity基类
  */
 
 public abstract class WingsBaseActivity<P extends MVPBasePresenter> extends AppCompatActivity implements

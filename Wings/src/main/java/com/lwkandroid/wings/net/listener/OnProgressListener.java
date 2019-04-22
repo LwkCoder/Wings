@@ -4,7 +4,7 @@ import com.lwkandroid.wings.net.bean.ProgressInfo;
 
 /**
  * Created by LWK
- * TODO 通用加载过程监听
+ *  通用加载过程监听
  */
 
 public interface OnProgressListener

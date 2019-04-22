@@ -24,7 +24,7 @@ import java.io.File;
 
 /**
  * Created by LWK
- * TODO Glide实现的图片加载模块
+ *  Glide实现的图片加载模块
  */
 
 public class GlideLoader implements ILoaderStrategy<GlideLoaderOptions>

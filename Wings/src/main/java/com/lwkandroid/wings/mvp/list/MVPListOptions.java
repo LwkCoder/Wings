@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by LWK
- * TODO 列表界面配置
+ *  列表界面配置
  */
 
 public class MVPListOptions

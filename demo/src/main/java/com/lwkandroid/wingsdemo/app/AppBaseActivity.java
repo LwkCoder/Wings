@@ -9,7 +9,7 @@ import com.lwkandroid.wingsdemo.R;
 
 /**
  * Created by LWK
- * TODO 项目定制Activity基类
+ * 项目定制Activity基类
  */
 
 public abstract class AppBaseActivity<P extends MVPBasePresenter> extends WingsBaseActivity<P>

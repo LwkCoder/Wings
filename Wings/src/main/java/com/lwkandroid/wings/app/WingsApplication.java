@@ -6,7 +6,7 @@ import com.lwkandroid.wings.Wings;
 
 /**
  * Created by LWK
- * TODO Wings定制化Application
+ *  Wings定制化Application
  */
 
 public abstract class WingsApplication extends Application

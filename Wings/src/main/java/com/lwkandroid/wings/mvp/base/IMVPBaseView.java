@@ -5,7 +5,7 @@ import io.reactivex.subjects.PublishSubject;
 
 /**
  * Created by LWK
- * TODO MVP模版中View的基础接口
+ *  MVP模版中View的基础接口
  */
 
 public interface IMVPBaseView

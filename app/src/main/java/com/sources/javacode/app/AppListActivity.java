@@ -8,7 +8,7 @@ import com.sources.javacode.R;
 
 /**
  * Created by LWK
- * TODO 列表界面基类
+ *  列表界面基类
  */
 
 public abstract class AppListActivity<P extends MVPBasePresenter, RV, D> extends WingsListActivity<P, RV, D>

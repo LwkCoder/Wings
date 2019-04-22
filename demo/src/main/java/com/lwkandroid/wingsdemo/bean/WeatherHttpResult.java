@@ -5,7 +5,7 @@ import com.lwkandroid.wings.net.bean.IApiResult;
 
 /**
  * Created by LWK
- * TODO 聚合数据天气预报网络请求返回基类
+ * 聚合数据天气预报网络请求返回基类
  */
 @NotProguard
 public class WeatherHttpResult<T> implements IApiResult<T>

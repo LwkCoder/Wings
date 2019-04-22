@@ -24,7 +24,7 @@ import okhttp3.ResponseBody;
 
 /**
  * Created by LWK
- * TODO Get请求
+ * Get请求
  */
 
 public class ApiGetRequest extends ApiBaseRequest<ApiGetRequest> implements IApiStringResponse

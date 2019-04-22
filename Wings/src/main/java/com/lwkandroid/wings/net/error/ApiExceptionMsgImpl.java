@@ -4,7 +4,7 @@ import com.lwkandroid.wings.net.constants.ApiExceptionCode;
 
 /**
  * Created by LWK
- * TODO 设置ApiException错误描述的方法
+ *  设置ApiException错误描述的方法
  */
 
 public class ApiExceptionMsgImpl implements IApiExceptionMsg

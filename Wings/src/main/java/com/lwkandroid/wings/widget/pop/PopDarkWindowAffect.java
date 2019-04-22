@@ -9,7 +9,7 @@ import androidx.annotation.FloatRange;
 
 /**
  * Created by LWK
- * TODO 窗口亮度渐变效果
+ *  窗口亮度渐变效果
  */
 
 public class PopDarkWindowAffect implements IPopAffect

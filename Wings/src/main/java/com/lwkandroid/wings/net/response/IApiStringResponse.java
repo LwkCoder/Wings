@@ -8,7 +8,7 @@ import io.reactivex.Observable;
 
 /**
  * Created by LWK
- * TODO 定义字符串网络请求结果的转换方法
+ *  定义字符串网络请求结果的转换方法
  */
 
 public interface IApiStringResponse

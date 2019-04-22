@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 /**
  * Created by LWK
- * TODO
+ *
  */
 public class TestData implements Parcelable
 {

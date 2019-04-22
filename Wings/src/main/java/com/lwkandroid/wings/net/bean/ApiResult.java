@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 /**
  * Created by LWK
- * TODO 默认的请求结果
+ *  默认的请求结果
  */
 @NotProguard
 public class ApiResult<T> implements IApiResult<T>, Serializable

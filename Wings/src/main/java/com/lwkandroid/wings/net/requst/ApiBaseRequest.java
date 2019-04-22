@@ -20,7 +20,7 @@ import retrofit2.Retrofit;
 
 /**
  * Created by LWK
- * TODO 请求构造体基类
+ *  请求构造体基类
  */
 
 public abstract class ApiBaseRequest<T extends ApiRequestOptions> extends ApiRequestOptions<T>

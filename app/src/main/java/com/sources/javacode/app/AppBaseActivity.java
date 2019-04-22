@@ -8,7 +8,7 @@ import com.sources.javacode.R;
 
 /**
  * Created by LWK
- * TODO Activity基类
+ *  Activity基类
  */
 
 public abstract class AppBaseActivity<P extends MVPBasePresenter> extends WingsBaseActivity<P>

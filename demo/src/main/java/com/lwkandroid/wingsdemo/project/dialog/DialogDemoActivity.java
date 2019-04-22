@@ -13,7 +13,6 @@ import com.lwkandroid.wingsdemo.app.AppBaseActivity;
 
 /**
  * Created by LWK
- * TODO
  */
 public class DialogDemoActivity extends AppBaseActivity<MVPBasePresenter>
 {

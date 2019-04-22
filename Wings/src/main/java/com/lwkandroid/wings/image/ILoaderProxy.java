@@ -7,7 +7,7 @@ import android.widget.ImageView;
 
 /**
  * Created by LWK
- * TODO 定义给图片参数直接调用图片加载方法的接口
+ *  定义给图片参数直接调用图片加载方法的接口
  */
 
 public interface ILoaderProxy

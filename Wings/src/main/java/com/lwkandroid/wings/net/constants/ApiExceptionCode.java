@@ -2,7 +2,7 @@ package com.lwkandroid.wings.net.constants;
 
 /**
  * Created by LWK
- * TODO 这个类定义了所有请求结果的结果码
+ *  这个类定义了所有请求结果的结果码
  */
 
 public class ApiExceptionCode

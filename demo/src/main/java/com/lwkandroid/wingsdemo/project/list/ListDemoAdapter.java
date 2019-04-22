@@ -10,7 +10,6 @@ import java.util.List;
 
 /**
  * Created by LWK
- * TODO
  */
 
 public class ListDemoAdapter extends RcvSingleAdapter<String>

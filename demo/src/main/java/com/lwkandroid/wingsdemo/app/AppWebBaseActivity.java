@@ -14,7 +14,7 @@ import com.lwkandroid.wingsdemo.R;
 
 /**
  * Created by LWK
- * TODO 带有WebView的Activity
+ * 带有WebView的Activity
  */
 
 public abstract class AppWebBaseActivity<P extends AppBasePresenter> extends AppBaseActivity<P>

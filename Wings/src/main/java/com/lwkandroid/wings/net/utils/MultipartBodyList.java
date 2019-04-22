@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * Created by LWK
- * TODO 网络请求MultipartBody集合参数辅助工具
+ * 网络请求MultipartBody集合参数辅助工具
  */
 
 public class MultipartBodyList extends ArrayList<okhttp3.MultipartBody.Part>

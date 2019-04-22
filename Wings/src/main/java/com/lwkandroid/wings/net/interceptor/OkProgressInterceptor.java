@@ -9,7 +9,7 @@ import okhttp3.Response;
 
 /**
  * Created by LWK
- * TODO OkHttp 上传/下载过程拦截器
+ *  OkHttp 上传/下载过程拦截器
  */
 
 public final class OkProgressInterceptor implements Interceptor

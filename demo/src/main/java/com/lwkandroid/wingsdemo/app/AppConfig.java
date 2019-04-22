@@ -2,7 +2,7 @@ package com.lwkandroid.wingsdemo.app;
 
 /**
  * Created by LWK
- * TODO APP配置常量
+ * APP配置常量
  */
 
 public final class AppConfig

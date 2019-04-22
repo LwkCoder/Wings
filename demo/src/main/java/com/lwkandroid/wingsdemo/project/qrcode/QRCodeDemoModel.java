@@ -8,7 +8,7 @@ import io.reactivex.Observable;
 
 /**
  * Created by LWK
- * TODO
+ *
  */
 
 public class QRCodeDemoModel extends QRCodeDemoContract.Model

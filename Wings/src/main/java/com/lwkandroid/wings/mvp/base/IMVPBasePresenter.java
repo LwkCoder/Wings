@@ -9,7 +9,7 @@ import io.reactivex.disposables.Disposable;
 
 /**
  * Created by LWK
- * TODO MVP模版中Presenter接口
+ *  MVP模版中Presenter接口
  */
 
 public interface IMVPBasePresenter<V extends IMVPBaseView, M>

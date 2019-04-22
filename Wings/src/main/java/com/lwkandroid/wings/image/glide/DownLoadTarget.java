@@ -11,7 +11,7 @@ import androidx.annotation.Nullable;
 
 /**
  * Created by LWK
- * TODO 下载Target
+ *  下载Target
  */
 
 public class DownLoadTarget<R> extends CustomTarget<R>

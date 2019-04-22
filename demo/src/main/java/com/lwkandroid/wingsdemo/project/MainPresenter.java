@@ -2,7 +2,7 @@ package com.lwkandroid.wingsdemo.project;
 
 /**
  * Created by LWK
- * TODO RxHttpDemoActivity Presenter层
+ * RxHttpDemoActivity Presenter层
  *
  * @author IED_WENKANG
  */

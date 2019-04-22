@@ -2,7 +2,7 @@ package com.lwkandroid.wings.net.bean;
 
 /**
  * Created by LWK
- * TODO 网络请求结果接口
+ *  网络请求结果接口
  */
 
 public interface IApiResult<T>

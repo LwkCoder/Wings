@@ -2,7 +2,7 @@ package com.lwkandroid.wings.net.constants;
 
 /**
  * Created by LWK
- * TODO 常量
+ *  常量
  */
 
 public class ApiConstants

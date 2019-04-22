@@ -5,7 +5,7 @@ import android.view.View;
 
 /**
  * Created by LWK
- * TODO 内容布局方法接口
+ *  内容布局方法接口
  */
 
 interface IContentView

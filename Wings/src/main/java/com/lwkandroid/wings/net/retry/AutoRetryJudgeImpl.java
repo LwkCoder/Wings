@@ -10,7 +10,7 @@ import java.net.SocketTimeoutException;
 
 /**
  * Created by LWK
- * TODO 默认判断自动重试的条件
+ *  默认判断自动重试的条件
  */
 public class AutoRetryJudgeImpl implements IAutoRetry
 {

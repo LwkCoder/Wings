@@ -7,7 +7,7 @@ import java.lang.annotation.RetentionPolicy;
 
 /**
  * Created by LWK
- * TODO 硬盘缓存策略
+ *  硬盘缓存策略
  */
 
 public class ImageDiskCacheType

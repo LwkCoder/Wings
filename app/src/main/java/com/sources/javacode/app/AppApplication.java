@@ -12,7 +12,7 @@ import com.sources.javacode.net.ApiURL;
 
 /**
  * Created by LWK
- * TODO Application入口
+ *  Application入口
  */
 
 public class AppApplication extends WingsApplication

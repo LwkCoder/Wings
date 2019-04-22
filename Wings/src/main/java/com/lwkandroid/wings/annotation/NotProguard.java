@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 /**
  * Created by LWK
- * TODO 自定义注解，标识避免Proguard混淆
+ *  自定义注解，标识避免Proguard混淆
  * 【需在proguard-rules.pro下添加如下指令】
  * -keepattributes *Annotation*
  * -keep @com.lwkandroid.wings.annotation.NotProguard class * {*;}

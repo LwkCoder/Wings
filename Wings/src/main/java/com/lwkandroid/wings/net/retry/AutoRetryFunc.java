@@ -12,7 +12,7 @@ import io.reactivex.functions.Function;
 
 /**
  * Created by LWK
- * TODO 网络请求失败自动重试方法
+ *  网络请求失败自动重试方法
  */
 
 public class AutoRetryFunc implements Function<Observable<? extends Throwable>, Observable<?>>

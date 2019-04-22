@@ -4,7 +4,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 /**
  * Created by LWK
- * TODO SwipeRefreshLayout的封装实现
+ *  SwipeRefreshLayout的封装实现
  */
 
 public class SRVWrapper implements IRefreshWrapper<SwipeRefreshLayout>, SwipeRefreshLayout.OnRefreshListener

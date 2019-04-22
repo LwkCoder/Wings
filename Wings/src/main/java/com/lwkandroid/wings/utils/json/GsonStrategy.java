@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  * Created by LWK
- * TODO Gson实现的网络请求结果解析工具类
+ *  Gson实现的网络请求结果解析工具类
  */
 public final class GsonStrategy implements IJsonStrategy
 {

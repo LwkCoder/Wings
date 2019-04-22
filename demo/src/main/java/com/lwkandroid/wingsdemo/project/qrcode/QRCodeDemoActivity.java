@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * Created by LWK
- * TODO 二维码demo
+ *  二维码demo
  */
 
 public class QRCodeDemoActivity extends AppBaseActivity<QRCodeDemoPresenter> implements

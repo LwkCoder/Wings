@@ -7,7 +7,7 @@ import java.lang.annotation.RetentionPolicy;
 
 /**
  * Created by LWK
- * TODO 缓存类型
+ *  缓存类型
  */
 
 public final class ApiCacheMode

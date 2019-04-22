@@ -15,7 +15,7 @@ import io.reactivex.functions.Function;
 
 /**
  * Created by LWK
- * TODO 请求结果为NonRestFulResult的解析器
+ *  请求结果为NonRestFulResult的解析器
  */
 
 public class NonRestFulStringResultParser implements IApiStringParser

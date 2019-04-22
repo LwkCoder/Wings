@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * Created by LWK
- * TODO 完全自定义请求结果，非RestFul风格
+ * 完全自定义请求结果，非RestFul风格
  */
 
 public class NonRestFulResult

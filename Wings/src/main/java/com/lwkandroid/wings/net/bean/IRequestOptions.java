@@ -25,9 +25,9 @@ import okhttp3.RequestBody;
 
 /**
  * Created by LWK
- * TODO
+ * 请求参数的接口
  */
-public interface IRequestOptions
+interface IRequestOptions
 {
     interface Common<T>
     {

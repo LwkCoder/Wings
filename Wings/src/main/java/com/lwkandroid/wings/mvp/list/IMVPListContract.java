@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by LWK
- * TODO 定义列表界面公共方法
+ *  定义列表界面公共方法
  */
 
 public interface IMVPListContract

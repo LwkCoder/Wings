@@ -8,7 +8,7 @@ import com.lwkandroid.wingsdemo.net.ApiURL;
 
 /**
  * Created by LWK
- * TODO Application入口
+ * Application入口
  */
 
 public class DemoApplication extends WingsApplication

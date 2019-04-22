@@ -7,7 +7,7 @@ import com.lwkandroid.wings.annotation.NotProguard;
 
 /**
  * Created by LWK
- * TODO OkHttp加载过程数据
+ * OkHttp加载过程数据
  */
 @NotProguard
 public class ProgressInfo implements Parcelable

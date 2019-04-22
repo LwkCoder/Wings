@@ -8,7 +8,7 @@ import io.reactivex.disposables.Disposable;
 
 /**
  * Created by LWK
- * TODO 网络请求Observer基类（非必须）
+ *  网络请求Observer基类（非必须）
  */
 
 public abstract class ApiBaseObserver<T> implements Observer<T>, SingleObserver<T>

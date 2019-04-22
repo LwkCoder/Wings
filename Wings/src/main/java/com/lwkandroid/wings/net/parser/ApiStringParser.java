@@ -19,7 +19,7 @@ import io.reactivex.functions.Function;
 
 /**
  * Created by LWK
- * TODO 将String类型的网络请求结果转换为{@link com.lwkandroid.wings.net.bean.IApiResult}的实现类
+ *  将String类型的网络请求结果转换为{@link com.lwkandroid.wings.net.bean.IApiResult}的实现类
  */
 
 public class ApiStringParser implements IApiStringParser

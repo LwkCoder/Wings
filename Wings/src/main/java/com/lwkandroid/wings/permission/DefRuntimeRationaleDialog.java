@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  * Created by LWK
- * TODO 默认运行时权限被拒提示框
+ *  默认运行时权限被拒提示框
  */
 class DefRuntimeRationaleDialog implements Rationale<List<String>>
 {

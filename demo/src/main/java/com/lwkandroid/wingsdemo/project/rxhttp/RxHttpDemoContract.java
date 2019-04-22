@@ -18,7 +18,7 @@ import io.reactivex.Observable;
 
 /**
  * Created by LWK
- * TODO RxHttpDemo契约类
+ *  RxHttpDemo契约类
  */
 
 public interface RxHttpDemoContract

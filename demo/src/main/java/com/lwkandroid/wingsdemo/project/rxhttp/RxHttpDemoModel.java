@@ -21,7 +21,7 @@ import io.reactivex.Observable;
 
 /**
  * Created by LWK
- * TODO RxHttpDemo Model层
+ *  RxHttpDemo Model层
  */
 
 public class RxHttpDemoModel extends RxHttpDemoContract.Model

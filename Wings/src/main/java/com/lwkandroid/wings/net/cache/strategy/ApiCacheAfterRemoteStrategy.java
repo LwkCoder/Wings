@@ -9,7 +9,7 @@ import io.reactivex.functions.Predicate;
 
 /**
  * Created by LWK
- * TODO 先返回本地缓存，然后获取网络数据，回调2次的策略
+ *  先返回本地缓存，然后获取网络数据，回调2次的策略
  */
 
 public class ApiCacheAfterRemoteStrategy extends ApiCacheBaseStrategy

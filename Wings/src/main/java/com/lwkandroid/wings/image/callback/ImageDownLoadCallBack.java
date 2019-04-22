@@ -2,7 +2,7 @@ package com.lwkandroid.wings.image.callback;
 
 /**
  * Created by LWK
- * TODO 下载通用回调
+ *  下载通用回调
  */
 
 public interface ImageDownLoadCallBack<T>

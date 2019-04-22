@@ -2,7 +2,7 @@ package com.sources.javacode.net;
 
 /**
  * Created by LWK
- * TODO 网络请求链接
+ *  网络请求链接
  */
 
 public final class ApiURL

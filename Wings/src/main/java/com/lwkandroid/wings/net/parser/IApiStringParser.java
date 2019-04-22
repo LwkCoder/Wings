@@ -6,7 +6,7 @@ import io.reactivex.ObservableTransformer;
 
 /**
  * Created by LWK
- * TODO 将String类型的网络请求结果转换为具体对象的接口
+ *  将String类型的网络请求结果转换为具体对象的接口
  */
 
 public interface IApiStringParser

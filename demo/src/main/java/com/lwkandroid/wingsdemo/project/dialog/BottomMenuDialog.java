@@ -9,7 +9,7 @@ import com.lwkandroid.wingsdemo.R;
 
 /**
  * Created by LWK
- * TODO
+ *
  */
 public class BottomMenuDialog extends DialogBaseContentView implements View.OnClickListener
 {

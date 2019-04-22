@@ -10,7 +10,7 @@ import com.lwkandroid.wingsdemo.net.TestSignInterceptor;
 
 /**
  * Created by LWK
- * TODO 定制化Wings初始化参数
+ * 定制化Wings初始化参数
  */
 
 public class AppInitOptions extends WingsInitOperator

@@ -2,7 +2,7 @@ package com.lwkandroid.wings.mvp.base;
 
 /**
  * Created by LWK
- * TODO 默认Presenter（当View层泛型为空的情况下创建）
+ *  默认Presenter（当View层泛型为空的情况下创建）
  */
 class DefaultMVPPresenter extends MVPBasePresenter<IMVPBaseView, Void>
 {

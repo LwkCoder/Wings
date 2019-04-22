@@ -20,7 +20,7 @@ import okhttp3.Interceptor;
 
 /**
  * Created by LWK
- * TODO 配置请求参数的公共方法实现类
+ *  配置请求参数的公共方法实现类
  */
 class CommonOptionsImpl implements IRequestOptions.Common<CommonOptionsImpl>
 {

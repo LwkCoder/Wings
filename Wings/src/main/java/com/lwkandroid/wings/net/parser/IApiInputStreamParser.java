@@ -9,7 +9,7 @@ import io.reactivex.ObservableTransformer;
 
 /**
  * Created by LWK
- * TODO 将InputStream类型的网络请求结果转换为其他对象类型的接口
+ *  将InputStream类型的网络请求结果转换为其他对象类型的接口
  */
 
 public interface IApiInputStreamParser

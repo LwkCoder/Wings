@@ -11,7 +11,7 @@ import io.reactivex.functions.Function;
 
 /**
  * Created by LWK
- * TODO 将Byte数组的网络请求结果转换为Bitmap的实现类
+ *  将Byte数组的网络请求结果转换为Bitmap的实现类
  */
 
 public class ApiBytes2BitmapParser implements IApiBytesArrayParser.BitmapParser

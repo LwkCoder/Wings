@@ -14,7 +14,7 @@ import androidx.fragment.app.FragmentActivity;
 
 /**
  * Created by LWK
- * TODO Dialog配置参数
+ *  Dialog配置参数
  */
 public class DialogOptions<T extends DialogOptions> implements IDialogProxy, Serializable
 {

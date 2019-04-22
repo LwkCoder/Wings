@@ -7,7 +7,7 @@ import java.lang.annotation.RetentionPolicy;
 
 /**
  * Created by LWK
- * TODO 请求类型
+ *  请求类型
  */
 
 public class ApiRequestType

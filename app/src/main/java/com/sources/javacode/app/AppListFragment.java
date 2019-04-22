@@ -5,7 +5,7 @@ import com.lwkandroid.wings.mvp.list.WingsListFragment;
 
 /**
  * Created by LWK
- * TODO 列表界面基类
+ *  列表界面基类
  */
 
 public abstract class AppListFragment<P extends MVPBasePresenter, RV, D> extends WingsListFragment<P, RV, D>

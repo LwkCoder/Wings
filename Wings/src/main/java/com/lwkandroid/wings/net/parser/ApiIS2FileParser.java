@@ -17,7 +17,7 @@ import io.reactivex.functions.Function;
 
 /**
  * Created by LWK
- * TODO 将InputSream类型的网络请求结果转换为File并写入存储的实现类
+ *  将InputSream类型的网络请求结果转换为File并写入存储的实现类
  */
 
 public class ApiIS2FileParser implements IApiInputStreamParser.FileParser

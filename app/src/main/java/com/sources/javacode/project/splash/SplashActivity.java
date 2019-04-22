@@ -9,7 +9,7 @@ import com.sources.javacode.app.AppBaseActivity;
 
 /**
  * Created by LWK
- * TODO View层
+ *  View层
  */
 public class SplashActivity extends AppBaseActivity<SplashPresenter> implements SplashContract.IView
 {

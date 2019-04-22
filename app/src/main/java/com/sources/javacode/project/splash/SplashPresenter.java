@@ -2,7 +2,7 @@ package com.sources.javacode.project.splash;
 
 /**
  * Created by LWK
- * TODO Presenter层
+ *  Presenter层
  */
 class SplashPresenter extends SplashContract.Presenter
 {

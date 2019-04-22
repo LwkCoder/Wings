@@ -7,7 +7,7 @@ import com.lwkandroid.wings.image.constants.ImageDiskCacheType;
 
 /**
  * Created by LWK
- * TODO 全局设置
+ *  全局设置
  */
 
 public class ImageGlobalOptions

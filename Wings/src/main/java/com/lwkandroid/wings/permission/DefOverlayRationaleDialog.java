@@ -27,7 +27,7 @@ import com.yanzhenjie.permission.RequestExecutor;
 
 /**
  * Created by LWK
- * TODO 默认悬浮窗权限被拒提示框
+ *  默认悬浮窗权限被拒提示框
  */
 class DefOverlayRationaleDialog implements Rationale<Void>
 {

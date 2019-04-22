@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  * Created by LWK
- * TODO 权限申请弹窗工具类
+ *  权限申请弹窗工具类
  */
 public final class PermissionDialogUtils
 {

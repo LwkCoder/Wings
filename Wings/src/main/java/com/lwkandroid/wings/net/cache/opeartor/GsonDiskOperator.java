@@ -13,7 +13,7 @@ import java.io.OutputStream;
 
 /**
  * Created by LWK
- * TODO GSON-数据转换器其实就是存储字符串的操作
+ *  GSON-数据转换器其实就是存储字符串的操作
  * 优点：
  * 相对于SerializableDiskConverter转换器，存储的对象不需要进行序列化（Serializable），
  * 特别是一个对象中又包含很多其它对象，每个对象都需要Serializable，比较麻烦

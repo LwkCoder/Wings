@@ -6,7 +6,7 @@ import io.reactivex.ObservableTransformer;
 
 /**
  * Created by LWK
- * TODO 异常转换为ApiException的Transformer
+ *  异常转换为ApiException的Transformer
  */
 
 public class ApiExceptionTransformer<T> implements ObservableTransformer<T, T>

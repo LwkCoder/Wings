@@ -18,7 +18,7 @@ import androidx.annotation.Nullable;
 
 /**
  * Created by LWK
- * TODO View层
+ *  View层
  */
 public class EncryptActivity extends AppBaseActivity<EncryptPresenter> implements EncryptContract.IView
 {

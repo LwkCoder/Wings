@@ -7,7 +7,7 @@ import com.lwkandroid.wings.image.bean.ImageOptions;
 
 /**
  * Created by LWK
- * TODO Glide图片加载参数
+ *  Glide图片加载参数
  */
 
 public final class GlideLoaderOptions extends ImageOptions<GlideLoaderOptions>

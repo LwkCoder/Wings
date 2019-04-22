@@ -11,7 +11,7 @@ import io.reactivex.functions.Function;
 
 /**
  * Created by LWK
- * TODO 转换缓存包装体内数据为某一对象的集合的方法
+ *  转换缓存包装体内数据为某一对象的集合的方法
  */
 
 public class ApiCacheDataParseAsListFunc<T> implements Function<ApiResultCacheWrapper<String>,

@@ -8,7 +8,7 @@ import okhttp3.OkHttpClient;
 
 /**
  * Created by LWK
- * TODO Glide专用的OkHttpClient
+ *  Glide专用的OkHttpClient
  */
 
 public final class GlideOkClient

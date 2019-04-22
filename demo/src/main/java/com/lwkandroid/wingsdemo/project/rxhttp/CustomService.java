@@ -14,7 +14,7 @@ import retrofit2.http.Url;
 
 /**
  * Created by LWK
- * TODO 自定义Retrofit的Service接口
+ *  自定义Retrofit的Service接口
  */
 
 public interface CustomService

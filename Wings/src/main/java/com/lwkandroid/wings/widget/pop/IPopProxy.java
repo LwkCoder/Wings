@@ -4,7 +4,7 @@ import android.view.View;
 
 /**
  * Created by LWK
- * TODO 设置给配置参数调用PopupWindow显示方式的接口
+ *  设置给配置参数调用PopupWindow显示方式的接口
  */
 
 public interface IPopProxy

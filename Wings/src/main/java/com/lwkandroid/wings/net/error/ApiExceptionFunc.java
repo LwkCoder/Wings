@@ -7,7 +7,7 @@ import io.reactivex.functions.Function;
 
 /**
  * Created by LWK
- * TODO ApiException异常转换方法
+ *  ApiException异常转换方法
  */
 
 public class ApiExceptionFunc<T> implements Function<Throwable, Observable<T>>

@@ -2,7 +2,7 @@ package com.lwkandroid.wings.mvp.list;
 
 /**
  * Created by LWK
- * TODO 下拉刷新控件的接口
+ *  下拉刷新控件的接口
  */
 
 public interface IRefreshWrapper<RV>

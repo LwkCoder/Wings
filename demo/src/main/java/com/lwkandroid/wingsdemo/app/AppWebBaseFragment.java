@@ -14,7 +14,7 @@ import com.lwkandroid.wingsdemo.R;
 
 /**
  * Created by LWK
- * TODO 带有WebView的Fragment
+ * 带有WebView的Fragment
  */
 
 public abstract class AppWebBaseFragment<P extends AppBasePresenter> extends AppBaseFragment<P>

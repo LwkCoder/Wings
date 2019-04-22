@@ -9,7 +9,7 @@ import com.lwkandroid.wings.utils.ResourceUtils;
 
 /**
  * Created by LWK
- * TODO 扫描二维码界面的参数
+ *  扫描二维码界面的参数
  */
 
 public class QRCodeOptions implements Parcelable

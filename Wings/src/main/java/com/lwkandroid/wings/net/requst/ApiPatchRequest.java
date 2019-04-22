@@ -24,7 +24,7 @@ import okhttp3.ResponseBody;
 
 /**
  * Created by LWK
- * TODO Patch请求
+ *  Patch请求
  */
 
 public class ApiPatchRequest extends ApiBaseRequest<ApiPatchRequest> implements IApiStringResponse

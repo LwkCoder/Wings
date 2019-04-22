@@ -26,7 +26,7 @@ import okhttp3.Interceptor;
 
 /**
  * Created by LWK
- * TODO 网络请求全局配置对象
+ *  网络请求全局配置对象
  */
 public class ApiGlobalOptions implements IRequestOptions.Common<ApiGlobalOptions>, IRequestOptions.Global<ApiGlobalOptions>
 {

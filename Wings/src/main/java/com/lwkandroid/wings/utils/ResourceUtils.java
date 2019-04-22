@@ -20,7 +20,7 @@ import androidx.core.content.res.ResourcesCompat;
 
 /**
  * Created by LWK
- * TODO 资源工具类
+ *  资源工具类
  */
 
 public final class ResourceUtils

@@ -6,7 +6,7 @@ import io.reactivex.subjects.PublishSubject;
 
 /**
  * Created by LWK
- * TODO MVP模版中View层实现类
+ *  MVP模版中View层实现类
  * 【实现最基础的一些方法】
  */
 public class MVPBaseViewImpl implements IMVPBaseView

@@ -6,7 +6,7 @@ import java.util.Stack;
 
 /**
  * Created by LWK
- * TODO Activity栈管理类,需要App继承BaseApplication
+ *  Activity栈管理类,需要App继承BaseApplication
  * 2017/5/7
  */
 

@@ -6,7 +6,7 @@ import com.lwkandroid.wingsdemo.app.IAppBaseView;
 
 /**
  * Created by LWK
- * TODO 契约类
+ *  契约类
  */
 
 public interface TestContract

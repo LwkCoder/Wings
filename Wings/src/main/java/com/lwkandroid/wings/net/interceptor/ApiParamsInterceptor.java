@@ -23,7 +23,7 @@ import okhttp3.Response;
 
 /**
  * Created by LWK
- * TODO OkHttp参数拦截器，用于统一对参数进行处理
+ *  OkHttp参数拦截器，用于统一对参数进行处理
  */
 
 public abstract class ApiParamsInterceptor implements Interceptor

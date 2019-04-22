@@ -2,7 +2,7 @@ package com.lwkandroid.wingsdemo.project.encrypt;
 
 /**
  * Created by LWK
- * TODO Presenter层
+ *  Presenter层
  */
 class EncryptPresenter extends EncryptContract.Presenter
 {

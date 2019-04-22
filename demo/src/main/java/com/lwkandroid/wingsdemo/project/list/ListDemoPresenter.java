@@ -8,7 +8,6 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Created by LWK
- * TODO
  */
 
 public class ListDemoPresenter extends ListDemoContract.Presenter

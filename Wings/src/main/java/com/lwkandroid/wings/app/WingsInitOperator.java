@@ -15,7 +15,7 @@ import com.lwkandroid.wings.utils.Utils;
 
 /**
  * Created by LWK
- * TODO Wings初始化配置操作
+ *  Wings初始化配置操作
  */
 
 public abstract class WingsInitOperator implements Application.ActivityLifecycleCallbacks

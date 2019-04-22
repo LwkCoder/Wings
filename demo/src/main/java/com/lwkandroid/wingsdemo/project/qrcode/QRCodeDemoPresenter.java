@@ -6,7 +6,7 @@ import io.reactivex.functions.Consumer;
 
 /**
  * Created by LWK
- * TODO
+ *
  */
 
 public class QRCodeDemoPresenter extends QRCodeDemoContract.Presenter

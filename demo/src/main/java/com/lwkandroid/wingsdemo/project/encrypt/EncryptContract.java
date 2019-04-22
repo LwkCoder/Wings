@@ -6,7 +6,7 @@ import com.lwkandroid.wingsdemo.app.IAppBaseView;
 
 /**
  * Created by LWK
- * TODO 契约层
+ *  契约层
  */
 interface EncryptContract
 {

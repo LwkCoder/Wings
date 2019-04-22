@@ -29,7 +29,7 @@ import okhttp3.ResponseBody;
 
 /**
  * Created by LWK
- * TODO Upload请求
+ *  Upload请求
  */
 
 public class ApiUploadRequest extends ApiBaseRequest<ApiUploadRequest> implements IApiStringResponse

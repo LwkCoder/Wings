@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by LWK
- * TODO 列表Demo
+ * 列表Demo
  */
 
 public class ListDemoActivity extends AppListActivity<ListDemoPresenter, PTRLayout, String> implements

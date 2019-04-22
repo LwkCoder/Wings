@@ -9,7 +9,6 @@ import com.lwkandroid.wingsdemo.R;
 
 /**
  * Created by LWK
- * TODO
  */
 
 public class DialogPop extends PopBaseContentView implements View.OnClickListener
