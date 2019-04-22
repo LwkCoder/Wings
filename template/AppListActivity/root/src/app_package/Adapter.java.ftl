@@ -7,8 +7,9 @@ import java.util.List;
 
 
 /**
- * Created by LWK
- * TODO Adapter
+ * Description:Adapter
+ * @author
+ * @date
  */
 class ${activityClass}Adapter extends RcvSingleAdapter<${dataClass}>
 {

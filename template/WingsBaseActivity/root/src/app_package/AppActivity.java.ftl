@@ -8,8 +8,9 @@ import androidx.annotation.Nullable;
 import com.lwkandroid.wings.mvp.base.WingsBaseActivity;
 
 /**
- * Created by LWK
- * TODO View层
+ * Description:View层
+ * @author
+ * @date
  */
 public class ${activityClass}Activity extends WingsBaseActivity<${activityClass}Presenter> implements ${activityClass}Contract.IView {
 

@@ -1,8 +1,9 @@
 package ${packageName};
 
 /**
- * Created by LWK
- * TODO Presenter层
+ * Description:Presenter层
+ * @author
+ * @date
  */
 class ${activityClass}Presenter extends ${activityClass}Contract.Presenter
 {

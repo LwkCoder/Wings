@@ -8,8 +8,9 @@ import androidx.annotation.Nullable;
 
 
 /**
- * Created by LWK
- * TODO View层
+ * Description:View层
+ * @author
+ * @date
  */
 public class ${fragmentClass}Fragment extends AppListFragment<${fragmentClass}Presenter,PTRLayout,${dataClass}> implements 
 		${fragmentClass}Contract.IView<${dataClass}> 

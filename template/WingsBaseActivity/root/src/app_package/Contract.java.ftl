@@ -4,8 +4,9 @@ import com.lwkandroid.wings.mvp.base.IMVPBaseView;
 import com.lwkandroid.wings.mvp.base.MVPBasePresenter;
 
 /**
- * Created by LWK
- * TODO 契约层
+ * Description:契约层
+ * @author
+ * @date
  */
 interface ${activityClass}Contract
 {

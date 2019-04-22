@@ -1,8 +1,9 @@
 package ${packageName};
 
 /**
- * Created by LWK
- * TODO Model层
+ * Description:Model层
+ * @author
+ * @date
  */
 class ${fragmentClass}Model extends ${fragmentClass}Contract.Model
 {

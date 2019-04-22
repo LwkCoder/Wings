@@ -7,8 +7,9 @@ import java.util.List;
 
 
 /**
- * Created by LWK
- * TODO Adapter
+ * Description:Adapter
+ * @author
+ * @date
  */
 class ${fragmentClass}Adapter extends RcvSingleAdapter<${dataClass}>
 {

@@ -8,8 +8,9 @@ import androidx.annotation.Nullable;
 
 
 /**
- * Created by LWK
- * TODO View层
+ * Description:View层
+ * @author
+ * @date
  */
 public class ${activityClass}Activity extends AppListActivity<${activityClass}Presenter,PTRLayout,${dataClass}> implements 
 		${activityClass}Contract.IView<${dataClass}> 

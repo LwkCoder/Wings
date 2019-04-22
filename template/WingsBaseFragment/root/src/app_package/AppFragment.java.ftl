@@ -7,8 +7,9 @@ import android.view.View;
 import androidx.annotation.Nullable;
 
 /**
- * Created by LWK
- * TODO View层
+ * Description:View层
+ * @author
+ * @date
  */
 public class ${fragmentClass}Fragment extends WingsBaseFragment<${fragmentClass}Presenter> implements ${fragmentClass}Contract.IView {
 
