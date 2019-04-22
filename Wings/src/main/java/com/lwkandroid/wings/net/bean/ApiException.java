@@ -135,32 +135,4 @@ public class ApiException extends Exception
             return new ApiException(ApiExceptionCode.UNKNOWN, e.getMessage());
         }
     }
-
-    /**
-     * 定义描述话语
-     */
-    private static String createDisplayMessage(int code)
-    {
-        switch (code)
-        {
-            case ApiExceptionCode.PARSE_ERROR:
-                return "数据解析错误";
-            case ApiExceptionCode.CAST_ERROR:
-                return "类型转换错误";
-            case ApiExceptionCode.CONNECT_ERROR:
-                return "连接失败";
-            case ApiExceptionCode.SSL_ERROR:
-                return "证书验证失败";
-            case ApiExceptionCode.TIMEOUT_ERROR:
-                return "连接超时";
-            case ApiExceptionCode.UNKNOWNHOST_ERROR:
-                return "无法解析该域名";
-            case ApiExceptionCode.NULLPOINTER_EXCEPTION:
-                return "空指针异常";
-            case ApiExceptionCode.IO_EXCEPTION:
-                return "IO流异常";
-            default:
-                return "未知错误";
-        }
-    }
 }

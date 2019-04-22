@@ -1,10 +1,12 @@
 package com.lwkandroid.wings.net.error;
 
+import com.lwkandroid.wings.R;
 import com.lwkandroid.wings.net.constants.ApiExceptionCode;
+import com.lwkandroid.wings.utils.ResourceUtils;
 
 /**
  * Created by LWK
- *  设置ApiException错误描述的方法
+ * 设置ApiException错误描述的方法
  */
 
 public class ApiExceptionMsgImpl implements IApiExceptionMsg
@@ -14,49 +16,50 @@ public class ApiExceptionMsgImpl implements IApiExceptionMsg
     {
         if (errorCode == ApiExceptionCode.PARSE_ERROR)
         {
-            return "数据解析错误";
+            return ResourceUtils.getString(R.string.rxhttp_error_parse_data);
         } else if (errorCode == ApiExceptionCode.CAST_ERROR)
         {
-            return "类型转换错误";
+            return ResourceUtils.getString(R.string.rxhttp_error_cast_data);
         } else if (errorCode == ApiExceptionCode.CONNECT_ERROR)
         {
-            return "连接失败";
+            return ResourceUtils.getString(R.string.rxhttp_error_connect_fail);
         } else if (errorCode == ApiExceptionCode.SSL_ERROR)
         {
-            return "证书验证失败";
+            return ResourceUtils.getString(R.string.rxhttp_error_ssl_invalid);
         } else if (errorCode == ApiExceptionCode.TIMEOUT_ERROR)
         {
-            return "连接超时";
+            return ResourceUtils.getString(R.string.rxhttp_error_connect_timeout);
         } else if (errorCode == ApiExceptionCode.UNKNOWNHOST_ERROR)
         {
-            return "无法解析该域名";
+            return ResourceUtils.getString(R.string.rxhttp_error_unknow_host);
         } else if (errorCode == ApiExceptionCode.NULLPOINTER_EXCEPTION)
         {
-            return "空指针异常";
+            return ResourceUtils.getString(R.string.rxhttp_error_nullpointer);
         } else if (errorCode == ApiExceptionCode.IO_EXCEPTION)
         {
-            return "IO流异常";
+            return ResourceUtils.getString(R.string.rxhttp_error_io);
         } else if (errorCode == ApiExceptionCode.RESPONSE_EMPTY)
         {
-            return "服务器无响应";
+            return ResourceUtils.getString(R.string.rxhttp_error_response_empty);
         } else if (errorCode == ApiExceptionCode.CACHE_EMPTY)
         {
-            return "本地无缓存";
+            return ResourceUtils.getString(R.string.rxhttp_error_cache_empty);
         } else
         {
-            return getCustomMessage(errorCode, throwMessage);
+            return parseDisplayMessage(errorCode, throwMessage);
         }
     }
 
     /**
+     * 根据错误码设置错误提示语
      * 子类可继承该类完成补全
      *
-     * @param errCode
-     * @param throwMessage
-     * @return
+     * @param errCode      错误码
+     * @param throwMessage 服务器返回的异常提示
+     * @return 自定义错误提示语
      */
-    public String getCustomMessage(int errCode, String throwMessage)
+    public String parseDisplayMessage(int errCode, String throwMessage)
     {
-        return "未知错误";
+        return throwMessage;
     }
 }

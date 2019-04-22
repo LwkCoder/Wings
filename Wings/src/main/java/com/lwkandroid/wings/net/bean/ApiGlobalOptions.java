@@ -26,14 +26,14 @@ import okhttp3.Interceptor;
 
 /**
  * Created by LWK
- *  网络请求全局配置对象
+ * 网络请求全局配置对象
  */
 public class ApiGlobalOptions implements IRequestOptions.Common<ApiGlobalOptions>, IRequestOptions.Global<ApiGlobalOptions>
 {
     private IRequestOptions.Common mCommonImpl = new CommonOptionsImpl();
-    /*网络请求正常的状态码*/
+    //网络请求正常的状态码
     private int mResultOkCode;
-    /*Cookie管理类*/
+    //Cookie管理类
     private ICookieJar mCookieJar;
     //App版本
     private int mCacheVersion = -1;

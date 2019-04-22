@@ -22,4 +22,15 @@
     <string name="dialog_install_rationale_process">Authorize</string>
     <string name="dialog_overlay_rationale_message">%1$s needs the permission of drawing on other applications</string>
     <string name="dialog_overlay_rationale_process">Authorize</string>
+
+    <string name="rxhttp_error_parse_data">Data parsing error</string>
+    <string name="rxhttp_error_cast_data">Data type conversion error</string>
+    <string name="rxhttp_error_connect_fail">Connect failed</string>
+    <string name="rxhttp_error_ssl_invalid">SSL certificate validation failed</string>
+    <string name="rxhttp_error_connect_timeout">Connect timeout</string>
+    <string name="rxhttp_error_unknow_host">Failed to resolve server address</string>
+    <string name="rxhttp_error_nullpointer">NullPointer Exception</string>
+    <string name="rxhttp_error_io">IO Exception</string>
+    <string name="rxhttp_error_response_empty">Server no response</string>
+    <string name="rxhttp_error_cache_empty">No cache available</string>
 </resources>

@@ -67,8 +67,7 @@ public abstract class ApiParamsInterceptor implements Interceptor
 
         //获取原有的参数
         Set<String> nameSet = httpUrl.queryParameterNames();
-        ArrayList<String> nameList = new ArrayList<>();
-        nameList.addAll(nameSet);
+        ArrayList<String> nameList = new ArrayList<>(nameSet);
         TreeMap<String, Object> oldparams = new TreeMap<>();
         for (int i = 0; i < nameList.size(); i++)
         {
@@ -103,14 +102,14 @@ public abstract class ApiParamsInterceptor implements Interceptor
             FormBody formBody = (FormBody) request.body();
 
             //原有的参数
-            TreeMap<String, Object> oldparams = new TreeMap<>();
+            TreeMap<String, Object> oldParams = new TreeMap<>();
             for (int i = 0; i < formBody.size(); i++)
             {
-                oldparams.put(formBody.encodedName(i), formBody.encodedValue(i));
+                oldParams.put(formBody.encodedName(i), formBody.encodedValue(i));
             }
 
             //拼装新的参数
-            TreeMap<String, Object> newParams = dynamic(oldparams);
+            TreeMap<String, Object> newParams = dynamic(oldParams);
             for (Map.Entry<String, Object> entry : newParams.entrySet())
             {
                 String value = URLDecoder.decode(String.valueOf(entry.getValue()), UTF8.name());
