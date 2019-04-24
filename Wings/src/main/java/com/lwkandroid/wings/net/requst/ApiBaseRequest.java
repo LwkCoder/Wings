@@ -5,6 +5,8 @@ import com.lwkandroid.wings.net.RxHttp;
 import com.lwkandroid.wings.net.bean.ApiCacheOptions;
 import com.lwkandroid.wings.net.bean.ApiRequestOptions;
 import com.lwkandroid.wings.net.constants.ApiRequestType;
+import com.lwkandroid.wings.net.utils.FormDataMap;
+import com.lwkandroid.wings.net.bean.IApiDynamicFormData;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,7 +22,7 @@ import retrofit2.Retrofit;
 
 /**
  * Created by LWK
- *  请求构造体基类
+ * 请求构造体基类
  */
 
 public abstract class ApiBaseRequest<T extends ApiRequestOptions> extends ApiRequestOptions<T>
@@ -86,8 +88,14 @@ public abstract class ApiBaseRequest<T extends ApiRequestOptions> extends ApiReq
                 isIgnoreAllGlobalHeaders());
 
         //获取表单参数
+        FormDataMap globalFormDataMap = RxHttp.getGlobalOptions().getFormDataMap();
+        Map<String, IApiDynamicFormData> globalDynamicFormDataMap = RxHttp.getGlobalOptions().getDynamicFormDataMap();
+        for (Map.Entry<String, IApiDynamicFormData> entry : globalDynamicFormDataMap.entrySet())
+        {
+            globalFormDataMap.addParam(entry.getKey(), entry.getValue().getFormData());
+        }
         Map<String, Object> allFormDataMap = mergeParams(
-                RxHttp.getGlobalOptions().getFormDataMap(),
+                globalFormDataMap,
                 getFormDataMap(), getIgnoreFormDataSet(),
                 isIgnoreAllGlobalFormData());
 

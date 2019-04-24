@@ -171,6 +171,14 @@ interface IRequestOptions
         T setApiExceptionMsg(IApiExceptionMsg apiExceptionMsg);
 
         IApiExceptionMsg getApiExceptionMsg();
+
+        T addDynamicFormData(String key, IApiDynamicFormData dataCallBack);
+
+        T removeDynamicFormData(String key);
+
+        T clearDynamicFormData();
+
+        Map<String,IApiDynamicFormData> getDynamicFormDataMap();
     }
 
     interface Custom<T>

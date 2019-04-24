@@ -2,8 +2,8 @@ package com.lwkandroid.wingsdemo.project.rxhttp;
 
 import android.graphics.Bitmap;
 
-import com.lwkandroid.wings.net.bean.ApiResultCacheWrapper;
 import com.lwkandroid.wings.net.bean.ApiException;
+import com.lwkandroid.wings.net.bean.ApiResultCacheWrapper;
 import com.lwkandroid.wings.net.bean.ProgressInfo;
 import com.lwkandroid.wingsdemo.app.AppBaseModel;
 import com.lwkandroid.wingsdemo.app.AppBasePresenter;
@@ -18,7 +18,7 @@ import io.reactivex.Observable;
 
 /**
  * Created by LWK
- *  RxHttpDemo契约类
+ * RxHttpDemo契约类
  */
 
 public interface RxHttpDemoContract
@@ -69,6 +69,8 @@ public interface RxHttpDemoContract
         abstract Observable<Bitmap> requestBitmapData();
 
         abstract Observable<String> uploadImages(List<File> files);
+
+        abstract Observable<String> requestTestDataWithAccessToken();
     }
 
     abstract class Presenter extends AppBasePresenter<View, Model>
@@ -86,5 +88,7 @@ public interface RxHttpDemoContract
         abstract void requestBitmapData();
 
         abstract void uploadImages(List<File> files);
+
+        abstract void requestDataWithAutoRefreshAccessToken();
     }
 }

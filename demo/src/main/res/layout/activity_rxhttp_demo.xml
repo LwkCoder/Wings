@@ -40,7 +40,13 @@
                 android:id="@+id/btn_rxhttp_demo02"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="自定义Retrofit Service获取数据"/>
+                android:text="自定义Retrofit Service Get获取数据"/>
+
+            <Button
+                android:id="@+id/btn_rxhttp_demo04"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="自定义Retrofit Service Post获取数据"/>
 
             <Button
                 android:id="@+id/btn_rxhttp_download"

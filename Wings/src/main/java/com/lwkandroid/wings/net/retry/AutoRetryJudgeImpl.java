@@ -10,18 +10,15 @@ import java.net.SocketTimeoutException;
 
 /**
  * Created by LWK
- *  默认判断自动重试的条件
+ * 默认判断自动重试的条件
  */
 public class AutoRetryJudgeImpl implements IAutoRetry
 {
     @Override
     public boolean judgeAutoRetry(Throwable throwable)
     {
-        int errCode = -1;
-        if (throwable instanceof ApiException)
-        {
-            errCode = ((ApiException) throwable).getCode();
-        }
+        ApiException apiException = ApiException.handleThrowable(throwable);
+        int errCode = apiException.getCode();
 
         return errCode == ApiExceptionCode.CONNECT_ERROR
                 || errCode == ApiExceptionCode.TIMEOUT_ERROR

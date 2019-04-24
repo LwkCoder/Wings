@@ -2,12 +2,16 @@ package com.lwkandroid.wingsdemo.project.rxhttp;
 
 import android.graphics.Bitmap;
 
+import com.lwkandroid.wings.log.KLog;
 import com.lwkandroid.wings.net.RxHttp;
+import com.lwkandroid.wings.net.bean.ApiException;
 import com.lwkandroid.wings.net.bean.ApiResultCacheWrapper;
 import com.lwkandroid.wings.net.constants.ApiCacheMode;
 import com.lwkandroid.wings.net.convert.ApiResponseConvert;
 import com.lwkandroid.wings.net.utils.FormDataMap;
 import com.lwkandroid.wings.utils.SDCardUtils;
+import com.lwkandroid.wings.utils.StringUtils;
+import com.lwkandroid.wingsdemo.bean.AccessTokenBean;
 import com.lwkandroid.wingsdemo.bean.NonRestFulResult;
 import com.lwkandroid.wingsdemo.bean.TabsBean;
 import com.lwkandroid.wingsdemo.net.ApiURL;
@@ -18,10 +22,12 @@ import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 
 /**
  * Created by LWK
- *  RxHttpDemo Model层
+ * RxHttpDemo Model层
  */
 
 public class RxHttpDemoModel extends RxHttpDemoContract.Model
@@ -106,6 +112,30 @@ public class RxHttpDemoModel extends RxHttpDemoContract.Model
                 .setConnectTimeOut(600000)
                 .addFiles("image", files)
                 .returnStringResponse();
+    }
+
+    @Override
+    Observable<String> requestTestDataWithAccessToken()
+    {
+        //实际情况应该是网络请求时带上AccessToken，由服务端判定是否过期
+        return Observable.create(new ObservableOnSubscribe<String>()
+        {
+            @Override
+            public void subscribe(ObservableEmitter<String> emitter) throws Exception
+            {
+                //模拟服务端判定AccessToken是否可用
+                AccessTokenBean bean = AccessTokenDao.get().getToken();
+                if (bean == null || StringUtils.isEmpty(bean.getAccess_token()))
+                {
+                    KLog.e("服务端判定AccessToken不可用，需要刷新");
+                    emitter.onError(new ApiException(1000, "Access Token unavailable"));
+                } else
+                {
+                    emitter.onNext("SUCCESS");
+                    emitter.onComplete();
+                }
+            }
+        });
     }
 
     private class Request

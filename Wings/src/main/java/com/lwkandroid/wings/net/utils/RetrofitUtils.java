@@ -2,6 +2,7 @@ package com.lwkandroid.wings.net.utils;
 
 import com.lwkandroid.wings.net.RxHttp;
 import com.lwkandroid.wings.net.bean.ApiGlobalOptions;
+import com.lwkandroid.wings.net.bean.IApiDynamicFormData;
 import com.lwkandroid.wings.net.interceptor.ApiHeaderInterceptor;
 import com.lwkandroid.wings.net.interceptor.RetrofitFormDataInterceptor;
 
@@ -16,7 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by LWK
- *  Retrofit辅助工具
+ * Retrofit辅助工具
  */
 
 public final class RetrofitUtils
@@ -50,12 +51,17 @@ public final class RetrofitUtils
         }
 
         /*添加全局参数和Header*/
-        Map<String, Object> globalFormDataMap = globalOptions.getFormDataMap();
-        Map<String, String> globalHeadersMap = globalOptions.getHeadersMap();
+        FormDataMap globalFormDataMap = RxHttp.getGlobalOptions().getFormDataMap();
+        Map<String, IApiDynamicFormData> globalDynamicFormDataMap = RxHttp.getGlobalOptions().getDynamicFormDataMap();
+        for (Map.Entry<String, IApiDynamicFormData> entry : globalDynamicFormDataMap.entrySet())
+        {
+            globalFormDataMap.addParam(entry.getKey(), entry.getValue().getFormData());
+        }
         if (globalFormDataMap != null && globalFormDataMap.size() > 0)
         {
             builder.addInterceptor(new RetrofitFormDataInterceptor(globalFormDataMap));
         }
+        Map<String, String> globalHeadersMap = globalOptions.getHeadersMap();
         if (globalHeadersMap != null && globalHeadersMap.size() > 0)
         {
             builder.addInterceptor(new ApiHeaderInterceptor(globalHeadersMap));

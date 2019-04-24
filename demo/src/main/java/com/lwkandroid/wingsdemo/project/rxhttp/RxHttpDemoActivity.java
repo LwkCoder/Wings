@@ -127,6 +127,15 @@ public class RxHttpDemoActivity extends AppBaseActivity<RxHttpDemoPresenter> imp
                         .start(RxHttpDemoActivity.this, 105);
             }
         });
+
+        addClick(R.id.btn_rxhttp_demo04, new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                getPresenter().requestCustomPost();
+            }
+        });
     }
 
     @Override
@@ -148,6 +157,7 @@ public class RxHttpDemoActivity extends AppBaseActivity<RxHttpDemoPresenter> imp
     @Override
     protected void initData(@Nullable Bundle savedInstanceState)
     {
+        getPresenter().requestDataWithAutoRefreshAccessToken();
     }
 
     @Override

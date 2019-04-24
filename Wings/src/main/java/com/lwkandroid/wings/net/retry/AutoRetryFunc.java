@@ -12,7 +12,7 @@ import io.reactivex.functions.Function;
 
 /**
  * Created by LWK
- *  网络请求失败自动重试方法
+ * 网络请求失败自动重试方法
  */
 
 public class AutoRetryFunc implements Function<Observable<? extends Throwable>, Observable<?>>
@@ -52,7 +52,7 @@ public class AutoRetryFunc implements Function<Observable<? extends Throwable>, 
                 if (mAutoRetry.judgeAutoRetry(wrapper.getThrowable())
                         && wrapper.getIndex() < mRetryCount + 1)
                 {
-                    KLog.i("RetryCount=" + wrapper.getIndex() + " Url=" + mUrl);
+                    KLog.i("RxHttp RetryCount=" + wrapper.getIndex() + " Url=" + mUrl);
                     return Observable.timer(mRetryDelay, TimeUnit.MILLISECONDS);
                 } else
                 {

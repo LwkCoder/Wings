@@ -20,7 +20,7 @@ import io.reactivex.disposables.Disposable;
 
 /**
  * Created by LWK
- *  RxHttpDemo Presenter层
+ * RxHttpDemo Presenter层
  */
 
 public class RxHttpDemoPresenter extends RxHttpDemoContract.Presenter
@@ -92,13 +92,13 @@ public class RxHttpDemoPresenter extends RxHttpDemoContract.Presenter
                     @Override
                     public void subOnNext(String s)
                     {
-                        KLog.e("结果：" + s);
+                        getViewImpl().showShortToast("请求成功！");
                     }
 
                     @Override
                     public void subOnError(ApiException e)
                     {
-                        KLog.e("错误：" + e.toString());
+                        getViewImpl().showHttpError(e);
                     }
                 });
     }
@@ -253,6 +253,28 @@ public class RxHttpDemoPresenter extends RxHttpDemoContract.Presenter
                 KLog.e("监听上传时发生错误：" + e.toString());
             }
         });
+    }
+
+    @Override
+    void requestDataWithAutoRefreshAccessToken()
+    {
+        getModelImpl().requestTestDataWithAccessToken()
+                .retryWhen(new AutoFreshTokenFunc())
+                .compose(this.<String>applyIo2MainWithLifeCycle())
+                .subscribe(new ApiBaseObserver<String>()
+                {
+                    @Override
+                    public void subOnNext(String s)
+                    {
+                        getViewImpl().showShortToast("请求成功");
+                    }
+
+                    @Override
+                    public void subOnError(ApiException e)
+                    {
+                        getViewImpl().showHttpError(e);
+                    }
+                });
     }
 
     @Override

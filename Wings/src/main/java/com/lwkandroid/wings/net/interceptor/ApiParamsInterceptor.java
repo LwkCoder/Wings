@@ -23,9 +23,10 @@ import okhttp3.Response;
 
 /**
  * Created by LWK
- *  OkHttp参数拦截器，用于统一对参数进行处理
+ * OkHttp参数拦截器，用于统一对参数进行处理
+ * 似乎无效，如需添加动态参数，请使用RxHttp.getGlobalOptions.addDynamicFormData(String key, IApiDynamicFormData dataCallBack);
  */
-
+@Deprecated
 public abstract class ApiParamsInterceptor implements Interceptor
 {
     private static final Charset UTF8 = Charset.forName("UTF-8");
@@ -49,6 +50,11 @@ public abstract class ApiParamsInterceptor implements Interceptor
         return chain.proceed(request);
     }
 
+    protected HttpUrl getHttpUrl()
+    {
+        return mHttpUrl;
+    }
+
     //解析get请求的原始url
     private String parseUrl(String url)
     {
@@ -68,17 +74,16 @@ public abstract class ApiParamsInterceptor implements Interceptor
         //获取原有的参数
         Set<String> nameSet = httpUrl.queryParameterNames();
         ArrayList<String> nameList = new ArrayList<>(nameSet);
-        TreeMap<String, Object> oldparams = new TreeMap<>();
+        TreeMap<String, Object> oldParams = new TreeMap<>();
         for (int i = 0; i < nameList.size(); i++)
         {
-            String value = httpUrl.queryParameterValues(nameList.get(i)) != null
-                    && httpUrl.queryParameterValues(nameList.get(i)).size() > 0 ?
-                    httpUrl.queryParameterValues(nameList.get(i)).get(0) : "";
-            oldparams.put(nameList.get(i), value);
+            List<String> valueList = httpUrl.queryParameterValues(nameList.get(i));
+            String value = valueList.size() > 0 ? valueList.get(0) : "";
+            oldParams.put(nameList.get(i), value);
         }
         String nameKeys = Collections.singletonList(nameList).toString();
         //组装新的参数
-        TreeMap<String, Object> newParams = dynamic(oldparams);
+        TreeMap<String, Object> newParams = dynamic(oldParams);
         for (Map.Entry<String, Object> entry : newParams.entrySet())
         {
             String urlValue = URLEncoder.encode(String.valueOf(entry.getValue()), UTF8.name());

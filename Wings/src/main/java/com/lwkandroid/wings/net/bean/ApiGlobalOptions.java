@@ -14,9 +14,11 @@ import com.lwkandroid.wings.net.parser.IApiStringParser;
 import com.lwkandroid.wings.net.retry.AutoRetryJudgeImpl;
 import com.lwkandroid.wings.net.retry.IAutoRetry;
 import com.lwkandroid.wings.net.utils.FormDataMap;
+import com.lwkandroid.wings.utils.StringUtils;
 
 import java.io.InputStream;
 import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.net.ssl.HostnameVerifier;
@@ -45,6 +47,8 @@ public class ApiGlobalOptions implements IRequestOptions.Common<ApiGlobalOptions
     private IDiskCacheOperator mCacheOperator = null;
     //设置错误描述的对象
     private IApiExceptionMsg mApiExceptionMsg;
+    //动态参数Map
+    private Map<String, IApiDynamicFormData> mDynamicFormDataMap;
 
     public ApiGlobalOptions()
     {
@@ -519,5 +523,44 @@ public class ApiGlobalOptions implements IRequestOptions.Common<ApiGlobalOptions
     public IApiExceptionMsg getApiExceptionMsg()
     {
         return mApiExceptionMsg;
+    }
+
+    @Override
+    public ApiGlobalOptions addDynamicFormData(String key, IApiDynamicFormData dataCallBack)
+    {
+        if (StringUtils.isTrimEmpty(key))
+        {
+            throw new IllegalArgumentException("RxHttp query param's key can not be trim empty !");
+        }
+        if (dataCallBack == null)
+        {
+            throw new IllegalArgumentException("RxHttp dynamic FormData's callback can not be null !");
+        }
+        getDynamicFormDataMap().put(key, dataCallBack);
+        return this;
+    }
+
+    @Override
+    public ApiGlobalOptions removeDynamicFormData(String key)
+    {
+        getDynamicFormDataMap().remove(key);
+        return this;
+    }
+
+    @Override
+    public ApiGlobalOptions clearDynamicFormData()
+    {
+        getDynamicFormDataMap().clear();
+        return this;
+    }
+
+    @Override
+    public Map<String, IApiDynamicFormData> getDynamicFormDataMap()
+    {
+        if (mDynamicFormDataMap == null)
+        {
+            mDynamicFormDataMap = new HashMap<>();
+        }
+        return mDynamicFormDataMap;
     }
 }

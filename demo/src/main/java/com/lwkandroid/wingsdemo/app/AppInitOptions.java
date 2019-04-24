@@ -4,9 +4,9 @@ import android.app.Application;
 
 import com.lwkandroid.wings.app.WingsInitOperator;
 import com.lwkandroid.wings.net.RxHttp;
+import com.lwkandroid.wings.net.bean.IApiDynamicFormData;
 import com.lwkandroid.wingsdemo.bean.WeatherHttpResult;
 import com.lwkandroid.wingsdemo.net.ApiURL;
-import com.lwkandroid.wingsdemo.net.TestSignInterceptor;
 
 /**
  * Created by LWK
@@ -33,6 +33,13 @@ public class AppInitOptions extends WingsInitOperator
         RxHttp.getGlobalOptions()
                 .setApiResultType(WeatherHttpResult.class)
                 .setApiResultOkCode(0)
-                .addNetInterceptor("TestParams", new TestSignInterceptor());
+                .addDynamicFormData("test_dynamic_data", new IApiDynamicFormData()
+                {
+                    @Override
+                    public Object getFormData()
+                    {
+                        return String.valueOf(System.currentTimeMillis());
+                    }
+                });
     }
 }

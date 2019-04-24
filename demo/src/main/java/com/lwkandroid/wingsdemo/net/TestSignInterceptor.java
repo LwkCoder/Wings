@@ -1,5 +1,6 @@
 package com.lwkandroid.wingsdemo.net;
 
+import com.lwkandroid.wings.log.KLog;
 import com.lwkandroid.wings.net.interceptor.ApiParamsInterceptor;
 
 import java.util.TreeMap;
@@ -15,6 +16,7 @@ public class TestSignInterceptor extends ApiParamsInterceptor
     public TreeMap<String, Object> dynamic(TreeMap<String, Object> oldParams)
     {
         //模拟添加密钥
+        KLog.e("执行添加参数");
         oldParams.put("secret", "secretValue");
         return oldParams;
     }
