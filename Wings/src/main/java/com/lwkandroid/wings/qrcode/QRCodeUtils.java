@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 
-import com.lwkandroid.wings.rx.utils.RxSchedulers;
+import com.lwkandroid.wings.rx.schedulers.RxSchedulers;
 import com.lwkandroid.wings.utils.StringUtils;
 
 import androidx.fragment.app.Fragment;

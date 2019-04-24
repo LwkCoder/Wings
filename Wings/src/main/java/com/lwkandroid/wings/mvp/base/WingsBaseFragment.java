@@ -7,7 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.lwkandroid.wings.log.KLog;
-import com.lwkandroid.wings.rx.constant.RxLifeCycle;
+import com.lwkandroid.wings.rx.lifecycle.RxLifeCycleConstants;
+import com.lwkandroid.wings.rx.lifecycle.RxLifeCycleEvent;
 import com.lwkandroid.wings.utils.ReflectUtils;
 
 import java.lang.reflect.ParameterizedType;
@@ -20,7 +21,7 @@ import io.reactivex.subjects.PublishSubject;
 
 /**
  * Created by LWK
- *  Fragment基类
+ * Fragment基类
  */
 
 public abstract class WingsBaseFragment<P extends MVPBasePresenter> extends Fragment implements
@@ -36,14 +37,14 @@ public abstract class WingsBaseFragment<P extends MVPBasePresenter> extends Frag
     public void onAttach(Context context)
     {
         super.onAttach(context);
-        getLifecyclePublishSubject().onNext(RxLifeCycle.ON_ATTACH);
+        publishLifeCycleEvent(RxLifeCycleConstants.ON_ATTACH);
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        getLifecyclePublishSubject().onNext(RxLifeCycle.ON_CREATE);
+        publishLifeCycleEvent(RxLifeCycleConstants.ON_CREATE);
     }
 
     @Nullable
@@ -51,7 +52,7 @@ public abstract class WingsBaseFragment<P extends MVPBasePresenter> extends Frag
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
         mContentViewImpl.inflateContentView(inflater, getContentViewId(), container);
-        getLifecyclePublishSubject().onNext(RxLifeCycle.ON_CREATE_VIEW);
+        publishLifeCycleEvent(RxLifeCycleConstants.ON_CREATE_VIEW);
         return mContentViewImpl.getContentView();
     }
 
@@ -59,7 +60,7 @@ public abstract class WingsBaseFragment<P extends MVPBasePresenter> extends Frag
     public void onActivityCreated(@Nullable Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
-        getLifecyclePublishSubject().onNext(RxLifeCycle.ON_ACTIVITY_CREATED);
+        publishLifeCycleEvent(RxLifeCycleConstants.ON_ACTIVITY_CREATED);
         getArgumentsData(getArguments(), savedInstanceState);
         mPresenter = createPresenter();
         if (getPresenter() != null)
@@ -74,41 +75,41 @@ public abstract class WingsBaseFragment<P extends MVPBasePresenter> extends Frag
     public void onStart()
     {
         super.onStart();
-        getLifecyclePublishSubject().onNext(RxLifeCycle.ON_START);
+        publishLifeCycleEvent(RxLifeCycleConstants.ON_START);
     }
 
     @Override
     public void onResume()
     {
         super.onResume();
-        getLifecyclePublishSubject().onNext(RxLifeCycle.ON_RESUME);
+        publishLifeCycleEvent(RxLifeCycleConstants.ON_RESUME);
     }
 
     @Override
     public void onPause()
     {
         super.onPause();
-        getLifecyclePublishSubject().onNext(RxLifeCycle.ON_PAUSE);
+        publishLifeCycleEvent(RxLifeCycleConstants.ON_PAUSE);
     }
 
     @Override
     public void onStop()
     {
         super.onStop();
-        getLifecyclePublishSubject().onNext(RxLifeCycle.ON_STOP);
+        publishLifeCycleEvent(RxLifeCycleConstants.ON_STOP);
     }
 
     @Override
     public void onDestroyView()
     {
         super.onDestroyView();
-        getLifecyclePublishSubject().onNext(RxLifeCycle.ON_DESTROY_VIEW);
+        publishLifeCycleEvent(RxLifeCycleConstants.ON_DESTROY_VIEW);
     }
 
     @Override
     public void onDestroy()
     {
-        getLifecyclePublishSubject().onNext(RxLifeCycle.ON_DESTROY);
+        publishLifeCycleEvent(RxLifeCycleConstants.ON_DESTROY);
         if (getPresenter() != null)
         {
             getPresenter().onDestroyPresenter();
@@ -120,7 +121,7 @@ public abstract class WingsBaseFragment<P extends MVPBasePresenter> extends Frag
     public void onDetach()
     {
         super.onDetach();
-        getLifecyclePublishSubject().onNext(RxLifeCycle.ON_DETACH);
+        publishLifeCycleEvent(RxLifeCycleConstants.ON_DETACH);
     }
 
     @Override
@@ -196,15 +197,21 @@ public abstract class WingsBaseFragment<P extends MVPBasePresenter> extends Frag
     }
 
     @Override
-    public PublishSubject<Integer> getLifecyclePublishSubject()
-    {
-        return mMVPViewImpl.getLifecyclePublishSubject();
-    }
-
-    @Override
     public void onClick(View v)
     {
         onClick(v.getId(), v);
+    }
+
+    @Override
+    public PublishSubject<Integer> getLifeCycleSubject()
+    {
+        return mMVPViewImpl.getLifeCycleSubject();
+    }
+
+    @Override
+    public void publishLifeCycleEvent(@RxLifeCycleEvent Integer lifeCycleEvent)
+    {
+        mMVPViewImpl.publishLifeCycleEvent(lifeCycleEvent);
     }
 
     //反射实例化Presenter

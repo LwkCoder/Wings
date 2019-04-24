@@ -5,7 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.lwkandroid.wings.log.KLog;
-import com.lwkandroid.wings.rx.constant.RxLifeCycle;
+import com.lwkandroid.wings.rx.lifecycle.RxLifeCycleConstants;
+import com.lwkandroid.wings.rx.lifecycle.RxLifeCycleEvent;
 import com.lwkandroid.wings.utils.ReflectUtils;
 
 import java.lang.reflect.ParameterizedType;
@@ -18,7 +19,7 @@ import io.reactivex.subjects.PublishSubject;
 
 /**
  * Created by LWK
- *  Activity基类
+ * Activity基类
  */
 
 public abstract class WingsBaseActivity<P extends MVPBasePresenter> extends AppCompatActivity implements
@@ -34,7 +35,7 @@ public abstract class WingsBaseActivity<P extends MVPBasePresenter> extends AppC
     {
         setBarColor();
         super.onCreate(savedInstanceState);
-        getLifecyclePublishSubject().onNext(RxLifeCycle.ON_CREATE);
+        publishLifeCycleEvent(RxLifeCycleConstants.ON_CREATE);
         getIntentData(getIntent(), false);
         setContentView(mContentViewImpl.inflateContentView(this, getContentViewId()));
         mPresenter = createPresenter();
@@ -57,34 +58,34 @@ public abstract class WingsBaseActivity<P extends MVPBasePresenter> extends AppC
     protected void onStart()
     {
         super.onStart();
-        getLifecyclePublishSubject().onNext(RxLifeCycle.ON_START);
+        publishLifeCycleEvent(RxLifeCycleConstants.ON_START);
     }
 
     @Override
     protected void onResume()
     {
         super.onResume();
-        getLifecyclePublishSubject().onNext(RxLifeCycle.ON_RESUME);
+        publishLifeCycleEvent(RxLifeCycleConstants.ON_RESUME);
     }
 
     @Override
     protected void onPause()
     {
         super.onPause();
-        getLifecyclePublishSubject().onNext(RxLifeCycle.ON_PAUSE);
+        publishLifeCycleEvent(RxLifeCycleConstants.ON_PAUSE);
     }
 
     @Override
     protected void onStop()
     {
         super.onStop();
-        getLifecyclePublishSubject().onNext(RxLifeCycle.ON_STOP);
+        publishLifeCycleEvent(RxLifeCycleConstants.ON_STOP);
     }
 
     @Override
     protected void onDestroy()
     {
-        getLifecyclePublishSubject().onNext(RxLifeCycle.ON_DESTROY);
+        publishLifeCycleEvent(RxLifeCycleConstants.ON_DESTROY);
         if (getPresenter() != null)
         {
             getPresenter().onDestroyPresenter();
@@ -165,15 +166,21 @@ public abstract class WingsBaseActivity<P extends MVPBasePresenter> extends AppC
     }
 
     @Override
-    public PublishSubject<Integer> getLifecyclePublishSubject()
-    {
-        return mMVPViewImpl.getLifecyclePublishSubject();
-    }
-
-    @Override
     public void onClick(View v)
     {
         onClick(v.getId(), v);
+    }
+
+    @Override
+    public PublishSubject<Integer> getLifeCycleSubject()
+    {
+        return mMVPViewImpl.getLifeCycleSubject();
+    }
+
+    @Override
+    public void publishLifeCycleEvent(@RxLifeCycleEvent Integer lifeCycleEvent)
+    {
+        mMVPViewImpl.publishLifeCycleEvent(lifeCycleEvent);
     }
 
     //反射实例化Presenter

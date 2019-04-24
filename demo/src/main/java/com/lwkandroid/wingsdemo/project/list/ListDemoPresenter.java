@@ -17,7 +17,7 @@ public class ListDemoPresenter extends ListDemoContract.Presenter
     {
         getModelImpl().getRefreshData(timeStamp, pageIndex, pageSize)
                 .delay(2, TimeUnit.SECONDS)
-                .compose(this.<List<String>>applyIo2MainWithLifeCycle())
+                .compose(this.<List<String>>applyIo2MainUntilLifeCycle())
                 .subscribe(new ApiBaseObserver<List<String>>()
                 {
                     @Override
@@ -39,7 +39,7 @@ public class ListDemoPresenter extends ListDemoContract.Presenter
     {
         getModelImpl().getLoadMoreData(timeStamp, pageIndex, pageSize, currentDataCount)
                 .delay(2, TimeUnit.SECONDS)
-                .compose(this.<List<String>>applyIo2MainWithLifeCycle())
+                .compose(this.<List<String>>applyIo2MainUntilLifeCycle())
                 .subscribe(new ApiBaseObserver<List<String>>()
                 {
                     @Override
