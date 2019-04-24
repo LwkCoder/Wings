@@ -36,7 +36,7 @@ import android.view.ViewOutlineProvider;
  * API 18 以下   使用 {@link Paint#setXfermode(Xfermode)} 方式实现
  */
 
-public class ShapeHelper
+class ShapeHelper
 {
     private static Path mPath;
     private static Canvas mBitmapCanvas;

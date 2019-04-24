@@ -28,7 +28,7 @@ import android.graphics.RectF;
  * 圆角矩形裁剪实现
  */
 @SuppressWarnings("all")
-public class RoundImageShape extends ImageShape
+class RoundImageShape extends ImageShape
 {
 
     private static final RectF tRectF = new RectF();

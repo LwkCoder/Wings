@@ -27,7 +27,7 @@ import android.graphics.Path;
  * 圆形裁剪实现
  */
 @SuppressWarnings("all")
-public class CircleImageShape extends ImageShape
+ class CircleImageShape extends ImageShape
 {
 
     @Override

@@ -125,7 +125,7 @@ public class RxHttpDemoModel extends RxHttpDemoContract.Model
             {
                 //模拟服务端判定AccessToken是否可用
                 AccessTokenBean bean = AccessTokenDao.get().getToken();
-                if (bean == null || StringUtils.isEmpty(bean.getAccess_token()))
+                if (bean == null || StringUtils.isEmpty(bean.getAccess_token()) || bean.isExpire())
                 {
                     KLog.e("服务端判定AccessToken不可用，需要刷新");
                     emitter.onError(new ApiException(1000, "Access Token unavailable"));
