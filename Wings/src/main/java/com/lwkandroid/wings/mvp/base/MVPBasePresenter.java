@@ -71,7 +71,7 @@ public abstract class MVPBasePresenter<V extends IMVPBaseView, M> implements IMV
      * 线程绑定IO到Main，并监听生命周期OnDestroy
      */
     @Override
-    public <T> ObservableTransformer<T, T> applyIo2MainUntilLifeCycle()
+    public <T> ObservableTransformer<T, T> applyIo2MainUntilViewDestroy()
     {
         return applyIo2MainUntilLifeCycle(RxLifeCycleConstants.ON_DESTROY);
     }
@@ -98,7 +98,7 @@ public abstract class MVPBasePresenter<V extends IMVPBaseView, M> implements IMV
      * 线程绑定Computation到Main，并监听生命周期OnDestroy
      */
     @Override
-    public <T> ObservableTransformer<T, T> applyComputation2MainUntilLifeCycle()
+    public <T> ObservableTransformer<T, T> applyComputation2MainUntilViewDestroy()
     {
         return applyComputation2MainUntilLifeCycle(RxLifeCycleConstants.ON_DESTROY);
     }
@@ -125,7 +125,7 @@ public abstract class MVPBasePresenter<V extends IMVPBaseView, M> implements IMV
      * 线程绑定NewThread到Main，并监听生命周期OnDestroy
      */
     @Override
-    public <T> ObservableTransformer<T, T> applyNewThread2MainUntilLifeCycle()
+    public <T> ObservableTransformer<T, T> applyNewThread2MainUntilViewDestroy()
     {
         return applyNewThread2MainUntilLifeCycle(RxLifeCycleConstants.ON_DESTROY);
     }

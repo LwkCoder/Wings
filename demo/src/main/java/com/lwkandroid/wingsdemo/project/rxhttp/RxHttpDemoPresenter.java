@@ -29,7 +29,7 @@ public class RxHttpDemoPresenter extends RxHttpDemoContract.Presenter
     void requestData()
     {
         getModelImpl().requestData()
-                .compose(this.<List<TabsBean>>applyIo2MainUntilLifeCycle())
+                .compose(this.<List<TabsBean>>applyIo2MainUntilViewDestroy())
                 .subscribe(new ApiBaseObserver<List<TabsBean>>()
                 {
                     @Override
@@ -58,7 +58,7 @@ public class RxHttpDemoPresenter extends RxHttpDemoContract.Presenter
     void requestCustomGet()
     {
         getModelImpl().requestCustomGet()
-                .compose(this.<List<TabsBean>>applyIo2MainUntilLifeCycle())
+                .compose(this.<List<TabsBean>>applyIo2MainUntilViewDestroy())
                 .subscribe(new ApiBaseObserver<List<TabsBean>>()
                 {
                     @Override
@@ -86,7 +86,7 @@ public class RxHttpDemoPresenter extends RxHttpDemoContract.Presenter
     void requestCustomPost()
     {
         getModelImpl().requestCustomPost()
-                .compose(this.<String>applyIo2MainUntilLifeCycle())
+                .compose(this.<String>applyIo2MainUntilViewDestroy())
                 .subscribe(new ApiBaseObserver<String>()
                 {
                     @Override
@@ -107,7 +107,7 @@ public class RxHttpDemoPresenter extends RxHttpDemoContract.Presenter
     void requestFileData()
     {
         getModelImpl().requestFileData()
-                .compose(this.<File>applyIo2MainUntilLifeCycle())
+                .compose(this.<File>applyIo2MainUntilViewDestroy())
                 .subscribe(new ApiBaseObserver<File>()
                 {
                     @Override
@@ -152,7 +152,7 @@ public class RxHttpDemoPresenter extends RxHttpDemoContract.Presenter
     void requestNonRestFul()
     {
         getModelImpl().requestNonRestFulData()
-                .compose(this.<ApiResultCacheWrapper<NonRestFulResult>>applyIo2MainUntilLifeCycle())
+                .compose(this.<ApiResultCacheWrapper<NonRestFulResult>>applyIo2MainUntilViewDestroy())
                 .subscribe(new ApiBaseObserver<ApiResultCacheWrapper<NonRestFulResult>>()
                 {
                     @Override
@@ -203,7 +203,7 @@ public class RxHttpDemoPresenter extends RxHttpDemoContract.Presenter
     void requestBitmapData()
     {
         getModelImpl().requestBitmapData()
-                .compose(this.<Bitmap>applyIo2MainUntilLifeCycle())
+                .compose(this.<Bitmap>applyIo2MainUntilViewDestroy())
                 .subscribe(new ApiBaseObserver<Bitmap>()
                 {
                     @Override
@@ -224,7 +224,7 @@ public class RxHttpDemoPresenter extends RxHttpDemoContract.Presenter
     void uploadImages(List<File> files)
     {
         getModelImpl().uploadImages(files)
-                .compose(this.<String>applyIo2MainUntilLifeCycle())
+                .compose(this.<String>applyIo2MainUntilViewDestroy())
                 .subscribe(new ApiBaseObserver<String>()
                 {
                     @Override
@@ -260,7 +260,7 @@ public class RxHttpDemoPresenter extends RxHttpDemoContract.Presenter
     {
         getModelImpl().requestTestDataWithAccessToken()
                 .retryWhen(new AutoFreshTokenFunc())
-                .compose(this.<String>applyIo2MainUntilLifeCycle())
+                .compose(this.<String>applyIo2MainUntilViewDestroy())
                 .subscribe(new ApiBaseObserver<String>()
                 {
                     @Override

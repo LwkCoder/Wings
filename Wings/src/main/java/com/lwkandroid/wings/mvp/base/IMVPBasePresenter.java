@@ -25,15 +25,15 @@ public interface IMVPBasePresenter<V extends IMVPBaseView, M>
 
     void addComposites(Disposable... disposable);
 
-    <T> ObservableTransformer<T, T> applyIo2MainUntilLifeCycle();
+    <T> ObservableTransformer<T, T> applyIo2MainUntilViewDestroy();
 
     <T> ObservableTransformer<T, T> applyIo2MainUntilLifeCycle(@RxLifeCycleEvent final int target);
 
-    <T> ObservableTransformer<T, T> applyComputation2MainUntilLifeCycle();
+    <T> ObservableTransformer<T, T> applyComputation2MainUntilViewDestroy();
 
     <T> ObservableTransformer<T, T> applyComputation2MainUntilLifeCycle(@RxLifeCycleEvent final int target);
 
-    <T> ObservableTransformer<T, T> applyNewThread2MainUntilLifeCycle();
+    <T> ObservableTransformer<T, T> applyNewThread2MainUntilViewDestroy();
 
     <T> ObservableTransformer<T, T> applyNewThread2MainUntilLifeCycle(@RxLifeCycleEvent final int target);
 
