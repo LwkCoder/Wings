@@ -1,16 +1,12 @@
 package com.lwkandroid.wings.mvp.base;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.lwkandroid.wings.log.KLog;
 import com.lwkandroid.wings.rx.lifecycle.RxLifeCycleConstants;
 import com.lwkandroid.wings.rx.lifecycle.RxLifeCycleEvent;
-import com.lwkandroid.wings.utils.ReflectUtils;
-
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 
 import androidx.annotation.IdRes;
 import androidx.annotation.Nullable;
@@ -35,16 +31,17 @@ public abstract class WingsBaseActivity<P extends MVPBasePresenter> extends AppC
     {
         setBarColor();
         super.onCreate(savedInstanceState);
-        publishLifeCycleEvent(RxLifeCycleConstants.ON_CREATE);
+        mMVPViewImpl.attachToActivity(this);
+        mPresenter = mMVPViewImpl.createPresenter(this.getClass());
         getIntentData(getIntent(), false);
         setContentView(mContentViewImpl.inflateContentView(this, getContentViewId()));
-        mPresenter = createPresenter();
         if (getPresenter() != null)
         {
             getPresenter().attachWithView(this);
         }
         initUI(getContentView());
         initData(savedInstanceState);
+        publishLifeCycleEvent(RxLifeCycleConstants.ON_CREATE);
     }
 
     @Override
@@ -183,34 +180,10 @@ public abstract class WingsBaseActivity<P extends MVPBasePresenter> extends AppC
         mMVPViewImpl.publishLifeCycleEvent(lifeCycleEvent);
     }
 
-    //反射实例化Presenter
-    private P createPresenter()
+    @Override
+    public Activity getAttachedActivity()
     {
-        try
-        {
-            Type superType = this.getClass().getGenericSuperclass();
-            if (superType instanceof ParameterizedType)
-            {
-                ParameterizedType pt = (ParameterizedType) superType;
-                Type[] types = pt.getActualTypeArguments();
-                if (types != null && types.length > 0)
-                {
-                    Class pClass = (Class) types[0];
-                    return ReflectUtils.reflect(pClass).newInstance().get();
-                    //NOTICE ：不能通过下面的方式反射
-                    //否则会报错：java.lang.SecurityException: Can not make a java.lang.Class constructor accessible
-                    //                    return ReflectUtils.reflect(types[0]).newInstance().get();
-                }
-            } else
-            {
-                KLog.w(TAG, "Can not reflect INSTANCE of Presenter: can not get super class ParameterizedType.");
-            }
-        } catch (Exception e)
-        {
-            KLog.w(TAG, "Can not reflect INSTANCE of Presenter:" + e.toString());
-        }
-
-        return (P) new DefaultMVPPresenter();
+        return mMVPViewImpl.getAttachedActivity();
     }
 
     //获取Presenter对象

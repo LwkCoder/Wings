@@ -1,18 +1,14 @@
 package com.lwkandroid.wings.mvp.base;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.lwkandroid.wings.log.KLog;
 import com.lwkandroid.wings.rx.lifecycle.RxLifeCycleConstants;
 import com.lwkandroid.wings.rx.lifecycle.RxLifeCycleEvent;
-import com.lwkandroid.wings.utils.ReflectUtils;
-
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -37,6 +33,7 @@ public abstract class WingsBaseFragment<P extends MVPBasePresenter> extends Frag
     public void onAttach(Context context)
     {
         super.onAttach(context);
+        mMVPViewImpl.attachToActivity(getActivity());
         publishLifeCycleEvent(RxLifeCycleConstants.ON_ATTACH);
     }
 
@@ -60,15 +57,15 @@ public abstract class WingsBaseFragment<P extends MVPBasePresenter> extends Frag
     public void onActivityCreated(@Nullable Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
-        publishLifeCycleEvent(RxLifeCycleConstants.ON_ACTIVITY_CREATED);
         getArgumentsData(getArguments(), savedInstanceState);
-        mPresenter = createPresenter();
+        mPresenter = mMVPViewImpl.createPresenter(this.getClass());
         if (getPresenter() != null)
         {
             getPresenter().attachWithView(this);
         }
         initUI(getContentView());
         initData(savedInstanceState);
+        publishLifeCycleEvent(RxLifeCycleConstants.ON_ACTIVITY_CREATED);
     }
 
     @Override
@@ -214,35 +211,10 @@ public abstract class WingsBaseFragment<P extends MVPBasePresenter> extends Frag
         mMVPViewImpl.publishLifeCycleEvent(lifeCycleEvent);
     }
 
-    //反射实例化Presenter
-    protected P createPresenter()
+    @Override
+    public Activity getAttachedActivity()
     {
-        try
-        {
-            Type superType = this.getClass().getGenericSuperclass();
-            if (superType instanceof ParameterizedType)
-            {
-                ParameterizedType pt = (ParameterizedType) superType;
-                Type[] types = pt.getActualTypeArguments();
-                if (types != null && types.length > 0)
-                {
-                    Class pClass = (Class) types[0];
-                    return ReflectUtils.reflect(pClass).newInstance().get();
-                    //NOTICE ：不能通过下面的方式反射
-                    //否则会报错：java.lang.SecurityException: Can not make a java.lang.Class constructor accessible
-                    //                    return ReflectUtils.reflect(types[0]).newInstance().get();
-                }
-            } else
-            {
-                KLog.w(TAG, "Can not reflect INSTANCE of Presenter: can not get super class ParameterizedType.");
-            }
-        } catch (Exception e)
-        {
-            e.printStackTrace();
-            KLog.w(TAG, "Can not reflect INSTANCE of Presenter:" + e.toString());
-        }
-
-        return (P) new DefaultMVPPresenter();
+        return mMVPViewImpl.getAttachedActivity();
     }
 
     //获取Presenter对象
