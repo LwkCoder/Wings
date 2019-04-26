@@ -3,6 +3,8 @@ package com.lwkandroid.wings.utils;
 import android.util.Base64;
 import android.util.Pair;
 
+import com.lwkandroid.wings.log.KLog;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -51,6 +53,8 @@ public final class EncryptUtils
 
     /**
      * AES加密默认Transformation
+     * ECB模式下不用偏移量
+     * <p>
      * 算法/模式/填充                16字节加密后数据长度        不满16字节加密后长度
      * AES/CBC/NoPadding             16                          不支持
      * AES/CBC/PKCS5Padding          32                          16
@@ -68,16 +72,26 @@ public final class EncryptUtils
      * AES/PCBC/PKCS5Padding         32                          16
      * AES/PCBC/ISO10126Padding      32                          16
      */
-    public static final String AES_DEFAULT_TRANSFORMATION = "AES/CBC/PKCS5Padding";
+    private static final String AES_DEFAULT_TRANSFORMATION = "AES/CBC/PKCS5Padding";
     /**
      * AES加密默认偏移量
      */
-    public static final byte[] AES_DEFAULT_IV = "16-Bytes--String".getBytes(UTF8);
+    private static final byte[] AES_DEFAULT_IV = "16-Bytes--String".getBytes(UTF8);
 
     /**
      * RSA加密默认Transformation
      */
-    public static final String RSA_DEFAULT_TRANSFORMATION = "RSA/ECB/PKCS1Padding";
+    private static final String RSA_DEFAULT_TRANSFORMATION = "RSA/NONE/PKCS1Padding";
+
+    /**
+     * 生成RSA密钥位数
+     */
+    private static final int RSA_DEFAULT_KEY_BIT = 1024;
+
+    /**
+     * 生成RSA密钥位数
+     */
+    private static final int AES_DEFAULT_KEY_BIT = 128;
 
     /**
      * RSA最大加密明文大小
@@ -1355,19 +1369,25 @@ public final class EncryptUtils
      */
     public static byte[] generateAESKey()
     {
+        return generateAESKey(AES_DEFAULT_KEY_BIT);
+    }
+
+    /**
+     * 使用UUID产生随机的AES密钥(这里产生密钥必须是16位)
+     */
+    public static byte[] generateAESKey(int keyBit)
+    {
         String uuid = UUID.randomUUID().toString().replace("-", "").substring(0, 16);
         String key = StringUtils.string2HexString(uuid);
 
         try
         {
             KeyGenerator kg = KeyGenerator.getInstance("AES");
-            //AES 要求密钥长度为 128
-            kg.init(128, new SecureRandom(key.getBytes(UTF8)));
+            kg.init(keyBit, new SecureRandom(key.getBytes(UTF8)));
             //生成一个密钥
             SecretKey secretKey = kg.generateKey();
             SecretKeySpec keySpec = new SecretKeySpec(secretKey.getEncoded(), "AES");
             return keySpec.getEncoded();
-            //            return new String(keySpec.getEncoded(), UTF8);
         } catch (NoSuchAlgorithmException ex)
         {
             ex.printStackTrace();
@@ -2077,8 +2097,18 @@ public final class EncryptUtils
      */
     public static Pair<byte[], byte[]> generateRSAKeys() throws NoSuchAlgorithmException
     {
+        return generateRSAKeys(RSA_DEFAULT_KEY_BIT);
+    }
+
+    /**
+     * 生成RSA公钥和私钥
+     *
+     * @return 公钥和私钥的pair对象
+     */
+    public static Pair<byte[], byte[]> generateRSAKeys(int keyBit) throws NoSuchAlgorithmException
+    {
         KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance("RSA");
-        keyPairGen.initialize(1024);
+        keyPairGen.initialize(keyBit);
         KeyPair keyPair = keyPairGen.generateKeyPair();
         RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
         RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
@@ -2136,6 +2166,7 @@ public final class EncryptUtils
             }
             if (rsaKey == null)
             {
+                KLog.e("Can not parse RSA key !");
                 return null;
             }
             Cipher cipher = Cipher.getInstance(transformation);

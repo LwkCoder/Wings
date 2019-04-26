@@ -2,23 +2,21 @@ package com.lwkandroid.wingsdemo.project.encrypt;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Pair;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.lwkandroid.wings.utils.EncodeUtils;
 import com.lwkandroid.wings.utils.EncryptUtils;
 import com.lwkandroid.wings.utils.StringUtils;
 import com.lwkandroid.wingsdemo.R;
 import com.lwkandroid.wingsdemo.app.AppBaseActivity;
 
-import java.security.NoSuchAlgorithmException;
-
 import androidx.annotation.Nullable;
 
 /**
  * Created by LWK
- *  View层
+ * View层
  */
 public class EncryptActivity extends AppBaseActivity<EncryptPresenter> implements EncryptContract.IView
 {
@@ -27,6 +25,27 @@ public class EncryptActivity extends AppBaseActivity<EncryptPresenter> implement
     private byte[] mAES_Key;
     private byte[] mRSA_PublicKey;
     private byte[] mRSA_PrivateKey;
+
+    private final String AES_KEY_BASE64 = "k8kKp+IYv6y6sM3GO3MV4Q==";
+
+    private final String RSA_PUB_KEY_BASE64 = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCJIrSs20dsL5fJSDiBhTI+v89n\n" +
+            "gfC11FzjiUgLVABNHmeXV3ChVafR4DIu0ZuyAOliWZaMZ81RxVcdZNgIW63kLYO3\n" +
+            "Xwar5OAMNHnUjcfmgLglDpjxwk7xU1L26KEMi1SOtvR3l0wMt3Xw7csztAx2VGHX\n" +
+            "9l+M6N+z6H5GXRemTQIDAQAB";
+
+    private final String RSA_PRI_KEY_BASE64 = "MIICXQIBAAKBgQCJIrSs20dsL5fJSDiBhTI+v89ngfC11FzjiUgLVABNHmeXV3Ch\n" +
+            "VafR4DIu0ZuyAOliWZaMZ81RxVcdZNgIW63kLYO3Xwar5OAMNHnUjcfmgLglDpjx\n" +
+            "wk7xU1L26KEMi1SOtvR3l0wMt3Xw7csztAx2VGHX9l+M6N+z6H5GXRemTQIDAQAB\n" +
+            "AoGAF9AC95EMEekhvj3gMf1jACpmZV7W4XwCtS/9ZporgzioXEs+r4UkIvl/PUoA\n" +
+            "cyRdYkqULcVIjc5qlhwQt0LUKu3AFxDyFzvQZ8/fZJe8RhQAvAzA8Dvf0tmWaaTh\n" +
+            "ynwj2afX4VfkHKRhwQNvJJK/eNf/yI/i4boGayEYXSsvl7ECQQCsXLsMTdHjngIb\n" +
+            "OBCHo18jfLS9GvL7cKRTIdgO84v9nNwumpcqhVj9tSwZ6QiWhxvD1DQBqEjV7wUZ\n" +
+            "M9uZoeqvAkEAy64H6FY6EDQCtr54jGCBmV39pbGIboEbkZM3+KT306veinniOs2e\n" +
+            "Y37112OnKJZ1qUjKkNkQIjvh1zh1qVkNwwJBAJWk8NSu37Jx5bxCAb/xbFFAHR8t\n" +
+            "vZXl5xUyBgZ9FqZ6wINJvkKxgWDMIdzhAI7IAKgVnY1u0MXEfjWyW09YT4sCQQDI\n" +
+            "nlpbltMKMrCZn3LNkiEVF2dHVV60uaaV9RQkbRlN/PPuIa+bi/x+tAciaJ21dL3g\n" +
+            "SDp+Ac/KaIFCo/IBJB5RAkAvVzCTo2YE2Wqzd71KG3rtW6wPu9neVgK0tL/H56qH\n" +
+            "o/Xh/d2DNLlJLpiXHUlcPOQzBlGsRYCWJ87ginUhoT6e";
 
     @Override
     protected void getIntentData(Intent intent, boolean newIntent)
@@ -52,16 +71,9 @@ public class EncryptActivity extends AppBaseActivity<EncryptPresenter> implement
     @Override
     protected void initData(@Nullable Bundle savedInstanceState)
     {
-        mAES_Key = EncryptUtils.generateAESKey();
-        try
-        {
-            Pair<byte[], byte[]> rsaPair = EncryptUtils.generateRSAKeys();
-            mRSA_PublicKey = rsaPair.first;
-            mRSA_PrivateKey = rsaPair.second;
-        } catch (NoSuchAlgorithmException e)
-        {
-            e.printStackTrace();
-        }
+        mAES_Key = EncodeUtils.base64Decode(AES_KEY_BASE64);
+        mRSA_PrivateKey = EncodeUtils.base64Decode(RSA_PRI_KEY_BASE64);
+        mRSA_PublicKey = EncodeUtils.base64Decode(RSA_PUB_KEY_BASE64);
     }
 
     @Override
@@ -79,48 +91,38 @@ public class EncryptActivity extends AppBaseActivity<EncryptPresenter> implement
         {
             case R.id.btn_encrypt_aes:
                 StringBuilder builder = new StringBuilder();
-                byte[] aesEncryptString = EncryptUtils.encryptAES(data, mAES_Key, EncryptUtils.AES_DEFAULT_TRANSFORMATION, EncryptUtils.AES_DEFAULT_IV);
                 byte[] aesEncryptBase64 = EncryptUtils.encryptAES2Base64(data, mAES_Key);
                 String aesEncryptHexString = EncryptUtils.encryptAES2HexString(data, mAES_Key);
                 builder
-                        .append("AES密钥:\n")
-                        .append(new String(mAES_Key, EncryptUtils.UTF8))
-                        .append("\n\nAES加密：\n")
-                        .append(new String(aesEncryptString, EncryptUtils.UTF8))
-                        .append("\n\nAES加密并Base64编码：\n")
+                        .append("AES密钥 Base64编码:\n")
+                        .append(AES_KEY_BASE64)
+                        .append("\n\nAES加密 Base64编码：\n")
                         .append(new String(aesEncryptBase64, EncryptUtils.UTF8))
-                        .append("\n\nAES加密并转16进制：\n")
+                        .append("\n\nAES加密 HexString：\n")
                         .append(aesEncryptHexString)
-                        .append("\n\nAES反向解密:\n")
-                        .append(EncryptUtils.decryptAES2String(aesEncryptString, mAES_Key))
-                        .append("\n\nAES反向解密Base64编码:\n")
+                        .append("\n\nAES 解密Base64编码:\n")
                         .append(EncryptUtils.decryptBase64AES2String(aesEncryptBase64, mAES_Key))
-                        .append("\n\nAES反向解密16进制:\n")
+                        .append("\n\nAES 解密HexString:\n")
                         .append(EncryptUtils.decryptHexStringAES2String(aesEncryptHexString, mAES_Key));
                 mTextView.setText(builder.toString());
                 break;
             case R.id.btn_encrypt_rsa:
                 StringBuilder builder2 = new StringBuilder();
-                byte[] rsaEncryptString = EncryptUtils.encryptRSA(data, mRSA_PrivateKey, false);
-                byte[] rsaEncryptBase64 = EncryptUtils.encryptRSA2Base64(data, mRSA_PrivateKey, false);
-                String rsaEncryptHexString = EncryptUtils.encryptRSA2HexString(data, mRSA_PrivateKey, false);
+                byte[] rsaEncryptBase64 = EncryptUtils.encryptRSA2Base64(data, mRSA_PublicKey, true);
+                String rsaEncryptHexString = EncryptUtils.encryptRSA2HexString(data, mRSA_PublicKey, true);
 
-                builder2.append("RSA公钥：\n")
-                        .append(new String(mRSA_PublicKey, EncryptUtils.UTF8))
-                        .append("\n\nRSA私钥:\n")
-                        .append(new String(mRSA_PrivateKey, EncryptUtils.UTF8))
-                        .append("\n\nRSA私钥加密:\n")
-                        .append(new String(rsaEncryptString, EncryptUtils.UTF8))
-                        .append("\n\nRSA私钥加密并Base64编码:\n")
+                builder2.append("RSA公钥 Base64编码：\n")
+                        .append(RSA_PUB_KEY_BASE64)
+                        .append("\n\nRSA私钥 Base64编码:\n")
+                        .append(RSA_PRI_KEY_BASE64)
+                        .append("\n\nRSA公钥加密 Base64编码:\n")
                         .append(new String(rsaEncryptBase64, EncryptUtils.UTF8))
-                        .append("\n\nRSA私钥加密转16进制:\n")
+                        .append("\n\nRSA公钥加密 HexString:\n")
                         .append(rsaEncryptHexString)
-                        .append("\n\nRSA公钥反向解密:\n")
-                        .append(EncryptUtils.decryptRSA2String(rsaEncryptString, mRSA_PublicKey, true))
-                        .append("\n\nRSA公钥反向解密Base64编码:\n")
-                        .append(EncryptUtils.decryptBase64RSA2String(rsaEncryptBase64, mRSA_PublicKey, true))
-                        .append("\n\nRSA公钥反向解密16进制:\n")
-                        .append(EncryptUtils.decryptHexStringRSA2String(rsaEncryptHexString, mRSA_PublicKey, true));
+                        .append("\n\nRSA私钥解密 Base64编码:\n")
+                        .append(EncryptUtils.decryptBase64RSA2String(rsaEncryptBase64, mRSA_PrivateKey, false))
+                        .append("\n\nRSA私钥解密 HexString:\n")
+                        .append(EncryptUtils.decryptHexStringRSA2String(rsaEncryptHexString, mRSA_PrivateKey, false));
                 mTextView.setText(builder2.toString());
                 break;
             default:
