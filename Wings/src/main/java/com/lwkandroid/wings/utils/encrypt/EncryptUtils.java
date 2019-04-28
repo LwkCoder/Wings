@@ -35,10 +35,12 @@ public final class EncryptUtils
      * AES/PCBC/ISO10126Padding      32                          16
      */
     private static final String AES_DEFAULT_TRANSFORMATION = "AES/CBC/PKCS5Padding";
-    private static final String DES_DEFAULT_TRANSFORMATION = "DES/ECB/PKCS5Padding";
-    private static final String TRIPLE_DES_DEFAULT_TRANSFORMATION = "DESede/ECB/PKCS5Padding";
+    private static final String DES_DEFAULT_TRANSFORMATION = "DES/CBC/PKCS5Padding";
+    private static final String TRIPLE_DES_DEFAULT_TRANSFORMATION = "DESede/CBC/PKCS5Padding";
     //对称加密默认偏移量
-    private static final String SYYMETRIC_DEFAULT_IV = "16-Bytes--String";
+    private static final String DES_DEFAULT_IV = "8-Bytes-";
+    private static final String TRIPLE_DES_DEFAULT_IV = "8-Bytes-";
+    private static final String AES_DEFAULT_IV = "16-Bytes--String";
     //RSA加密默认Transformation
     private static final String RSA_DEFAULT_TRANSFORMATION = "RSA/NONE/PKCS1Padding";
 
@@ -52,103 +54,181 @@ public final class EncryptUtils
         return new HashEncryptImpl("MD2");
     }
 
+    /**
+     * MD5加密
+     */
     public static IHashEncryption md5()
     {
         return new HashEncryptImpl("MD5");
     }
 
+    /**
+     * SHA1加密
+     */
     public static IHashEncryption sha1()
     {
         return new HashEncryptImpl("SHA-1");
     }
 
+    /**
+     * SHA224加密
+     */
     public static IHashEncryption sha224()
     {
         return new HashEncryptImpl("SHA-224");
     }
 
+    /**
+     * SHA256加密
+     */
     public static IHashEncryption sha256()
     {
         return new HashEncryptImpl("SHA-256");
     }
 
+    /**
+     * SHA384加密
+     */
     public static IHashEncryption sha384()
     {
         return new HashEncryptImpl("SHA-384");
     }
 
+    /**
+     * SHA512加密
+     */
     public static IHashEncryption sha512()
     {
         return new HashEncryptImpl("SHA-512");
     }
 
+    /**
+     * HmacMD5加密
+     */
     public static IHmacEncryption hmac_md5()
     {
         return new HmacEncryptImpl("HmacMD5");
     }
 
+    /**
+     * HmacSHA1加密
+     */
     public static IHmacEncryption hmac_sha1()
     {
         return new HmacEncryptImpl("HmacSHA1");
     }
 
+    /**
+     * HmacSHA224加密
+     */
     public static IHmacEncryption hmac_sha224()
     {
         return new HmacEncryptImpl("HmacSHA224");
     }
 
+    /**
+     * HmacSHA256加密
+     */
     public static IHmacEncryption hmac_sha256()
     {
         return new HmacEncryptImpl("HmacSHA256");
     }
 
+    /**
+     * HmacSHA384加密
+     */
     public static IHmacEncryption hmac_sha384()
     {
         return new HmacEncryptImpl("HmacSHA384");
     }
 
+    /**
+     * HmacSHA512加密
+     */
     public static IHmacEncryption hmac_sha512()
     {
         return new HmacEncryptImpl("HmacSHA512");
     }
 
+    /**
+     * AES加密
+     * 工作模式为："AES/CBC/PKCS5Padding"
+     * 偏移量为："16-Bytes--String"
+     */
     public static ISymmetricEncryption aes()
     {
-        return new SymmetricEncryptImpl("AES", AES_DEFAULT_TRANSFORMATION, SYYMETRIC_DEFAULT_IV);
+        return new SymmetricEncryptImpl("AES", AES_DEFAULT_TRANSFORMATION, AES_DEFAULT_IV);
     }
 
+    /**
+     * AES加密
+     *
+     * @param transformation 工作模式
+     * @param iv             偏移量
+     */
     public static ISymmetricEncryption aes(String transformation, String iv)
     {
         return new SymmetricEncryptImpl("AES", transformation, iv);
     }
 
+    /**
+     * AES加密
+     * 工作模式为："DES/CBC/PKCS5Padding"
+     * 偏移量为："8-Bytes-"
+     */
     public static ISymmetricEncryption des()
     {
-        return new SymmetricEncryptImpl("DES", DES_DEFAULT_TRANSFORMATION, SYYMETRIC_DEFAULT_IV);
+        return new SymmetricEncryptImpl("DES", DES_DEFAULT_TRANSFORMATION, DES_DEFAULT_IV);
     }
 
+    /**
+     * DES加密
+     *
+     * @param transformation 工作模式
+     * @param iv             偏移量
+     */
     public static ISymmetricEncryption des(String transformation, String iv)
     {
         return new SymmetricEncryptImpl("DES", transformation, iv);
     }
 
+    /**
+     * 3DES加密
+     * 工作模式为："DESede/CBC/PKCS5Padding"
+     * 偏移量为："8-Bytes-"
+     */
     public static ISymmetricEncryption tripleDes()
     {
-        return new SymmetricEncryptImpl("DESede", TRIPLE_DES_DEFAULT_TRANSFORMATION, SYYMETRIC_DEFAULT_IV);
+        return new SymmetricEncryptImpl("DESede", TRIPLE_DES_DEFAULT_TRANSFORMATION, TRIPLE_DES_DEFAULT_IV);
     }
 
+    /**
+     * 3DES加密
+     *
+     * @param transformation 工作模式
+     * @param iv             偏移量
+     */
     public static ISymmetricEncryption tripleDes(String transformation, String iv)
     {
         return new SymmetricEncryptImpl("DESede", transformation, iv);
     }
 
+    /**
+     * RSA加密
+     * 工作模式为："RSA/NONE/PKCS1Padding"
+     */
     public static IRsaEncryption rsa()
     {
         return new RsaEncryptionImpl(RSA_DEFAULT_TRANSFORMATION);
     }
 
-    public static IRsaEncryption rsa(String defaultTransformation)
+    /**
+     * RSA加密
+     *
+     * @param transformation 工作模式
+     */
+    public static IRsaEncryption rsa(String transformation)
     {
-        return new RsaEncryptionImpl(defaultTransformation);
+        return new RsaEncryptionImpl(transformation);
     }
 }
