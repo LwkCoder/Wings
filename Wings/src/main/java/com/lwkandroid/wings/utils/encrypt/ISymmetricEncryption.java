@@ -128,9 +128,9 @@ public interface ISymmetricEncryption
 
     byte[] generateKey(int keyBit);
 
-    String generateKeyAsAsBase64String();
+    String generateKeyAsBase64String();
 
-    String generateKeyAsAsBase64String(int keyBit);
+    String generateKeyAsBase64String(int keyBit);
 
     String generateKeyAsHexString();
 

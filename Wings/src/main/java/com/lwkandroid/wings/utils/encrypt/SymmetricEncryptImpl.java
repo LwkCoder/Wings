@@ -434,13 +434,13 @@ public final class SymmetricEncryptImpl extends BaseEncryptImpl implements ISymm
     }
 
     @Override
-    public String generateKeyAsAsBase64String()
+    public String generateKeyAsBase64String()
     {
-        return generateKeyAsAsBase64String(getKeyBit(mAlgorithm));
+        return generateKeyAsBase64String(getKeyBit(mAlgorithm));
     }
 
     @Override
-    public String generateKeyAsAsBase64String(int keyBit)
+    public String generateKeyAsBase64String(int keyBit)
     {
         return bytesToBase64String(generateKey(keyBit), CHARSET_UTF8);
     }
