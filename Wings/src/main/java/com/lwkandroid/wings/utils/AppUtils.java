@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Build;
 
 import com.lwkandroid.wings.log.KLog;
+import com.lwkandroid.wings.utils.encrypt.EncryptUtils;
 
 import java.io.File;
 import java.util.List;
@@ -179,7 +180,7 @@ public final class AppUtils
         {
             return null;
         }
-        return EncryptUtils.encryptSHA1ToHexString(signature[0].toByteArray()).
+        return EncryptUtils.sha1().encryptToHexString(signature[0].toByteArray()).
                 replaceAll("(?<=[0-9A-F]{2})[0-9A-F]{2}", ":$0");
     }
 

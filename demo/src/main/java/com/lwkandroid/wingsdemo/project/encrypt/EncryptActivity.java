@@ -7,8 +7,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.lwkandroid.wings.utils.EncodeUtils;
-import com.lwkandroid.wings.utils.EncryptUtils;
 import com.lwkandroid.wings.utils.StringUtils;
+import com.lwkandroid.wings.utils.encrypt.EncryptUtils;
 import com.lwkandroid.wingsdemo.R;
 import com.lwkandroid.wingsdemo.app.AppBaseActivity;
 
@@ -86,43 +86,43 @@ public class EncryptActivity extends AppBaseActivity<EncryptPresenter> implement
             return;
         }
 
-        byte[] data = content.getBytes(EncryptUtils.UTF8);
+        byte[] data = content.getBytes();
         switch (id)
         {
             case R.id.btn_encrypt_aes:
                 StringBuilder builder = new StringBuilder();
-                byte[] aesEncryptBase64 = EncryptUtils.encryptAES2Base64(data, mAES_Key);
-                String aesEncryptHexString = EncryptUtils.encryptAES2HexString(data, mAES_Key);
+                String aesEncryptBase64 = EncryptUtils.aes().encryptToBase64String(data, mAES_Key);
+                String aesEncryptHexString = EncryptUtils.aes().encryptToHexString(data, mAES_Key);
                 builder
                         .append("AES密钥 Base64编码:\n")
                         .append(AES_KEY_BASE64)
                         .append("\n\nAES加密 Base64编码：\n")
-                        .append(new String(aesEncryptBase64, EncryptUtils.UTF8))
+                        .append(aesEncryptBase64)
                         .append("\n\nAES加密 HexString：\n")
                         .append(aesEncryptHexString)
                         .append("\n\nAES 解密Base64编码:\n")
-                        .append(EncryptUtils.decryptBase64AES2String(aesEncryptBase64, mAES_Key))
+                        .append(EncryptUtils.aes().decryptBase64StringToString(aesEncryptBase64, mAES_Key))
                         .append("\n\nAES 解密HexString:\n")
-                        .append(EncryptUtils.decryptHexStringAES2String(aesEncryptHexString, mAES_Key));
+                        .append(EncryptUtils.aes().decryptHexStringToString(aesEncryptHexString, mAES_Key));
                 mTextView.setText(builder.toString());
                 break;
             case R.id.btn_encrypt_rsa:
                 StringBuilder builder2 = new StringBuilder();
-                byte[] rsaEncryptBase64 = EncryptUtils.encryptRSA2Base64(data, mRSA_PublicKey, true);
-                String rsaEncryptHexString = EncryptUtils.encryptRSA2HexString(data, mRSA_PublicKey, true);
+                String rsaEncryptBase64 = EncryptUtils.rsa().encryptToBase64String(data, mRSA_PublicKey, true);
+                String rsaEncryptHexString = EncryptUtils.rsa().encryptToHexString(data, mRSA_PublicKey, true);
 
                 builder2.append("RSA公钥 Base64编码：\n")
                         .append(RSA_PUB_KEY_BASE64)
                         .append("\n\nRSA私钥 Base64编码:\n")
                         .append(RSA_PRI_KEY_BASE64)
                         .append("\n\nRSA公钥加密 Base64编码:\n")
-                        .append(new String(rsaEncryptBase64, EncryptUtils.UTF8))
+                        .append(rsaEncryptBase64)
                         .append("\n\nRSA公钥加密 HexString:\n")
                         .append(rsaEncryptHexString)
                         .append("\n\nRSA私钥解密 Base64编码:\n")
-                        .append(EncryptUtils.decryptBase64RSA2String(rsaEncryptBase64, mRSA_PrivateKey, false))
+                        .append(EncryptUtils.rsa().decryptBase64StringToString(rsaEncryptBase64, mRSA_PrivateKey, false))
                         .append("\n\nRSA私钥解密 HexString:\n")
-                        .append(EncryptUtils.decryptHexStringRSA2String(rsaEncryptHexString, mRSA_PrivateKey, false));
+                        .append(EncryptUtils.rsa().decryptHexStringToString(rsaEncryptHexString, mRSA_PrivateKey, false));
                 mTextView.setText(builder2.toString());
                 break;
             default:
