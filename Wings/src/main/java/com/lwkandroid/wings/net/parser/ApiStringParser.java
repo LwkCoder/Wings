@@ -19,7 +19,7 @@ import io.reactivex.functions.Function;
 
 /**
  * Created by LWK
- *  将String类型的网络请求结果转换为{@link com.lwkandroid.wings.net.bean.IApiResult}的实现类
+ * 将String类型的网络请求结果转换为{@link com.lwkandroid.wings.net.bean.IApiResult}的实现类
  */
 
 public class ApiStringParser implements IApiStringParser
@@ -51,15 +51,8 @@ public class ApiStringParser implements IApiStringParser
 
                         String dataJsonString = result.getData() != null ?
                                 JSON_PARSER.toJson(result.getData()) : null;
-                        if (clazz == String.class)
-                        {
-                            return StringUtils.isNotEmpty(dataJsonString) ?
-                                    (T) dataJsonString : (T) "";
-                        } else
-                        {
-                            return StringUtils.isNotEmpty(dataJsonString) ?
-                                    JSON_PARSER.parseJsonObject(dataJsonString, clazz) : clazz.newInstance();
-                        }
+                        return StringUtils.isNotEmpty(dataJsonString) ?
+                                JSON_PARSER.parseJsonObject(dataJsonString, clazz) : clazz.newInstance();
                     }
                 });
             }
