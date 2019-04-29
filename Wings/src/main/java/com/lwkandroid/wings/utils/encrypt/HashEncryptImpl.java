@@ -53,7 +53,7 @@ public final class HashEncryptImpl extends BaseEncryptImpl implements IHashEncry
     @Override
     public String encryptToString(String data, Charset charset)
     {
-        return encryptToString(stringToBytes(data, charset));
+        return bytesToString(encrypt(stringToBytes(data, charset)), charset);
     }
 
     @Override
@@ -71,7 +71,7 @@ public final class HashEncryptImpl extends BaseEncryptImpl implements IHashEncry
     @Override
     public byte[] encryptToBase64(String data, Charset charset)
     {
-        return encryptToBase64(stringToBytes(data, charset));
+        return bytesToBase64(encrypt(stringToBytes(data, charset)));
     }
 
     @Override
@@ -89,7 +89,7 @@ public final class HashEncryptImpl extends BaseEncryptImpl implements IHashEncry
     @Override
     public String encryptToBase64String(String data, Charset charset)
     {
-        return encryptToBase64String(stringToBytes(data));
+        return bytesToString(encryptToBase64(stringToBytes(data, charset)), charset);
     }
 
     @Override

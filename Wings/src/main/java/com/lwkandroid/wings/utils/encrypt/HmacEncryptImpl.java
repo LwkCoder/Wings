@@ -57,7 +57,7 @@ public final class HmacEncryptImpl extends BaseEncryptImpl implements IHmacEncry
     @Override
     public String encryptToString(String data, Charset charset, byte[] key)
     {
-        return encryptToString(stringToBytes(data, charset), key);
+        return bytesToString(encrypt(stringToBytes(data, charset), key), charset);
     }
 
     @Override
@@ -75,7 +75,7 @@ public final class HmacEncryptImpl extends BaseEncryptImpl implements IHmacEncry
     @Override
     public byte[] encryptToBase64(String data, Charset charset, byte[] key)
     {
-        return encryptToBase64(stringToBytes(data, charset), key);
+        return bytesToBase64(encrypt(stringToBytes(data, charset), key));
     }
 
     @Override
@@ -93,7 +93,7 @@ public final class HmacEncryptImpl extends BaseEncryptImpl implements IHmacEncry
     @Override
     public String encryptToBase64String(String data, Charset charset, byte[] key)
     {
-        return encryptToBase64String(stringToBytes(data), key);
+        return bytesToBase64String(encrypt(stringToBytes(data, charset), key), charset);
     }
 
     @Override
