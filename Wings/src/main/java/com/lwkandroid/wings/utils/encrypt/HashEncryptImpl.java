@@ -89,7 +89,7 @@ public final class HashEncryptImpl extends BaseEncryptImpl implements IHashEncry
     @Override
     public String encryptToBase64String(String data, Charset charset)
     {
-        return bytesToString(encryptToBase64(stringToBytes(data, charset)), charset);
+        return bytesToBase64String(encrypt(stringToBytes(data, charset)), charset);
     }
 
     @Override
