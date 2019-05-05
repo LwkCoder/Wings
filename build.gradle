@@ -11,6 +11,9 @@ buildscript {
             url 'https://maven.google.com/'
             name 'Google'
         }
+        maven {
+            url 'https://www.jitpack.io'
+        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.4.0'
@@ -30,6 +33,9 @@ allprojects {
         maven {
             url 'https://maven.google.com/'
             name 'Google'
+        }
+        maven {
+            url 'https://www.jitpack.io'
         }
     }
 }

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">WingsDemo</string>
+    <string name="index_image_viewer">%1$s/%2$s</string>
 </resources>

@@ -5,6 +5,6 @@
           android:layout_height="wrap_content"
           android:padding="@dimen/spacing_small"
           android:textColor="@color/deep_dark"
-          android:textSize="@dimen/textsize_normal">
+          android:textSize="@dimen/text_size_normal">
 
 </TextView>

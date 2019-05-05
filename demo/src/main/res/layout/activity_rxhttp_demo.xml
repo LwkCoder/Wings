@@ -72,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_small"
                 android:textColor="@color/deep_dark"
-                android:textSize="@dimen/textsize_small"/>
+                android:textSize="@dimen/text_size_small"/>
 
             <ImageView
                 android:id="@+id/img_rxhttp_demo"

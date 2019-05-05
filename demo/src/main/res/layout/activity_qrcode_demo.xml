@@ -28,7 +28,7 @@
             android:padding="@dimen/spacing_small"
             android:textColor="@color/black"
             android:textColorHint="@color/gray_darker"
-            android:textSize="@dimen/textsize_small"/>
+            android:textSize="@dimen/text_size_small"/>
 
         <Button
             android:id="@+id/btn_qrcode_demo_scan"
@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:text="扫描二维码"
             android:textColor="@color/black"
-            android:textSize="@dimen/textsize_normal"/>
+            android:textSize="@dimen/text_size_normal"/>
 
         <Button
             android:id="@+id/btn_qrcode_demo_parse"
@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:text="识别相册二维码图片"
             android:textColor="@color/black"
-            android:textSize="@dimen/textsize_normal"/>
+            android:textSize="@dimen/text_size_normal"/>
 
         <Button
             android:id="@+id/btn_qrcode_demo_copy"

@@ -10,7 +10,7 @@
     app:qrcv_maskColor="#60000000"
     app:qrcv_qrCodeTipText="@string/qrcodescan_hint"
     app:qrcv_rectWidth="250dp"
-    app:qrcv_tipTextSize="@dimen/textsize_small"
+    app:qrcv_tipTextSize="@dimen/text_size_small"
     app:qrcv_verticalBias="0.5">
 
 </cn.bingoogolapple.qrcode.zxing.ZXingView>

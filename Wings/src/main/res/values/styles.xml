@@ -10,27 +10,27 @@
 
     <!--微小文本风格-->
     <style name="TinyTextStyle" parent="BaseTextStyle">
-        <item name="android:textSize">@dimen/textsize_tiny</item>
+        <item name="android:textSize">@dimen/text_size_tiny</item>
     </style>
 
     <!--小文本风格-->
     <style name="SmallTextStyle" parent="BaseTextStyle">
-        <item name="android:textSize">@dimen/textsize_small</item>
+        <item name="android:textSize">@dimen/text_size_small</item>
     </style>
 
     <!--中等文本风格-->
     <style name="MediumTextStyle" parent="BaseTextStyle">
-        <item name="android:textSize">@dimen/textsize_normal</item>
+        <item name="android:textSize">@dimen/text_size_normal</item>
     </style>
 
     <!--大文本风格-->
     <style name="LargeTextStyle" parent="BaseTextStyle">
-        <item name="android:textSize">@dimen/textsize_large</item>
+        <item name="android:textSize">@dimen/text_size_large</item>
     </style>
 
     <!--超大文本风格-->
     <style name="HugeTextStyle" parent="BaseTextStyle">
-        <item name="android:textSize">@dimen/textsize_huge</item>
+        <item name="android:textSize">@dimen/text_size_huge</item>
     </style>
 
     <!--App风格基础-->
