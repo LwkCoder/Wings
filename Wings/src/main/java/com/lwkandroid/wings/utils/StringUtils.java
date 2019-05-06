@@ -293,7 +293,7 @@ public final class StringUtils
      * @param splitChar ASCII码之间的分隔符
      * @return 普通字符串
      */
-    public static String asciiToString(String value, String splitChar)
+    public static String ascii2String(String value, String splitChar)
     {
         if (isEmpty(value))
         {
