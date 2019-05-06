@@ -33,7 +33,7 @@ ext {
     RecyclerViewXVersion = "1.0.0"
     ImagePickerVersion = "1.4.4"
     AndPermissionVersion = "2.0.1"
-    RcvAdapterVersion = "1.4.1"
+    RcvAdapterVersion = "1.4.2"
     OkHttp3Version = "3.12.1"
     GlideVersion = "4.9.0"
     GsonVersion = "2.8.5"
