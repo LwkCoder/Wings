@@ -13,6 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="n">
+        <activity
+            android:name=".project.ycelement.ImageDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseActivityStyle">
+        </activity>
         <activity android:name=".project.encrypt.EncryptActivity">
         </activity>
         <activity
@@ -45,7 +50,7 @@
             android:theme="@style/BaseActivityStyle">
         </activity>
         <activity
-            android:name=".project.test.TestActivity"
+            android:name=".project.ycelement.ImageGridActivity"
             android:theme="@style/BaseActivityStyle">
         </activity>
         <activity

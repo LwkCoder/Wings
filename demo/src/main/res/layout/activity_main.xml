@@ -71,7 +71,7 @@
                 android:id="@+id/btn_main_test"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="测试"/>
+                android:text="共享元素"/>
 
         </LinearLayout>
 

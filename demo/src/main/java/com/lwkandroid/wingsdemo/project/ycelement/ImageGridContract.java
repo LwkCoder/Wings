@@ -1,4 +1,4 @@
-package com.lwkandroid.wingsdemo.project.test;
+package com.lwkandroid.wingsdemo.project.ycelement;
 
 import com.lwkandroid.wingsdemo.app.AppBaseModel;
 import com.lwkandroid.wingsdemo.app.AppBasePresenter;
@@ -9,7 +9,7 @@ import com.lwkandroid.wingsdemo.app.IAppBaseView;
  *  契约类
  */
 
-public interface TestContract
+public interface ImageGridContract
 {
     interface IView extends IAppBaseView
     {

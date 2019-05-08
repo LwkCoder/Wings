@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".project.test.TestActivity">
+    tools:context=".project.ycelement.ImageGridActivity">
 
     <com.lwkandroid.widget.comactionbar.ComActionBar
         android:id="@+id/cab_test"
@@ -15,5 +15,14 @@
         app:bg_color="@color/deep_dark"
         app:is_left_as_back="true"
         app:title_text="Test"/>
+
+    <com.lwkandroid.widget.ninegridview.NineGridView
+        android:id="@+id/ngv_test"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/spacing_normal"
+        app:is_edit_mode="true"
+        app:max_num="9"
+        app:single_image_ratio="0.2"/>
 
 </LinearLayout>
