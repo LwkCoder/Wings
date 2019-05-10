@@ -1,10 +1,14 @@
 package com.lwkandroid.wingsdemo.app;
 
+import android.content.Context;
+
 import com.lwkandroid.wings.app.WingsApplication;
 import com.lwkandroid.wings.app.WingsInitOperator;
 import com.lwkandroid.wings.log.KLog;
 import com.lwkandroid.wingsdemo.BuildConfig;
 import com.lwkandroid.wingsdemo.net.ApiURL;
+
+import androidx.multidex.MultiDex;
 
 /**
  * Created by LWK
@@ -13,6 +17,14 @@ import com.lwkandroid.wingsdemo.net.ApiURL;
 
 public class DemoApplication extends WingsApplication
 {
+    @Override
+    protected void attachBaseContext(Context base)
+    {
+        super.attachBaseContext(base);
+        // 将MultiDex注入到项目中
+        MultiDex.install(this);
+    }
+
     @Override
     protected void initBuildConfig()
     {

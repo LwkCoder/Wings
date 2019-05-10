@@ -18,6 +18,9 @@ android {
         versionCode appConfig.versionCode
         versionName appConfig.versionName
 
+        // 设置MultiDex可用
+        multiDexEnabled true
+
         javaCompileOptions {
             annotationProcessorOptions {
                 includeCompileClasspath true
@@ -95,4 +98,6 @@ dependencies {
 //    implementation 'com.github.chrisbanes:PhotoView:2.0.0'
     implementation 'androidx.viewpager2:viewpager2:1.0.0-alpha03'
     implementation 'com.lwkandroid:ViewPagerAdapter:1.1.1'
+    implementation 'com.jakewharton.rxbinding3:rxbinding-core:3.0.0-alpha2'
+//    implementation 'com.jakewharton.rxbinding3:rxbinding-appcompat:3.0.0-alpha2'
 }
