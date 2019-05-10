@@ -2,4 +2,5 @@
 <resources>
     <item name="advanced_webview" type="id"/>
     <item name="comactionbar" type="id"/>
+    <item name="share_element_info" type="id"/>
 </resources>

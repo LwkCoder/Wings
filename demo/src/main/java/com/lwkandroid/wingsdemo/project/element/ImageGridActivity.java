@@ -1,4 +1,4 @@
-package com.lwkandroid.wingsdemo.project.ycelement;
+package com.lwkandroid.wingsdemo.project.element;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,11 +7,6 @@ import android.os.Parcelable;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.hw.ycshareelement.TransitionHelper;
-import com.hw.ycshareelement.YcShareElement;
-import com.hw.ycshareelement.transition.IShareElementSelector;
-import com.hw.ycshareelement.transition.IShareElements;
-import com.hw.ycshareelement.transition.ShareElementInfo;
 import com.lwkandroid.imagepicker.ImagePicker;
 import com.lwkandroid.imagepicker.data.ImageBean;
 import com.lwkandroid.imagepicker.data.ImagePickType;
@@ -22,6 +17,10 @@ import com.lwkandroid.widget.ninegridview.NineGridView;
 import com.lwkandroid.wings.image.ImageLoader;
 import com.lwkandroid.wingsdemo.R;
 import com.lwkandroid.wingsdemo.app.AppBaseActivity;
+import com.lwkandroid.wingsdemo.utils.element.YcShareElement;
+import com.lwkandroid.wingsdemo.utils.element.transition.IShareElementSelector;
+import com.lwkandroid.wingsdemo.utils.element.transition.IShareElements;
+import com.lwkandroid.wingsdemo.utils.element.transition.ShareElementInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +40,7 @@ public class ImageGridActivity extends AppBaseActivity<ImageGridPresenter> imple
     @Override
     protected void setBarColor()
     {
-        TransitionHelper.enableTransition(this);
+        YcShareElement.enableTransition(this);
         super.setBarColor();
     }
 
@@ -91,7 +90,8 @@ public class ImageGridActivity extends AppBaseActivity<ImageGridPresenter> imple
         mGridBean = gridBean;
         Intent intent = new Intent(this, ImageDetailActivity.class);
         intent.putExtra(ImageDetailActivity.INTENT_KEY_INDEX, position);
-        intent.putParcelableArrayListExtra(ImageDetailActivity.INTENT_KEY_DATA, (ArrayList<? extends Parcelable>) mNineGridView.getDataList());
+        intent.putParcelableArrayListExtra(ImageDetailActivity.INTENT_KEY_DATA,
+                (ArrayList<? extends Parcelable>) mNineGridView.getDataList());
 
         //1.2.3版本的NineGridView默认设置了NineGridImageContainer中ImageView的TransitionName为originUrl
         Bundle bundle = YcShareElement.buildOptionsBundle(this, this);

@@ -1,8 +1,7 @@
-package com.lwkandroid.wingsdemo.project.ycelement;
+package com.lwkandroid.wingsdemo.project.element;
 
 import android.content.Context;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.lwkandroid.vpadapter.VPHolder;
 import com.lwkandroid.vpadapter.VPSingleItemAdapter;
@@ -10,6 +9,7 @@ import com.lwkandroid.widget.ninegridview.NineGridBean;
 import com.lwkandroid.wings.image.ImageLoader;
 import com.lwkandroid.wings.utils.ScreenUtils;
 import com.lwkandroid.wingsdemo.R;
+import com.lwkandroid.wingsdemo.widget.photoview.PhotoView;
 
 import java.util.List;
 
@@ -40,7 +40,7 @@ public class ImageDetailAdapter extends VPSingleItemAdapter<NineGridBean>
     @Override
     public void onBindView(VPHolder holder, NineGridBean nineGridBean, int position)
     {
-        ImageView imageView = holder.findView(R.id.img_adapter_image_detail);
+        PhotoView imageView = holder.findView(R.id.img_adapter_image_detail);
         ViewCompat.setTransitionName(imageView, nineGridBean.getOriginUrl());
         ImageLoader.load(nineGridBean.getOriginUrl())
                 .setSize(MAX_WIDTH, MAX_HEIGHT)

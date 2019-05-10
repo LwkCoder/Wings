@@ -14,9 +14,9 @@
         android:theme="@style/AppTheme"
         tools:targetApi="n">
         <activity
-            android:name=".project.ycelement.ImageDetailActivity"
+            android:name=".project.element.ImageDetailActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/BaseActivityStyle">
+            android:theme="@style/TranslucentActivityStyle">
         </activity>
         <activity android:name=".project.encrypt.EncryptActivity">
         </activity>
@@ -50,7 +50,7 @@
             android:theme="@style/BaseActivityStyle">
         </activity>
         <activity
-            android:name=".project.ycelement.ImageGridActivity"
+            android:name=".project.element.ImageGridActivity"
             android:theme="@style/BaseActivityStyle">
         </activity>
         <activity

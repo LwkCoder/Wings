@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
+    android:id="@+id/fl_image_detail_container"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/black"
-    tools:context=".project.ycelement.ImageDetailActivity">
+    tools:context=".project.element.ImageDetailActivity"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.viewpager.widget.ViewPager
+    <com.lwkandroid.wingsdemo.widget.CustomViewPager
         android:id="@+id/vp_image_detail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

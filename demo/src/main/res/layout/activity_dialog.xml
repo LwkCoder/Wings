@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="@dimen/spacing_normal"
-    tools:context=".project.ycelement.ImageGridActivity">
+    tools:context=".project.element.ImageGridActivity">
 
     <Button
         android:id="@+id/btn_show_progress"

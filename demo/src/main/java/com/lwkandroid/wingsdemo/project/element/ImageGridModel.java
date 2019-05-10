@@ -1,4 +1,4 @@
-package com.lwkandroid.wingsdemo.project.ycelement;
+package com.lwkandroid.wingsdemo.project.element;
 
 /**
  * Created by LWK

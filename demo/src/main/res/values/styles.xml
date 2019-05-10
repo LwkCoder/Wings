@@ -13,4 +13,9 @@
         <item name="android:windowExitAnimation">@anim/pop_menu_slide_out</item>
     </style>
 
+    <style name="TranslucentActivityTheme" parent="BaseActivityStyle">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
 </resources>

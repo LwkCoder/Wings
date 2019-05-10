@@ -1,7 +1,7 @@
 package com.lwkandroid.wings.rx.lifecycle;
 
-import javax.annotation.Nonnull;
 
+import androidx.annotation.NonNull;
 import io.reactivex.Observable;
 import io.reactivex.functions.Predicate;
 
@@ -18,8 +18,8 @@ public final class RxLifeCycle
         throw new IllegalArgumentException("Can't instantiate this class !");
     }
 
-    public static <T> RxLifecycleTransformer<T> bindUntilEvent(@Nonnull final Observable<Integer> lifecycle,
-                                                               @Nonnull @RxLifeCycleEvent final Integer event)
+    public static <T> RxLifecycleTransformer<T> bindUntilEvent(@NonNull final Observable<Integer> lifecycle,
+                                                               @NonNull @RxLifeCycleEvent final Integer event)
     {
         return new RxLifecycleTransformer<T>(takeUntilEvent(lifecycle, event));
     }

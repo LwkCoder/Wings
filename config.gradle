@@ -41,7 +41,7 @@ ext {
     RXJava2Version = "2.2.7"
     RXAndroidVersion = "2.1.1"
     BGACodeVersion = "1.3.6"
-    ComActionBarVersion = "1.1.6"
+    ComActionBarVersion = "1.1.7"
     LeakCanaryVersion = "1.6.3"
     StethoVersion = "1.5.0"
     DiskLruCacheVersion = "2.0.2"

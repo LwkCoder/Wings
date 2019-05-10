@@ -14,7 +14,7 @@ import com.lwkandroid.wingsdemo.project.list.ListDemoActivity;
 import com.lwkandroid.wingsdemo.project.pop.PopDemoActivity;
 import com.lwkandroid.wingsdemo.project.qrcode.QRCodeDemoActivity;
 import com.lwkandroid.wingsdemo.project.rxhttp.RxHttpDemoActivity;
-import com.lwkandroid.wingsdemo.project.ycelement.ImageGridActivity;
+import com.lwkandroid.wingsdemo.project.element.ImageGridActivity;
 
 import androidx.annotation.Nullable;
 
