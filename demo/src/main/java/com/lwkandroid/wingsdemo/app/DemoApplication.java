@@ -7,6 +7,8 @@ import com.lwkandroid.wings.Wings;
 import com.lwkandroid.wings.app.WingsInitOptions;
 import com.lwkandroid.wingsdemo.BuildConfig;
 import com.lwkandroid.wingsdemo.net.ApiURL;
+import com.lwkandroid.wingsdemo.net.TestDynamicHeadersInterceptor;
+import com.lwkandroid.wingsdemo.net.TestDynamicParamsInterceptor;
 
 import androidx.multidex.MultiDex;
 
@@ -36,6 +38,8 @@ public class DemoApplication extends Application
         WingsInitOptions options = new WingsInitOptions();
         options.setApplicationContext(this);
         options.setApiBaseUrl(ApiURL.HOST);
+        options.getRxHttpGlobalOptions().addInterceptor("ParamsInterceptor", new TestDynamicParamsInterceptor());
+        options.getRxHttpGlobalOptions().addInterceptor("HeadersInterceptor", new TestDynamicHeadersInterceptor());
         Wings.init(options);
     }
 

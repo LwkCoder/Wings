@@ -12,30 +12,27 @@ import okhttp3.Response;
 
 /**
  * Created by LWK
- *  网络请求Header拦截器
+ * OkHttp Headers拦截器，用于对所有请求添加公共动态Header
+ * 需要配合RxHttp.getGlobalOptions().addInterceptor(String tag,Interceptor interceptor)使用
+ * 【不可使用addNetInterceptor】
  */
-public class ApiHeaderInterceptor implements Interceptor
+public abstract class ApiHeaderInterceptor implements Interceptor
 {
     private static final String TAG = "ApiHeaderInterceptor";
-    private Map<String, String> mHeaderMap;
-
-    public ApiHeaderInterceptor(Map<String, String> headerMap)
-    {
-        this.mHeaderMap = headerMap;
-    }
 
     @Override
     public Response intercept(Chain chain) throws IOException
     {
         Request.Builder builder = chain.request().newBuilder();
-        if (mHeaderMap == null || mHeaderMap.isEmpty())
+        Map<String, String> headersMap = createHeaders();
+        if (headersMap == null || headersMap.isEmpty())
         {
             return chain.proceed(builder.build());
         }
 
         try
         {
-            for (Map.Entry<String, String> entry : mHeaderMap.entrySet())
+            for (Map.Entry<String, String> entry : headersMap.entrySet())
             {
                 builder.addHeader(entry.getKey(), entry.getValue()).build();
             }
@@ -45,4 +42,6 @@ public class ApiHeaderInterceptor implements Interceptor
         }
         return chain.proceed(builder.build());
     }
+
+    public abstract Map<String, String> createHeaders();
 }

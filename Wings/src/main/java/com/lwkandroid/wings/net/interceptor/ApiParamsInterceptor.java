@@ -23,10 +23,11 @@ import okhttp3.Response;
 
 /**
  * Created by LWK
- * OkHttp参数拦截器，用于统一对参数进行处理
- * 似乎无效，如需添加动态参数，请使用RxHttp.getGlobalOptions.addDynamicFormData(String key, IApiDynamicFormData dataCallBack);
+ * OkHttp参数拦截器，用于对所有请求添加公共动态参数
+ * 需要配合RxHttp.getGlobalOptions().addInterceptor(String tag,Interceptor interceptor)使用
+ * 【不可使用addNetInterceptor】
+ * 此外还可使用RxHttp.getGlobalOptions.addDynamicFormData(String key, IApiDynamicFormData dataCallBack);
  */
-@Deprecated
 public abstract class ApiParamsInterceptor implements Interceptor
 {
     private static final Charset UTF8 = Charset.forName("UTF-8");
@@ -83,7 +84,7 @@ public abstract class ApiParamsInterceptor implements Interceptor
         }
         String nameKeys = Collections.singletonList(nameList).toString();
         //组装新的参数
-        TreeMap<String, Object> newParams = dynamic(oldParams);
+        TreeMap<String, Object> newParams = addParams(oldParams);
         for (Map.Entry<String, Object> entry : newParams.entrySet())
         {
             String urlValue = URLEncoder.encode(String.valueOf(entry.getValue()), UTF8.name());
@@ -114,7 +115,7 @@ public abstract class ApiParamsInterceptor implements Interceptor
             }
 
             //拼装新的参数
-            TreeMap<String, Object> newParams = dynamic(oldParams);
+            TreeMap<String, Object> newParams = addParams(oldParams);
             for (Map.Entry<String, Object> entry : newParams.entrySet())
             {
                 String value = URLDecoder.decode(String.valueOf(entry.getValue()), UTF8.name());
@@ -131,7 +132,7 @@ public abstract class ApiParamsInterceptor implements Interceptor
             //拼装新的参数
             List<MultipartBody.Part> newParts = new ArrayList<>(oldParts);
             TreeMap<String, Object> oldParams = new TreeMap<>();
-            TreeMap<String, Object> newParams = dynamic(oldParams);
+            TreeMap<String, Object> newParams = addParams(oldParams);
             for (Map.Entry<String, Object> entry : newParams.entrySet())
             {
                 MultipartBody.Part part = MultipartBodyUtils.createFormDataPart(entry.getKey(), entry.getValue());
@@ -150,5 +151,5 @@ public abstract class ApiParamsInterceptor implements Interceptor
     /**
      * 子类实现该方法对参数进行动态修改
      */
-    public abstract TreeMap<String, Object> dynamic(TreeMap<String, Object> oldParams);
+    public abstract TreeMap<String, Object> addParams(TreeMap<String, Object> oldParams);
 }

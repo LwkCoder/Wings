@@ -63,7 +63,7 @@ public final class RetrofitUtils
         Map<String, String> globalHeadersMap = globalOptions.getHeadersMap();
         if (globalHeadersMap != null && globalHeadersMap.size() > 0)
         {
-            builder.addInterceptor(new ApiHeaderInterceptor(globalHeadersMap));
+            builder.addInterceptor(new HeaderInterceptor(globalHeadersMap));
         }
 
         /*添加全局拦截器*/
@@ -108,4 +108,22 @@ public final class RetrofitUtils
         return retroBuilder.build();
     }
 
+    /**
+     * 用于配合Retrofit添加全局Header的拦截器
+     */
+    private static class HeaderInterceptor extends ApiHeaderInterceptor
+    {
+        private Map<String, String> mHeadersMap;
+
+        public HeaderInterceptor(Map<String, String> headersMap)
+        {
+            this.mHeadersMap = headersMap;
+        }
+
+        @Override
+        public Map<String, String> createHeaders()
+        {
+            return mHeadersMap;
+        }
+    }
 }

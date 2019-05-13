@@ -534,7 +534,7 @@ public class ApiGlobalOptions implements IRequestOptions.Common<ApiGlobalOptions
         }
         if (dataCallBack == null)
         {
-            throw new IllegalArgumentException("RxHttp dynamic FormData's callback can not be null !");
+            throw new IllegalArgumentException("RxHttp addParams FormData's callback can not be null !");
         }
         getDynamicFormDataMap().put(key, dataCallBack);
         return this;
