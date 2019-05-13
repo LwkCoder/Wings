@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.getkeepsafe.dexcount'
 
 def appConfig = rootProject.ext.appConfig
 def urls = rootProject.ext.url
