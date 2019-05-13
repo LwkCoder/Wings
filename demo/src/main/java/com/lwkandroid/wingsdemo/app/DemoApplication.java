@@ -1,10 +1,10 @@
 package com.lwkandroid.wingsdemo.app;
 
+import android.app.Application;
 import android.content.Context;
 
-import com.lwkandroid.wings.app.WingsApplication;
-import com.lwkandroid.wings.app.WingsInitOperator;
-import com.lwkandroid.wings.log.KLog;
+import com.lwkandroid.wings.Wings;
+import com.lwkandroid.wings.app.WingsInitOptions;
 import com.lwkandroid.wingsdemo.BuildConfig;
 import com.lwkandroid.wingsdemo.net.ApiURL;
 
@@ -15,7 +15,7 @@ import androidx.multidex.MultiDex;
  * Application入口
  */
 
-public class DemoApplication extends WingsApplication
+public class DemoApplication extends Application
 {
     @Override
     protected void attachBaseContext(Context base)
@@ -26,24 +26,18 @@ public class DemoApplication extends WingsApplication
     }
 
     @Override
-    protected void initBuildConfig()
+    public void onCreate()
     {
+        super.onCreate();
         AppConfig.WX_APP_ID = BuildConfig.WX_APP_ID;
         AppConfig.WX_APP_SECRET = BuildConfig.WX_APP_SECRET;
         ApiURL.HOST = BuildConfig.HOST;
 
-        KLog.i("WX_APP_ID=" + AppConfig.WX_APP_ID + " WX_APP_SECRET=" + AppConfig.WX_APP_SECRET + " API_HOST=" + ApiURL.HOST);
+        WingsInitOptions options = new WingsInitOptions();
+        options.setApplicationContext(this);
+        options.setApiBaseUrl(ApiURL.HOST);
+        Wings.init(options);
     }
 
-    @Override
-    protected WingsInitOperator getWingsInitOptions()
-    {
-        return new AppInitOptions(this);
-    }
 
-    @Override
-    protected void initExtraLibraries()
-    {
-
-    }
 }

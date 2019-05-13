@@ -1,10 +1,11 @@
 package com.sources.javacode.app;
 
+import android.app.Application;
 import android.os.Build;
 
 import com.lwkandroid.wings.DebugTools;
-import com.lwkandroid.wings.app.WingsApplication;
-import com.lwkandroid.wings.app.WingsInitOperator;
+import com.lwkandroid.wings.Wings;
+import com.lwkandroid.wings.app.WingsInitOptions;
 import com.lwkandroid.wings.log.KLog;
 import com.lwkandroid.wings.utils.AppUtils;
 import com.sources.javacode.BuildConfig;
@@ -12,34 +13,23 @@ import com.sources.javacode.net.ApiURL;
 
 /**
  * Created by LWK
- *  Application入口
+ * Application入口
  */
 
-public class AppApplication extends WingsApplication
+public class AppApplication extends Application
 {
-    @Override
-    protected void initBuildConfig()
-    {
-        ApiURL.HOST = BuildConfig.HOST;
-        AppConfig.CHANNEL_NAME = BuildConfig.APP_CHANNEL;
-    }
-
-    @Override
-    protected WingsInitOperator getWingsInitOptions()
-    {
-        return new AppInitOptions(this);
-    }
-
-    @Override
-    protected void initExtraLibraries()
-    {
-
-    }
-
     @Override
     public void onCreate()
     {
         super.onCreate();
+        ApiURL.HOST = BuildConfig.HOST;
+        AppConfig.CHANNEL_NAME = BuildConfig.APP_CHANNEL;
+
+        WingsInitOptions options = new WingsInitOptions();
+        options.setApplicationContext(this);
+        options.setApiBaseUrl(ApiURL.HOST);
+        Wings.init(options);
+
         if (DebugTools.DEBUG)
         {
             KLog.i(new StringBuilder()
