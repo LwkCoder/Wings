@@ -7,7 +7,7 @@ import com.lwkandroid.wings.net.RxHttp;
 import com.lwkandroid.wings.net.bean.ApiException;
 import com.lwkandroid.wings.net.bean.ApiResultCacheWrapper;
 import com.lwkandroid.wings.net.constants.ApiCacheMode;
-import com.lwkandroid.wings.net.convert.ApiResponseConvert;
+import com.lwkandroid.wings.net.convert.ApiResponseConverter;
 import com.lwkandroid.wings.net.utils.FormDataMap;
 import com.lwkandroid.wings.utils.SDCardUtils;
 import com.lwkandroid.wings.utils.StringUtils;
@@ -51,7 +51,7 @@ public class RxHttpDemoModel extends RxHttpDemoContract.Model
                 .createWithGlobalOptions()
                 .create(CustomService.class)
                 .customGet(ApiURL.TEST, new FormDataMap().addParam("webp", "1"))
-                .compose(ApiResponseConvert.responseToString())//先将ResponseBody转为String结果的数据
+                .compose(ApiResponseConverter.responseToString())//先将ResponseBody转为String结果的数据
                 .compose(RxHttp.getGlobalOptions().getApiStringParser().parseAsList(TabsBean.class));//再将String数据解析为所需数据集合
     }
 
@@ -65,7 +65,7 @@ public class RxHttpDemoModel extends RxHttpDemoContract.Model
                 .createWithGlobalOptions()
                 .create(CustomService.class)
                 .customPost(ApiURL.CUSTOM_POST, map)
-                .compose(ApiResponseConvert.responseToString());
+                .compose(ApiResponseConverter.responseToString());
     }
 
     @Override

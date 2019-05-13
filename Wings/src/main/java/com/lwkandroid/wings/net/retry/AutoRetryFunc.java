@@ -20,9 +20,9 @@ public class AutoRetryFunc implements Function<Observable<? extends Throwable>, 
     //重试的Url，用来打日志
     private String mUrl;
     //重试次数
-    private int mRetryCount = 0;
+    private int mRetryCount;
     //每次重试间隔时间
-    private int mRetryDelay = 500;
+    private int mRetryDelay;
     //自动重试判断条件
     private IAutoRetry mAutoRetry;
 

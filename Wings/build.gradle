@@ -43,7 +43,7 @@ dependencies {
     annotationProcessor "com.github.bumptech.glide:compiler:$GlideVersion"
     api "com.lwkandroid:ImagePicker:$ImagePickerVersion"
     api "com.squareup.retrofit2:retrofit:$RetrofitVersion"
-    api "com.squareup.retrofit2:converter-gson:$RetrofitVersion"
+//    api "com.squareup.retrofit2:converter-gson:$RetrofitVersion"
     api "com.squareup.retrofit2:adapter-rxjava2:$RetrofitVersion"
 
     debugApi "com.squareup.leakcanary:leakcanary-android:$LeakCanaryVersion"

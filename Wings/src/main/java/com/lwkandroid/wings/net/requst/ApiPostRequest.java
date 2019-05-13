@@ -8,7 +8,7 @@ import com.lwkandroid.wings.net.cache.func.ApiCacheDataParseAsDataFunc;
 import com.lwkandroid.wings.net.cache.func.ApiCacheDataParseAsListFunc;
 import com.lwkandroid.wings.net.constants.ApiConstants;
 import com.lwkandroid.wings.net.constants.ApiRequestType;
-import com.lwkandroid.wings.net.convert.ApiResponseConvert;
+import com.lwkandroid.wings.net.convert.ApiResponseConverter;
 import com.lwkandroid.wings.net.error.ApiExceptionTransformer;
 import com.lwkandroid.wings.net.response.IApiStringResponse;
 import com.lwkandroid.wings.net.retry.AutoRetryFunc;
@@ -85,7 +85,7 @@ public class ApiPostRequest extends ApiBaseRequest<ApiPostRequest> implements IA
     public Observable<ApiResultCacheWrapper<String>> returnStringResponseWithCacheWrapped()
     {
         return invokeRequest()
-                .compose(ApiResponseConvert.responseToString())
+                .compose(ApiResponseConverter.responseToString())
                 .compose(RxCache.transform(getFinalCacheOptions(), String.class))
                 .compose(new ApiExceptionTransformer<ApiResultCacheWrapper<String>>())
                 .retryWhen(new AutoRetryFunc(getSubUrl(), getAutoRetryCount(), getAutoRetryDelay(), getAutoRetryJudge()));
