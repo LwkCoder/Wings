@@ -128,7 +128,7 @@ public final class RetrofitUtils
     {
         private Map<String, String> mHeadersMap;
 
-        public HeaderInterceptor(Map<String, String> headersMap)
+        HeaderInterceptor(Map<String, String> headersMap)
         {
             this.mHeadersMap = headersMap;
         }
