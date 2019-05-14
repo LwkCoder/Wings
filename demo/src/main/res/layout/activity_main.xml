@@ -69,10 +69,16 @@
                 android:text="加密解密"/>
 
             <Button
-                android:id="@+id/btn_main_test"
+                android:id="@+id/btn_main_element"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="共享元素（模仿微信查看大图）"/>
+
+            <Button
+                android:id="@+id/btn_main_test"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="测试"/>
 
         </LinearLayout>
 

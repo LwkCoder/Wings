@@ -8,13 +8,14 @@ import com.lwkandroid.widget.comactionbar.ComActionBar;
 import com.lwkandroid.wingsdemo.R;
 import com.lwkandroid.wingsdemo.app.AppBaseActivity;
 import com.lwkandroid.wingsdemo.project.dialog.DialogDemoActivity;
+import com.lwkandroid.wingsdemo.project.element.ImageGridActivity;
 import com.lwkandroid.wingsdemo.project.encrypt.EncryptActivity;
 import com.lwkandroid.wingsdemo.project.image.ImageLoaderDemoActivity;
 import com.lwkandroid.wingsdemo.project.list.ListDemoActivity;
 import com.lwkandroid.wingsdemo.project.pop.PopDemoActivity;
 import com.lwkandroid.wingsdemo.project.qrcode.QRCodeDemoActivity;
 import com.lwkandroid.wingsdemo.project.rxhttp.RxHttpDemoActivity;
-import com.lwkandroid.wingsdemo.project.element.ImageGridActivity;
+import com.lwkandroid.wingsdemo.project.test.TestActivity;
 
 import androidx.annotation.Nullable;
 
@@ -75,7 +76,7 @@ public class MainActivity extends AppBaseActivity<MainPresenter> implements Main
                 startActivity(new Intent(MainActivity.this, ListDemoActivity.class));
             }
         });
-        addClick(R.id.btn_main_test, new View.OnClickListener()
+        addClick(R.id.btn_main_element, new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
@@ -97,6 +98,14 @@ public class MainActivity extends AppBaseActivity<MainPresenter> implements Main
             public void onClick(View v)
             {
                 startActivity(new Intent(MainActivity.this, EncryptActivity.class));
+            }
+        });
+        addClick(R.id.btn_main_test, new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                startActivity(new Intent(MainActivity.this, TestActivity.class));
             }
         });
     }

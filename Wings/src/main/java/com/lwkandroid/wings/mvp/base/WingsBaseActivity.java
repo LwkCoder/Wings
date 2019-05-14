@@ -1,6 +1,5 @@
 package com.lwkandroid.wings.mvp.base;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -22,8 +21,7 @@ public abstract class WingsBaseActivity<P extends MVPBasePresenter> extends AppC
         IContentView, IMVPBaseView, ContentViewImpl.onClickListenerDispatcher, View.OnClickListener
 {
     private final String TAG = getClass().getSimpleName();
-    private P mPresenter;
-    private MVPBaseViewImpl mMVPViewImpl = new MVPBaseViewImpl();
+    private MVPBaseViewImpl<P> mMVPViewImpl = new MVPBaseViewImpl<P>();
     private ContentViewImpl mContentViewImpl = new ContentViewImpl(this);
 
     @Override
@@ -31,14 +29,9 @@ public abstract class WingsBaseActivity<P extends MVPBasePresenter> extends AppC
     {
         setBarColor();
         super.onCreate(savedInstanceState);
-        mMVPViewImpl.attachToActivity(this);
-        mPresenter = mMVPViewImpl.createPresenter(this.getClass());
+        mMVPViewImpl.createPresenterAndAttachView(this);
         getIntentData(getIntent(), false);
         setContentView(mContentViewImpl.inflateContentView(this, getContentViewId()));
-        if (getPresenter() != null)
-        {
-            getPresenter().attachWithView(this);
-        }
         initUI(getContentView());
         initData(savedInstanceState);
         publishLifeCycleEvent(RxLifeCycleConstants.ON_CREATE);
@@ -181,15 +174,9 @@ public abstract class WingsBaseActivity<P extends MVPBasePresenter> extends AppC
     }
 
     @Override
-    public Activity getAttachedActivity()
+    public P getPresenter()
     {
-        return mMVPViewImpl.getAttachedActivity();
-    }
-
-    //获取Presenter对象
-    protected P getPresenter()
-    {
-        return mPresenter;
+        return mMVPViewImpl.getPresenter();
     }
 
     /**

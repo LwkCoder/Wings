@@ -1,7 +1,5 @@
 package com.lwkandroid.wings.mvp.base;
 
-import android.app.Activity;
-
 import com.lwkandroid.wings.rx.lifecycle.IRxLifeCyclePublisher;
 
 import androidx.annotation.StringRes;
@@ -11,9 +9,9 @@ import androidx.annotation.StringRes;
  * MVP模版中View的基础接口
  */
 
-public interface IMVPBaseView extends IRxLifeCyclePublisher
+public interface IMVPBaseView<P extends MVPBasePresenter> extends IRxLifeCyclePublisher
 {
-    Activity getAttachedActivity();
+    P getPresenter();
 
     void showShortToast(@StringRes int resId);
 

@@ -1,7 +1,5 @@
 package com.lwkandroid.wings.mvp.base;
 
-import android.app.Activity;
-
 import com.lwkandroid.wings.log.KLog;
 import com.lwkandroid.wings.rx.lifecycle.RxLifeCyclePublisherImpl;
 import com.lwkandroid.wings.utils.ReflectUtils;
@@ -17,20 +15,21 @@ import io.reactivex.subjects.PublishSubject;
  * MVP模版中View层实现类
  * 【实现最基础的一些方法】
  */
-public class MVPBaseViewImpl implements IMVPBaseView
+public class MVPBaseViewImpl<P extends MVPBasePresenter> implements IMVPBaseView
 {
     private RxLifeCyclePublisherImpl mLifeCycleImpl = new RxLifeCyclePublisherImpl();
-    private Activity mActivity;
+    private P mPresenter;
 
-    void attachToActivity(Activity activity)
-    {
-        this.mActivity = activity;
-    }
-
-    <P> P createPresenter(Class viewClass)
+    /**
+     * 创建Presenter、关联View层对象
+     *
+     * @param view MVP View层对象
+     */
+    void createPresenterAndAttachView(IMVPBaseView view)
     {
         try
         {
+            Class viewClass = view.getClass();
             Type superType = viewClass.getGenericSuperclass();
             if (superType instanceof ParameterizedType)
             {
@@ -39,12 +38,9 @@ public class MVPBaseViewImpl implements IMVPBaseView
                 if (types.length > 0)
                 {
                     Class pClass = (Class) types[0];
-                    P presenter = ReflectUtils.reflect(pClass).newInstance().get();
-                    KLog.d("Create Presenter success: " + presenter.getClass().getSimpleName());
-                    return presenter;
-                    //NOTICE ：不能通过下面的方式反射
-                    //否则会报错：java.lang.SecurityException: Can not make a java.lang.Class constructor accessible
-                    //                    return ReflectUtils.reflect(types[0]).newInstance().get();
+                    mPresenter = ReflectUtils.reflect(pClass).newInstance().get();
+                    mPresenter.attachWithView(view);
+                    KLog.d("Create Presenter success: " + mPresenter.getClass().getSimpleName());
                 }
             } else
             {
@@ -54,13 +50,12 @@ public class MVPBaseViewImpl implements IMVPBaseView
         {
             KLog.w("Can not reflect INSTANCE of Presenter:" + e.toString());
         }
-        return (P) new DefaultMVPPresenter();
     }
 
     @Override
-    public Activity getAttachedActivity()
+    public P getPresenter()
     {
-        return mActivity;
+        return mPresenter;
     }
 
     @Override

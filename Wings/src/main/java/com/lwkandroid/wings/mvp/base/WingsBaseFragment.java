@@ -1,6 +1,5 @@
 package com.lwkandroid.wings.mvp.base;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -25,15 +24,14 @@ public abstract class WingsBaseFragment<P extends MVPBasePresenter> extends Frag
         , View.OnClickListener
 {
     private final String TAG = getClass().getSimpleName();
-    private P mPresenter;
-    private MVPBaseViewImpl mMVPViewImpl = new MVPBaseViewImpl();
+    private MVPBaseViewImpl<P> mMVPViewImpl = new MVPBaseViewImpl<P>();
     private ContentViewImpl mContentViewImpl = new ContentViewImpl(this);
 
     @Override
     public void onAttach(Context context)
     {
         super.onAttach(context);
-        mMVPViewImpl.attachToActivity(getActivity());
+        mMVPViewImpl.createPresenterAndAttachView(this);
         publishLifeCycleEvent(RxLifeCycleConstants.ON_ATTACH);
     }
 
@@ -58,11 +56,6 @@ public abstract class WingsBaseFragment<P extends MVPBasePresenter> extends Frag
     {
         super.onActivityCreated(savedInstanceState);
         getArgumentsData(getArguments(), savedInstanceState);
-        mPresenter = mMVPViewImpl.createPresenter(this.getClass());
-        if (getPresenter() != null)
-        {
-            getPresenter().attachWithView(this);
-        }
         initUI(getContentView());
         initData(savedInstanceState);
         publishLifeCycleEvent(RxLifeCycleConstants.ON_ACTIVITY_CREATED);
@@ -212,15 +205,9 @@ public abstract class WingsBaseFragment<P extends MVPBasePresenter> extends Frag
     }
 
     @Override
-    public Activity getAttachedActivity()
+    public P getPresenter()
     {
-        return mMVPViewImpl.getAttachedActivity();
-    }
-
-    //获取Presenter对象
-    protected P getPresenter()
-    {
-        return mPresenter;
+        return mMVPViewImpl.getPresenter();
     }
 
     /**
