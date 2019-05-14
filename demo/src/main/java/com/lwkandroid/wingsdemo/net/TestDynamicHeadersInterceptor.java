@@ -17,7 +17,7 @@ public class TestDynamicHeadersInterceptor extends ApiHeaderInterceptor
     public Map<String, String> createHeaders()
     {
         Map<String, String> map = new TreeMap<>();
-        map.put("MyHeader", "RxHttpHeader");
+        map.put("InterceptorDynamicHeaderTag", "InterceptorDynamicHeaderValue");
         return map;
     }
 }

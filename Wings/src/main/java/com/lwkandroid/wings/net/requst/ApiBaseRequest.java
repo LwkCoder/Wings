@@ -1,12 +1,14 @@
 package com.lwkandroid.wings.net.requst;
 
+import com.lwkandroid.wings.DebugTools;
 import com.lwkandroid.wings.net.ApiService;
 import com.lwkandroid.wings.net.RxHttp;
 import com.lwkandroid.wings.net.bean.ApiCacheOptions;
 import com.lwkandroid.wings.net.bean.ApiRequestOptions;
+import com.lwkandroid.wings.net.bean.IApiDynamicFormData;
+import com.lwkandroid.wings.net.bean.IApiDynamicHeader;
 import com.lwkandroid.wings.net.constants.ApiRequestType;
 import com.lwkandroid.wings.net.utils.FormDataMap;
-import com.lwkandroid.wings.net.bean.IApiDynamicFormData;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,21 +40,21 @@ public abstract class ApiBaseRequest<T extends ApiRequestOptions> extends ApiReq
      */
     public Observable<ResponseBody> invokeRequest()
     {
-        OkHttpClient.Builder okBuilder = new OkHttpClient.Builder();
-        okBuilder.readTimeout(getReadTimeOut(), TimeUnit.MILLISECONDS);
-        okBuilder.writeTimeout(getWriteTimeOut(), TimeUnit.MILLISECONDS);
-        okBuilder.connectTimeout(getConnectTimeOut(), TimeUnit.MILLISECONDS);
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        builder.readTimeout(getReadTimeOut(), TimeUnit.MILLISECONDS);
+        builder.writeTimeout(getWriteTimeOut(), TimeUnit.MILLISECONDS);
+        builder.connectTimeout(getConnectTimeOut(), TimeUnit.MILLISECONDS);
 
         /*设置HostnameVerifier*/
         if (getHostnameVerifier() != null)
         {
-            okBuilder.hostnameVerifier(getHostnameVerifier());
+            builder.hostnameVerifier(getHostnameVerifier());
         }
 
         /*设置Https证书*/
         if (getHttpsSSLParams() != null)
         {
-            okBuilder.sslSocketFactory(getHttpsSSLParams().sSLSocketFactory, getHttpsSSLParams().trustManager);
+            builder.sslSocketFactory(getHttpsSSLParams().sSLSocketFactory, getHttpsSSLParams().trustManager);
         }
 
         //设置拦截器
@@ -64,8 +66,13 @@ public abstract class ApiBaseRequest<T extends ApiRequestOptions> extends ApiReq
         {
             for (Interceptor interceptor : allInterceptorMap.values())
             {
-                okBuilder.addInterceptor(interceptor);
+                builder.addInterceptor(interceptor);
             }
+        }
+        builder.addInterceptor(RxHttp.getProgressInterceptor());
+        if (DebugTools.DEBUG)
+        {
+            builder.addInterceptor(RxHttp.getApiLogInterceptor());
         }
 
         //设置网络拦截器
@@ -77,15 +84,20 @@ public abstract class ApiBaseRequest<T extends ApiRequestOptions> extends ApiReq
         {
             for (Interceptor interceptor : allNetInterceptorMap.values())
             {
-                okBuilder.addNetworkInterceptor(interceptor);
+                builder.addNetworkInterceptor(interceptor);
             }
         }
 
         //获取Headers
+        Map<String, String> globalHeaderMap = RxHttp.getGlobalOptions().getHeadersMap();
+        Map<String, IApiDynamicHeader> globalDynamicHeaderMap = RxHttp.getGlobalOptions().getDynamicHeaderMap();
+        for (Map.Entry<String, IApiDynamicHeader> entry : globalDynamicHeaderMap.entrySet())
+        {
+            globalHeaderMap.put(entry.getKey(), entry.getValue().getHeader());
+        }
         Map<String, String> allHeadersMap = mergeParams(
-                RxHttp.getGlobalOptions().getHeadersMap(),
-                getHeadersMap(), getIgnoreHeaders(),
-                isIgnoreAllGlobalHeaders());
+                globalHeaderMap, getHeadersMap(),
+                getIgnoreHeaders(), isIgnoreAllGlobalHeaders());
 
         //获取表单参数
         FormDataMap globalFormDataMap = RxHttp.getGlobalOptions().getFormDataMap();
@@ -101,10 +113,10 @@ public abstract class ApiBaseRequest<T extends ApiRequestOptions> extends ApiReq
 
         //添加Cookie管理类
         RxHttp.getGlobalOptions().getCookieManager().add(getCookieList());
-        okBuilder.cookieJar(RxHttp.getGlobalOptions().getCookieManager());
+        builder.cookieJar(RxHttp.getGlobalOptions().getCookieManager());
 
         //创建Retrofit对象
-        Retrofit retrofit = RxHttp.RETROFIT().create(getBaseUrl(), okBuilder.build());
+        Retrofit retrofit = RxHttp.RETROFIT().create(getBaseUrl(), builder.build());
         ApiService apiService = retrofit.create(ApiService.class);
 
         //执行请求

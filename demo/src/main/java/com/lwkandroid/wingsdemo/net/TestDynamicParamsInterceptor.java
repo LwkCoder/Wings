@@ -15,7 +15,7 @@ public class TestDynamicParamsInterceptor extends ApiParamsInterceptor
     public TreeMap<String, Object> addParams(TreeMap<String, Object> oldParams)
     {
         //模拟添加密钥
-        oldParams.put("secret", "secretValue");
+        oldParams.put("InterceptorDynamicParamKey", "InterceptorDynamicParamValue");
         return oldParams;
     }
 }

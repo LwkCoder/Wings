@@ -148,6 +148,14 @@ interface IRequestOptions
 
         T clearHeaders();
 
+        T addDynamicHeader(String tag, IApiDynamicHeader callBack);
+
+        T removeDynamicHeader(String tag);
+
+        T clearDynamicHeader();
+
+        Map<String, IApiDynamicHeader> getDynamicHeaderMap();
+
         T setCookieManager(ICookieJar cookieJarImpl);
 
         ICookieJar getCookieManager();
@@ -178,7 +186,7 @@ interface IRequestOptions
 
         T clearDynamicFormData();
 
-        Map<String,IApiDynamicFormData> getDynamicFormDataMap();
+        Map<String, IApiDynamicFormData> getDynamicFormDataMap();
     }
 
     interface Custom<T>

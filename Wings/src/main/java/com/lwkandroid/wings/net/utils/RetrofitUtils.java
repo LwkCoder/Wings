@@ -1,8 +1,10 @@
 package com.lwkandroid.wings.net.utils;
 
+import com.lwkandroid.wings.DebugTools;
 import com.lwkandroid.wings.net.RxHttp;
 import com.lwkandroid.wings.net.bean.ApiGlobalOptions;
 import com.lwkandroid.wings.net.bean.IApiDynamicFormData;
+import com.lwkandroid.wings.net.bean.IApiDynamicHeader;
 import com.lwkandroid.wings.net.interceptor.ApiHeaderInterceptor;
 import com.lwkandroid.wings.net.interceptor.RetrofitFormDataInterceptor;
 
@@ -60,10 +62,16 @@ public final class RetrofitUtils
         {
             builder.addInterceptor(new RetrofitFormDataInterceptor(globalFormDataMap));
         }
-        Map<String, String> globalHeadersMap = globalOptions.getHeadersMap();
-        if (globalHeadersMap != null && globalHeadersMap.size() > 0)
+
+        Map<String, String> globalHeaderMap = RxHttp.getGlobalOptions().getHeadersMap();
+        Map<String, IApiDynamicHeader> globalDynamicHeaderMap = RxHttp.getGlobalOptions().getDynamicHeaderMap();
+        for (Map.Entry<String, IApiDynamicHeader> entry : globalDynamicHeaderMap.entrySet())
         {
-            builder.addInterceptor(new HeaderInterceptor(globalHeadersMap));
+            globalHeaderMap.put(entry.getKey(), entry.getValue().getHeader());
+        }
+        if (globalHeaderMap != null && globalHeaderMap.size() > 0)
+        {
+            builder.addInterceptor(new HeaderInterceptor(globalHeaderMap));
         }
 
         /*添加全局拦截器*/
@@ -82,6 +90,11 @@ public final class RetrofitUtils
             {
                 builder.addNetworkInterceptor(interceptor);
             }
+        }
+        builder.addInterceptor(RxHttp.getProgressInterceptor());
+        if (DebugTools.DEBUG)
+        {
+            builder.addInterceptor(RxHttp.getApiLogInterceptor());
         }
 
         //添加Cookie管理类

@@ -1,8 +1,8 @@
 package com.lwkandroid.wings.net;
 
 import com.lwkandroid.wings.net.bean.ApiGlobalOptions;
-import com.lwkandroid.wings.net.constants.ApiConstants;
 import com.lwkandroid.wings.net.error.UnknownErrorHandler;
+import com.lwkandroid.wings.net.interceptor.ApiLogInterceptor;
 import com.lwkandroid.wings.net.interceptor.OkProgressInterceptor;
 import com.lwkandroid.wings.net.requst.ApiDeleteRequest;
 import com.lwkandroid.wings.net.requst.ApiDownloadRequest;
@@ -14,10 +14,11 @@ import com.lwkandroid.wings.net.requst.ApiUploadRequest;
 import com.lwkandroid.wings.net.utils.RetrofitUtils;
 
 import io.reactivex.plugins.RxJavaPlugins;
+import okhttp3.Interceptor;
 
 /**
  * Created by LWK
- *  向外提供功能的入口
+ * 向外提供功能的入口
  */
 
 public class RxHttp
@@ -26,6 +27,8 @@ public class RxHttp
     {
         DEFAULT_GLOBAL_OPTIONS = new ApiGlobalOptions();
         RETROFIT = new RetrofitUtils();
+        LOG_INTERCEPTOR = new ApiLogInterceptor();
+        PROGRESS_INTERCEPTOR = new OkProgressInterceptor();
     }
 
     private RxHttp()
@@ -34,6 +37,24 @@ public class RxHttp
 
     private static final ApiGlobalOptions DEFAULT_GLOBAL_OPTIONS;
     private static final RetrofitUtils RETROFIT;
+    private static final Interceptor LOG_INTERCEPTOR;
+    private static final Interceptor PROGRESS_INTERCEPTOR;
+
+    /**
+     * 获取请求参数日志拦截器
+     */
+    public static Interceptor getApiLogInterceptor()
+    {
+        return LOG_INTERCEPTOR;
+    }
+
+    /**
+     * 获取请求过程拦截器
+     */
+    public static Interceptor getProgressInterceptor()
+    {
+        return PROGRESS_INTERCEPTOR;
+    }
 
     /**
      * 初始化公共配置
@@ -44,7 +65,6 @@ public class RxHttp
     public static ApiGlobalOptions init(String baseUrl)
     {
         DEFAULT_GLOBAL_OPTIONS.setBaseUrl(baseUrl);
-        DEFAULT_GLOBAL_OPTIONS.addInterceptor(ApiConstants.TAG_PROGRESS_INTERCEPTOR, new OkProgressInterceptor());
         RxJavaPlugins.setErrorHandler(new UnknownErrorHandler());
         return DEFAULT_GLOBAL_OPTIONS;
     }

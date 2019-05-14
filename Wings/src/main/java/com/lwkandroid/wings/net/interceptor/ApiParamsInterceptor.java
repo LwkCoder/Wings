@@ -26,7 +26,7 @@ import okhttp3.Response;
  * OkHttp参数拦截器，用于对所有请求添加公共动态参数
  * 需要配合RxHttp.getGlobalOptions().addInterceptor(String tag,Interceptor interceptor)使用
  * 【不可使用addNetInterceptor】
- * 此外还可使用RxHttp.getGlobalOptions.addDynamicFormData(String key, IApiDynamicFormData dataCallBack);
+ * 推荐使用同样效果的方法：RxHttp.getGlobalOptions.addDynamicFormData(String key, IApiDynamicHeader callBack);
  */
 public abstract class ApiParamsInterceptor implements Interceptor
 {

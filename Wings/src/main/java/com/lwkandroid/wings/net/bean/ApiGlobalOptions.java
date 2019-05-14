@@ -18,8 +18,8 @@ import com.lwkandroid.wings.utils.StringUtils;
 
 import java.io.InputStream;
 import java.lang.reflect.Type;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 import javax.net.ssl.HostnameVerifier;
 
@@ -49,6 +49,8 @@ public class ApiGlobalOptions implements IRequestOptions.Common<ApiGlobalOptions
     private IApiExceptionMsg mApiExceptionMsg;
     //动态参数Map
     private Map<String, IApiDynamicFormData> mDynamicFormDataMap;
+    //动态HeaderMap
+    private Map<String, IApiDynamicHeader> mDynamicHeaderMap;
 
     public ApiGlobalOptions()
     {
@@ -448,6 +450,45 @@ public class ApiGlobalOptions implements IRequestOptions.Common<ApiGlobalOptions
     }
 
     @Override
+    public ApiGlobalOptions addDynamicHeader(String tag, IApiDynamicHeader callBack)
+    {
+        if (StringUtils.isTrimEmpty(tag))
+        {
+            throw new IllegalArgumentException("RxHttp addDynamicHeader() tag can not be trim empty !");
+        }
+        if (callBack == null)
+        {
+            throw new IllegalArgumentException("RxHttp addDynamicHeader() callback can not be null !");
+        }
+        getDynamicHeaderMap().put(tag, callBack);
+        return this;
+    }
+
+    @Override
+    public ApiGlobalOptions removeDynamicHeader(String tag)
+    {
+        getDynamicHeaderMap().remove(tag);
+        return this;
+    }
+
+    @Override
+    public ApiGlobalOptions clearDynamicHeader()
+    {
+        getDynamicHeaderMap().clear();
+        return this;
+    }
+
+    @Override
+    public Map<String, IApiDynamicHeader> getDynamicHeaderMap()
+    {
+        if (mDynamicHeaderMap == null)
+        {
+            mDynamicHeaderMap = new TreeMap<>();
+        }
+        return mDynamicHeaderMap;
+    }
+
+    @Override
     public ApiGlobalOptions setCookieManager(ICookieJar cookieJarImpl)
     {
         this.mCookieJar = cookieJarImpl;
@@ -559,7 +600,7 @@ public class ApiGlobalOptions implements IRequestOptions.Common<ApiGlobalOptions
     {
         if (mDynamicFormDataMap == null)
         {
-            mDynamicFormDataMap = new HashMap<>();
+            mDynamicFormDataMap = new TreeMap<>();
         }
         return mDynamicFormDataMap;
     }

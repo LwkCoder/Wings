@@ -5,6 +5,8 @@ import android.content.Context;
 
 import com.lwkandroid.wings.Wings;
 import com.lwkandroid.wings.app.WingsInitOptions;
+import com.lwkandroid.wings.net.bean.IApiDynamicFormData;
+import com.lwkandroid.wings.net.bean.IApiDynamicHeader;
 import com.lwkandroid.wingsdemo.BuildConfig;
 import com.lwkandroid.wingsdemo.net.ApiURL;
 import com.lwkandroid.wingsdemo.net.TestDynamicHeadersInterceptor;
@@ -40,6 +42,22 @@ public class DemoApplication extends Application
         options.setApiBaseUrl(ApiURL.HOST);
         options.getRxHttpGlobalOptions().addInterceptor("ParamsInterceptor", new TestDynamicParamsInterceptor());
         options.getRxHttpGlobalOptions().addInterceptor("HeadersInterceptor", new TestDynamicHeadersInterceptor());
+        options.getRxHttpGlobalOptions().addDynamicFormData("CallBackDynamicParamKey", new IApiDynamicFormData()
+        {
+            @Override
+            public Object getFormData()
+            {
+                return "CallBackDynamicParamValue";
+            }
+        });
+        options.getRxHttpGlobalOptions().addDynamicHeader("CallBackDynamicHeaderTag", new IApiDynamicHeader()
+        {
+            @Override
+            public String getHeader()
+            {
+                return "CallBackDynamicHeaderValue";
+            }
+        });
         Wings.init(options);
     }
 
