@@ -6,11 +6,13 @@ import com.lwkandroid.wings.app.WingsActivityLifecycleLog;
 import com.lwkandroid.wings.app.WingsInitOptions;
 import com.lwkandroid.wings.log.KLog;
 import com.lwkandroid.wings.net.RxHttp;
+import com.lwkandroid.wings.rx.UnknownErrorHandler;
 import com.lwkandroid.wings.utils.AppUtils;
 import com.lwkandroid.wings.utils.CrashUtils;
 import com.lwkandroid.wings.utils.Utils;
 
 import androidx.core.content.FileProvider;
+import io.reactivex.plugins.RxJavaPlugins;
 
 /**
  * Created by LWK
@@ -43,6 +45,7 @@ public final class Wings
         DebugTools.init(options.getApplicationContext());
         CrashUtils.init(options.getCrashFilePath(), options.getCrashListener());
         RxHttp.init(options.getApiBaseUrl());
+        RxJavaPlugins.setErrorHandler(new UnknownErrorHandler());
         options.getApplicationContext().registerActivityLifecycleCallbacks(new WingsActivityLifecycleLog());
         for (Application.ActivityLifecycleCallbacks callback : options.getLifecycleCallbacks())
         {

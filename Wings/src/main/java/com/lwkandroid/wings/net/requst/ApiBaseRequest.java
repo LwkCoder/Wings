@@ -4,7 +4,7 @@ import com.lwkandroid.wings.DebugTools;
 import com.lwkandroid.wings.net.ApiService;
 import com.lwkandroid.wings.net.RxHttp;
 import com.lwkandroid.wings.net.bean.ApiCacheOptions;
-import com.lwkandroid.wings.net.bean.ApiRequestOptions;
+import com.lwkandroid.wings.net.bean.ApiBaseRequestOptions;
 import com.lwkandroid.wings.net.bean.IApiDynamicFormData;
 import com.lwkandroid.wings.net.bean.IApiDynamicHeader;
 import com.lwkandroid.wings.net.constants.ApiRequestType;
@@ -25,11 +25,12 @@ import retrofit2.Retrofit;
 /**
  * Created by LWK
  * 请求构造体基类
+ *
+ * @author LWK
  */
-
-public abstract class ApiBaseRequest<T extends ApiRequestOptions> extends ApiRequestOptions<T>
+public abstract class ApiBaseRequest<T extends ApiBaseRequestOptions> extends ApiBaseRequestOptions<T>
 {
-    public ApiBaseRequest(String url, @ApiRequestType.Type int type)
+    ApiBaseRequest(String url, @ApiRequestType.Type int type)
     {
         setSubUrl(url);
         setRequestType(type);
@@ -124,7 +125,16 @@ public abstract class ApiBaseRequest<T extends ApiRequestOptions> extends ApiReq
                 getOkHttp3RequestBody(), getJsonRequestBody(), apiService);
     }
 
-    /*合并全局参数和自定义参数*/
+    /**
+     * 合并全局参数和自定义参数
+     *
+     * @param globalParams 全局参数
+     * @param customParams 单次请求参数
+     * @param ignoreParams 忽略的参数
+     * @param ignoreGlobal 是否忽略全局参数
+     * @param <P>          参数泛型
+     * @return 最终合并后的参数
+     */
     private <P> Map<String, P> mergeParams(Map<String, P> globalParams,
                                            Map<String, P> customParams,
                                            Set<String> ignoreParams,
@@ -155,7 +165,7 @@ public abstract class ApiBaseRequest<T extends ApiRequestOptions> extends ApiReq
     /**
      * 获取最终缓存参数
      */
-    protected ApiCacheOptions getFinalCacheOptions()
+    public ApiCacheOptions getFinalCacheOptions()
     {
         ApiCacheOptions.Builder cacheBuilder = new ApiCacheOptions.Builder();
         cacheBuilder.appVersion(RxHttp.getGlobalOptions().getCacheVersion());

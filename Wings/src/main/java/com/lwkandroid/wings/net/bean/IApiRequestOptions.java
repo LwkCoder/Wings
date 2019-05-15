@@ -4,7 +4,7 @@ import com.lwkandroid.wings.net.cache.opeartor.IDiskCacheOperator;
 import com.lwkandroid.wings.net.constants.ApiCacheMode;
 import com.lwkandroid.wings.net.constants.ApiRequestType;
 import com.lwkandroid.wings.net.cookie.ICookieJar;
-import com.lwkandroid.wings.net.error.IApiExceptionMsg;
+import com.lwkandroid.wings.net.exception.IApiExceptionMsgConverter;
 import com.lwkandroid.wings.net.https.HttpsUtils;
 import com.lwkandroid.wings.net.parser.IApiStringParser;
 import com.lwkandroid.wings.net.retry.IAutoRetry;
@@ -27,8 +27,11 @@ import okhttp3.RequestBody;
  * Created by LWK
  * 请求参数的接口
  */
-interface IRequestOptions
+public interface IApiRequestOptions
 {
+    /**
+     * 公共方法
+     */
     interface Common<T>
     {
         T setApiResultStringParser(IApiStringParser parser);
@@ -134,7 +137,10 @@ interface IRequestOptions
         HostnameVerifier getHostnameVerifier();
     }
 
-    interface Global<T>
+    /**
+     * 全局参数的方法
+     */
+    interface Global<T> extends Common<T>
     {
         T setApiResultOkCode(int code);
 
@@ -176,9 +182,9 @@ interface IRequestOptions
 
         IDiskCacheOperator getCacheOperator();
 
-        T setApiExceptionMsg(IApiExceptionMsg apiExceptionMsg);
+        T setApiExceptionMsg(IApiExceptionMsgConverter apiExceptionMsg);
 
-        IApiExceptionMsg getApiExceptionMsg();
+        IApiExceptionMsgConverter getApiExceptionMsg();
 
         T addDynamicFormData(String key, IApiDynamicFormData dataCallBack);
 
@@ -189,7 +195,10 @@ interface IRequestOptions
         Map<String, IApiDynamicFormData> getDynamicFormDataMap();
     }
 
-    interface Custom<T>
+    /**
+     * 单次请求独有的方法
+     */
+    interface Custom<T> extends Common<T>
     {
         T setRequestType(@ApiRequestType.Type int type);
 
@@ -275,6 +284,5 @@ interface IRequestOptions
         T setCacheKey(String key);
 
         String getCacheKey();
-
     }
 }

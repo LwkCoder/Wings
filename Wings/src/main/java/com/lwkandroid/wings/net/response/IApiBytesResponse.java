@@ -8,10 +8,11 @@ import io.reactivex.Observable;
 
 /**
  * Created by LWK
- *  定义Byte数组网络请求结果的转换方法
+ * 定义Byte数组网络请求结果的转换方法
+ *
+ * @author LWK
  */
-
-public interface IApiBytesArrayResponse
+public interface IApiBytesResponse
 {
     /**
      * 直接返回Byte数组网络请求结果
@@ -27,6 +28,8 @@ public interface IApiBytesArrayResponse
 
     /**
      * 将Bytes解析为Bitmap
+     *
+     * @return
      */
     Observable<Bitmap> parseAsBitmapFromBytes();
 }

@@ -6,8 +6,8 @@ import com.lwkandroid.wings.net.constants.ApiCacheMode;
 import com.lwkandroid.wings.net.constants.ApiConstants;
 import com.lwkandroid.wings.net.cookie.CookieManager;
 import com.lwkandroid.wings.net.cookie.ICookieJar;
-import com.lwkandroid.wings.net.error.ApiExceptionMsgImpl;
-import com.lwkandroid.wings.net.error.IApiExceptionMsg;
+import com.lwkandroid.wings.net.exception.ApiExceptionMsgConverterImpl;
+import com.lwkandroid.wings.net.exception.IApiExceptionMsgConverter;
 import com.lwkandroid.wings.net.https.HttpsUtils;
 import com.lwkandroid.wings.net.parser.ApiStringParser;
 import com.lwkandroid.wings.net.parser.IApiStringParser;
@@ -29,27 +29,46 @@ import okhttp3.Interceptor;
 /**
  * Created by LWK
  * 网络请求全局配置对象
+ * @author LWK
  */
-public class ApiGlobalOptions implements IRequestOptions.Common<ApiGlobalOptions>, IRequestOptions.Global<ApiGlobalOptions>
+public class ApiGlobalOptions implements IApiRequestOptions.Global<ApiGlobalOptions>
 {
-    private IRequestOptions.Common mCommonImpl = new CommonOptionsImpl();
-    //网络请求正常的状态码
+    private IApiRequestOptions.Common mCommonImpl = new ApiCommonOptionsImpl();
+    /**
+     * 网络请求正常的状态码
+     */
     private int mResultOkCode;
-    //Cookie管理类
+    /**
+     * Cookie管理类
+     */
     private ICookieJar mCookieJar;
-    //App版本
+    /**
+     * App版本
+     */
     private int mCacheVersion = -1;
-    //缓存路径
+    /**
+     * 缓存路径
+     */
     private String mCachePath;
-    //硬盘缓存大小
+    /**
+     * 硬盘缓存大小
+     */
     private long mDiskMaxSize = -1;
-    //缓存转换器
+    /**
+     * 缓存转换器
+     */
     private IDiskCacheOperator mCacheOperator = null;
-    //设置错误描述的对象
-    private IApiExceptionMsg mApiExceptionMsg;
-    //动态参数Map
+    /**
+     * 设置错误描述的对象
+     */
+    private IApiExceptionMsgConverter mApiExceptionMsg;
+    /**
+     * 动态参数Map
+     */
     private Map<String, IApiDynamicFormData> mDynamicFormDataMap;
-    //动态HeaderMap
+    /**
+     * 动态HeaderMap
+     */
     private Map<String, IApiDynamicHeader> mDynamicHeaderMap;
 
     public ApiGlobalOptions()
@@ -60,7 +79,7 @@ public class ApiGlobalOptions implements IRequestOptions.Common<ApiGlobalOptions
         setApiResultType(ApiResult.class);
         setApiResultOkCode(ApiConstants.RESULT_OK_CODE);
         setApiResultStringParser(new ApiStringParser());
-        setApiExceptionMsg(new ApiExceptionMsgImpl());
+        setApiExceptionMsg(new ApiExceptionMsgConverterImpl());
         setAutoRetryJudge(new AutoRetryJudgeImpl());
         setAutoRetryDelay(1000);
         setCacheMode(ApiCacheMode.NO_CACHE);
@@ -554,14 +573,14 @@ public class ApiGlobalOptions implements IRequestOptions.Common<ApiGlobalOptions
     }
 
     @Override
-    public ApiGlobalOptions setApiExceptionMsg(IApiExceptionMsg apiExceptionMsg)
+    public ApiGlobalOptions setApiExceptionMsg(IApiExceptionMsgConverter apiExceptionMsg)
     {
         this.mApiExceptionMsg = apiExceptionMsg;
         return this;
     }
 
     @Override
-    public IApiExceptionMsg getApiExceptionMsg()
+    public IApiExceptionMsgConverter getApiExceptionMsg()
     {
         return mApiExceptionMsg;
     }

@@ -4,7 +4,6 @@ import android.net.ParseException;
 
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializer;
-import com.google.gson.JsonSyntaxException;
 import com.lwkandroid.wings.net.RxHttp;
 import com.lwkandroid.wings.net.constants.ApiExceptionCode;
 
@@ -19,16 +18,24 @@ import retrofit2.HttpException;
 
 /**
  * Created by LWK
- *  自定义异常：网络请求错误
+ * 自定义异常：网络请求错误
  */
 public class ApiException extends Exception
 {
     private static final long serialVersionUID = 4966919777463155346L;
-    //错误Id
+    /**
+     * 错误Id
+     */
     private int code;
-    //错误抛出的异常描述
+
+    /**
+     * 错误抛出的异常描述
+     */
     private String throwMessage;
-    //自定义的异常描述，通常可以用来直接Toast
+
+    /**
+     * 自定义的异常描述，通常可以用来直接Toast
+     */
     private String displayMessage;
 
     public ApiException(int code, String throwMessage)
@@ -94,7 +101,6 @@ public class ApiException extends Exception
             return new ApiException(httpException.code(), httpException.getMessage());
         } else if (e instanceof JsonParseException
                 || e instanceof JSONException
-                || e instanceof JsonSyntaxException
                 || e instanceof JsonSerializer
                 || e instanceof NotSerializableException
                 || e instanceof ParseException)

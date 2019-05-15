@@ -6,14 +6,14 @@ import android.text.TextUtils;
 import com.lwkandroid.wings.net.ApiService;
 import com.lwkandroid.wings.net.constants.ApiConstants;
 import com.lwkandroid.wings.net.constants.ApiRequestType;
-import com.lwkandroid.wings.net.convert.ApiResponseConverter;
-import com.lwkandroid.wings.net.error.ApiExceptionTransformer;
+import com.lwkandroid.wings.net.response.convert.ApiResponseBodyConverter;
+import com.lwkandroid.wings.net.exception.ApiExceptionTransformer;
 import com.lwkandroid.wings.net.parser.ApiBytes2BitmapParser;
 import com.lwkandroid.wings.net.parser.ApiBytes2FileParser;
 import com.lwkandroid.wings.net.parser.ApiIS2BitmapParser;
 import com.lwkandroid.wings.net.parser.ApiIS2FileParser;
-import com.lwkandroid.wings.net.response.IApiBytesArrayResponse;
-import com.lwkandroid.wings.net.response.IApiInputSreamResponse;
+import com.lwkandroid.wings.net.response.IApiBytesResponse;
+import com.lwkandroid.wings.net.response.IApiInputStreamResponse;
 import com.lwkandroid.wings.net.retry.AutoRetryFunc;
 import com.lwkandroid.wings.net.utils.RequestBodyUtils;
 
@@ -27,19 +27,28 @@ import okhttp3.ResponseBody;
 
 /**
  * Created by LWK
- *  Download请求
+ * Download请求
+ * @author LWK
  */
 
-public class ApiDownloadRequest extends ApiBaseRequest<ApiDownloadRequest> implements IApiInputSreamResponse,
-        IApiBytesArrayResponse
+public final class ApiDownloadRequest extends ApiBaseRequest<ApiDownloadRequest> implements IApiInputStreamResponse,
+        IApiBytesResponse
 {
-    /*存储文件夹*/
+    /**
+     * 存储文件夹
+     */
     private String mSaveFolder;
-    /*存储名称*/
+    /**
+     * 存储名称
+     */
     private String mFileName;
-    /*Bitmap最大宽度*/
+    /**
+     * Bitmap最大宽度
+     */
     private int mBitmapMaxWidth = Integer.MAX_VALUE;
-    /*Bitmap最大高度*/
+    /**
+     * Bitmap最大高度
+     */
     private int mBitmapMaxHeight = Integer.MAX_VALUE;
 
     public ApiDownloadRequest(String url)
@@ -47,9 +56,9 @@ public class ApiDownloadRequest extends ApiBaseRequest<ApiDownloadRequest> imple
         super(url, ApiRequestType.DOWNLOAD);
     }
 
-    public ApiDownloadRequest setSaveFloderPath(String saveFolderPath)
+    public ApiDownloadRequest setSaveFolderPath(String path)
     {
-        this.mSaveFolder = saveFolderPath;
+        this.mSaveFolder = path;
         return this;
     }
 
@@ -76,7 +85,7 @@ public class ApiDownloadRequest extends ApiBaseRequest<ApiDownloadRequest> imple
         return mBitmapMaxWidth;
     }
 
-    public String getSaveFloderPath()
+    public String getSaveFolderPath()
     {
         return mSaveFolder;
     }
@@ -119,7 +128,7 @@ public class ApiDownloadRequest extends ApiBaseRequest<ApiDownloadRequest> imple
     public Observable<InputStream> returnISResponse()
     {
         return invokeRequest()
-                .compose(ApiResponseConverter.responseToInputStream())
+                .compose(ApiResponseBodyConverter.transformToInputStream())
                 .compose(new ApiExceptionTransformer<InputStream>())
                 .retryWhen(new AutoRetryFunc(getSubUrl(), getAutoRetryCount(), getAutoRetryDelay(), getAutoRetryJudge()));
     }
@@ -128,7 +137,7 @@ public class ApiDownloadRequest extends ApiBaseRequest<ApiDownloadRequest> imple
     public Observable<File> parseAsFileFromIS()
     {
         return returnISResponse()
-                .compose(new ApiIS2FileParser(getSaveFloderPath(), getFileName()).parseAsFile());
+                .compose(new ApiIS2FileParser(getSaveFolderPath(), getFileName()).parseAsFile());
     }
 
     @Override
@@ -142,7 +151,7 @@ public class ApiDownloadRequest extends ApiBaseRequest<ApiDownloadRequest> imple
     public Observable<byte[]> returnByteArrayResponse()
     {
         return invokeRequest()
-                .compose(ApiResponseConverter.responseToBytes())
+                .compose(ApiResponseBodyConverter.transformToBytes())
                 .compose(new ApiExceptionTransformer<byte[]>())
                 .retryWhen(new AutoRetryFunc(getSubUrl(), getAutoRetryCount(), getAutoRetryDelay(), getAutoRetryJudge()));
     }
@@ -151,7 +160,7 @@ public class ApiDownloadRequest extends ApiBaseRequest<ApiDownloadRequest> imple
     public Observable<File> parseAsFileFromBytes()
     {
         return returnByteArrayResponse()
-                .compose(new ApiBytes2FileParser(getSaveFloderPath(), getFileName()).parseAsFile());
+                .compose(new ApiBytes2FileParser(getSaveFolderPath(), getFileName()).parseAsFile());
     }
 
     @Override

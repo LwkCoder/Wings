@@ -1,4 +1,4 @@
-package com.lwkandroid.wings.net.error;
+package com.lwkandroid.wings.net.exception;
 
 import com.lwkandroid.wings.R;
 import com.lwkandroid.wings.net.constants.ApiExceptionCode;
@@ -8,8 +8,7 @@ import com.lwkandroid.wings.utils.ResourceUtils;
  * Created by LWK
  * 设置ApiException错误描述的方法
  */
-
-public class ApiExceptionMsgImpl implements IApiExceptionMsg
+public class ApiExceptionMsgConverterImpl implements IApiExceptionMsgConverter
 {
     @Override
     public String parserMessageByCode(int errorCode, String throwMessage)

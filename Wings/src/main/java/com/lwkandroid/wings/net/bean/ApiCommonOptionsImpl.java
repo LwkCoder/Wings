@@ -20,48 +20,85 @@ import okhttp3.Interceptor;
 
 /**
  * Created by LWK
- *  配置请求参数的公共方法实现类
+ * 配置请求参数的公共方法实现类
+ *
+ * @author LWK
  */
-class CommonOptionsImpl implements IRequestOptions.Common<CommonOptionsImpl>
+public class ApiCommonOptionsImpl implements IApiRequestOptions.Common<ApiCommonOptionsImpl>
 {
-    /*网络请求结果对象Type*/
+    /**
+     * 网络请求结果对象Type
+     */
     private Type mApiResultType;
-    /*读取超时时间*/
+    /**
+     * 读取超时时间
+     */
     private long mReadTimeOut = -1;
-    /*写入超时时间*/
+    /**
+     * 写入超时时间
+     */
     private long mWriteTimeOut = -1;
-    /*连接超时时间*/
+    /**
+     * 连接超时时间
+     */
     private long mConnectTimeOut = -1;
-    /*请求域名*/
+    /**
+     * 请求域名
+     */
     private String mBaseUrl;
-    /*全局请求需要添加的拦截器*/
+    /**
+     * 全局请求需要添加的拦截器
+     */
     private Map<String, Interceptor> mInterceptorMap;
-    /*全局请求需要添加的网络拦截器*/
+    /**
+     * 全局请求需要添加的网络拦截器
+     */
     private Map<String, Interceptor> mNetInterceptorMap;
-    /*全局表单参数*/
+    /**
+     * 全局表单参数
+     */
     private FormDataMap mFormDataMap;
-    /*全局Header*/
+    /**
+     * 全局Header
+     */
     private Map<String, String> mHeadersMap;
-    /*全局String类型网络请求结果的解析器*/
+    /**
+     * 全局String类型网络请求结果的解析器
+     */
     private IApiStringParser mStringParser;
-    //缓存类型
+    /**
+     * 缓存类型
+     */
     private @ApiCacheMode.Mode
     int mCacheMode;
-    //缓存时长
+    /**
+     * 缓存时长
+     */
     private long mCacheTime = -1;
-    //自动重试次数
+    /**
+     * 自动重试次数
+     */
     private int mAutoRetryCount = 0;
-    //自动重试间隔,ms
+    /**
+     * 自动重试间隔,ms
+     */
     private int mAutoRetryDelay;
-    //判断自动重试时机的对象
+    /**
+     * 判断自动重试时机的对象
+     */
     private IAutoRetry mAutoRetry;
-    /*Https证书*/
-    protected HttpsUtils.SSLParams mSslParams;
-    /*Https全局访问规则*/
-    protected HostnameVerifier mHostnameVerifier;
+    /**
+     * Https证书
+     */
+    private HttpsUtils.SSLParams mSslParams;
+
+    /**
+     * Https全局访问规则
+     */
+    private HostnameVerifier mHostnameVerifier;
 
     @Override
-    public CommonOptionsImpl setApiResultStringParser(IApiStringParser parser)
+    public ApiCommonOptionsImpl setApiResultStringParser(IApiStringParser parser)
     {
         mStringParser = parser;
         return this;
@@ -78,7 +115,7 @@ class CommonOptionsImpl implements IRequestOptions.Common<CommonOptionsImpl>
     }
 
     @Override
-    public CommonOptionsImpl setApiResultType(Type type)
+    public ApiCommonOptionsImpl setApiResultType(Type type)
     {
         this.mApiResultType = type;
         return this;
@@ -91,7 +128,7 @@ class CommonOptionsImpl implements IRequestOptions.Common<CommonOptionsImpl>
     }
 
     @Override
-    public CommonOptionsImpl setReadTimeOut(long readTimeOut)
+    public ApiCommonOptionsImpl setReadTimeOut(long readTimeOut)
     {
         this.mReadTimeOut = readTimeOut;
         return this;
@@ -104,7 +141,7 @@ class CommonOptionsImpl implements IRequestOptions.Common<CommonOptionsImpl>
     }
 
     @Override
-    public CommonOptionsImpl setWriteTimeOut(long writeTimeOut)
+    public ApiCommonOptionsImpl setWriteTimeOut(long writeTimeOut)
     {
         this.mWriteTimeOut = writeTimeOut;
         return this;
@@ -117,7 +154,7 @@ class CommonOptionsImpl implements IRequestOptions.Common<CommonOptionsImpl>
     }
 
     @Override
-    public CommonOptionsImpl setConnectTimeOut(long connectTimeOut)
+    public ApiCommonOptionsImpl setConnectTimeOut(long connectTimeOut)
     {
         this.mConnectTimeOut = connectTimeOut;
         return this;
@@ -130,7 +167,7 @@ class CommonOptionsImpl implements IRequestOptions.Common<CommonOptionsImpl>
     }
 
     @Override
-    public CommonOptionsImpl setBaseUrl(String baseUrl)
+    public ApiCommonOptionsImpl setBaseUrl(String baseUrl)
     {
         this.mBaseUrl = baseUrl;
         return this;
@@ -153,21 +190,21 @@ class CommonOptionsImpl implements IRequestOptions.Common<CommonOptionsImpl>
     }
 
     @Override
-    public CommonOptionsImpl setInterceptorMap(Map<String, Interceptor> interceptorMap)
+    public ApiCommonOptionsImpl setInterceptorMap(Map<String, Interceptor> interceptorMap)
     {
         this.mInterceptorMap = interceptorMap;
         return this;
     }
 
     @Override
-    public CommonOptionsImpl addInterceptorMap(Map<String, Interceptor> interceptorMap)
+    public ApiCommonOptionsImpl addInterceptorMap(Map<String, Interceptor> interceptorMap)
     {
         getInterceptorMap().putAll(interceptorMap);
         return this;
     }
 
     @Override
-    public CommonOptionsImpl addInterceptor(@NonNull String tag, @NonNull Interceptor interceptor)
+    public ApiCommonOptionsImpl addInterceptor(@NonNull String tag, @NonNull Interceptor interceptor)
     {
         getInterceptorMap().put(tag, interceptor);
         return this;
@@ -184,21 +221,21 @@ class CommonOptionsImpl implements IRequestOptions.Common<CommonOptionsImpl>
     }
 
     @Override
-    public CommonOptionsImpl setNetInterceptorMap(Map<String, Interceptor> netInterceptorMap)
+    public ApiCommonOptionsImpl setNetInterceptorMap(Map<String, Interceptor> netInterceptorMap)
     {
         this.mNetInterceptorMap = netInterceptorMap;
         return this;
     }
 
     @Override
-    public CommonOptionsImpl addNetInterceptorMap(Map<String, Interceptor> interceptorMap)
+    public ApiCommonOptionsImpl addNetInterceptorMap(Map<String, Interceptor> interceptorMap)
     {
         getNetInterceptorMap().putAll(interceptorMap);
         return this;
     }
 
     @Override
-    public CommonOptionsImpl addNetInterceptor(@NonNull String tag, @NonNull Interceptor interceptor)
+    public ApiCommonOptionsImpl addNetInterceptor(@NonNull String tag, @NonNull Interceptor interceptor)
     {
         getNetInterceptorMap().put(tag, interceptor);
         return this;
@@ -215,70 +252,70 @@ class CommonOptionsImpl implements IRequestOptions.Common<CommonOptionsImpl>
     }
 
     @Override
-    public CommonOptionsImpl setFormDataMap(FormDataMap formDataMap)
+    public ApiCommonOptionsImpl setFormDataMap(FormDataMap formDataMap)
     {
         this.mFormDataMap = formDataMap;
         return this;
     }
 
     @Override
-    public CommonOptionsImpl addFormData(@NonNull String key, byte value)
+    public ApiCommonOptionsImpl addFormData(@NonNull String key, byte value)
     {
         getFormDataMap().addParam(key, value);
         return this;
     }
 
     @Override
-    public CommonOptionsImpl addFormData(@NonNull String key, int value)
+    public ApiCommonOptionsImpl addFormData(@NonNull String key, int value)
     {
         getFormDataMap().addParam(key, value);
         return this;
     }
 
     @Override
-    public CommonOptionsImpl addFormData(@NonNull String key, float value)
+    public ApiCommonOptionsImpl addFormData(@NonNull String key, float value)
     {
         getFormDataMap().addParam(key, value);
         return this;
     }
 
     @Override
-    public CommonOptionsImpl addFormData(@NonNull String key, short value)
+    public ApiCommonOptionsImpl addFormData(@NonNull String key, short value)
     {
         getFormDataMap().addParam(key, value);
         return this;
     }
 
     @Override
-    public CommonOptionsImpl addFormData(@NonNull String key, long value)
+    public ApiCommonOptionsImpl addFormData(@NonNull String key, long value)
     {
         getFormDataMap().addParam(key, value);
         return this;
     }
 
     @Override
-    public CommonOptionsImpl addFormData(@NonNull String key, double value)
+    public ApiCommonOptionsImpl addFormData(@NonNull String key, double value)
     {
         getFormDataMap().addParam(key, value);
         return this;
     }
 
     @Override
-    public CommonOptionsImpl addFormData(@NonNull String key, boolean value)
+    public ApiCommonOptionsImpl addFormData(@NonNull String key, boolean value)
     {
         getFormDataMap().addParam(key, value);
         return this;
     }
 
     @Override
-    public CommonOptionsImpl addFormData(@NonNull String key, String value)
+    public ApiCommonOptionsImpl addFormData(@NonNull String key, String value)
     {
         getFormDataMap().addParam(key, value);
         return this;
     }
 
     @Override
-    public CommonOptionsImpl addFormData(@NonNull String key, Object value)
+    public ApiCommonOptionsImpl addFormData(@NonNull String key, Object value)
     {
         getFormDataMap().addParam(key, value);
         return this;
@@ -295,28 +332,28 @@ class CommonOptionsImpl implements IRequestOptions.Common<CommonOptionsImpl>
     }
 
     @Override
-    public CommonOptionsImpl setHeadersMap(Map<String, String> headersMap)
+    public ApiCommonOptionsImpl setHeadersMap(Map<String, String> headersMap)
     {
         this.mHeadersMap = headersMap;
         return this;
     }
 
     @Override
-    public CommonOptionsImpl addHeadersMap(Map<String, String> headersMap)
+    public ApiCommonOptionsImpl addHeadersMap(Map<String, String> headersMap)
     {
         getHeadersMap().putAll(headersMap);
         return this;
     }
 
     @Override
-    public CommonOptionsImpl addHeader(@NonNull String tag, String value)
+    public ApiCommonOptionsImpl addHeader(@NonNull String tag, String value)
     {
         getHeadersMap().put(tag, value);
         return this;
     }
 
     @Override
-    public CommonOptionsImpl setCacheMode(int mode)
+    public ApiCommonOptionsImpl setCacheMode(int mode)
     {
         this.mCacheMode = mode;
         return this;
@@ -329,7 +366,7 @@ class CommonOptionsImpl implements IRequestOptions.Common<CommonOptionsImpl>
     }
 
     @Override
-    public CommonOptionsImpl setCacheTime(long cacheTime)
+    public ApiCommonOptionsImpl setCacheTime(long cacheTime)
     {
         this.mCacheTime = cacheTime;
         return this;
@@ -342,7 +379,7 @@ class CommonOptionsImpl implements IRequestOptions.Common<CommonOptionsImpl>
     }
 
     @Override
-    public CommonOptionsImpl setAutoRetryJudge(IAutoRetry autoRetry)
+    public ApiCommonOptionsImpl setAutoRetryJudge(IAutoRetry autoRetry)
     {
         this.mAutoRetry = autoRetry;
         return this;
@@ -359,7 +396,7 @@ class CommonOptionsImpl implements IRequestOptions.Common<CommonOptionsImpl>
     }
 
     @Override
-    public CommonOptionsImpl setAutoRetryCount(int count)
+    public ApiCommonOptionsImpl setAutoRetryCount(int count)
     {
         this.mAutoRetryCount = count;
         return this;
@@ -372,7 +409,7 @@ class CommonOptionsImpl implements IRequestOptions.Common<CommonOptionsImpl>
     }
 
     @Override
-    public CommonOptionsImpl setAutoRetryDelay(int delay)
+    public ApiCommonOptionsImpl setAutoRetryDelay(int delay)
     {
         this.mAutoRetryDelay = delay;
         return this;
@@ -385,21 +422,21 @@ class CommonOptionsImpl implements IRequestOptions.Common<CommonOptionsImpl>
     }
 
     @Override
-    public CommonOptionsImpl setHttpsCertificates(InputStream... certificates)
+    public ApiCommonOptionsImpl setHttpsCertificates(InputStream... certificates)
     {
         this.mSslParams = HttpsUtils.getSslSocketFactory(null, null, certificates);
         return this;
     }
 
     @Override
-    public CommonOptionsImpl setHttpsCertificates(InputStream bksFile, String password, InputStream... certificates)
+    public ApiCommonOptionsImpl setHttpsCertificates(InputStream bksFile, String password, InputStream... certificates)
     {
         this.mSslParams = HttpsUtils.getSslSocketFactory(bksFile, password, certificates);
         return this;
     }
 
     @Override
-    public CommonOptionsImpl setHttpsSSLParams(HttpsUtils.SSLParams params)
+    public ApiCommonOptionsImpl setHttpsSSLParams(HttpsUtils.SSLParams params)
     {
         this.mSslParams = params;
         return this;
@@ -412,7 +449,7 @@ class CommonOptionsImpl implements IRequestOptions.Common<CommonOptionsImpl>
     }
 
     @Override
-    public CommonOptionsImpl setHostnameVerifier(HostnameVerifier verifier)
+    public ApiCommonOptionsImpl setHostnameVerifier(HostnameVerifier verifier)
     {
         this.mHostnameVerifier = verifier;
         return this;

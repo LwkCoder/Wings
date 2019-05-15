@@ -1,4 +1,4 @@
-package com.lwkandroid.wings.net.convert;
+package com.lwkandroid.wings.net.response.convert;
 
 import java.io.InputStream;
 
@@ -10,7 +10,7 @@ import okhttp3.ResponseBody;
  * @author LWK
  * @date 2019/5/13
  */
- final class InputStreamConverter extends AbsConverter<InputStream>
+ final class InputStreamResponseBodyConverter extends AbsApiResponseBodyConverter<InputStream>
 {
     @Override
     public InputStream convert(ResponseBody response) throws Exception

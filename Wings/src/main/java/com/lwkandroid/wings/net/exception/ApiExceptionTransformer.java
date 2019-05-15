@@ -1,4 +1,4 @@
-package com.lwkandroid.wings.net.error;
+package com.lwkandroid.wings.net.exception;
 
 import com.lwkandroid.wings.net.bean.ApiException;
 
@@ -11,8 +11,7 @@ import io.reactivex.functions.Function;
  * Created by LWK
  * 异常转换为ApiException的Transformer
  */
-
-public class ApiExceptionTransformer<T> implements ObservableTransformer<T, T>
+public final class ApiExceptionTransformer<T> implements ObservableTransformer<T, T>
 {
     @Override
     public ObservableSource<T> apply(Observable<T> upstream)

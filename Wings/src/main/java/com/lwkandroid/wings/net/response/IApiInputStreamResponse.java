@@ -12,7 +12,7 @@ import io.reactivex.Observable;
  *  定义InputStream网络请求结果的转换方法
  */
 
-public interface IApiInputSreamResponse
+public interface IApiInputStreamResponse
 {
     /**
      * 直接返回InputStream网络请求结果

@@ -4,16 +4,10 @@ import android.text.TextUtils;
 
 import com.lwkandroid.wings.net.ApiService;
 import com.lwkandroid.wings.net.bean.ApiResultCacheWrapper;
-import com.lwkandroid.wings.net.cache.RxCache;
-import com.lwkandroid.wings.net.cache.func.ApiCacheDataGetterFunc;
-import com.lwkandroid.wings.net.cache.func.ApiCacheDataParseAsDataFunc;
-import com.lwkandroid.wings.net.cache.func.ApiCacheDataParseAsListFunc;
 import com.lwkandroid.wings.net.constants.ApiConstants;
 import com.lwkandroid.wings.net.constants.ApiRequestType;
-import com.lwkandroid.wings.net.convert.ApiResponseConverter;
-import com.lwkandroid.wings.net.error.ApiExceptionTransformer;
+import com.lwkandroid.wings.net.response.ApiStringResponseImpl;
 import com.lwkandroid.wings.net.response.IApiStringResponse;
-import com.lwkandroid.wings.net.retry.AutoRetryFunc;
 import com.lwkandroid.wings.net.utils.RequestBodyUtils;
 
 import java.util.List;
@@ -25,14 +19,18 @@ import okhttp3.ResponseBody;
 
 /**
  * Created by LWK
- *  Delete请求
+ * Delete请求
+ *
+ * @author LWK
  */
-
-public class ApiDeleteRequest extends ApiBaseRequest<ApiDeleteRequest> implements IApiStringResponse
+public final class ApiDeleteRequest extends ApiBaseRequest<ApiDeleteRequest> implements IApiStringResponse
 {
+    private ApiStringResponseImpl<ApiDeleteRequest> mStringResponseImpl;
+
     public ApiDeleteRequest(String url)
     {
         super(url, ApiRequestType.DELETE);
+        mStringResponseImpl = new ApiStringResponseImpl<>(this);
     }
 
     @Override
@@ -64,45 +62,36 @@ public class ApiDeleteRequest extends ApiBaseRequest<ApiDeleteRequest> implement
     @Override
     public Observable<ApiResultCacheWrapper<String>> returnStringResponseWithCacheWrapped()
     {
-        return invokeRequest()
-                .compose(ApiResponseConverter.responseToString())
-                .compose(RxCache.transform(getFinalCacheOptions(), String.class))
-                .compose(new ApiExceptionTransformer<ApiResultCacheWrapper<String>>())
-                .retryWhen(new AutoRetryFunc(getSubUrl(), getAutoRetryCount(), getAutoRetryDelay(), getAutoRetryJudge()));
+        return mStringResponseImpl.returnStringResponseWithCacheWrapped();
     }
 
     @Override
     public Observable<String> returnStringResponse()
     {
-        return returnStringResponseWithCacheWrapped()
-                .map(new ApiCacheDataGetterFunc<String>());
+        return mStringResponseImpl.returnStringResponse();
     }
 
     @Override
-    public <T> Observable<ApiResultCacheWrapper<T>> parseAsObjectWithCacheWrapped(final Class<T> tOfClass)
+    public <T> Observable<ApiResultCacheWrapper<T>> parseAsObjectWithCacheWrapped(Class<T> tOfClass)
     {
-        return returnStringResponseWithCacheWrapped()
-                .flatMap(new ApiCacheDataParseAsDataFunc<T>(getApiStringParser(), tOfClass));
+        return mStringResponseImpl.parseAsObjectWithCacheWrapped(tOfClass);
     }
 
     @Override
     public <T> Observable<T> parseAsObject(Class<T> tOfClass)
     {
-        return parseAsObjectWithCacheWrapped(tOfClass)
-                .map(new ApiCacheDataGetterFunc<T>());
+        return mStringResponseImpl.parseAsObject(tOfClass);
     }
 
     @Override
-    public <T> Observable<ApiResultCacheWrapper<List<T>>> parseAsListWithCacheWrapped(final Class<T> tOfClass)
+    public <T> Observable<ApiResultCacheWrapper<List<T>>> parseAsListWithCacheWrapped(Class<T> tOfClass)
     {
-        return returnStringResponseWithCacheWrapped()
-                .flatMap(new ApiCacheDataParseAsListFunc<T>(getApiStringParser(), tOfClass));
+        return mStringResponseImpl.parseAsListWithCacheWrapped(tOfClass);
     }
 
     @Override
     public <T> Observable<List<T>> parseAsList(Class<T> tOfClass)
     {
-        return parseAsListWithCacheWrapped(tOfClass)
-                .map(new ApiCacheDataGetterFunc<List<T>>());
+        return mStringResponseImpl.parseAsList(tOfClass);
     }
 }

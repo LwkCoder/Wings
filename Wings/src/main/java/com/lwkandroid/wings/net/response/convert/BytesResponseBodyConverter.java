@@ -1,4 +1,4 @@
-package com.lwkandroid.wings.net.convert;
+package com.lwkandroid.wings.net.response.convert;
 
 import okhttp3.ResponseBody;
 
@@ -8,7 +8,7 @@ import okhttp3.ResponseBody;
  * @author LWK
  * @date 2019/5/13
  */
- final class BytesConverter extends AbsConverter<byte[]>
+ final class BytesResponseBodyConverter extends AbsApiResponseBodyConverter<byte[]>
 {
     @Override
     public byte[] convert(ResponseBody response) throws Exception

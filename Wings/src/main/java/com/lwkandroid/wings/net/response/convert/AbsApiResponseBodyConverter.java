@@ -1,4 +1,4 @@
-package com.lwkandroid.wings.net.convert;
+package com.lwkandroid.wings.net.response.convert;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
@@ -12,7 +12,7 @@ import okhttp3.ResponseBody;
  * @author LWK
  * @date 2019/5/13
  */
-abstract class AbsConverter<T> implements ObservableTransformer<ResponseBody, T>
+abstract class AbsApiResponseBodyConverter<T> implements ObservableTransformer<ResponseBody, T>
 {
     @Override
     public ObservableSource<T> apply(Observable<ResponseBody> upstream)

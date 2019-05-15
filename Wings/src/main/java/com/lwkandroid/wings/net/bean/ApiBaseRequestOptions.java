@@ -24,45 +24,90 @@ import okhttp3.Interceptor;
 import okhttp3.RequestBody;
 
 /**
- * Created by LWK
- *  单次网络请求的配置
+ * 单次网络请求的配置
+ *
+ * @author LWK
  */
-public class ApiRequestOptions<T extends ApiRequestOptions> implements IRequestOptions.Common<ApiRequestOptions>, IRequestOptions.Custom<ApiRequestOptions>
+public class ApiBaseRequestOptions<T extends ApiBaseRequestOptions> implements IApiRequestOptions.Custom<ApiBaseRequestOptions>
 {
-    private IRequestOptions.Common mCommonImpl = new CommonOptionsImpl();
-    /*请求类型*/
+    private IApiRequestOptions.Common mCommonImpl = new ApiCommonOptionsImpl();
+    /**
+     * 请求类型
+     */
     @ApiRequestType.Type
     private int mRequestType;
-    /*请求链接*/
+
+    /**
+     * 请求链接
+     */
     private String mSubUrl;
-    /*单次请求需要排除的全局拦截器TAG集合*/
+
+    /**
+     * 单次请求需要排除的全局拦截器TAG集合
+     */
     private Set<String> mIgnoreInterceptorSet;
-    /*单次请求需要排除的全局网络拦截器TAG集合*/
+
+    /**
+     * 单次请求需要排除的全局网络拦截器TAG集合
+     */
     private Set<String> mIgnoreNetInterceptorSet;
-    /*单次请求需要排除的全局表单参数Key集合*/
+
+    /**
+     * 单次请求需要排除的全局表单参数Key集合
+     */
     private Set<String> mIgnoreFormDataSet;
-    /*单次请求需要排除的全局Header参数Key集合*/
+
+    /**
+     * 单次请求需要排除的全局Header参数Key集合
+     */
     private Set<String> mIgnoreHeaderSet;
-    /*单次请求是否去除所有全局拦截器*/
+
+    /**
+     * 单次请求是否去除所有全局拦截器
+     */
     private boolean mIsIgnoreAllGlobalInterceptors = false;
-    /*单次请求是否去除所有网络拦截器*/
+
+    /**
+     * 单次请求是否去除所有网络拦截器
+     */
     private boolean mIsIgnoreAllGlobalNetInterceptors = false;
-    /*单次请求是否去除所有全局参数*/
+
+    /**
+     * 单次请求是否去除所有全局参数
+     */
     private boolean mIsIgnoreAllGlobalFormDatas = false;
-    /*单次请求是否去除所有全局Header*/
+
+    /**
+     * 单次请求是否去除所有全局Header
+     */
     private boolean mIsIgnoreAllGlobalHeaders = false;
-    /*单次请求的ObjectBody*/
+
+    /**
+     * 单次请求的ObjectBody
+     */
     private Object mObjectRequestBody;
-    /*单次请求的RequestBody*/
+
+    /**
+     * 单次请求的RequestBody
+     */
     private RequestBody mOkHttp3RequestBody;
-    /*单次请求的JsonBody*/
+
+    /**
+     * 单次请求的JsonBody
+     */
     private String mJsonRequestBody;
-    /*Cookie*/
+
+    /**
+     * Cookie
+     */
     private List<Cookie> mCookieList;
-    //缓存key
+
+    /**
+     * 缓存key
+     */
     private String mCacheKey;
 
-    public ApiRequestOptions()
+    public ApiBaseRequestOptions()
     {
         //初始化的时候保持和全局配置一样
         setApiResultStringParser(RxHttp.getGlobalOptions().getApiStringParser());

@@ -7,7 +7,7 @@ import com.lwkandroid.wings.net.RxHttp;
 import com.lwkandroid.wings.net.bean.ApiException;
 import com.lwkandroid.wings.net.bean.ApiResultCacheWrapper;
 import com.lwkandroid.wings.net.constants.ApiCacheMode;
-import com.lwkandroid.wings.net.convert.ApiResponseConverter;
+import com.lwkandroid.wings.net.response.convert.ApiResponseBodyConverter;
 import com.lwkandroid.wings.net.utils.FormDataMap;
 import com.lwkandroid.wings.utils.SDCardUtils;
 import com.lwkandroid.wings.utils.StringUtils;
@@ -51,7 +51,7 @@ public class RxHttpDemoModel extends RxHttpDemoContract.Model
                 .createWithGlobalOptions()
                 .create(CustomService.class)
                 .customGet(ApiURL.TEST, new FormDataMap().addParam("webp", "1"))
-                .compose(ApiResponseConverter.responseToString())//先将ResponseBody转为String结果的数据
+                .compose(ApiResponseBodyConverter.transformToString())//先将ResponseBody转为String结果的数据
                 .compose(RxHttp.getGlobalOptions().getApiStringParser().parseAsList(TabsBean.class));//再将String数据解析为所需数据集合
     }
 
@@ -65,7 +65,7 @@ public class RxHttpDemoModel extends RxHttpDemoContract.Model
                 .createWithGlobalOptions()
                 .create(CustomService.class)
                 .customPost(ApiURL.CUSTOM_POST, map)
-                .compose(ApiResponseConverter.responseToString());
+                .compose(ApiResponseBodyConverter.transformToString());
     }
 
     @Override
@@ -75,7 +75,7 @@ public class RxHttpDemoModel extends RxHttpDemoContract.Model
                 .ignoreAllGlobalFormData() //去除所有的全局参数，避免无法监听下载过程
                 .addIgnoreInterceptors("sign") //去除模拟签名用的拦截器，避免无法监听下载过程
                 .setFileName("app.apk")
-                .setSaveFloderPath(SDCardUtils.getSDCardPath() + "/WingsDemo/")
+                .setSaveFolderPath(SDCardUtils.getSDCardPath() + "/WingsDemo/")
                 .parseAsFileFromIS();
     }
 

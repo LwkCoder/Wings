@@ -13,28 +13,51 @@ import com.lwkandroid.wings.utils.SDCardUtils;
 import java.io.File;
 
 /**
- * Created by LWK
- *  缓存参数
+ * 缓存参数
+ *
+ * @author LWK
  */
-
 public class ApiCacheOptions
 {
-    //缓存类型
+    /**
+     * 缓存类型
+     */
     private @ApiCacheMode.Mode
     int cacheMode = ApiCacheMode.NO_CACHE;
-    //App版本
+
+    /**
+     * App版本
+     */
     private int appVersion = 1;
-    //缓存路径
+
+    /**
+     * 缓存路径
+     */
     private String cachePath;
-    //缓存key
+
+    /**
+     * 缓存key
+     */
     private String cacheKey;
-    //缓存时长
+
+    /**
+     * 缓存时长
+     */
     private long cacheTime = -1;
-    //硬盘缓存大小
+
+    /**
+     * 硬盘缓存大小
+     */
     private long diskMaxSize = -1;
-    //缓存转换器
-    private IDiskCacheOperator cacheOpeartor = null;
-    //缓存核心管理类
+
+    /**
+     * 缓存转换器
+     */
+    private IDiskCacheOperator cacheOperator = null;
+
+    /**
+     * 缓存核心管理类
+     */
     private CacheCore cacheCore;
 
     private ApiCacheOptions()
@@ -101,14 +124,14 @@ public class ApiCacheOptions
         this.diskMaxSize = diskMaxSize;
     }
 
-    public IDiskCacheOperator getCacheOpeartor()
+    public IDiskCacheOperator getCacheOperator()
     {
-        return cacheOpeartor;
+        return cacheOperator;
     }
 
-    public void setCacheOpeartor(IDiskCacheOperator cacheOpeartor)
+    public void setCacheOperator(IDiskCacheOperator cacheOperator)
     {
-        this.cacheOpeartor = cacheOpeartor;
+        this.cacheOperator = cacheOperator;
     }
 
     public CacheCore getCacheCore()
@@ -170,7 +193,7 @@ public class ApiCacheOptions
 
         public Builder cacheOpeartor(IDiskCacheOperator opeartor)
         {
-            options.setCacheOpeartor(opeartor);
+            options.setCacheOperator(opeartor);
             return this;
         }
 
@@ -195,9 +218,9 @@ public class ApiCacheOptions
                 cacheFile.mkdirs();
             }
             //检查转换器
-            if (options.getCacheOpeartor() == null)
+            if (options.getCacheOperator() == null)
             {
-                options.setCacheOpeartor(new GsonDiskOperator());
+                options.setCacheOperator(new GsonDiskOperator());
             }
             //检查缓存磁盘容量
             if (options.getDiskMaxSize() < ApiConstants.DISK_CACHE_MIN_SIZE)
@@ -206,7 +229,7 @@ public class ApiCacheOptions
             }
             //设置缓存核心管理
             DiskLruCacheWrapper diskLruCache = new DiskLruCacheWrapper(
-                    options.getCacheOpeartor(),
+                    options.getCacheOperator(),
                     cacheFile,
                     options.getAppVersion(),
                     Math.min(SDCardUtils.getFreeSpace(), options.getDiskMaxSize()));

@@ -1,7 +1,6 @@
 package com.lwkandroid.wings.net;
 
 import com.lwkandroid.wings.net.bean.ApiGlobalOptions;
-import com.lwkandroid.wings.net.error.UnknownErrorHandler;
 import com.lwkandroid.wings.net.interceptor.ApiLogInterceptor;
 import com.lwkandroid.wings.net.interceptor.OkProgressInterceptor;
 import com.lwkandroid.wings.net.requst.ApiDeleteRequest;
@@ -13,15 +12,15 @@ import com.lwkandroid.wings.net.requst.ApiPutRequest;
 import com.lwkandroid.wings.net.requst.ApiUploadRequest;
 import com.lwkandroid.wings.net.utils.RetrofitUtils;
 
-import io.reactivex.plugins.RxJavaPlugins;
 import okhttp3.Interceptor;
 
 /**
  * Created by LWK
  * 向外提供功能的入口
+ *
+ * @author LWK
  */
-
-public class RxHttp
+public final class RxHttp
 {
     static
     {
@@ -65,7 +64,6 @@ public class RxHttp
     public static ApiGlobalOptions init(String baseUrl)
     {
         DEFAULT_GLOBAL_OPTIONS.setBaseUrl(baseUrl);
-        RxJavaPlugins.setErrorHandler(new UnknownErrorHandler());
         return DEFAULT_GLOBAL_OPTIONS;
     }
 
