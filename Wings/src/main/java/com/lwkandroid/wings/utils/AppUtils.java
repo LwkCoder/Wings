@@ -313,6 +313,31 @@ public final class AppUtils
     }
 
     /**
+     * 创建卸载某应用的Intent
+     *
+     * @param packageName 应用包名
+     * @return Intent
+     */
+    public static Intent createUnInstallIntent(String packageName)
+    {
+        Intent intent = new Intent(Intent.ACTION_DELETE);
+        intent.setData(Uri.parse("package:" + packageName));
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        return intent;
+    }
+
+    /**
+     * 卸载某应用
+     *
+     * @param packageName 应用包名
+     */
+    public static void unInstallApk(String packageName)
+    {
+        Intent intent = createUnInstallIntent(packageName);
+        Utils.getContext().startActivity(intent);
+    }
+
+    /**
      * 跳转到App设置详情界面
      */
     public static void goToSettingDetail()
