@@ -23,7 +23,7 @@ import androidx.core.widget.PopupWindowCompat;
 
 /**
  * Created by LWK
- *  PopupWindow辅助类
+ * PopupWindow辅助类
  */
 
 public class PopCreator implements IPopOperator, PopupWindow.OnDismissListener
@@ -248,9 +248,12 @@ public class PopCreator implements IPopOperator, PopupWindow.OnDismissListener
         if (null != view)
         {
             Context context = view.getContext();
-            while (!(context instanceof Activity))
+            while (context != null && !(context instanceof Activity))
             {
-                context = ((ContextWrapper) context).getBaseContext();
+                if (context instanceof ContextWrapper)
+                {
+                    context = ((ContextWrapper) context).getBaseContext();
+                }
             }
             return (Activity) context;
         }
