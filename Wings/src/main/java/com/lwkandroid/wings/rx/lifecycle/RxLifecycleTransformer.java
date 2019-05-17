@@ -27,7 +27,7 @@ import io.reactivex.functions.Function;
  * @author LWK
  * @date 2019/4/24
  */
-public class RxLifecycleTransformer<T> implements ObservableTransformer<T, T>,
+class RxLifecycleTransformer<T> implements ObservableTransformer<T, T>,
         FlowableTransformer<T, T>,
         SingleTransformer<T, T>,
         MaybeTransformer<T, T>,
@@ -35,7 +35,7 @@ public class RxLifecycleTransformer<T> implements ObservableTransformer<T, T>,
 {
     final Observable<?> mObservable;
 
-    public RxLifecycleTransformer(Observable<?> observable)
+    RxLifecycleTransformer(Observable<?> observable)
     {
         this.mObservable = observable;
     }

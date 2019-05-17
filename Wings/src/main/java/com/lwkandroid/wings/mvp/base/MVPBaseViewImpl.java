@@ -1,6 +1,7 @@
 package com.lwkandroid.wings.mvp.base;
 
 import com.lwkandroid.wings.log.KLog;
+import com.lwkandroid.wings.rx.lifecycle.IRxLifeCyclePublisher;
 import com.lwkandroid.wings.rx.lifecycle.RxLifeCyclePublisherImpl;
 import com.lwkandroid.wings.utils.ReflectUtils;
 import com.lwkandroid.wings.utils.ToastUtils;
@@ -14,10 +15,12 @@ import io.reactivex.subjects.PublishSubject;
  * Created by LWK
  * MVP模版中View层实现类
  * 【实现最基础的一些方法】
+ *
+ * @author LWK
  */
 public class MVPBaseViewImpl<P extends MVPBasePresenter> implements IMVPBaseView
 {
-    private RxLifeCyclePublisherImpl mLifeCycleImpl = new RxLifeCyclePublisherImpl();
+    private IRxLifeCyclePublisher mLifeCyclePublisherImpl = new RxLifeCyclePublisherImpl();
     private P mPresenter;
 
     /**
@@ -85,12 +88,12 @@ public class MVPBaseViewImpl<P extends MVPBasePresenter> implements IMVPBaseView
     @Override
     public PublishSubject<Integer> getLifeCycleSubject()
     {
-        return mLifeCycleImpl.getLifeCycleSubject();
+        return mLifeCyclePublisherImpl.getLifeCycleSubject();
     }
 
     @Override
     public void publishLifeCycleEvent(Integer lifeCycleEvent)
     {
-        mLifeCycleImpl.publishLifeCycleEvent(lifeCycleEvent);
+        mLifeCyclePublisherImpl.publishLifeCycleEvent(lifeCycleEvent);
     }
 }

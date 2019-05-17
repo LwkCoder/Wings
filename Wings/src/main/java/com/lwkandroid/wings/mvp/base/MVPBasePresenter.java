@@ -1,12 +1,9 @@
 package com.lwkandroid.wings.mvp.base;
 
-import com.lwkandroid.wings.rx.lifecycle.RxLifeCycle;
-import com.lwkandroid.wings.rx.lifecycle.RxLifeCycleConstants;
+import com.lwkandroid.wings.rx.lifecycle.IRxLifeCycleOperator;
 import com.lwkandroid.wings.rx.lifecycle.RxLifeCycleEvent;
-import com.lwkandroid.wings.rx.schedulers.RxSchedulers;
+import com.lwkandroid.wings.rx.lifecycle.RxLifeCycleOperatorImpl;
 
-import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -14,16 +11,18 @@ import io.reactivex.disposables.Disposable;
 /**
  * Created by LWK
  * MVP模版中Presenter基类
+ *
+ * @author LWK
  */
 public abstract class MVPBasePresenter<V extends IMVPBaseView, M> implements IMVPBasePresenter<V, M>
 {
     private V mView;
     private M mModel;
-    private CompositeDisposable mCompositeDisposable;
+    private IRxLifeCycleOperator<V> mRxLifeCycleOperatorImpl;
 
     public MVPBasePresenter()
     {
-
+        mRxLifeCycleOperatorImpl = new RxLifeCycleOperatorImpl<>();
     }
 
     @Override
@@ -31,7 +30,19 @@ public abstract class MVPBasePresenter<V extends IMVPBaseView, M> implements IMV
     {
         this.mView = view;
         this.mModel = createModel();
-        mCompositeDisposable = new CompositeDisposable();
+        attachWithPublisher(view);
+    }
+
+    @Override
+    public void attachWithPublisher(V publisher)
+    {
+        mRxLifeCycleOperatorImpl.attachWithPublisher(publisher);
+    }
+
+    @Override
+    public V getPublisher()
+    {
+        return mRxLifeCycleOperatorImpl.getPublisher();
     }
 
     /**
@@ -55,16 +66,19 @@ public abstract class MVPBasePresenter<V extends IMVPBaseView, M> implements IMV
     @Override
     public CompositeDisposable getCompositeDisposable()
     {
-        return mCompositeDisposable;
+        return mRxLifeCycleOperatorImpl.getCompositeDisposable();
     }
 
     @Override
     public void addComposites(Disposable... disposable)
     {
-        if (mCompositeDisposable != null)
-        {
-            mCompositeDisposable.addAll(disposable);
-        }
+        mRxLifeCycleOperatorImpl.addComposites(disposable);
+    }
+
+    @Override
+    public void clearComposites()
+    {
+        mRxLifeCycleOperatorImpl.clearComposites();
     }
 
     /**
@@ -73,7 +87,7 @@ public abstract class MVPBasePresenter<V extends IMVPBaseView, M> implements IMV
     @Override
     public <T> ObservableTransformer<T, T> applyIo2MainUntilViewDestroy()
     {
-        return applyIo2MainUntilLifeCycle(RxLifeCycleConstants.ON_DESTROY);
+        return mRxLifeCycleOperatorImpl.applyIo2MainUntilViewDestroy();
     }
 
     /**
@@ -82,16 +96,7 @@ public abstract class MVPBasePresenter<V extends IMVPBaseView, M> implements IMV
     @Override
     public <T> ObservableTransformer<T, T> applyIo2MainUntilLifeCycle(@RxLifeCycleEvent final int target)
     {
-        return new ObservableTransformer<T, T>()
-        {
-            @Override
-            public ObservableSource<T> apply(Observable<T> upstream)
-            {
-                return upstream
-                        .compose(RxSchedulers.<T>applyIo2Main())
-                        .compose(RxLifeCycle.<T>bindUntilEvent(getViewImpl().getLifeCycleSubject(), target));
-            }
-        };
+        return mRxLifeCycleOperatorImpl.applyIo2MainUntilLifeCycle(target);
     }
 
     /**
@@ -100,7 +105,7 @@ public abstract class MVPBasePresenter<V extends IMVPBaseView, M> implements IMV
     @Override
     public <T> ObservableTransformer<T, T> applyComputation2MainUntilViewDestroy()
     {
-        return applyComputation2MainUntilLifeCycle(RxLifeCycleConstants.ON_DESTROY);
+        return mRxLifeCycleOperatorImpl.applyComputation2MainUntilViewDestroy();
     }
 
     /**
@@ -109,16 +114,7 @@ public abstract class MVPBasePresenter<V extends IMVPBaseView, M> implements IMV
     @Override
     public <T> ObservableTransformer<T, T> applyComputation2MainUntilLifeCycle(@RxLifeCycleEvent final int target)
     {
-        return new ObservableTransformer<T, T>()
-        {
-            @Override
-            public ObservableSource<T> apply(Observable<T> upstream)
-            {
-                return upstream
-                        .compose(RxSchedulers.<T>applyComputation2Main())
-                        .compose(RxLifeCycle.<T>bindUntilEvent(getViewImpl().getLifeCycleSubject(), target));
-            }
-        };
+        return mRxLifeCycleOperatorImpl.applyComputation2MainUntilLifeCycle(target);
     }
 
     /**
@@ -127,7 +123,7 @@ public abstract class MVPBasePresenter<V extends IMVPBaseView, M> implements IMV
     @Override
     public <T> ObservableTransformer<T, T> applyNewThread2MainUntilViewDestroy()
     {
-        return applyNewThread2MainUntilLifeCycle(RxLifeCycleConstants.ON_DESTROY);
+        return mRxLifeCycleOperatorImpl.applyNewThread2MainUntilViewDestroy();
     }
 
     /**
@@ -136,26 +132,13 @@ public abstract class MVPBasePresenter<V extends IMVPBaseView, M> implements IMV
     @Override
     public <T> ObservableTransformer<T, T> applyNewThread2MainUntilLifeCycle(@RxLifeCycleEvent final int target)
     {
-        return new ObservableTransformer<T, T>()
-        {
-            @Override
-            public ObservableSource<T> apply(Observable<T> upstream)
-            {
-                return upstream
-                        .compose(RxSchedulers.<T>applyNewThread2Main())
-                        .compose(RxLifeCycle.<T>bindUntilEvent(getViewImpl().getLifeCycleSubject(), target));
-            }
-        };
+        return mRxLifeCycleOperatorImpl.applyNewThread2MainUntilLifeCycle(target);
     }
 
     @Override
     public void onDestroyPresenter()
     {
-        if (mCompositeDisposable != null && !mCompositeDisposable.isDisposed())
-        {
-            mCompositeDisposable.dispose();
-            mCompositeDisposable = null;
-        }
+        mRxLifeCycleOperatorImpl.clearComposites();
         if (mView != null)
         {
             mView = null;
