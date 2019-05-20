@@ -6,10 +6,20 @@ import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.Rect;
+import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.DisplayMetrics;
+import android.view.PixelCopy;
 import android.view.Surface;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
+
+import com.lwkandroid.wings.net.bean.ApiException;
+
+import androidx.annotation.RequiresApi;
 
 /**
  * 屏幕相关工具类
@@ -148,6 +158,53 @@ public final class ScreenUtils
         Bitmap ret = Bitmap.createBitmap(bmp, 0, statusBarHeight, dm.widthPixels, dm.heightPixels - statusBarHeight);
         view.destroyDrawingCache();
         return ret;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public static void createBitmapFromView(final Window window, final View view, final WingsCallBack<Bitmap> callBack)
+    {
+        if (view == null)
+        {
+            if (callBack != null)
+            {
+                callBack.onCallBackSuccess(null);
+            }
+            return;
+        }
+
+        view.post(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                int width = view.getWidth();
+                int height = view.getHeight();
+                int[] location = new int[2];
+                view.getLocationInWindow(location);
+                final Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888, true);
+                PixelCopy.request(window, new Rect(location[0], location[1], location[0] + width, location[1] + height),
+                        bitmap, new PixelCopy.OnPixelCopyFinishedListener()
+                        {
+                            @Override
+                            public void onPixelCopyFinished(int copyResult)
+                            {
+                                if (copyResult == PixelCopy.SUCCESS)
+                                {
+                                    if (callBack != null)
+                                    {
+                                        callBack.onCallBackSuccess(bitmap);
+                                    }
+                                } else
+                                {
+                                    if (callBack != null)
+                                    {
+                                        callBack.onCallBackError(new ApiException(copyResult, "Fail to create bitmap from view"));
+                                    }
+                                }
+                            }
+                        }, new Handler(Looper.getMainLooper()));
+            }
+        });
     }
 
     /**
