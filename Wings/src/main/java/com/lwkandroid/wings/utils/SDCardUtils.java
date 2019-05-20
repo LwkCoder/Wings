@@ -1,5 +1,6 @@
 package com.lwkandroid.wings.utils;
 
+import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
 
@@ -53,12 +54,11 @@ public final class SDCardUtils
         if (file == null)
         {
             //部分ROM获取不到地址就自行拼接
-            StringBuffer buffer = new StringBuffer();
-            buffer.append(getSDCardPath())
-                    .append("Android/data/")
-                    .append(AppUtils.getPackageName())
-                    .append("/cache/");
-            file = new File(buffer.toString());
+            String path = getSDCardPath() +
+                    "Android/data/" +
+                    AppUtils.getPackageName() +
+                    "/cache/";
+            file = new File(path);
             return file.mkdirs() ? file.getAbsolutePath() : null;
         }
 
@@ -79,8 +79,15 @@ public final class SDCardUtils
         }
         StatFs stat = new StatFs(getSDCardPath());
         long blockSize, availableBlocks;
-        availableBlocks = stat.getAvailableBlocks();
-        blockSize = stat.getBlockSize();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2)
+        {
+            availableBlocks = stat.getAvailableBlocksLong();
+            blockSize = stat.getBlockSizeLong();
+        } else
+        {
+            availableBlocks = stat.getAvailableBlocks();
+            blockSize = stat.getAvailableBlocks();
+        }
         return availableBlocks * blockSize;
     }
 }

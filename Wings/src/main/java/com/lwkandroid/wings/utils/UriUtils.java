@@ -1,7 +1,6 @@
 package com.lwkandroid.wings.utils;
 
 import android.content.ContentResolver;
-import android.content.CursorLoader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
@@ -12,6 +11,7 @@ import java.io.File;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
+import androidx.loader.content.CursorLoader;
 
 /**
  * Uri工具类
@@ -58,9 +58,17 @@ public final class UriUtils
         try
         {
             cursor = cl.loadInBackground();
-            int columnIndex = cursor.getColumnIndexOrThrow(columnName);
-            cursor.moveToFirst();
-            return new File(cursor.getString(columnIndex));
+            if (cursor != null)
+            {
+                int columnIndex = cursor.getColumnIndexOrThrow(columnName);
+                cursor.moveToFirst();
+                return new File(cursor.getString(columnIndex));
+            }
+            return null;
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            return null;
         } finally
         {
             if (cursor != null)

@@ -2,10 +2,11 @@ package com.lwkandroid.wings.utils;
 
 import android.os.Handler;
 import android.os.Looper;
-import androidx.annotation.StringRes;
 import android.widget.Toast;
 
 import java.lang.ref.WeakReference;
+
+import androidx.annotation.StringRes;
 
 /**
  * Toast工具类
@@ -53,7 +54,9 @@ public final class ToastUtils
         show(s, Toast.LENGTH_SHORT);
     }
 
-    //执行Toast的方法
+    /**
+     * 执行Toast的方法
+     */
     private static void show(final CharSequence s, final int duration)
     {
         mHandler.post(new Runnable()

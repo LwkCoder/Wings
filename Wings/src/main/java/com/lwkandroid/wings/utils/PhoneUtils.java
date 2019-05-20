@@ -143,11 +143,11 @@ public final class PhoneUtils
     /**
      * 拨打电话【调用前需要申请权限android.permission.CALL_PHONE】
      *
-     * @param teleNumber 电话号码
+     * @param phoneNumber 电话号码
      */
-    public static void dial(String teleNumber)
+    public static void dial(String phoneNumber)
     {
-        Intent intent = new Intent("android.intent.action.CALL", Uri.parse("tel:" + teleNumber));
+        Intent intent = new Intent("android.intent.action.CALL", Uri.parse("tel:" + phoneNumber));
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         Utils.getContext().startActivity(intent);
     }
