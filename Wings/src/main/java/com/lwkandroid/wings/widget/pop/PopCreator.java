@@ -260,7 +260,9 @@ public class PopCreator implements IPopOperator, PopupWindow.OnDismissListener
         return null;
     }
 
-    //初始化配置
+    /**
+     * 初始化配置
+     */
     private void init(Context context, PopOptions options)
     {
         this.mContextReference = new WeakReference<>(context != null ? context : Utils.getContext());
@@ -291,15 +293,7 @@ public class PopCreator implements IPopOperator, PopupWindow.OnDismissListener
                 @Override
                 public boolean onTouch(View v, MotionEvent event)
                 {
-                    final int x = (int) event.getX();
-                    final int y = (int) event.getY();
-                    if ((event.getAction() == MotionEvent.ACTION_DOWN)
-                            && ((x < 0) || (x > mPopupWindow.getContentView().getWidth())
-                            || (y < 0) || (y > mPopupWindow.getContentView().getHeight())))
-                    {
-                        mPopupWindow.dismiss();
-                        return true;
-                    } else if (event.getAction() == MotionEvent.ACTION_OUTSIDE)
+                    if (isTouchDownOutside(event))
                     {
                         mPopupWindow.dismiss();
                         return true;
@@ -337,18 +331,7 @@ public class PopCreator implements IPopOperator, PopupWindow.OnDismissListener
                 @Override
                 public boolean onTouch(View v, MotionEvent event)
                 {
-                    final int x = (int) event.getX();
-                    final int y = (int) event.getY();
-
-                    if ((event.getAction() == MotionEvent.ACTION_DOWN)
-                            && ((x < 0) || (x >= mPopupWindow.getContentView().getWidth())
-                            || (y < 0) || (y >= mPopupWindow.getContentView().getHeight())))
-                    {
-                        return true;
-                    } else
-                    {
-                        return event.getAction() == MotionEvent.ACTION_OUTSIDE;
-                    }
+                    return isTouchDownOutside(event);
                 }
             });
         }
@@ -357,6 +340,25 @@ public class PopCreator implements IPopOperator, PopupWindow.OnDismissListener
         mPopupWindow.setInputMethodMode(PopupWindow.INPUT_METHOD_NEEDED);
         mPopupWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         mPopupWindow.setOnDismissListener(this);
+    }
+
+    /**
+     * 按下时是否在外部
+     *
+     * @param event 按下事件
+     */
+    private boolean isTouchDownOutside(MotionEvent event)
+    {
+        if (event.getAction() == MotionEvent.ACTION_DOWN)
+        {
+            int x = (int) event.getX();
+            int y = (int) event.getY();
+            return x < 0 || x > mPopupWindow.getContentView().getWidth()
+                    || y < 0 || y > mPopupWindow.getContentView().getHeight();
+        } else
+        {
+            return event.getAction() == MotionEvent.ACTION_OUTSIDE;
+        }
     }
 
     @Override
@@ -395,7 +397,9 @@ public class PopCreator implements IPopOperator, PopupWindow.OnDismissListener
         mPopupWindow = null;
     }
 
-    //显示过程中的效果
+    /**
+     * 显示过程中的效果
+     */
     private void applyProgressAffect()
     {
         if (mOptions == null || mOptions.getAffect() == null)
@@ -422,7 +426,9 @@ public class PopCreator implements IPopOperator, PopupWindow.OnDismissListener
         mAnimator.start();
     }
 
-    //消失的效果
+    /**
+     * 消失的效果
+     */
     private void applyDismissAffect()
     {
         if (mOptions == null || mOptions.getAffect() == null)
