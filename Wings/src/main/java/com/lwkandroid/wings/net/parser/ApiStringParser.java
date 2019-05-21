@@ -5,7 +5,6 @@ import com.lwkandroid.wings.net.bean.ApiException;
 import com.lwkandroid.wings.net.bean.IApiResult;
 import com.lwkandroid.wings.net.constants.ApiExceptionCode;
 import com.lwkandroid.wings.utils.StringUtils;
-import com.lwkandroid.wings.utils.json.IJsonStrategy;
 import com.lwkandroid.wings.utils.json.JsonUtils;
 
 import java.util.ArrayList;
@@ -18,14 +17,12 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Function;
 
 /**
- * Created by LWK
  * 将String类型的网络请求结果转换为{@link com.lwkandroid.wings.net.bean.IApiResult}的实现类
+ *
+ * @author LWK
  */
-
 public class ApiStringParser implements IApiStringParser
 {
-    protected static final IJsonStrategy JSON_PARSER = JsonUtils.get();
-
     @Override
     public <T> ObservableTransformer<String, T> parseAsObject(final Class<T> clazz)
     {
@@ -39,20 +36,9 @@ public class ApiStringParser implements IApiStringParser
                     @Override
                     public T apply(@NonNull String s) throws Exception
                     {
-                        IApiResult<Object> result = JSON_PARSER.parseJsonObject(s, RxHttp.getGlobalOptions().getApiResultType());
-                        if (result == null)
-                        {
-                            throw new ApiException(ApiExceptionCode.RESPONSE_EMPTY, "Could not get any Response");
-                        }
-                        if (!result.isResultOK())
-                        {
-                            throw new ApiException(result.getCode(), result.getMessage());
-                        }
-
-                        String dataJsonString = result.getData() != null ?
-                                JSON_PARSER.toJson(result.getData()) : null;
+                        String dataJsonString = parseDataJsonString(s);
                         return StringUtils.isNotEmpty(dataJsonString) ?
-                                JSON_PARSER.parseJsonObject(dataJsonString, clazz) : clazz.newInstance();
+                                JsonUtils.get().parseJsonObject(dataJsonString, clazz) : clazz.newInstance();
                     }
                 });
             }
@@ -72,23 +58,34 @@ public class ApiStringParser implements IApiStringParser
                     @Override
                     public List<T> apply(@NonNull String s) throws Exception
                     {
-                        IApiResult<Object> result = JSON_PARSER.parseJsonObject(s, RxHttp.getGlobalOptions().getApiResultType());
-                        if (result == null)
-                        {
-                            throw new ApiException(ApiExceptionCode.RESPONSE_EMPTY, "Could not get any Response");
-                        }
-                        if (!result.isResultOK())
-                        {
-                            throw new ApiException(result.getCode(), result.getMessage());
-                        }
-
-                        String dataJsonString = result.getData() != null ?
-                                JSON_PARSER.toJson(result.getData()) : null;
+                        String dataJsonString = parseDataJsonString(s);
                         return StringUtils.isNotEmpty(dataJsonString) ?
-                                JSON_PARSER.parseJsonArray(dataJsonString, clazz) : new ArrayList<T>();
+                                JsonUtils.get().parseJsonArray(dataJsonString, clazz) : new ArrayList<T>();
                     }
                 });
             }
         };
+    }
+
+    /**
+     * 将获取String请求结果中Data的Json字符串
+     *
+     * @param response 网络请求String结果
+     * @return
+     * @throws ApiException
+     */
+    private String parseDataJsonString(String response) throws ApiException
+    {
+        IApiResult<Object> result = JsonUtils.get().parseJsonObject(response, RxHttp.getGlobalOptions().getApiResultType());
+        if (result == null)
+        {
+            throw new ApiException(ApiExceptionCode.RESPONSE_EMPTY, "Could not get any Response");
+        }
+        if (!result.isResultOK())
+        {
+            throw new ApiException(result.getCode(), result.getMessage());
+        }
+        Object resultData = result.getData();
+        return resultData != null ? JsonUtils.get().toJson(result.getData()) : null;
     }
 }

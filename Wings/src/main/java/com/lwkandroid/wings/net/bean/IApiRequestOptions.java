@@ -38,10 +38,6 @@ public interface IApiRequestOptions
 
         IApiStringParser getApiStringParser();
 
-        T setApiResultType(Type type);
-
-        Type getApiResultType();
-
         T setReadTimeOut(long readTimeOut);
 
         long getReadTimeOut();
@@ -142,6 +138,10 @@ public interface IApiRequestOptions
      */
     interface Global<T> extends Common<T>
     {
+        T setApiResultType(Type type);
+
+        Type getApiResultType();
+
         T setApiResultOkCode(int code);
 
         int getApiResultOkCode();

@@ -14,13 +14,13 @@ import io.reactivex.functions.Function;
  *  转换缓存包装体内数据为某一对象的集合的方法
  */
 
-public class ApiCacheDataParseAsListFunc<T> implements Function<ApiResultCacheWrapper<String>,
+public class ApiCacheDataToDataListFunc<T> implements Function<ApiResultCacheWrapper<String>,
         ObservableSource<ApiResultCacheWrapper<List<T>>>>
 {
     private IApiStringParser mParser;
     private Class<T> mClass;
 
-    public ApiCacheDataParseAsListFunc(IApiStringParser parser, Class<T> clazz)
+    public ApiCacheDataToDataListFunc(IApiStringParser parser, Class<T> clazz)
     {
         this.mParser = parser;
         this.mClass = clazz;

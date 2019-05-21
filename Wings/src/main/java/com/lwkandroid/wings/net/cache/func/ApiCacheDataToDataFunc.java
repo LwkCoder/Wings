@@ -12,13 +12,13 @@ import io.reactivex.functions.Function;
  *  转换缓存包装体内数据为某一对象的方法
  */
 
-public class ApiCacheDataParseAsDataFunc<T> implements Function<ApiResultCacheWrapper<String>,
+public class ApiCacheDataToDataFunc<T> implements Function<ApiResultCacheWrapper<String>,
         ObservableSource<ApiResultCacheWrapper<T>>>
 {
     private IApiStringParser mParser;
     private Class<T> mClass;
 
-    public ApiCacheDataParseAsDataFunc(IApiStringParser parser, Class<T> clazz)
+    public ApiCacheDataToDataFunc(IApiStringParser parser, Class<T> clazz)
     {
         this.mParser = parser;
         this.mClass = clazz;

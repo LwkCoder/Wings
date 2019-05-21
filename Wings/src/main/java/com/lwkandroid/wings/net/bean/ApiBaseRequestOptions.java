@@ -8,7 +8,6 @@ import com.lwkandroid.wings.net.retry.IAutoRetry;
 import com.lwkandroid.wings.net.utils.FormDataMap;
 
 import java.io.InputStream;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -111,7 +110,6 @@ public class ApiBaseRequestOptions<T extends ApiBaseRequestOptions> implements I
     {
         //初始化的时候保持和全局配置一样
         setApiResultStringParser(RxHttp.getGlobalOptions().getApiStringParser());
-        setApiResultType(RxHttp.getGlobalOptions().getApiResultType());
         setConnectTimeOut(RxHttp.getGlobalOptions().getConnectTimeOut());
         setWriteTimeOut(RxHttp.getGlobalOptions().getWriteTimeOut());
         setReadTimeOut(RxHttp.getGlobalOptions().getReadTimeOut());
@@ -136,19 +134,6 @@ public class ApiBaseRequestOptions<T extends ApiBaseRequestOptions> implements I
     public IApiStringParser getApiStringParser()
     {
         return mCommonImpl.getApiStringParser();
-    }
-
-    @Override
-    public T setApiResultType(Type type)
-    {
-        mCommonImpl.setApiResultType(type);
-        return (T) this;
-    }
-
-    @Override
-    public Type getApiResultType()
-    {
-        return mCommonImpl.getApiResultType();
     }
 
     @Override

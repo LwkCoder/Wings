@@ -29,6 +29,7 @@ import okhttp3.Interceptor;
 /**
  * Created by LWK
  * 网络请求全局配置对象
+ *
  * @author LWK
  */
 public class ApiGlobalOptions implements IApiRequestOptions.Global<ApiGlobalOptions>
@@ -38,6 +39,10 @@ public class ApiGlobalOptions implements IApiRequestOptions.Global<ApiGlobalOpti
      * 网络请求正常的状态码
      */
     private int mResultOkCode;
+    /**
+     * 网络请求结果对象Type
+     */
+    private Type mApiResultType;
     /**
      * Cookie管理类
      */
@@ -103,14 +108,14 @@ public class ApiGlobalOptions implements IApiRequestOptions.Global<ApiGlobalOpti
     @Override
     public ApiGlobalOptions setApiResultType(Type type)
     {
-        mCommonImpl.setApiResultType(type);
+        this.mApiResultType = type;
         return this;
     }
 
     @Override
     public Type getApiResultType()
     {
-        return mCommonImpl.getApiResultType();
+        return mApiResultType;
     }
 
     @Override

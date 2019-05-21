@@ -9,7 +9,6 @@ import com.lwkandroid.wings.net.retry.IAutoRetry;
 import com.lwkandroid.wings.net.utils.FormDataMap;
 
 import java.io.InputStream;
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,10 +25,6 @@ import okhttp3.Interceptor;
  */
 public class ApiCommonOptionsImpl implements IApiRequestOptions.Common<ApiCommonOptionsImpl>
 {
-    /**
-     * 网络请求结果对象Type
-     */
-    private Type mApiResultType;
     /**
      * 读取超时时间
      */
@@ -112,19 +107,6 @@ public class ApiCommonOptionsImpl implements IApiRequestOptions.Common<ApiCommon
             mStringParser = new ApiStringParser();
         }
         return mStringParser;
-    }
-
-    @Override
-    public ApiCommonOptionsImpl setApiResultType(Type type)
-    {
-        this.mApiResultType = type;
-        return this;
-    }
-
-    @Override
-    public Type getApiResultType()
-    {
-        return mApiResultType;
     }
 
     @Override

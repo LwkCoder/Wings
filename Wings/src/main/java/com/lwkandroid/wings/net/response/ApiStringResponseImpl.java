@@ -3,8 +3,8 @@ package com.lwkandroid.wings.net.response;
 import com.lwkandroid.wings.net.bean.ApiResultCacheWrapper;
 import com.lwkandroid.wings.net.cache.RxCache;
 import com.lwkandroid.wings.net.cache.func.ApiCacheDataGetterFunc;
-import com.lwkandroid.wings.net.cache.func.ApiCacheDataParseAsDataFunc;
-import com.lwkandroid.wings.net.cache.func.ApiCacheDataParseAsListFunc;
+import com.lwkandroid.wings.net.cache.func.ApiCacheDataToDataFunc;
+import com.lwkandroid.wings.net.cache.func.ApiCacheDataToDataListFunc;
 import com.lwkandroid.wings.net.exception.ApiExceptionTransformer;
 import com.lwkandroid.wings.net.requst.ApiBaseRequest;
 import com.lwkandroid.wings.net.response.convert.ApiResponseBodyConverter;
@@ -50,7 +50,7 @@ public final class ApiStringResponseImpl<R extends ApiBaseRequest<R>> implements
     public <T> Observable<ApiResultCacheWrapper<T>> parseAsObjectWithCacheWrapped(Class<T> tOfClass)
     {
         return returnStringResponseWithCacheWrapped()
-                .flatMap(new ApiCacheDataParseAsDataFunc<T>(mRequest.getApiStringParser(), tOfClass));
+                .flatMap(new ApiCacheDataToDataFunc<T>(mRequest.getApiStringParser(), tOfClass));
     }
 
     @Override
@@ -64,7 +64,7 @@ public final class ApiStringResponseImpl<R extends ApiBaseRequest<R>> implements
     public <T> Observable<ApiResultCacheWrapper<List<T>>> parseAsListWithCacheWrapped(Class<T> tOfClass)
     {
         return returnStringResponseWithCacheWrapped()
-                .flatMap(new ApiCacheDataParseAsListFunc<T>(mRequest.getApiStringParser(), tOfClass));
+                .flatMap(new ApiCacheDataToDataListFunc<T>(mRequest.getApiStringParser(), tOfClass));
     }
 
     @Override
