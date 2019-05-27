@@ -4,7 +4,7 @@ package com.lwkandroid.wingsdemo.project;
  * Created by LWK
  * RxHttpDemoActivity Presenter层
  *
- * @author IED_WENKANG
+ * @author LWK
  */
 public class MainPresenter extends MainContract.Presenter
 {

@@ -1,6 +1,6 @@
 package com.lwkandroid.wings.utils.encrypt;
 
-import com.lwkandroid.wings.utils.EncodeUtils;
+import com.lwkandroid.wings.utils.encode.EncodeUtils;
 import com.lwkandroid.wings.utils.StringUtils;
 
 import java.nio.charset.Charset;
@@ -51,7 +51,7 @@ public class BaseEncryptImpl implements IBaseEncryption
     @Override
     public byte[] bytesToBase64(byte[] data)
     {
-        return EncodeUtils.base64Encode(data);
+        return EncodeUtils.base64().encode(data);
     }
 
     @Override
@@ -85,7 +85,7 @@ public class BaseEncryptImpl implements IBaseEncryption
     @Override
     public byte[] base64ToBytes(byte[] base64Bytes)
     {
-        return EncodeUtils.base64Decode(base64Bytes);
+        return EncodeUtils.base64().decode(base64Bytes);
     }
 
     @Override

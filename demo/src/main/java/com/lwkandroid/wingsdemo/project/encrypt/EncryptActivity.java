@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.lwkandroid.wings.utils.EncodeUtils;
+import com.lwkandroid.wings.utils.encode.EncodeUtils;
 import com.lwkandroid.wings.utils.StringUtils;
 import com.lwkandroid.wings.utils.encrypt.EncryptUtils;
 import com.lwkandroid.wingsdemo.R;
@@ -28,24 +28,9 @@ public class EncryptActivity extends AppBaseActivity<EncryptPresenter> implement
 
     private final String AES_KEY_BASE64 = "k8kKp+IYv6y6sM3GO3MV4Q==";
 
-    private final String RSA_PUB_KEY_BASE64 = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCJIrSs20dsL5fJSDiBhTI+v89n\n" +
-            "gfC11FzjiUgLVABNHmeXV3ChVafR4DIu0ZuyAOliWZaMZ81RxVcdZNgIW63kLYO3\n" +
-            "Xwar5OAMNHnUjcfmgLglDpjxwk7xU1L26KEMi1SOtvR3l0wMt3Xw7csztAx2VGHX\n" +
-            "9l+M6N+z6H5GXRemTQIDAQAB";
+    private final String RSA_PUB_KEY_BASE64 = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCJIrSs20dsL5fJSDiBhTI+v89ngfC11FzjiUgLVABNHmeXV3ChVafR4DIu0ZuyAOliWZaMZ81RxVcdZNgIW63kLYO3Xwar5OAMNHnUjcfmgLglDpjxwk7xU1L26KEMi1SOtvR3l0wMt3Xw7csztAx2VGHX9l+M6N+z6H5GXRemTQIDAQAB";
 
-    private final String RSA_PRI_KEY_BASE64 = "MIICXQIBAAKBgQCJIrSs20dsL5fJSDiBhTI+v89ngfC11FzjiUgLVABNHmeXV3Ch\n" +
-            "VafR4DIu0ZuyAOliWZaMZ81RxVcdZNgIW63kLYO3Xwar5OAMNHnUjcfmgLglDpjx\n" +
-            "wk7xU1L26KEMi1SOtvR3l0wMt3Xw7csztAx2VGHX9l+M6N+z6H5GXRemTQIDAQAB\n" +
-            "AoGAF9AC95EMEekhvj3gMf1jACpmZV7W4XwCtS/9ZporgzioXEs+r4UkIvl/PUoA\n" +
-            "cyRdYkqULcVIjc5qlhwQt0LUKu3AFxDyFzvQZ8/fZJe8RhQAvAzA8Dvf0tmWaaTh\n" +
-            "ynwj2afX4VfkHKRhwQNvJJK/eNf/yI/i4boGayEYXSsvl7ECQQCsXLsMTdHjngIb\n" +
-            "OBCHo18jfLS9GvL7cKRTIdgO84v9nNwumpcqhVj9tSwZ6QiWhxvD1DQBqEjV7wUZ\n" +
-            "M9uZoeqvAkEAy64H6FY6EDQCtr54jGCBmV39pbGIboEbkZM3+KT306veinniOs2e\n" +
-            "Y37112OnKJZ1qUjKkNkQIjvh1zh1qVkNwwJBAJWk8NSu37Jx5bxCAb/xbFFAHR8t\n" +
-            "vZXl5xUyBgZ9FqZ6wINJvkKxgWDMIdzhAI7IAKgVnY1u0MXEfjWyW09YT4sCQQDI\n" +
-            "nlpbltMKMrCZn3LNkiEVF2dHVV60uaaV9RQkbRlN/PPuIa+bi/x+tAciaJ21dL3g\n" +
-            "SDp+Ac/KaIFCo/IBJB5RAkAvVzCTo2YE2Wqzd71KG3rtW6wPu9neVgK0tL/H56qH\n" +
-            "o/Xh/d2DNLlJLpiXHUlcPOQzBlGsRYCWJ87ginUhoT6e";
+    private final String RSA_PRI_KEY_BASE64 = "MIICXQIBAAKBgQCJIrSs20dsL5fJSDiBhTI+v89ngfC11FzjiUgLVABNHmeXV3ChVafR4DIu0ZuyAOliWZaMZ81RxVcdZNgIW63kLYO3Xwar5OAMNHnUjcfmgLglDpjxwk7xU1L26KEMi1SOtvR3l0wMt3Xw7csztAx2VGHX9l+M6N+z6H5GXRemTQIDAQABAoGAF9AC95EMEekhvj3gMf1jACpmZV7W4XwCtS/9ZporgzioXEs+r4UkIvl/PUoAcyRdYkqULcVIjc5qlhwQt0LUKu3AFxDyFzvQZ8/fZJe8RhQAvAzA8Dvf0tmWaaThynwj2afX4VfkHKRhwQNvJJK/eNf/yI/i4boGayEYXSsvl7ECQQCsXLsMTdHjngIbOBCHo18jfLS9GvL7cKRTIdgO84v9nNwumpcqhVj9tSwZ6QiWhxvD1DQBqEjV7wUZM9uZoeqvAkEAy64H6FY6EDQCtr54jGCBmV39pbGIboEbkZM3+KT306veinniOs2eY37112OnKJZ1qUjKkNkQIjvh1zh1qVkNwwJBAJWk8NSu37Jx5bxCAb/xbFFAHR8tvZXl5xUyBgZ9FqZ6wINJvkKxgWDMIdzhAI7IAKgVnY1u0MXEfjWyW09YT4sCQQDInlpbltMKMrCZn3LNkiEVF2dHVV60uaaV9RQkbRlN/PPuIa+bi/x+tAciaJ21dL3gSDp+Ac/KaIFCo/IBJB5RAkAvVzCTo2YE2Wqzd71KG3rtW6wPu9neVgK0tL/H56qHo/Xh/d2DNLlJLpiXHUlcPOQzBlGsRYCWJ87ginUhoT6e";
 
     @Override
     protected void getIntentData(Intent intent, boolean newIntent)
@@ -71,9 +56,9 @@ public class EncryptActivity extends AppBaseActivity<EncryptPresenter> implement
     @Override
     protected void initData(@Nullable Bundle savedInstanceState)
     {
-        mAES_Key = EncodeUtils.base64Decode(AES_KEY_BASE64);
-        mRSA_PrivateKey = EncodeUtils.base64Decode(RSA_PRI_KEY_BASE64);
-        mRSA_PublicKey = EncodeUtils.base64Decode(RSA_PUB_KEY_BASE64);
+        mAES_Key = EncodeUtils.base64().decodeString(AES_KEY_BASE64);
+        mRSA_PrivateKey = EncodeUtils.base64().decodeString(RSA_PRI_KEY_BASE64);
+        mRSA_PublicKey = EncodeUtils.base64().decodeString(RSA_PUB_KEY_BASE64);
     }
 
     @Override
