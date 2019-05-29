@@ -39,6 +39,16 @@ public final class EncodeUtils
     private static final IBinCodec BIN_CODEC = new BinCodecImpl();
 
     /**
+     * 16进制编解码实现
+     */
+    private static final IHexStringCodec HEX_STRING_CODEC = new HexStringCodecImpl();
+
+    /**
+     * ASCII编解码实现
+     */
+    private static final IAsciiCodec ASCII_CODEC = new AsciiCodecImpl();
+
+    /**
      * Base64编解码入口【默认使用Android实现】
      */
     public static IBase64Codec base64()
@@ -77,5 +87,21 @@ public final class EncodeUtils
     public static IBinCodec bin()
     {
         return BIN_CODEC;
+    }
+
+    /**
+     * 16进制编解码入口
+     */
+    public static IHexStringCodec hex()
+    {
+        return HEX_STRING_CODEC;
+    }
+
+    /**
+     * ASCII编解码入口
+     */
+    public static IAsciiCodec ascii()
+    {
+        return ASCII_CODEC;
     }
 }

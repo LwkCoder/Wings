@@ -1,7 +1,7 @@
 package com.lwkandroid.wings.utils.encrypt;
 
-import com.lwkandroid.wings.utils.encode.EncodeUtils;
 import com.lwkandroid.wings.utils.StringUtils;
+import com.lwkandroid.wings.utils.encode.EncodeUtils;
 
 import java.nio.charset.Charset;
 
@@ -132,7 +132,7 @@ public class BaseEncryptImpl implements IBaseEncryption
             return hexChar - HEX_DIGITS[10] + 10;
         } else
         {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Fail to decrypt hex char:" + hexChar + " is not the hex char which should be one of [0-9][A-F]");
         }
     }
 

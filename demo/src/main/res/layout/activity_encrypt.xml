@@ -8,53 +8,16 @@
               tools:context=".project.encrypt.EncryptActivity">
 
     <com.lwkandroid.widget.comactionbar.ComActionBar
+        android:id="@+id/cab_encrypt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:bg_color="@color/deep_dark"
         app:is_left_as_back="true"
-        app:title_text="AES/RSA加密解密"/>
+        app:right_text01="切换算法"/>
 
-    <ScrollView
+    <FrameLayout
+        android:id="@+id/fl_encrypt_detail"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/spacing_small">
-
-            <EditText
-                android:id="@+id/ed_encrypt_input"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_marginBottom="@dimen/spacing_tiny"
-                android:background="@drawable/bg_input"
-                android:gravity="left|top"
-                android:hint="在此输入待加密内容"
-                android:padding="@dimen/spacing_small"/>
-
-            <Button
-                android:id="@+id/btn_encrypt_aes"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="AES加密"/>
-
-            <Button
-                android:id="@+id/btn_encrypt_rsa"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="RSA加密"/>
-
-            <TextView
-                android:id="@+id/tv_encrypt_result"
-                style="@style/MediumTextStyle"
-                android:layout_marginTop="@dimen/spacing_small"
-                android:textIsSelectable="true"
-                tools:text="AESAESARSARS"/>
-
-        </LinearLayout>
-
-    </ScrollView>
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

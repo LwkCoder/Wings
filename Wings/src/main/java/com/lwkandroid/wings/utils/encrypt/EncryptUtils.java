@@ -34,15 +34,15 @@ public final class EncryptUtils
      * AES/PCBC/PKCS5Padding         32                          16
      * AES/PCBC/ISO10126Padding      32                          16
      */
-    private static final String AES_DEFAULT_TRANSFORMATION = "AES/CBC/PKCS5Padding";
-    private static final String DES_DEFAULT_TRANSFORMATION = "DES/CBC/PKCS5Padding";
-    private static final String TRIPLE_DES_DEFAULT_TRANSFORMATION = "DESede/CBC/PKCS5Padding";
+    public static final String AES_DEFAULT_TRANSFORMATION = "AES/CBC/PKCS5Padding";
+    public static final String DES_DEFAULT_TRANSFORMATION = "DES/CBC/PKCS5Padding";
+    public static final String TRIPLE_DES_DEFAULT_TRANSFORMATION = "DESede/CBC/PKCS5Padding";
     //对称加密默认偏移量
-    private static final String DES_DEFAULT_IV = "8-Bytes-";
-    private static final String TRIPLE_DES_DEFAULT_IV = "8-Bytes-";
-    private static final String AES_DEFAULT_IV = "16-Bytes--String";
+    public static final String DES_DEFAULT_IV = "12345678";
+    public static final String TRIPLE_DES_DEFAULT_IV = "12345678";
+    public static final String AES_DEFAULT_IV = "123456789abcdefg";
     //RSA加密默认Transformation
-    private static final String RSA_DEFAULT_TRANSFORMATION = "RSA/NONE/PKCS1Padding";
+    public static final String RSA_DEFAULT_TRANSFORMATION = "RSA/NONE/PKCS1Padding";
 
     /**
      * MD2加密

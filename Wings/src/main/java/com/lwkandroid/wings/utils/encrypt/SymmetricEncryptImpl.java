@@ -1,6 +1,6 @@
 package com.lwkandroid.wings.utils.encrypt;
 
-import com.lwkandroid.wings.utils.StringUtils;
+import com.lwkandroid.wings.utils.encode.EncodeUtils;
 
 import java.nio.charset.Charset;
 import java.security.NoSuchAlgorithmException;
@@ -419,7 +419,7 @@ public final class SymmetricEncryptImpl extends BaseEncryptImpl implements ISymm
         try
         {
             String uuid = UUID.randomUUID().toString().replace("-", "").substring(0, 16);
-            String key = StringUtils.string2HexString(uuid);
+            String key = EncodeUtils.hex().encode(uuid);
             KeyGenerator kg = KeyGenerator.getInstance(mAlgorithm);
             kg.init(keyBit, new SecureRandom(key.getBytes(CHARSET_UTF8)));
             //生成一个密钥

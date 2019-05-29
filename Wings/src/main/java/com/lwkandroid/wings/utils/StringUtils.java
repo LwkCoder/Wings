@@ -1,7 +1,5 @@
 package com.lwkandroid.wings.utils;
 
-import java.io.ByteArrayOutputStream;
-
 /**
  * 字符串相关工具类
  */
@@ -246,99 +244,5 @@ public final class StringUtils
             }
         }
         return new String(chars);
-    }
-
-    /**
-     * 字符串转16进制字符串
-     *
-     * @param str 字符串
-     * @return 16进制字符串
-     */
-    public static String string2HexString(String str)
-    {
-        //根据默认编码获取字节数组
-        String hexString = "0123456789abcdef";
-        byte[] bytes = str.getBytes();
-        StringBuilder sb = new StringBuilder(bytes.length * 2);
-        //将字节数组中每个字节拆解成2位16进制整数
-        for (int i = 0; i < bytes.length; i++)
-        {
-            sb.append(hexString.charAt((bytes[i] & 0xf0) >> 4));
-            sb.append(hexString.charAt((bytes[i] & 0x0f)));
-        }
-        return sb.toString();
-    }
-
-    /**
-     * 将16进制数字解码成字符串,适用于所有字符（包括中文）
-     *
-     * @param hexString 16进制字符串
-     * @return 普通字符串
-     */
-    public static String hexString2String(String hexString)
-    {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream(hexString.length() / 2);
-        //将每2位16进制整数组装成一个字节
-        for (int i = 0; i < hexString.length(); i += 2)
-        {
-            baos.write((hexString.indexOf(hexString.charAt(i)) << 4 | hexString.indexOf(hexString.charAt(i + 1))));
-        }
-        return new String(baos.toByteArray());
-    }
-
-    /**
-     * ASCII转String
-     *
-     * @param value     ASCII码组成的字符串
-     * @param splitChar ASCII码之间的分隔符
-     * @return 普通字符串
-     */
-    public static String ascii2String(String value, String splitChar)
-    {
-        if (isEmpty(value))
-        {
-            return null;
-        }
-        if (isEmpty(splitChar))
-        {
-            splitChar = " ";
-        }
-        StringBuilder builder = new StringBuilder();
-        String[] valueChars = value.split(splitChar);
-        for (String valueChar : valueChars)
-        {
-            builder.append(((char) Integer.parseInt(valueChar)));
-        }
-
-        return builder.toString();
-    }
-
-    /**
-     * String转ASCII
-     *
-     * @param value     普通字符串
-     * @param splitChar ASCII码之间的分隔符
-     * @return ASCII码组成的字符串
-     */
-    public static String string2Ascii(String value, String splitChar)
-    {
-        if (isEmpty(value))
-        {
-            return null;
-        }
-        if (isEmpty(splitChar))
-        {
-            splitChar = " ";
-        }
-
-        StringBuilder builder = new StringBuilder();
-        for (int i = 0, length = value.length(); i < length; i++)
-        {
-            char vchar = value.charAt(i);
-            builder.append(Integer.valueOf(vchar))
-                    .append(splitChar);
-        }
-
-        return builder.toString();
     }
 }
