@@ -65,4 +65,16 @@ public final class JavaBase64CodecImpl implements IBase64Codec
     {
         return decode(base64String.getBytes(charset));
     }
+
+    @Override
+    public String decodeString2String(String base64String)
+    {
+        return decodeString2String(base64String, UTF8);
+    }
+
+    @Override
+    public String decodeString2String(String base64String, Charset charset)
+    {
+        return new String(decodeString(base64String, charset), charset);
+    }
 }

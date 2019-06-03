@@ -25,4 +25,8 @@ public interface IBase64Codec
     byte[] decodeString(String base64String);
 
     byte[] decodeString(String base64String, Charset charset);
+
+    String decodeString2String(String base64String);
+
+    String decodeString2String(String base64String, Charset charset);
 }

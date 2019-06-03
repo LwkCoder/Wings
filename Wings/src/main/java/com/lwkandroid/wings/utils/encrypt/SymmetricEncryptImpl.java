@@ -43,6 +43,21 @@ public final class SymmetricEncryptImpl extends BaseEncryptImpl implements ISymm
         this.mDefaultIV = iv;
     }
 
+    public String getAlgorithm()
+    {
+        return mAlgorithm;
+    }
+
+    public String getDefaultTransformation()
+    {
+        return mDefaultTransformation;
+    }
+
+    public String getDefaultIV()
+    {
+        return mDefaultIV;
+    }
+
     @Override
     public byte[] symmetricTemplate(byte[] data,
                                     byte[] key,

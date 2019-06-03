@@ -1,6 +1,5 @@
 package com.lwkandroid.wings.utils.encode;
 
-import java.io.ByteArrayOutputStream;
 import java.nio.charset.Charset;
 
 /**
@@ -11,7 +10,7 @@ import java.nio.charset.Charset;
  */
 public final class HexStringCodecImpl implements IHexStringCodec
 {
-    private static final String HEX_STRING = "0123456789abcdef";
+    private static final String HEX_STRING = "0123456789ABCDEF";
     private static final Charset UTF8 = Charset.forName("UTF-8");
 
     @Override
@@ -60,14 +59,15 @@ public final class HexStringCodecImpl implements IHexStringCodec
         {
             return "";
         }
-
-        ByteArrayOutputStream stream = new ByteArrayOutputStream(hexString.length() / 2);
-        //将每2位16进制整数组装成一个字节
-        for (int i = 0, length = hexString.length(); i < length; i += 2)
+        hexString = hexString.toUpperCase();
+        char[] chars = hexString.toCharArray();
+        byte[] bytes = new byte[chars.length / 2];
+        for (int i = 0, n, length = bytes.length; i < length; i++)
         {
-            stream.write((hexString.indexOf(hexString.charAt(i)) << 4 | hexString.indexOf(hexString.charAt(i + 1))));
+            n = HEX_STRING.indexOf(chars[2 * i]) * 16 + HEX_STRING.indexOf(chars[2 * i + 1]);
+            bytes[i] = (byte) (n & 0xff);
         }
-        return new String(stream.toByteArray(), charset);
+        return new String(bytes, charset);
     }
 
 }
