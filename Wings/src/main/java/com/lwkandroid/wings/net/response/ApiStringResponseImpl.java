@@ -32,7 +32,7 @@ public final class ApiStringResponseImpl<R extends ApiBaseRequest<R>> implements
     }
 
     @Override
-    public Observable<ResultCacheWrapper<String>> returnStringResponseWithCacheWrapped()
+    public Observable<ResultCacheWrapper<String>> returnStringResponseCache()
     {
         return mRequest.invokeRequest()
                 .compose(ApiResponseBodyConverter.convertToString())
@@ -44,63 +44,63 @@ public final class ApiStringResponseImpl<R extends ApiBaseRequest<R>> implements
     @Override
     public Observable<String> returnStringResponse()
     {
-        return returnStringResponseWithCacheWrapped()
+        return returnStringResponseCache()
                 .map(new CacheDataGetterFunc<String>());
     }
 
     @Override
-    public <T> Observable<ResultCacheWrapper<T>> parseDataObjectFromRestfulWithCacheWrapped(Class<T> tOfClass)
+    public <T> Observable<ResultCacheWrapper<T>> parseResutfulDataObjectCache(Class<T> tOfClass)
     {
-        return returnStringResponseWithCacheWrapped()
+        return returnStringResponseCache()
                 .flatMap(new StringCacheToRestfulDataCacheFunc<T>(mRequest.getApiStringParser(), tOfClass));
     }
 
     @Override
-    public <T> Observable<T> parseDataObjectFromRestful(Class<T> tOfClass)
+    public <T> Observable<T> parseResutfulDataObject(Class<T> tOfClass)
     {
-        return parseDataObjectFromRestfulWithCacheWrapped(tOfClass)
+        return parseResutfulDataObjectCache(tOfClass)
                 .map(new CacheDataGetterFunc<T>());
     }
 
     @Override
-    public <T> Observable<ResultCacheWrapper<T>> parseDataObjectFromResponseWithCacheWrapped(Class<T> tOfClass)
+    public <T> Observable<ResultCacheWrapper<T>> parseDataObjectCache(Class<T> tOfClass)
     {
-        return returnStringResponseWithCacheWrapped()
+        return returnStringResponseCache()
                 .flatMap(new StringCacheToObjectDataCacheFunc<T>(mRequest.getApiStringParser(), tOfClass));
     }
 
     @Override
-    public <T> Observable<T> parseDataObjectFromResponse(Class<T> tOfClass)
+    public <T> Observable<T> parseDataObject(Class<T> tOfClass)
     {
-        return parseDataObjectFromResponseWithCacheWrapped(tOfClass)
+        return parseDataObjectCache(tOfClass)
                 .map(new CacheDataGetterFunc<T>());
     }
 
     @Override
-    public <T> Observable<ResultCacheWrapper<List<T>>> parseDataListFromRestfulWithCacheWrapped(Class<T> tOfClass)
+    public <T> Observable<ResultCacheWrapper<List<T>>> parseRestfulDataListCache(Class<T> tOfClass)
     {
-        return returnStringResponseWithCacheWrapped()
+        return returnStringResponseCache()
                 .flatMap(new StringCacheToRestfulDataListCacheFunc<T>(mRequest.getApiStringParser(), tOfClass));
     }
 
     @Override
-    public <T> Observable<List<T>> parseDataListFromRestful(Class<T> tOfClass)
+    public <T> Observable<List<T>> parseRestfulDataList(Class<T> tOfClass)
     {
-        return parseDataListFromRestfulWithCacheWrapped(tOfClass)
+        return parseRestfulDataListCache(tOfClass)
                 .map(new CacheDataGetterFunc<List<T>>());
     }
 
     @Override
-    public <T> Observable<ResultCacheWrapper<List<T>>> parseDataListFromResponseWithCacheWrapped(Class<T> tOfClass)
+    public <T> Observable<ResultCacheWrapper<List<T>>> parseDataListCache(Class<T> tOfClass)
     {
-        return returnStringResponseWithCacheWrapped()
+        return returnStringResponseCache()
                 .flatMap(new StringCacheToObjectDataListCacheFunc<T>(mRequest.getApiStringParser(), tOfClass));
     }
 
     @Override
-    public <T> Observable<List<T>> parseDataListFromResponse(Class<T> tOfClass)
+    public <T> Observable<List<T>> parseDataList(Class<T> tOfClass)
     {
-        return parseDataListFromResponseWithCacheWrapped(tOfClass)
+        return parseDataListCache(tOfClass)
                 .map(new CacheDataGetterFunc<List<T>>());
     }
 }

@@ -16,7 +16,7 @@ public interface IApiStringResponse
     /**
      * 获取缓存结果包装的字符串类型的网络请求结果
      */
-    Observable<ResultCacheWrapper<String>> returnStringResponseWithCacheWrapped();
+    Observable<ResultCacheWrapper<String>> returnStringResponseCache();
 
     /**
      * 直接获取字符串类型的网络请求结果
@@ -26,40 +26,40 @@ public interface IApiStringResponse
     /**
      * 获取缓存结果包装的ApiRestfulResult对象内数据的网络请求结果
      */
-    <T> Observable<ResultCacheWrapper<T>> parseDataObjectFromRestfulWithCacheWrapped(Class<T> tOfClass);
+    <T> Observable<ResultCacheWrapper<T>> parseResutfulDataObjectCache(Class<T> tOfClass);
 
     /**
      * 直接获取ApiRestfulResult对象内数据的网络请求结果
      */
-    <T> Observable<T> parseDataObjectFromRestful(Class<T> tOfClass);
+    <T> Observable<T> parseResutfulDataObject(Class<T> tOfClass);
 
     /**
      * 获取缓存结果包装的某一个对象的网络请求结果
      */
-    <T> Observable<ResultCacheWrapper<T>> parseDataObjectFromResponseWithCacheWrapped(Class<T> tOfClass);
+    <T> Observable<ResultCacheWrapper<T>> parseDataObjectCache(Class<T> tOfClass);
 
     /**
      * 直接获取某一个对象的网络请求结果
      */
-    <T> Observable<T> parseDataObjectFromResponse(Class<T> tOfClass);
+    <T> Observable<T> parseDataObject(Class<T> tOfClass);
 
     /**
      * 获取缓存结果包装的ApiResult对象内数据集合的网络请求结果
      */
-    <T> Observable<ResultCacheWrapper<List<T>>> parseDataListFromRestfulWithCacheWrapped(Class<T> tOfClass);
+    <T> Observable<ResultCacheWrapper<List<T>>> parseRestfulDataListCache(Class<T> tOfClass);
 
     /**
      * 直接获取ApiResult对象内数据集合的网络请求结果
      */
-    <T> Observable<List<T>> parseDataListFromRestful(Class<T> tOfClass);
+    <T> Observable<List<T>> parseRestfulDataList(Class<T> tOfClass);
 
     /**
      * 获取缓存结果包装的某个一对象的集合的网络请求结果
      */
-    <T> Observable<ResultCacheWrapper<List<T>>> parseDataListFromResponseWithCacheWrapped(Class<T> tOfClass);
+    <T> Observable<ResultCacheWrapper<List<T>>> parseDataListCache(Class<T> tOfClass);
 
     /**
      * 直接获取某一个对象的集合的网络请求结果
      */
-    <T> Observable<List<T>> parseDataListFromResponse(Class<T> tOfClass);
+    <T> Observable<List<T>> parseDataList(Class<T> tOfClass);
 }
