@@ -26,7 +26,7 @@ public interface IApiStringParser
      * @param dataClass 对象的Class
      * @param <T>       对象泛型
      */
-    <T> ObservableTransformer<String, T> parseDataObjectFromApiResult(final Class<T> dataClass);
+    <T> ObservableTransformer<String, T> parseDataObjectFromRestful(final Class<T> dataClass);
 
     /**
      * 将结果解析为IApiResult，并获取Object类型集合数据
@@ -34,7 +34,7 @@ public interface IApiStringParser
      * @param dataClass 对象的Class
      * @param <T>       对象泛型
      */
-    <T> ObservableTransformer<String, List<T>> parseDataListFromApiResult(final Class<T> dataClass);
+    <T> ObservableTransformer<String, List<T>> parseDataListFromRestful(final Class<T> dataClass);
 
     /**
      * 将结果解析为某一Object类型集合数据

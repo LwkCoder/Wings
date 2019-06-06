@@ -11,16 +11,16 @@ import io.reactivex.functions.Function;
 
 /**
  * Created by LWK
- * 转换缓存包装体内数据为某一对象集合数据
+ * 转换缓存包装体内String数据为Restful风格中对象集合数据
  */
 
-public class CacheDataToDataListFunc<T> implements Function<ResultCacheWrapper<String>,
+public class StringCacheToRestfulDataListCacheFunc<T> implements Function<ResultCacheWrapper<String>,
         ObservableSource<ResultCacheWrapper<List<T>>>>
 {
     private IApiStringParser mParser;
     private Class<T> mClass;
 
-    public CacheDataToDataListFunc(IApiStringParser parser, Class<T> clazz)
+    public StringCacheToRestfulDataListCacheFunc(IApiStringParser parser, Class<T> clazz)
     {
         this.mParser = parser;
         this.mClass = clazz;
@@ -29,8 +29,9 @@ public class CacheDataToDataListFunc<T> implements Function<ResultCacheWrapper<S
     @Override
     public ObservableSource<ResultCacheWrapper<List<T>>> apply(final ResultCacheWrapper<String> resultBean) throws Exception
     {
-        return Observable.just(resultBean.getData())
-                .compose(mParser.parseDataListFromResponse(mClass))
+        return Observable.just(resultBean)
+                .map(new CacheDataGetterFunc<String>())
+                .compose(mParser.parseDataListFromRestful(mClass))
                 .map(new Function<List<T>, ResultCacheWrapper<List<T>>>()
                 {
                     @Override

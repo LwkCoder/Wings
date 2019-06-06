@@ -2,7 +2,7 @@ package com.lwkandroid.wings.net.parser;
 
 import com.lwkandroid.wings.net.RxHttp;
 import com.lwkandroid.wings.net.bean.ApiException;
-import com.lwkandroid.wings.net.bean.IApiResult;
+import com.lwkandroid.wings.net.bean.IApiRestfulResult;
 import com.lwkandroid.wings.net.constants.ApiExceptionCode;
 import com.lwkandroid.wings.utils.StringUtils;
 import com.lwkandroid.wings.utils.json.JsonUtils;
@@ -17,7 +17,7 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Function;
 
 /**
- * 将String类型的网络请求结果转换为{@link com.lwkandroid.wings.net.bean.IApiResult}的实现类
+ * 将String类型的网络请求结果转换为{@link IApiRestfulResult}的实现类
  *
  * @author LWK
  */
@@ -44,7 +44,7 @@ public class ApiStringParser implements IApiStringParser
     }
 
     @Override
-    public <T> ObservableTransformer<String, T> parseDataObjectFromApiResult(final Class<T> dataClass)
+    public <T> ObservableTransformer<String, T> parseDataObjectFromRestful(final Class<T> dataClass)
     {
         return new ObservableTransformer<String, T>()
         {
@@ -66,7 +66,7 @@ public class ApiStringParser implements IApiStringParser
     }
 
     @Override
-    public <T> ObservableTransformer<String, List<T>> parseDataListFromApiResult(final Class<T> dataClass)
+    public <T> ObservableTransformer<String, List<T>> parseDataListFromRestful(final Class<T> dataClass)
     {
         return new ObservableTransformer<String, List<T>>()
         {
@@ -116,7 +116,7 @@ public class ApiStringParser implements IApiStringParser
      */
     private String parseApiResultDataJson(String response) throws ApiException
     {
-        IApiResult<Object> result = JsonUtils.get().parseJsonObject(response, RxHttp.getGlobalOptions().getApiResultType());
+        IApiRestfulResult<Object> result = JsonUtils.get().parseJsonObject(response, RxHttp.getGlobalOptions().getApiRestfulResultType());
         if (result == null)
         {
             throw new ApiException(ApiExceptionCode.RESPONSE_EMPTY, "Could not get any Response");

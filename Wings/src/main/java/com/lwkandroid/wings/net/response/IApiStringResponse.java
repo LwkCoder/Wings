@@ -26,12 +26,12 @@ public interface IApiStringResponse
     /**
      * 获取缓存结果包装的ApiResult对象内数据的网络请求结果
      */
-    <T> Observable<ResultCacheWrapper<T>> parseDataObjectFromApiResultWithCacheWrapped(Class<T> tOfClass);
+    <T> Observable<ResultCacheWrapper<T>> parseDataObjectFromRestfulWithCacheWrapped(Class<T> tOfClass);
 
     /**
      * 直接获取ApiResult对象内数据的网络请求结果
      */
-    <T> Observable<T> parseDataObjectFromApiResult(Class<T> tOfClass);
+    <T> Observable<T> parseDataObjectFromRestful(Class<T> tOfClass);
 
     /**
      * 获取缓存结果包装的某一个对象的网络请求结果
@@ -41,17 +41,17 @@ public interface IApiStringResponse
     /**
      * 直接获取某一个对象的网络请求结果
      */
-    <T> Observable<T> parseDataObjectResponseResult(Class<T> tOfClass);
+    <T> Observable<T> parseDataObjectResponse(Class<T> tOfClass);
 
     /**
      * 获取缓存结果包装的ApiResult对象内数据集合的网络请求结果
      */
-    <T> Observable<ResultCacheWrapper<List<T>>> parseDataListFromApiResultWithCacheWrapped(Class<T> tOfClass);
+    <T> Observable<ResultCacheWrapper<List<T>>> parseDataListFromRestfulWithCacheWrapped(Class<T> tOfClass);
 
     /**
      * 直接获取ApiResult对象内数据集合的网络请求结果
      */
-    <T> Observable<List<T>> parseDataListFromApiResult(Class<T> tOfClass);
+    <T> Observable<List<T>> parseDataListFromRestful(Class<T> tOfClass);
 
     /**
      * 获取缓存结果包装的某个一对象的集合的网络请求结果

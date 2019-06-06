@@ -19,7 +19,7 @@ public final class ApiResponseBodyConverter
     /**
      * 将ResponseBody转换为String
      */
-    public static ObservableTransformer<ResponseBody, String> transformToString()
+    public static ObservableTransformer<ResponseBody, String> convertToString()
     {
         return STRING_CONVERTER;
     }
@@ -27,7 +27,7 @@ public final class ApiResponseBodyConverter
     /**
      * 将ResponseBody转换为bytes
      */
-    public static ObservableTransformer<ResponseBody, byte[]> transformToBytes()
+    public static ObservableTransformer<ResponseBody, byte[]> convertToBytes()
     {
         return BYTE_ARRAY_CONVERTER;
     }
@@ -35,7 +35,7 @@ public final class ApiResponseBodyConverter
     /**
      * 将ResponseBody转换为inputStream
      */
-    public static ObservableTransformer<ResponseBody, InputStream> transformToInputStream()
+    public static ObservableTransformer<ResponseBody, InputStream> convertToInputStream()
     {
         return INPUT_STREAM_CONVERTER;
     }

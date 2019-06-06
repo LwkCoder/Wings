@@ -41,7 +41,7 @@ public class RxHttpDemoModel extends RxHttpDemoContract.Model
                 .addFormData("message_cursor", "1")
                 .addFormData("double_col_mode", "1")
                 .setAutoRetryCount(5)
-                .parseDataListFromApiResult(TabsBean.class);
+                .parseDataListFromRestful(TabsBean.class);
     }
 
     @Override
@@ -51,8 +51,8 @@ public class RxHttpDemoModel extends RxHttpDemoContract.Model
                 .createWithGlobalOptions()
                 .create(CustomService.class)
                 .customGet(ApiURL.TEST, new FormDataMap().addParam("webp", "1"))
-                .compose(ApiResponseBodyConverter.transformToString())//先将ResponseBody转为String结果的数据
-                .compose(RxHttp.getGlobalOptions().getApiStringParser().parseDataListFromApiResult(TabsBean.class));//再将String数据解析为所需数据集合
+                .compose(ApiResponseBodyConverter.convertToString())//先将ResponseBody转为String结果的数据
+                .compose(RxHttp.getGlobalOptions().getApiStringParser().parseDataListFromRestful(TabsBean.class));//再将String数据解析为所需数据集合
     }
 
     @Override
@@ -65,7 +65,7 @@ public class RxHttpDemoModel extends RxHttpDemoContract.Model
                 .createWithGlobalOptions()
                 .create(CustomService.class)
                 .customPost(ApiURL.CUSTOM_POST, map)
-                .compose(ApiResponseBodyConverter.transformToString());
+                .compose(ApiResponseBodyConverter.convertToString());
     }
 
     @Override

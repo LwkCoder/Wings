@@ -9,26 +9,22 @@ import io.reactivex.functions.Function;
 
 /**
  * Created by LWK
- * 转换缓存包装体内数据为ApiResult中某一对象数据
+ * 转换缓存包装体内String数据为Restful风格中对象数据
  */
 
-public class CacheDataToApiResultDataFunc<T> implements Function<ResultCacheWrapper<String>,
-        ObservableSource<ResultCacheWrapper<T>>>
+public class StringCacheToRestfulDataCacheFunc<T> extends AbsDataCacheFunction<T>
 {
-    private IApiStringParser mParser;
-    private Class<T> mClass;
-
-    public CacheDataToApiResultDataFunc(IApiStringParser parser, Class<T> clazz)
+    public StringCacheToRestfulDataCacheFunc(IApiStringParser parser, Class<T> classType)
     {
-        this.mParser = parser;
-        this.mClass = clazz;
+        super(parser, classType);
     }
 
     @Override
     public ObservableSource<ResultCacheWrapper<T>> apply(final ResultCacheWrapper<String> resultBean) throws Exception
     {
-        return Observable.just(resultBean.getData())
-                .compose(mParser.parseDataObjectFromApiResult(mClass))
+        return Observable.just(resultBean)
+                .map(new CacheDataGetterFunc<String>())
+                .compose(getParser().parseDataObjectFromRestful(getClassType()))
                 .map(new Function<T, ResultCacheWrapper<T>>()
                 {
                     @Override

@@ -6,12 +6,12 @@ import android.text.TextUtils;
 import com.lwkandroid.wings.net.ApiService;
 import com.lwkandroid.wings.net.constants.ApiConstants;
 import com.lwkandroid.wings.net.constants.ApiRequestType;
+import com.lwkandroid.wings.net.parser.ApiBytes2FileParser;
+import com.lwkandroid.wings.net.parser.ApiIS2FileParser;
 import com.lwkandroid.wings.net.response.convert.ApiResponseBodyConverter;
 import com.lwkandroid.wings.net.exception.ApiExceptionTransformer;
 import com.lwkandroid.wings.net.parser.ApiBytes2BitmapParser;
-import com.lwkandroid.wings.net.parser.ApiBytes2FileParser;
 import com.lwkandroid.wings.net.parser.ApiIS2BitmapParser;
-import com.lwkandroid.wings.net.parser.ApiIS2FileParser;
 import com.lwkandroid.wings.net.response.IApiBytesResponse;
 import com.lwkandroid.wings.net.response.IApiInputStreamResponse;
 import com.lwkandroid.wings.net.retry.AutoRetryFunc;
@@ -128,7 +128,7 @@ public final class ApiDownloadRequest extends ApiBaseRequest<ApiDownloadRequest>
     public Observable<InputStream> returnISResponse()
     {
         return invokeRequest()
-                .compose(ApiResponseBodyConverter.transformToInputStream())
+                .compose(ApiResponseBodyConverter.convertToInputStream())
                 .compose(new ApiExceptionTransformer<InputStream>())
                 .retryWhen(new AutoRetryFunc(getSubUrl(), getAutoRetryCount(), getAutoRetryDelay(), getAutoRetryJudge()));
     }
@@ -151,7 +151,7 @@ public final class ApiDownloadRequest extends ApiBaseRequest<ApiDownloadRequest>
     public Observable<byte[]> returnByteArrayResponse()
     {
         return invokeRequest()
-                .compose(ApiResponseBodyConverter.transformToBytes())
+                .compose(ApiResponseBodyConverter.convertToBytes())
                 .compose(new ApiExceptionTransformer<byte[]>())
                 .retryWhen(new AutoRetryFunc(getSubUrl(), getAutoRetryCount(), getAutoRetryDelay(), getAutoRetryJudge()));
     }

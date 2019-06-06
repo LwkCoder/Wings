@@ -93,7 +93,7 @@ public class ApiCommonOptionsImpl implements IApiRequestOptions.Common<ApiCommon
     private HostnameVerifier mHostnameVerifier;
 
     @Override
-    public ApiCommonOptionsImpl setApiResultStringParser(IApiStringParser parser)
+    public ApiCommonOptionsImpl setApiStringParser(IApiStringParser parser)
     {
         mStringParser = parser;
         return this;

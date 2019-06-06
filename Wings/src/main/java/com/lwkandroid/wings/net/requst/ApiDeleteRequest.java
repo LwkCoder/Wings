@@ -72,15 +72,15 @@ public final class ApiDeleteRequest extends ApiBaseRequest<ApiDeleteRequest> imp
     }
 
     @Override
-    public <T> Observable<ResultCacheWrapper<T>> parseDataObjectFromApiResultWithCacheWrapped(Class<T> tOfClass)
+    public <T> Observable<ResultCacheWrapper<T>> parseDataObjectFromRestfulWithCacheWrapped(Class<T> tOfClass)
     {
-        return mStringResponseImpl.parseDataObjectFromApiResultWithCacheWrapped(tOfClass);
+        return mStringResponseImpl.parseDataObjectFromRestfulWithCacheWrapped(tOfClass);
     }
 
     @Override
-    public <T> Observable<T> parseDataObjectFromApiResult(Class<T> tOfClass)
+    public <T> Observable<T> parseDataObjectFromRestful(Class<T> tOfClass)
     {
-        return mStringResponseImpl.parseDataObjectFromApiResult(tOfClass);
+        return mStringResponseImpl.parseDataObjectFromRestful(tOfClass);
     }
 
     @Override
@@ -90,21 +90,21 @@ public final class ApiDeleteRequest extends ApiBaseRequest<ApiDeleteRequest> imp
     }
 
     @Override
-    public <T> Observable<T> parseDataObjectResponseResult(Class<T> tOfClass)
+    public <T> Observable<T> parseDataObjectResponse(Class<T> tOfClass)
     {
-        return mStringResponseImpl.parseDataObjectResponseResult(tOfClass);
+        return mStringResponseImpl.parseDataObjectResponse(tOfClass);
     }
 
     @Override
-    public <T> Observable<ResultCacheWrapper<List<T>>> parseDataListFromApiResultWithCacheWrapped(Class<T> tOfClass)
+    public <T> Observable<ResultCacheWrapper<List<T>>> parseDataListFromRestfulWithCacheWrapped(Class<T> tOfClass)
     {
-        return mStringResponseImpl.parseDataListFromApiResultWithCacheWrapped(tOfClass);
+        return mStringResponseImpl.parseDataListFromRestfulWithCacheWrapped(tOfClass);
     }
 
     @Override
-    public <T> Observable<List<T>> parseDataListFromApiResult(Class<T> tOfClass)
+    public <T> Observable<List<T>> parseDataListFromRestful(Class<T> tOfClass)
     {
-        return mStringResponseImpl.parseDataListFromApiResult(tOfClass);
+        return mStringResponseImpl.parseDataListFromRestful(tOfClass);
     }
 
     @Override

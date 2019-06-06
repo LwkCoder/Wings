@@ -109,7 +109,7 @@ public class ApiBaseRequestOptions<T extends ApiBaseRequestOptions> implements I
     public ApiBaseRequestOptions()
     {
         //初始化的时候保持和全局配置一样
-        setApiResultStringParser(RxHttp.getGlobalOptions().getApiStringParser());
+        setApiStringParser(RxHttp.getGlobalOptions().getApiStringParser());
         setConnectTimeOut(RxHttp.getGlobalOptions().getConnectTimeOut());
         setWriteTimeOut(RxHttp.getGlobalOptions().getWriteTimeOut());
         setReadTimeOut(RxHttp.getGlobalOptions().getReadTimeOut());
@@ -124,9 +124,9 @@ public class ApiBaseRequestOptions<T extends ApiBaseRequestOptions> implements I
     }
 
     @Override
-    public T setApiResultStringParser(IApiStringParser parser)
+    public T setApiStringParser(IApiStringParser parser)
     {
-        mCommonImpl.setApiResultStringParser(parser);
+        mCommonImpl.setApiStringParser(parser);
         return (T) this;
     }
 

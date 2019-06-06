@@ -9,26 +9,22 @@ import io.reactivex.functions.Function;
 
 /**
  * Created by LWK
- * 转换缓存包装体内数据为某一对象数据
+ * 转换缓存包装体内String数据为某一对象数据
  */
 
-public class CacheDataToDataFunc<T> implements Function<ResultCacheWrapper<String>,
-        ObservableSource<ResultCacheWrapper<T>>>
+public class StringCacheToObjectDataCacheFunc<T> extends AbsDataCacheFunction<T>
 {
-    private IApiStringParser mParser;
-    private Class<T> mClass;
-
-    public CacheDataToDataFunc(IApiStringParser parser, Class<T> clazz)
+    public StringCacheToObjectDataCacheFunc(IApiStringParser parser, Class<T> classType)
     {
-        this.mParser = parser;
-        this.mClass = clazz;
+        super(parser, classType);
     }
 
     @Override
     public ObservableSource<ResultCacheWrapper<T>> apply(final ResultCacheWrapper<String> resultBean) throws Exception
     {
-        return Observable.just(resultBean.getData())
-                .compose(mParser.parseDataObjectFromResponse(mClass))
+        return Observable.just(resultBean)
+                .map(new CacheDataGetterFunc<String>())
+                .compose(getParser().parseDataObjectFromResponse(getClassType()))
                 .map(new Function<T, ResultCacheWrapper<T>>()
                 {
                     @Override

@@ -34,7 +34,7 @@ public interface IApiRequestOptions
      */
     interface Common<T>
     {
-        T setApiResultStringParser(IApiStringParser parser);
+        T setApiStringParser(IApiStringParser parser);
 
         IApiStringParser getApiStringParser();
 
@@ -138,13 +138,13 @@ public interface IApiRequestOptions
      */
     interface Global<T> extends Common<T>
     {
-        T setApiResultType(Type type);
+        T setApiRestfulResultType(Type type);
 
-        Type getApiResultType();
+        Type getApiRestfulResultType();
 
-        T setApiResultOkCode(int code);
+        T setApiRestfulResultOkCode(int code);
 
-        int getApiResultOkCode();
+        int getApiRestfulResultOkCode();
 
         T removeFormData(String key);
 

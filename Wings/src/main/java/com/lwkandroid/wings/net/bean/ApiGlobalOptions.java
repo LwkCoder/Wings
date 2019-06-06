@@ -81,9 +81,9 @@ public class ApiGlobalOptions implements IApiRequestOptions.Global<ApiGlobalOpti
         setConnectTimeOut(ApiConstants.CONNECT_TIMEOUT);
         setWriteTimeOut(ApiConstants.WRITE_TIMEOUT);
         setReadTimeOut(ApiConstants.READ_TIMEOUT);
-        setApiResultType(ApiResult.class);
-        setApiResultOkCode(ApiConstants.RESULT_OK_CODE);
-        setApiResultStringParser(new ApiStringParser());
+        setApiRestfulResultType(ApiRestfulResult.class);
+        setApiRestfulResultOkCode(ApiConstants.RESULT_OK_CODE);
+        setApiStringParser(new ApiStringParser());
         setApiExceptionMsg(new ApiExceptionMsgConverterImpl());
         setAutoRetryJudge(new AutoRetryJudgeImpl());
         setAutoRetryDelay(1000);
@@ -93,9 +93,9 @@ public class ApiGlobalOptions implements IApiRequestOptions.Global<ApiGlobalOpti
     }
 
     @Override
-    public ApiGlobalOptions setApiResultStringParser(IApiStringParser parser)
+    public ApiGlobalOptions setApiStringParser(IApiStringParser parser)
     {
-        mCommonImpl.setApiResultStringParser(parser);
+        mCommonImpl.setApiStringParser(parser);
         return this;
     }
 
@@ -106,14 +106,14 @@ public class ApiGlobalOptions implements IApiRequestOptions.Global<ApiGlobalOpti
     }
 
     @Override
-    public ApiGlobalOptions setApiResultType(Type type)
+    public ApiGlobalOptions setApiRestfulResultType(Type type)
     {
         this.mApiResultType = type;
         return this;
     }
 
     @Override
-    public Type getApiResultType()
+    public Type getApiRestfulResultType()
     {
         return mApiResultType;
     }
@@ -433,14 +433,14 @@ public class ApiGlobalOptions implements IApiRequestOptions.Global<ApiGlobalOpti
     }
 
     @Override
-    public ApiGlobalOptions setApiResultOkCode(int code)
+    public ApiGlobalOptions setApiRestfulResultOkCode(int code)
     {
         this.mResultOkCode = code;
         return this;
     }
 
     @Override
-    public int getApiResultOkCode()
+    public int getApiRestfulResultOkCode()
     {
         return mResultOkCode;
     }
