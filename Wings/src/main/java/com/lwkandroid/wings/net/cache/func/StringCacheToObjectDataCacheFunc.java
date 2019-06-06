@@ -24,7 +24,7 @@ public class StringCacheToObjectDataCacheFunc<T> extends AbsDataCacheFunction<T>
     {
         return Observable.just(resultBean)
                 .map(new CacheDataGetterFunc<String>())
-                .compose(getParser().parseDataObjectFromResponse(getClassType()))
+                .compose(getParser().parseDataObject(getClassType()))
                 .map(new Function<T, ResultCacheWrapper<T>>()
                 {
                     @Override

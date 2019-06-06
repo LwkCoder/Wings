@@ -24,7 +24,7 @@ import io.reactivex.functions.Function;
 public class ApiStringParser implements IApiStringParser
 {
     @Override
-    public <T> ObservableTransformer<String, T> parseDataObjectFromResponse(final Class<T> dataClass)
+    public <T> ObservableTransformer<String, T> parseDataObject(final Class<T> dataClass)
     {
         return new ObservableTransformer<String, T>()
         {
@@ -44,7 +44,7 @@ public class ApiStringParser implements IApiStringParser
     }
 
     @Override
-    public <T> ObservableTransformer<String, T> parseDataObjectFromRestful(final Class<T> dataClass)
+    public <T> ObservableTransformer<String, T> parseRestfulDataObject(final Class<T> dataClass)
     {
         return new ObservableTransformer<String, T>()
         {
@@ -56,7 +56,7 @@ public class ApiStringParser implements IApiStringParser
                     @Override
                     public T apply(@NonNull String s) throws Exception
                     {
-                        String dataJsonString = parseApiResultDataJson(s);
+                        String dataJsonString = parseRestfulDataJson(s);
                         return StringUtils.isNotEmpty(dataJsonString) ?
                                 JsonUtils.get().parseJsonObject(dataJsonString, dataClass) : dataClass.newInstance();
                     }
@@ -66,7 +66,7 @@ public class ApiStringParser implements IApiStringParser
     }
 
     @Override
-    public <T> ObservableTransformer<String, List<T>> parseDataListFromRestful(final Class<T> dataClass)
+    public <T> ObservableTransformer<String, List<T>> parseRestfulDataList(final Class<T> dataClass)
     {
         return new ObservableTransformer<String, List<T>>()
         {
@@ -78,7 +78,7 @@ public class ApiStringParser implements IApiStringParser
                     @Override
                     public List<T> apply(@NonNull String s) throws Exception
                     {
-                        String dataJsonString = parseApiResultDataJson(s);
+                        String dataJsonString = parseRestfulDataJson(s);
                         return StringUtils.isNotEmpty(dataJsonString) ?
                                 JsonUtils.get().parseJsonArray(dataJsonString, dataClass) : new ArrayList<T>();
                     }
@@ -88,7 +88,7 @@ public class ApiStringParser implements IApiStringParser
     }
 
     @Override
-    public <T> ObservableTransformer<String, List<T>> parseDataListFromResponse(final Class<T> dataClass)
+    public <T> ObservableTransformer<String, List<T>> parseDataList(final Class<T> dataClass)
     {
         return new ObservableTransformer<String, List<T>>()
         {
@@ -108,13 +108,13 @@ public class ApiStringParser implements IApiStringParser
     }
 
     /**
-     * 将获取String请求结果中Data的Json字符串
+     * 将获取Restful中Data数据的Json
      *
      * @param response 网络请求String结果
      * @return
      * @throws ApiException
      */
-    private String parseApiResultDataJson(String response) throws ApiException
+    private String parseRestfulDataJson(String response) throws ApiException
     {
         IApiRestfulResult<Object> result = JsonUtils.get().parseJsonObject(response, RxHttp.getGlobalOptions().getApiRestfulResultType());
         if (result == null)

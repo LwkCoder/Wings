@@ -52,7 +52,7 @@ public class RxHttpDemoModel extends RxHttpDemoContract.Model
                 .create(CustomService.class)
                 .customGet(ApiURL.TEST, new FormDataMap().addParam("webp", "1"))
                 .compose(ApiResponseBodyConverter.convertToString())//先将ResponseBody转为String结果的数据
-                .compose(RxHttp.getGlobalOptions().getApiStringParser().parseDataListFromRestful(TabsBean.class));//再将String数据解析为所需数据集合
+                .compose(RxHttp.getGlobalOptions().getApiStringParser().parseRestfulDataList(TabsBean.class));//再将String数据解析为所需数据集合
     }
 
     @Override
