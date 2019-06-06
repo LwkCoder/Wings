@@ -24,12 +24,12 @@ public interface IApiStringResponse
     Observable<String> returnStringResponse();
 
     /**
-     * 获取缓存结果包装的ApiResult对象内数据的网络请求结果
+     * 获取缓存结果包装的ApiRestfulResult对象内数据的网络请求结果
      */
     <T> Observable<ResultCacheWrapper<T>> parseDataObjectFromRestfulWithCacheWrapped(Class<T> tOfClass);
 
     /**
-     * 直接获取ApiResult对象内数据的网络请求结果
+     * 直接获取ApiRestfulResult对象内数据的网络请求结果
      */
     <T> Observable<T> parseDataObjectFromRestful(Class<T> tOfClass);
 
@@ -41,7 +41,7 @@ public interface IApiStringResponse
     /**
      * 直接获取某一个对象的网络请求结果
      */
-    <T> Observable<T> parseDataObjectResponse(Class<T> tOfClass);
+    <T> Observable<T> parseDataObjectFromResponse(Class<T> tOfClass);
 
     /**
      * 获取缓存结果包装的ApiResult对象内数据集合的网络请求结果

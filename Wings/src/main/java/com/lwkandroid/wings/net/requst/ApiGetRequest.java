@@ -84,9 +84,9 @@ public final class ApiGetRequest extends ApiBaseRequest<ApiGetRequest> implement
     }
 
     @Override
-    public <T> Observable<T> parseDataObjectResponse(Class<T> tOfClass)
+    public <T> Observable<T> parseDataObjectFromResponse(Class<T> tOfClass)
     {
-        return mStringResponseImpl.parseDataObjectResponse(tOfClass);
+        return mStringResponseImpl.parseDataObjectFromResponse(tOfClass);
     }
 
     @Override

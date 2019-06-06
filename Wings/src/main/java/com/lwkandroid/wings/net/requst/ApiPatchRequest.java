@@ -85,9 +85,9 @@ public final class ApiPatchRequest extends ApiBaseRequest<ApiPatchRequest> imple
     }
 
     @Override
-    public <T> Observable<T> parseDataObjectResponse(Class<T> tOfClass)
+    public <T> Observable<T> parseDataObjectFromResponse(Class<T> tOfClass)
     {
-        return mStringResponseImpl.parseDataObjectResponse(tOfClass);
+        return mStringResponseImpl.parseDataObjectFromResponse(tOfClass);
     }
 
     @Override

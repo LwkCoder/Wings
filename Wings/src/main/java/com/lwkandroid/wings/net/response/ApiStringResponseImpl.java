@@ -70,7 +70,7 @@ public final class ApiStringResponseImpl<R extends ApiBaseRequest<R>> implements
     }
 
     @Override
-    public <T> Observable<T> parseDataObjectResponse(Class<T> tOfClass)
+    public <T> Observable<T> parseDataObjectFromResponse(Class<T> tOfClass)
     {
         return parseDataObjectFromResponseWithCacheWrapped(tOfClass)
                 .map(new CacheDataGetterFunc<T>());
