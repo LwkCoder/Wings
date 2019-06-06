@@ -67,15 +67,15 @@ public final class ApiPatchRequest extends ApiBaseRequest<ApiPatchRequest> imple
     }
 
     @Override
-    public <T> Observable<ResultCacheWrapper<T>> parseResutfulDataObjectCache(Class<T> tOfClass)
+    public <T> Observable<ResultCacheWrapper<T>> parseRestfulDataObjectCache(Class<T> tOfClass)
     {
-        return mStringResponseImpl.parseResutfulDataObjectCache(tOfClass);
+        return mStringResponseImpl.parseRestfulDataObjectCache(tOfClass);
     }
 
     @Override
-    public <T> Observable<T> parseResutfulDataObject(Class<T> tOfClass)
+    public <T> Observable<T> parseRestfulDataObject(Class<T> tOfClass)
     {
-        return mStringResponseImpl.parseResutfulDataObject(tOfClass);
+        return mStringResponseImpl.parseRestfulDataObject(tOfClass);
     }
 
     @Override

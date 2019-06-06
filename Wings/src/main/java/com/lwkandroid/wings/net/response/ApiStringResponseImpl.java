@@ -49,16 +49,16 @@ public final class ApiStringResponseImpl<R extends ApiBaseRequest<R>> implements
     }
 
     @Override
-    public <T> Observable<ResultCacheWrapper<T>> parseResutfulDataObjectCache(Class<T> tOfClass)
+    public <T> Observable<ResultCacheWrapper<T>> parseRestfulDataObjectCache(Class<T> tOfClass)
     {
         return returnStringResponseCache()
                 .flatMap(new StringCacheToRestfulDataCacheFunc<T>(mRequest.getApiStringParser(), tOfClass));
     }
 
     @Override
-    public <T> Observable<T> parseResutfulDataObject(Class<T> tOfClass)
+    public <T> Observable<T> parseRestfulDataObject(Class<T> tOfClass)
     {
-        return parseResutfulDataObjectCache(tOfClass)
+        return parseRestfulDataObjectCache(tOfClass)
                 .map(new CacheDataGetterFunc<T>());
     }
 
