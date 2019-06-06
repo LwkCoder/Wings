@@ -152,8 +152,8 @@ public final class EncryptUtils
 
     /**
      * AES加密
-     * 工作模式为："AES/CBC/PKCS5Padding"
-     * 偏移量为："16-Bytes--String"
+     * 工作模式为："AES/CBC/PKCS7Padding"
+     * 偏移量为："123456789abcdefg"
      */
     public static ISymmetricEncryption aes()
     {
@@ -173,8 +173,8 @@ public final class EncryptUtils
 
     /**
      * AES加密
-     * 工作模式为："DES/CBC/PKCS5Padding"
-     * 偏移量为："8-Bytes-"
+     * 工作模式为："DES/CBC/PKCS7Padding"
+     * 偏移量为："12345678"
      */
     public static ISymmetricEncryption des()
     {
@@ -194,8 +194,8 @@ public final class EncryptUtils
 
     /**
      * 3DES加密
-     * 工作模式为："DESede/CBC/PKCS5Padding"
-     * 偏移量为："8-Bytes-"
+     * 工作模式为："DESede/CBC/PKCS7Padding"
+     * 偏移量为："12345678"
      */
     public static ISymmetricEncryption tripleDes()
     {
