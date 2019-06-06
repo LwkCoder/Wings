@@ -1,6 +1,6 @@
 package com.lwkandroid.wings.net.cache.func;
 
-import com.lwkandroid.wings.net.bean.ApiResultCacheWrapper;
+import com.lwkandroid.wings.net.bean.ResultCacheWrapper;
 
 import io.reactivex.functions.Function;
 
@@ -9,10 +9,10 @@ import io.reactivex.functions.Function;
  *  获取缓存包装体内数据的转换方法
  */
 
-public class ApiCacheDataGetterFunc<T> implements Function<ApiResultCacheWrapper<T>, T>
+public class CacheDataGetterFunc<T> implements Function<ResultCacheWrapper<T>, T>
 {
     @Override
-    public T apply(ApiResultCacheWrapper<T> result) throws Exception
+    public T apply(ResultCacheWrapper<T> result) throws Exception
     {
         return result.getData();
     }

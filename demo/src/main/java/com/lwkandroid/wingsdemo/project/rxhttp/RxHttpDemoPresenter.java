@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 
 import com.lwkandroid.wings.log.KLog;
 import com.lwkandroid.wings.net.bean.ApiException;
-import com.lwkandroid.wings.net.bean.ApiResultCacheWrapper;
+import com.lwkandroid.wings.net.bean.ResultCacheWrapper;
 import com.lwkandroid.wings.net.bean.ProgressInfo;
 import com.lwkandroid.wings.net.listener.OnProgressListener;
 import com.lwkandroid.wings.net.manager.OkProgressManger;
@@ -152,8 +152,8 @@ public class RxHttpDemoPresenter extends RxHttpDemoContract.Presenter
     void requestNonRestFul()
     {
         getModelImpl().requestNonRestFulData()
-                .compose(this.<ApiResultCacheWrapper<NonRestFulResult>>applyIo2MainUntilViewDestroy())
-                .subscribe(new ApiBaseObserver<ApiResultCacheWrapper<NonRestFulResult>>()
+                .compose(this.<ResultCacheWrapper<NonRestFulResult>>applyIo2MainUntilViewDestroy())
+                .subscribe(new ApiBaseObserver<ResultCacheWrapper<NonRestFulResult>>()
                 {
                     @Override
                     public void onSubscribe(Disposable d)
@@ -163,7 +163,7 @@ public class RxHttpDemoPresenter extends RxHttpDemoContract.Presenter
                     }
 
                     @Override
-                    public void subOnNext(ApiResultCacheWrapper<NonRestFulResult> resultBean)
+                    public void subOnNext(ResultCacheWrapper<NonRestFulResult> resultBean)
                     {
                         KLog.i("是否为缓存：" + resultBean.isCache());
                         getViewImpl().showNonRestFulResult(resultBean.getData());

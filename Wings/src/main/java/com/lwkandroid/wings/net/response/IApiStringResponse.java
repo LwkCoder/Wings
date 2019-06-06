@@ -1,6 +1,6 @@
 package com.lwkandroid.wings.net.response;
 
-import com.lwkandroid.wings.net.bean.ApiResultCacheWrapper;
+import com.lwkandroid.wings.net.bean.ResultCacheWrapper;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import io.reactivex.Observable;
 
 /**
  * Created by LWK
- *  定义字符串网络请求结果的转换方法
+ * 定义字符串网络请求结果的转换方法
  */
 
 public interface IApiStringResponse
@@ -16,7 +16,7 @@ public interface IApiStringResponse
     /**
      * 获取缓存结果包装的字符串类型的网络请求结果
      */
-    Observable<ApiResultCacheWrapper<String>> returnStringResponseWithCacheWrapped();
+    Observable<ResultCacheWrapper<String>> returnStringResponseWithCacheWrapped();
 
     /**
      * 直接获取字符串类型的网络请求结果
@@ -24,22 +24,42 @@ public interface IApiStringResponse
     Observable<String> returnStringResponse();
 
     /**
+     * 获取缓存结果包装的ApiResult对象内数据的网络请求结果
+     */
+    <T> Observable<ResultCacheWrapper<T>> parseDataObjectFromApiResultWithCacheWrapped(Class<T> tOfClass);
+
+    /**
+     * 直接获取ApiResult对象内数据的网络请求结果
+     */
+    <T> Observable<T> parseDataObjectFromApiResult(Class<T> tOfClass);
+
+    /**
      * 获取缓存结果包装的某一个对象的网络请求结果
      */
-    <T> Observable<ApiResultCacheWrapper<T>> parseAsObjectWithCacheWrapped(Class<T> tOfClass);
+    <T> Observable<ResultCacheWrapper<T>> parseDataObjectFromResponseWithCacheWrapped(Class<T> tOfClass);
 
     /**
      * 直接获取某一个对象的网络请求结果
      */
-    <T> Observable<T> parseAsObject(Class<T> tOfClass);
+    <T> Observable<T> parseDataObjectResponseResult(Class<T> tOfClass);
+
+    /**
+     * 获取缓存结果包装的ApiResult对象内数据集合的网络请求结果
+     */
+    <T> Observable<ResultCacheWrapper<List<T>>> parseDataListFromApiResultWithCacheWrapped(Class<T> tOfClass);
+
+    /**
+     * 直接获取ApiResult对象内数据集合的网络请求结果
+     */
+    <T> Observable<List<T>> parseDataListFromApiResult(Class<T> tOfClass);
 
     /**
      * 获取缓存结果包装的某个一对象的集合的网络请求结果
      */
-    <T> Observable<ApiResultCacheWrapper<List<T>>> parseAsListWithCacheWrapped(Class<T> tOfClass);
+    <T> Observable<ResultCacheWrapper<List<T>>> parseDataListFromResponseWithCacheWrapped(Class<T> tOfClass);
 
     /**
      * 直接获取某一个对象的集合的网络请求结果
      */
-    <T> Observable<List<T>> parseAsList(Class<T> tOfClass);
+    <T> Observable<List<T>> parseDataListFromResponse(Class<T> tOfClass);
 }

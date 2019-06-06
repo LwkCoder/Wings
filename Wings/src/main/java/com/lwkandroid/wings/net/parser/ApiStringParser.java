@@ -24,7 +24,27 @@ import io.reactivex.functions.Function;
 public class ApiStringParser implements IApiStringParser
 {
     @Override
-    public <T> ObservableTransformer<String, T> parseAsObject(final Class<T> clazz)
+    public <T> ObservableTransformer<String, T> parseDataObjectFromResponse(final Class<T> dataClass)
+    {
+        return new ObservableTransformer<String, T>()
+        {
+            @Override
+            public ObservableSource<T> apply(Observable<String> upstream)
+            {
+                return upstream.map(new Function<String, T>()
+                {
+                    @Override
+                    public T apply(String s) throws Exception
+                    {
+                        return JsonUtils.get().parseJsonObject(s, dataClass);
+                    }
+                });
+            }
+        };
+    }
+
+    @Override
+    public <T> ObservableTransformer<String, T> parseDataObjectFromApiResult(final Class<T> dataClass)
     {
         return new ObservableTransformer<String, T>()
         {
@@ -36,9 +56,9 @@ public class ApiStringParser implements IApiStringParser
                     @Override
                     public T apply(@NonNull String s) throws Exception
                     {
-                        String dataJsonString = parseDataJsonString(s);
+                        String dataJsonString = parseApiResultDataJson(s);
                         return StringUtils.isNotEmpty(dataJsonString) ?
-                                JsonUtils.get().parseJsonObject(dataJsonString, clazz) : clazz.newInstance();
+                                JsonUtils.get().parseJsonObject(dataJsonString, dataClass) : dataClass.newInstance();
                     }
                 });
             }
@@ -46,7 +66,7 @@ public class ApiStringParser implements IApiStringParser
     }
 
     @Override
-    public <T> ObservableTransformer<String, List<T>> parseAsList(final Class<T> clazz)
+    public <T> ObservableTransformer<String, List<T>> parseDataListFromApiResult(final Class<T> dataClass)
     {
         return new ObservableTransformer<String, List<T>>()
         {
@@ -58,9 +78,29 @@ public class ApiStringParser implements IApiStringParser
                     @Override
                     public List<T> apply(@NonNull String s) throws Exception
                     {
-                        String dataJsonString = parseDataJsonString(s);
+                        String dataJsonString = parseApiResultDataJson(s);
                         return StringUtils.isNotEmpty(dataJsonString) ?
-                                JsonUtils.get().parseJsonArray(dataJsonString, clazz) : new ArrayList<T>();
+                                JsonUtils.get().parseJsonArray(dataJsonString, dataClass) : new ArrayList<T>();
+                    }
+                });
+            }
+        };
+    }
+
+    @Override
+    public <T> ObservableTransformer<String, List<T>> parseDataListFromResponse(final Class<T> dataClass)
+    {
+        return new ObservableTransformer<String, List<T>>()
+        {
+            @Override
+            public ObservableSource<List<T>> apply(Observable<String> upstream)
+            {
+                return upstream.map(new Function<String, List<T>>()
+                {
+                    @Override
+                    public List<T> apply(String s) throws Exception
+                    {
+                        return JsonUtils.get().parseJsonArray(s, dataClass);
                     }
                 });
             }
@@ -74,7 +114,7 @@ public class ApiStringParser implements IApiStringParser
      * @return
      * @throws ApiException
      */
-    private String parseDataJsonString(String response) throws ApiException
+    private String parseApiResultDataJson(String response) throws ApiException
     {
         IApiResult<Object> result = JsonUtils.get().parseJsonObject(response, RxHttp.getGlobalOptions().getApiResultType());
         if (result == null)

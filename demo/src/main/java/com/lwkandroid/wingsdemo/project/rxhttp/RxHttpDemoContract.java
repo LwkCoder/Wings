@@ -3,7 +3,7 @@ package com.lwkandroid.wingsdemo.project.rxhttp;
 import android.graphics.Bitmap;
 
 import com.lwkandroid.wings.net.bean.ApiException;
-import com.lwkandroid.wings.net.bean.ApiResultCacheWrapper;
+import com.lwkandroid.wings.net.bean.ResultCacheWrapper;
 import com.lwkandroid.wings.net.bean.ProgressInfo;
 import com.lwkandroid.wingsdemo.app.AppBaseModel;
 import com.lwkandroid.wingsdemo.app.AppBasePresenter;
@@ -64,7 +64,7 @@ public interface RxHttpDemoContract
         /**
          * 请求非RestFul风格的数据
          */
-        abstract Observable<ApiResultCacheWrapper<NonRestFulResult>> requestNonRestFulData();
+        abstract Observable<ResultCacheWrapper<NonRestFulResult>> requestNonRestFulData();
 
         abstract Observable<Bitmap> requestBitmapData();
 

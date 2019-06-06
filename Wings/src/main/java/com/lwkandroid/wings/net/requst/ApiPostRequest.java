@@ -1,7 +1,7 @@
 package com.lwkandroid.wings.net.requst;
 
 import com.lwkandroid.wings.net.ApiService;
-import com.lwkandroid.wings.net.bean.ApiResultCacheWrapper;
+import com.lwkandroid.wings.net.bean.ResultCacheWrapper;
 import com.lwkandroid.wings.net.constants.ApiConstants;
 import com.lwkandroid.wings.net.constants.ApiRequestType;
 import com.lwkandroid.wings.net.response.ApiStringResponseImpl;
@@ -79,7 +79,7 @@ public final class ApiPostRequest extends ApiBaseRequest<ApiPostRequest> impleme
     }
 
     @Override
-    public Observable<ApiResultCacheWrapper<String>> returnStringResponseWithCacheWrapped()
+    public Observable<ResultCacheWrapper<String>> returnStringResponseWithCacheWrapped()
     {
         return mStringResponseImpl.returnStringResponseWithCacheWrapped();
     }
@@ -91,26 +91,50 @@ public final class ApiPostRequest extends ApiBaseRequest<ApiPostRequest> impleme
     }
 
     @Override
-    public <T> Observable<ApiResultCacheWrapper<T>> parseAsObjectWithCacheWrapped(Class<T> tOfClass)
+    public <T> Observable<ResultCacheWrapper<T>> parseDataObjectFromApiResultWithCacheWrapped(Class<T> tOfClass)
     {
-        return mStringResponseImpl.parseAsObjectWithCacheWrapped(tOfClass);
+        return mStringResponseImpl.parseDataObjectFromApiResultWithCacheWrapped(tOfClass);
     }
 
     @Override
-    public <T> Observable<T> parseAsObject(Class<T> tOfClass)
+    public <T> Observable<T> parseDataObjectFromApiResult(Class<T> tOfClass)
     {
-        return mStringResponseImpl.parseAsObject(tOfClass);
+        return mStringResponseImpl.parseDataObjectFromApiResult(tOfClass);
     }
 
     @Override
-    public <T> Observable<ApiResultCacheWrapper<List<T>>> parseAsListWithCacheWrapped(Class<T> tOfClass)
+    public <T> Observable<ResultCacheWrapper<T>> parseDataObjectFromResponseWithCacheWrapped(Class<T> tOfClass)
     {
-        return mStringResponseImpl.parseAsListWithCacheWrapped(tOfClass);
+        return mStringResponseImpl.parseDataObjectFromResponseWithCacheWrapped(tOfClass);
     }
 
     @Override
-    public <T> Observable<List<T>> parseAsList(Class<T> tOfClass)
+    public <T> Observable<T> parseDataObjectResponseResult(Class<T> tOfClass)
     {
-        return mStringResponseImpl.parseAsList(tOfClass);
+        return mStringResponseImpl.parseDataObjectResponseResult(tOfClass);
+    }
+
+    @Override
+    public <T> Observable<ResultCacheWrapper<List<T>>> parseDataListFromApiResultWithCacheWrapped(Class<T> tOfClass)
+    {
+        return mStringResponseImpl.parseDataListFromApiResultWithCacheWrapped(tOfClass);
+    }
+
+    @Override
+    public <T> Observable<List<T>> parseDataListFromApiResult(Class<T> tOfClass)
+    {
+        return mStringResponseImpl.parseDataListFromApiResult(tOfClass);
+    }
+
+    @Override
+    public <T> Observable<ResultCacheWrapper<List<T>>> parseDataListFromResponseWithCacheWrapped(Class<T> tOfClass)
+    {
+        return mStringResponseImpl.parseDataListFromResponseWithCacheWrapped(tOfClass);
+    }
+
+    @Override
+    public <T> Observable<List<T>> parseDataListFromResponse(Class<T> tOfClass)
+    {
+        return mStringResponseImpl.parseDataListFromResponse(tOfClass);
     }
 }

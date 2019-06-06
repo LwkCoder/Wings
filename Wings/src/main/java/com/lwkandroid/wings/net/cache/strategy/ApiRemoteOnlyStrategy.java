@@ -1,7 +1,7 @@
 package com.lwkandroid.wings.net.cache.strategy;
 
 import com.lwkandroid.wings.net.bean.ApiCacheOptions;
-import com.lwkandroid.wings.net.bean.ApiResultCacheWrapper;
+import com.lwkandroid.wings.net.bean.ResultCacheWrapper;
 
 import io.reactivex.Observable;
 
@@ -13,7 +13,7 @@ import io.reactivex.Observable;
 public class ApiRemoteOnlyStrategy extends ApiCacheBaseStrategy
 {
     @Override
-    public <T> Observable<ApiResultCacheWrapper<T>> execute(ApiCacheOptions options, Observable<T> source, Class<T> clazz)
+    public <T> Observable<ResultCacheWrapper<T>> execute(ApiCacheOptions options, Observable<T> source, Class<T> clazz)
     {
         return loadRemote(options, clazz, source, false);
     }

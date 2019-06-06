@@ -1,10 +1,12 @@
 package com.lwkandroid.wings.net.response;
 
-import com.lwkandroid.wings.net.bean.ApiResultCacheWrapper;
+import com.lwkandroid.wings.net.bean.ResultCacheWrapper;
 import com.lwkandroid.wings.net.cache.RxCache;
-import com.lwkandroid.wings.net.cache.func.ApiCacheDataGetterFunc;
-import com.lwkandroid.wings.net.cache.func.ApiCacheDataToDataFunc;
-import com.lwkandroid.wings.net.cache.func.ApiCacheDataToDataListFunc;
+import com.lwkandroid.wings.net.cache.func.CacheDataGetterFunc;
+import com.lwkandroid.wings.net.cache.func.CacheDataToApiResultDataFunc;
+import com.lwkandroid.wings.net.cache.func.CacheDataToApiResultDataListFunc;
+import com.lwkandroid.wings.net.cache.func.CacheDataToDataFunc;
+import com.lwkandroid.wings.net.cache.func.CacheDataToDataListFunc;
 import com.lwkandroid.wings.net.exception.ApiExceptionTransformer;
 import com.lwkandroid.wings.net.requst.ApiBaseRequest;
 import com.lwkandroid.wings.net.response.convert.ApiResponseBodyConverter;
@@ -30,12 +32,12 @@ public final class ApiStringResponseImpl<R extends ApiBaseRequest<R>> implements
     }
 
     @Override
-    public Observable<ApiResultCacheWrapper<String>> returnStringResponseWithCacheWrapped()
+    public Observable<ResultCacheWrapper<String>> returnStringResponseWithCacheWrapped()
     {
         return mRequest.invokeRequest()
                 .compose(ApiResponseBodyConverter.transformToString())
                 .compose(RxCache.transform(mRequest.getFinalCacheOptions(), String.class))
-                .compose(new ApiExceptionTransformer<ApiResultCacheWrapper<String>>())
+                .compose(new ApiExceptionTransformer<ResultCacheWrapper<String>>())
                 .retryWhen(new AutoRetryFunc(mRequest.getSubUrl(), mRequest.getAutoRetryCount(), mRequest.getAutoRetryDelay(), mRequest.getAutoRetryJudge()));
     }
 
@@ -43,34 +45,62 @@ public final class ApiStringResponseImpl<R extends ApiBaseRequest<R>> implements
     public Observable<String> returnStringResponse()
     {
         return returnStringResponseWithCacheWrapped()
-                .map(new ApiCacheDataGetterFunc<String>());
+                .map(new CacheDataGetterFunc<String>());
     }
 
     @Override
-    public <T> Observable<ApiResultCacheWrapper<T>> parseAsObjectWithCacheWrapped(Class<T> tOfClass)
+    public <T> Observable<ResultCacheWrapper<T>> parseDataObjectFromApiResultWithCacheWrapped(Class<T> tOfClass)
     {
         return returnStringResponseWithCacheWrapped()
-                .flatMap(new ApiCacheDataToDataFunc<T>(mRequest.getApiStringParser(), tOfClass));
+                .flatMap(new CacheDataToApiResultDataFunc<T>(mRequest.getApiStringParser(), tOfClass));
     }
 
     @Override
-    public <T> Observable<T> parseAsObject(Class<T> tOfClass)
+    public <T> Observable<T> parseDataObjectFromApiResult(Class<T> tOfClass)
     {
-        return parseAsObjectWithCacheWrapped(tOfClass)
-                .map(new ApiCacheDataGetterFunc<T>());
+        return parseDataObjectFromApiResultWithCacheWrapped(tOfClass)
+                .map(new CacheDataGetterFunc<T>());
     }
 
     @Override
-    public <T> Observable<ApiResultCacheWrapper<List<T>>> parseAsListWithCacheWrapped(Class<T> tOfClass)
+    public <T> Observable<ResultCacheWrapper<T>> parseDataObjectFromResponseWithCacheWrapped(Class<T> tOfClass)
     {
         return returnStringResponseWithCacheWrapped()
-                .flatMap(new ApiCacheDataToDataListFunc<T>(mRequest.getApiStringParser(), tOfClass));
+                .flatMap(new CacheDataToDataFunc<T>(mRequest.getApiStringParser(), tOfClass));
     }
 
     @Override
-    public <T> Observable<List<T>> parseAsList(Class<T> tOfClass)
+    public <T> Observable<T> parseDataObjectResponseResult(Class<T> tOfClass)
     {
-        return parseAsListWithCacheWrapped(tOfClass)
-                .map(new ApiCacheDataGetterFunc<List<T>>());
+        return parseDataObjectFromResponseWithCacheWrapped(tOfClass)
+                .map(new CacheDataGetterFunc<T>());
+    }
+
+    @Override
+    public <T> Observable<ResultCacheWrapper<List<T>>> parseDataListFromApiResultWithCacheWrapped(Class<T> tOfClass)
+    {
+        return returnStringResponseWithCacheWrapped()
+                .flatMap(new CacheDataToApiResultDataListFunc<T>(mRequest.getApiStringParser(), tOfClass));
+    }
+
+    @Override
+    public <T> Observable<List<T>> parseDataListFromApiResult(Class<T> tOfClass)
+    {
+        return parseDataListFromApiResultWithCacheWrapped(tOfClass)
+                .map(new CacheDataGetterFunc<List<T>>());
+    }
+
+    @Override
+    public <T> Observable<ResultCacheWrapper<List<T>>> parseDataListFromResponseWithCacheWrapped(Class<T> tOfClass)
+    {
+        return returnStringResponseWithCacheWrapped()
+                .flatMap(new CacheDataToDataListFunc<T>(mRequest.getApiStringParser(), tOfClass));
+    }
+
+    @Override
+    public <T> Observable<List<T>> parseDataListFromResponse(Class<T> tOfClass)
+    {
+        return parseDataListFromResponseWithCacheWrapped(tOfClass)
+                .map(new CacheDataGetterFunc<List<T>>());
     }
 }

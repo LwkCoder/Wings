@@ -5,7 +5,7 @@ import android.graphics.Bitmap;
 import com.lwkandroid.wings.log.KLog;
 import com.lwkandroid.wings.net.RxHttp;
 import com.lwkandroid.wings.net.bean.ApiException;
-import com.lwkandroid.wings.net.bean.ApiResultCacheWrapper;
+import com.lwkandroid.wings.net.bean.ResultCacheWrapper;
 import com.lwkandroid.wings.net.constants.ApiCacheMode;
 import com.lwkandroid.wings.net.response.convert.ApiResponseBodyConverter;
 import com.lwkandroid.wings.net.utils.FormDataMap;
@@ -41,7 +41,7 @@ public class RxHttpDemoModel extends RxHttpDemoContract.Model
                 .addFormData("message_cursor", "1")
                 .addFormData("double_col_mode", "1")
                 .setAutoRetryCount(5)
-                .parseAsList(TabsBean.class);
+                .parseDataListFromApiResult(TabsBean.class);
     }
 
     @Override
@@ -52,7 +52,7 @@ public class RxHttpDemoModel extends RxHttpDemoContract.Model
                 .create(CustomService.class)
                 .customGet(ApiURL.TEST, new FormDataMap().addParam("webp", "1"))
                 .compose(ApiResponseBodyConverter.transformToString())//先将ResponseBody转为String结果的数据
-                .compose(RxHttp.getGlobalOptions().getApiStringParser().parseAsList(TabsBean.class));//再将String数据解析为所需数据集合
+                .compose(RxHttp.getGlobalOptions().getApiStringParser().parseDataListFromApiResult(TabsBean.class));//再将String数据解析为所需数据集合
     }
 
     @Override
@@ -80,7 +80,7 @@ public class RxHttpDemoModel extends RxHttpDemoContract.Model
     }
 
     @Override
-    Observable<ApiResultCacheWrapper<NonRestFulResult>> requestNonRestFulData()
+    Observable<ResultCacheWrapper<NonRestFulResult>> requestNonRestFulData()
     {
         return RxHttp.GET(ApiURL.TEST02)
                 .setCacheKey("TestKey")
@@ -88,9 +88,7 @@ public class RxHttpDemoModel extends RxHttpDemoContract.Model
                 .setCacheMode(ApiCacheMode.CACHE_FIRST_OR_REMOTE)
                 .addFormData("code", "utf-8")
                 .addFormData("q", "iphone")
-                .setApiResultStringParser(new NonRestFulStringResultParser())
-                //                .parseAsObject(NonRestFulResult.class);
-                .parseAsObjectWithCacheWrapped(NonRestFulResult.class);
+                .parseDataObjectFromResponseWithCacheWrapped(NonRestFulResult.class);
     }
 
     @Override
