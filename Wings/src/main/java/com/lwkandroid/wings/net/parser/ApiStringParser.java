@@ -24,7 +24,7 @@ import io.reactivex.functions.Function;
 public class ApiStringParser implements IApiStringParser
 {
     @Override
-    public <T> ObservableTransformer<String, T> parseDataObject(final Class<T> dataClass)
+    public <T> ObservableTransformer<String, T> parseCustomDataObject(final Class<T> dataClass)
     {
         return new ObservableTransformer<String, T>()
         {
@@ -36,6 +36,10 @@ public class ApiStringParser implements IApiStringParser
                     @Override
                     public T apply(String s) throws Exception
                     {
+                        if (dataClass == String.class)
+                        {
+                            return (T) s;
+                        }
                         return JsonUtils.get().parseJsonObject(s, dataClass);
                     }
                 });
@@ -88,7 +92,7 @@ public class ApiStringParser implements IApiStringParser
     }
 
     @Override
-    public <T> ObservableTransformer<String, List<T>> parseDataList(final Class<T> dataClass)
+    public <T> ObservableTransformer<String, List<T>> parseCustomDataList(final Class<T> dataClass)
     {
         return new ObservableTransformer<String, List<T>>()
         {

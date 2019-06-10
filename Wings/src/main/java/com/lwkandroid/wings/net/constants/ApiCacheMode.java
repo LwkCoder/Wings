@@ -1,36 +1,50 @@
 package com.lwkandroid.wings.net.constants;
 
-import androidx.annotation.IntDef;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-/**
- * Created by LWK
- *  缓存类型
- */
+import androidx.annotation.IntDef;
 
+/**
+ * 缓存类型
+ *
+ * @author LWK
+ */
 public final class ApiCacheMode
 {
-    /*不缓存*/
+    /**
+     * 不缓存
+     */
     public static final int NO_CACHE = 0x00000001;
 
-    /*先请求网络数据，失败后尝试获取本地缓存*/
+    /**
+     * 先请求网络数据，失败后尝试获取本地缓存
+     */
     public static final int REMOTE_FIRST_OR_CACHE = 0x00000002;
 
-    /*先请求本地缓存，失败或为空获取网络数据*/
+    /**
+     * 先请求本地缓存，失败或为空获取网络数据
+     */
     public static final int CACHE_FIRST_OR_REMOTE = 0x00000003;
 
-    /*只请求网络数据，但仍然会缓存*/
+    /**
+     * 只请求网络数据，但仍然会缓存
+     */
     public static final int REMOTE_ONLY = 0x00000004;
 
-    /*只加载本地缓存*/
+    /**
+     * 只加载本地缓存
+     */
     public static final int CACHE_ONLY = 0x00000005;
 
-    /*先返回本地缓存，然后获取网络数据，回调2次*/
+    /**
+     * 先返回本地缓存，然后获取网络数据，回调2次
+     */
     public static final int CACHE_FIRST_AFTER_REMOTE = 0x00000006;
 
-    /*先返回本地缓存，然后获取网络数据，如果数据一样就忽略*/
+    /**
+     * 先返回本地缓存，然后获取网络数据，如果数据一样就忽略
+     */
     public static final int CACHE_FIRST_AFTER_REMOTE_IF_DIFF = 0x00000007;
 
 

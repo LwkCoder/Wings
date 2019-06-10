@@ -6,8 +6,9 @@ import com.lwkandroid.wings.net.RxHttp;
 import java.io.Serializable;
 
 /**
- * Created by LWK
- *  RestFul风格默认的请求结果
+ * RestFul风格默认的请求结果
+ *
+ * @author LWK
  */
 @NotProguard
 public class ApiRestfulResult<T> implements IApiRestfulResult<T>, Serializable

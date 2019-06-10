@@ -28,10 +28,10 @@ public class ApiExceptionMsgConverterImpl implements IApiExceptionMsgConverter
         } else if (errorCode == ApiExceptionCode.TIMEOUT_ERROR)
         {
             return ResourceUtils.getString(R.string.rxhttp_error_connect_timeout);
-        } else if (errorCode == ApiExceptionCode.UNKNOWNHOST_ERROR)
+        } else if (errorCode == ApiExceptionCode.UNKNOWN_HOST_ERROR)
         {
             return ResourceUtils.getString(R.string.rxhttp_error_unknow_host);
-        } else if (errorCode == ApiExceptionCode.NULLPOINTER_EXCEPTION)
+        } else if (errorCode == ApiExceptionCode.NULL_POINTER_EXCEPTION)
         {
             return ResourceUtils.getString(R.string.rxhttp_error_nullpointer);
         } else if (errorCode == ApiExceptionCode.IO_EXCEPTION)

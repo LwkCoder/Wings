@@ -10,9 +10,13 @@ import android.widget.TextView;
 import com.lwkandroid.imagepicker.ImagePicker;
 import com.lwkandroid.imagepicker.data.ImageBean;
 import com.lwkandroid.imagepicker.data.ImagePickType;
+import com.lwkandroid.wings.log.KLog;
+import com.lwkandroid.wings.net.RxHttp;
 import com.lwkandroid.wings.net.bean.ApiException;
 import com.lwkandroid.wings.net.bean.ProgressInfo;
+import com.lwkandroid.wings.net.observer.ApiBaseObserver;
 import com.lwkandroid.wings.permission.PermissionDialogUtils;
+import com.lwkandroid.wings.rx.schedulers.RxSchedulers;
 import com.lwkandroid.wings.utils.AppUtils;
 import com.lwkandroid.wingsdemo.R;
 import com.lwkandroid.wingsdemo.app.AppBaseActivity;
@@ -158,6 +162,23 @@ public class RxHttpDemoActivity extends AppBaseActivity<RxHttpDemoPresenter> imp
     protected void initData(@Nullable Bundle savedInstanceState)
     {
         getPresenter().requestDataWithAutoRefreshAccessToken();
+        RxHttp.GET("http://192.168.5.22:8080/ok_no_data.json")
+                .parseDataObject(String.class)
+                .compose(RxSchedulers.<String>applyIo2Main())
+                .subscribe(new ApiBaseObserver<String>()
+                {
+                    @Override
+                    public void subOnNext(String s)
+                    {
+                        KLog.e("请求结果：" + s);
+                    }
+
+                    @Override
+                    public void subOnError(ApiException e)
+                    {
+                        KLog.e("请求失败：" + e.toString());
+                    }
+                });
     }
 
     @Override

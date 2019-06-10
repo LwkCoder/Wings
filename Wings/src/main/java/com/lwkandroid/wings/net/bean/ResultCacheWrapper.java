@@ -3,10 +3,10 @@ package com.lwkandroid.wings.net.bean;
 import java.io.Serializable;
 
 /**
- * Created by LWK
- *  请求结果的缓存封装
+ * 请求结果的缓存封装
+ *
+ * @author LWK
  */
-
 public class ResultCacheWrapper<T> implements Serializable
 {
     private static final long serialVersionUID = -5458415801107285006L;

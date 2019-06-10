@@ -1,4 +1,4 @@
-package com.lwkandroid.wings.net.cache.opeartor;
+package com.lwkandroid.wings.net.cache.operator;
 
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
@@ -13,7 +13,7 @@ import java.io.OutputStream;
 
 /**
  * Created by LWK
- *  GSON-数据转换器其实就是存储字符串的操作
+ * GSON-数据转换器其实就是存储字符串的操作
  * 优点：
  * 相对于SerializableDiskConverter转换器，存储的对象不需要进行序列化（Serializable），
  * 特别是一个对象中又包含很多其它对象，每个对象都需要Serializable，比较麻烦
@@ -21,6 +21,8 @@ import java.io.OutputStream;
  * 缺点：
  * 就是存储和读取都要使用Gson进行转换，object->String->Object的给一个过程，相对来说
  * 每次都要转换性能略低，但是以现在的手机性能可以忽略不计了。
+ *
+ * @author LWK
  */
 
 public class GsonDiskOperator implements IDiskCacheOperator

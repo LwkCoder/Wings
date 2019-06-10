@@ -130,11 +130,11 @@ public class ApiException extends Exception
         } else if (e instanceof UnknownHostException)
         {
             e.printStackTrace();
-            return new ApiException(ApiExceptionCode.UNKNOWNHOST_ERROR, e.getMessage());
+            return new ApiException(ApiExceptionCode.UNKNOWN_HOST_ERROR, e.getMessage());
         } else if (e instanceof NullPointerException)
         {
             e.printStackTrace();
-            return new ApiException(ApiExceptionCode.NULLPOINTER_EXCEPTION, e.getMessage());
+            return new ApiException(ApiExceptionCode.NULL_POINTER_EXCEPTION, e.getMessage());
         } else
         {
             e.printStackTrace();

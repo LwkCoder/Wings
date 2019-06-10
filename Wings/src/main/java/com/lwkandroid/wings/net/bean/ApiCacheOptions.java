@@ -4,8 +4,8 @@ import android.text.TextUtils;
 
 import com.lwkandroid.wings.net.cache.core.CacheCore;
 import com.lwkandroid.wings.net.cache.core.DiskLruCacheWrapper;
-import com.lwkandroid.wings.net.cache.opeartor.GsonDiskOperator;
-import com.lwkandroid.wings.net.cache.opeartor.IDiskCacheOperator;
+import com.lwkandroid.wings.net.cache.operator.GsonDiskOperator;
+import com.lwkandroid.wings.net.cache.operator.IDiskCacheOperator;
 import com.lwkandroid.wings.net.constants.ApiCacheMode;
 import com.lwkandroid.wings.net.constants.ApiConstants;
 import com.lwkandroid.wings.utils.SDCardUtils;

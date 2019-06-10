@@ -72,18 +72,6 @@ public final class ApiPutRequest extends ApiBaseRequest<ApiPutRequest> implement
     }
 
     @Override
-    public <T> Observable<ResultCacheWrapper<T>> parseRestfulDataObjectCache(Class<T> tOfClass)
-    {
-        return mStringResponseImpl.parseRestfulDataObjectCache(tOfClass);
-    }
-
-    @Override
-    public <T> Observable<T> parseRestfulDataObject(Class<T> tOfClass)
-    {
-        return mStringResponseImpl.parseRestfulDataObject(tOfClass);
-    }
-
-    @Override
     public <T> Observable<ResultCacheWrapper<T>> parseDataObjectCache(Class<T> tOfClass)
     {
         return mStringResponseImpl.parseDataObjectCache(tOfClass);
@@ -96,15 +84,15 @@ public final class ApiPutRequest extends ApiBaseRequest<ApiPutRequest> implement
     }
 
     @Override
-    public <T> Observable<ResultCacheWrapper<List<T>>> parseRestfulDataListCache(Class<T> tOfClass)
+    public <T> Observable<ResultCacheWrapper<T>> parseDataObjectByCustomCache(Class<T> tOfClass)
     {
-        return mStringResponseImpl.parseRestfulDataListCache(tOfClass);
+        return mStringResponseImpl.parseDataObjectByCustomCache(tOfClass);
     }
 
     @Override
-    public <T> Observable<List<T>> parseRestfulDataList(Class<T> tOfClass)
+    public <T> Observable<T> parseDataObjectByCustom(Class<T> tOfClass)
     {
-        return mStringResponseImpl.parseRestfulDataList(tOfClass);
+        return mStringResponseImpl.parseDataObjectByCustom(tOfClass);
     }
 
     @Override
@@ -117,5 +105,17 @@ public final class ApiPutRequest extends ApiBaseRequest<ApiPutRequest> implement
     public <T> Observable<List<T>> parseDataList(Class<T> tOfClass)
     {
         return mStringResponseImpl.parseDataList(tOfClass);
+    }
+
+    @Override
+    public <T> Observable<ResultCacheWrapper<List<T>>> parseDataListByCustomCache(Class<T> tOfClass)
+    {
+        return mStringResponseImpl.parseDataListByCustomCache(tOfClass);
+    }
+
+    @Override
+    public <T> Observable<List<T>> parseDataListByCustom(Class<T> tOfClass)
+    {
+        return mStringResponseImpl.parseDataListByCustom(tOfClass);
     }
 }

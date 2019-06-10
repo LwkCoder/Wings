@@ -1,13 +1,15 @@
 package com.lwkandroid.wings.net.constants;
 
-import androidx.annotation.IntDef;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
+import androidx.annotation.IntDef;
+
 /**
  * Created by LWK
- *  请求类型
+ * 请求类型
+ *
+ * @author LWK
  */
 
 public class ApiRequestType

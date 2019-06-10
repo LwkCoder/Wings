@@ -1,4 +1,4 @@
-package com.lwkandroid.wings.net.cache.opeartor;
+package com.lwkandroid.wings.net.cache.operator;
 
 import com.lwkandroid.wings.net.bean.ApiDiskCacheBean;
 import com.lwkandroid.wings.utils.CloseUtils;

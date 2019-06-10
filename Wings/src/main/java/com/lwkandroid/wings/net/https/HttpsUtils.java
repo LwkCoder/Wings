@@ -171,7 +171,7 @@ public class HttpsUtils
         private X509TrustManager defaultTrustManager;
         private X509TrustManager localTrustManager;
 
-        public MyTrustManager(X509TrustManager localTrustManager) throws NoSuchAlgorithmException, KeyStoreException
+        MyTrustManager(X509TrustManager localTrustManager) throws NoSuchAlgorithmException, KeyStoreException
         {
             TrustManagerFactory var4 = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
             var4.init((KeyStore) null);

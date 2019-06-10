@@ -24,7 +24,7 @@ import io.reactivex.SingleTransformer;
  * @author LWK
  * @date 2019/4/24
  */
-public class RxSchedulersTransformer<T> implements ObservableTransformer<T, T>,
+final class RxSchedulersTransformer<T> implements ObservableTransformer<T, T>,
         FlowableTransformer<T, T>,
         SingleTransformer<T, T>,
         MaybeTransformer<T, T>,

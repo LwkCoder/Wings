@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.lwkandroid.wings.net.cache.opeartor;
+package com.lwkandroid.wings.net.cache.operator;
 
 import com.lwkandroid.wings.net.bean.ApiDiskCacheBean;
 
@@ -31,7 +31,7 @@ public interface IDiskCacheOperator
      *
      * @param source 输入流
      * @param clazz   读取数据后要转换的数据类型
-     *               这里没有用泛型T或者Tyepe来做，是因为本框架决定的一些问题，泛型会丢失
+     *               这里没有用泛型T或者Type来做，是因为本框架决定的一些问题，泛型会丢失
      * @return
      */
     <T> ApiDiskCacheBean<T> load(InputStream source, Class<T> clazz);

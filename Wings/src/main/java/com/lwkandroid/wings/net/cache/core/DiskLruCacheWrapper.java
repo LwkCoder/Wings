@@ -19,7 +19,7 @@ package com.lwkandroid.wings.net.cache.core;
 
 import com.jakewharton.disklrucache.DiskLruCache;
 import com.lwkandroid.wings.net.bean.ApiDiskCacheBean;
-import com.lwkandroid.wings.net.cache.opeartor.IDiskCacheOperator;
+import com.lwkandroid.wings.net.cache.operator.IDiskCacheOperator;
 import com.lwkandroid.wings.utils.CloseUtils;
 
 import java.io.File;

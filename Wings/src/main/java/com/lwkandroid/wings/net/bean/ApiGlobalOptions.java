@@ -1,7 +1,7 @@
 package com.lwkandroid.wings.net.bean;
 
 import com.lwkandroid.wings.BuildConfig;
-import com.lwkandroid.wings.net.cache.opeartor.IDiskCacheOperator;
+import com.lwkandroid.wings.net.cache.operator.IDiskCacheOperator;
 import com.lwkandroid.wings.net.constants.ApiCacheMode;
 import com.lwkandroid.wings.net.constants.ApiConstants;
 import com.lwkandroid.wings.net.cookie.CookieManager;

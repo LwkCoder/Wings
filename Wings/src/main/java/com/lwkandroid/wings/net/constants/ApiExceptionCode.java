@@ -1,10 +1,10 @@
 package com.lwkandroid.wings.net.constants;
 
 /**
- * Created by LWK
- * 这个类定义了所有请求结果的结果码
+ * 内置错误码
+ *
+ * @author LWK
  */
-
 public class ApiExceptionCode
 {
     /**
@@ -39,11 +39,11 @@ public class ApiExceptionCode
     /**
      * 未知主机错误
      */
-    public static final int UNKNOWNHOST_ERROR = 100000006;
+    public static final int UNKNOWN_HOST_ERROR = 100000006;
     /**
      * 空指针错误
      */
-    public static final int NULLPOINTER_EXCEPTION = 100000007;
+    public static final int NULL_POINTER_EXCEPTION = 100000007;
     /**
      * IO错误
      */

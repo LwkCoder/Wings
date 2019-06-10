@@ -41,7 +41,7 @@ public class RxHttpDemoModel extends RxHttpDemoContract.Model
                 .addFormData("message_cursor", "1")
                 .addFormData("double_col_mode", "1")
                 .setAutoRetryCount(5)
-                .parseRestfulDataList(TabsBean.class);
+                .parseDataList(TabsBean.class);
     }
 
     @Override
@@ -88,7 +88,7 @@ public class RxHttpDemoModel extends RxHttpDemoContract.Model
                 .setCacheMode(ApiCacheMode.CACHE_FIRST_OR_REMOTE)
                 .addFormData("code", "utf-8")
                 .addFormData("q", "iphone")
-                .parseDataObjectCache(NonRestFulResult.class);
+                .parseDataObjectByCustomCache(NonRestFulResult.class);
     }
 
     @Override
