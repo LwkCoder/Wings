@@ -1,6 +1,7 @@
 package com.lwkandroid.wings.widget.dialog;
 
 import android.content.DialogInterface;
+import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.ViewGroup;
 
@@ -13,171 +14,188 @@ import androidx.annotation.StyleRes;
 import androidx.fragment.app.FragmentActivity;
 
 /**
- * Created by LWK
- *  Dialog配置参数
+ * Dialog配置参数
+ *
+ * @author LWK
  */
-public class DialogOptions<T extends DialogOptions> implements IDialogProxy, Serializable
+public class DialogOptions implements IDialogProxy, Serializable
 {
-    private static final long serialVersionUID = -1386963135133670863L;
-    private boolean focusable = true;
-    private boolean cancelable = true;
-    private boolean canceledOnTouchOutside = true;
+    private static final long serialVersionUID = 8073983675073865834L;
+    private boolean mFocusable = true;
+    private boolean mCancelable = true;
+    private boolean mCanceledOnTouchOutside = true;
     private @StyleRes
-    int themeStyle = R.style.BaseDialogStyle;
+    int mThemeStyle = R.style.BaseDialogStyle;
     private @FloatRange(from = 0.0, to = 1.0f)
-    float darkWindowDegree = 0.5f;
+    float mDarkWindowDegree = 0.5f;
     private @StyleRes
-    int animStyle = android.R.style.Animation_Dialog;
-    private int layoutGravity = Gravity.CENTER;
-    private ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(
+    int mAnimStyle = android.R.style.Animation_Dialog;
+    private int mLayoutGravity = Gravity.CENTER;
+    private ViewGroup.LayoutParams mLayoutParams = new ViewGroup.LayoutParams(
             ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-    private DialogBaseContentView contentView;
-    private DialogInterface.OnShowListener showListener;
-    private DialogInterface.OnDismissListener dismissListener;
-    private DialogInterface.OnCancelListener cancelListener;
-    private DialogInterface.OnKeyListener keyListener;
+    private DialogBaseContentView mContentView;
+    private DialogInterface.OnShowListener mOnShowListener;
+    private DialogInterface.OnDismissListener mOnDismissListener;
+    private DialogInterface.OnCancelListener mOnCancelListener;
+    private DialogInterface.OnKeyListener mOnKeyListener;
+    private SparseArray<OnDialogChildClickListener> mChildClickListenerArray;
 
     public boolean isFocusable()
     {
-        return focusable;
+        return mFocusable;
     }
 
-    public T setFocusable(boolean focusable)
+    public DialogOptions setFocusable(boolean focusable)
     {
-        this.focusable = focusable;
-        return (T) this;
+        this.mFocusable = focusable;
+        return this;
     }
 
     public boolean isCanceledOnTouchOutside()
     {
-        return canceledOnTouchOutside;
+        return mCanceledOnTouchOutside;
     }
 
     public boolean isCancelable()
     {
-        return cancelable;
+        return mCancelable;
     }
 
-    public T setCancelable(boolean cancelable)
+    public DialogOptions setCancelable(boolean cancelable)
     {
-        this.cancelable = cancelable;
-        return (T) this;
+        this.mCancelable = cancelable;
+        return this;
     }
 
-    public T setCanceledOnTouchOutside(boolean canceledOnTouchOutside)
+    public DialogOptions setCanceledOnTouchOutside(boolean canceledOnTouchOutside)
     {
-        this.canceledOnTouchOutside = canceledOnTouchOutside;
-        return (T) this;
+        this.mCanceledOnTouchOutside = canceledOnTouchOutside;
+        return this;
     }
 
     public float getDarkWindowDegree()
     {
-        return darkWindowDegree;
+        return mDarkWindowDegree;
     }
 
-    public T setDarkWindowDegree(float darkWindowDegree)
+    public DialogOptions setDarkWindowDegree(float darkWindowDegree)
     {
-        this.darkWindowDegree = darkWindowDegree;
-        return (T) this;
+        this.mDarkWindowDegree = darkWindowDegree;
+        return this;
     }
 
     public int getAnimStyle()
     {
-        return animStyle;
+        return mAnimStyle;
     }
 
-    public T setAnimStyle(int animStyle)
+    public DialogOptions setAnimStyle(int animStyle)
     {
-        this.animStyle = animStyle;
-        return (T) this;
+        this.mAnimStyle = animStyle;
+        return this;
     }
 
     public int getLayoutGravity()
     {
-        return layoutGravity;
+        return mLayoutGravity;
     }
 
-    public T setLayoutGravity(int layoutGravity)
+    public DialogOptions setLayoutGravity(int layoutGravity)
     {
-        this.layoutGravity = layoutGravity;
-        return (T) this;
+        this.mLayoutGravity = layoutGravity;
+        return this;
     }
 
     public ViewGroup.LayoutParams getLayoutParams()
     {
-        return layoutParams;
+        return mLayoutParams;
     }
 
-    public T setLayoutParams(ViewGroup.LayoutParams layoutParams)
+    public DialogOptions setLayoutParams(ViewGroup.LayoutParams layoutParams)
     {
-        this.layoutParams = layoutParams;
-        return (T) this;
+        this.mLayoutParams = layoutParams;
+        return this;
     }
 
     public DialogBaseContentView getContentView()
     {
-        return contentView;
+        return mContentView;
     }
 
-    public T setContentView(DialogBaseContentView contentView)
+    public DialogOptions setContentView(DialogBaseContentView contentView)
     {
-        this.contentView = contentView;
-        return (T) this;
+        this.mContentView = contentView;
+        return this;
     }
 
     public int getThemeStyle()
     {
-        return themeStyle;
+        return mThemeStyle;
     }
 
-    public T setThemeStyle(@StyleRes int themeStyle)
+    public DialogOptions setThemeStyle(@StyleRes int themeStyle)
     {
-        this.themeStyle = themeStyle;
-        return (T) this;
+        this.mThemeStyle = themeStyle;
+        return this;
     }
 
     public DialogInterface.OnShowListener getShowListener()
     {
-        return showListener;
+        return mOnShowListener;
     }
 
-    public T setOnShowListener(DialogInterface.OnShowListener showListener)
+    public DialogOptions setOnShowListener(DialogInterface.OnShowListener showListener)
     {
-        this.showListener = showListener;
-        return (T) this;
+        this.mOnShowListener = showListener;
+        return this;
     }
 
     public DialogInterface.OnDismissListener getDismissListener()
     {
-        return dismissListener;
+        return mOnDismissListener;
     }
 
-    public T setOnDismissListener(DialogInterface.OnDismissListener dismissListener)
+    public DialogOptions setOnDismissListener(DialogInterface.OnDismissListener dismissListener)
     {
-        this.dismissListener = dismissListener;
-        return (T) this;
+        this.mOnDismissListener = dismissListener;
+        return this;
     }
 
     public DialogInterface.OnCancelListener getCancelListener()
     {
-        return cancelListener;
+        return mOnCancelListener;
     }
 
-    public T setOnCancelListener(DialogInterface.OnCancelListener cancelListener)
+    public DialogOptions setOnCancelListener(DialogInterface.OnCancelListener cancelListener)
     {
-        this.cancelListener = cancelListener;
-        return (T) this;
+        this.mOnCancelListener = cancelListener;
+        return this;
     }
 
     public DialogInterface.OnKeyListener getKeyListener()
     {
-        return keyListener;
+        return mOnKeyListener;
     }
 
-    public T setOnKeyListener(DialogInterface.OnKeyListener keyListener)
+    public DialogOptions setOnKeyListener(DialogInterface.OnKeyListener keyListener)
     {
-        this.keyListener = keyListener;
-        return (T) this;
+        this.mOnKeyListener = keyListener;
+        return this;
+    }
+
+    public DialogOptions addOnChildClickListener(int viewId, OnDialogChildClickListener listener)
+    {
+        if (mChildClickListenerArray == null)
+        {
+            mChildClickListenerArray = new SparseArray<>();
+        }
+        mChildClickListenerArray.put(viewId, listener);
+        return this;
+    }
+
+    public SparseArray<OnDialogChildClickListener> getChildClickListenerArray()
+    {
+        return mChildClickListenerArray;
     }
 
     @Override

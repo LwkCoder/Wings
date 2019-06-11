@@ -25,7 +25,6 @@ import androidx.core.widget.PopupWindowCompat;
  * Created by LWK
  * PopupWindow辅助类
  */
-
 public class PopCreator implements IPopOperator, PopupWindow.OnDismissListener
 {
     private static final String TAG = "PopCreator";
@@ -388,6 +387,10 @@ public class PopCreator implements IPopOperator, PopupWindow.OnDismissListener
         if (mOptions != null && mOptions.getDismissListener() != null)
         {
             mOptions.getDismissListener().onDismiss();
+        }
+        if (mOptions != null && mOptions.getChildClickListenerArray() != null)
+        {
+            mOptions.getChildClickListenerArray().clear();
         }
         if (mContextReference != null)
         {

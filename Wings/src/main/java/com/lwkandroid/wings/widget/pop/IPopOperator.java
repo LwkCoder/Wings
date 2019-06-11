@@ -5,10 +5,9 @@ import android.widget.PopupWindow;
 
 /**
  * Created by LWK
- *  定义PopCreator外部可调方法的接口
+ * 定义PopCreator外部可调方法的接口
  */
-
-public interface IPopOperator
+interface IPopOperator
 {
     /**
      * 显示在指定位置

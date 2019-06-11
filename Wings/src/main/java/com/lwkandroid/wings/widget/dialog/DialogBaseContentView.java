@@ -1,6 +1,7 @@
 package com.lwkandroid.wings.widget.dialog;
 
 import android.content.Context;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +12,9 @@ import com.lwkandroid.wings.utils.Utils;
 import java.lang.ref.WeakReference;
 
 /**
- * Created by LWK
- *  Dialog UI层，继承该类实现数据处理和UI交互
+ * Dialog UI层，继承该类实现数据处理和UI交互
+ *
+ * @author LWK
  */
 public abstract class DialogBaseContentView
 {
@@ -38,9 +40,34 @@ public abstract class DialogBaseContentView
     {
         //解决xml根布局定义宽高无效的问题
         mRealContentView = new FrameLayout(getContext());
-        View layout = inflater.inflate(getContentViewLayoutResId(), mRealContentView, false);
+        final View layout = inflater.inflate(getContentViewLayoutResId(), mRealContentView, false);
         mRealContentView.addView(layout);
         initUIAndData(getRealContentView(), mOptions, mCreator);
+        final SparseArray<OnDialogChildClickListener> listenerArray = mOptions.getChildClickListenerArray();
+        if (listenerArray != null)
+        {
+            for (int i = 0, size = listenerArray.size(); i < size; i++)
+            {
+                final int index = i;
+                final int viewId = listenerArray.keyAt(index);
+                View view = mRealContentView.findViewById(viewId);
+                if (view != null)
+                {
+                    view.setOnClickListener(new View.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(View v)
+                        {
+                            OnDialogChildClickListener listener = listenerArray.valueAt(index);
+                            if (listener != null)
+                            {
+                                listener.onDialogChildClicked(v.getId(), v, mRealContentView, mCreator);
+                            }
+                        }
+                    });
+                }
+            }
+        }
     }
 
     void onDismiss()
@@ -95,7 +122,6 @@ public abstract class DialogBaseContentView
      * @param contentView Dialog的ContentView
      * @param options     配置参数
      * @param creator     DialogCreator对象
-     * @param <T>         配置参数的泛型
      */
-    public abstract <T extends DialogOptions<T>> void initUIAndData(View contentView, T options, DialogCreator creator);
+    public abstract void initUIAndData(View contentView, DialogOptions options, DialogCreator creator);
 }

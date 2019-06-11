@@ -22,7 +22,7 @@ public class ActionBarMenuPop extends PopBaseContentView implements View.OnClick
     }
 
     @Override
-    public <T extends PopOptions<T>> void initUIAndData(View contentView, T options, PopCreator popCreator)
+    public void initUIAndData(View contentView, PopOptions options, PopCreator popCreator)
     {
         contentView.findViewById(R.id.tv_pop_menu01).setOnClickListener(this);
         contentView.findViewById(R.id.tv_pop_menu02).setOnClickListener(this);

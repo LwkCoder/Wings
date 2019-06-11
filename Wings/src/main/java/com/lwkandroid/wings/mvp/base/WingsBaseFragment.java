@@ -12,6 +12,7 @@ import com.lwkandroid.wings.rx.lifecycle.RxLifeCycleEvent;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import io.reactivex.subjects.PublishSubject;
 
 /**
@@ -24,7 +25,7 @@ public abstract class WingsBaseFragment<P extends MVPBasePresenter> extends Frag
         , View.OnClickListener
 {
     private final String TAG = getClass().getSimpleName();
-    private MVPBaseViewImpl<P> mMVPViewImpl = new MVPBaseViewImpl<P>();
+    private MVPBaseViewImpl<P> mMVPViewImpl = new MVPBaseViewImpl<P>(getActivity());
     private ContentViewImpl mContentViewImpl = new ContentViewImpl(this);
 
     @Override
@@ -112,6 +113,12 @@ public abstract class WingsBaseFragment<P extends MVPBasePresenter> extends Frag
     {
         super.onDetach();
         publishLifeCycleEvent(RxLifeCycleConstants.ON_DETACH);
+    }
+
+    @Override
+    public FragmentActivity getFragmentActivity()
+    {
+        return mMVPViewImpl.getFragmentActivity();
     }
 
     @Override

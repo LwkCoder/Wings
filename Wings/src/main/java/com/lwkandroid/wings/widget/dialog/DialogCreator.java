@@ -10,15 +10,13 @@ import androidx.fragment.app.FragmentActivity;
 
 /**
  * Created by LWK
- *  Dialog工具类
+ * Dialog工具类
  */
 public class DialogCreator implements IDialogOperator
 {
     private static final String TAG = "DialogCreator";
-    private DialogOptions mOptions;
     private WeakReference<Context> mContextReference;
     private RealDialog mRealDialog;
-    private DialogBaseContentView mContentView;
 
     public static DialogOptions create(DialogBaseContentView contentView)
     {
@@ -37,7 +35,18 @@ public class DialogCreator implements IDialogOperator
     @Override
     public DialogCreator show(FragmentActivity activity, DialogOptions options)
     {
-        init(activity, options);
+        this.mContextReference = new WeakReference<>(activity != null ? activity : Utils.getContext());
+        if (options == null)
+        {
+            options = new DialogOptions();
+        }
+        DialogBaseContentView contentView = options.getContentView();
+        if (contentView == null)
+        {
+            throw new IllegalArgumentException("You have to set a NonNull DialogBaseContentView object!!!");
+        }
+        options.getContentView().attachToCreator(activity, options, this);
+        mRealDialog = RealDialog.create(options);
         if (mRealDialog != null)
         {
             mRealDialog.show(activity.getSupportFragmentManager(), TAG);
@@ -68,22 +77,5 @@ public class DialogCreator implements IDialogOperator
         {
             mRealDialog.cancel();
         }
-    }
-
-    /**
-     * 初始化
-     */
-    private void init(Context context, DialogOptions options)
-    {
-        this.mContextReference = new WeakReference<>(context != null ? context : Utils.getContext());
-        this.mOptions = options != null ? options : new DialogOptions();
-
-        mContentView = mOptions.getContentView();
-        if (mContentView == null)
-        {
-            throw new IllegalArgumentException("You have to set a NonNull DialogBaseContentView object!!!");
-        }
-        mOptions.getContentView().attachToCreator(context, mOptions, this);
-        mRealDialog = RealDialog.create(mOptions);
     }
 }

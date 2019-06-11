@@ -20,7 +20,7 @@ public class DialogPop extends PopBaseContentView implements View.OnClickListene
     }
 
     @Override
-    public <T extends PopOptions<T>> void initUIAndData(View contentView, T options, PopCreator popCreator)
+    public void initUIAndData(View contentView, PopOptions options, PopCreator popCreator)
     {
         contentView.findViewById(R.id.tv_pop_dialog_dismiss).setOnClickListener(this);
     }

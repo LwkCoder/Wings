@@ -1,5 +1,6 @@
 package com.lwkandroid.wings.widget.pop;
 
+import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupWindow;
@@ -7,26 +8,27 @@ import android.widget.PopupWindow;
 import androidx.annotation.StyleRes;
 
 /**
- * Created by LWK
- *  PopupWindow参数
+ * PopupWindow参数
+ *
+ * @author LWK
  */
-
-public class PopOptions<T extends PopOptions> implements IPopProxy
+public class PopOptions implements IPopProxy
 {
-    private PopBaseContentView popContentView;
-    private boolean focusable = true;
-    private boolean canceledOnTouchOutside = true;
+    private PopBaseContentView mPopContentView;
+    private boolean mFocusable = true;
+    private boolean mCanceledOnTouchOutside = true;
     private @StyleRes
-    int animStyle = -1;
-    private IPopAffect affect;
-    private long affectDuration = 200;
-    private PopupWindow.OnDismissListener dismissListener;
-    private ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(
+    int mAnimStyle = -1;
+    private IPopAffect mAffect;
+    private long mAffectDuration = 200;
+    private PopupWindow.OnDismissListener mDismissListener;
+    private ViewGroup.LayoutParams mLayoutParams = new ViewGroup.LayoutParams(
             ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+    private SparseArray<OnPopChildClickListener> mChildClickListenerArray;
 
     public boolean isFocusable()
     {
-        return focusable;
+        return mFocusable;
     }
 
     /**
@@ -34,15 +36,15 @@ public class PopOptions<T extends PopOptions> implements IPopProxy
      *
      * @param focusable True：获取 False：不获取
      */
-    public T setFocusable(boolean focusable)
+    public PopOptions setFocusable(boolean focusable)
     {
-        this.focusable = focusable;
-        return (T) this;
+        this.mFocusable = focusable;
+        return this;
     }
 
     public boolean isCanceledOnTouchOutside()
     {
-        return canceledOnTouchOutside;
+        return mCanceledOnTouchOutside;
     }
 
     /**
@@ -51,15 +53,15 @@ public class PopOptions<T extends PopOptions> implements IPopProxy
      * @param b True：是 False：否
      * @return
      */
-    public T setCanceledOnTouchOutside(boolean b)
+    public PopOptions setCanceledOnTouchOutside(boolean b)
     {
-        this.canceledOnTouchOutside = b;
-        return (T) this;
+        this.mCanceledOnTouchOutside = b;
+        return this;
     }
 
     public int getAnimStyle()
     {
-        return animStyle;
+        return mAnimStyle;
     }
 
     /**
@@ -68,15 +70,15 @@ public class PopOptions<T extends PopOptions> implements IPopProxy
      * @param animStyle 动画对应style资源id
      * @return
      */
-    public T setAnimStyle(@StyleRes int animStyle)
+    public PopOptions setAnimStyle(@StyleRes int animStyle)
     {
-        this.animStyle = animStyle;
-        return (T) this;
+        this.mAnimStyle = animStyle;
+        return this;
     }
 
     public PopupWindow.OnDismissListener getDismissListener()
     {
-        return dismissListener;
+        return mDismissListener;
     }
 
     /**
@@ -84,15 +86,15 @@ public class PopOptions<T extends PopOptions> implements IPopProxy
      *
      * @param dismissListener 监听
      */
-    public T setDismissListener(PopupWindow.OnDismissListener dismissListener)
+    public PopOptions setDismissListener(PopupWindow.OnDismissListener dismissListener)
     {
-        this.dismissListener = dismissListener;
-        return (T) this;
+        this.mDismissListener = dismissListener;
+        return this;
     }
 
     public ViewGroup.LayoutParams getLayoutParams()
     {
-        return layoutParams;
+        return mLayoutParams;
     }
 
     /**
@@ -100,10 +102,10 @@ public class PopOptions<T extends PopOptions> implements IPopProxy
      *
      * @param layoutParams LayoutParams
      */
-    public T setLayoutParams(ViewGroup.LayoutParams layoutParams)
+    public PopOptions setLayoutParams(ViewGroup.LayoutParams layoutParams)
     {
-        this.layoutParams = layoutParams;
-        return (T) this;
+        this.mLayoutParams = layoutParams;
+        return this;
     }
 
     /**
@@ -112,10 +114,10 @@ public class PopOptions<T extends PopOptions> implements IPopProxy
      * @param width  宽度
      * @param height 高度
      */
-    public T setLayoutParams(int width, int height)
+    public PopOptions setLayoutParams(int width, int height)
     {
-        this.layoutParams = new ViewGroup.LayoutParams(width, height);
-        return (T) this;
+        this.mLayoutParams = new ViewGroup.LayoutParams(width, height);
+        return this;
     }
 
     /**
@@ -123,10 +125,10 @@ public class PopOptions<T extends PopOptions> implements IPopProxy
      *
      * @param contentView UI层实现对象
      */
-    public T setContentView(PopBaseContentView contentView)
+    public PopOptions setContentView(PopBaseContentView contentView)
     {
-        this.popContentView = contentView;
-        return (T) this;
+        this.mPopContentView = contentView;
+        return this;
     }
 
     /**
@@ -136,7 +138,7 @@ public class PopOptions<T extends PopOptions> implements IPopProxy
      */
     public long getAffectDuration()
     {
-        return affectDuration;
+        return mAffectDuration;
     }
 
     /**
@@ -146,11 +148,26 @@ public class PopOptions<T extends PopOptions> implements IPopProxy
      * @param duration 过程时长，务必和AnimStyle动画时长保持一致
      * @return
      */
-    public T setAffectParams(IPopAffect affect, long duration)
+    public PopOptions setAffectParams(IPopAffect affect, long duration)
     {
-        this.affect = affect;
-        this.affectDuration = duration;
-        return (T) this;
+        this.mAffect = affect;
+        this.mAffectDuration = duration;
+        return this;
+    }
+
+    public PopOptions addOnChildClickListener(int viewId, OnPopChildClickListener listener)
+    {
+        if (mChildClickListenerArray == null)
+        {
+            mChildClickListenerArray = new SparseArray<>();
+        }
+        mChildClickListenerArray.put(viewId, listener);
+        return this;
+    }
+
+    public SparseArray<OnPopChildClickListener> getChildClickListenerArray()
+    {
+        return mChildClickListenerArray;
     }
 
     /**
@@ -160,12 +177,12 @@ public class PopOptions<T extends PopOptions> implements IPopProxy
      */
     public IPopAffect getAffect()
     {
-        return affect;
+        return mAffect;
     }
 
     public PopBaseContentView getPopContentView()
     {
-        return popContentView;
+        return mPopContentView;
     }
 
     @Override

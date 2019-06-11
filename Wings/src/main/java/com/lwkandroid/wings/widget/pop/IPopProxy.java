@@ -3,11 +3,11 @@ package com.lwkandroid.wings.widget.pop;
 import android.view.View;
 
 /**
- * Created by LWK
- *  设置给配置参数调用PopupWindow显示方式的接口
+ * 设置给配置参数调用PopupWindow显示方式的接口
+ *
+ * @author LWK
  */
-
-public interface IPopProxy
+interface IPopProxy
 {
     /**
      * 显示在指定位置
@@ -16,7 +16,7 @@ public interface IPopProxy
      * @param gravity 重心
      * @param x       x偏移量
      * @param y       y偏移量
-     * @return PopCreater对象
+     * @return PopCreator对象
      */
     PopCreator showAtLocation(View parent, int gravity, int x, int y);
 
@@ -24,7 +24,7 @@ public interface IPopProxy
      * 作为某View的菜单
      *
      * @param anchor 依赖的View
-     * @return PopCreater对象
+     * @return PopCreator对象
      */
     PopCreator showAsDropDown(View anchor);
 
@@ -34,7 +34,7 @@ public interface IPopProxy
      * @param anchor 依赖的View
      * @param xoff   x偏移量
      * @param yoff   y偏移量
-     * @return PopCreater对象
+     * @return PopCreator对象
      */
     PopCreator showAsDropDown(View anchor, int xoff, int yoff);
 
@@ -45,7 +45,7 @@ public interface IPopProxy
      * @param xoff    x偏移量
      * @param yoff    y偏移量
      * @param gravity 重心，Sdk>=19有效
-     * @return PopCreater对象
+     * @return PopCreator对象
      */
     PopCreator showAsDropDown(View anchor, int xoff, int yoff, int gravity);
 
@@ -57,7 +57,7 @@ public interface IPopProxy
      * @param yGravity 垂直方向权重
      * @param xoff     x偏移量
      * @param yoff     y偏移量
-     * @return PopCreater对象
+     * @return PopCreator对象
      */
     PopCreator showWithAnchor(View anchor, @XGravity int xGravity, @YGravity int yGravity, int xoff, int yoff);
 }

@@ -9,7 +9,6 @@ import com.lwkandroid.wingsdemo.R;
 
 /**
  * Created by LWK
- *
  */
 public class BottomMenuDialog extends DialogBaseContentView implements View.OnClickListener
 {
@@ -20,10 +19,8 @@ public class BottomMenuDialog extends DialogBaseContentView implements View.OnCl
     }
 
     @Override
-    public <T extends DialogOptions<T>> void initUIAndData(View contentView, T options, DialogCreator creator)
+    public void initUIAndData(View contentView, DialogOptions options, DialogCreator creator)
     {
-        contentView.findViewById(R.id.tv_pop_bottom_menu01).setOnClickListener(this);
-        contentView.findViewById(R.id.tv_pop_bottom_menu02).setOnClickListener(this);
     }
 
     @Override

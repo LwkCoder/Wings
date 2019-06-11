@@ -11,7 +11,6 @@ import com.lwkandroid.wingsdemo.R;
 
 /**
  * Created by LWK
- *
  */
 public class ProgressDialog extends DialogBaseContentView
 {
@@ -29,7 +28,7 @@ public class ProgressDialog extends DialogBaseContentView
     }
 
     @Override
-    public <T extends DialogOptions<T>> void initUIAndData(View contentView, T options, DialogCreator creator)
+    public void initUIAndData(View contentView, DialogOptions options, DialogCreator creator)
     {
         TextView textView = contentView.findViewById(R.id.tv_progress_message);
         if (StringUtils.isTrimNotEmpty(mMessage))

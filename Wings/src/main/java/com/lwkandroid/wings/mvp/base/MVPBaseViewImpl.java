@@ -6,9 +6,11 @@ import com.lwkandroid.wings.rx.lifecycle.RxLifeCyclePublisherImpl;
 import com.lwkandroid.wings.utils.ReflectUtils;
 import com.lwkandroid.wings.utils.ToastUtils;
 
+import java.lang.ref.WeakReference;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
+import androidx.fragment.app.FragmentActivity;
 import io.reactivex.subjects.PublishSubject;
 
 /**
@@ -21,6 +23,13 @@ import io.reactivex.subjects.PublishSubject;
 public class MVPBaseViewImpl<P extends MVPBasePresenter> implements IMVPBaseView
 {
     private IRxLifeCyclePublisher mLifeCyclePublisherImpl = new RxLifeCyclePublisherImpl();
+    private WeakReference<FragmentActivity> mActivityReference;
+
+    MVPBaseViewImpl(FragmentActivity activity)
+    {
+        this.mActivityReference = new WeakReference<>(activity);
+    }
+
     private P mPresenter;
 
     /**
@@ -53,6 +62,12 @@ public class MVPBaseViewImpl<P extends MVPBasePresenter> implements IMVPBaseView
         {
             KLog.w("Can not reflect INSTANCE of Presenter:" + e.toString());
         }
+    }
+
+    @Override
+    public FragmentActivity getFragmentActivity()
+    {
+        return mActivityReference.get();
     }
 
     @Override

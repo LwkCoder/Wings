@@ -11,7 +11,7 @@ import androidx.annotation.Nullable;
 
 /**
  * Created by LWK
- *  内容布局方法实现类
+ * 内容布局方法实现类
  */
 class ContentViewImpl implements IContentView, View.OnClickListener
 {

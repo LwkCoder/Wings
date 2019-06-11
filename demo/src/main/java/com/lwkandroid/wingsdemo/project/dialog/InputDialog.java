@@ -20,7 +20,7 @@ public class InputDialog extends DialogBaseContentView implements View.OnClickLi
     }
 
     @Override
-    public <T extends DialogOptions<T>> void initUIAndData(View contentView, T options, DialogCreator creator)
+    public  void initUIAndData(View contentView, DialogOptions options, DialogCreator creator)
     {
         contentView.findViewById(R.id.tv_pop_dialog_dismiss).setOnClickListener(this);
     }

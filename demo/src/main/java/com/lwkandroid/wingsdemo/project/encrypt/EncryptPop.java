@@ -31,7 +31,7 @@ public class EncryptPop extends PopBaseContentView implements View.OnClickListen
     }
 
     @Override
-    public <T extends PopOptions<T>> void initUIAndData(View contentView, T options, PopCreator popCreator)
+    public void initUIAndData(View contentView, PopOptions options, PopCreator popCreator)
     {
         contentView.findViewById(R.id.tv_encrypt_aes).setOnClickListener(this);
         contentView.findViewById(R.id.tv_encrypt_rsa).setOnClickListener(this);

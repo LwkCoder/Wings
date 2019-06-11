@@ -8,11 +8,11 @@ import android.view.WindowManager;
 import androidx.annotation.FloatRange;
 
 /**
- * Created by LWK
- *  窗口亮度渐变效果
+ * 窗口亮度渐变效果
+ *
+ * @author LWK
  */
-
-public class PopDarkWindowAffect implements IPopAffect
+public final class PopDarkWindowAffect implements IPopAffect
 {
     //Pop弹出后窗口透明度
     private float mDarkWindowDegree = 0.5f;

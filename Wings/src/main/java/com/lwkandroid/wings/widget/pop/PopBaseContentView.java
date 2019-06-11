@@ -1,6 +1,7 @@
 package com.lwkandroid.wings.widget.pop;
 
 import android.content.Context;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +12,10 @@ import com.lwkandroid.wings.utils.Utils;
 import java.lang.ref.WeakReference;
 
 /**
- * Created by LWK
- *  PopupWindow UI层，继承该类实现数据处理和UI交互
+ * PopupWindow UI层，继承该类实现数据处理和UI交互
  * 【该类下不应调用PopCreator实现的IPopOperator显示方法】
+ *
+ * @author LWK
  */
 
 public abstract class PopBaseContentView
@@ -36,9 +38,34 @@ public abstract class PopBaseContentView
         mRealContentView = new FrameLayout(context);
         mRealContentView.setFocusable(options.isFocusable());
         mRealContentView.setFocusableInTouchMode(options.isCanceledOnTouchOutside());
-        View layout = LayoutInflater.from(context).inflate(getContentViewLayoutResId(), mRealContentView, false);
+        final View layout = LayoutInflater.from(context).inflate(getContentViewLayoutResId(), mRealContentView, false);
         mRealContentView.addView(layout);
         initUIAndData(getRealContentView(), options, popCreator);
+        final SparseArray<OnPopChildClickListener> listenerArray = mOptions.getChildClickListenerArray();
+        if (listenerArray != null)
+        {
+            for (int i = 0, size = listenerArray.size(); i < size; i++)
+            {
+                final int index = i;
+                final int viewId = listenerArray.keyAt(index);
+                View view = mRealContentView.findViewById(viewId);
+                if (view != null)
+                {
+                    view.setOnClickListener(new View.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(View v)
+                        {
+                            OnPopChildClickListener listener = listenerArray.valueAt(index);
+                            if (listener != null)
+                            {
+                                listener.onPopChildClicked(v.getId(), v, mRealContentView, mPopCreator);
+                            }
+                        }
+                    });
+                }
+            }
+        }
     }
 
     void onDismiss()
@@ -93,8 +120,7 @@ public abstract class PopBaseContentView
      * @param contentView PopupWindow的ContentView
      * @param options     配置参数
      * @param popCreator  PopCreator对象
-     * @param <T>         配置参数的泛型
      */
-    public abstract <T extends PopOptions<T>> void initUIAndData(View contentView, T options, PopCreator popCreator);
+    public abstract void initUIAndData(View contentView, PopOptions options, PopCreator popCreator);
 
 }

@@ -1,11 +1,12 @@
 package com.lwkandroid.wings.mvp.base;
 
-import androidx.annotation.IdRes;
 import android.view.View;
+
+import androidx.annotation.IdRes;
 
 /**
  * Created by LWK
- *  内容布局方法接口
+ * 内容布局方法接口
  */
 
 interface IContentView

@@ -4,11 +4,12 @@ import android.graphics.Bitmap;
 
 import com.lwkandroid.wings.log.KLog;
 import com.lwkandroid.wings.net.bean.ApiException;
-import com.lwkandroid.wings.net.bean.ResultCacheWrapper;
 import com.lwkandroid.wings.net.bean.ProgressInfo;
+import com.lwkandroid.wings.net.bean.ResultCacheWrapper;
 import com.lwkandroid.wings.net.listener.OnProgressListener;
 import com.lwkandroid.wings.net.manager.OkProgressManger;
 import com.lwkandroid.wings.net.observer.ApiBaseObserver;
+import com.lwkandroid.wings.net.observer.dialog.ApiLoadingObserver;
 import com.lwkandroid.wingsdemo.bean.NonRestFulResult;
 import com.lwkandroid.wingsdemo.bean.TabsBean;
 import com.lwkandroid.wingsdemo.net.ApiURL;
@@ -30,7 +31,7 @@ public class RxHttpDemoPresenter extends RxHttpDemoContract.Presenter
     {
         getModelImpl().requestData()
                 .compose(this.<List<TabsBean>>applyIo2MainUntilViewDestroy())
-                .subscribe(new ApiBaseObserver<List<TabsBean>>()
+                .subscribe(new ApiLoadingObserver<List<TabsBean>>(getViewImpl().getFragmentActivity())
                 {
                     @Override
                     public void onSubscribe(Disposable d)
@@ -51,7 +52,29 @@ public class RxHttpDemoPresenter extends RxHttpDemoContract.Presenter
                         KLog.e("无法获取数据：" + e.toString());
                         getViewImpl().showHttpError(e);
                     }
-                });
+                }.setDialogCancelable(false));
+        //                .subscribe(new ApiBaseObserver<List<TabsBean>>()
+        //                {
+        //                    @Override
+        //                    public void onSubscribe(Disposable d)
+        //                    {
+        //                        super.onSubscribe(d);
+        //                        getViewImpl().setWeatherHttpResultData(null);
+        //                    }
+        //
+        //                    @Override
+        //                    public void subOnNext(List<TabsBean> dataList)
+        //                    {
+        //                        getViewImpl().setWeatherHttpResultData(dataList);
+        //                    }
+        //
+        //                    @Override
+        //                    public void subOnError(ApiException e)
+        //                    {
+        //                        KLog.e("无法获取数据：" + e.toString());
+        //                        getViewImpl().showHttpError(e);
+        //                    }
+        //                });
     }
 
     @Override

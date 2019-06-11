@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.lwkandroid.wings.mvp.base.MVPBasePresenter;
 import com.lwkandroid.wings.widget.dialog.DialogCreator;
+import com.lwkandroid.wings.widget.dialog.OnDialogChildClickListener;
 import com.lwkandroid.wingsdemo.R;
 import com.lwkandroid.wingsdemo.app.AppBaseActivity;
 
@@ -51,6 +52,22 @@ public class DialogDemoActivity extends AppBaseActivity<MVPBasePresenter>
             public void onClick(View v)
             {
                 DialogCreator.create(new BottomMenuDialog())
+                        .addOnChildClickListener(R.id.tv_pop_bottom_menu01, new OnDialogChildClickListener()
+                        {
+                            @Override
+                            public void onDialogChildClicked(int viewId, View view, View contentView, DialogCreator creator)
+                            {
+                                creator.dismiss();
+                            }
+                        })
+                        .addOnChildClickListener(R.id.tv_pop_bottom_menu02, new OnDialogChildClickListener()
+                        {
+                            @Override
+                            public void onDialogChildClicked(int viewId, View view, View contentView, DialogCreator creator)
+                            {
+                                creator.dismiss();
+                            }
+                        })
                         .setCancelable(true)
                         .setCanceledOnTouchOutside(true)
                         .setDarkWindowDegree(0.5f)

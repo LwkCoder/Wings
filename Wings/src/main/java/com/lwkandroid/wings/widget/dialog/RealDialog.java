@@ -14,8 +14,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 /**
- * Created by LWK
- *  真正弹出的Dialog
+ * 真正弹出的Dialog
+ *
+ * @author LWK
  */
 public class RealDialog extends DialogFragment
 {
@@ -68,6 +69,10 @@ public class RealDialog extends DialogFragment
         if (mOptions != null)
         {
             mOptions.getContentView().onDismiss();
+            if (mOptions.getChildClickListenerArray() != null)
+            {
+                mOptions.getChildClickListenerArray().clear();
+            }
         }
     }
 
