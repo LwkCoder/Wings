@@ -75,6 +75,12 @@
                 android:text="共享元素（模仿微信查看大图）"/>
 
             <Button
+                android:id="@+id/btn_main_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="StateFrameLayout"/>
+
+            <Button
                 android:id="@+id/btn_main_test"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
