@@ -108,13 +108,13 @@ public class DebugTools
                         Object mRoot = mRootField.get(viewLocationHolder);
                         if (mRoot == null)
                         {
-                            System.out.println(activity.getClass().getSimpleName() + "->poolArray[" + i + "].mRoot == null");
+                            KLog.d(activity.getClass().getSimpleName() + "->poolArray[" + i + "].mRoot == null");
                         } else
                         {
-                            System.out.println(activity.getClass().getSimpleName() + "->Found leak!  poolArray[" + i + "].mRoot != null");
+                            KLog.d(activity.getClass().getSimpleName() + "->Found leak!  poolArray[" + i + "].mRoot != null");
                         }
                     }
-                    System.out.println(activity.getClass().getSimpleName() + "->poolSize = " + poolSize);
+                    KLog.d(activity.getClass().getSimpleName() + "->poolSize = " + poolSize);
                     for (int i = 0; i < poolSize; i++)
                     {
                         Object viewLocationHolder = poolArray[i];
