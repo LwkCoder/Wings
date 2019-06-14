@@ -46,10 +46,13 @@ public final class Wings
         CrashUtils.init(options.getCrashFilePath(), options.getCrashListener());
         RxHttp.init(options.getApiBaseUrl());
         RxJavaPlugins.setErrorHandler(new UnknownErrorHandler());
-        options.getApplicationContext().registerActivityLifecycleCallbacks(new WingsActivityLifecycleLog());
         for (Application.ActivityLifecycleCallbacks callback : options.getLifecycleCallbacks())
         {
             options.getApplicationContext().registerActivityLifecycleCallbacks(callback);
+        }
+        if (options.isDebugMode())
+        {
+            options.getApplicationContext().registerActivityLifecycleCallbacks(new WingsActivityLifecycleLog());
         }
     }
 
