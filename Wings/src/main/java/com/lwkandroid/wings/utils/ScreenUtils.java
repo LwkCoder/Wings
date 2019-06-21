@@ -5,6 +5,7 @@ import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.os.Build;
@@ -19,6 +20,7 @@ import android.view.WindowManager;
 
 import com.lwkandroid.wings.net.bean.ApiException;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
 /**
@@ -56,6 +58,26 @@ public final class ScreenUtils
         DisplayMetrics dm = new DisplayMetrics();
         windowManager.getDefaultDisplay().getMetrics(dm);
         return dm.heightPixels;
+    }
+
+    /**
+     * 获取屏幕密度
+     *
+     * @return 屏幕密度
+     */
+    public static float getScreenDensity()
+    {
+        return Resources.getSystem().getDisplayMetrics().density;
+    }
+
+    /**
+     * 获取屏幕密度Dpi
+     *
+     * @return 屏幕密度Dpi
+     */
+    public static int getScreenDensityDpi()
+    {
+        return Resources.getSystem().getDisplayMetrics().densityDpi;
     }
 
     /**
@@ -122,41 +144,51 @@ public final class ScreenUtils
     }
 
     /**
-     * 获取当前屏幕截图，包含状态栏
+     * 截取当前屏幕为图片
      *
-     * @param activity activity
-     * @return Bitmap
+     * @param activity 当前屏幕Activity
+     * @return 图片Bitmap
      */
-    public static Bitmap captureWithStatusBar(Activity activity)
+    public static Bitmap screenShot(@NonNull final Activity activity)
     {
-        View view = activity.getWindow().getDecorView();
-        view.setDrawingCacheEnabled(true);
-        view.buildDrawingCache();
-        Bitmap bmp = view.getDrawingCache();
-        DisplayMetrics dm = new DisplayMetrics();
-        activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
-        Bitmap ret = Bitmap.createBitmap(bmp, 0, 0, dm.widthPixels, dm.heightPixels);
-        view.destroyDrawingCache();
-        return ret;
+        return screenShot(activity, false);
     }
 
     /**
-     * 获取当前屏幕截图，不包含状态栏
+     * 截取当前屏幕为图片
      *
-     * @param activity activity
-     * @return Bitmap
+     * @param activity          当前屏幕Activity
+     * @param isDeleteStatusBar 是否去除状态栏，true：是 false：否
+     * @return 图片Bitmap
      */
-    public static Bitmap captureWithoutStatusBar(Activity activity)
+    public static Bitmap screenShot(@NonNull final Activity activity, boolean isDeleteStatusBar)
     {
-        View view = activity.getWindow().getDecorView();
-        view.setDrawingCacheEnabled(true);
-        view.buildDrawingCache();
-        Bitmap bmp = view.getDrawingCache();
-        int statusBarHeight = BarUtils.getStatusBarHeight();
+        View decorView = activity.getWindow().getDecorView();
+        decorView.setDrawingCacheEnabled(true);
+        decorView.setWillNotCacheDrawing(false);
+        Bitmap bmp = decorView.getDrawingCache();
+        if (bmp == null)
+        {
+            return null;
+        }
         DisplayMetrics dm = new DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
-        Bitmap ret = Bitmap.createBitmap(bmp, 0, statusBarHeight, dm.widthPixels, dm.heightPixels - statusBarHeight);
-        view.destroyDrawingCache();
+        Bitmap ret;
+        if (isDeleteStatusBar)
+        {
+            int statusBarHeight = BarUtils.getStatusBarHeight();
+            ret = Bitmap.createBitmap(
+                    bmp,
+                    0,
+                    statusBarHeight,
+                    dm.widthPixels,
+                    dm.heightPixels - statusBarHeight
+            );
+        } else
+        {
+            ret = Bitmap.createBitmap(bmp, 0, 0, dm.widthPixels, dm.heightPixels);
+        }
+        decorView.destroyDrawingCache();
         return ret;
     }
 

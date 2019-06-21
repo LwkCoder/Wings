@@ -1,7 +1,6 @@
 apply from: "config.gradle"
 
 buildscript {
-
     repositories {
         mavenCentral()
         jcenter()
@@ -15,10 +14,11 @@ buildscript {
             url 'https://www.jitpack.io'
         }
     }
+
     dependencies {
         classpath 'com.android.tools.build:gradle:3.4.1'
         classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.8.6'
-
+//        classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.7"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -43,3 +43,24 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+//apply plugin: "org.sonarqube"
+//subprojects {
+//    sonarqube {
+//        properties {
+//            property "sonar.host.url", "http://192.168.2.3:9000/" // SonarQube服务器地址
+//
+//            property "sonar.projectName", "Wings"  //projectname
+//
+//            property "sonar.login", "3b987b048468591cbd51640d4ae1b8bd6c2c8175" //之前生成的projectkey
+//
+//            property "sonar.language", "java"  //语言
+//
+//            property "sonar.sourceEncoding", "UTF-8" //编码
+//
+//            property "sonar.sources", android.sourceSets.main.java.srcDirs//源码，写这个就行
+//
+//            property "sonar.projectVersion", "1.0.0"  //版本，随意
+//        }
+//    }
+//}

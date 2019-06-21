@@ -24,6 +24,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -76,15 +77,23 @@ public class RoundDiffImageView extends ImageView
     private Drawable mDrawable;
     //各个角radius值
     private float[] mRadiusArray = new float[]{0, 0, 0, 0, 0, 0, 0, 0};
-    private boolean mPressFeedBack = false;//按压反馈
+    //按压反馈
+    private boolean mPressFeedBack = false;
 
-    public static final int SCALE_TARGET_HEIGHT = 0;// 对高进行缩放
-    public static final int SCALE_TARGET_WIDTH = 1;// 对宽进行缩放
-    public static final int SCALE_TARGET_EXPAND = 2;// 扩大方式（宽不足拉伸宽，高不足拉伸高）
-    public static final int SCALE_TARGET_INSIDE = 3;// 缩小方式（缩小到一条边刚好与原尺寸一样，另一条小于原尺寸）
-    private int mWidthScale = 0;// 宽度缩放比
-    private int mHeightScale = 0;// 高度缩放比
-    private int mScaleTarget = SCALE_TARGET_INSIDE;// 缩放目标
+    // 对高进行缩放
+    public static final int SCALE_TARGET_HEIGHT = 0;
+    // 对宽进行缩放
+    public static final int SCALE_TARGET_WIDTH = 1;
+    // 扩大方式（宽不足拉伸宽，高不足拉伸高）
+    public static final int SCALE_TARGET_EXPAND = 2;
+    // 缩小方式（缩小到一条边刚好与原尺寸一样，另一条小于原尺寸）
+    public static final int SCALE_TARGET_INSIDE = 3;
+    // 宽度缩放比
+    private int mWidthScale = 0;
+    // 高度缩放比
+    private int mHeightScale = 0;
+    // 缩放目标
+    private int mScaleTarget = SCALE_TARGET_INSIDE;
 
     public RoundDiffImageView(Context context)
     {
@@ -291,7 +300,13 @@ public class RoundDiffImageView extends ImageView
         {
             try
             {
-                d = rsrc.getDrawable(mResource);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                {
+                    d = rsrc.getDrawable(mResource, null);
+                } else
+                {
+                    d = rsrc.getDrawable(mResource);
+                }
             } catch (NotFoundException e)
             {
                 KLog.w(TAG, "RoundImageView Unable to find resource: " + mResource, e);

@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *  文件读写相关工具类
+ * 文件读写相关工具类
  */
 public final class FileIOUtils
 {
@@ -738,7 +738,7 @@ public final class FileIOUtils
             ByteBuffer byteBuffer = ByteBuffer.allocate((int) fc.size());
             while (true)
             {
-                if (!((fc.read(byteBuffer)) > 0))
+                if (fc.read(byteBuffer) <= 0)
                 {
                     break;
                 }

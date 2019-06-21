@@ -1,8 +1,6 @@
 package com.lwkandroid.wings.utils;
 
 import android.annotation.SuppressLint;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Environment;
 
@@ -48,20 +46,8 @@ public final class CrashUtils
 
     static
     {
-        try
-        {
-            PackageInfo pi = Utils.getContext()
-                    .getPackageManager()
-                    .getPackageInfo(Utils.getContext().getPackageName(), 0);
-            if (pi != null)
-            {
-                versionName = pi.versionName;
-                versionCode = Build.VERSION.SDK_INT >= Build.VERSION_CODES.P ? pi.getLongVersionCode() : pi.versionCode;
-            }
-        } catch (PackageManager.NameNotFoundException e)
-        {
-            e.printStackTrace();
-        }
+        versionName = AppUtils.getAppVersionName();
+        versionCode = AppUtils.getAppVersionCode();
 
         CRASH_HEAD = "************* Crash Log Head ****************" +
                 "\nDevice Manufacturer: " + Build.MANUFACTURER +// 设备厂商

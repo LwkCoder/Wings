@@ -654,8 +654,17 @@ public final class TimeUtils
     public static String getFriendlyTimeSpanByNow(long millis)
     {
         String format;
-        boolean isChinese = "CN".equals(Utils.getContext().getResources()
-                .getConfiguration().locale.getCountry());
+        String country = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N)
+        {
+            country = Utils.getContext().getResources()
+                    .getConfiguration().getLocales().get(0).getCountry();
+        } else
+        {
+            country = Utils.getContext().getResources()
+                    .getConfiguration().locale.getCountry();
+        }
+        boolean isChinese = "CN".equals(country);
         long now = System.currentTimeMillis();
         long span = now - millis;
 
