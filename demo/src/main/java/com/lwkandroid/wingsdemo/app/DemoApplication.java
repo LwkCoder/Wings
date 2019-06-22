@@ -2,11 +2,15 @@ package com.lwkandroid.wingsdemo.app;
 
 import android.app.Application;
 import android.content.Context;
+import android.os.Build;
 
+import com.lwkandroid.wings.DebugTools;
 import com.lwkandroid.wings.Wings;
 import com.lwkandroid.wings.app.WingsInitOptions;
+import com.lwkandroid.wings.log.KLog;
 import com.lwkandroid.wings.net.bean.IApiDynamicFormData;
 import com.lwkandroid.wings.net.bean.IApiDynamicHeader;
+import com.lwkandroid.wings.utils.AppUtils;
 import com.lwkandroid.wingsdemo.BuildConfig;
 import com.lwkandroid.wingsdemo.net.ApiURL;
 import com.lwkandroid.wingsdemo.net.TestDynamicHeadersInterceptor;
@@ -33,9 +37,9 @@ public class DemoApplication extends Application
     public void onCreate()
     {
         super.onCreate();
-        AppConfig.WX_APP_ID = BuildConfig.WX_APP_ID;
-        AppConfig.WX_APP_SECRET = BuildConfig.WX_APP_SECRET;
         ApiURL.HOST = BuildConfig.HOST;
+        AppConfig.LIB_CONFIG1 = BuildConfig.LibConfig1;
+        AppConfig.LIB_CONFIG2 = BuildConfig.LibConfig2;
 
         WingsInitOptions options = new WingsInitOptions();
         options.setApplicationContext(this);
@@ -59,6 +63,23 @@ public class DemoApplication extends Application
             }
         });
         Wings.init(options);
+
+        if (DebugTools.DEBUG)
+        {
+            KLog.i(new StringBuilder()
+                    .append("\n********************************************************\n")
+                    .append("| AppName=").append(AppUtils.getAppName()).append("\n")
+                    .append("| VersionName=").append(AppUtils.getAppVersionName()).append("\n")
+                    .append("| VersionCode=").append(AppUtils.getAppVersionCode()).append("\n")
+                    .append("| PackageName=").append(AppUtils.getPackageName()).append("\n")
+                    .append("| SHA1=").append(AppUtils.getAppSignatureSHA1()).append("\n")
+                    .append("| ApiURL.HOST=").append(ApiURL.HOST).append("\n")
+                    .append("| DeviceManufacturer=").append(Build.MANUFACTURER).append("\n")
+                    .append("| DeviceModel=").append(Build.MODEL).append("\n")
+                    .append("| AndroidVersion=").append(Build.VERSION.RELEASE).append("\n")
+                    .append("| AndroidSdk=").append(Build.VERSION.SDK_INT).append("\n")
+                    .append("********************************************************"));
+        }
     }
 
 

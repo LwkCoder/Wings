@@ -57,6 +57,8 @@ android {
             applicationIdSuffix ".dev"
             resValue "string", "app_name", appName.debug
             buildConfigField("String", "HOST", "\"${urls.debugUrl}\"")
+            buildConfigField("String", "LibConfig1", "\"${libsConfig.LibConfig1}\"")
+            buildConfigField("String", "LibConfig2", "\"${libsConfig.LibConfig2}\"")
 
             zipAlignEnabled false
             shrinkResources false
@@ -68,6 +70,8 @@ android {
             applicationIdSuffix ".release"
             resValue "string", "app_name", appName.release
             buildConfigField("String", "HOST", "\"${urls.releaseUrl}\"")
+            buildConfigField("String", "LibConfig1", "\"${libsConfig.LibConfig1}\"")
+            buildConfigField("String", "LibConfig2", "\"${libsConfig.LibConfig2}\"")
 
             zipAlignEnabled true
             shrinkResources true

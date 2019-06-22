@@ -50,8 +50,8 @@ android {
     buildTypes {
         debug {
             buildConfigField("String", "HOST", "\"${urls.debugUrl}\"")
-            buildConfigField("String", "WX_APP_ID", "\"${libsConfig.WX_APP_ID}\"")
-            buildConfigField("String", "WX_APP_SECRET", "\"${libsConfig.WX_APP_SECRET}\"")
+            buildConfigField("String", "LibConfig1", "\"${libsConfig.LibConfig1}\"")
+            buildConfigField("String", "LibConfig2", "\"${libsConfig.LibConfig2}\"")
 
             zipAlignEnabled false
             shrinkResources false
@@ -61,8 +61,8 @@ android {
         }
         release {
             buildConfigField("String", "HOST", "\"${urls.releaseUrl}\"")
-            buildConfigField("String", "WX_APP_ID", "\"${libsConfig.WX_APP_ID}\"")
-            buildConfigField("String", "WX_APP_SECRET", "\"${libsConfig.WX_APP_SECRET}\"")
+            buildConfigField("String", "LibConfig1", "\"${libsConfig.LibConfig1}\"")
+            buildConfigField("String", "LibConfig2", "\"${libsConfig.LibConfig2}\"")
 
             zipAlignEnabled true
             shrinkResources true
