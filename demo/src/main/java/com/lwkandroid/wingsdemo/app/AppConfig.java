@@ -7,8 +7,7 @@ package com.lwkandroid.wingsdemo.app;
  */
 public final class AppConfig
 {
-    //微信AppId
-    public static String WX_APP_ID;
-    //微信AppSecret
-    public static String WX_APP_SECRET;
+    //测试，获取第三方库的参数
+    public static String LIB_CONFIG1;
+    public static String LIB_CONFIG2;
 }

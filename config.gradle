@@ -23,8 +23,8 @@ ext {
 
     /*依赖库参数*/
     libsConfig = [
-            "WX_APP_ID"    : "这里写微信AppId",
-            "WX_APP_SECRET": "这里写微信Secret"
+            "LibConfig1": "LibConfig1",
+            "LibConfig2": "LibConfig2"
     ]
 
     /*依赖库的版本号*/

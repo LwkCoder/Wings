@@ -25,6 +25,8 @@ public class AppApplication extends Application
         super.onCreate();
         ApiURL.HOST = BuildConfig.HOST;
         AppConfig.CHANNEL_NAME = BuildConfig.APP_CHANNEL;
+        AppConfig.LIB_CONFIG1 = BuildConfig.LibConfig1;
+        AppConfig.LIB_CONFIG2 = BuildConfig.LibConfig2;
 
         WingsInitOptions options = new WingsInitOptions();
         options.setApplicationContext(this);
@@ -42,6 +44,8 @@ public class AppApplication extends Application
                     .append("| PackageName=").append(AppUtils.getPackageName()).append("\n")
                     .append("| SHA1=").append(AppUtils.getAppSignatureSHA1()).append("\n")
                     .append("| ApiURL.HOST=").append(ApiURL.HOST).append("\n")
+                    .append("| LibConfig1=").append(AppConfig.LIB_CONFIG1).append("\n")
+                    .append("| LibConfig2=").append(AppConfig.LIB_CONFIG2).append("\n")
                     .append("| DeviceManufacturer=").append(Build.MANUFACTURER).append("\n")
                     .append("| DeviceModel=").append(Build.MODEL).append("\n")
                     .append("| AndroidVersion=").append(Build.VERSION.RELEASE).append("\n")
