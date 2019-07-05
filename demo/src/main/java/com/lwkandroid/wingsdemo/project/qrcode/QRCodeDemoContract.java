@@ -9,10 +9,8 @@ import com.lwkandroid.wingsdemo.app.IAppBaseView;
 import io.reactivex.Observable;
 
 /**
- * Created by LWK
- *
+ * @author LWK
  */
-
 public interface QRCodeDemoContract
 {
     interface View extends IAppBaseView

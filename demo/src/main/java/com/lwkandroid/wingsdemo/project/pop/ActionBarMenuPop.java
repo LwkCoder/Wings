@@ -8,10 +8,10 @@ import com.lwkandroid.wings.widget.pop.PopOptions;
 import com.lwkandroid.wingsdemo.R;
 
 /**
- * Created by LWK
  * 作为ActionBar菜单的弹窗示例
+ *
+ * @author LWK
  */
-
 public class ActionBarMenuPop extends PopBaseContentView implements View.OnClickListener
 {
 

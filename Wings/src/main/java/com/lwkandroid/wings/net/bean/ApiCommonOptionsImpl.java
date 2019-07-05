@@ -166,7 +166,7 @@ public class ApiCommonOptionsImpl implements IApiRequestOptions.Common<ApiCommon
     {
         if (mInterceptorMap == null)
         {
-            mInterceptorMap = new HashMap<>();
+            mInterceptorMap = new HashMap<>(4);
         }
         return mInterceptorMap;
     }
@@ -197,7 +197,7 @@ public class ApiCommonOptionsImpl implements IApiRequestOptions.Common<ApiCommon
     {
         if (mNetInterceptorMap == null)
         {
-            mNetInterceptorMap = new HashMap<>();
+            mNetInterceptorMap = new HashMap<>(4);
         }
         return mNetInterceptorMap;
     }
@@ -308,7 +308,7 @@ public class ApiCommonOptionsImpl implements IApiRequestOptions.Common<ApiCommon
     {
         if (mHeadersMap == null)
         {
-            mHeadersMap = new HashMap<>();
+            mHeadersMap = new HashMap<>(4);
         }
         return mHeadersMap;
     }

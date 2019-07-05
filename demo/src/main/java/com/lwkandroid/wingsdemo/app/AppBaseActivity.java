@@ -8,10 +8,10 @@ import com.lwkandroid.wings.utils.ResourceUtils;
 import com.lwkandroid.wingsdemo.R;
 
 /**
- * Created by LWK
  * 项目定制Activity基类
+ *
+ * @author LWK
  */
-
 public abstract class AppBaseActivity<P extends MVPBasePresenter> extends WingsBaseActivity<P>
 {
     @Override

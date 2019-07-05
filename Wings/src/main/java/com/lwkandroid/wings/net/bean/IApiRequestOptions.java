@@ -24,8 +24,9 @@ import okhttp3.Interceptor;
 import okhttp3.RequestBody;
 
 /**
- * Created by LWK
  * 请求参数的接口
+ *
+ * @author LWK
  */
 public interface IApiRequestOptions
 {

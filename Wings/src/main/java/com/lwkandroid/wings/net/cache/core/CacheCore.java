@@ -29,6 +29,8 @@ import okio.ByteString;
  * <p>
  * 1.采用LruDiskCache<br>
  * 2.对Key进行MD5加密<br>
+ *
+ * @author LWK
  */
 public class CacheCore
 {

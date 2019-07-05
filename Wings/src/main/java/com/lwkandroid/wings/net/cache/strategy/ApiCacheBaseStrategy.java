@@ -10,10 +10,10 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Function;
 
 /**
- * Created by LWK
- *  缓存策略基类
+ * 缓存策略基类
+ *
+ * @author LWK
  */
-
 public abstract class ApiCacheBaseStrategy implements IApiCacheStrategy
 {
     /**

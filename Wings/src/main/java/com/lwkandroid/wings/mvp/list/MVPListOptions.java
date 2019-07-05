@@ -6,8 +6,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
- * Created by LWK
- *  列表界面配置
+ * 列表界面配置
+ *
+ * @author LWK
  */
 
 public class MVPListOptions

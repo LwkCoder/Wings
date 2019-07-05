@@ -6,10 +6,10 @@ import com.lwkandroid.wings.net.bean.ResultCacheWrapper;
 import io.reactivex.Observable;
 
 /**
- * Created by LWK
- *  只请求网络，但数据仍然缓存的策略
+ * 只请求网络，但数据仍然缓存的策略
+ *
+ * @author LWK
  */
-
 public class ApiRemoteOnlyStrategy extends ApiCacheBaseStrategy
 {
     @Override

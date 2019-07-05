@@ -19,10 +19,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
- * Created by LWK
  * 列表Demo
+ *
+ * @author LWK
  */
-
 public class ListDemoActivity extends AppListActivity<ListDemoPresenter, PTRLayout, String> implements
         ListDemoContract.IView<String>
 {

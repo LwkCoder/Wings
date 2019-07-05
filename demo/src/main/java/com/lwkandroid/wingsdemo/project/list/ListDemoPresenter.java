@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created by LWK
+ * @author LWK
  */
 
 public class ListDemoPresenter extends ListDemoContract.Presenter

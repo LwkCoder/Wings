@@ -15,6 +15,8 @@ import androidx.loader.content.CursorLoader;
 
 /**
  * Uri工具类
+ *
+ * @author LWK
  */
 public final class UriUtils
 {

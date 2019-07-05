@@ -12,10 +12,10 @@ import com.lwkandroid.wings.image.callback.ImageDownLoadCallBack;
 import java.io.File;
 
 /**
- * Created by LWK
- *  定义图片加载方法
+ * 定义图片加载方法
+ *
+ * @author LWK
  */
-
 public interface ILoaderStrategy<T extends ImageOptions>
 {
     /**

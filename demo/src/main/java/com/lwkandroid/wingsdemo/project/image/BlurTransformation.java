@@ -19,13 +19,19 @@ package com.lwkandroid.wingsdemo.project.image;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import androidx.annotation.NonNull;
 
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 
 import java.security.MessageDigest;
 
+import androidx.annotation.NonNull;
+
+/**
+ * 模糊效果
+ *
+ * @author LWK
+ */
 public class BlurTransformation extends BitmapTransformation
 {
 

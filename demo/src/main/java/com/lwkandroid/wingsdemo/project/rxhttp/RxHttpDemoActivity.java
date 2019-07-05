@@ -31,6 +31,8 @@ import androidx.annotation.Nullable;
 /**
  * 网络请求框架使用示例
  * 数据来源：https://github.com/jokermonn/-Api/blob/master/Neihan.md#recommend
+ *
+ * @author LWK
  */
 public class RxHttpDemoActivity extends AppBaseActivity<RxHttpDemoPresenter> implements RxHttpDemoContract.View
 {

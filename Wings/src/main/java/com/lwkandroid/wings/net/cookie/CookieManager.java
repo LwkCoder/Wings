@@ -8,9 +8,10 @@ import okhttp3.HttpUrl;
 
 /**
  * Created by LWK
- *  Cookie管理类
+ * Cookie管理类
+ *
+ * @author LWK
  */
-
 public class CookieManager implements ICookieJar
 {
     private static PersistentCookieStore cookieStore;

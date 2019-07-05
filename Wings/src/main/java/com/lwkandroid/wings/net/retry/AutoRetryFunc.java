@@ -11,10 +11,10 @@ import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Function;
 
 /**
- * Created by LWK
  * 网络请求失败自动重试方法
+ *
+ * @author LWK
  */
-
 public class AutoRetryFunc implements Function<Observable<? extends Throwable>, Observable<?>>
 {
     //重试的Url，用来打日志

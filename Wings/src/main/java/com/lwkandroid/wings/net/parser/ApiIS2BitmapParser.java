@@ -14,8 +14,9 @@ import io.reactivex.ObservableTransformer;
 import io.reactivex.functions.Function;
 
 /**
- * Created by LWK
  *  将InputStream的网络请求结果转换为Bitmap的实现类
+ *
+ * @author LWK
  */
 
 public class ApiIS2BitmapParser implements IApiInputStreamParser.BitmapParser

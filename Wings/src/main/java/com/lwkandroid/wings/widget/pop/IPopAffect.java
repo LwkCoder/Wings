@@ -3,8 +3,9 @@ package com.lwkandroid.wings.widget.pop;
 import android.content.Context;
 
 /**
- * Created by LWK
  * PopupWindow显示/关闭过程效果
+ *
+ * @author LWK
  */
 public interface IPopAffect
 {

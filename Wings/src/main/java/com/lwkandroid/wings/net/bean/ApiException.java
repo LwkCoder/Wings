@@ -17,8 +17,9 @@ import java.net.UnknownHostException;
 import retrofit2.HttpException;
 
 /**
- * Created by LWK
  * 自定义异常：网络请求错误
+ *
+ * @author LWK
  */
 public class ApiException extends Exception
 {

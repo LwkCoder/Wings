@@ -7,10 +7,10 @@ import java.io.File;
 import io.reactivex.ObservableTransformer;
 
 /**
- * Created by LWK
- *  将Byte数组类型的网络请求结果转换为其他对象类型的接口
+ * 将Byte数组类型的网络请求结果转换为其他对象类型的接口
+ *
+ * @author LWK
  */
-
 public interface IApiBytesArrayParser
 {
     interface FileParser

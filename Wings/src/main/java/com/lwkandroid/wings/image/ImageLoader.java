@@ -16,7 +16,9 @@ import androidx.annotation.DrawableRes;
 
 /**
  * Created by LWK
- *  向外公布的图片加载类
+ * 向外公布的图片加载类
+ *
+ * @author LWK
  */
 public final class ImageLoader
 {

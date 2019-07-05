@@ -10,9 +10,8 @@ import java.util.List;
 import io.reactivex.Observable;
 
 /**
- * Created by LWK
+ * @author LWK
  */
-
 public interface ListDemoContract
 {
     interface IView<D> extends IAppBaseView, IMVPListContract.IViewCommon<D>

@@ -13,7 +13,7 @@ import com.lwkandroid.wingsdemo.R;
 import com.lwkandroid.wingsdemo.app.AppBaseActivity;
 
 /**
- * Created by LWK
+ * @author LWK
  */
 public class DialogDemoActivity extends AppBaseActivity<MVPBasePresenter>
 {

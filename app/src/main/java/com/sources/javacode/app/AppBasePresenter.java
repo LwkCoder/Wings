@@ -4,8 +4,9 @@ import com.lwkandroid.wings.mvp.base.IMVPBaseView;
 import com.lwkandroid.wings.mvp.base.MVPBasePresenter;
 
 /**
- * Created by LWK
- *  MVP模式中Presenter层基类
+ * MVP模式中Presenter层基类
+ *
+ * @author LWK
  */
 
 public abstract class AppBasePresenter<V extends IMVPBaseView, M> extends MVPBasePresenter<V, M>

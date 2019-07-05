@@ -18,6 +18,8 @@ import androidx.annotation.FloatRange;
 
 /**
  * 向下拉动关闭界面的帮助类
+ *
+ * @author LWK
  */
 public class DragCloseHelper
 {

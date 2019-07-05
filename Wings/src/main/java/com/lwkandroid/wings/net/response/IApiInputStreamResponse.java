@@ -9,7 +9,9 @@ import io.reactivex.Observable;
 
 /**
  * Created by LWK
- *  定义InputStream网络请求结果的转换方法
+ * 定义InputStream网络请求结果的转换方法
+ *
+ * @author LWK
  */
 
 public interface IApiInputStreamResponse

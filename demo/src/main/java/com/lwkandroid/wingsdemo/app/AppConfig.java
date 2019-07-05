@@ -1,10 +1,10 @@
 package com.lwkandroid.wingsdemo.app;
 
 /**
- * Created by LWK
  * APP配置常量
+ *
+ * @author LWK
  */
-
 public final class AppConfig
 {
     //微信AppId

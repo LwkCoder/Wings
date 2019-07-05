@@ -10,9 +10,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by LWK
- *  定义列表界面公共方法
+ * 定义列表界面公共方法
+ *
+ * @author LWK
  */
-
 public interface IMVPListContract
 {
     interface IViewCommon<D>

@@ -5,10 +5,8 @@ import android.graphics.Bitmap;
 import io.reactivex.functions.Consumer;
 
 /**
- * Created by LWK
- *
+ * @author LWK
  */
-
 public class QRCodeDemoPresenter extends QRCodeDemoContract.Presenter
 {
     @Override

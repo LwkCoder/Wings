@@ -1,13 +1,15 @@
 package com.lwkandroid.wings.image.bean;
 
 import android.graphics.drawable.Drawable;
-import androidx.annotation.DrawableRes;
 
 import com.lwkandroid.wings.image.constants.ImageDiskCacheType;
 
+import androidx.annotation.DrawableRes;
+
 /**
- * Created by LWK
- *  全局设置
+ * 全局设置
+ *
+ * @author LWK
  */
 
 public class ImageGlobalOptions

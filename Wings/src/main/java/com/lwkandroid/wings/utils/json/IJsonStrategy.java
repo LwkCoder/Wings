@@ -4,10 +4,10 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 /**
- * Created by LWK
- *  Json解析接口
+ * Json解析接口
+ *
+ * @author LWK
  */
-
 public interface IJsonStrategy
 {
     boolean isJsonData(String data);

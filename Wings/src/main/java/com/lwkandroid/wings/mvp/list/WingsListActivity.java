@@ -12,8 +12,9 @@ import java.util.List;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
- * Created by LWK
- *  列表界面基类
+ * 列表界面基类
+ *
+ * @author LWK
  */
 public abstract class WingsListActivity<P extends MVPBasePresenter, RV, D> extends WingsBaseActivity<P> implements
         IMVPListContract.IViewCommon<D>, IMVPListContract.IViewSpecial<RV, D>, MVPListImpl.Listener

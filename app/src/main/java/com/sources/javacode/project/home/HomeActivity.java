@@ -8,8 +8,9 @@ import com.sources.javacode.R;
 import com.sources.javacode.app.AppBaseActivity;
 
 /**
- * Created by LWK
- *  View层
+ * View层
+ *
+ * @author LWK
  */
 public class HomeActivity extends AppBaseActivity<HomePresenter> implements HomeContract.IView
 {

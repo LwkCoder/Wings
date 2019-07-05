@@ -4,8 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * Created by LWK
- *
+ * @author LWK
  */
 public class TestData implements Parcelable
 {

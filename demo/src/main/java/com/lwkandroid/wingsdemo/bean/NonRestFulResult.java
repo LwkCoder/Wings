@@ -3,10 +3,10 @@ package com.lwkandroid.wingsdemo.bean;
 import java.util.List;
 
 /**
- * Created by LWK
  * 完全自定义请求结果，非RestFul风格
+ *
+ * @author LWK
  */
-
 public class NonRestFulResult
 {
     private String tmall;

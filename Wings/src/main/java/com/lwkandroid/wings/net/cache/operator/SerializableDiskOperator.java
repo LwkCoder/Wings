@@ -10,8 +10,9 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 
 /**
- * Created by LWK
- *  序列化对象的转换器，对象&对象中的其它所有对象都必须是要实现Serializable接口（序列化）
+ * 序列化对象的转换器，对象&对象中的其它所有对象都必须是要实现Serializable接口（序列化）
+ *
+ * @author LWK
  */
 
 public class SerializableDiskOperator implements IDiskCacheOperator

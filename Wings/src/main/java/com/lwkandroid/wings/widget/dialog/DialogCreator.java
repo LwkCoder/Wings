@@ -9,8 +9,9 @@ import java.lang.ref.WeakReference;
 import androidx.fragment.app.FragmentActivity;
 
 /**
- * Created by LWK
  * Dialog工具类
+ *
+ * @author LWK
  */
 public class DialogCreator implements IDialogOperator
 {

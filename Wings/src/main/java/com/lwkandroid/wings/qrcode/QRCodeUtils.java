@@ -16,8 +16,8 @@ import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 
 /**
- * Created by LWK
  *  二维码工具类
+ * @author LWK
  */
 
 public final class QRCodeUtils

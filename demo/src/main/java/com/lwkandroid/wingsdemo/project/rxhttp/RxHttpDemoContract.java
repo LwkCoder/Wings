@@ -17,8 +17,8 @@ import java.util.List;
 import io.reactivex.Observable;
 
 /**
- * Created by LWK
  * RxHttpDemo契约类
+ * @author LWK
  */
 
 public interface RxHttpDemoContract

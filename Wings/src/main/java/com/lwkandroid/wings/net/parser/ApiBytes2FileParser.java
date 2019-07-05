@@ -15,10 +15,10 @@ import io.reactivex.ObservableTransformer;
 import io.reactivex.functions.Function;
 
 /**
- * Created by LWK
- *  将Byte数组类型的网络请求结果转换为File并写入存储的实现类
+ * 将Byte数组类型的网络请求结果转换为File并写入存储的实现类
+ *
+ * @author LWK
  */
-
 public class ApiBytes2FileParser implements IApiBytesArrayParser.FileParser
 {
     private String mSavePath;

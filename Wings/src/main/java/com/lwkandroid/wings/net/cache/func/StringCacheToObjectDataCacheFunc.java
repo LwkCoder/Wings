@@ -8,10 +8,10 @@ import io.reactivex.ObservableSource;
 import io.reactivex.functions.Function;
 
 /**
- * Created by LWK
  * 转换缓存包装体内String数据为某一对象数据
+ *
+ * @author LWK
  */
-
 public class StringCacheToObjectDataCacheFunc<T> extends AbsDataCacheFunction<T>
 {
     public StringCacheToObjectDataCacheFunc(IApiStringParser parser, Class<T> classType)

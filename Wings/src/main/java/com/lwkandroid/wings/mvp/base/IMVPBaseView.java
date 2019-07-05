@@ -6,10 +6,10 @@ import androidx.annotation.StringRes;
 import androidx.fragment.app.FragmentActivity;
 
 /**
- * Created by LWK
  * MVP模版中View的基础接口
+ *
+ * @author LWK
  */
-
 public interface IMVPBaseView<P extends MVPBasePresenter> extends IRxLifeCyclePublisher
 {
     FragmentActivity getFragmentActivity();

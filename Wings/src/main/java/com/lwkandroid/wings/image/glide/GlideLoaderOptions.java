@@ -6,8 +6,9 @@ import com.bumptech.glide.load.Transformation;
 import com.lwkandroid.wings.image.bean.ImageOptions;
 
 /**
- * Created by LWK
- *  Glide图片加载参数
+ * Glide图片加载参数
+ *
+ * @author LWK
  */
 
 public final class GlideLoaderOptions extends ImageOptions<GlideLoaderOptions>

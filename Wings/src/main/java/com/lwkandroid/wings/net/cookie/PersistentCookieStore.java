@@ -85,7 +85,7 @@ public class PersistentCookieStore
         // 添加 host key. 否则有可能抛空.
         if (!cookies.containsKey(url.host()))
         {
-            cookies.put(url.host(), new ConcurrentHashMap<String, Cookie>());
+            cookies.put(url.host(), new ConcurrentHashMap<String, Cookie>(8));
         }
         // 删除已经有的.
         if (cookies.containsKey(url.host()))
@@ -118,7 +118,7 @@ public class PersistentCookieStore
             ConcurrentHashMap<String, Cookie> domainCookies = this.cookies.get(domain);
             if (domainCookies == null)
             {
-                domainCookies = new ConcurrentHashMap<>();
+                domainCookies = new ConcurrentHashMap<>(8);
                 this.cookies.put(domain, domainCookies);
             }
         }

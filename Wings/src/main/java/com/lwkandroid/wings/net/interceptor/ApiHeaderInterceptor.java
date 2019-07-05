@@ -11,11 +11,12 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 /**
- * Created by LWK
  * OkHttp Headers拦截器，用于对所有请求添加公共动态Header
  * 需要配合RxHttp.getGlobalOptions().addInterceptor(String tag,Interceptor interceptor)使用
  * 【不可使用addNetInterceptor】
  * 推荐使用同样效果的方法：RxHttp.getGlobalOptions.addDynamicHeader(String tag, IApiDynamicHeader callBack);
+ *
+ * @author LWK
  */
 public abstract class ApiHeaderInterceptor implements Interceptor
 {

@@ -8,7 +8,7 @@ import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 
 /**
- * Created by LWK
+ * @author LWK
  */
 
 public class ListDemoModel extends ListDemoContract.Model

@@ -9,8 +9,9 @@ import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 
 /**
- * Created by LWK
  * 默认判断自动重试的条件
+ *
+ * @author LWK
  */
 public class AutoRetryJudgeImpl implements IAutoRetry
 {

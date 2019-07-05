@@ -13,10 +13,10 @@ import com.lwkandroid.wings.widget.AdvancedWebView;
 import com.lwkandroid.wingsdemo.R;
 
 /**
- * Created by LWK
  * 带有WebView的Activity
+ *
+ * @author LWK
  */
-
 public abstract class AppWebBaseActivity<P extends AppBasePresenter> extends AppBaseActivity<P>
         implements AdvancedWebView.Listener
 {

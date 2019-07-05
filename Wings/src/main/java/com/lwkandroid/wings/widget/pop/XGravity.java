@@ -1,12 +1,14 @@
 package com.lwkandroid.wings.widget.pop;
 
-import androidx.annotation.IntDef;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
+import androidx.annotation.IntDef;
+
 /**
  * 水平方向权重
+ *
+ * @author LWK
  */
 @IntDef({
         XGravity.CENTER,

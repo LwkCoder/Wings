@@ -17,8 +17,9 @@ import okio.Okio;
 import okio.Source;
 
 /**
- * Created by LWK
- *  网络请求RequestBody参数辅助工具
+ * 网络请求RequestBody参数辅助工具
+ *
+ * @author LWK
  */
 
 public class RequestBodyUtils

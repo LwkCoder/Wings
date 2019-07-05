@@ -8,8 +8,8 @@ import io.reactivex.ObservableSource;
 import io.reactivex.functions.Function;
 
 /**
- * Created by LWK
  * 转换缓存包装体内String数据为Restful风格中对象数据
+ * @author LWK
  */
 
 public class StringCacheToRestfulDataCacheFunc<T> extends AbsDataCacheFunction<T>

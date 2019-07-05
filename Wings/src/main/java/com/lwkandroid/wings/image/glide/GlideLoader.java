@@ -23,8 +23,9 @@ import com.lwkandroid.wings.utils.Utils;
 import java.io.File;
 
 /**
- * Created by LWK
- *  Glide实现的图片加载模块
+ * Glide实现的图片加载模块
+ *
+ * @author LWK
  */
 
 public class GlideLoader implements ILoaderStrategy<GlideLoaderOptions>

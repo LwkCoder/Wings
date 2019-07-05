@@ -5,10 +5,10 @@ import java.util.List;
 import io.reactivex.ObservableTransformer;
 
 /**
- * Created by LWK
  * 将String类型的网络请求结果转换为具体对象的接口
+ *
+ * @author LWK
  */
-
 public interface IApiStringParser
 {
     /**

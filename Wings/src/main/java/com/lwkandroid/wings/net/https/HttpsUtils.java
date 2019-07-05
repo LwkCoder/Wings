@@ -38,6 +38,8 @@ import javax.net.ssl.X509TrustManager;
 
 /**
  * Https工具类,来自RxEasyHttp
+ *
+ * @author LWK
  */
 public class HttpsUtils
 {

@@ -1,10 +1,10 @@
 package com.lwkandroid.wings.image.callback;
 
 /**
- * Created by LWK
- *  下载通用回调
+ * 下载通用回调
+ *
+ * @author LWK
  */
-
 public interface ImageDownLoadCallBack<T>
 {
     void onImageDownloadStarted();

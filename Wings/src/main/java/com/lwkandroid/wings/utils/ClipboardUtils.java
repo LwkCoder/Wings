@@ -8,6 +8,8 @@ import android.net.Uri;
 
 /**
  * 剪贴板相关工具类
+ *
+ * @author LWK
  */
 public final class ClipboardUtils
 {

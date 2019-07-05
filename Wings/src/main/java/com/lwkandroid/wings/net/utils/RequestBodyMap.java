@@ -8,8 +8,9 @@ import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
 /**
- * Created by LWK
- *  网络请求RequestBody集合参数辅助工具
+ * 网络请求RequestBody集合参数辅助工具
+ *
+ * @author LWK
  */
 
 public class RequestBodyMap extends HashMap<String, RequestBody>

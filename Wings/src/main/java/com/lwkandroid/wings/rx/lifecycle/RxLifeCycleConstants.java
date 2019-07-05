@@ -2,6 +2,8 @@ package com.lwkandroid.wings.rx.lifecycle;
 
 /**
  * Activity/Fragment生命周期常量
+ *
+ * @author LWK
  */
 public final class RxLifeCycleConstants
 {

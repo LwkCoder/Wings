@@ -20,8 +20,9 @@ import java.util.List;
 import io.reactivex.disposables.Disposable;
 
 /**
- * Created by LWK
  * RxHttpDemo Presenter层
+ *
+ * @author LWK
  */
 
 public class RxHttpDemoPresenter extends RxHttpDemoContract.Presenter

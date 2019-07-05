@@ -2,6 +2,8 @@ package com.lwkandroid.wings.utils;
 
 /**
  * 字符串相关工具类
+ *
+ * @author LWK
  */
 public final class StringUtils
 {

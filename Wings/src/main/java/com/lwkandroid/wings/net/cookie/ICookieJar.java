@@ -7,8 +7,9 @@ import okhttp3.CookieJar;
 import okhttp3.HttpUrl;
 
 /**
- * Created by LWK
- *  Cookie操作接口
+ * Cookie操作接口
+ *
+ * @author LWK
  */
 
 public interface ICookieJar extends CookieJar

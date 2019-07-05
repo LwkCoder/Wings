@@ -22,6 +22,8 @@ import androidx.annotation.NonNull;
 
 /**
  * 崩溃相关工具类
+ *
+ * @author LWK
  */
 public final class CrashUtils
 {

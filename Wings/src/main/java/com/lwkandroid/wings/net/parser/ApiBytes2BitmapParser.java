@@ -10,10 +10,10 @@ import io.reactivex.ObservableTransformer;
 import io.reactivex.functions.Function;
 
 /**
- * Created by LWK
- *  将Byte数组的网络请求结果转换为Bitmap的实现类
+ * 将Byte数组的网络请求结果转换为Bitmap的实现类
+ *
+ * @author LWK
  */
-
 public class ApiBytes2BitmapParser implements IApiBytesArrayParser.BitmapParser
 {
     private int mMaxWidth, mMaxHeight;

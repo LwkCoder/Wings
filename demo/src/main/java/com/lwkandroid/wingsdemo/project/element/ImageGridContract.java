@@ -5,8 +5,9 @@ import com.lwkandroid.wingsdemo.app.AppBasePresenter;
 import com.lwkandroid.wingsdemo.app.IAppBaseView;
 
 /**
- * Created by LWK
- *  契约类
+ * 契约类
+ *
+ * @author LWK
  */
 
 public interface ImageGridContract

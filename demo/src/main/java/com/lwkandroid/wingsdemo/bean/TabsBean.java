@@ -1,10 +1,10 @@
 package com.lwkandroid.wingsdemo.bean;
 
 /**
- * Created by LWK
  * 内涵段子tab数据
+ *
+ * @author LWK
  */
-
 public class TabsBean
 {
     private boolean double_col_mode;

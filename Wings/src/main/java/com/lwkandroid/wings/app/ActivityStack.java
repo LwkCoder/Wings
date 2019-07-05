@@ -5,11 +5,11 @@ import android.app.Activity;
 import java.util.Stack;
 
 /**
- * Created by LWK
- *  Activity栈管理类,需要App继承BaseApplication
+ * Activity栈管理类,需要App继承BaseApplication
  * 2017/5/7
+ *
+ * @author LWK
  */
-
 public class ActivityStack
 {
     private ActivityStack()

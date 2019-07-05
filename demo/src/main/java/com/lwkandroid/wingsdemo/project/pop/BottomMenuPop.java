@@ -10,6 +10,8 @@ import com.lwkandroid.wingsdemo.R;
 /**
  * Created by LWK
  * 底部弹出式菜单
+ *
+ * @author LWK
  */
 
 public class BottomMenuPop extends PopBaseContentView implements View.OnClickListener
@@ -23,8 +25,8 @@ public class BottomMenuPop extends PopBaseContentView implements View.OnClickLis
     @Override
     public void initUIAndData(View contentView, PopOptions options, PopCreator popCreator)
     {
-//        contentView.findViewById(R.id.tv_pop_bottom_menu01).setOnClickListener(this);
-//        contentView.findViewById(R.id.tv_pop_bottom_menu02).setOnClickListener(this);
+        //        contentView.findViewById(R.id.tv_pop_bottom_menu01).setOnClickListener(this);
+        //        contentView.findViewById(R.id.tv_pop_bottom_menu02).setOnClickListener(this);
     }
 
     @Override

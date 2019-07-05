@@ -10,10 +10,10 @@ import io.reactivex.ObservableSource;
 import io.reactivex.functions.Function;
 
 /**
- * Created by LWK
  * 转换缓存包装体内String数据为Restful风格中对象集合数据
+ *
+ * @author LWK
  */
-
 public class StringCacheToRestfulDataListCacheFunc<T> implements Function<ResultCacheWrapper<String>,
         ObservableSource<ResultCacheWrapper<List<T>>>>
 {

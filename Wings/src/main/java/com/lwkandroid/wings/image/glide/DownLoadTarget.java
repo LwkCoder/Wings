@@ -10,10 +10,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 /**
- * Created by LWK
- *  下载Target
+ * 下载Target
+ *
+ * @author LWK
  */
-
 public class DownLoadTarget<R> extends CustomTarget<R>
 {
     private ImageDownLoadCallBack<R> mCallBack;

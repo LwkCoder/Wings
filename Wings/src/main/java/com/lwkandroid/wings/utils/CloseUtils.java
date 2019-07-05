@@ -4,7 +4,9 @@ import java.io.Closeable;
 import java.io.IOException;
 
 /**
- *  关闭相关工具类
+ * 关闭相关工具类
+ *
+ * @author LWK
  */
 public final class CloseUtils
 {

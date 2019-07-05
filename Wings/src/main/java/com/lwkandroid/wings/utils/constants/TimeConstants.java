@@ -1,12 +1,14 @@
 package com.lwkandroid.wings.utils.constants;
 
-import androidx.annotation.IntDef;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
+import androidx.annotation.IntDef;
+
 /**
  * 时间相关常量
+ *
+ * @author LWK
  */
 public final class TimeConstants
 {

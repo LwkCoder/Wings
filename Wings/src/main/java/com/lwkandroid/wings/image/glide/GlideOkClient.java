@@ -7,8 +7,9 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.OkHttpClient;
 
 /**
- * Created by LWK
- *  Glide专用的OkHttpClient
+ * Glide专用的OkHttpClient
+ *
+ * @author LWK
  */
 
 public final class GlideOkClient

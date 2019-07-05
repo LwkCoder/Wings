@@ -19,8 +19,9 @@ import com.lwkandroid.wings.utils.SDCardUtils;
 import java.io.InputStream;
 
 /**
- * Created by LWK
- *  自定义GlideModule
+ * 自定义GlideModule
+ *
+ * @author LWK
  */
 
 @GlideModule

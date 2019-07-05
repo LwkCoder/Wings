@@ -33,6 +33,7 @@ import okio.Sink;
 
 /**
  * OkHttp上传二进制数据过程请求体包装类
+ * @author LWK
  */
 public class ProgressRequestBody extends RequestBody
 {

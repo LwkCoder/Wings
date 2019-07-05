@@ -8,10 +8,10 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Predicate;
 
 /**
- * Created by LWK
  *  先返回本地缓存，然后获取网络数据，回调2次的策略
+ *
+ * @author LWK
  */
-
 public class ApiCacheAfterRemoteStrategy extends ApiCacheBaseStrategy
 {
     @Override

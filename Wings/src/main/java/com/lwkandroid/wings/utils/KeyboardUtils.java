@@ -16,6 +16,8 @@ import java.lang.reflect.Field;
 
 /**
  * 软键盘相关工具类
+ *
+ * @author LWK
  */
 public final class KeyboardUtils
 {

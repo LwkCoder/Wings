@@ -8,9 +8,8 @@ import com.lwkandroid.wings.widget.pop.PopOptions;
 import com.lwkandroid.wingsdemo.R;
 
 /**
- * Created by LWK
+ * @author LWK
  */
-
 public class DialogPop extends PopBaseContentView implements View.OnClickListener
 {
     @Override

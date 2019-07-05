@@ -5,10 +5,10 @@ import com.lwkandroid.wings.net.interceptor.ApiParamsInterceptor;
 import java.util.TreeMap;
 
 /**
- * Created by LWK
  * 示例用的，模拟添加全局动态参数
+ *
+ * @author LWK
  */
-
 public class TestDynamicParamsInterceptor extends ApiParamsInterceptor
 {
     @Override

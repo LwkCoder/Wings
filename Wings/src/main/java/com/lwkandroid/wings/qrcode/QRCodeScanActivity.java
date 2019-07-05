@@ -38,6 +38,7 @@ import io.reactivex.functions.Consumer;
 
 /**
  * 二维码扫描界面
+ * @author LWK
  */
 public class QRCodeScanActivity extends WingsBaseActivity<MVPBasePresenter>
         implements QRCodeView.Delegate

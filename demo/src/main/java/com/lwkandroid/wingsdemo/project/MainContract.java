@@ -10,8 +10,9 @@ import java.util.List;
 import io.reactivex.Observable;
 
 /**
- * Created by LWK
  * MainActivity契约类
+ *
+ * @author LWK
  */
 
 public interface MainContract

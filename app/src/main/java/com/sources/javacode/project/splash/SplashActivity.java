@@ -8,8 +8,8 @@ import com.sources.javacode.R;
 import com.sources.javacode.app.AppBaseActivity;
 
 /**
- * Created by LWK
  *  View层
+ * @author LWK
  */
 public class SplashActivity extends AppBaseActivity<SplashPresenter> implements SplashContract.IView
 {

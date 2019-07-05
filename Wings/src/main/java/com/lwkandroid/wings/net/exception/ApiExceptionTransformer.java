@@ -8,8 +8,9 @@ import io.reactivex.ObservableTransformer;
 import io.reactivex.functions.Function;
 
 /**
- * Created by LWK
  * 异常转换为ApiException的Transformer
+ *
+ * @author LWK
  */
 public final class ApiExceptionTransformer<T> implements ObservableTransformer<T, T>
 {

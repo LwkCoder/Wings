@@ -6,10 +6,10 @@ import com.lwkandroid.wings.net.bean.ResultCacheWrapper;
 import io.reactivex.Observable;
 
 /**
- * Created by LWK
- *  先请求网络，失败后读取缓存的策略
+ * 先请求网络，失败后读取缓存的策略
+ *
+ * @author LWK
  */
-
 public class ApiRemoteFirstStrategy extends ApiCacheBaseStrategy
 {
     @Override

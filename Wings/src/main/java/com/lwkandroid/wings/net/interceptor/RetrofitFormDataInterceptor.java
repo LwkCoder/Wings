@@ -4,8 +4,9 @@ import java.util.Map;
 import java.util.TreeMap;
 
 /**
- * Created by LWK
- *  自定义Retrofit对象时用来添加全局参数的拦截器
+ * 自定义Retrofit对象时用来添加全局参数的拦截器
+ *
+ * @author LWK
  */
 
 public final class RetrofitFormDataInterceptor extends ApiParamsInterceptor

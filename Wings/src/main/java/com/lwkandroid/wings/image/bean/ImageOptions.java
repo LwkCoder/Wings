@@ -6,18 +6,19 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import androidx.annotation.DrawableRes;
 import android.widget.ImageView;
 
 import com.lwkandroid.wings.image.ILoaderProxy;
 import com.lwkandroid.wings.image.ImageLoader;
 import com.lwkandroid.wings.image.constants.ImageDiskCacheType;
 
-/**
- * Created by LWK
- *  图片加载配置参数基类
- */
+import androidx.annotation.DrawableRes;
 
+/**
+ * 图片加载配置参数基类
+ *
+ * @author LWK
+ */
 public class ImageOptions<T extends ImageOptions> implements ILoaderProxy
 {
     private String url;

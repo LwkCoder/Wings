@@ -6,8 +6,9 @@ import com.lwkandroid.wings.utils.StringUtils;
 import java.util.HashMap;
 
 /**
- * Created by LWK
- *  网络请求QueryMap、FieldMap参数辅助工具
+ * 网络请求QueryMap、FieldMap参数辅助工具
+ *
+ * @author LWK
  */
 public class FormDataMap extends HashMap<String, Object>
 {

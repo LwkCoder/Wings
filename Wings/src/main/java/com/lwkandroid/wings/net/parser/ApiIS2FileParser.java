@@ -16,8 +16,9 @@ import io.reactivex.ObservableTransformer;
 import io.reactivex.functions.Function;
 
 /**
- * Created by LWK
- *  将InputSream类型的网络请求结果转换为File并写入存储的实现类
+ *  将InputStream类型的网络请求结果转换为File并写入存储的实现类
+ *
+ * @author LWK
  */
 
 public class ApiIS2FileParser implements IApiInputStreamParser.FileParser

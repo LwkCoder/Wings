@@ -10,8 +10,9 @@ import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 
 /**
- * Created by LWK
  * RxHttpDemoActivity Model层
+ *
+ * @author LWK
  */
 
 public class MainModel extends MainContract.Model

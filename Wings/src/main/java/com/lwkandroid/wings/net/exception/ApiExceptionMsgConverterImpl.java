@@ -5,8 +5,9 @@ import com.lwkandroid.wings.net.constants.ApiExceptionCode;
 import com.lwkandroid.wings.utils.ResourceUtils;
 
 /**
- * Created by LWK
  * 设置ApiException错误描述的方法
+ *
+ * @author LWK
  */
 public class ApiExceptionMsgConverterImpl implements IApiExceptionMsgConverter
 {

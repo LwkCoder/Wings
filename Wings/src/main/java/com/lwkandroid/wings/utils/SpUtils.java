@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 
 /**
  * SharedPreferences工具类
+ *
+ * @author LWK
  */
 public final class SpUtils
 {

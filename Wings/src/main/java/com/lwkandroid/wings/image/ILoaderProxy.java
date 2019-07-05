@@ -6,8 +6,9 @@ import android.content.Context;
 import android.widget.ImageView;
 
 /**
- * Created by LWK
- *  定义给图片参数直接调用图片加载方法的接口
+ * 定义给图片参数直接调用图片加载方法的接口
+ *
+ * @author LWK
  */
 
 public interface ILoaderProxy

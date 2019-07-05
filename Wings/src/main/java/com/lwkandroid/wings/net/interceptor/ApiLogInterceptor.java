@@ -26,10 +26,10 @@ import okhttp3.internal.http.HttpHeaders;
 import okio.Buffer;
 
 /**
- * Created by LWK
- *  OkHttp日志请求拦截器
+ * OkHttp日志请求拦截器
+ *
+ * @author LWK
  */
-
 public class ApiLogInterceptor implements Interceptor
 {
     private static final String TAG = "ApiLogInterceptor";
@@ -49,16 +49,16 @@ public class ApiLogInterceptor implements Interceptor
     @Override
     public Response intercept(Chain chain) throws IOException
     {
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder builder = new StringBuilder();
         Request request = chain.request();
-        logRequest(request, chain.connection(), buffer);
+        logRequest(request, chain.connection(), builder);
         Response response;
         try
         {
             response = chain.proceed(request);
         } catch (Exception e)
         {
-            buffer.append(NEXT_LINE)
+            builder.append(NEXT_LINE)
                     .append(SEPARATOR)
                     .append("--->HttpResponse : Fail to proceed response:")
                     .append(NEXT_LINE)
@@ -66,16 +66,16 @@ public class ApiLogInterceptor implements Interceptor
                     .append(e.toString())
                     .append(NEXT_LINE)
                     .append(END);
-            showLog(buffer);
+            showLog(builder);
             throw e;
         }
 
-        return logResponse(response, buffer);
+        return logResponse(response, builder);
     }
 
-    private void logRequest(Request r, Connection connection, StringBuffer buffer)
+    private void logRequest(Request r, Connection connection, StringBuilder builder)
     {
-        buffer.append(NEXT_LINE)
+        builder.append(NEXT_LINE)
                 .append(START);
         Request request = r.newBuilder().build();
         String method = request.method();
@@ -87,7 +87,7 @@ public class ApiLogInterceptor implements Interceptor
 
         try
         {
-            buffer.append(NEXT_LINE)
+            builder.append(NEXT_LINE)
                     .append(SEPARATOR)
                     .append("---------->HttpRequest")
                     .append(NEXT_LINE)
@@ -114,18 +114,18 @@ public class ApiLogInterceptor implements Interceptor
             Headers headers = request.headers();
             if (headers != null && headers.size() > 0)
             {
-                buffer.append(NEXT_LINE)
+                builder.append(NEXT_LINE)
                         .append(SEPARATOR)
                         .append("Headers=");
+                for (int i = 0, size = headers.size(); i < size; i++)
+                {
+                    builder.append("[").append(headers.name(i)).append("=").append(headers.value(i)).append("] ");
+                }
             } else
             {
-                buffer.append(NEXT_LINE)
+                builder.append(NEXT_LINE)
                         .append(SEPARATOR)
                         .append("Headers=null");
-            }
-            for (int i = 0, size = headers.size(); i < size; i++)
-            {
-                buffer.append("[" + headers.name(i) + "=" + headers.value(i) + "] ");
             }
 
             if (hasBody)
@@ -135,13 +135,13 @@ public class ApiLogInterceptor implements Interceptor
                 {
                     if (JsonUtils.get().isJsonData(bodyString))
                     {
-                        buffer.append(NEXT_LINE)
+                        builder.append(NEXT_LINE)
                                 .append(SEPARATOR)
                                 .append("RequestBody:");
-                        appendFormatJson(bodyString, buffer);
+                        appendFormatJson(bodyString, builder);
                     } else
                     {
-                        buffer.append(NEXT_LINE)
+                        builder.append(NEXT_LINE)
                                 .append(SEPARATOR)
                                 .append("RequestBody:")
                                 .append(NEXT_LINE)
@@ -152,28 +152,28 @@ public class ApiLogInterceptor implements Interceptor
                 {
                     if (JsonUtils.get().isJsonData(bodyString))
                     {
-                        buffer.append(NEXT_LINE)
+                        builder.append(NEXT_LINE)
                                 .append(SEPARATOR)
                                 .append("RequestBody: Binary json data:");
-                        appendFormatJson(bodyString, buffer);
+                        appendFormatJson(bodyString, builder);
                     } else
                     {
-                        buffer.append(NEXT_LINE)
+                        builder.append(NEXT_LINE)
                                 .append(SEPARATOR)
                                 .append("RequestBody: Maybe binary body. Ignored logging !");
                     }
-                    buffer.append(NEXT_LINE)
+                    builder.append(NEXT_LINE)
                             .append(END);
                 }
             } else
             {
-                buffer.append(NEXT_LINE)
+                builder.append(NEXT_LINE)
                         .append(SEPARATOR)
                         .append("RequestBody:null");
             }
         } catch (Exception e)
         {
-            buffer.append(NEXT_LINE)
+            builder.append(NEXT_LINE)
                     .append(SEPARATOR)
                     .append("Exception occurred during logging for request:")
                     .append(NEXT_LINE)
@@ -182,7 +182,7 @@ public class ApiLogInterceptor implements Interceptor
         }
     }
 
-    private Response logResponse(Response response, StringBuffer buffer)
+    private Response logResponse(Response response, StringBuilder builder)
     {
         Response clone = response.newBuilder().build();
         ResponseBody body = clone.body();
@@ -191,7 +191,7 @@ public class ApiLogInterceptor implements Interceptor
 
         try
         {
-            buffer.append(NEXT_LINE)
+            builder.append(NEXT_LINE)
                     .append(SEPARATOR)
                     .append("---------->HttpResponse")
                     .append(NEXT_LINE)
@@ -206,18 +206,18 @@ public class ApiLogInterceptor implements Interceptor
             Headers headers = clone.headers();
             if (headers != null && headers.size() > 0)
             {
-                buffer.append(NEXT_LINE)
+                builder.append(NEXT_LINE)
                         .append(SEPARATOR)
                         .append("Headers=");
             } else
             {
-                buffer.append(NEXT_LINE)
+                builder.append(NEXT_LINE)
                         .append(SEPARATOR)
                         .append("Headers=null");
             }
             for (int i = 0, size = headers.size(); i < size; i++)
             {
-                buffer.append("[" + headers.name(i) + "=" + headers.value(i) + "] ");
+                builder.append("[").append(headers.name(i)).append("=").append(headers.value(i)).append("] ");
             }
 
             if (hasBody && HttpHeaders.hasBody(clone))
@@ -229,65 +229,48 @@ public class ApiLogInterceptor implements Interceptor
                     String bodyString = new String(bytes, charset);
                     if (JsonUtils.get().isJsonData(bodyString))
                     {
-                        buffer.append(NEXT_LINE)
+                        builder.append(NEXT_LINE)
                                 .append(SEPARATOR)
                                 .append("ResponseBody:");
-                        appendFormatJson(bodyString, buffer);
+                        appendFormatJson(bodyString, builder);
                     } else
                     {
-                        buffer.append(NEXT_LINE)
+                        builder.append(NEXT_LINE)
                                 .append(SEPARATOR)
                                 .append("ResponseBody:")
                                 .append(NEXT_LINE)
                                 .append(SEPARATOR)
                                 .append(bodyString);
                     }
-                    buffer.append(NEXT_LINE)
+                    builder.append(NEXT_LINE)
                             .append(END);
-                    showLog(buffer);
+                    showLog(builder);
                     body = ResponseBody.create(body.contentType(), bytes);
                     return response.newBuilder().body(body).build();
                 } else
                 {
-                    buffer.append(NEXT_LINE)
+                    builder.append(NEXT_LINE)
                             .append(SEPARATOR)
                             .append("ResponseBody: Maybe binary body. Ignored logging !")
                             .append(NEXT_LINE)
                             .append(END);
-                    showLog(buffer);
-                    //                    String binaryString = toByteString(body.byteStream());
-                    //                    if (JsonUtils.get().isJsonData(binaryString))
-                    //                    {
-                    //                        buffer.append(NEXT_LINE)
-                    //                                .append(SEPARATOR)
-                    //                                .append("ResponseBody: Binary json data:");
-                    //                        appendFormatJson(binaryString, buffer);
-                    //                    } else
-                    //                    {
-                    //                        buffer.append(NEXT_LINE)
-                    //                                .append(SEPARATOR)
-                    //                                .append("ResponseBody: Maybe binary body. Ignored logging !");
-                    //                    }
-                    //                    buffer.append(NEXT_LINE)
-                    //                            .append(END);
-                    //                    showLog(buffer);
-                    //                    body = ResponseBody.create(body.contentType(), binaryString);
+                    showLog(builder);
                     return response.newBuilder().body(body).build();
                 }
             } else
             {
-                buffer.append(NEXT_LINE)
+                builder.append(NEXT_LINE)
                         .append(SEPARATOR)
                         .append("ResponseBody:null")
                         .append(NEXT_LINE)
                         .append(END);
-                showLog(buffer);
+                showLog(builder);
                 return response;
             }
 
         } catch (Exception e)
         {
-            buffer.append(NEXT_LINE)
+            builder.append(NEXT_LINE)
                     .append(SEPARATOR)
                     .append("ResponseBody:Exception occurred during logging for response:")
                     .append(NEXT_LINE)
@@ -295,12 +278,14 @@ public class ApiLogInterceptor implements Interceptor
                     .append(e.toString())
                     .append(NEXT_LINE)
                     .append(END);
-            showLog(buffer);
+            showLog(builder);
         }
         return response;
     }
 
-    //判断是否为文本类型
+    /**
+     * 判断是否为文本类型
+     */
     private static boolean isPlaintext(MediaType mediaType)
     {
         if (mediaType == null)
@@ -316,16 +301,16 @@ public class ApiLogInterceptor implements Interceptor
         if (subtype != null)
         {
             subtype = subtype.toLowerCase();
-            if (subtype.contains(FORM_URLENCODED) || subtype.contains(JSON)
-                    || subtype.contains(XML) || subtype.contains(HTML))
-            {
-                return true;
-            }
+            return subtype.contains(FORM_URLENCODED) || subtype.contains(JSON)
+                    || subtype.contains(XML) || subtype.contains(HTML);
         }
         return false;
     }
 
-    //请求体转为String
+    /**
+     * 请求体转为String
+     */
+
     private String requestBodyToString(MediaType mediaType, RequestBody body) throws IOException
     {
         Buffer buffer = new Buffer();
@@ -334,11 +319,9 @@ public class ApiLogInterceptor implements Interceptor
         String strBody = buffer.readString(charset);
         try
         {
-            String copy = new String(strBody);
-            copy = copy.replaceAll("%(?![0-9a-fA-F]{2})", "%25").
+            strBody = strBody.replaceAll("%(?![0-9a-fA-F]{2})", "%25").
                     replaceAll("\\+", "%2B");
-            copy = URLDecoder.decode(copy, UTF8.name());
-            return copy;
+            strBody = URLDecoder.decode(strBody, UTF8.name());
         } catch (Exception e)
         {
             e.printStackTrace();
@@ -346,7 +329,9 @@ public class ApiLogInterceptor implements Interceptor
         return strBody;
     }
 
-    //将InputStream转为字节数组
+    /**
+     * 将InputStream转为字节数组
+     */
     private byte[] toByteArray(InputStream input)
     {
         ByteArrayOutputStream output = null;
@@ -364,7 +349,7 @@ public class ApiLogInterceptor implements Interceptor
         } catch (IOException e)
         {
             e.printStackTrace();
-            return null;
+            return new byte[0];
         } finally
         {
             try
@@ -380,23 +365,10 @@ public class ApiLogInterceptor implements Interceptor
         }
     }
 
-    //将InputStream转为String，编码为UTF-8
-    private String toByteString(InputStream input) throws IOException
-    {
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
-        int len;
-        byte[] buffer = new byte[2048];
-        while ((len = input.read(buffer)) != -1)
-        {
-            output.write(buffer, 0, len);
-        }
-        output.flush();
-        output.close();
-        return output.toString(String.valueOf(UTF8));  // 依据需求可以选择要要的字符编码格式
-    }
-
-    //拼接格式化的Json数据
-    private void appendFormatJson(String json, StringBuffer buffer)
+    /**
+     * 拼接格式化的Json数据
+     */
+    private void appendFormatJson(String json, StringBuilder buffer)
     {
         String message;
         try
@@ -427,8 +399,8 @@ public class ApiLogInterceptor implements Interceptor
         }
     }
 
-    private void showLog(StringBuffer buffer)
+    private void showLog(StringBuilder builder)
     {
-        KLog.d(TAG, buffer.toString());
+        KLog.d(TAG, builder.toString());
     }
 }

@@ -26,8 +26,9 @@ import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 
 /**
- * Created by LWK
  * RxHttpDemo Model层
+ *
+ * @author LWK
  */
 
 public class RxHttpDemoModel extends RxHttpDemoContract.Model
@@ -58,7 +59,7 @@ public class RxHttpDemoModel extends RxHttpDemoContract.Model
     @Override
     Observable<String> requestCustomPost()
     {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(2);
         map.put("account", "lwk");
         map.put("password", "123456");
         return RxHttp.RETROFIT()

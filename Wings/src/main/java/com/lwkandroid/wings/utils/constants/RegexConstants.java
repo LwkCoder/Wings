@@ -1,7 +1,9 @@
 package com.lwkandroid.wings.utils.constants;
 
 /**
- *  正则相关常量
+ * 正则相关常量
+ *
+ * @author LWK
  */
 public final class RegexConstants
 {

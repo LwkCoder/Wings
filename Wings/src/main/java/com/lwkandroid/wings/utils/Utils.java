@@ -3,11 +3,10 @@ package com.lwkandroid.wings.utils;
 import android.content.Context;
 
 /**
- * Created by LWK
- *  工具类公共方法区
- * 2017/5/9
+ * 工具类公共方法区
+ *
+ * @author LWK
  */
-
 public final class Utils
 {
     private static Context mContext;

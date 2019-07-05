@@ -25,6 +25,8 @@ import androidx.annotation.RequiresApi;
 
 /**
  * 屏幕相关工具类
+ *
+ * @author LWK
  */
 public final class ScreenUtils
 {

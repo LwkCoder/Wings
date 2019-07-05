@@ -1,10 +1,10 @@
 package com.lwkandroid.wings.mvp.list;
 
 /**
- * Created by LWK
- *  下拉刷新控件的接口
+ * 下拉刷新控件的接口
+ *
+ * @author LWK
  */
-
 public interface IRefreshWrapper<RV>
 {
     void wrap(RV rv);

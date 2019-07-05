@@ -1,8 +1,9 @@
 package com.lwkandroid.wings.net.exception;
 
 /**
- * Created by LWK
- *  定义ApiException错误描述文案的方法
+ * 定义ApiException错误描述文案的方法
+ *
+ * @author LWK
  */
 
 public interface IApiExceptionMsgConverter

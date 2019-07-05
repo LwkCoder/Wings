@@ -25,10 +25,12 @@ import okhttp3.Cookie;
 
 /**
  * 存储用的Cookie，实现序列化
+ *
+ * @author LWK
  */
 public class SerializableOkHttpCookies implements Serializable
 {
-
+    private static final long serialVersionUID = -5363347817809163798L;
     private transient final Cookie cookies;
     private transient Cookie clientCookies;
 

@@ -15,8 +15,9 @@ import androidx.core.content.FileProvider;
 import io.reactivex.plugins.RxJavaPlugins;
 
 /**
- * Created by LWK
  * 入口类
+ *
+ * @author LWK
  */
 
 public final class Wings

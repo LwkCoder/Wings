@@ -1,8 +1,9 @@
 package com.lwkandroid.wingsdemo.project.element;
 
 /**
- * Created by LWK
  * Model层
+ *
+ * @author LWK
  */
 
 public class ImageGridModel extends ImageGridContract.Model

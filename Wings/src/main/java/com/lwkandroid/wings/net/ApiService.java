@@ -24,10 +24,10 @@ import retrofit2.http.Streaming;
 import retrofit2.http.Url;
 
 /**
- * Created by LWK
- *  Retrofit请求模版
+ * Retrofit请求模版
+ *
+ * @author LWK
  */
-
 public interface ApiService
 {
     @GET()

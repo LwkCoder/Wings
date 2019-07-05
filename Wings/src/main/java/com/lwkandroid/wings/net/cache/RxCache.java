@@ -26,8 +26,9 @@ import io.reactivex.exceptions.Exceptions;
 import io.reactivex.functions.Function;
 
 /**
- * Created by LWK
- *  缓存功能入口
+ * 缓存功能入口
+ *
+ * @author LWK
  */
 
 public class RxCache

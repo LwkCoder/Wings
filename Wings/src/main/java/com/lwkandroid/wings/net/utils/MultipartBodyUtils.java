@@ -4,10 +4,10 @@ import okhttp3.Headers;
 import okhttp3.RequestBody;
 
 /**
- * Created by LWK
  * 网络请求MultipartBody参数辅助工具
+ *
+ * @author LWK
  */
-
 public class MultipartBodyUtils
 {
     private MultipartBodyUtils()

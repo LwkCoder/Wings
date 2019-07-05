@@ -32,6 +32,8 @@ import com.lwkandroid.wings.R;
 
 /**
  * 图形裁剪ImageView
+ *
+ * @author LWK
  */
 @SuppressLint("AppCompatCustomView")
 public class ShapeImageView extends ImageView

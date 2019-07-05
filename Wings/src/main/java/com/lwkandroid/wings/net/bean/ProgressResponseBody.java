@@ -33,6 +33,8 @@ import okio.Source;
 
 /**
  * OkHttp下载二进制数据过程请求体包装类
+ *
+ * @author LWK
  */
 public class ProgressResponseBody extends ResponseBody
 {

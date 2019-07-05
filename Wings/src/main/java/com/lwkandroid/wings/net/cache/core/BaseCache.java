@@ -28,6 +28,8 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  * 1.所有缓存处理都继承该基类<br>
  * 2.增加了锁机制，防止频繁读取缓存造成的异常。<br>
  * 3.子类直接考虑具体的实现细节就可以了。<br>
+ *
+ * @author LWK
  */
 public abstract class BaseCache
 {

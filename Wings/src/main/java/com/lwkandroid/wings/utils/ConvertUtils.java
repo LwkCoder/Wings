@@ -2,6 +2,7 @@ package com.lwkandroid.wings.utils;
 
 /**
  * 转换工具类
+ * @author LWK
  */
 public final class ConvertUtils
 {

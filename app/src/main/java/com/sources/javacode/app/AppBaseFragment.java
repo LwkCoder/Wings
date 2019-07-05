@@ -4,8 +4,9 @@ import com.lwkandroid.wings.mvp.base.MVPBasePresenter;
 import com.lwkandroid.wings.mvp.base.WingsBaseFragment;
 
 /**
- * Created by LWK
- *  Fragment基类
+ * Fragment基类
+ *
+ * @author LWK
  */
 
 public abstract class AppBaseFragment<P extends MVPBasePresenter> extends WingsBaseFragment<P>

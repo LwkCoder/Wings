@@ -19,8 +19,9 @@ import java.util.List;
 
 /**
  * App相关工具类
+ *
+ * @author LWK
  */
-
 public final class AppUtils
 {
     private AppUtils()

@@ -8,8 +8,7 @@ import com.lwkandroid.wings.widget.dialog.DialogOptions;
 import com.lwkandroid.wingsdemo.R;
 
 /**
- * Created by LWK
- *
+ * @author LWK
  */
 public class InputDialog extends DialogBaseContentView implements View.OnClickListener
 {

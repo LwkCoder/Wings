@@ -140,7 +140,7 @@ public abstract class ApiBaseRequest<T extends ApiBaseRequestOptions> extends Ap
                                            Set<String> ignoreParams,
                                            boolean ignoreGlobal)
     {
-        Map<String, P> resultMap = new HashMap<>();
+        Map<String, P> resultMap = new HashMap<>(8);
         //添加全局参数
         if (!ignoreGlobal && globalParams != null)
         {

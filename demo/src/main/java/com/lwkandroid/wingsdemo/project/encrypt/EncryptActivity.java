@@ -12,8 +12,9 @@ import com.lwkandroid.wingsdemo.app.AppBaseActivity;
 import androidx.annotation.Nullable;
 
 /**
- * Created by LWK
  * View层
+ *
+ * @author LWK
  */
 public class EncryptActivity extends AppBaseActivity<EncryptPresenter> implements EncryptContract.IView, EncryptPop.OnItemClickListener
 {

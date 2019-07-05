@@ -12,9 +12,10 @@ import java.util.List;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
- * Created by LWK
- *  列表界面基类
+ * 列表界面基类
  * [xml中include布局layout_common_list]
+ *
+ * @author LWK
  */
 
 public abstract class WingsListFragment<P extends MVPBasePresenter, RV, D> extends WingsBaseFragment<P> implements

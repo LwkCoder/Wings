@@ -12,8 +12,9 @@ import com.sources.javacode.BuildConfig;
 import com.sources.javacode.net.ApiURL;
 
 /**
- * Created by LWK
  * Application入口
+ *
+ * @author LWK
  */
 
 public class AppApplication extends Application

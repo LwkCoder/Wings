@@ -6,6 +6,8 @@ import java.io.Serializable;
 
 /**
  * 实际缓存的类，将传入的data包裹在此类下，用以设置缓存时长等
+ *
+ * @author LWK
  */
 @NotProguard
 public class ApiDiskCacheBean<T> implements Serializable

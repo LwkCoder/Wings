@@ -8,7 +8,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- *  正则相关工具类
+ * 正则相关工具类
+ *
+ * @author LWK
  */
 public final class RegexUtils
 {

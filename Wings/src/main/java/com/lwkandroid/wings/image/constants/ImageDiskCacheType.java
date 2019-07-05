@@ -1,13 +1,14 @@
 package com.lwkandroid.wings.image.constants;
 
-import androidx.annotation.IntDef;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
+import androidx.annotation.IntDef;
+
 /**
- * Created by LWK
- *  硬盘缓存策略
+ * 硬盘缓存策略
+ *
+ * @author LWK
  */
 
 public class ImageDiskCacheType

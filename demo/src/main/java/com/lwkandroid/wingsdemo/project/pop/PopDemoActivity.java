@@ -20,6 +20,9 @@ import com.lwkandroid.wingsdemo.app.AppBaseActivity;
 
 import androidx.annotation.Nullable;
 
+/**
+ * @author LWK
+ */
 public class PopDemoActivity extends AppBaseActivity<MVPBasePresenter>
 {
     ComActionBar mActionBar;

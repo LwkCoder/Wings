@@ -10,10 +10,10 @@ import io.reactivex.functions.Predicate;
 import okio.ByteString;
 
 /**
- * Created by LWK
- *  先返回本地缓存，然后获取网络数据，如果数据一样就忽略的策略
+ * 先返回本地缓存，然后获取网络数据，如果数据一样就忽略的策略
+ *
+ * @author LWK
  */
-
 public class ApiCacheAfterRemoteDiffStrategy extends ApiCacheBaseStrategy
 {
     @Override

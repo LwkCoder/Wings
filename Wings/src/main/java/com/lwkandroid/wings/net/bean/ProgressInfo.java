@@ -6,8 +6,9 @@ import android.os.Parcelable;
 import com.lwkandroid.wings.annotation.NotProguard;
 
 /**
- * Created by LWK
  * OkHttp加载过程数据
+ *
+ * @author LWK
  */
 @NotProguard
 public class ProgressInfo implements Parcelable

@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by LWK
  * 网络请求MultipartBody集合参数辅助工具
+ *
+ * @author LWK
  */
-
 public class MultipartBodyList extends ArrayList<okhttp3.MultipartBody.Part>
 {
     private static final long serialVersionUID = -3039120772270628562L;

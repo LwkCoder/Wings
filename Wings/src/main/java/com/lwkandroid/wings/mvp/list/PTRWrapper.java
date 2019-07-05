@@ -3,8 +3,9 @@ package com.lwkandroid.wings.mvp.list;
 import com.lwkandroid.wings.widget.ptr.PTRLayout;
 
 /**
- * Created by LWK
- *  PTRLayout的封装实现
+ * PTRLayout的封装实现
+ *
+ * @author LWK
  */
 public class PTRWrapper implements IRefreshWrapper<PTRLayout>, PTRLayout.OnPullListener
 {

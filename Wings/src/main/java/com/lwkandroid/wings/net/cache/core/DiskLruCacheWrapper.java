@@ -32,6 +32,8 @@ import java.io.OutputStream;
  * <p>描述：磁盘缓存实现类</p>
  * 1.为了更好的扩展功能，统一使用BasicCache<br>
  * 2.将来做内存管理也可以继承BasicCache来统一处理<br>
+ *
+ * @author LWK
  */
 public class DiskLruCacheWrapper extends BaseCache
 {

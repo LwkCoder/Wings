@@ -22,10 +22,10 @@ import com.lwkandroid.wingsdemo.app.AppBaseActivity;
 import java.util.List;
 
 /**
- * Created by LWK
- *  二维码demo
+ * 二维码demo
+ *
+ * @author LWK
  */
-
 public class QRCodeDemoActivity extends AppBaseActivity<QRCodeDemoPresenter> implements
         QRCodeDemoContract.View
 {

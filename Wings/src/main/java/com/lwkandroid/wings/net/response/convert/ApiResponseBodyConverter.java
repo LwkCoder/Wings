@@ -6,8 +6,9 @@ import io.reactivex.ObservableTransformer;
 import okhttp3.ResponseBody;
 
 /**
- * Created by LWK
  * 网络请求返回ResponseBody的转换类入口
+ *
+ * @author LWK
  */
 
 public final class ApiResponseBodyConverter

@@ -15,10 +15,10 @@ import com.lwkandroid.wingsdemo.net.TestDynamicParamsInterceptor;
 import androidx.multidex.MultiDex;
 
 /**
- * Created by LWK
  * Application入口
+ *
+ * @author LWK
  */
-
 public class DemoApplication extends Application
 {
     @Override

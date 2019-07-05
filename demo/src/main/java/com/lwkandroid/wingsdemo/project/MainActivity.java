@@ -22,6 +22,8 @@ import androidx.annotation.Nullable;
 
 /**
  * RxHttpDemoActivity
+ *
+ * @author LWK
  */
 public class MainActivity extends AppBaseActivity<MainPresenter> implements MainContract.View
 {

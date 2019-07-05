@@ -1,8 +1,8 @@
 package com.lwkandroid.wingsdemo.project.element;
 
 /**
- * Created by LWK
  *  Presenter层
+ * @author LWK
  */
 
 public class ImageGridPresenter extends ImageGridContract.Presenter

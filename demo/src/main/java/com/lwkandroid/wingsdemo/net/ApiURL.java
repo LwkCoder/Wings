@@ -1,10 +1,10 @@
 package com.lwkandroid.wingsdemo.net;
 
 /**
- * Created by LWK
  * 网络请求地址集合
+ *
+ * @author LWK
  */
-
 public final class ApiURL
 {
     public static String HOST;

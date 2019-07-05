@@ -7,10 +7,8 @@ import com.lwkandroid.wings.qrcode.QRCodeUtils;
 import io.reactivex.Observable;
 
 /**
- * Created by LWK
- *
+ * @author LWK
  */
-
 public class QRCodeDemoModel extends QRCodeDemoContract.Model
 {
     @Override

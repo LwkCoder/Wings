@@ -1,8 +1,9 @@
 package com.lwkandroid.wings.utils.json;
 
 /**
- * Created by LWK
- *  Json解析工具类入口
+ * Json解析工具类入口
+ *
+ * @author LWK
  */
 
 public final class JsonUtils

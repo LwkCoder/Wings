@@ -7,10 +7,10 @@ import com.lwkandroid.wings.utils.ResourceUtils;
 import com.lwkandroid.wingsdemo.R;
 
 /**
- * Created by LWK
  * 列表界面基类
+ *
+ * @author LWK
  */
-
 public abstract class AppListActivity<P extends MVPBasePresenter, RV, D> extends WingsListActivity<P, RV, D>
 {
     @Override

@@ -7,8 +7,9 @@ import com.lwkandroid.wings.utils.ResourceUtils;
 import com.sources.javacode.R;
 
 /**
- * Created by LWK
- *  Activity基类
+ * Activity基类
+ *
+ * @author LWK
  */
 
 public abstract class AppBaseActivity<P extends MVPBasePresenter> extends WingsBaseActivity<P>

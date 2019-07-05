@@ -9,9 +9,8 @@ import com.lwkandroid.wingsdemo.R;
 import java.util.List;
 
 /**
- * Created by LWK
+ * @author LWK
  */
-
 public class ListDemoAdapter extends RcvSingleAdapter<String>
 {
     public ListDemoAdapter(Context context, List<String> datas)

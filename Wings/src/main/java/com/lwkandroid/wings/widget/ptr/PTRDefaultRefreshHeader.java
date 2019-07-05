@@ -13,6 +13,7 @@ import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 /**
  * 默认的下拉刷新头部控件
+ * @author LWK
  */
 public class PTRDefaultRefreshHeader extends AppCompatImageView implements PTRLayout.IPTRRefreshHeader
 {

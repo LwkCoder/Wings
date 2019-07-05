@@ -3,6 +3,8 @@ package com.lwkandroid.wings.widget.ptr;
 /**
  * {@link PTRLayout}的默认RefreshView偏移量计算器：
  * 偏移范围限定在[refreshInitOffset, refreshEndOffset]
+ *
+ * @author LWK
  */
 public class PRTDefaultRefreshOffsetCalculator implements PTRLayout.RefreshOffsetCalculator
 {

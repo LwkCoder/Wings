@@ -6,10 +6,10 @@ import com.lwkandroid.wings.net.bean.ResultCacheWrapper;
 import io.reactivex.Observable;
 
 /**
- * Created by LWK
- *  只读取缓存的策略
+ * 只读取缓存的策略
+ *
+ * @author LWK
  */
-
 public class ApiCacheOnlyStrategy extends ApiCacheBaseStrategy
 {
     @Override

@@ -2,7 +2,6 @@ package com.lwkandroid.wingsdemo.project.image;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -17,8 +16,12 @@ import com.lwkandroid.wings.widget.shapeimage.ShapeImageView;
 import com.lwkandroid.wingsdemo.R;
 import com.lwkandroid.wingsdemo.app.AppBaseActivity;
 
+import androidx.annotation.Nullable;
+
 /**
  * ImageLoaderDemoActivity
+ *
+ * @author LWK
  */
 public class ImageLoaderDemoActivity extends AppBaseActivity<MVPBasePresenter>
 {

@@ -13,10 +13,10 @@ import retrofit2.http.QueryMap;
 import retrofit2.http.Url;
 
 /**
- * Created by LWK
- *  自定义Retrofit的Service接口
+ * 自定义Retrofit的Service接口
+ *
+ * @author LWK
  */
-
 public interface CustomService
 {
     @GET

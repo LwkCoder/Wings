@@ -12,10 +12,10 @@ import io.reactivex.SingleObserver;
 import io.reactivex.disposables.Disposable;
 
 /**
- * Created by LWK
  * 网络请求Observer基类（非必须）
+ *
+ * @author LWK
  */
-
 public abstract class ApiBaseObserver<T> implements Observer<T>,
         SingleObserver<T>,
         FlowableSubscriber<T>,
