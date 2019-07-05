@@ -430,6 +430,8 @@ public class PhotoViewAttacher implements View.OnTouchListener,
                         }
                     }
                     break;
+                default:
+                    break;
             }
             // Try the Scale/Drag detector
             if (mScaleDragDetector != null)

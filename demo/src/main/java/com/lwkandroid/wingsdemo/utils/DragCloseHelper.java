@@ -231,15 +231,12 @@ public class DragCloseHelper
                     mIsSwipingToClose = false;
                     return true;
                 }
-            } else if (event.getAction() == MotionEvent.ACTION_CANCEL)
+            } else if (event.getAction() == MotionEvent.ACTION_CANCEL && mIsSwipingToClose)
             {
                 //取消事件
-                if (mIsSwipingToClose)
-                {
-                    resetCallBackAnimation();
-                    mIsSwipingToClose = false;
-                    return true;
-                }
+                resetCallBackAnimation();
+                mIsSwipingToClose = false;
+                return true;
             }
         }
         return false;
