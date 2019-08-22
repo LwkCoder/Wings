@@ -1,10 +1,12 @@
 #AndPermission
 -dontwarn com.yanzhenjie.permission.**
+
 #自定义注解NotProguard
 -keepattributes *Annotation*
 -keep @com.lwkandroid.wings.annotation.NotProguard class * {*;}
 -keep class * {@com.lwkandroid.wings.annotation.NotProguard <fields>;}
 -keepclassmembers class * {@com.lwkandroid.wings.annotation.NotProguard <methods>;}
+
 # RxJava RxAndroid
 -dontwarn sun.misc.**
 -keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
@@ -17,23 +19,50 @@
 -keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef {
     rx.internal.util.atomic.LinkedQueueNode consumerNode;
 }
+
 #RxBinding无需混淆
+
 # Retrofit
 -keepattributes Signature
--keepclassmembernames,allowobfuscation interface * { @retrofit2.http.* <methods>;}
+# Retrofit does reflection on generic parameters. InnerClasses is required to use Signature and
+# EnclosingMethod is required to use InnerClasses.
+-keepattributes Signature, InnerClasses, EnclosingMethod
+# Retrofit does reflection on method and parameter annotations.
+-keepattributes RuntimeVisibleAnnotations, RuntimeVisibleParameterAnnotations
+# Retain service method parameters when optimizing.
+-keepclassmembers,allowshrinking,allowobfuscation interface * {
+    @retrofit2.http.* <methods>;
+}
+# Ignore annotation used for build tooling.
 -dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
+# Ignore JSR 305 annotations for embedding nullability information.
+-dontwarn javax.annotation.**
+# Guarded by a NoClassDefFoundError try/catch and only used when on the classpath.
+-dontwarn kotlin.Unit
+# Top-level functions that can only be used by Kotlin.
+-dontwarn retrofit2.KotlinExtensions
+-dontwarn retrofit2.KotlinExtensions$*
+# With R8 full mode, it sees no subtypes of Retrofit interfaces since they are created with a Proxy
+# and replaces all potential values with null. Explicitly keeping the interfaces prevents this.
+-if interface * { @retrofit2.http.* <methods>; }
+-keep,allowobfuscation interface <1>
+
 # Gson
 -keep class com.google.gson.stream.** { *; }
 -keepattributes EnclosingMethod
+
 #ImagePicker
 -dontwarn com.lwkandroid.imagepicker.**
 -keep class com.lwkandroid.imagepicker.**{*;}
+
 #RTPermission
 -dontwarn com.lwkandroid.rtpermission.**
 -keep class com.lwkandroid.rtpermission.**{*;}
+
 #RcvAdapter
 -dontwarn com.lwkandroid.rcvadapter.**
 -keep class com.lwkandroid.rcvadapter.**{*;}
+
 #okhttp okio
 -dontwarn okhttp3.**
 -dontwarn okio.**
@@ -42,7 +71,9 @@
 -keepnames class okhttp3.internal.publicsuffix.PublicSuffixDatabase
 -dontwarn org.codehaus.mojo.animal_sniffer.*
 -dontwarn okhttp3.internal.platform.ConscryptPlatform
+
 #KLog不需要额外指定混淆规则
+
 #Glide
 -keep public class * implements com.bumptech.glide.module.GlideModule
 -keep public class * extends com.bumptech.glide.AppGlideModule
