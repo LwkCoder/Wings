@@ -8,6 +8,8 @@ import android.os.Build;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 
+import com.lwkandroid.wings.Wings;
+
 import java.io.File;
 
 import androidx.annotation.RequiresPermission;
@@ -65,7 +67,7 @@ public final class PhoneUtils
     @SuppressLint("HardwareIds")
     public static String getAndroidID()
     {
-        return Settings.Secure.getString(Utils.getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+        return Settings.Secure.getString(Wings.getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
     }
 
     /**
@@ -98,7 +100,7 @@ public final class PhoneUtils
 
     private static TelephonyManager getTeleManager()
     {
-        return (TelephonyManager) Utils.getContext().getSystemService(Context.TELEPHONY_SERVICE);
+        return (TelephonyManager) Wings.getContext().getSystemService(Context.TELEPHONY_SERVICE);
     }
 
     /**
@@ -151,7 +153,7 @@ public final class PhoneUtils
     {
         Intent intent = new Intent("android.intent.action.CALL", Uri.parse("tel:" + phoneNumber));
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        Utils.getContext().startActivity(intent);
+        Wings.getContext().startActivity(intent);
     }
 
     /**
@@ -163,7 +165,7 @@ public final class PhoneUtils
     {
         Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + teleNumber));
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        Utils.getContext().startActivity(intent);
+        Wings.getContext().startActivity(intent);
     }
 
     /**
@@ -178,6 +180,6 @@ public final class PhoneUtils
         Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
         intent.putExtra("sms_body", message);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        Utils.getContext().startActivity(intent);
+        Wings.getContext().startActivity(intent);
     }
 }

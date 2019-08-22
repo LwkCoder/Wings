@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Environment;
 
+import com.lwkandroid.wings.Wings;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -216,12 +218,12 @@ public final class CrashUtils
             dir = crashDir.endsWith(FILE_SEP) ? crashDir : crashDir + FILE_SEP;
         }
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
-                && Utils.getContext().getExternalCacheDir() != null)
+                && Wings.getContext().getExternalCacheDir() != null)
         {
-            defaultDir = Utils.getContext().getExternalCacheDir() + FILE_SEP + "crash" + FILE_SEP;
+            defaultDir = Wings.getContext().getExternalCacheDir() + FILE_SEP + "crash" + FILE_SEP;
         } else
         {
-            defaultDir = Utils.getContext().getCacheDir() + FILE_SEP + "crash" + FILE_SEP;
+            defaultDir = Wings.getContext().getCacheDir() + FILE_SEP + "crash" + FILE_SEP;
         }
         sOnCrashListener = onCrashListener;
         Thread.setDefaultUncaughtExceptionHandler(UNCAUGHT_EXCEPTION_HANDLER);

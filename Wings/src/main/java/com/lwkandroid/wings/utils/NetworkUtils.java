@@ -10,6 +10,7 @@ import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.telephony.TelephonyManager;
 
+import com.lwkandroid.wings.Wings;
 import com.lwkandroid.wings.log.KLog;
 
 import java.lang.reflect.Method;
@@ -36,7 +37,7 @@ public class NetworkUtils
 
     private static NetworkInfo getActiveNetworkInfo()
     {
-        ConnectivityManager manager = (ConnectivityManager) Utils.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager manager = (ConnectivityManager) Wings.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         return manager.getActiveNetworkInfo();
     }
 
@@ -50,7 +51,7 @@ public class NetworkUtils
     {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
         {
-            ConnectivityManager manager = (ConnectivityManager) Utils.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+            ConnectivityManager manager = (ConnectivityManager) Wings.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkCapabilities capabilities = manager.getNetworkCapabilities(manager.getActiveNetwork());
             return capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED);
         } else
@@ -68,7 +69,7 @@ public class NetworkUtils
     @RequiresPermission(ACCESS_WIFI_STATE)
     public static boolean isWifiEnabled()
     {
-        WifiManager manager = (WifiManager) Utils.getContext().getApplicationContext().getSystemService(WIFI_SERVICE);
+        WifiManager manager = (WifiManager) Wings.getContext().getApplicationContext().getSystemService(WIFI_SERVICE);
         return manager != null && manager.isWifiEnabled();
     }
 
@@ -80,7 +81,7 @@ public class NetworkUtils
     @RequiresPermission(CHANGE_WIFI_STATE)
     public static void setWifiEnabled(boolean enable)
     {
-        WifiManager manager = (WifiManager) Utils.getContext().getApplicationContext().getSystemService(WIFI_SERVICE);
+        WifiManager manager = (WifiManager) Wings.getContext().getApplicationContext().getSystemService(WIFI_SERVICE);
         if (manager == null)
         {
             return;
@@ -112,7 +113,7 @@ public class NetworkUtils
     {
         try
         {
-            TelephonyManager tm = (TelephonyManager) Utils.getContext().getSystemService(Context.TELEPHONY_SERVICE);
+            TelephonyManager tm = (TelephonyManager) Wings.getContext().getSystemService(Context.TELEPHONY_SERVICE);
             if (tm == null)
             {
                 return false;
@@ -146,7 +147,7 @@ public class NetworkUtils
     {
         try
         {
-            TelephonyManager tm = (TelephonyManager) Utils.getContext().getSystemService(Context.TELEPHONY_SERVICE);
+            TelephonyManager tm = (TelephonyManager) Wings.getContext().getSystemService(Context.TELEPHONY_SERVICE);
             if (tm == null)
             {
                 return false;
@@ -203,6 +204,6 @@ public class NetworkUtils
      */
     public static void goToWifiSettingDetail()
     {
-        Utils.getContext().startActivity(new Intent(android.provider.Settings.ACTION_WIFI_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+        Wings.getContext().startActivity(new Intent(android.provider.Settings.ACTION_WIFI_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
     }
 }

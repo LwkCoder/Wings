@@ -28,7 +28,7 @@ public class AppApplication extends Application
         AppConfig.LIB_CONFIG1 = BuildConfig.LibConfig1;
         AppConfig.LIB_CONFIG2 = BuildConfig.LibConfig2;
 
-        WingsInitOptions options = new WingsInitOptions();
+        WingsInitOptions options = new WingsInitOptions(this);
         options.setApplicationContext(this);
         options.setApiBaseUrl(ApiURL.HOST);
         Wings.init(options);

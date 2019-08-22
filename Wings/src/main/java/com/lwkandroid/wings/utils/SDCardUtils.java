@@ -4,6 +4,8 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
 
+import com.lwkandroid.wings.Wings;
+
 import java.io.File;
 
 /**
@@ -50,7 +52,7 @@ public final class SDCardUtils
             return null;
         }
 
-        File file = Utils.getContext().getExternalCacheDir();
+        File file = Wings.getContext().getExternalCacheDir();
         if (file == null)
         {
             //部分ROM获取不到地址就自行拼接

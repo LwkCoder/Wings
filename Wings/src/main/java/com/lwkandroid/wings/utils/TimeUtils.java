@@ -1,5 +1,6 @@
 package com.lwkandroid.wings.utils;
 
+import com.lwkandroid.wings.Wings;
 import com.lwkandroid.wings.utils.constants.TimeConstants;
 
 import java.text.DateFormat;
@@ -657,11 +658,11 @@ public final class TimeUtils
         String country = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N)
         {
-            country = Utils.getContext().getResources()
+            country = Wings.getContext().getResources()
                     .getConfiguration().getLocales().get(0).getCountry();
         } else
         {
-            country = Utils.getContext().getResources()
+            country = Wings.getContext().getResources()
                     .getConfiguration().locale.getCountry();
         }
         boolean isChinese = "CN".equals(country);

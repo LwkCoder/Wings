@@ -11,6 +11,7 @@ import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
+import com.lwkandroid.wings.Wings;
 import com.lwkandroid.wings.image.ILoaderStrategy;
 import com.lwkandroid.wings.image.ImageLoader;
 import com.lwkandroid.wings.image.callback.ImageDownLoadCallBack;
@@ -18,7 +19,6 @@ import com.lwkandroid.wings.image.constants.ImageDiskCacheType;
 import com.lwkandroid.wings.log.KLog;
 import com.lwkandroid.wings.utils.SDCardUtils;
 import com.lwkandroid.wings.utils.StringUtils;
-import com.lwkandroid.wings.utils.Utils;
 
 import java.io.File;
 
@@ -236,16 +236,9 @@ public class GlideLoader implements ILoaderStrategy<GlideLoaderOptions>
     {
         try
         {
-            final Glide glide = Glide.get(Utils.getContext());
+            final Glide glide = Glide.get(Wings.getContext());
             glide.clearMemory();
-            new Thread(new Runnable()
-            {
-                @Override
-                public void run()
-                {
-                    glide.clearDiskCache();
-                }
-            }).start();
+            new Thread(glide::clearDiskCache).start();
         } catch (Exception e)
         {
             e.printStackTrace();

@@ -32,7 +32,7 @@ public final class UriUtils
     {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
         {
-            return FileProvider.getUriForFile(Utils.getContext(),
+            return FileProvider.getUriForFile(Wings.getContext(),
                     Wings.WingsFileProvider.createAuthorities(), file);
         } else
         {
@@ -53,7 +53,7 @@ public final class UriUtils
         {
             return new File(uri.getPath());
         }
-        CursorLoader cl = new CursorLoader(Utils.getContext());
+        CursorLoader cl = new CursorLoader(Wings.getContext());
         cl.setUri(uri);
         cl.setProjection(new String[]{columnName});
         Cursor cursor = null;

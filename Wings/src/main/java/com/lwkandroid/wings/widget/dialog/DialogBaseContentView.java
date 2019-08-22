@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
-import com.lwkandroid.wings.utils.Utils;
+import com.lwkandroid.wings.Wings;
 
 import java.lang.ref.WeakReference;
 
@@ -28,7 +28,7 @@ public abstract class DialogBaseContentView
      */
     void attachToCreator(Context context, DialogOptions options, DialogCreator creator)
     {
-        this.mContextReference = new WeakReference<>(context != null ? context : Utils.getContext());
+        this.mContextReference = new WeakReference<>(context != null ? context : Wings.getContext());
         this.mOptions = options;
         mCreator = creator;
     }
@@ -84,7 +84,7 @@ public abstract class DialogBaseContentView
      */
     public Context getContext()
     {
-        return mContextReference != null ? mContextReference.get() : Utils.getContext();
+        return mContextReference != null ? mContextReference.get() : Wings.getContext();
     }
 
     /**

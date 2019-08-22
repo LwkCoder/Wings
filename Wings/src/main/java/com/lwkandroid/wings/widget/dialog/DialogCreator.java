@@ -2,7 +2,7 @@ package com.lwkandroid.wings.widget.dialog;
 
 import android.content.Context;
 
-import com.lwkandroid.wings.utils.Utils;
+import com.lwkandroid.wings.Wings;
 
 import java.lang.ref.WeakReference;
 
@@ -36,7 +36,7 @@ public class DialogCreator implements IDialogOperator
     @Override
     public DialogCreator show(FragmentActivity activity, DialogOptions options)
     {
-        this.mContextReference = new WeakReference<>(activity != null ? activity : Utils.getContext());
+        this.mContextReference = new WeakReference<>(activity != null ? activity : Wings.getContext());
         if (options == null)
         {
             options = new DialogOptions();

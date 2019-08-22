@@ -6,6 +6,8 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.util.TypedValue;
 
+import com.lwkandroid.wings.Wings;
+
 import androidx.annotation.ArrayRes;
 import androidx.annotation.BoolRes;
 import androidx.annotation.ColorRes;
@@ -27,37 +29,37 @@ public final class ResourceUtils
 {
     public static boolean getBoolean(@BoolRes int resId)
     {
-        return Utils.getContext().getResources().getBoolean(resId);
+        return Wings.getContext().getResources().getBoolean(resId);
     }
 
     public static Drawable getDrawable(@DrawableRes int resId)
     {
-        return ContextCompat.getDrawable(Utils.getContext(), resId);
+        return ContextCompat.getDrawable(Wings.getContext(), resId);
     }
 
     public static String getString(@StringRes int resId)
     {
-        return Utils.getContext().getResources().getString(resId);
+        return Wings.getContext().getResources().getString(resId);
     }
 
     public static String getString(@StringRes int resId, Object... formatArgs)
     {
-        return Utils.getContext().getResources().getString(resId, formatArgs);
+        return Wings.getContext().getResources().getString(resId, formatArgs);
     }
 
     public static String[] getStringArray(@ArrayRes int resId)
     {
-        return Utils.getContext().getResources().getStringArray(resId);
+        return Wings.getContext().getResources().getStringArray(resId);
     }
 
     public static int getColor(@ColorRes int resId)
     {
-        return ContextCompat.getColor(Utils.getContext(), resId);
+        return ContextCompat.getColor(Wings.getContext(), resId);
     }
 
     public static ColorStateList getColorStateList(@ColorRes int resId)
     {
-        return ContextCompat.getColorStateList(Utils.getContext(), resId);
+        return ContextCompat.getColorStateList(Wings.getContext(), resId);
     }
 
     /**
@@ -69,59 +71,59 @@ public final class ResourceUtils
      */
     public static float getDimen(@DimenRes int resId)
     {
-        return Utils.getContext().getResources().getDimension(resId);
+        return Wings.getContext().getResources().getDimension(resId);
     }
 
     public static int getDimenPixelOffset(@DimenRes int resId)
     {
-        return Utils.getContext().getResources().getDimensionPixelOffset(resId);
+        return Wings.getContext().getResources().getDimensionPixelOffset(resId);
     }
 
     public static int getDimenPixelSize(@DimenRes int resId)
     {
-        return Utils.getContext().getResources().getDimensionPixelSize(resId);
+        return Wings.getContext().getResources().getDimensionPixelSize(resId);
     }
 
     public static int getInteger(@IntegerRes int resId)
     {
-        return Utils.getContext().getResources().getInteger(resId);
+        return Wings.getContext().getResources().getInteger(resId);
     }
 
     public static int[] getIntegerArray(@ArrayRes int resId)
     {
-        return Utils.getContext().getResources().getIntArray(resId);
+        return Wings.getContext().getResources().getIntArray(resId);
     }
 
     public static Typeface getTypeface(@FontRes int resId)
     {
-        return ResourcesCompat.getFont(Utils.getContext(), resId);
+        return ResourcesCompat.getFont(Wings.getContext(), resId);
     }
 
     public static float getAttrFloatValue(int attrRes)
     {
         TypedValue typedValue = new TypedValue();
-        Utils.getContext().getTheme().resolveAttribute(attrRes, typedValue, true);
+        Wings.getContext().getTheme().resolveAttribute(attrRes, typedValue, true);
         return typedValue.getFloat();
     }
 
     public static int getAttrColor(int attrRes)
     {
         TypedValue typedValue = new TypedValue();
-        Utils.getContext().getTheme().resolveAttribute(attrRes, typedValue, true);
+        Wings.getContext().getTheme().resolveAttribute(attrRes, typedValue, true);
         return typedValue.data;
     }
 
     public static ColorStateList getAttrColorStateList(int attrRes)
     {
         TypedValue typedValue = new TypedValue();
-        Utils.getContext().getTheme().resolveAttribute(attrRes, typedValue, true);
-        return ContextCompat.getColorStateList(Utils.getContext(), typedValue.resourceId);
+        Wings.getContext().getTheme().resolveAttribute(attrRes, typedValue, true);
+        return ContextCompat.getColorStateList(Wings.getContext(), typedValue.resourceId);
     }
 
     public static Drawable getAttrDrawable(int attrRes)
     {
         int[] attrs = new int[]{attrRes};
-        TypedArray ta = Utils.getContext().obtainStyledAttributes(attrs);
+        TypedArray ta = Wings.getContext().obtainStyledAttributes(attrs);
         Drawable drawable = getAttrDrawable(ta, 0);
         ta.recycle();
         return drawable;
@@ -132,7 +134,7 @@ public final class ResourceUtils
         TypedValue value = typedArray.peekValue(index);
         if (value != null && value.type != TypedValue.TYPE_ATTRIBUTE && value.resourceId != 0)
         {
-            return AppCompatResources.getDrawable(Utils.getContext(), value.resourceId);
+            return AppCompatResources.getDrawable(Wings.getContext(), value.resourceId);
         }
         return null;
     }
@@ -140,7 +142,7 @@ public final class ResourceUtils
     public static int getAttrDimen(int attrRes)
     {
         TypedValue typedValue = new TypedValue();
-        Utils.getContext().getTheme().resolveAttribute(attrRes, typedValue, true);
-        return TypedValue.complexToDimensionPixelSize(typedValue.data, Utils.getContext().getResources().getDisplayMetrics());
+        Wings.getContext().getTheme().resolveAttribute(attrRes, typedValue, true);
+        return TypedValue.complexToDimensionPixelSize(typedValue.data, Wings.getContext().getResources().getDisplayMetrics());
     }
 }

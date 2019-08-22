@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
-import com.lwkandroid.wings.utils.Utils;
+import com.lwkandroid.wings.Wings;
 
 import java.lang.ref.WeakReference;
 
@@ -30,7 +30,7 @@ public abstract class PopBaseContentView
      */
     void attachToCreator(Context context, PopOptions options, PopCreator popCreator)
     {
-        this.mContextReference = new WeakReference<>(context != null ? context : Utils.getContext());
+        this.mContextReference = new WeakReference<>(context != null ? context : Wings.getContext());
         this.mOptions = options;
         this.mPopCreator = popCreator;
 
@@ -82,7 +82,7 @@ public abstract class PopBaseContentView
      */
     public Context getContext()
     {
-        return mContextReference != null ? mContextReference.get() : Utils.getContext();
+        return mContextReference != null ? mContextReference.get() : Wings.getContext();
     }
 
     /**

@@ -3,6 +3,8 @@ package com.lwkandroid.wings.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.lwkandroid.wings.Wings;
+
 
 /**
  * SharedPreferences工具类
@@ -18,8 +20,8 @@ public final class SpUtils
     {
         if (mSharedPreferences == null)
         {
-            mSharedPreferences = Utils.getContext()
-                    .getSharedPreferences(Utils.getContext().getPackageName(), Context.MODE_PRIVATE);
+            mSharedPreferences = Wings.getContext()
+                    .getSharedPreferences(Wings.getContext().getPackageName(), Context.MODE_PRIVATE);
         }
         return mSharedPreferences;
     }

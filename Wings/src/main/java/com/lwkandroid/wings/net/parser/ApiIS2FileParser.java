@@ -1,11 +1,11 @@
 package com.lwkandroid.wings.net.parser;
 
+import com.lwkandroid.wings.Wings;
 import com.lwkandroid.wings.log.KLog;
 import com.lwkandroid.wings.net.bean.ApiException;
 import com.lwkandroid.wings.net.constants.ApiExceptionCode;
 import com.lwkandroid.wings.utils.FileIOUtils;
 import com.lwkandroid.wings.utils.StringUtils;
-import com.lwkandroid.wings.utils.Utils;
 
 import java.io.File;
 import java.io.InputStream;
@@ -61,7 +61,7 @@ public class ApiIS2FileParser implements IApiInputStreamParser.FileParser
         }
         if (StringUtils.isEmpty(mSavePath))
         {
-            mSavePath = Utils.getContext().getExternalCacheDir().getAbsolutePath();
+            mSavePath = Wings.getContext().getExternalCacheDir().getAbsolutePath();
         }
         mSavePath = mSavePath.replaceAll("//", "/");
 

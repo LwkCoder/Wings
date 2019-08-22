@@ -15,7 +15,7 @@ import android.view.WindowManager;
 import android.view.animation.LinearInterpolator;
 import android.widget.PopupWindow;
 
-import com.lwkandroid.wings.utils.Utils;
+import com.lwkandroid.wings.Wings;
 
 import java.lang.ref.WeakReference;
 
@@ -264,7 +264,7 @@ public class PopCreator implements IPopOperator, PopupWindow.OnDismissListener
      */
     private void init(Context context, PopOptions options)
     {
-        this.mContextReference = new WeakReference<>(context != null ? context : Utils.getContext());
+        this.mContextReference = new WeakReference<>(context != null ? context : Wings.getContext());
         this.mOptions = options != null ? options : new PopOptions();
 
         mPopContentView = mOptions.getPopContentView();

@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.lwkandroid.wings.Wings;
 import com.lwkandroid.wings.net.bean.ApiException;
 
 import androidx.annotation.NonNull;
@@ -43,7 +44,7 @@ public final class ScreenUtils
      */
     public static int getScreenWidth()
     {
-        WindowManager windowManager = (WindowManager) Utils.getContext().getSystemService(Context.WINDOW_SERVICE);
+        WindowManager windowManager = (WindowManager) Wings.getContext().getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics dm = new DisplayMetrics();
         windowManager.getDefaultDisplay().getMetrics(dm);
         return dm.widthPixels;
@@ -56,7 +57,7 @@ public final class ScreenUtils
      */
     public static int getScreenHeight()
     {
-        WindowManager windowManager = (WindowManager) Utils.getContext().getSystemService(Context.WINDOW_SERVICE);
+        WindowManager windowManager = (WindowManager) Wings.getContext().getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics dm = new DisplayMetrics();
         windowManager.getDefaultDisplay().getMetrics(dm);
         return dm.heightPixels;
@@ -109,7 +110,7 @@ public final class ScreenUtils
      */
     public static boolean isLandscape()
     {
-        return Utils.getContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+        return Wings.getContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
     }
 
     /**
@@ -119,7 +120,7 @@ public final class ScreenUtils
      */
     public static boolean isPortrait()
     {
-        return Utils.getContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
+        return Wings.getContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
     }
 
     /**
@@ -257,7 +258,7 @@ public final class ScreenUtils
      */
     public static boolean isScreenLock()
     {
-        KeyguardManager km = (KeyguardManager) Utils.getContext().getSystemService(Context.KEYGUARD_SERVICE);
+        KeyguardManager km = (KeyguardManager) Wings.getContext().getSystemService(Context.KEYGUARD_SERVICE);
         return km.isKeyguardLocked();
     }
 

@@ -1,6 +1,6 @@
 package com.lwkandroid.wings.mvp.list;
 
-import com.lwkandroid.wings.utils.Utils;
+import com.lwkandroid.wings.Wings;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,7 +23,7 @@ public class MVPListOptions
     private int pageStartIndex = 0;
     //RecyclerView的LayoutManger
     private RecyclerView.LayoutManager layoutManager =
-            new LinearLayoutManager(Utils.getContext(), RecyclerView.VERTICAL, false);
+            new LinearLayoutManager(Wings.getContext(), RecyclerView.VERTICAL, false);
 
     public boolean isEnableRefresh()
     {

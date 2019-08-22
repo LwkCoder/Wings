@@ -11,6 +11,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 
+import com.lwkandroid.wings.Wings;
 import com.lwkandroid.wings.log.KLog;
 import com.lwkandroid.wings.utils.encrypt.EncryptUtils;
 
@@ -36,7 +37,7 @@ public final class AppUtils
      */
     public static String getProcessName(int pid)
     {
-        ActivityManager am = (ActivityManager) Utils.getContext().getSystemService(Context.ACTIVITY_SERVICE);
+        ActivityManager am = (ActivityManager) Wings.getContext().getSystemService(Context.ACTIVITY_SERVICE);
         if (am == null)
         {
             return null;
@@ -63,7 +64,7 @@ public final class AppUtils
      */
     public static String getPackageName()
     {
-        return Utils.getContext().getPackageName();
+        return Wings.getContext().getPackageName();
     }
 
     /**
@@ -75,7 +76,7 @@ public final class AppUtils
     {
         try
         {
-            PackageManager pm = Utils.getContext().getPackageManager();
+            PackageManager pm = Wings.getContext().getPackageManager();
             PackageInfo pi = pm.getPackageInfo(getPackageName(), 0);
             return pi == null ? null : pi.applicationInfo.loadLabel(pm).toString();
         } catch (PackageManager.NameNotFoundException e)
@@ -94,7 +95,7 @@ public final class AppUtils
     {
         try
         {
-            PackageManager pm = Utils.getContext().getPackageManager();
+            PackageManager pm = Wings.getContext().getPackageManager();
             PackageInfo pi = pm.getPackageInfo(getPackageName(), 0);
             return pi == null ? null : pi.versionName;
         } catch (PackageManager.NameNotFoundException e)
@@ -113,7 +114,7 @@ public final class AppUtils
     {
         try
         {
-            PackageManager pm = Utils.getContext().getPackageManager();
+            PackageManager pm = Wings.getContext().getPackageManager();
             PackageInfo pi = pm.getPackageInfo(getPackageName(), 0);
             return pi == null ? -1 : (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P ? pi.getLongVersionCode() : pi.versionCode);
         } catch (PackageManager.NameNotFoundException e)
@@ -132,7 +133,7 @@ public final class AppUtils
     {
         try
         {
-            PackageManager pm = Utils.getContext().getPackageManager();
+            PackageManager pm = Wings.getContext().getPackageManager();
             PackageInfo pi = pm.getPackageInfo(getPackageName(), 0);
             return pi == null ? null : pi.applicationInfo.loadIcon(pm);
         } catch (PackageManager.NameNotFoundException e)
@@ -152,7 +153,7 @@ public final class AppUtils
     {
         try
         {
-            PackageManager pm = Utils.getContext().getPackageManager();
+            PackageManager pm = Wings.getContext().getPackageManager();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
             {
                 PackageInfo pi = pm.getPackageInfo(getPackageName(), PackageManager.GET_SIGNING_CERTIFICATES);
@@ -195,7 +196,7 @@ public final class AppUtils
         int pid = android.os.Process.myPid();
         String packageName = getPackageName();
 
-        ActivityManager manager = (ActivityManager) Utils.getContext().getSystemService(Context.ACTIVITY_SERVICE);
+        ActivityManager manager = (ActivityManager) Wings.getContext().getSystemService(Context.ACTIVITY_SERVICE);
         List<ActivityManager.RunningAppProcessInfo> infos = manager.getRunningAppProcesses();
         if (infos == null || infos.size() == 0)
         {
@@ -222,7 +223,7 @@ public final class AppUtils
         int pid = android.os.Process.myPid();
         String packageName = getPackageName();
 
-        ActivityManager manager = (ActivityManager) Utils.getContext().getSystemService(Context.ACTIVITY_SERVICE);
+        ActivityManager manager = (ActivityManager) Wings.getContext().getSystemService(Context.ACTIVITY_SERVICE);
         List<ActivityManager.RunningAppProcessInfo> infos = manager.getRunningAppProcesses();
         if (infos == null || infos.size() == 0)
         {
@@ -249,7 +250,7 @@ public final class AppUtils
         int pid = android.os.Process.myPid();
         String packageName = getPackageName();
 
-        ActivityManager manager = (ActivityManager) Utils.getContext().getSystemService(Context.ACTIVITY_SERVICE);
+        ActivityManager manager = (ActivityManager) Wings.getContext().getSystemService(Context.ACTIVITY_SERVICE);
         List<ActivityManager.RunningAppProcessInfo> infos = manager.getRunningAppProcesses();
         if (infos == null || infos.size() == 0)
         {
@@ -309,7 +310,7 @@ public final class AppUtils
         Intent intent = createInstallIntent(apkPath);
         if (intent != null)
         {
-            Utils.getContext().startActivity(intent);
+            Wings.getContext().startActivity(intent);
         }
     }
 
@@ -335,7 +336,7 @@ public final class AppUtils
     public static void unInstallApk(String packageName)
     {
         Intent intent = createUnInstallIntent(packageName);
-        Utils.getContext().startActivity(intent);
+        Wings.getContext().startActivity(intent);
     }
 
     /**
@@ -344,9 +345,9 @@ public final class AppUtils
     public static void goToSettingDetail()
     {
         Intent intent = new Intent("android.settings.APPLICATION_DETAILS_SETTINGS");
-        intent.setData(Uri.parse("package:" + Utils.getContext().getPackageName()));
+        intent.setData(Uri.parse("package:" + Wings.getContext().getPackageName()));
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        Utils.getContext().startActivity(intent);
+        Wings.getContext().startActivity(intent);
     }
 
     /**
@@ -357,7 +358,7 @@ public final class AppUtils
      */
     public static boolean isAppInstalled(String packageName)
     {
-        final PackageManager packageManager = Utils.getContext().getPackageManager();
+        final PackageManager packageManager = Wings.getContext().getPackageManager();
         List<PackageInfo> packageInfos = packageManager.getInstalledPackages(0);
         if (packageInfos != null)
         {

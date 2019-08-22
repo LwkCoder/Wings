@@ -4,6 +4,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.widget.Toast;
 
+import com.lwkandroid.wings.Wings;
+
 import java.lang.ref.WeakReference;
 
 import androidx.annotation.StringRes;
@@ -29,7 +31,7 @@ public final class ToastUtils
      */
     public static void showLong(@StringRes int resId)
     {
-        show(Utils.getContext().getResources().getString(resId), Toast.LENGTH_LONG);
+        show(Wings.getContext().getResources().getString(resId), Toast.LENGTH_LONG);
     }
 
     /**
@@ -45,7 +47,7 @@ public final class ToastUtils
      */
     public static void showShort(@StringRes int resId)
     {
-        show(Utils.getContext().getResources().getString(resId), Toast.LENGTH_SHORT);
+        show(Wings.getContext().getResources().getString(resId), Toast.LENGTH_SHORT);
     }
 
     /**
@@ -74,7 +76,7 @@ public final class ToastUtils
                     toast = null;
                 }
 
-                toast = Toast.makeText(Utils.getContext(), s, duration);
+                toast = Toast.makeText(Wings.getContext(), s, duration);
                 mToast = new WeakReference<>(toast);
                 toast.show();
             }

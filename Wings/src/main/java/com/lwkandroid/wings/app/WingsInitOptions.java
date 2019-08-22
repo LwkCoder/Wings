@@ -36,6 +36,11 @@ public final class WingsInitOptions
         this.mDebugMode = debugMode;
     }
 
+    public WingsInitOptions(Application application)
+    {
+        this.mApplicationContext = application;
+    }
+
     public Application getApplicationContext()
     {
         return mApplicationContext;

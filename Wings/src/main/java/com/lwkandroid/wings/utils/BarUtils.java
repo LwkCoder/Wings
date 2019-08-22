@@ -20,6 +20,8 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.lwkandroid.wings.Wings;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.regex.Pattern;
@@ -67,7 +69,7 @@ public final class BarUtils
     public static int getStatusBarHeight()
     {
         int result = 24;
-        Resources resources = Utils.getContext().getResources();
+        Resources resources = Wings.getContext().getResources();
         int resId = resources.getIdentifier("status_bar_height", "dimen", "android");
         if (resId > 0)
         {
@@ -416,9 +418,9 @@ public final class BarUtils
     public static int getNavigationBarHeight()
     {
         int height = 0;
-        if (isNavigationBarExist(Utils.getContext()))
+        if (isNavigationBarExist(Wings.getContext()))
         {
-            Resources rs = Utils.getContext().getResources();
+            Resources rs = Wings.getContext().getResources();
             int id = rs.getIdentifier("navigation_bar_height", "dimen", "android");
             if (id > 0)
             {

@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 
+import com.lwkandroid.wings.Wings;
+
 /**
  * 剪贴板相关工具类
  *
@@ -26,7 +28,7 @@ public final class ClipboardUtils
      */
     public static void copyText(final CharSequence text)
     {
-        ClipboardManager clipboard = (ClipboardManager) Utils.getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipboardManager clipboard = (ClipboardManager) Wings.getContext().getSystemService(Context.CLIPBOARD_SERVICE);
         clipboard.setPrimaryClip(ClipData.newPlainText("text", text));
     }
 
@@ -37,11 +39,11 @@ public final class ClipboardUtils
      */
     public static CharSequence getText()
     {
-        ClipboardManager clipboard = (ClipboardManager) Utils.getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipboardManager clipboard = (ClipboardManager) Wings.getContext().getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData clip = clipboard.getPrimaryClip();
         if (clip != null && clip.getItemCount() > 0)
         {
-            return clip.getItemAt(0).coerceToText(Utils.getContext());
+            return clip.getItemAt(0).coerceToText(Wings.getContext());
         }
         return null;
     }
@@ -53,8 +55,8 @@ public final class ClipboardUtils
      */
     public static void copyUri(final Uri uri)
     {
-        ClipboardManager clipboard = (ClipboardManager) Utils.getContext().getSystemService(Context.CLIPBOARD_SERVICE);
-        clipboard.setPrimaryClip(ClipData.newUri(Utils.getContext().getContentResolver(), "uri", uri));
+        ClipboardManager clipboard = (ClipboardManager) Wings.getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+        clipboard.setPrimaryClip(ClipData.newUri(Wings.getContext().getContentResolver(), "uri", uri));
     }
 
     /**
@@ -64,7 +66,7 @@ public final class ClipboardUtils
      */
     public static Uri getUri()
     {
-        ClipboardManager clipboard = (ClipboardManager) Utils.getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipboardManager clipboard = (ClipboardManager) Wings.getContext().getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData clip = clipboard.getPrimaryClip();
         if (clip != null && clip.getItemCount() > 0)
         {
@@ -80,7 +82,7 @@ public final class ClipboardUtils
      */
     public static void copyIntent(final Intent intent)
     {
-        ClipboardManager clipboard = (ClipboardManager) Utils.getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipboardManager clipboard = (ClipboardManager) Wings.getContext().getSystemService(Context.CLIPBOARD_SERVICE);
         clipboard.setPrimaryClip(ClipData.newIntent("intent", intent));
     }
 
@@ -91,7 +93,7 @@ public final class ClipboardUtils
      */
     public static Intent getIntent()
     {
-        ClipboardManager clipboard = (ClipboardManager) Utils.getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipboardManager clipboard = (ClipboardManager) Wings.getContext().getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData clip = clipboard.getPrimaryClip();
         if (clip != null && clip.getItemCount() > 0)
         {

@@ -1,5 +1,7 @@
 package com.lwkandroid.wings.utils;
 
+import com.lwkandroid.wings.Wings;
+
 /**
  * 转换工具类
  * @author LWK
@@ -19,7 +21,7 @@ public final class ConvertUtils
      */
     public static int dp2px(float dpValue)
     {
-        final float scale = Utils.getContext().getResources().getDisplayMetrics().density;
+        final float scale = Wings.getContext().getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
 
@@ -31,7 +33,7 @@ public final class ConvertUtils
      */
     public static int px2dp(float pxValue)
     {
-        final float scale = Utils.getContext().getResources().getDisplayMetrics().density;
+        final float scale = Wings.getContext().getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
     }
 
@@ -43,7 +45,7 @@ public final class ConvertUtils
      */
     public static int sp2px(float spValue)
     {
-        final float fontScale = Utils.getContext().getResources().getDisplayMetrics().scaledDensity;
+        final float fontScale = Wings.getContext().getResources().getDisplayMetrics().scaledDensity;
         return (int) (spValue * fontScale + 0.5f);
     }
 
@@ -55,7 +57,7 @@ public final class ConvertUtils
      */
     public static int px2sp(float pxValue)
     {
-        final float fontScale = Utils.getContext().getResources().getDisplayMetrics().scaledDensity;
+        final float fontScale = Wings.getContext().getResources().getDisplayMetrics().scaledDensity;
         return (int) (pxValue / fontScale + 0.5f);
     }
 

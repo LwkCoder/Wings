@@ -16,14 +16,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.MediaStore;
-import androidx.annotation.ColorInt;
-import androidx.annotation.DrawableRes;
-import androidx.annotation.FloatRange;
-import androidx.annotation.IntDef;
-import androidx.annotation.IntRange;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import android.text.Layout;
 import android.text.Layout.Alignment;
 import android.text.SpannableStringBuilder;
@@ -51,6 +43,7 @@ import android.text.style.UnderlineSpan;
 import android.text.style.UpdateAppearance;
 import android.util.Log;
 
+import com.lwkandroid.wings.Wings;
 import com.lwkandroid.wings.log.KLog;
 
 import java.io.IOException;
@@ -58,6 +51,15 @@ import java.io.InputStream;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.ref.WeakReference;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.FloatRange;
+import androidx.annotation.IntDef;
+import androidx.annotation.IntRange;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import static android.graphics.BlurMaskFilter.Blur;
 
@@ -1404,7 +1406,7 @@ public final class SpanUtils
         {
             try
             {
-                return MediaStore.Images.Media.getBitmap(Utils.getContext().getContentResolver(), uri);
+                return MediaStore.Images.Media.getBitmap(Wings.getContext().getContentResolver(), uri);
             } catch (IOException e)
             {
                 e.printStackTrace();
@@ -1414,7 +1416,7 @@ public final class SpanUtils
 
         private Bitmap resource2Bitmap(final int resourceId)
         {
-            Drawable drawable = ContextCompat.getDrawable(Utils.getContext(), resourceId);
+            Drawable drawable = ContextCompat.getDrawable(Wings.getContext(), resourceId);
             Canvas canvas = new Canvas();
             Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
             canvas.setBitmap(bitmap);
@@ -1628,7 +1630,7 @@ public final class SpanUtils
         private CustomImageSpan(final Bitmap b, final int verticalAlignment)
         {
             super(verticalAlignment);
-            mDrawable = new BitmapDrawable(Utils.getContext().getResources(), b);
+            mDrawable = new BitmapDrawable(Wings.getContext().getResources(), b);
             mDrawable.setBounds(0, 0, mDrawable.getIntrinsicWidth(), mDrawable.getIntrinsicHeight());
         }
 
@@ -1663,9 +1665,9 @@ public final class SpanUtils
                 Bitmap bitmap;
                 try
                 {
-                    InputStream is = Utils.getContext().getContentResolver().openInputStream(mContentUri);
+                    InputStream is = Wings.getContext().getContentResolver().openInputStream(mContentUri);
                     bitmap = BitmapFactory.decodeStream(is);
-                    drawable = new BitmapDrawable(Utils.getContext().getResources(), bitmap);
+                    drawable = new BitmapDrawable(Wings.getContext().getResources(), bitmap);
                     drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
                     if (is != null)
                     {
@@ -1679,7 +1681,7 @@ public final class SpanUtils
             {
                 try
                 {
-                    drawable = ContextCompat.getDrawable(Utils.getContext(), mResourceId);
+                    drawable = ContextCompat.getDrawable(Wings.getContext(), mResourceId);
                     drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
                 } catch (Exception e)
                 {
