@@ -2,7 +2,7 @@ package com.lwkandroid.wings.app;
 
 import android.app.Application;
 
-import com.lwkandroid.wings.DebugTools;
+import com.lwkandroid.wings.BuildConfig;
 import com.lwkandroid.wings.image.ImageLoader;
 import com.lwkandroid.wings.image.bean.ImageGlobalOptions;
 import com.lwkandroid.wings.net.RxHttp;
@@ -19,7 +19,7 @@ import java.util.LinkedList;
  */
 public final class WingsInitOptions
 {
-    private boolean mDebugMode = DebugTools.DEBUG;
+    private boolean mDebugMode = BuildConfig.DEBUG;
     private Application mApplicationContext;
     private String mApiBaseUrl;
     private String mCrashFilePath;

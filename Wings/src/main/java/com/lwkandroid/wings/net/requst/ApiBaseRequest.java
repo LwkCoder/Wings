@@ -1,10 +1,9 @@
 package com.lwkandroid.wings.net.requst;
 
-import com.lwkandroid.wings.DebugTools;
 import com.lwkandroid.wings.net.ApiService;
 import com.lwkandroid.wings.net.RxHttp;
-import com.lwkandroid.wings.net.bean.ApiCacheOptions;
 import com.lwkandroid.wings.net.bean.ApiBaseRequestOptions;
+import com.lwkandroid.wings.net.bean.ApiCacheOptions;
 import com.lwkandroid.wings.net.bean.IApiDynamicFormData;
 import com.lwkandroid.wings.net.bean.IApiDynamicHeader;
 import com.lwkandroid.wings.net.constants.ApiRequestType;
@@ -71,7 +70,7 @@ public abstract class ApiBaseRequest<T extends ApiBaseRequestOptions> extends Ap
             }
         }
         builder.addInterceptor(RxHttp.getProgressInterceptor());
-        if (DebugTools.DEBUG)
+        if (RxHttp.isDebugMode())
         {
             builder.addInterceptor(RxHttp.getApiLogInterceptor());
         }

@@ -23,6 +23,7 @@ import io.reactivex.plugins.RxJavaPlugins;
 public final class Wings
 {
     private static Application mApplication;
+    private static WingsInitOptions mOptions;
 
     private Wings()
     {
@@ -43,19 +44,24 @@ public final class Wings
      */
     public static void init(WingsInitOptions options)
     {
-        mApplication = options.getApplicationContext();
-        KLog.init(options.isDebugMode(), AppUtils.getAppName());
-        DebugTools.init(options.getApplicationContext());
-        CrashUtils.init(options.getCrashFilePath(), options.getCrashListener());
-        RxHttp.init(options.getApiBaseUrl());
-        RxJavaPlugins.setErrorHandler(new UnknownErrorHandler());
-        for (Application.ActivityLifecycleCallbacks callback : options.getLifecycleCallbacks())
+        if (options == null)
         {
-            options.getApplicationContext().registerActivityLifecycleCallbacks(callback);
+            throw new IllegalArgumentException("You must init Wings by NotNull WingsInitOption Object.");
         }
-        if (options.isDebugMode())
+        mOptions = options;
+        mApplication = mOptions.getApplicationContext();
+        KLog.init(mOptions.isDebugMode(), AppUtils.getAppName());
+        DebugTools.init(mOptions.getApplicationContext());
+        CrashUtils.init(mOptions.getCrashFilePath(), mOptions.getCrashListener());
+        RxHttp.init(mOptions.isDebugMode(), mOptions.getApiBaseUrl());
+        RxJavaPlugins.setErrorHandler(new UnknownErrorHandler());
+        for (Application.ActivityLifecycleCallbacks callback : mOptions.getLifecycleCallbacks())
         {
-            options.getApplicationContext().registerActivityLifecycleCallbacks(new WingsActivityLifecycleLog());
+            mOptions.getApplicationContext().registerActivityLifecycleCallbacks(callback);
+        }
+        if (mOptions.isDebugMode())
+        {
+            mOptions.getApplicationContext().registerActivityLifecycleCallbacks(new WingsActivityLifecycleLog());
         }
     }
 
@@ -68,6 +74,11 @@ public final class Wings
         {
             throw new UnsupportedOperationException("You should invoke Wings.init(WingsInitOptions options) in Application !");
         }
+    }
+
+    public static WingsInitOptions getOptions()
+    {
+        return mOptions;
     }
 
     /**

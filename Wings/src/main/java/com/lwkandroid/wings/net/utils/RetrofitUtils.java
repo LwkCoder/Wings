@@ -1,6 +1,5 @@
 package com.lwkandroid.wings.net.utils;
 
-import com.lwkandroid.wings.DebugTools;
 import com.lwkandroid.wings.net.RxHttp;
 import com.lwkandroid.wings.net.bean.ApiGlobalOptions;
 import com.lwkandroid.wings.net.bean.IApiDynamicFormData;
@@ -92,7 +91,7 @@ public final class RetrofitUtils
             }
         }
         builder.addInterceptor(RxHttp.getProgressInterceptor());
-        if (DebugTools.DEBUG)
+        if (RxHttp.isDebugMode())
         {
             builder.addInterceptor(RxHttp.getApiLogInterceptor());
         }

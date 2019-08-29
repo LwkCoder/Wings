@@ -34,6 +34,7 @@ public final class RxHttp
     {
     }
 
+    private static boolean mDebugMode;
     private static final ApiGlobalOptions DEFAULT_GLOBAL_OPTIONS;
     private static final RetrofitUtils RETROFIT;
     private static final Interceptor LOG_INTERCEPTOR;
@@ -58,13 +59,20 @@ public final class RxHttp
     /**
      * 初始化公共配置
      *
-     * @param baseUrl 网络请求域名，用来配置Retrofit，结尾必须是“/”
+     * @param debugMode 是否调试模式
+     * @param baseUrl   网络请求域名，用来配置Retrofit，结尾必须是“/”
      * @return 公共配置对象
      */
-    public static ApiGlobalOptions init(String baseUrl)
+    public static ApiGlobalOptions init(boolean debugMode, String baseUrl)
     {
+        mDebugMode = debugMode;
         DEFAULT_GLOBAL_OPTIONS.setBaseUrl(baseUrl);
         return DEFAULT_GLOBAL_OPTIONS;
+    }
+
+    public static boolean isDebugMode()
+    {
+        return mDebugMode;
     }
 
     /**

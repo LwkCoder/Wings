@@ -3,7 +3,6 @@ package com.sources.javacode.app;
 import android.app.Application;
 import android.os.Build;
 
-import com.lwkandroid.wings.DebugTools;
 import com.lwkandroid.wings.Wings;
 import com.lwkandroid.wings.app.WingsInitOptions;
 import com.lwkandroid.wings.log.KLog;
@@ -33,7 +32,7 @@ public class AppApplication extends Application
         options.setApiBaseUrl(ApiURL.HOST);
         Wings.init(options);
 
-        if (DebugTools.DEBUG)
+        if (BuildConfig.DEBUG)
         {
             KLog.i(new StringBuilder()
                     .append("\n********************************************************\n")
