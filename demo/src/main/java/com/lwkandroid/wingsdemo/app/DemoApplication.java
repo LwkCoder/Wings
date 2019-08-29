@@ -1,7 +1,6 @@
 package com.lwkandroid.wingsdemo.app;
 
 import android.app.Application;
-import android.content.Context;
 import android.os.Build;
 
 import com.lwkandroid.wings.DebugTools;
@@ -16,8 +15,6 @@ import com.lwkandroid.wingsdemo.net.ApiURL;
 import com.lwkandroid.wingsdemo.net.TestDynamicHeadersInterceptor;
 import com.lwkandroid.wingsdemo.net.TestDynamicParamsInterceptor;
 
-import androidx.multidex.MultiDex;
-
 /**
  * Application入口
  *
@@ -25,14 +22,6 @@ import androidx.multidex.MultiDex;
  */
 public class DemoApplication extends Application
 {
-    @Override
-    protected void attachBaseContext(Context base)
-    {
-        super.attachBaseContext(base);
-        // 将MultiDex注入到项目中
-        MultiDex.install(this);
-    }
-
     @Override
     public void onCreate()
     {

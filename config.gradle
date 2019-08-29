@@ -1,7 +1,7 @@
 ext {
     /*项目基础配置*/
     appConfig = [
-            minSdkVersion    : 16,
+            minSdkVersion    : 21,
             targetSdkVersion : 29,
             compileSdkVersion: 29,
             applicationId    : "com.lwkandroid.app",
@@ -34,7 +34,7 @@ ext {
     ImagePickerVersion = "1.4.4"
     AndPermissionVersion = "2.0.1"
     RcvAdapterVersion = "1.4.2"
-    OkHttp3Version = "3.14.2"
+    OkHttp3Version = "4.1.0"
     GlideVersion = "4.9.0"
     GsonVersion = "2.8.5"
     RetrofitVersion = "2.6.1"
@@ -45,5 +45,5 @@ ext {
     LeakCanaryVersion = "1.6.3"
     StethoVersion = "1.5.0"
     DiskLruCacheVersion = "2.0.2"
-    ChuckVersion = "1.1.0"
+    ChuckerVersion = "3.0.1"
 }
