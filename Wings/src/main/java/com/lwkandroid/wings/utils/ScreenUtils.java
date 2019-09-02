@@ -207,45 +207,35 @@ public final class ScreenUtils
             return;
         }
 
-        view.post(new Runnable()
-        {
-            @Override
-            public void run()
+        view.post(() -> {
+            try
             {
-                try
-                {
-                    int width = view.getWidth();
-                    int height = view.getHeight();
-                    int[] location = new int[2];
-                    view.getLocationInWindow(location);
-                    final Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888, true);
-                    PixelCopy.request(window, new Rect(location[0], location[1], location[0] + width, location[1] + height),
-                            bitmap, new PixelCopy.OnPixelCopyFinishedListener()
+                int width = view.getWidth();
+                int height = view.getHeight();
+                int[] location = new int[2];
+                view.getLocationInWindow(location);
+                final Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888, true);
+                PixelCopy.request(window, new Rect(location[0], location[1], location[0] + width, location[1] + height),
+                        bitmap, copyResult -> {
+                            if (copyResult == PixelCopy.SUCCESS)
                             {
-                                @Override
-                                public void onPixelCopyFinished(int copyResult)
+                                if (callBack != null)
                                 {
-                                    if (copyResult == PixelCopy.SUCCESS)
-                                    {
-                                        if (callBack != null)
-                                        {
-                                            callBack.onCallBackSuccess(bitmap);
-                                        }
-                                    } else
-                                    {
-                                        if (callBack != null)
-                                        {
-                                            callBack.onCallBackError(new ApiException(copyResult, "Fail to create bitmap from view"));
-                                        }
-                                    }
+                                    callBack.onCallBackSuccess(bitmap);
                                 }
-                            }, new Handler(Looper.getMainLooper()));
-                } catch (Exception e)
+                            } else
+                            {
+                                if (callBack != null)
+                                {
+                                    callBack.onCallBackError(new ApiException(copyResult, "Fail to create bitmap from view"));
+                                }
+                            }
+                        }, new Handler(Looper.getMainLooper()));
+            } catch (Exception e)
+            {
+                if (callBack != null)
                 {
-                    if (callBack != null)
-                    {
-                        callBack.onCallBackError(e);
-                    }
+                    callBack.onCallBackError(e);
                 }
             }
         });
