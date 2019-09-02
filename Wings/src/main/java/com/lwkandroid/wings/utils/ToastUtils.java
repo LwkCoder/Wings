@@ -63,23 +63,18 @@ public final class ToastUtils
      */
     private static void show(final CharSequence s, final int duration)
     {
-        mHandler.post(new Runnable()
-        {
-            @Override
-            public void run()
+        mHandler.post(() -> {
+            Toast toast = null;
+            if (mToast != null && (toast = mToast.get()) != null)
             {
-                Toast toast = null;
-                if (mToast != null && (toast = mToast.get()) != null)
-                {
-                    toast.cancel();
-                    mToast = null;
-                    toast = null;
-                }
-
-                toast = Toast.makeText(Wings.getContext(), s, duration);
-                mToast = new WeakReference<>(toast);
-                toast.show();
+                toast.cancel();
+                mToast = null;
+                toast = null;
             }
+
+            toast = Toast.makeText(Wings.getContext(), s, duration);
+            mToast = new WeakReference<>(toast);
+            toast.show();
         });
     }
 

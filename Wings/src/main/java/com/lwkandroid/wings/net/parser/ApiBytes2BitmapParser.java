@@ -4,8 +4,6 @@ import android.graphics.Bitmap;
 
 import com.lwkandroid.wings.utils.ImageUtils;
 
-import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
 import io.reactivex.functions.Function;
 
@@ -27,23 +25,8 @@ public class ApiBytes2BitmapParser implements IApiBytesArrayParser.BitmapParser
     @Override
     public ObservableTransformer<byte[], Bitmap> parseAsBitmap()
     {
-        return new ObservableTransformer<byte[], Bitmap>()
-        {
-            @Override
-            public ObservableSource<Bitmap> apply(Observable<byte[]> upstream)
-            {
-                return upstream.map(new Function<byte[], Bitmap>()
-                {
-                    @Override
-                    public Bitmap apply(byte[] bytes) throws Exception
-                    {
-                        //                        Bitmap bitmap=Bitmap.createBitmap(mMaxWidth,mMaxHeight, Bitmap.Config.ARGB_8888);
-                        //                        bitmap.copyPixelsFromBuffer(ByteBuffer.wrap(bytes));
-                        //                        return bitmap;
-                        return ImageUtils.getBitmap(bytes, 0, mMaxWidth, mMaxHeight);
-                    }
-                });
-            }
-        };
+        return upstream -> upstream.map((Function<byte[], Bitmap>) bytes -> {
+            return ImageUtils.getBitmap(bytes, 0, mMaxWidth, mMaxHeight);
+        });
     }
 }

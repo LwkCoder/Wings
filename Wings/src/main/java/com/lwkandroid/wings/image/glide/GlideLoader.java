@@ -1,5 +1,6 @@
 package com.lwkandroid.wings.image.glide;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
@@ -138,6 +139,7 @@ public class GlideLoader implements ILoaderStrategy<GlideLoaderOptions>
         }
     }
 
+    @SuppressLint("CheckResult")
     private RequestOptions getRequestOptions(RequestBuilder builder, GlideLoaderOptions options)
     {
         RequestOptions requestOptions = new RequestOptions();

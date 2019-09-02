@@ -9,36 +9,62 @@ import com.lwkandroid.wings.utils.ResourceUtils;
 
 /**
  * Created by LWK
- *  扫描二维码界面的参数
+ * 扫描二维码界面的参数
  */
 
 public class QRCodeOptions implements Parcelable
 {
-    //是否显示为条形码样式
+    /**
+     * 是否显示为条形码样式
+     */
     private boolean isBarCodeMode = false;
-    //是否显示相册入口
+    /**
+     * 是否显示相册入口
+     */
     private boolean showAlbum = true;
-    //是否全屏扫描
+    /**
+     * 是否全屏扫描
+     */
     private boolean fullScreenScan = true;
-    //ActionBar的标题
+    /**
+     * ActionBar的标题
+     */
     private String actionBarTitle = ResourceUtils.getString(R.string.qrcodescan_title);
-    //ActionBar的背景色
+    /**
+     * ActionBar的背景色
+     */
     private int actionBarBgColor = Color.parseColor("#50000000");
-    //ActionBar文字颜色
+    /**
+     * ActionBar文字颜色
+     */
     private int actionBarTextColor = Color.WHITE;
-    //扫描框的颜色
+    /**
+     * 扫描框的颜色
+     */
     private int rectColor = Color.WHITE;
-    //扫描框的边角颜色
+    /**
+     * 扫描框的边角颜色
+     */
     private int rectCornerColor = Color.WHITE;
-    //扫描线的颜色
+    /**
+     * 扫描线的颜色
+     */
     private int scanLineColor = Color.WHITE;
-    //扫描线的动画时长
+    /**
+     * 扫描线的动画时长
+     */
     private int scanLineAnimDuration = 1000;
-    //提示语
+    /**
+     * 提示语
+     */
     private String hintText = ResourceUtils.getString(R.string.qrcodescan_hint);
-    //提示语颜色
+    /**
+     *
+     */
     private int hintColor = ResourceUtils.getColor(R.color.gray_darker);
-    //二维码太小自动缩放
+    /**
+     * 二维码太小自动缩放
+     */
     private boolean autoZoom = false;
 
     public QRCodeOptions()

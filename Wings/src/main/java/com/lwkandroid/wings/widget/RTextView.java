@@ -142,7 +142,10 @@ public class RTextView extends AppCompatTextView
         int action = event.getAction();
         switch (action)
         {
-            case MotionEvent.ACTION_UP://抬起
+            //抬起
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL:
+                //父级控件获取控制权
                 if (mIconNormal != null)
                 {
                     mIcon = mIconNormal;
@@ -159,13 +162,6 @@ public class RTextView extends AppCompatTextView
                         mIcon = mIconNormal;
                         setIcon();
                     }
-                }
-                break;
-            case MotionEvent.ACTION_CANCEL://父级控件获取控制权
-                if (mIconNormal != null)
-                {
-                    mIcon = mIconNormal;
-                    setIcon();
                 }
                 break;
             default:

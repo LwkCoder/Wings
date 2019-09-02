@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 
 class MVPListImpl<RV, D> implements IMVPListContract.IViewCommon<D>,
-        RcvLoadMoreListener, IRefreshWrapper.onRefreshListener
+        RcvLoadMoreListener, IRefreshWrapper.OnRefreshListener
 {
     private IRefreshWrapper<RV> mRefreshWrapper;
     private RecyclerView mRecyclerView;

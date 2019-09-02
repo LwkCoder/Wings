@@ -19,9 +19,9 @@ public interface IRefreshWrapper<RV>
 
     void onDestroy();
 
-    void setOnRefreshListener(onRefreshListener listener);
+    void setOnRefreshListener(OnRefreshListener listener);
 
-    interface onRefreshListener
+    interface OnRefreshListener
     {
         void onRefreshRequest();
     }

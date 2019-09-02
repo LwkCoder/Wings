@@ -3,7 +3,6 @@ package com.lwkandroid.wings.rx.lifecycle;
 
 import androidx.annotation.NonNull;
 import io.reactivex.Observable;
-import io.reactivex.functions.Predicate;
 
 /**
  * Description:RX生命周期工具
@@ -26,13 +25,6 @@ public final class RxLifeCycle
 
     private static <R> Observable<R> takeUntilEvent(final Observable<R> lifecycle, final R event)
     {
-        return lifecycle.filter(new Predicate<R>()
-        {
-            @Override
-            public boolean test(R lifecycleEvent) throws Exception
-            {
-                return lifecycleEvent.equals(event);
-            }
-        });
+        return lifecycle.filter(lifecycleEvent -> lifecycleEvent.equals(event));
     }
 }

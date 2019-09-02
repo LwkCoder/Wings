@@ -27,10 +27,14 @@ import java.io.InputStream;
 @GlideModule
 public final class GlideLoaderModule extends AppGlideModule
 {
-    //glide系统缓存基础倍率
+    /**
+     *
+     */
     private static final float MEMORY_CACHE_COUNT = 1.2f;
-    //磁盘缓存容量最大值
-    private static final int MAX_DISK_CACHE_SIZE = 314572800;//300M
+    /**
+     * 磁盘缓存容量最大值,300M
+     */
+    private static final int MAX_DISK_CACHE_SIZE = 314572800;
 
     @Override
     public void applyOptions(Context context, GlideBuilder builder)

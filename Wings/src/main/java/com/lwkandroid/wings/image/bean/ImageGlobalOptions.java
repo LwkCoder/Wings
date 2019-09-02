@@ -14,34 +14,52 @@ import androidx.annotation.DrawableRes;
 
 public class ImageGlobalOptions
 {
-    /*全局加载占位图*/
+    /**
+     * 全局加载占位图
+     */
     @DrawableRes
     private int placeHolder = -1;
 
-    /*全局加载占位图*/
+    /**
+     * 全局加载占位图
+     */
     private Drawable placeHolderDrawable;
 
-    /*全局失败占位图*/
+    /**
+     * 全局失败占位图
+     */
     @DrawableRes
     private int errorHolder = -1;
 
-    /*全局失败占位图*/
+    /**
+     * 全局失败占位图
+     */
     private Drawable errorHolderDrawable;
 
-    /*全局外部缓存策略*/
+    /**
+     * 全局外部缓存策略
+     */
     @ImageDiskCacheType.Type
     private int diskCacheType = ImageDiskCacheType.RESOURCE;
 
-    /*全局内存是否缓存*/
+    /**
+     * 全局内存是否缓存
+     */
     private boolean skipMemoryCache = false;
 
-    /*全局是否显示动画*/
+    /**
+     * 全局是否显示动画
+     */
     private boolean crossFade = false;
 
-    /*全剧动画时间*/
+    /**
+     * 全剧动画时间
+     */
     private int crossFadeDuration = 200;
 
-    /*缓存地址*/
+    /**
+     * 缓存地址
+     */
     private String cachePath;
 
     public int getPlaceHolder()

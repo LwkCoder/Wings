@@ -43,7 +43,12 @@ public final class PopDarkWindowAffect implements IPopAffect
         updateBgAlpha(context, 1.0f);
     }
 
-    // 此方法用于改变背景的透明度，从而达到“变暗”的效果
+    /**
+     * 此方法用于改变背景的透明度，从而达到“变暗”的效果
+     *
+     * @param context
+     * @param bgAlpha
+     */
     private void updateBgAlpha(Context context, @FloatRange(from = 0.0f, to = 1.0f) float bgAlpha)
     {
         if (context != null && context instanceof Activity)

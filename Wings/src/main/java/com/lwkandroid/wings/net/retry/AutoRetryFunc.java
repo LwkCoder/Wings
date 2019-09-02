@@ -17,13 +17,21 @@ import io.reactivex.functions.Function;
  */
 public class AutoRetryFunc implements Function<Observable<? extends Throwable>, Observable<?>>
 {
-    //重试的Url，用来打日志
+    /**
+     * 重试的Url，用来打日志
+     */
     private String mUrl;
-    //重试次数
+    /**
+     * 重试次数
+     */
     private int mRetryCount;
-    //每次重试间隔时间
+    /**
+     * 每次重试间隔时间
+     */
     private int mRetryDelay;
-    //自动重试判断条件
+    /**
+     * 自动重试判断条件
+     */
     private IAutoRetry mAutoRetry;
 
     public AutoRetryFunc(String url, int retryCount, int retryDelay, IAutoRetry autoRetry)
@@ -37,29 +45,20 @@ public class AutoRetryFunc implements Function<Observable<? extends Throwable>, 
     @Override
     public Observable<?> apply(final Observable<? extends Throwable> observable) throws Exception
     {
-        return observable.zipWith(Observable.range(1, mRetryCount + 1), new BiFunction<Throwable, Integer, ThrowableWrapper>()
-        {
-            @Override
-            public ThrowableWrapper apply(Throwable throwable, Integer integer) throws Exception
-            {
-                return new ThrowableWrapper(integer, throwable);
-            }
-        }).flatMap(new Function<ThrowableWrapper, ObservableSource<?>>()
-        {
-            @Override
-            public ObservableSource<?> apply(ThrowableWrapper wrapper) throws Exception
-            {
-                if (mAutoRetry.judgeAutoRetry(wrapper.getThrowable())
-                        && wrapper.getIndex() < mRetryCount + 1)
-                {
-                    KLog.i("RxHttp RetryCount=" + wrapper.getIndex() + " Url=" + mUrl);
-                    return Observable.timer(mRetryDelay, TimeUnit.MILLISECONDS);
-                } else
-                {
-                    return Observable.error(wrapper.getThrowable());
-                }
-            }
-        });
+        return observable.zipWith(Observable.range(1, mRetryCount + 1),
+                (BiFunction<Throwable, Integer, ThrowableWrapper>) (throwable, integer) ->
+                        new ThrowableWrapper(integer, throwable))
+                .flatMap((Function<ThrowableWrapper, ObservableSource<?>>) wrapper -> {
+                    if (mAutoRetry.judgeAutoRetry(wrapper.getThrowable())
+                            && wrapper.getIndex() < mRetryCount + 1)
+                    {
+                        KLog.i("RxHttp RetryCount=" + wrapper.getIndex() + " Url=" + mUrl);
+                        return Observable.timer(mRetryDelay, TimeUnit.MILLISECONDS);
+                    } else
+                    {
+                        return Observable.error(wrapper.getThrowable());
+                    }
+                });
     }
 
     private class ThrowableWrapper
@@ -67,7 +66,7 @@ public class AutoRetryFunc implements Function<Observable<? extends Throwable>, 
         private int index;
         private Throwable throwable;
 
-        public ThrowableWrapper(int index, Throwable throwable)
+        ThrowableWrapper(int index, Throwable throwable)
         {
             this.index = index;
             this.throwable = throwable;

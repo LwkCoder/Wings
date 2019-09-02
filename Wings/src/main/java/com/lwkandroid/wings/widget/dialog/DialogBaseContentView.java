@@ -53,16 +53,11 @@ public abstract class DialogBaseContentView
                 View view = mRealContentView.findViewById(viewId);
                 if (view != null)
                 {
-                    view.setOnClickListener(new View.OnClickListener()
-                    {
-                        @Override
-                        public void onClick(View v)
+                    view.setOnClickListener(v -> {
+                        OnDialogChildClickListener listener = listenerArray.valueAt(index);
+                        if (listener != null)
                         {
-                            OnDialogChildClickListener listener = listenerArray.valueAt(index);
-                            if (listener != null)
-                            {
-                                listener.onDialogChildClicked(v.getId(), v, mRealContentView, mCreator);
-                            }
+                            listener.onDialogChildClicked(v.getId(), v, mRealContentView, mCreator);
                         }
                     });
                 }

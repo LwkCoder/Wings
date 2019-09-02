@@ -20,7 +20,7 @@ import okhttp3.Response;
 
 /**
  * Created by LWK
- *  基于OkHttp做网络请求的所有过程监听管理类
+ * 基于OkHttp做网络请求的所有过程监听管理类
  * 需要OkHttp添加{@link com.lwkandroid.wings.net.interceptor.OkProgressInterceptor}
  */
 
@@ -43,17 +43,21 @@ public class OkProgressManger
 
     //默认的进度刷新时间：100ms
     private static final int DEFAULT_REFRESH_TIME = 100;
-    public static final String IDENTIFICATION_NUMBER = "?OkProgressNumber=";
-    public static final String IDENTIFICATION_HEADER = "OkProgressHeader";
-    public static final String LOCATION_HEADER = "Location";
-    //存储上传过程监听
-    private final Map<String, List<OnProgressListener>> mUploadListeners = new WeakHashMap<>();
-    //存储下载过程监听
-    private final Map<String, List<OnProgressListener>> mDownloadListeners = new WeakHashMap<>();
+    private static final String IDENTIFICATION_NUMBER = "?OkProgressNumber=";
+    private static final String IDENTIFICATION_HEADER = "OkProgressHeader";
+    private static final String LOCATION_HEADER = "Location";
     //所有监听器在 Handler 中被执行,所以可以保证所有监听器在主线程中被执行
     private final Handler mHandler;
     //进度刷新时间(单位ms),避免高频率调用
     private int mRefreshTime = DEFAULT_REFRESH_TIME;
+    /**
+     * 存储上传过程监听
+     */
+    private final Map<String, List<OnProgressListener>> mUploadListeners = new WeakHashMap<>();
+    /**
+     * 存储下载过程监听
+     */
+    private final Map<String, List<OnProgressListener>> mDownloadListeners = new WeakHashMap<>();
 
     /**
      * 设置进度更新刷新时间

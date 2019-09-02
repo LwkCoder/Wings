@@ -21,6 +21,7 @@ import android.text.TextUtils;
 
 import com.lwkandroid.wings.log.KLog;
 import com.lwkandroid.wings.utils.SpUtils;
+import com.lwkandroid.wings.utils.encode.EncodeUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -30,7 +31,6 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -197,7 +197,7 @@ public class PersistentCookieStore
             return null;
         }
 
-        return byteArrayToHexString(os.toByteArray());
+        return EncodeUtils.hex().encode(os.toByteArray());
     }
 
     /**
@@ -205,7 +205,7 @@ public class PersistentCookieStore
      */
     protected Cookie decodeCookie(String cookieString)
     {
-        byte[] bytes = hexStringToByteArray(cookieString);
+        byte[] bytes = EncodeUtils.hex().decodeToBytes(cookieString);
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
         Cookie cookie = null;
         try
@@ -221,37 +221,5 @@ public class PersistentCookieStore
         }
 
         return cookie;
-    }
-
-    /**
-     * byteArrayToHexString
-     */
-    protected String byteArrayToHexString(byte[] bytes)
-    {
-        StringBuilder sb = new StringBuilder(bytes.length * 2);
-        for (byte element : bytes)
-        {
-            int v = element & 0xff;
-            if (v < 16)
-            {
-                sb.append('0');
-            }
-            sb.append(Integer.toHexString(v));
-        }
-        return sb.toString().toUpperCase(Locale.US);
-    }
-
-    /**
-     * hexStringToByteArray
-     */
-    protected byte[] hexStringToByteArray(String hexString)
-    {
-        int len = hexString.length();
-        byte[] data = new byte[len / 2];
-        for (int i = 0; i < len; i += 2)
-        {
-            data[i / 2] = (byte) ((Character.digit(hexString.charAt(i), 16) << 4) + Character.digit(hexString.charAt(i + 1), 16));
-        }
-        return data;
     }
 }

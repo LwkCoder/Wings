@@ -41,7 +41,7 @@ public class MultipartBodyUtils
     public static okhttp3.MultipartBody.Part createFormDataPart(String key, Object value)
     {
         return okhttp3.MultipartBody.Part.createFormData(key, null,
-                RequestBody.create(null, String.valueOf(value)));
+                RequestBody.create(String.valueOf(value), null));
     }
 
     /**

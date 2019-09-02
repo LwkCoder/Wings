@@ -6,17 +6,15 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 
 import com.lwkandroid.wings.rx.schedulers.RxSchedulers;
-import com.lwkandroid.wings.utils.StringUtils;
 
 import androidx.fragment.app.Fragment;
 import cn.bingoogolapple.qrcode.zxing.QRCodeDecoder;
 import cn.bingoogolapple.qrcode.zxing.QRCodeEncoder;
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
 
 /**
- *  二维码工具类
+ * 二维码工具类
+ *
  * @author LWK
  */
 
@@ -119,25 +117,9 @@ public final class QRCodeUtils
      */
     public static Observable<String> decodeQRCodeByRxJava(final String picPath)
     {
-        return Observable.create(new ObservableOnSubscribe<String>()
-        {
-            @Override
-            public void subscribe(ObservableEmitter<String> e) throws Exception
-            {
-                String content = decodeQRCode(picPath);
-                if (!e.isDisposed())
-                {
-                    if (StringUtils.isNotEmpty(content))
-                    {
-                        e.onNext(content);
-                        e.onComplete();
-                    } else
-                    {
-                        e.onError(new NullPointerException());
-                    }
-                }
-            }
-        }).compose(RxSchedulers.<String>applyIo2Main());
+        return Observable.just(picPath)
+                .map(QRCodeUtils::decodeQRCode)
+                .compose(RxSchedulers.applyComputation2Main());
     }
 
     /**
@@ -149,26 +131,9 @@ public final class QRCodeUtils
      */
     public static Observable<String> decodeQRCodeByRxJava(final Bitmap bitmap)
     {
-        return Observable.create(new ObservableOnSubscribe<String>()
-        {
-            @Override
-            public void subscribe(ObservableEmitter<String> e) throws Exception
-            {
-                String content = decodeQRCode(bitmap);
-                if (!e.isDisposed())
-                {
-                    if (StringUtils.isNotEmpty(content))
-                    {
-                        e.onNext(content);
-                        e.onComplete();
-                    } else
-                    {
-                        e.onNext("");
-                        e.onComplete();
-                    }
-                }
-            }
-        }).compose(RxSchedulers.<String>applyIo2Main());
+        return Observable.just(bitmap)
+                .map(QRCodeUtils::decodeQRCode)
+                .compose(RxSchedulers.applyComputation2Main());
     }
 
     /**
@@ -295,24 +260,8 @@ public final class QRCodeUtils
                                                           final int bColor,
                                                           final Bitmap logo)
     {
-        return Observable.create(new ObservableOnSubscribe<Bitmap>()
-        {
-            @Override
-            public void subscribe(ObservableEmitter<Bitmap> e) throws Exception
-            {
-                Bitmap bitmap = encodeQRCode(content, size, fColor, bColor, logo);
-                if (!e.isDisposed())
-                {
-                    if (bitmap != null)
-                    {
-                        e.onNext(bitmap);
-                        e.onComplete();
-                    } else
-                    {
-                        e.onError(new NullPointerException());
-                    }
-                }
-            }
-        }).compose(RxSchedulers.<Bitmap>applyIo2Main());
+        return Observable.just(content)
+                .map(s -> encodeQRCode(s, size, fColor, bColor, logo))
+                .compose(RxSchedulers.applyIo2Main());
     }
 }

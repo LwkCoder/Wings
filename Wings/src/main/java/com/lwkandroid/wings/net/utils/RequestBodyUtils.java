@@ -41,7 +41,7 @@ public class RequestBodyUtils
             KLog.e("Can not invoke 'createFormDataBody()' because of a null object");
             return null;
         }
-        return RequestBody.create(MediaType.parse("application/x-www-form-urlencoded"), String.valueOf(content));
+        return RequestBody.create(String.valueOf(content), MediaType.parse("application/x-www-form-urlencoded"));
     }
 
     /**
@@ -57,7 +57,7 @@ public class RequestBodyUtils
             KLog.e("Can not invoke 'createTextBody()' because of a null text");
             return null;
         }
-        return RequestBody.create(MediaType.parse("text/plain"), text);
+        return RequestBody.create(text, MediaType.parse("text/plain"));
     }
 
     /**
@@ -73,7 +73,7 @@ public class RequestBodyUtils
             KLog.e("Can not invoke 'createJsonBody()' because of a null json");
             return null;
         }
-        return RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), json);
+        return RequestBody.create(json, okhttp3.MediaType.parse("application/json; charset=utf-8"));
     }
 
     /**
@@ -89,7 +89,7 @@ public class RequestBodyUtils
             KLog.e("Can not invoke 'createBytesBody()' because of a null bytes");
             return null;
         }
-        return RequestBody.create(okhttp3.MediaType.parse("application/octet-stream"), bytes);
+        return RequestBody.create(bytes, okhttp3.MediaType.parse("application/octet-stream"));
     }
 
     /**
@@ -105,7 +105,7 @@ public class RequestBodyUtils
             KLog.e("Can not invoke 'createFileBody()' because of a null file");
             return null;
         }
-        return RequestBody.create(guessMimeType(file.getName()), file);
+        return RequestBody.create(file, guessMimeType(file.getName()));
     }
 
     /**

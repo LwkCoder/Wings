@@ -10,8 +10,6 @@ import com.lwkandroid.wings.utils.StringUtils;
 import java.io.File;
 import java.io.InputStream;
 
-import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
 import io.reactivex.functions.Function;
 
@@ -35,24 +33,12 @@ public class ApiIS2FileParser implements IApiInputStreamParser.FileParser
     @Override
     public ObservableTransformer<InputStream, File> parseAsFile()
     {
-        return new ObservableTransformer<InputStream, File>()
-        {
-            @Override
-            public ObservableSource<File> apply(Observable<InputStream> upstream)
-            {
-                return upstream.map(new Function<InputStream, File>()
-                {
-                    @Override
-                    public File apply(InputStream inputStream) throws Exception
-                    {
-                        return writeIntoStorage(inputStream);
-                    }
-                });
-            }
-        };
+        return upstream -> upstream.map((Function<InputStream, File>) this::writeIntoStorage);
     }
 
-    //将数据写入存储
+    /**
+     * 将数据写入存储
+     */
     private File writeIntoStorage(InputStream inputStream) throws ApiException
     {
         if (StringUtils.isEmpty(mFileName))

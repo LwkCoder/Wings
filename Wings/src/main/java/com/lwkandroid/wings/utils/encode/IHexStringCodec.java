@@ -16,7 +16,11 @@ public interface IHexStringCodec
 
     String encode(String data, Charset charset);
 
-    String decode(String hexString);
+    String decodeToString(String hexString);
 
-    String decode(String hexString, Charset charset);
+    byte[] decodeToBytes(String hexString);
+
+    String decodeToString(String hexString, Charset charset);
+
+    byte[] decodeToBytes(String hexString, Charset charset);
 }

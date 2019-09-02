@@ -67,14 +67,8 @@ class RxLifecycleTransformer<T> implements ObservableTransformer<T, T>,
     @Override
     public CompletableSource apply(Completable upstream)
     {
-        return Completable.ambArray(upstream, mObservable.flatMapCompletable(new Function<Object, Completable>()
-        {
-            @Override
-            public Completable apply(Object o) throws Exception
-            {
-                return Completable.error(new CancellationException());
-            }
-        }));
+        return Completable.ambArray(upstream,
+                mObservable.flatMapCompletable((Function<Object, Completable>) o -> Completable.error(new CancellationException())));
     }
 
 }

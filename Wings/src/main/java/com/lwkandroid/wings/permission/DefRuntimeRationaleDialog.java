@@ -2,7 +2,6 @@ package com.lwkandroid.wings.permission;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.text.TextUtils;
 
 import com.lwkandroid.wings.R;
@@ -16,7 +15,7 @@ import java.util.List;
 
 /**
  * Created by LWK
- *  默认运行时权限被拒提示框
+ * 默认运行时权限被拒提示框
  */
 class DefRuntimeRationaleDialog implements Rationale<List<String>>
 {
@@ -30,23 +29,13 @@ class DefRuntimeRationaleDialog implements Rationale<List<String>>
                 .setCancelable(false)
                 .setTitle(R.string.dialog_permission_title)
                 .setMessage(message)
-                .setPositiveButton(R.string.dialog_runtime_rationale_process, new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which)
-                    {
-                        dialog.dismiss();
-                        executor.execute();
-                    }
+                .setPositiveButton(R.string.dialog_runtime_rationale_process, (dialog, which) -> {
+                    dialog.dismiss();
+                    executor.execute();
                 })
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which)
-                    {
-                        dialog.dismiss();
-                        executor.cancel();
-                    }
+                .setNegativeButton(R.string.cancel, (dialog, which) -> {
+                    dialog.dismiss();
+                    executor.cancel();
                 })
                 .show();
     }

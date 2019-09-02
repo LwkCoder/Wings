@@ -47,17 +47,29 @@ public final class HexStringCodecImpl implements IHexStringCodec
     }
 
     @Override
-    public String decode(String hexString)
+    public String decodeToString(String hexString)
     {
-        return decode(hexString, UTF8);
+        return new String(decodeToBytes(hexString), UTF8);
     }
 
     @Override
-    public String decode(String hexString, Charset charset)
+    public byte[] decodeToBytes(String hexString)
+    {
+        return decodeToBytes(hexString, UTF8);
+    }
+
+    @Override
+    public String decodeToString(String hexString, Charset charset)
+    {
+        return new String(decodeToBytes(hexString, charset), charset);
+    }
+
+    @Override
+    public byte[] decodeToBytes(String hexString, Charset charset)
     {
         if (hexString == null || hexString.length() == 0)
         {
-            return "";
+            return new byte[0];
         }
         hexString = hexString.toUpperCase();
         char[] chars = hexString.toCharArray();
@@ -67,7 +79,7 @@ public final class HexStringCodecImpl implements IHexStringCodec
             n = HEX_STRING.indexOf(chars[2 * i]) * 16 + HEX_STRING.indexOf(chars[2 * i + 1]);
             bytes[i] = (byte) (n & 0xff);
         }
-        return new String(bytes, charset);
+        return bytes;
     }
 
 }

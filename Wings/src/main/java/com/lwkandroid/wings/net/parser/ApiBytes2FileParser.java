@@ -9,8 +9,6 @@ import com.lwkandroid.wings.utils.StringUtils;
 
 import java.io.File;
 
-import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
 import io.reactivex.functions.Function;
 
@@ -33,24 +31,12 @@ public class ApiBytes2FileParser implements IApiBytesArrayParser.FileParser
     @Override
     public ObservableTransformer<byte[], File> parseAsFile()
     {
-        return new ObservableTransformer<byte[], File>()
-        {
-            @Override
-            public ObservableSource<File> apply(Observable<byte[]> upstream)
-            {
-                return upstream.map(new Function<byte[], File>()
-                {
-                    @Override
-                    public File apply(byte[] bytes) throws Exception
-                    {
-                        return writeIntoStorage(bytes);
-                    }
-                });
-            }
-        };
+        return upstream -> upstream.map((Function<byte[], File>) this::writeIntoStorage);
     }
 
-    //将数据写入存储
+    /**
+     * 将数据写入存储
+     */
     private File writeIntoStorage(byte[] bytes) throws ApiException
     {
         if (StringUtils.isEmpty(mFileName))

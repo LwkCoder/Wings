@@ -71,13 +71,7 @@ public class HttpsUtils
             sslParams.sSLSocketFactory = sslContext.getSocketFactory();
             sslParams.trustManager = trustManager;
             return sslParams;
-        } catch (NoSuchAlgorithmException e)
-        {
-            throw new AssertionError(e);
-        } catch (KeyManagementException e)
-        {
-            throw new AssertionError(e);
-        } catch (KeyStoreException e)
+        } catch (NoSuchAlgorithmException | KeyManagementException | KeyStoreException e)
         {
             throw new AssertionError(e);
         }

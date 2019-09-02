@@ -10,7 +10,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 public class SRVWrapper implements IRefreshWrapper<SwipeRefreshLayout>, SwipeRefreshLayout.OnRefreshListener
 {
     private SwipeRefreshLayout mRefreshLayout;
-    private onRefreshListener mListener;
+    private OnRefreshListener mListener;
 
     public SRVWrapper(SwipeRefreshLayout layout)
     {
@@ -59,7 +59,7 @@ public class SRVWrapper implements IRefreshWrapper<SwipeRefreshLayout>, SwipeRef
     }
 
     @Override
-    public void setOnRefreshListener(onRefreshListener listener)
+    public void setOnRefreshListener(OnRefreshListener listener)
     {
         mListener = listener;
     }

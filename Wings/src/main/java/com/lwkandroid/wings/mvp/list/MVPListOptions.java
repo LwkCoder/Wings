@@ -13,15 +13,25 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class MVPListOptions
 {
-    //是否允许下拉刷新
+    /**
+     * 是否允许下拉刷新
+     */
     private boolean enableRefresh = true;
-    //是否允许加载更多
+    /**
+     * 是否允许加载更多
+     */
     private boolean enableLoadMore = true;
-    //每页数据量
+    /**
+     * 每页数据量
+     */
     private int pageSize = 20;
-    //第一页下标
+    /**
+     * 第一页下标
+     */
     private int pageStartIndex = 0;
-    //RecyclerView的LayoutManger
+    /**
+     * RecyclerView的LayoutManger
+     */
     private RecyclerView.LayoutManager layoutManager =
             new LinearLayoutManager(Wings.getContext(), RecyclerView.VERTICAL, false);
 

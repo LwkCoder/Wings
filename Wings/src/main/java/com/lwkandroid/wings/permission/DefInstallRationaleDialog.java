@@ -2,7 +2,6 @@ package com.lwkandroid.wings.permission;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 
 import com.lwkandroid.wings.R;
 import com.lwkandroid.wings.utils.AppUtils;
@@ -14,7 +13,7 @@ import java.io.File;
 
 /**
  * Created by LWK
- *  默认安装Apk权限提示框
+ * 默认安装Apk权限提示框
  */
 class DefInstallRationaleDialog implements Rationale<File>
 {
@@ -25,23 +24,13 @@ class DefInstallRationaleDialog implements Rationale<File>
                 .setCancelable(false)
                 .setTitle(R.string.dialog_runtime_rationale_message)
                 .setMessage(ResourceUtils.getString(R.string.dialog_install_rationale_message, AppUtils.getAppName()))
-                .setPositiveButton(R.string.dialog_install_rationale_process, new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which)
-                    {
-                        dialog.dismiss();
-                        executor.execute();
-                    }
+                .setPositiveButton(R.string.dialog_install_rationale_process, (dialog, which) -> {
+                    dialog.dismiss();
+                    executor.execute();
                 })
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which)
-                    {
-                        dialog.dismiss();
-                        executor.cancel();
-                    }
+                .setNegativeButton(R.string.cancel, (dialog, which) -> {
+                    dialog.dismiss();
+                    executor.cancel();
                 })
                 .show();
     }

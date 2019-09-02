@@ -53,46 +53,86 @@ public class RoundDiffImageView extends ImageView
             ScaleType.CENTER_CROP,
             ScaleType.CENTER_INSIDE
     };
-    //默认缩放方式为FIT_CENTER，和原始控件一致
+    /**
+     * 默认缩放方式为FIT_CENTER，和原始控件一致
+     */
     private ScaleType mScaleType = ScaleType.FIT_CENTER;
-    //公共radius
+    /**
+     * 公共radius
+     */
     private float mRadius = 0.0f;
-    //左上角radius
+    /**
+     * 左上角radius
+     */
     private float mLeftTopRadius = 0.0f;
-    //右上角radius
+    /**
+     * 右上角radius
+     */
     private float mRightTopRadius = 0.0f;
-    //左下角radius
+    /**
+     * 左下角radius
+     */
     private float mLeftBottomRadius = 0.0f;
-    //右下角radius
+    /**
+     * 右下角radius
+     */
     private float mRightBottomRadius = 0.0f;
-    //边框宽度
+    /**
+     * 边框宽度
+     */
     private float mBorderWidth = 0.0f;
-    //边框默认颜色
+    /**
+     * 边框默认颜色
+     */
     private static final int DEFAULT_BORDER_COLOR = Color.BLACK;
-    //边框颜色StateList
+    /**
+     * 边框颜色StateList
+     */
     private ColorStateList mBorderColor = ColorStateList.valueOf(DEFAULT_BORDER_COLOR);
-    //是否为椭圆
+    /**
+     * 是否为椭圆
+     */
     private boolean isOval = false;
-    //显示的Drawable
+    /**
+     * 显示的Drawable
+     */
     private Drawable mDrawable;
-    //各个角radius值
+    /**
+     * 各个角radius值
+     */
     private float[] mRadiusArray = new float[]{0, 0, 0, 0, 0, 0, 0, 0};
-    //按压反馈
+    /**
+     * 按压反馈
+     */
     private boolean mPressFeedBack = false;
 
-    // 对高进行缩放
+    /**
+     * 对高进行缩放
+     */
     public static final int SCALE_TARGET_HEIGHT = 0;
-    // 对宽进行缩放
+    /**
+     * 对宽进行缩放
+     */
     public static final int SCALE_TARGET_WIDTH = 1;
-    // 扩大方式（宽不足拉伸宽，高不足拉伸高）
+    /**
+     * 扩大方式（宽不足拉伸宽，高不足拉伸高）
+     */
     public static final int SCALE_TARGET_EXPAND = 2;
-    // 缩小方式（缩小到一条边刚好与原尺寸一样，另一条小于原尺寸）
+    /**
+     * 缩小方式（缩小到一条边刚好与原尺寸一样，另一条小于原尺寸）
+     */
     public static final int SCALE_TARGET_INSIDE = 3;
-    // 宽度缩放比
+    /**
+     * 宽度缩放比
+     */
     private int mWidthScale = 0;
-    // 高度缩放比
+    /**
+     * 高度缩放比
+     */
     private int mHeightScale = 0;
-    // 缩放目标
+    /**
+     * 缩放目标
+     */
     private int mScaleTarget = SCALE_TARGET_INSIDE;
 
     public RoundDiffImageView(Context context)

@@ -49,7 +49,7 @@ public class CookieManager implements ICookieJar
     public void saveFromResponse(HttpUrl url, List<Cookie> cookies)
     {
         checkNotNull();
-        if (cookies != null && cookies.size() > 0)
+        if (cookies != null && !cookies.isEmpty())
         {
             for (Cookie item : cookies)
             {

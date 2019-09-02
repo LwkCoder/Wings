@@ -17,13 +17,6 @@ public final class ApiExceptionTransformer<T> implements ObservableTransformer<T
     @Override
     public ObservableSource<T> apply(Observable<T> upstream)
     {
-        return upstream.onErrorResumeNext(new Function<Throwable, ObservableSource<T>>()
-        {
-            @Override
-            public ObservableSource<T> apply(Throwable throwable) throws Exception
-            {
-                return Observable.error(ApiException.handleThrowable(throwable));
-            }
-        });
+        return upstream.onErrorResumeNext((Function<Throwable, ObservableSource<T>>) throwable -> Observable.error(ApiException.handleThrowable(throwable)));
     }
 }

@@ -2,7 +2,6 @@ package com.lwkandroid.wings.permission;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.text.TextUtils;
 
 import com.lwkandroid.wings.R;
@@ -53,26 +52,14 @@ public final class PermissionDialogUtils
                 .setCancelable(false)
                 .setTitle(R.string.dialog_permission_title)
                 .setMessage(message)
-                .setPositiveButton(R.string.dialog_runtime_neverask_process, new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which)
-                    {
-                        dialog.dismiss();
-                        AndPermission.with(context)
-                                .runtime()
-                                .setting()
-                                .start(requestCode);
-                    }
+                .setPositiveButton(R.string.dialog_runtime_neverask_process, (dialog, which) -> {
+                    dialog.dismiss();
+                    AndPermission.with(context)
+                            .runtime()
+                            .setting()
+                            .start(requestCode);
                 })
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which)
-                    {
-                        dialog.dismiss();
-                    }
-                })
+                .setNegativeButton(R.string.cancel, (dialog, which) -> dialog.dismiss())
                 .show();
     }
 

@@ -17,7 +17,6 @@ package com.lwkandroid.wings.permission;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 
 import com.lwkandroid.wings.R;
 import com.lwkandroid.wings.utils.AppUtils;
@@ -27,7 +26,7 @@ import com.yanzhenjie.permission.RequestExecutor;
 
 /**
  * Created by LWK
- *  默认悬浮窗权限被拒提示框
+ * 默认悬浮窗权限被拒提示框
  */
 class DefOverlayRationaleDialog implements Rationale<Void>
 {
@@ -38,23 +37,13 @@ class DefOverlayRationaleDialog implements Rationale<Void>
                 .setCancelable(false)
                 .setTitle(R.string.dialog_permission_title)
                 .setMessage(ResourceUtils.getString(R.string.dialog_overlay_rationale_message, AppUtils.getAppName()))
-                .setPositiveButton(R.string.dialog_overlay_rationale_process, new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which)
-                    {
-                        dialog.dismiss();
-                        executor.execute();
-                    }
+                .setPositiveButton(R.string.dialog_overlay_rationale_process, (dialog, which) -> {
+                    dialog.dismiss();
+                    executor.execute();
                 })
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which)
-                    {
-                        dialog.dismiss();
-                        executor.cancel();
-                    }
+                .setNegativeButton(R.string.cancel, (dialog, which) -> {
+                    dialog.dismiss();
+                    executor.cancel();
                 })
                 .show();
     }
