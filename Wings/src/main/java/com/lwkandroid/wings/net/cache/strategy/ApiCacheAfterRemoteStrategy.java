@@ -4,8 +4,6 @@ import com.lwkandroid.wings.net.bean.ApiCacheOptions;
 import com.lwkandroid.wings.net.bean.ResultCacheWrapper;
 
 import io.reactivex.Observable;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.functions.Predicate;
 
 /**
  *  先返回本地缓存，然后获取网络数据，回调2次的策略
@@ -20,13 +18,6 @@ public class ApiCacheAfterRemoteStrategy extends ApiCacheBaseStrategy
         Observable<ResultCacheWrapper<T>> cache = loadCache(options, clazz, true);
         Observable<ResultCacheWrapper<T>> remote = loadRemote(options, clazz, source, false);
         return Observable.concat(cache, remote)
-                .filter(new Predicate<ResultCacheWrapper<T>>()
-                {
-                    @Override
-                    public boolean test(@NonNull ResultCacheWrapper<T> cacheResultBean) throws Exception
-                    {
-                        return cacheResultBean != null && cacheResultBean.getData() != null;
-                    }
-                });
+                .filter(cacheResultBean -> cacheResultBean != null && cacheResultBean.getData() != null);
     }
 }

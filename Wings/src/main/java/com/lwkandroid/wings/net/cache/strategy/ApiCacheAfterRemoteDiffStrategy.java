@@ -4,9 +4,6 @@ import com.lwkandroid.wings.net.bean.ApiCacheOptions;
 import com.lwkandroid.wings.net.bean.ResultCacheWrapper;
 
 import io.reactivex.Observable;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.functions.Function;
-import io.reactivex.functions.Predicate;
 import okio.ByteString;
 
 /**
@@ -22,20 +19,7 @@ public class ApiCacheAfterRemoteDiffStrategy extends ApiCacheBaseStrategy
         Observable<ResultCacheWrapper<T>> cache = loadCache(options, clazz, true);
         Observable<ResultCacheWrapper<T>> remote = loadRemote(options, clazz, source, false);
         return Observable.concat(cache, remote)
-                .filter(new Predicate<ResultCacheWrapper<T>>()
-                {
-                    @Override
-                    public boolean test(@NonNull ResultCacheWrapper<T> tCacheResult) throws Exception
-                    {
-                        return tCacheResult != null && tCacheResult.getData() != null;
-                    }
-                }).distinctUntilChanged(new Function<ResultCacheWrapper<T>, String>()
-                {
-                    @Override
-                    public String apply(ResultCacheWrapper<T> cacheResultBean) throws Exception
-                    {
-                        return ByteString.of(cacheResultBean.getData().toString().getBytes()).md5().hex();
-                    }
-                });
+                .filter(tCacheResult -> tCacheResult != null && tCacheResult.getData() != null)
+                .distinctUntilChanged(cacheResultBean -> ByteString.of(cacheResultBean.getData().toString().getBytes()).md5().hex());
     }
 }

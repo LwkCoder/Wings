@@ -32,13 +32,6 @@ public class StringCacheToRestfulDataListCacheFunc<T> implements Function<Result
         return Observable.just(resultBean)
                 .map(new CacheDataGetterFunc<String>())
                 .compose(mParser.parseRestfulDataList(mClass))
-                .map(new Function<List<T>, ResultCacheWrapper<List<T>>>()
-                {
-                    @Override
-                    public ResultCacheWrapper<List<T>> apply(List<T> ts) throws Exception
-                    {
-                        return new ResultCacheWrapper<>(resultBean.isCache(), ts);
-                    }
-                });
+                .map(ts -> new ResultCacheWrapper<>(resultBean.isCache(), ts));
     }
 }

@@ -2,28 +2,26 @@ package com.lwkandroid.wings.net.cache;
 
 import com.lwkandroid.wings.net.bean.ApiCacheOptions;
 import com.lwkandroid.wings.net.bean.ApiDiskCacheBean;
-import com.lwkandroid.wings.net.bean.ResultCacheWrapper;
 import com.lwkandroid.wings.net.bean.ApiException;
+import com.lwkandroid.wings.net.bean.ResultCacheWrapper;
 import com.lwkandroid.wings.net.cache.core.CacheCore;
 import com.lwkandroid.wings.net.cache.strategy.ApiCacheAfterRemoteDiffStrategy;
 import com.lwkandroid.wings.net.cache.strategy.ApiCacheAfterRemoteStrategy;
 import com.lwkandroid.wings.net.cache.strategy.ApiCacheFirstStrategy;
 import com.lwkandroid.wings.net.cache.strategy.ApiCacheOnlyStrategy;
-import com.lwkandroid.wings.net.cache.strategy.IApiCacheStrategy;
 import com.lwkandroid.wings.net.cache.strategy.ApiNoCacheStrategy;
 import com.lwkandroid.wings.net.cache.strategy.ApiRemoteFirstStrategy;
 import com.lwkandroid.wings.net.cache.strategy.ApiRemoteOnlyStrategy;
+import com.lwkandroid.wings.net.cache.strategy.IApiCacheStrategy;
 import com.lwkandroid.wings.net.constants.ApiCacheMode;
 import com.lwkandroid.wings.net.constants.ApiExceptionCode;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.exceptions.Exceptions;
-import io.reactivex.functions.Function;
 
 /**
  * 缓存功能入口
@@ -39,14 +37,7 @@ public class RxCache
     public static <T> ObservableTransformer<T, ResultCacheWrapper<T>> transform(final ApiCacheOptions options, final Class<T> clazz)
     {
         final IApiCacheStrategy strategy = getStrategy(options.getCacheMode());
-        return new ObservableTransformer<T, ResultCacheWrapper<T>>()
-        {
-            @Override
-            public ObservableSource<ResultCacheWrapper<T>> apply(Observable<T> upstream)
-            {
-                return strategy.execute(options, upstream, clazz);
-            }
-        };
+        return upstream -> strategy.execute(options, upstream, clazz);
     }
 
     /**
@@ -61,14 +52,7 @@ public class RxCache
             {
                 return cacheCore.load(clazz, cacheKey, cacheTime);
             }
-        }).map(new Function<ApiDiskCacheBean<T>, T>()
-        {
-            @Override
-            public T apply(ApiDiskCacheBean<T> bean) throws Exception
-            {
-                return bean.getData();
-            }
-        });
+        }).map(ApiDiskCacheBean::getData);
     }
 
     /**
