@@ -10,7 +10,6 @@ import android.widget.Button;
 import com.lwkandroid.widget.comactionbar.ComActionBar;
 import com.lwkandroid.wings.mvp.base.MVPBasePresenter;
 import com.lwkandroid.wings.utils.ScreenUtils;
-import com.lwkandroid.wings.widget.pop.OnPopChildClickListener;
 import com.lwkandroid.wings.widget.pop.PopCreator;
 import com.lwkandroid.wings.widget.pop.PopDarkWindowAffect;
 import com.lwkandroid.wings.widget.pop.XGravity;
@@ -87,22 +86,8 @@ public class PopDemoActivity extends AppBaseActivity<MVPBasePresenter>
                 break;
             case R.id.btn_pop_bottom_menu:
                 PopCreator.create(new BottomMenuPop())
-                        .addOnChildClickListener(R.id.tv_pop_bottom_menu01, new OnPopChildClickListener()
-                        {
-                            @Override
-                            public void onPopChildClicked(int viewId, View view, View contentView, PopCreator popCreator)
-                            {
-                                popCreator.dismiss();
-                            }
-                        })
-                        .addOnChildClickListener(R.id.tv_pop_bottom_menu02, new OnPopChildClickListener()
-                        {
-                            @Override
-                            public void onPopChildClicked(int viewId, View view, View contentView, PopCreator popCreator)
-                            {
-                                popCreator.dismiss();
-                            }
-                        })
+                        .addOnChildClickListener(R.id.tv_pop_bottom_menu01, (viewId, view, contentView, popCreator) -> popCreator.dismiss())
+                        .addOnChildClickListener(R.id.tv_pop_bottom_menu02, (viewId, view, contentView, popCreator) -> popCreator.dismiss())
                         .setAffectParams(new PopDarkWindowAffect(0.5f), 200)
                         .setLayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
                         .setAnimStyle(R.style.PopBottomMenuStyle)

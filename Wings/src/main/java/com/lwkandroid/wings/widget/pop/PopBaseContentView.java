@@ -36,10 +36,12 @@ public abstract class PopBaseContentView
 
         //解决xml根布局定义宽高无效的问题
         mRealContentView = new FrameLayout(context);
-        mRealContentView.setFocusable(options.isFocusable());
-        mRealContentView.setFocusableInTouchMode(options.isCanceledOnTouchOutside());
-        final View layout = LayoutInflater.from(context).inflate(getContentViewLayoutResId(), mRealContentView, false);
+        //        mRealContentView.setLayoutParams(mOptions.getLayoutParams());
+        //        mRealContentView.setFocusable(options.isFocusable());
+        //        mRealContentView.setFocusableInTouchMode(options.isCanceledOnTouchOutside());
+        View layout = LayoutInflater.from(context).inflate(getContentViewLayoutResId(), mRealContentView, false);
         mRealContentView.addView(layout);
+        mRealContentView.measure(makeDropDownMeasureSpec(ViewGroup.LayoutParams.WRAP_CONTENT), makeDropDownMeasureSpec(ViewGroup.LayoutParams.WRAP_CONTENT));
         initUIAndData(getRealContentView(), options, popCreator);
         final SparseArray<OnPopChildClickListener> listenerArray = mOptions.getChildClickListenerArray();
         if (listenerArray != null)
@@ -51,21 +53,29 @@ public abstract class PopBaseContentView
                 View view = mRealContentView.findViewById(viewId);
                 if (view != null)
                 {
-                    view.setOnClickListener(new View.OnClickListener()
-                    {
-                        @Override
-                        public void onClick(View v)
+                    view.setOnClickListener(v -> {
+                        OnPopChildClickListener listener = listenerArray.valueAt(index);
+                        if (listener != null)
                         {
-                            OnPopChildClickListener listener = listenerArray.valueAt(index);
-                            if (listener != null)
-                            {
-                                listener.onPopChildClicked(v.getId(), v, mRealContentView, mPopCreator);
-                            }
+                            listener.onPopChildClicked(v.getId(), v, mRealContentView, mPopCreator);
                         }
                     });
                 }
             }
         }
+    }
+
+    private int makeDropDownMeasureSpec(int measureSpec)
+    {
+        int mode;
+        if (measureSpec == ViewGroup.LayoutParams.WRAP_CONTENT)
+        {
+            mode = View.MeasureSpec.AT_MOST;
+        } else
+        {
+            mode = View.MeasureSpec.EXACTLY;
+        }
+        return View.MeasureSpec.makeMeasureSpec(View.MeasureSpec.getSize(measureSpec), mode);
     }
 
     void onDismiss()

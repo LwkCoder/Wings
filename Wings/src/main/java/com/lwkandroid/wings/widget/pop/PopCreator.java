@@ -287,18 +287,12 @@ public class PopCreator implements IPopOperator, PopupWindow.OnDismissListener
         if (cancelOutsideTouched)
         {
             mPopupWindow.setBackgroundDrawable(new BitmapDrawable());
-            mPopupWindow.setTouchInterceptor(new View.OnTouchListener()
-            {
-                @Override
-                public boolean onTouch(View v, MotionEvent event)
+            mPopupWindow.setTouchInterceptor((v, event) -> {
+                if (isTouchDownOutside(event))
                 {
-                    if (isTouchDownOutside(event))
-                    {
-                        mPopupWindow.dismiss();
-                        return true;
-                    }
-                    return false;
+                    mPopupWindow.dismiss();
                 }
+                return v.onTouchEvent(event);
             });
         } else
         {
@@ -311,28 +305,16 @@ public class PopCreator implements IPopOperator, PopupWindow.OnDismissListener
             mPopupWindow.getContentView().setFocusableInTouchMode(true);
             //实测发现这个没用，因为内部的PopupDecorView已经消化了onKeyListener()，
             //点击Back一定会dismiss()
-            mPopupWindow.getContentView().setOnKeyListener(new View.OnKeyListener()
-            {
-                @Override
-                public boolean onKey(View v, int keyCode, KeyEvent event)
+            mPopupWindow.getContentView().setOnKeyListener((v, keyCode, event) -> {
+                if (keyCode == KeyEvent.KEYCODE_BACK)
                 {
-                    if (keyCode == KeyEvent.KEYCODE_BACK)
-                    {
-                        mPopupWindow.dismiss();
-                        return true;
-                    }
-                    return false;
+                    mPopupWindow.dismiss();
+                    return true;
                 }
+                return false;
             });
             //在Android 6.0以上 ，只能通过拦截事件来解决
-            mPopupWindow.setTouchInterceptor(new View.OnTouchListener()
-            {
-                @Override
-                public boolean onTouch(View v, MotionEvent event)
-                {
-                    return isTouchDownOutside(event);
-                }
-            });
+            mPopupWindow.setTouchInterceptor((v, event) -> isTouchDownOutside(event));
         }
 
         //不让键盘遮挡PopupWindow
@@ -418,14 +400,8 @@ public class PopCreator implements IPopOperator, PopupWindow.OnDismissListener
         mAnimator = ValueAnimator.ofFloat(0f, 1.0f);
         mAnimator.setDuration(mOptions.getAffectDuration());
         mAnimator.setInterpolator(new LinearInterpolator());
-        mAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
-        {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation)
-            {
-                mOptions.getAffect().onShowingProgress(getContext(), PopCreator.this, mOptions, (Float) animation.getAnimatedValue());
-            }
-        });
+        mAnimator.addUpdateListener(animation ->
+                mOptions.getAffect().onShowingProgress(getContext(), PopCreator.this, mOptions, (Float) animation.getAnimatedValue()));
         mAnimator.start();
     }
 
