@@ -36,9 +36,6 @@ public abstract class PopBaseContentView
 
         //解决xml根布局定义宽高无效的问题
         mRealContentView = new FrameLayout(context);
-        //        mRealContentView.setLayoutParams(mOptions.getLayoutParams());
-        //        mRealContentView.setFocusable(options.isFocusable());
-        //        mRealContentView.setFocusableInTouchMode(options.isCanceledOnTouchOutside());
         View layout = LayoutInflater.from(context).inflate(getContentViewLayoutResId(), mRealContentView, false);
         mRealContentView.addView(layout);
         mRealContentView.measure(makeDropDownMeasureSpec(ViewGroup.LayoutParams.WRAP_CONTENT), makeDropDownMeasureSpec(ViewGroup.LayoutParams.WRAP_CONTENT));

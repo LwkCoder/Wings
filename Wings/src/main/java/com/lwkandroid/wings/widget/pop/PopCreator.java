@@ -68,13 +68,7 @@ public class PopCreator implements IPopOperator, PopupWindow.OnDismissListener
     public PopCreator showAsDropDown(View anchor, int xoff, int yoff, int gravity, PopOptions options)
     {
         init(getActivityFromView(anchor), options);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
-        {
-            mPopupWindow.showAsDropDown(anchor, xoff, yoff, Gravity.NO_GRAVITY);
-        } else
-        {
-            mPopupWindow.showAsDropDown(anchor, xoff, yoff);
-        }
+        PopupWindowCompat.showAsDropDown(mPopupWindow, anchor, xoff, yoff, gravity);
         applyProgressAffect();
         return this;
     }
@@ -105,7 +99,7 @@ public class PopCreator implements IPopOperator, PopupWindow.OnDismissListener
                 }
             }
         });
-        PopupWindowCompat.showAsDropDown(mPopupWindow, anchor.getRootView(), 0, 0, Gravity.NO_GRAVITY);
+        PopupWindowCompat.showAsDropDown(mPopupWindow, anchor, 0, 0, Gravity.NO_GRAVITY);
         applyProgressAffect();
         return this;
     }
