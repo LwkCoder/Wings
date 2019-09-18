@@ -121,8 +121,15 @@ public interface IApiRequestOptions
 
         int getAutoRetryDelay();
 
+        /**
+         * Https自签名证书
+         * 不传参数代表信任所有证书
+         */
         T setHttpsCertificates(InputStream... certificates);
 
+        /**
+         * Https双向认证证书
+         */
         T setHttpsCertificates(InputStream bksFile, String password, InputStream... certificates);
 
         T setHttpsSSLParams(HttpsUtils.SSLParams params);

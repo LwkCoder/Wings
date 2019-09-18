@@ -18,6 +18,7 @@ package com.lwkandroid.wings.net.https;
 
 
 import com.lwkandroid.wings.log.KLog;
+import com.lwkandroid.wings.utils.CloseUtils;
 
 import java.io.InputStream;
 import java.security.KeyManagementException;
@@ -45,6 +46,10 @@ public class HttpsUtils
 {
     private static final String TAG = "RxHttpsUtils";
 
+    private static final String KEYSTORE_TYPE = "BKS";
+    private static final String PROTOCOL_TYPE = "TLS";
+    private static final String CERTIFICATE_STANDARD = "X.509";
+
     public static class SSLParams
     {
         public SSLSocketFactory sSLSocketFactory;
@@ -58,7 +63,7 @@ public class HttpsUtils
         {
             KeyManager[] keyManagers = prepareKeyManager(bksFile, password);
             TrustManager[] trustManagers = prepareTrustManager(certificates);
-            SSLContext sslContext = SSLContext.getInstance("TLS");
+            SSLContext sslContext = SSLContext.getInstance(PROTOCOL_TYPE);
             X509TrustManager trustManager;
             if (trustManagers != null)
             {
@@ -85,7 +90,7 @@ public class HttpsUtils
         }
         try
         {
-            CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
+            CertificateFactory certificateFactory = CertificateFactory.getInstance(CERTIFICATE_STANDARD);
             KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
             keyStore.load(null);
             int index = 0;
@@ -118,7 +123,7 @@ public class HttpsUtils
             {
                 return null;
             }
-            KeyStore clientKeyStore = KeyStore.getInstance("BKS");
+            KeyStore clientKeyStore = KeyStore.getInstance(KEYSTORE_TYPE);
             clientKeyStore.load(bksFile, password.toCharArray());
             KeyManagerFactory keyManagerFactory = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
             keyManagerFactory.init(clientKeyStore, password.toCharArray());
@@ -127,6 +132,12 @@ public class HttpsUtils
         {
             e.printStackTrace();
             KLog.e(TAG, "prepareKeyManager fail:" + e.toString());
+        } finally
+        {
+            if (bksFile != null)
+            {
+                CloseUtils.closeIO(bksFile);
+            }
         }
         return null;
     }
