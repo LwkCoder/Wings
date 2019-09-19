@@ -404,7 +404,7 @@ public class ApiCommonOptionsImpl implements IApiRequestOptions.Common<ApiCommon
     }
 
     /**
-     * Https自签名证书
+     * Https单项认证、自签名证书
      * 不传参数代表信任所有证书
      *
      * @param certificates
@@ -413,7 +413,7 @@ public class ApiCommonOptionsImpl implements IApiRequestOptions.Common<ApiCommon
     @Override
     public ApiCommonOptionsImpl setHttpsCertificates(InputStream... certificates)
     {
-        this.mSslParams = HttpsUtils.getSslSocketFactory(null, null, certificates);
+        this.mSslParams = HttpsUtils.createSSLParams(null, null, certificates);
         return this;
     }
 
@@ -428,7 +428,7 @@ public class ApiCommonOptionsImpl implements IApiRequestOptions.Common<ApiCommon
     @Override
     public ApiCommonOptionsImpl setHttpsCertificates(InputStream bksFile, String password, InputStream... certificates)
     {
-        this.mSslParams = HttpsUtils.getSslSocketFactory(bksFile, password, certificates);
+        this.mSslParams = HttpsUtils.createSSLParams(bksFile, password, certificates);
         return this;
     }
 

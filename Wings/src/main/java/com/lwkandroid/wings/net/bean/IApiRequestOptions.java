@@ -122,7 +122,7 @@ public interface IApiRequestOptions
         int getAutoRetryDelay();
 
         /**
-         * Https自签名证书
+         * Https单项认证、自签名证书
          * 不传参数代表信任所有证书
          */
         T setHttpsCertificates(InputStream... certificates);

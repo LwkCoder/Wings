@@ -25,6 +25,7 @@ import java.security.KeyManagementException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
@@ -46,17 +47,40 @@ public class HttpsUtils
 {
     private static final String TAG = "RxHttpsUtils";
 
-    private static final String KEYSTORE_TYPE = "BKS";
+    //信任证书类型
+    private static final String TRUST_KEYSTORE_TYPE = "BKS";
+    //协议类型
     private static final String PROTOCOL_TYPE = "TLS";
+    //认证标准
     private static final String CERTIFICATE_STANDARD = "X.509";
 
     public static class SSLParams
     {
-        public SSLSocketFactory sSLSocketFactory;
-        public X509TrustManager trustManager;
+        private SSLSocketFactory mSLSocketFactory;
+        private X509TrustManager mTrustManager;
+
+        public SSLSocketFactory getsSLSocketFactory()
+        {
+            return mSLSocketFactory;
+        }
+
+        public void setsSLSocketFactory(SSLSocketFactory sSLSocketFactory)
+        {
+            this.mSLSocketFactory = sSLSocketFactory;
+        }
+
+        public X509TrustManager getTrustManager()
+        {
+            return mTrustManager;
+        }
+
+        public void setTrustManager(X509TrustManager trustManager)
+        {
+            this.mTrustManager = trustManager;
+        }
     }
 
-    public static SSLParams getSslSocketFactory(InputStream bksFile, String password, InputStream[] certificates)
+    public static SSLParams createSSLParams(InputStream bksFile, String password, InputStream[] certificates)
     {
         SSLParams sslParams = new SSLParams();
         try
@@ -72,9 +96,9 @@ public class HttpsUtils
             {
                 trustManager = new UnSafeTrustManager();
             }
-            sslContext.init(keyManagers, new TrustManager[]{trustManager}, null);
-            sslParams.sSLSocketFactory = sslContext.getSocketFactory();
-            sslParams.trustManager = trustManager;
+            sslContext.init(keyManagers, new TrustManager[]{trustManager}, new SecureRandom());
+            sslParams.mSLSocketFactory = sslContext.getSocketFactory();
+            sslParams.mTrustManager = trustManager;
             return sslParams;
         } catch (NoSuchAlgorithmException | KeyManagementException | KeyStoreException e)
         {
@@ -103,8 +127,7 @@ public class HttpsUtils
                     certificate.close();
                 }
             }
-            TrustManagerFactory trustManagerFactory;
-            trustManagerFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+            TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
             trustManagerFactory.init(keyStore);
             return trustManagerFactory.getTrustManagers();
         } catch (Exception e)
@@ -123,7 +146,7 @@ public class HttpsUtils
             {
                 return null;
             }
-            KeyStore clientKeyStore = KeyStore.getInstance(KEYSTORE_TYPE);
+            KeyStore clientKeyStore = KeyStore.getInstance(TRUST_KEYSTORE_TYPE);
             clientKeyStore.load(bksFile, password.toCharArray());
             KeyManagerFactory keyManagerFactory = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
             keyManagerFactory.init(clientKeyStore, password.toCharArray());
@@ -180,9 +203,9 @@ public class HttpsUtils
 
         MyTrustManager(X509TrustManager localTrustManager) throws NoSuchAlgorithmException, KeyStoreException
         {
-            TrustManagerFactory var4 = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
-            var4.init((KeyStore) null);
-            defaultTrustManager = chooseTrustManager(var4.getTrustManagers());
+            TrustManagerFactory factory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+            factory.init((KeyStore) null);
+            defaultTrustManager = chooseTrustManager(factory.getTrustManagers());
             this.localTrustManager = localTrustManager;
         }
 
