@@ -10,15 +10,18 @@ import android.widget.TextView;
 import com.lwkandroid.imagepicker.ImagePicker;
 import com.lwkandroid.imagepicker.data.ImageBean;
 import com.lwkandroid.imagepicker.data.ImagePickType;
+import com.lwkandroid.wings.log.KLog;
+import com.lwkandroid.wings.net.RxHttp;
 import com.lwkandroid.wings.net.bean.ApiException;
 import com.lwkandroid.wings.net.bean.ProgressInfo;
+import com.lwkandroid.wings.net.observer.ApiBaseObserver;
 import com.lwkandroid.wings.permission.PermissionDialogUtils;
+import com.lwkandroid.wings.rx.schedulers.RxSchedulers;
 import com.lwkandroid.wings.utils.AppUtils;
 import com.lwkandroid.wingsdemo.R;
 import com.lwkandroid.wingsdemo.app.AppBaseActivity;
 import com.lwkandroid.wingsdemo.bean.NonRestFulResult;
 import com.lwkandroid.wingsdemo.bean.TabsBean;
-import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.runtime.Permission;
 
@@ -57,87 +60,45 @@ public class RxHttpDemoActivity extends AppBaseActivity<RxHttpDemoPresenter> imp
         mImageView = find(R.id.img_rxhttp_demo);
         mTextView = find(R.id.tv_rxhttp_demo);
 
-        addClick(R.id.btn_rxhttp_demo01, new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                getPresenter().requestData();
-            }
-        });
-        addClick(R.id.btn_rxhttp_demo02, new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                getPresenter().requestCustomGet();
-            }
-        });
-        addClick(R.id.btn_rxhttp_download, new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                AndPermission.with(RxHttpDemoActivity.this)
-                        .runtime()
-                        .permission(Permission.WRITE_EXTERNAL_STORAGE)
-                        .rationale(PermissionDialogUtils.showRuntimeRationaleDialog())
-                        .onGranted(new Action<List<String>>()
-                        {
-                            @Override
-                            public void onAction(List<String> data)
-                            {
-                                getPresenter().requestFileData();
-                            }
-                        })
-                        .onDenied(new Action<List<String>>()
-                        {
-                            @Override
-                            public void onAction(List<String> data)
-                            {
-                                PermissionDialogUtils.showSettingIfNeverAskDialog(RxHttpDemoActivity.this, data, 100);
-                                showShortToast("不给权限我咋下载啊大兄弟");
-                            }
-                        }).start();
-            }
-        });
-        addClick(R.id.btn_rxhttp_demo03, new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                getPresenter().requestNonRestFul();
-            }
-        });
+        addClick(R.id.btn_rxhttp_demo01, v -> getPresenter().requestData());
+        addClick(R.id.btn_rxhttp_demo02, v -> getPresenter().requestCustomGet());
+        addClick(R.id.btn_rxhttp_download, v -> AndPermission.with(RxHttpDemoActivity.this)
+                .runtime()
+                .permission(Permission.WRITE_EXTERNAL_STORAGE)
+                .rationale(PermissionDialogUtils.showRuntimeRationaleDialog())
+                .onGranted(data -> getPresenter().requestFileData())
+                .onDenied(data -> {
+                    PermissionDialogUtils.showSettingIfNeverAskDialog(RxHttpDemoActivity.this, data, 100);
+                    showShortToast("不给权限我咋下载啊大兄弟");
+                }).start());
+        addClick(R.id.btn_rxhttp_demo03, v -> getPresenter().requestNonRestFul());
+        addClick(R.id.btn_rxhttp_bitmap, v -> getPresenter().requestBitmapData());
+        addClick(R.id.btn_rxhttp_upload, v -> new ImagePicker().pickType(ImagePickType.MULTI)
+                .maxNum(9)
+                .start(RxHttpDemoActivity.this, 105));
+        addClick(R.id.btn_rxhttp_demo04, v -> getPresenter().requestCustomPost());
 
-        addClick(R.id.btn_rxhttp_bitmap, new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                getPresenter().requestBitmapData();
-            }
+        RxHttp.getGlobalOptions().setHttpsCertificates(getResources().openRawResource(R.raw.test));
+        RxHttp.getGlobalOptions().setHostnameVerifier((hostname, sslSession) -> {
+            KLog.e("HostName--->" + hostname);
+            return true;
         });
+        RxHttp.GET("https://javatest.hqxapp.com/demo")
+                .returnStringResponse()
+                .compose(RxSchedulers.applyIo2Main())
+                .subscribe(new ApiBaseObserver<String>()
+                {
+                    @Override
+                    public void subOnNext(String s)
+                    {
+                    }
 
-        addClick(R.id.btn_rxhttp_upload, new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                new ImagePicker().pickType(ImagePickType.MULTI)
-                        .maxNum(9)
-                        .start(RxHttpDemoActivity.this, 105);
-            }
-        });
-
-        addClick(R.id.btn_rxhttp_demo04, new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                getPresenter().requestCustomPost();
-            }
-        });
+                    @Override
+                    public void subOnError(ApiException e)
+                    {
+                        KLog.e(e.toString());
+                    }
+                });
     }
 
     @Override

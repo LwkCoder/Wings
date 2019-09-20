@@ -54,7 +54,7 @@ public abstract class ApiBaseRequest<T extends ApiBaseRequestOptions> extends Ap
         /*设置Https证书*/
         if (getHttpsSSLParams() != null)
         {
-            builder.sslSocketFactory(getHttpsSSLParams().sSLSocketFactory, getHttpsSSLParams().trustManager);
+            builder.sslSocketFactory(getHttpsSSLParams().getSSLSocketFactory(), getHttpsSSLParams().getTrustManager());
         }
 
         //设置拦截器

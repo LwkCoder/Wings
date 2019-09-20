@@ -23,7 +23,6 @@ import com.lwkandroid.wings.mvp.base.MVPBasePresenter;
 import com.lwkandroid.wings.mvp.base.WingsBaseActivity;
 import com.lwkandroid.wings.permission.PermissionDialogUtils;
 import com.lwkandroid.wings.utils.BarUtils;
-import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.runtime.Permission;
 
@@ -38,6 +37,7 @@ import io.reactivex.functions.Consumer;
 
 /**
  * 二维码扫描界面
+ *
  * @author LWK
  */
 public class QRCodeScanActivity extends WingsBaseActivity<MVPBasePresenter>
@@ -149,37 +149,27 @@ public class QRCodeScanActivity extends WingsBaseActivity<MVPBasePresenter>
                 .runtime()
                 .permission(Permission.CAMERA)
                 .rationale(PermissionDialogUtils.showRuntimeRationaleDialog())
-                .onGranted(new Action<List<String>>()
-                {
-                    @Override
-                    public void onAction(List<String> data)
-                    {
-                        ViewStub viewStub = find(R.id.vs_qrcode);
-                        viewStub.inflate();
-                        mZXingView = find(R.id.zxv_qrcode);
-                        mZXingView.getScanBoxView().setIsBarcode(mOptions.isBarCodeMode());
-                        mZXingView.getScanBoxView().setOnlyDecodeScanBoxArea(mOptions.isFullScreenScan());
-                        mZXingView.getScanBoxView().setBorderColor(mOptions.getRectColor());
-                        mZXingView.getScanBoxView().setCornerColor(mOptions.getRectCornerColor());
-                        mZXingView.getScanBoxView().setScanLineColor(mOptions.getScanLineColor());
-                        mZXingView.getScanBoxView().setAnimTime(mOptions.getScanLineAnimDuration());
-                        mZXingView.getScanBoxView().setTipText(mOptions.getHintText());
-                        mZXingView.getScanBoxView().setQRCodeTipText(mOptions.getHintText());
-                        mZXingView.getScanBoxView().setBarCodeTipText(mOptions.getHintText());
-                        mZXingView.getScanBoxView().setTipTextColor(mOptions.getHintColor());
-                        mZXingView.getScanBoxView().setAutoZoom(mOptions.isAutoZoom());
-                        mZXingView.setDelegate(QRCodeScanActivity.this);
-                        mZXingView.startSpotAndShowRect();
-                    }
+                .onGranted(data -> {
+                    ViewStub viewStub = find(R.id.vs_qrcode);
+                    viewStub.inflate();
+                    mZXingView = find(R.id.zxv_qrcode);
+                    mZXingView.getScanBoxView().setIsBarcode(mOptions.isBarCodeMode());
+                    mZXingView.getScanBoxView().setOnlyDecodeScanBoxArea(mOptions.isFullScreenScan());
+                    mZXingView.getScanBoxView().setBorderColor(mOptions.getRectColor());
+                    mZXingView.getScanBoxView().setCornerColor(mOptions.getRectCornerColor());
+                    mZXingView.getScanBoxView().setScanLineColor(mOptions.getScanLineColor());
+                    mZXingView.getScanBoxView().setAnimTime(mOptions.getScanLineAnimDuration());
+                    mZXingView.getScanBoxView().setTipText(mOptions.getHintText());
+                    mZXingView.getScanBoxView().setQRCodeTipText(mOptions.getHintText());
+                    mZXingView.getScanBoxView().setBarCodeTipText(mOptions.getHintText());
+                    mZXingView.getScanBoxView().setTipTextColor(mOptions.getHintColor());
+                    mZXingView.getScanBoxView().setAutoZoom(mOptions.isAutoZoom());
+                    mZXingView.setDelegate(QRCodeScanActivity.this);
+                    mZXingView.startSpotAndShowRect();
                 })
-                .onDenied(new Action<List<String>>()
-                {
-                    @Override
-                    public void onAction(List<String> data)
-                    {
-                        PermissionDialogUtils.showSettingIfNeverAskDialog(QRCodeScanActivity.this, data, 100);
-                        showLongToast(R.string.qrcodescan_error);
-                    }
+                .onDenied(data -> {
+                    PermissionDialogUtils.showSettingIfNeverAskDialog(QRCodeScanActivity.this, data, 100);
+                    showLongToast(R.string.qrcodescan_error);
                 })
                 .start();
     }

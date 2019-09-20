@@ -43,15 +43,25 @@ import javax.net.ssl.X509TrustManager;
  *
  * @author LWK
  */
-public class HttpsUtils
+public final class HttpsUtils
 {
-    private static final String TAG = "RxHttpsUtils";
+    private HttpsUtils()
+    {
+    }
 
-    //信任证书类型
+    private static final String TAG = "HttpsUtils";
+
+    /**
+     * 信任证书类型
+     */
     private static final String TRUST_KEYSTORE_TYPE = "BKS";
-    //协议类型
+    /**
+     * 协议类型
+     */
     private static final String PROTOCOL_TYPE = "TLS";
-    //认证标准
+    /**
+     * 认证标准
+     */
     private static final String CERTIFICATE_STANDARD = "X.509";
 
     public static class SSLParams
@@ -59,7 +69,7 @@ public class HttpsUtils
         private SSLSocketFactory mSLSocketFactory;
         private X509TrustManager mTrustManager;
 
-        public SSLSocketFactory getsSLSocketFactory()
+        public SSLSocketFactory getSSLSocketFactory()
         {
             return mSLSocketFactory;
         }

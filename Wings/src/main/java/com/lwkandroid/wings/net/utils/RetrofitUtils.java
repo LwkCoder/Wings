@@ -46,8 +46,8 @@ public final class RetrofitUtils
         /*设置Https证书*/
         if (globalOptions.getHttpsSSLParams() != null)
         {
-            builder.sslSocketFactory(globalOptions.getHttpsSSLParams().sSLSocketFactory,
-                    globalOptions.getHttpsSSLParams().trustManager);
+            builder.sslSocketFactory(globalOptions.getHttpsSSLParams().getSSLSocketFactory(),
+                    globalOptions.getHttpsSSLParams().getTrustManager());
         }
 
         /*添加全局参数和Header*/
