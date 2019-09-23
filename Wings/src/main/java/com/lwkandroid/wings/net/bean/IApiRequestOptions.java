@@ -129,6 +129,10 @@ public interface IApiRequestOptions
 
         /**
          * Https双向认证证书
+         *
+         * @param bksFile      客户端证书
+         * @param password     客户端证书密码
+         * @param certificates 客户端信任的服务端公钥证书
          */
         T setHttpsCertificates(InputStream bksFile, String password, InputStream... certificates);
 

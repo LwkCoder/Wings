@@ -98,17 +98,17 @@ public final class HttpsUtils
             KeyManager[] keyManagers = prepareKeyManager(bksFile, password);
             TrustManager[] trustManagers = prepareTrustManager(certificates);
             SSLContext sslContext = SSLContext.getInstance(PROTOCOL_TYPE);
-            X509TrustManager trustManager;
+            X509TrustManager x509TrustManager;
             if (trustManagers != null)
             {
-                trustManager = new MyTrustManager(chooseTrustManager(trustManagers));
+                x509TrustManager = new MyTrustManager(chooseTrustManager(trustManagers));
             } else
             {
-                trustManager = new UnSafeTrustManager();
+                x509TrustManager = new UnSafeTrustManager();
             }
-            sslContext.init(keyManagers, new TrustManager[]{trustManager}, new SecureRandom());
+            sslContext.init(keyManagers, new TrustManager[]{x509TrustManager}, new SecureRandom());
             sslParams.mSLSocketFactory = sslContext.getSocketFactory();
-            sslParams.mTrustManager = trustManager;
+            sslParams.mTrustManager = x509TrustManager;
             return sslParams;
         } catch (NoSuchAlgorithmException | KeyManagementException | KeyStoreException e)
         {

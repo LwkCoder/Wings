@@ -403,13 +403,6 @@ public class ApiCommonOptionsImpl implements IApiRequestOptions.Common<ApiCommon
         return mAutoRetryDelay;
     }
 
-    /**
-     * Https单项认证、自签名证书
-     * 不传参数代表信任所有证书
-     *
-     * @param certificates
-     * @return
-     */
     @Override
     public ApiCommonOptionsImpl setHttpsCertificates(InputStream... certificates)
     {
@@ -417,14 +410,6 @@ public class ApiCommonOptionsImpl implements IApiRequestOptions.Common<ApiCommon
         return this;
     }
 
-    /**
-     * Https双向认证证书
-     *
-     * @param bksFile
-     * @param password
-     * @param certificates
-     * @return
-     */
     @Override
     public ApiCommonOptionsImpl setHttpsCertificates(InputStream bksFile, String password, InputStream... certificates)
     {
