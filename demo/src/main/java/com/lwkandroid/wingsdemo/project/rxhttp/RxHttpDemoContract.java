@@ -25,7 +25,7 @@ public interface RxHttpDemoContract
 {
     interface View extends IAppBaseView
     {
-        void setWeatherHttpResultData(List<TabsBean> dataList);
+        void setHttpResult(String result);
 
         void showDownloadResult(File file);
 
@@ -71,6 +71,8 @@ public interface RxHttpDemoContract
         abstract Observable<String> uploadImages(List<File> files);
 
         abstract Observable<String> requestTestDataWithAccessToken();
+
+        abstract Observable<String> requestHttps();
     }
 
     abstract class Presenter extends AppBasePresenter<View, Model>
@@ -90,5 +92,7 @@ public interface RxHttpDemoContract
         abstract void uploadImages(List<File> files);
 
         abstract void requestDataWithAutoRefreshAccessToken();
+
+        abstract void requestHttps();
     }
 }

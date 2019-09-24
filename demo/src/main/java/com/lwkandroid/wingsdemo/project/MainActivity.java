@@ -39,86 +39,16 @@ public class MainActivity extends AppBaseActivity<MainPresenter> implements Main
     protected void initUI(View contentView)
     {
         mActionBar = find(R.id.comactionbar);
-        addClick(R.id.btn_main_imageloader, new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                startActivity(new Intent(MainActivity.this, ImageLoaderDemoActivity.class));
-            }
-        });
-        addClick(R.id.btn_main_rxhttp, new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                startActivity(new Intent(MainActivity.this, RxHttpDemoActivity.class));
-            }
-        });
-        addClick(R.id.btn_main_pop, new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                startActivity(new Intent(MainActivity.this, PopDemoActivity.class));
-            }
-        });
-        addClick(R.id.btn_main_qrcode, new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                startActivity(new Intent(MainActivity.this, QRCodeDemoActivity.class));
-            }
-        });
-        addClick(R.id.btn_main_list, new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                startActivity(new Intent(MainActivity.this, ListDemoActivity.class));
-            }
-        });
-        addClick(R.id.btn_main_element, new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                startActivity(new Intent(MainActivity.this, ImageGridActivity.class));
-            }
-        });
-        addClick(R.id.btn_main_dialog, new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                startActivity(new Intent(MainActivity.this, DialogDemoActivity.class));
-            }
-        });
-        addClick(R.id.btn_main_encrypt, new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                startActivity(new Intent(MainActivity.this, EncryptActivity.class));
-            }
-        });
-        addClick(R.id.btn_main_state, new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                startActivity(new Intent(MainActivity.this, StateActivity.class));
-            }
-        });
-        addClick(R.id.btn_main_test, new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                startActivity(new Intent(MainActivity.this, TestActivity.class));
-            }
-        });
+        addClick(R.id.btn_main_imageloader, v -> startActivity(new Intent(MainActivity.this, ImageLoaderDemoActivity.class)));
+        addClick(R.id.btn_main_rxhttp, v -> startActivity(new Intent(MainActivity.this, RxHttpDemoActivity.class)));
+        addClick(R.id.btn_main_pop, v -> startActivity(new Intent(MainActivity.this, PopDemoActivity.class)));
+        addClick(R.id.btn_main_qrcode, v -> startActivity(new Intent(MainActivity.this, QRCodeDemoActivity.class)));
+        addClick(R.id.btn_main_list, v -> startActivity(new Intent(MainActivity.this, ListDemoActivity.class)));
+        addClick(R.id.btn_main_element, v -> startActivity(new Intent(MainActivity.this, ImageGridActivity.class)));
+        addClick(R.id.btn_main_dialog, v -> startActivity(new Intent(MainActivity.this, DialogDemoActivity.class)));
+        addClick(R.id.btn_main_encrypt, v -> startActivity(new Intent(MainActivity.this, EncryptActivity.class)));
+        addClick(R.id.btn_main_state, v -> startActivity(new Intent(MainActivity.this, StateActivity.class)));
+        addClick(R.id.btn_main_test, v -> startActivity(new Intent(MainActivity.this, TestActivity.class)));
     }
 
     @Override

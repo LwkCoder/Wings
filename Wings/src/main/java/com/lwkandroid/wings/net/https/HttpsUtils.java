@@ -63,6 +63,7 @@ public final class HttpsUtils
      * 认证标准
      */
     private static final String CERTIFICATE_STANDARD = "X.509";
+    private static final String CERTIFICATE_PROVIDER = "BC";
 
     public static class SSLParams
     {
@@ -101,14 +102,17 @@ public final class HttpsUtils
             X509TrustManager x509TrustManager;
             if (trustManagers != null)
             {
+                KLog.e("trust不为空");
                 x509TrustManager = new MyTrustManager(chooseTrustManager(trustManagers));
             } else
             {
+                KLog.e("trust为空");
                 x509TrustManager = new UnSafeTrustManager();
             }
             sslContext.init(keyManagers, new TrustManager[]{x509TrustManager}, new SecureRandom());
-            sslParams.mSLSocketFactory = sslContext.getSocketFactory();
-            sslParams.mTrustManager = x509TrustManager;
+
+            sslParams.setsSLSocketFactory(sslContext.getSocketFactory());
+            sslParams.setTrustManager(x509TrustManager);
             return sslParams;
         } catch (NoSuchAlgorithmException | KeyManagementException | KeyStoreException e)
         {
@@ -124,7 +128,8 @@ public final class HttpsUtils
         }
         try
         {
-            CertificateFactory certificateFactory = CertificateFactory.getInstance(CERTIFICATE_STANDARD);
+            //若此处不加参数 "BC" 会报异常：CertificateException - OpenSSLX509CertificateFactory$ParsingException
+            CertificateFactory certificateFactory = CertificateFactory.getInstance(CERTIFICATE_STANDARD, CERTIFICATE_PROVIDER);
             KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
             keyStore.load(null);
             int index = 0;
@@ -217,6 +222,7 @@ public final class HttpsUtils
             factory.init((KeyStore) null);
             defaultTrustManager = chooseTrustManager(factory.getTrustManagers());
             this.localTrustManager = localTrustManager;
+            KLog.e("判断Local--》" + (localTrustManager == null));
         }
 
         @Override
@@ -233,6 +239,7 @@ public final class HttpsUtils
                 defaultTrustManager.checkServerTrusted(chain, authType);
             } catch (CertificateException ce)
             {
+                ce.printStackTrace();
                 localTrustManager.checkServerTrusted(chain, authType);
             }
         }

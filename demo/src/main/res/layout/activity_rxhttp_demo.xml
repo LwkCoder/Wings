@@ -1,19 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="vertical">
-
-    <com.lwkandroid.widget.comactionbar.ComActionBar
-        android:id="@id/comactionbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:bg_color="@color/deep_dark"
-        app:is_left_as_back="true"
-        app:title_text="网络请求示例"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -29,43 +20,54 @@
                 android:id="@+id/btn_rxhttp_demo01"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="RxHttp获取RestFul数据"/>
+                android:text="RxHttp获取RestFul数据" />
 
             <Button
                 android:id="@+id/btn_rxhttp_demo03"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="非RestFul风格数据"/>
+                android:text="非RestFul风格数据" />
 
             <Button
                 android:id="@+id/btn_rxhttp_demo02"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="自定义Retrofit Service Get获取数据"/>
+                android:text="自定义Retrofit Service Get获取数据" />
 
             <Button
                 android:id="@+id/btn_rxhttp_demo04"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="自定义Retrofit Service Post获取数据"/>
+                android:text="自定义Retrofit Service Post获取数据" />
+
+            <Button
+                android:id="@+id/btn_rxhttp_https"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Https自签名双向认证" />
 
             <Button
                 android:id="@+id/btn_rxhttp_download"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="下载文件"/>
+                android:text="下载文件" />
 
             <Button
                 android:id="@+id/btn_rxhttp_bitmap"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="下载图片Bitmap"/>
+                android:text="下载图片Bitmap" />
 
             <Button
                 android:id="@+id/btn_rxhttp_upload"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="上传图片"/>
+                android:text="上传图片" />
+
+            <ImageView
+                android:id="@+id/img_rxhttp_demo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
             <TextView
                 android:id="@+id/tv_rxhttp_demo"
@@ -73,15 +75,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_small"
                 android:textColor="@color/deep_dark"
-                android:textSize="@dimen/text_size_small"/>
-
-            <ImageView
-                android:id="@+id/img_rxhttp_demo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:textSize="@dimen/text_size_small" />
 
         </LinearLayout>
 
     </ScrollView>
+
+    <com.lwkandroid.widget.comactionbar.ComActionBar
+        android:id="@id/comactionbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:bg_color="@color/deep_dark"
+        app:is_left_as_back="true"
+        app:title_text="网络请求示例" />
 
 </LinearLayout>

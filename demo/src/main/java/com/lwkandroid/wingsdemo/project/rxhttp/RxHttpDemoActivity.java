@@ -14,14 +14,12 @@ import com.lwkandroid.wings.log.KLog;
 import com.lwkandroid.wings.net.RxHttp;
 import com.lwkandroid.wings.net.bean.ApiException;
 import com.lwkandroid.wings.net.bean.ProgressInfo;
-import com.lwkandroid.wings.net.observer.ApiBaseObserver;
 import com.lwkandroid.wings.permission.PermissionDialogUtils;
-import com.lwkandroid.wings.rx.schedulers.RxSchedulers;
 import com.lwkandroid.wings.utils.AppUtils;
+import com.lwkandroid.wings.utils.ResourceUtils;
 import com.lwkandroid.wingsdemo.R;
 import com.lwkandroid.wingsdemo.app.AppBaseActivity;
 import com.lwkandroid.wingsdemo.bean.NonRestFulResult;
-import com.lwkandroid.wingsdemo.bean.TabsBean;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.runtime.Permission;
 
@@ -77,28 +75,15 @@ public class RxHttpDemoActivity extends AppBaseActivity<RxHttpDemoPresenter> imp
                 .maxNum(9)
                 .start(RxHttpDemoActivity.this, 105));
         addClick(R.id.btn_rxhttp_demo04, v -> getPresenter().requestCustomPost());
+        addClick(R.id.btn_rxhttp_https, v -> getPresenter().requestHttps());
 
-        RxHttp.getGlobalOptions().setHttpsCertificates(getResources().openRawResource(R.raw.test));
+        //添加自签名证书
+        RxHttp.getGlobalOptions().setHttpsCertificates(ResourceUtils.getAsset("client.bks"),
+                "hqxkj168++", ResourceUtils.getAsset("server.bks"));
         RxHttp.getGlobalOptions().setHostnameVerifier((hostname, sslSession) -> {
             KLog.e("HostName--->" + hostname);
             return true;
         });
-        RxHttp.GET("https://javatest.hqxapp.com/demo")
-                .returnStringResponse()
-                .compose(RxSchedulers.applyIo2Main())
-                .subscribe(new ApiBaseObserver<String>()
-                {
-                    @Override
-                    public void subOnNext(String s)
-                    {
-                    }
-
-                    @Override
-                    public void subOnError(ApiException e)
-                    {
-                        KLog.e(e.toString());
-                    }
-                });
     }
 
     @Override
@@ -130,14 +115,14 @@ public class RxHttpDemoActivity extends AppBaseActivity<RxHttpDemoPresenter> imp
 
 
     @Override
-    public void setWeatherHttpResultData(List<TabsBean> dataList)
+    public void setHttpResult(String result)
     {
-        if (dataList == null)
+        if (result == null)
         {
-            mTextView.setText(null);
+            mTextView.setText("返回为空");
         } else
         {
-            mTextView.setText(dataList.toString());
+            mTextView.setText(result);
         }
     }
 
@@ -189,4 +174,5 @@ public class RxHttpDemoActivity extends AppBaseActivity<RxHttpDemoPresenter> imp
     {
         mTextView.setText("请求错误：" + e.toString());
     }
+
 }

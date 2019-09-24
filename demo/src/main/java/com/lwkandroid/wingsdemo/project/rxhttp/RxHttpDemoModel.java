@@ -22,8 +22,6 @@ import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
 
 /**
  * RxHttpDemo Model层
@@ -117,23 +115,26 @@ public class RxHttpDemoModel extends RxHttpDemoContract.Model
     Observable<String> requestTestDataWithAccessToken()
     {
         //实际情况应该是网络请求时带上AccessToken，由服务端判定是否过期
-        return Observable.create(new ObservableOnSubscribe<String>()
-        {
-            @Override
-            public void subscribe(ObservableEmitter<String> emitter) throws Exception
+        return Observable.create(emitter -> {
+            //模拟服务端判定AccessToken是否可用
+            AccessTokenBean bean = AccessTokenDao.get().getToken();
+            if (bean == null || StringUtils.isEmpty(bean.getAccess_token()) || bean.isExpire())
             {
-                //模拟服务端判定AccessToken是否可用
-                AccessTokenBean bean = AccessTokenDao.get().getToken();
-                if (bean == null || StringUtils.isEmpty(bean.getAccess_token()) || bean.isExpire())
-                {
-                    KLog.e("服务端判定AccessToken不可用，需要刷新");
-                    emitter.onError(new ApiException(1000, "Access Token unavailable"));
-                } else
-                {
-                    emitter.onNext("SUCCESS");
-                    emitter.onComplete();
-                }
+                KLog.e("服务端判定AccessToken不可用，需要刷新");
+                emitter.onError(new ApiException(1000, "Access Token unavailable"));
+            } else
+            {
+                emitter.onNext("SUCCESS");
+                emitter.onComplete();
             }
         });
+    }
+
+    @Override
+    Observable<String> requestHttps()
+    {
+        return RxHttp.GET("https://javatest.hqxapp.com/demo")
+                .setAutoRetryCount(3)
+                .returnStringResponse();
     }
 }

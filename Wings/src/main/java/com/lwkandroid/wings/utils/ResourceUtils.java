@@ -7,6 +7,10 @@ import android.graphics.drawable.Drawable;
 import android.util.TypedValue;
 
 import com.lwkandroid.wings.Wings;
+import com.lwkandroid.wings.log.KLog;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 import androidx.annotation.ArrayRes;
 import androidx.annotation.BoolRes;
@@ -22,7 +26,7 @@ import androidx.core.content.res.ResourcesCompat;
 
 /**
  * Created by LWK
- *  资源工具类
+ * 资源工具类
  */
 
 public final class ResourceUtils
@@ -144,5 +148,28 @@ public final class ResourceUtils
         TypedValue typedValue = new TypedValue();
         Wings.getContext().getTheme().resolveAttribute(attrRes, typedValue, true);
         return TypedValue.complexToDimensionPixelSize(typedValue.data, Wings.getContext().getResources().getDisplayMetrics());
+    }
+
+    /**
+     * 获取Raw文件夹下资源
+     *
+     * @param resId R.raw.xxx形式的资源id
+     * @return 文件输入流
+     */
+    public static InputStream getRaw(int resId)
+    {
+        return Wings.getContext().getResources().openRawResource(resId);
+    }
+
+    public static InputStream getAsset(String fileName)
+    {
+        try
+        {
+            return Wings.getContext().getAssets().open(fileName);
+        } catch (IOException e)
+        {
+            KLog.e("Fail to open assets file:" + e.toString());
+        }
+        return null;
     }
 }

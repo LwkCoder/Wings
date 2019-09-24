@@ -38,13 +38,13 @@ public class RxHttpDemoPresenter extends RxHttpDemoContract.Presenter
                     public void onSubscribe(Disposable d)
                     {
                         super.onSubscribe(d);
-                        getViewImpl().setWeatherHttpResultData(null);
+                        getViewImpl().setHttpResult(null);
                     }
 
                     @Override
                     public void subOnNext(List<TabsBean> dataList)
                     {
-                        getViewImpl().setWeatherHttpResultData(dataList);
+                        getViewImpl().setHttpResult(dataList.toString());
                     }
 
                     @Override
@@ -60,13 +60,13 @@ public class RxHttpDemoPresenter extends RxHttpDemoContract.Presenter
         //                    public void onSubscribe(Disposable d)
         //                    {
         //                        super.onSubscribe(d);
-        //                        getViewImpl().setWeatherHttpResultData(null);
+        //                        getViewImpl().setHttpResult(null);
         //                    }
         //
         //                    @Override
         //                    public void subOnNext(List<TabsBean> dataList)
         //                    {
-        //                        getViewImpl().setWeatherHttpResultData(dataList);
+        //                        getViewImpl().setHttpResult(dataList);
         //                    }
         //
         //                    @Override
@@ -89,13 +89,13 @@ public class RxHttpDemoPresenter extends RxHttpDemoContract.Presenter
                     public void onSubscribe(Disposable d)
                     {
                         super.onSubscribe(d);
-                        getViewImpl().setWeatherHttpResultData(null);
+                        getViewImpl().setHttpResult(null);
                     }
 
                     @Override
                     public void subOnNext(List<TabsBean> dataList)
                     {
-                        getViewImpl().setWeatherHttpResultData(dataList);
+                        getViewImpl().setHttpResult(dataList.toString());
                     }
 
                     @Override
@@ -297,6 +297,34 @@ public class RxHttpDemoPresenter extends RxHttpDemoContract.Presenter
                     public void subOnError(ApiException e)
                     {
                         getViewImpl().showHttpError(e);
+                    }
+                });
+    }
+
+    @Override
+    void requestHttps()
+    {
+        getModelImpl().requestHttps()
+                .compose(applyIo2MainUntilViewDestroy())
+                .subscribe(new ApiBaseObserver<String>()
+                {
+                    @Override
+                    public void onSubscribe(Disposable d)
+                    {
+                        super.onSubscribe(d);
+                        getViewImpl().setHttpResult(null);
+                    }
+
+                    @Override
+                    public void subOnNext(String s)
+                    {
+                        getViewImpl().setHttpResult(s);
+                    }
+
+                    @Override
+                    public void subOnError(ApiException e)
+                    {
+                        getViewImpl().setHttpResult(e.toString());
                     }
                 });
     }
