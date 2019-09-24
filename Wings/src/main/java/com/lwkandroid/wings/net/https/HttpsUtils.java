@@ -102,11 +102,9 @@ public final class HttpsUtils
             X509TrustManager x509TrustManager;
             if (trustManagers != null)
             {
-                KLog.e("trust不为空");
                 x509TrustManager = new MyTrustManager(chooseTrustManager(trustManagers));
             } else
             {
-                KLog.e("trust为空");
                 x509TrustManager = new UnSafeTrustManager();
             }
             sslContext.init(keyManagers, new TrustManager[]{x509TrustManager}, new SecureRandom());
@@ -222,7 +220,6 @@ public final class HttpsUtils
             factory.init((KeyStore) null);
             defaultTrustManager = chooseTrustManager(factory.getTrustManagers());
             this.localTrustManager = localTrustManager;
-            KLog.e("判断Local--》" + (localTrustManager == null));
         }
 
         @Override
