@@ -78,8 +78,8 @@ public class RxHttpDemoActivity extends AppBaseActivity<RxHttpDemoPresenter> imp
         addClick(R.id.btn_rxhttp_https, v -> getPresenter().requestHttps());
 
         //添加自签名证书
-        RxHttp.getGlobalOptions().setHttpsCertificates(ResourceUtils.getAsset("client.bks"),
-                "hqxkj168++", ResourceUtils.getAsset("server.bks"));
+        RxHttp.getGlobalOptions().setHttpsCertificates(ResourceUtils.getRaw(R.raw.client),
+                "hqxkj168++", ResourceUtils.getRaw(R.raw.server));
         RxHttp.getGlobalOptions().setHostnameVerifier((hostname, sslSession) -> {
             KLog.e("HostName--->" + hostname);
             return true;
@@ -119,7 +119,7 @@ public class RxHttpDemoActivity extends AppBaseActivity<RxHttpDemoPresenter> imp
     {
         if (result == null)
         {
-            mTextView.setText("返回为空");
+            mTextView.setText("");
         } else
         {
             mTextView.setText(result);

@@ -9,14 +9,6 @@
     android:orientation="vertical"
     tools:context=".project.test.TestActivity">
 
-    <com.lwkandroid.widget.comactionbar.ComActionBar
-        android:id="@+id/cab_test"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:bg_color="@color/deep_dark"
-        app:is_left_as_back="true"
-        app:title_text="Test"/>
-
     <FrameLayout
         android:id="@+id/fl_test_container"
         android:layout_width="match_parent"

@@ -28,7 +28,7 @@ ext {
     ]
 
     /*依赖库的版本号*/
-    AppCompatXVersion = "1.0.2"
+    AppCompatXVersion = "1.1.0"
     AnnotationXVersion = "1.0.2"
     RecyclerViewXVersion = "1.0.0"
     ImagePickerVersion = "1.4.4"
