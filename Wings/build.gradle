@@ -30,7 +30,7 @@ dependencies {
     api "androidx.annotation:annotation:$AnnotationXVersion"
     api "androidx.recyclerview:recyclerview:$RecyclerViewXVersion"
     api "com.google.code.gson:gson:$GsonVersion"
-    api "com.yanzhenjie.permission:x:${AndPermissionVersion}"
+    api "com.yanzhenjie:permission:${AndPermissionVersion}"
     api "com.lwkandroid.widget:ComActionBar:$ComActionBarVersion"
     api "com.squareup.okhttp3:okhttp:$OkHttp3Version"
     api "cn.bingoogolapple:bga-qrcode-zxing:$BGACodeVersion"
