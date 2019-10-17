@@ -118,6 +118,10 @@ public final class PhoneUtils
     @RequiresPermission(android.Manifest.permission.READ_PHONE_STATE)
     public static String getIMEI()
     {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+        {
+            return null;
+        }
         TelephonyManager manager = getTeleManager();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
         {
@@ -134,6 +138,10 @@ public final class PhoneUtils
     @RequiresPermission(android.Manifest.permission.READ_PHONE_STATE)
     public static String getMEID()
     {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+        {
+            return null;
+        }
         TelephonyManager manager = getTeleManager();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
         {
