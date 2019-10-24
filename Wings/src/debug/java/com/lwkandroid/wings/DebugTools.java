@@ -56,6 +56,7 @@ public class DebugTools
                 .instanceField("android.support.v7.widget.SearchView$SearchAutoComplete", "mContext").alwaysExclude()
                 .instanceField("android.view.ViewGroup$ViewLocationHolder", "mRoot").alwaysExclude()
                 .instanceField("android.view.ViewGroup$ViewLocationHolder", "sPool").alwaysExclude()
+                .staticField("android.view.ViewGroup$ViewLocationHolder", "sPool").alwaysExclude()
                 .build();
         mRefWatcher = LeakCanary
                 .refWatcher(context)
