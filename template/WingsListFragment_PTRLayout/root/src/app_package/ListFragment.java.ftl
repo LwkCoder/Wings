@@ -36,7 +36,7 @@ public class ${fragmentClass}Fragment extends WingsListFragment<${fragmentClass}
     }
 
 	@Override
-    public RcvMultiAdapter<String> setAdapter()
+    public RcvMultiAdapter<${dataClass}> setAdapter()
     {
         return new ${fragmentClass}Adapter(getContext(), null);
     }

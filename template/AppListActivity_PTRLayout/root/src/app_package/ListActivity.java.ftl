@@ -26,7 +26,7 @@ public class ${activityClass}Activity extends AppListActivity<${activityClass}Pr
     }
 
 	@Override
-    public RcvMultiAdapter<String> setAdapter()
+    public RcvMultiAdapter<${dataClass}> setAdapter()
     {
         return new ${activityClass}Adapter(this, null);
     }

@@ -32,7 +32,7 @@ public class ${activityClass}Activity extends WingsListActivity<${activityClass}
     }
 
 	@Override
-    public RcvMultiAdapter<String> setAdapter()
+    public RcvMultiAdapter<${dataClass}> setAdapter()
     {
         return new ${activityClass}Adapter(this, null);
     }
