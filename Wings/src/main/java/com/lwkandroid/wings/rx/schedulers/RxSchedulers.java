@@ -37,6 +37,22 @@ public final class RxSchedulers
     }
 
     /**
+     * 绑定某个Dispose到SINGLE_MAIN调度中
+     */
+    public static <T> RxSchedulersTransformer<T> applySingleThread2Main()
+    {
+        return new RxSchedulersTransformer<T>(Schedulers.single(), AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 绑定某个Dispose到TRAMPOLINE_MAIN调度中
+     */
+    public static <T> RxSchedulersTransformer<T> applyTrampoline2Main()
+    {
+        return new RxSchedulersTransformer<T>(Schedulers.trampoline(), AndroidSchedulers.mainThread());
+    }
+
+    /**
      * 绑定某个Dispose到任意两个线程
      */
     public static <T> RxSchedulersTransformer<T> applySchedulers(Scheduler up, Scheduler down)
