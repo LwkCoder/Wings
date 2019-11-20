@@ -1,5 +1,8 @@
 package com.lwkandroid.wings.utils;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * 字符串相关工具类
  *
@@ -7,6 +10,8 @@ package com.lwkandroid.wings.utils;
  */
 public final class StringUtils
 {
+    public static final Pattern BLANK_PATTERN = Pattern.compile("\\s*|\t|\r|\n");
+
     private StringUtils()
     {
         throw new UnsupportedOperationException("Can't instantiate this class !");
@@ -246,5 +251,16 @@ public final class StringUtils
             }
         }
         return new String(chars);
+    }
+
+    public static String replaceBlank(String str)
+    {
+        String dest = "";
+        if (str != null)
+        {
+            Matcher m = BLANK_PATTERN.matcher(str);
+            dest = m.replaceAll("");
+        }
+        return dest;
     }
 }
