@@ -120,6 +120,7 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     debugImplementation project(':Wings')
     releaseImplementation project(':Wings')
+    implementation project(':lib_core')
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'

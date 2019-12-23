@@ -1,0 +1,10 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.lwkandroid.lib.core">
+
+    <application>
+        <provider
+            android:name=".kt.provider.GlobalContextProvider"
+            android:authorities="${applicationId}.GlobalContextProvider" />
+    </application>
+
+</manifest>

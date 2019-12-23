@@ -1,0 +1,35 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+def appConfig = rootProject.ext.appConfig
+
+android {
+    compileSdkVersion appConfig.compileSdkVersion
+    publishNonDefault true
+
+
+    defaultConfig {
+        minSdkVersion appConfig.minSdkVersion
+        targetSdkVersion appConfig.targetSdkVersion
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "androidx.core:core-ktx:$KotlinCoreVersion"
+    api "androidx.appcompat:appcompat:$AppCompatXVersion"
+    testImplementation "junit:junit:$JunitVersion"
+    androidTestImplementation "androidx.test.ext:junit:$AndroidXJunitVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$AndroidXEspressoCoreVersion"
+}
