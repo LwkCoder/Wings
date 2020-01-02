@@ -1,16 +1,17 @@
 package com.lwkandroid.lib.core.kt
 
-import com.lwkandroid.lib.core.kt.extension.replaceAllBlank
+import com.lwkandroid.lib.core.kt.extension.hexDecode
+import com.lwkandroid.lib.core.kt.extension.hexEncode
 
 /**
  * Description:
- * @author 20180004
  * @date 2019/12/2
  */
 
 fun main() {
-    val char1: CharSequence = " SDA56%^&     \r1\t2\n3\\s4898"
-    println(char1.replaceAllBlank())
-    println(char1.replaceAllBlank("~"))
-//    println(char1.isNullOrEmpty())
+    val str = "abc123-=/!@#阿弥佗佛"
+    val test1 = str.hexEncode()
+    println(test1)
+    val test2 = test1.hexDecode()
+    println(test2)
 }

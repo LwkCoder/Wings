@@ -75,5 +75,8 @@ fun CharSequence.toHalfWidthCharacters(): CharSequence {
 }
 
 private val BLANK_PATTERN: Pattern = Pattern.compile("\\s*|\t|\r|\n")
-
+/**
+ * 替换所有空白符、换行符
+ */
 fun CharSequence.replaceAllBlank(relpaceStr: String = ""): CharSequence = BLANK_PATTERN.matcher(this).replaceAll(relpaceStr)
+
