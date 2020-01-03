@@ -10,6 +10,6 @@ public class JavaTest
 {
     public static void main(String[] args)
     {
-        String ss = "abcdefg12345";
+        String ss = "abc123-=/!@#阿弥佗佛";
     }
 }
