@@ -241,24 +241,17 @@ fun ByteArray.rsaTemplate(key: ByteArray, transformation: String, isPublicKey: B
         var index = 0
         for (i in 0 until count) {
             System.arraycopy(this, index, buff, 0, maxLen)
-            ret = joins(ret, cipher.doFinal(buff))
+            ret = EncryptHelper.joinsByteArray(ret, cipher.doFinal(buff))
             index += maxLen
         }
         if (index != size) {
             val restLen = size - index
             buff = ByteArray(restLen)
             System.arraycopy(this, index, buff, 0, restLen)
-            ret = joins(ret, cipher.doFinal(buff))
+            ret = EncryptHelper.joinsByteArray(ret, cipher.doFinal(buff))
         }
         ret
     } else {
         cipher.doFinal(this)
     }
-}
-
-private fun joins(prefix: ByteArray, suffix: ByteArray): ByteArray {
-    val ret = ByteArray(prefix.size + suffix.size)
-    System.arraycopy(prefix, 0, ret, 0, prefix.size)
-    System.arraycopy(suffix, 0, ret, prefix.size, suffix.size)
-    return ret
 }

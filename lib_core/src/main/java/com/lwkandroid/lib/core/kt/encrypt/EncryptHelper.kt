@@ -1,7 +1,11 @@
 package com.lwkandroid.lib.core.kt.encrypt
 
+import android.util.Pair
 import com.lwkandroid.lib.core.kt.extension.hexEncode
+import java.security.KeyPairGenerator
 import java.security.SecureRandom
+import java.security.interfaces.RSAPrivateKey
+import java.security.interfaces.RSAPublicKey
 import java.util.*
 import javax.crypto.KeyGenerator
 import javax.crypto.spec.SecretKeySpec
@@ -68,29 +72,31 @@ class EncryptHelper {
         const val RSA_MAX_ENCRYPT_BLOCK = 117
         //RSA最大解密密文大小
         const val RSA_MAX_DECRYPT_BLOCK = 128
+        //RSA密钥默认长度
+        const val RSA_DEFAULT_KEY_BIT = 1024
 
 
         /**
          * 创建Des密钥
          */
-        fun generateDesKey(keyBit: Int = 56) = generateKey(ALGORITHM_AES, keyBit)
+        fun generateDesKey(keyBit: Int = 56) = generateSymmetricKey(ALGORITHM_AES, keyBit)
 
         /**
          * 创建Aes密钥
          */
-        fun generateAesKey(keyBit: Int = 128) = generateKey(ALGORITHM_AES, keyBit)
+        fun generateAesKey(keyBit: Int = 128) = generateSymmetricKey(ALGORITHM_AES, keyBit)
 
         /**
          * 创建TripleDes密钥
          */
-        fun generateTripleDesKey(keyBit: Int = 168) = generateKey(ALGORITHM_AES, keyBit)
+        fun generateTripleDesKey(keyBit: Int = 168) = generateSymmetricKey(ALGORITHM_AES, keyBit)
 
         /**
-         * 创建密钥
+         * 创建对称加密密钥
          * @param algorithm 算法名称
          * @param keyBit 密钥长度（位）
          */
-        fun generateKey(algorithm: String, keyBit: Int): ByteArray {
+        fun generateSymmetricKey(algorithm: String, keyBit: Int): ByteArray {
             val key = UUID.randomUUID().toString().replace("-", "")
                     .substring(0, 16).toByteArray().hexEncode().toByteArray()
             val kg: KeyGenerator = KeyGenerator.getInstance(algorithm)
@@ -98,6 +104,25 @@ class EncryptHelper {
             val secretKey = kg.generateKey()
             val keySpec = SecretKeySpec(secretKey.encoded, algorithm)
             return keySpec.encoded
+        }
+
+        /**
+         * 创建RSA密钥对
+         */
+        fun generateRsaKeys(keyBit: Int = RSA_DEFAULT_KEY_BIT): Pair<ByteArray, ByteArray> {
+            val keyPairGen = KeyPairGenerator.getInstance(ALGORITHM_RSA)
+            keyPairGen.initialize(keyBit)
+            val keyPair = keyPairGen.generateKeyPair()
+            val publicKey = keyPair.public as RSAPublicKey
+            val privateKey = keyPair.private as RSAPrivateKey
+            return Pair(publicKey.encoded, privateKey.encoded)
+        }
+
+        fun joinsByteArray(prefix: ByteArray, suffix: ByteArray): ByteArray {
+            val ret = ByteArray(prefix.size + suffix.size)
+            System.arraycopy(prefix, 0, ret, 0, prefix.size)
+            System.arraycopy(suffix, 0, ret, prefix.size, suffix.size)
+            return ret
         }
     }
 }
