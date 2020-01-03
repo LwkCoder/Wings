@@ -31,6 +31,7 @@ class EncryptHelper {
         const val ALGORITHM_AES = "AES"
         const val ALGORITHM_DES = "DES"
         const val ALGORITHM_TRIPLE_DES = "DESede"
+        const val ALGORITHM_RSA = "RSA"
 
         /**
          * 对称加密默认Transformation

@@ -226,9 +226,9 @@ fun ByteArray.rasDecrypt(key: ByteArray, isPublicKey: Boolean, transformation: S
 fun ByteArray.rsaTemplate(key: ByteArray, transformation: String, isPublicKey: Boolean,
                           isEncrypt: Boolean, maxEncryptBlock: Int, maxDecryptBlock: Int): ByteArray {
     val rsaKey = (if (isPublicKey) {
-        KeyFactory.getInstance("RSA").generatePublic(X509EncodedKeySpec(key))
+        KeyFactory.getInstance(EncryptHelper.ALGORITHM_RSA).generatePublic(X509EncodedKeySpec(key))
     } else {
-        KeyFactory.getInstance("RSA").generatePrivate(PKCS8EncodedKeySpec(key))
+        KeyFactory.getInstance(EncryptHelper.ALGORITHM_RSA).generatePrivate(PKCS8EncodedKeySpec(key))
     }) ?: return ByteArray(0)
 
     val cipher = Cipher.getInstance(transformation)
