@@ -1,10 +1,36 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.lwkandroid.lib.core">
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
     <application>
         <provider
             android:name=".kt.provider.GlobalContextProvider"
             android:authorities="${applicationId}.GlobalContextProvider" />
+        <provider
+            android:name=".java.context.ContextProvider"
+            android:authorities="${applicationId}.ContextProvider" />
+        <provider
+            android:name=".java.utils.CustomFileProvider"
+            android:authorities="${applicationId}.wings.provider"
+            android:exported="false"
+            android:grantUriPermissions="true"
+            android:multiprocess="true"
+            android:networkSecurityConfig="@xml/network_security_config"
+            tools:targetApi="n">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/apk_path" />
+        </provider>
     </application>
 
 </manifest>

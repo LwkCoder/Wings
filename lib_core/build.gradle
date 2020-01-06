@@ -28,7 +28,9 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "androidx.core:core-ktx:$KotlinCoreVersion"
-    api "androidx.appcompat:appcompat:$AppCompatXVersion"
+//    api "androidx.appcompat:appcompat:$AppCompatXVersion"
+    debugApi project(':lib_dependencies')
+    releaseApi project(':lib_dependencies')
     testImplementation "junit:junit:$JunitVersion"
     androidTestImplementation "androidx.test.ext:junit:$AndroidXJunitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$AndroidXEspressoCoreVersion"
