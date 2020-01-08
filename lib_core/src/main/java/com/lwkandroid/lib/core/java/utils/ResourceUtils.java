@@ -36,7 +36,6 @@ public final class ResourceUtils
         return AppContext.get().getResources().getBoolean(resId);
     }
 
-
     public static String getString(@StringRes int resId)
     {
         return AppContext.get().getResources().getString(resId);

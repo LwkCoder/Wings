@@ -1,4 +1,4 @@
-package com.lwkandroid.lib.core.java.utils;
+package com.lwkandroid.wings.utils;
 
 import android.app.Activity;
 import android.app.KeyguardManager;
@@ -19,6 +19,8 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.lwkandroid.lib.core.java.context.AppContext;
+import com.lwkandroid.lib.core.java.utils.BarUtils;
+import com.lwkandroid.lib.core.java.utils.WingsCallBack;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -226,7 +228,7 @@ public final class ScreenUtils
                             {
                                 if (callBack != null)
                                 {
-                                    callBack.onCallBackError(new Exception("Fail to create bitmap from view"));
+                                    callBack.onCallBackError(copyResult, new Exception("Fail to create bitmap from view"));
                                 }
                             }
                         }, new Handler(Looper.getMainLooper()));
@@ -234,7 +236,7 @@ public final class ScreenUtils
             {
                 if (callBack != null)
                 {
-                    callBack.onCallBackError(e);
+                    callBack.onCallBackError(-1, e);
                 }
             }
         });

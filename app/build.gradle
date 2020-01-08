@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.getkeepsafe.dexcount'
+apply plugin: "com.blankj.bus"
 
 def appConfig = rootProject.ext.appConfig
 def urls = rootProject.ext.url
@@ -14,6 +15,9 @@ def formatDate() {
     return new Date().format("yyyyMMdd", TimeZone.getTimeZone("UTC"))
 }
 
+bus {
+    busUtilsClass "com.lwkandroid.lib.core.BusUtils"
+}
 android {
     compileSdkVersion appConfig.compileSdkVersion
 

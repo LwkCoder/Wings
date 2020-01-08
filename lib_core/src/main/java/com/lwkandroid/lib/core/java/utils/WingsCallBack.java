@@ -10,5 +10,5 @@ public interface WingsCallBack<T>
 {
     void onCallBackSuccess(T t);
 
-    void onCallBackError(Throwable e);
+    void onCallBackError(int errorCode, Throwable e);
 }
