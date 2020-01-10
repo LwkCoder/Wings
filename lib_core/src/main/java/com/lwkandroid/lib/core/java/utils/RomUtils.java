@@ -15,8 +15,9 @@ import java.util.Properties;
 
 /**
  * ROM工具类
+ * @author LWK
  */
-public final class ROMUtils
+public final class RomUtils
 {
     private static final String SYS_EMUI = "emui";
     private static final String SYS_MIUI = "miui";

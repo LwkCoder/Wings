@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">lib_core</string>
+    <!--常用文案-->
+    <string name="done">完成</string>
+    <string name="confirm">确定</string>
+    <string name="cancel">取消</string>
+    <string name="back">返回</string>
 </resources>

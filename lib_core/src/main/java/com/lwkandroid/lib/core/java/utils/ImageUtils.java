@@ -389,15 +389,15 @@ public final class ImageUtils
      * 保存位图到指定位置
      *
      * @param src      位图
-     * @param savaPath 保存文件夹路径
-     * @param savaName 保存名称
+     * @param saveDir 保存文件夹路径
+     * @param fileName 保存名称
      * @param format   保存格式
      * @param recycle  是否回收位图
      * @return 保存成功后的绝对路径
      */
-    public static String saveBitmap(Bitmap src, String savaPath, String savaName, Bitmap.CompressFormat format, boolean recycle)
+    public static String saveBitmap(Bitmap src, String saveDir, String fileName, Bitmap.CompressFormat format, boolean recycle)
     {
-        if (src == null || StringUtils.isSpace(savaPath) || StringUtils.isSpace(savaName))
+        if (src == null || StringUtils.isSpace(saveDir) || StringUtils.isSpace(fileName))
         {
             return null;
         }
@@ -405,7 +405,7 @@ public final class ImageUtils
         OutputStream os = null;
         try
         {
-            File file = new File(savaPath, savaName);
+            File file = new File(saveDir, fileName);
             if (file.exists())
             {
                 file.delete();

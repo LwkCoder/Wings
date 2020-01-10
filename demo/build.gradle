@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.getkeepsafe.dexcount'
+apply plugin: "com.blankj.bus"
 
 def appConfig = rootProject.ext.appConfig
 def urls = rootProject.ext.url
@@ -8,6 +9,10 @@ def libsConfig = rootProject.ext.libsConfig
 def keystorePropertiesFile = rootProject.file("key/keystore.properties")
 def keystoreProperties = new Properties()
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
+bus {
+    busUtilsClass "com.lwkandroid.lib.core.java.utils.BusUtils"
+}
 
 android {
     compileSdkVersion appConfig.compileSdkVersion

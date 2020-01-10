@@ -67,22 +67,26 @@ public final class ResourceUtils
     }
 
     /**
-     * getDimension和getDimensionPixelOffset的功能类似，
-     * getDimension返回float,getDimenPixelOffset返回int，
-     * 这两者返回的结果取决于resId的单位，如果是dp/sp则需要乘以density，px不用。
-     * <p>
-     * getDimensionPixelSize则不管resId的单位是dp/sp/px,都会乘以denstiy。
+     * 获取某个dimen的值,如果是dp或sp的单位,将其乘以density,如果是px,则不乘
+     * 返回float
      */
     public static float getDimen(@DimenRes int resId)
     {
         return AppContext.get().getResources().getDimension(resId);
     }
 
+    /**
+     * 获取某个dimen的值,如果是dp或sp的单位,将其乘以density,如果是px,则不乘
+     * 返回int
+     */
     public static int getDimenPixelOffset(@DimenRes int resId)
     {
         return AppContext.get().getResources().getDimensionPixelOffset(resId);
     }
 
+    /**
+     * 则不管写的是dp还是sp还是px,都会乘以denstiy.
+     */
     public static int getDimenPixelSize(@DimenRes int resId)
     {
         return AppContext.get().getResources().getDimensionPixelSize(resId);
