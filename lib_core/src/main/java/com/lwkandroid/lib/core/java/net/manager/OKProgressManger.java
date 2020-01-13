@@ -24,25 +24,25 @@ import okhttp3.Response;
  * 需要OkHttp添加{@link com.lwkandroid.lib.core.java.net.interceptor.OkProgressInterceptor}
  */
 
-public final class OkProgressManger
+public final class OKProgressManger
 {
-    private OkProgressManger()
+    private OKProgressManger()
     {
         mHandler = new Handler(Looper.getMainLooper());
     }
 
     private static final class Holder
     {
-        public static final OkProgressManger INSTANCE = new OkProgressManger();
+        public static final OKProgressManger INSTANCE = new OKProgressManger();
     }
 
-    public static OkProgressManger get()
+    public static OKProgressManger get()
     {
         return Holder.INSTANCE;
     }
 
-    //默认的进度刷新时间：100ms
-    private static final int DEFAULT_REFRESH_TIME = 100;
+    //默认的进度刷新时间：150ms
+    private static final int DEFAULT_REFRESH_TIME = 150;
     private static final String IDENTIFICATION_NUMBER = "?OkProgressNumber=";
     private static final String IDENTIFICATION_HEADER = "OkProgressHeader";
     private static final String LOCATION_HEADER = "Location";
@@ -78,7 +78,7 @@ public final class OkProgressManger
     public void addUploadListener(String url, OnProgressListener listener)
     {
         List<OnProgressListener> progressListeners;
-        synchronized (OkProgressManger.class)
+        synchronized (OKProgressManger.class)
         {
             progressListeners = mUploadListeners.get(url);
             if (progressListeners == null)
@@ -95,7 +95,7 @@ public final class OkProgressManger
      */
     public void removeUploadListener(String url)
     {
-        synchronized (OkProgressManger.class)
+        synchronized (OKProgressManger.class)
         {
             mUploadListeners.remove(url);
         }
@@ -110,7 +110,7 @@ public final class OkProgressManger
     public void addDownloadListener(String url, OnProgressListener listener)
     {
         List<OnProgressListener> progressListeners;
-        synchronized (OkProgressManger.class)
+        synchronized (OKProgressManger.class)
         {
             progressListeners = mDownloadListeners.get(url);
             if (progressListeners == null)
@@ -127,7 +127,7 @@ public final class OkProgressManger
      */
     public void removeDownloadListener(String url)
     {
-        synchronized (OkProgressManger.class)
+        synchronized (OKProgressManger.class)
         {
             mDownloadListeners.remove(url);
         }
@@ -302,9 +302,12 @@ public final class OkProgressManger
         {
             return request;
         }
+
         return request.newBuilder()
-                .url(url.substring(0, url.indexOf(IDENTIFICATION_NUMBER))) //删除掉标识符
-                .header(IDENTIFICATION_HEADER, url) //将有标识符的 url 加入 header中, 便于wrapResponseBody(Response) 做处理
+                //删除掉标识符
+                .url(url.substring(0, url.indexOf(IDENTIFICATION_NUMBER)))
+                //将有标识符的 url 加入 header中, 便于wrapResponseBody(Response) 做处理
+                .header(IDENTIFICATION_HEADER, url)
                 .build();
     }
 
@@ -406,7 +409,7 @@ public final class OkProgressManger
     /**
      * 当在 {@link ProgressRequestBody} 和 {@link ProgressResponseBody} 内部处理二进制流时发生错误
      * 会主动调用 {@link OnProgressListener#onError(long, Exception)},但是有些错误并不是在它们内部发生的
-     * 但同样会引起网络请求的失败,所以向外面提供{@link OkProgressManger#notifyOnErorr},当外部发生错误时
+     * 但同样会引起网络请求的失败,所以向外面提供{@link OKProgressManger#notifyOnErorr},当外部发生错误时
      * 手动调用此方法,以通知所有的监听器
      *
      * @param url {@code url} 作为标识符

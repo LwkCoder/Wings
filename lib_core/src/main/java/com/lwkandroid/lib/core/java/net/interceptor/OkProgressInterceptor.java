@@ -1,7 +1,7 @@
 package com.lwkandroid.lib.core.java.net.interceptor;
 
 
-import com.lwkandroid.lib.core.java.net.manager.OkProgressManger;
+import com.lwkandroid.lib.core.java.net.manager.OKProgressManger;
 
 import java.io.IOException;
 
@@ -18,7 +18,7 @@ public final class OkProgressInterceptor implements Interceptor
     @Override
     public Response intercept(Chain chain) throws IOException
     {
-        return OkProgressManger.get().wrapResponseBody(
-                chain.proceed(OkProgressManger.get().wrapRequestBody(chain.request())));
+        return OKProgressManger.get().wrapResponseBody(
+                chain.proceed(OKProgressManger.get().wrapRequestBody(chain.request())));
     }
 }

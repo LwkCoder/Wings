@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
-    <application>
+    <application android:networkSecurityConfig="@xml/network_security_config">
         <provider
             android:name=".kt.provider.GlobalContextProvider"
             android:authorities="${applicationId}.GlobalContextProvider" />
@@ -25,7 +25,6 @@
             android:exported="false"
             android:grantUriPermissions="true"
             android:multiprocess="true"
-            android:networkSecurityConfig="@xml/network_security_config"
             tools:targetApi="n">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"

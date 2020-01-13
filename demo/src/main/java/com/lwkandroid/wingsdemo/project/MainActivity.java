@@ -49,6 +49,7 @@ public class MainActivity extends AppBaseActivity<MainPresenter> implements Main
         addClick(R.id.btn_main_state, v -> startActivity(new Intent(MainActivity.this, StateActivity.class)));
         //        addClick(R.id.btn_main_test, v -> startActivity(new Intent(MainActivity.this, TestActivity.class)));
         addClick(R.id.btn_main_test, v -> getPresenter().test());
+
     }
 
     @Override
