@@ -253,4 +253,54 @@ public final class ScreenUtils
         return km.isKeyguardLocked();
     }
 
+    /**
+     * Set full screen.
+     *
+     * @param activity The activity.
+     */
+    public static void setFullScreen(@NonNull final Activity activity)
+    {
+        activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    }
+
+    /**
+     * Set non full screen.
+     *
+     * @param activity The activity.
+     */
+    public static void setNonFullScreen(@NonNull final Activity activity)
+    {
+        activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    }
+
+    /**
+     * Toggle full screen.
+     *
+     * @param activity The activity.
+     */
+    public static void toggleFullScreen(@NonNull final Activity activity)
+    {
+        boolean isFullScreen = isFullScreen(activity);
+        Window window = activity.getWindow();
+        if (isFullScreen)
+        {
+            window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        } else
+        {
+            window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
+    }
+
+    /**
+     * Return whether screen is full.
+     *
+     * @param activity The activity.
+     * @return {@code true}: yes<br>{@code false}: no
+     */
+    public static boolean isFullScreen(@NonNull final Activity activity)
+    {
+        int fullScreenFlag = WindowManager.LayoutParams.FLAG_FULLSCREEN;
+        return (activity.getWindow().getAttributes().flags & fullScreenFlag) == fullScreenFlag;
+    }
+
 }

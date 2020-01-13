@@ -117,12 +117,5 @@ class EncryptHelper {
             val privateKey = keyPair.private as RSAPrivateKey
             return Pair(publicKey.encoded, privateKey.encoded)
         }
-
-        fun joinsByteArray(prefix: ByteArray, suffix: ByteArray): ByteArray {
-            val ret = ByteArray(prefix.size + suffix.size)
-            System.arraycopy(prefix, 0, ret, 0, prefix.size)
-            System.arraycopy(suffix, 0, ret, prefix.size, suffix.size)
-            return ret
-        }
     }
 }
