@@ -29,7 +29,10 @@ public final class SDCardUtils
 
     /**
      * 获取SD卡路径（一般是：/storage/emulated/0/）
+     *
+     * @deprecated use{@link com.lwkandroid.lib.core.java.utils.PathUtils}
      */
+    @Deprecated
     public static String getSDCardPath()
     {
         if (!isSDCardEnable())
@@ -44,7 +47,9 @@ public final class SDCardUtils
      * 获取默认缓存路径（一般是：/storage/emulated/0/Android/data/package-name/data/）
      *
      * @return 缓存路径
+     * @deprecated use{@link com.lwkandroid.lib.core.java.utils.PathUtils}
      */
+    @Deprecated
     public static String getExternalCachePath()
     {
         if (!isSDCardEnable())
