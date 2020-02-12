@@ -16,6 +16,7 @@ import com.lwkandroid.wingsdemo.project.pop.PopDemoActivity;
 import com.lwkandroid.wingsdemo.project.qrcode.QRCodeDemoActivity;
 import com.lwkandroid.wingsdemo.project.rxhttp.RxHttpDemoActivity;
 import com.lwkandroid.wingsdemo.project.state.StateActivity;
+import com.lwkandroid.wingsdemo.project.test.TestActivity;
 
 import androidx.annotation.Nullable;
 
@@ -47,8 +48,8 @@ public class MainActivity extends AppBaseActivity<MainPresenter> implements Main
         addClick(R.id.btn_main_dialog, v -> startActivity(new Intent(MainActivity.this, DialogDemoActivity.class)));
         addClick(R.id.btn_main_encrypt, v -> startActivity(new Intent(MainActivity.this, EncryptActivity.class)));
         addClick(R.id.btn_main_state, v -> startActivity(new Intent(MainActivity.this, StateActivity.class)));
-        //        addClick(R.id.btn_main_test, v -> startActivity(new Intent(MainActivity.this, TestActivity.class)));
-        addClick(R.id.btn_main_test, v -> getPresenter().test());
+                addClick(R.id.btn_main_test, v -> startActivity(new Intent(MainActivity.this, TestActivity.class)));
+//        addClick(R.id.btn_main_test, v -> getPresenter().test());
 
     }
 

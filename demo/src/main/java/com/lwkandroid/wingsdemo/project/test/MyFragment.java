@@ -4,17 +4,24 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 
+import com.lwkandroid.lib.core.java.rx.life.RxLife;
+import com.lwkandroid.lib.core.java.rx.scheduler.RxSchedulers;
 import com.lwkandroid.rcvadapter.RcvSingleAdapter;
 import com.lwkandroid.rcvadapter.holder.RcvHolder;
+import com.lwkandroid.wings.log.KLog;
+import com.lwkandroid.wings.net.bean.ApiException;
+import com.lwkandroid.wings.net.observer.ApiBaseObserver;
 import com.lwkandroid.wingsdemo.R;
 import com.lwkandroid.wingsdemo.app.AppBaseFragment;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import io.reactivex.Observable;
 
 /**
  * Description:View层
@@ -66,7 +73,23 @@ public class MyFragment extends AppBaseFragment<MyFragmentPresenter> implements 
     @Override
     protected void initData(@Nullable Bundle savedInstanceState)
     {
+        Observable.interval(1000, TimeUnit.MILLISECONDS)
+                .compose(RxSchedulers.applyComputation2Main())
+                .compose(RxLife.with(this).bindUtilOnDestory())
+                .subscribe(new ApiBaseObserver<Long>()
+                {
+                    @Override
+                    public void subOnNext(Long aLong)
+                    {
+                        KLog.e("--->" + aLong);
+                    }
 
+                    @Override
+                    public void subOnError(ApiException e)
+                    {
+
+                    }
+                });
     }
 
     @Override
