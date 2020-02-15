@@ -1,5 +1,6 @@
 package com.lwkandroid.lib.core.kt
 
+import android.app.Activity
 import com.lwkandroid.lib.core.kt.encrypt.EncryptHelper
 import com.lwkandroid.lib.core.kt.extension.aesDecrypt
 import com.lwkandroid.lib.core.kt.extension.aesEncrypt

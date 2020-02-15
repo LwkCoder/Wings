@@ -32,7 +32,7 @@ public final class UriUtils
     {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
         {
-            return FileProvider.getUriForFile(AppContext.get(), CustomFileProvider.createAuthorities(), file);
+            return FileProvider.getUriForFile(AppContext.get(), UriFileProvider.createAuthorities(), file);
         } else
         {
             return Uri.fromFile(file);
@@ -76,6 +76,21 @@ public final class UriUtils
             {
                 cursor.close();
             }
+        }
+    }
+
+    public static final class UriFileProvider extends FileProvider
+    {
+
+        @Override
+        public boolean onCreate()
+        {
+            return super.onCreate();
+        }
+
+        public static String createAuthorities()
+        {
+            return AppUtils.getPackageName() + ".uriutils.provider";
         }
     }
 }

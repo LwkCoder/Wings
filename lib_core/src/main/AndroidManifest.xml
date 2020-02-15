@@ -20,8 +20,8 @@
             android:name=".java.context.ContextProvider"
             android:authorities="${applicationId}.ContextProvider" />
         <provider
-            android:name=".java.utils.CustomFileProvider"
-            android:authorities="${applicationId}.wings.provider"
+            android:name=".java.utils.UriUtils$UriFileProvider"
+            android:authorities="${applicationId}.uriutils.provider"
             android:exported="false"
             android:grantUriPermissions="true"
             android:multiprocess="true"
