@@ -16,7 +16,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -96,41 +95,29 @@ public final class CrashUtils
                 {
                     sExecutor = new ThreadPoolExecutor(1, 1,
                             0L, TimeUnit.MILLISECONDS,
-                            new LinkedBlockingQueue<Runnable>(), new ThreadFactory()
-                    {
-                        @Override
-                        public Thread newThread(Runnable r)
-                        {
-                            return new Thread(r, "CrashLogPrinter");
-                        }
-                    });
+                            new LinkedBlockingQueue<>(), r -> new Thread(r, "CrashLogPrinter"));
                 }
-                sExecutor.execute(new Runnable()
-                {
-                    @Override
-                    public void run()
+                sExecutor.execute(() -> {
+                    PrintWriter pw = null;
+                    try
                     {
-                        PrintWriter pw = null;
-                        try
+                        pw = new PrintWriter(new FileWriter(fullPath, false));
+                        pw.write(CRASH_HEAD);
+                        e.printStackTrace(pw);
+                        Throwable cause = e.getCause();
+                        while (cause != null)
                         {
-                            pw = new PrintWriter(new FileWriter(fullPath, false));
-                            pw.write(CRASH_HEAD);
-                            e.printStackTrace(pw);
-                            Throwable cause = e.getCause();
-                            while (cause != null)
-                            {
-                                cause.printStackTrace(pw);
-                                cause = cause.getCause();
-                            }
-                        } catch (IOException e)
+                            cause.printStackTrace(pw);
+                            cause = cause.getCause();
+                        }
+                    } catch (IOException e1)
+                    {
+                        e1.printStackTrace();
+                    } finally
+                    {
+                        if (pw != null)
                         {
-                            e.printStackTrace();
-                        } finally
-                        {
-                            if (pw != null)
-                            {
-                                pw.close();
-                            }
+                            pw.close();
                         }
                     }
                 });

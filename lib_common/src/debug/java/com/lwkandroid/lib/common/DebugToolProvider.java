@@ -11,6 +11,7 @@ import com.facebook.stetho.Stetho;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.lwkandroid.lib.core.java.imageloader.glide.GlideOkClient;
 import com.lwkandroid.lib.core.java.net.RxHttp;
+import com.lwkandroid.lib.core.java.utils.CrashUtils;
 import com.squareup.leakcanary.AndroidExcludedRefs;
 import com.squareup.leakcanary.DisplayLeakService;
 import com.squareup.leakcanary.ExcludedRefs;
@@ -33,6 +34,8 @@ public class DebugToolProvider extends ContentProvider
     @Override
     public boolean onCreate()
     {
+        //添加崩溃日志记录
+        CrashUtils.init();
         //启动严格模式
         //        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectAll().penaltyLog().build());
         //        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().detectAll().penaltyLog().build());
