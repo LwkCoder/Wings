@@ -31,6 +31,7 @@ dependencies {
     api "androidx.appcompat:appcompat:$AppCompatXVersion"
     api "androidx.annotation:annotation:$AnnotationXVersion"
     api "androidx.recyclerview:recyclerview:$RecyclerViewXVersion"
+    api "androidx.swiperefreshlayout:swiperefreshlayout:$SwipeRefreshXVersion"
     api "com.google.code.gson:gson:$GsonVersion"
     api "com.yanzhenjie:permission:${AndPermissionVersion}"
     api "com.lwkandroid.widget:ComActionBar:$ComActionBarVersion"

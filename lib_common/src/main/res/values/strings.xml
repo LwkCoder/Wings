@@ -1,3 +1,36 @@
 <resources>
-    <string name="app_name">lib_common</string>
+    <!--常用文案-->
+    <string name="done">完成</string>
+    <string name="confirm">确定</string>
+    <string name="cancel">取消</string>
+    <string name="back">返回</string>
+
+    <!--二维码扫描界面-->
+    <string name="qrcodescan_title">二维码/条码</string>
+    <string name="qrcodescan_album">相册</string>
+    <string name="qrcodescan_hint">将二维码/条码放入框内，即可自动扫描</string>
+    <string name="qrcodescan_error">无法识别二维码/条码</string>
+    <string name="qrcodescan_decode_error">无法识别图片内二维码/条码</string>
+    <string name="qrcode_dialog_message">正在识别...</string>
+
+    <string name="dialog_permission_title">权限提醒</string>
+    <string name="dialog_runtime_rationale_message">%1$s需要使用以下权限，拒绝后可能导致程序无法正常运行:\n\n%2$s</string>
+    <string name="dialog_runtime_rationale_process">去授权</string>
+    <string name="dialog_runtime_neverask_message">%1$s无法获取以下权限，您可在设置界面手动打开以保证程序功能正常运行:\n\n%2$s</string>
+    <string name="dialog_runtime_neverask_process">去设置</string>
+    <string name="dialog_install_rationale_message">%1$s需要授权执行安装应用的权限</string>
+    <string name="dialog_install_rationale_process">去授权</string>
+    <string name="dialog_overlay_rationale_message">%1$s需要授权显示悬浮窗的权限</string>
+    <string name="dialog_overlay_rationale_process">去授权</string>
+
+    <string name="rxhttp_error_parse_data">数据解析错误</string>
+    <string name="rxhttp_error_cast_data">数据类型转换错误</string>
+    <string name="rxhttp_error_connect_fail">服务器连接失败</string>
+    <string name="rxhttp_error_ssl_invalid">证书验证失败</string>
+    <string name="rxhttp_error_connect_timeout">服务器连接超时</string>
+    <string name="rxhttp_error_unknow_host">无法解析服务器地址</string>
+    <string name="rxhttp_error_nullpointer">空指针异常</string>
+    <string name="rxhttp_error_io">IO读写错误</string>
+    <string name="rxhttp_error_response_empty">服务器无响应</string>
+    <string name="rxhttp_error_cache_empty">本地无缓存</string>
 </resources>

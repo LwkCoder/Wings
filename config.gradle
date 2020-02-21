@@ -31,6 +31,7 @@ ext {
     AppCompatXVersion = "1.1.0"
     AnnotationXVersion = "1.1.0"
     RecyclerViewXVersion = "1.1.0"
+    SwipeRefreshXVersion = "1.1.0-alpha03"
     ImagePickerVersion = "1.4.4"
     AndPermissionVersion = "2.0.3"
     RcvAdapterVersion = "1.4.2"

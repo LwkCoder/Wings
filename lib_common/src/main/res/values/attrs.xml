@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--RoundDiffImageView-->
+    <declare-styleable name="RoundDiffImageView">
+        <attr name="riv_radius" format="dimension" />
+        <attr name="riv_left_top_radius" format="dimension" />
+        <attr name="riv_right_top_radius" format="dimension" />
+        <attr name="riv_left_bottom_radius" format="dimension" />
+        <attr name="riv_right_bottom_radius" format="dimension" />
+        <attr name="riv_border_width" format="dimension" />
+        <attr name="riv_border_color" format="color" />
+        <attr name="riv_is_oval" format="boolean" />
+        <attr name="riv_width_scale" format="integer" />
+        <attr name="riv_height_scale" format="integer" />
+        <attr name="riv_press_feedback" format="boolean" />
+        <attr name="riv_scale_target" format="enum">
+            <enum name="height" value="0" />
+            <enum name="width" value="1" />
+            <enum name="expand" value="2" />
+            <enum name="inside" value="3" />
+        </attr>
+        <attr name="android:scaleType" />
+    </declare-styleable>
+
+    <!--ShapeImageView-->
+    <declare-styleable name="ShapeImageView">
+        <attr name="siv_shape" format="enum">
+            <enum name="Circle" value="1" />
+            <enum name="Round" value="2" />
+        </attr>
+        <attr name="siv_round_radius" format="dimension" />
+        <attr name="siv_border_width" format="dimension" />
+        <attr name="siv_border_color" format="color" />
+        <attr name="siv_foreground" format="reference" />
+        <attr name="siv_width_scale" format="integer" />
+        <attr name="siv_height_scale" format="integer" />
+        <attr name="siv_press_feedback" format="boolean" />
+        <attr name="siv_scale_target" format="enum">
+            <enum name="height" value="0" />
+            <enum name="width" value="1" />
+            <enum name="expand" value="2" />
+            <enum name="inside" value="3" />
+        </attr>
+    </declare-styleable>
+
+    <!-- RTextView -->
+    <declare-styleable name="RTextView">
+        <!--四周圆角度、左上、右上、左下、右下-->
+        <attr name="corner_radius" format="dimension" />
+        <attr name="corner_radius_top_left" format="dimension" />
+        <attr name="corner_radius_top_right" format="dimension" />
+        <attr name="corner_radius_bottom_left" format="dimension" />
+        <attr name="corner_radius_bottom_right" format="dimension" />
+        <!--虚线边框宽度/间隔-->
+        <attr name="border_dash_width" format="dimension" />
+        <attr name="border_dash_gap" format="dimension" />
+        <!--边框宽度-->
+        <attr name="border_width_normal" format="dimension" />
+        <attr name="border_width_pressed" format="dimension" />
+        <attr name="border_width_unable" format="dimension" />
+        <!--边框颜色-->
+        <attr name="border_color_normal" format="color" />
+        <attr name="border_color_pressed" format="color" />
+        <attr name="border_color_unable" format="color" />
+        <!--背景颜色-->
+        <attr name="background_normal" format="color" />
+        <attr name="background_pressed" format="color" />
+        <attr name="background_unable" format="color" />
+        <!--文本颜色-->
+        <attr name="text_color_normal" format="color" />
+        <attr name="text_color_pressed" format="color" />
+        <attr name="text_color_unable" format="color" />
+        <!--图标资源-->
+        <attr name="icon_src_normal" format="reference" />
+        <attr name="icon_src_pressed" format="reference" />
+        <attr name="icon_src_unable" format="reference" />
+        <!--图标、大小、位置-->
+        <attr name="icon_height" format="dimension" />
+        <attr name="icon_width" format="dimension" />
+        <attr name="icon_direction">
+            <enum name="left" value="1" />
+            <enum name="top" value="2" />
+            <enum name="right" value="3" />
+            <enum name="bottom" value="4" />
+        </attr>
+        <!--字体样式-->
+        <attr name="text_typeface" format="string" />
+    </declare-styleable>
+
+    <!--PTRLayout-->
+    <declare-styleable name="PTRLayout">
+        <!-- RefreshView的初始offset -->
+        <attr name="refresh_init_offset" format="dimension" />
+        <!-- 刷新时RefreshView的offset -->
+        <attr name="refresh_end_offset" format="dimension" />
+        <!-- TargetView(ListView或者ScrollView等)的初始位置 -->
+        <attr name="target_init_offset" format="dimension" />
+        <!-- 刷新时TargetView(ListView或者ScrollView等)的位置-->
+        <attr name="target_refresh_offset" format="dimension" />
+        <!-- 是否自动根据RefreshView的高度计算RefreshView的初始位置-->
+        <attr name="auto_calculate_refresh_init_offset" format="boolean" />
+        <!-- 是否自动根据TargetView在刷新时的位置计算RefreshView的结束位置-->
+        <attr name="auto_calculate_refresh_end_offset" format="boolean" />
+        <!-- TargetView的刷新位置与RefreshView高度相等-->
+        <attr name="equal_target_refresh_offset_to_refresh_view_height" format="boolean" />
+    </declare-styleable>
+    <attr name="WingsPullRefreshLayoutDefStyle" format="reference" />
+
+    <!--LoadingView-->
+    <declare-styleable name="LoadingView">
+        <attr name="loading_view_size" format="dimension" />
+        <attr name="android:color" />
+    </declare-styleable>
+
+</resources>
