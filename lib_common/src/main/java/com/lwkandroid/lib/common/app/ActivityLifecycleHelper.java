@@ -333,7 +333,9 @@ public class ActivityLifecycleHelper implements Application.ActivityLifecycleCal
             mActivityListField.setAccessible(true);
             Map activities = (Map) mActivityListField.get(currentActivityThreadMethod);
             if (activities == null)
+            {
                 return null;
+            }
             for (Object activityRecord : activities.values())
             {
                 Class activityRecordClass = activityRecord.getClass();
