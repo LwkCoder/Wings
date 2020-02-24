@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.lwkandroid.lib.core.java.context.AppContext;
+import com.lwkandroid.lib.core.context.AppContext;
 import com.sources.javacode.R;
 import com.sources.javacode.app.AppBaseActivity;
 

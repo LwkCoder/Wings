@@ -3,7 +3,7 @@ package com.lwkandroid.lib.common;
 import android.app.Activity;
 import android.os.Build;
 
-import com.lwkandroid.lib.core.java.log.KLog;
+import com.lwkandroid.lib.core.log.KLog;
 import com.squareup.leakcanary.RefWatcher;
 import com.squareup.leakcanary.internal.ActivityLifecycleCallbacksAdapter;
 

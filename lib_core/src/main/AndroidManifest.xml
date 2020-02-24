@@ -14,13 +14,10 @@
 
     <application android:networkSecurityConfig="@xml/network_security_config">
         <provider
-            android:name=".kt.provider.GlobalContextProvider"
-            android:authorities="${applicationId}.GlobalContextProvider" />
-        <provider
-            android:name=".java.context.ContextProvider"
+            android:name=".context.ContextProvider"
             android:authorities="${applicationId}.ContextProvider" />
         <provider
-            android:name=".java.utils.UriUtils$UriFileProvider"
+            android:name=".utils.UriUtils$UriFileProvider"
             android:authorities="${applicationId}.uriutils.provider"
             android:exported="false"
             android:grantUriPermissions="true"

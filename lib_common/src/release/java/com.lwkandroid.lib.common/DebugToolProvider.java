@@ -5,7 +5,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
 
-import com.lwkandroid.lib.core.java.utils.CrashUtils;
+import com.lwkandroid.lib.core.utils.CrashUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

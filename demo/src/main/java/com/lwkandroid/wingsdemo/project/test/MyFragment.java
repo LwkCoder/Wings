@@ -4,8 +4,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 
-import com.lwkandroid.lib.core.java.rx.life.RxLife;
-import com.lwkandroid.lib.core.java.rx.scheduler.RxSchedulers;
+import com.lwkandroid.lib.core.rx.life.RxLife;
+import com.lwkandroid.lib.core.rx.scheduler.RxSchedulers;
 import com.lwkandroid.rcvadapter.RcvSingleAdapter;
 import com.lwkandroid.rcvadapter.holder.RcvHolder;
 import com.lwkandroid.wings.log.KLog;

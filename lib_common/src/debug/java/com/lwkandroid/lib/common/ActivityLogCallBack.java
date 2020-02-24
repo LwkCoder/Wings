@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
 
-import com.lwkandroid.lib.core.java.log.KLog;
+import com.lwkandroid.lib.core.log.KLog;
 
 /**
  * Description:Activity生命周期日志记录
