@@ -9,6 +9,7 @@ import android.net.Uri;
 import com.chuckerteam.chucker.api.ChuckerInterceptor;
 import com.facebook.stetho.Stetho;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
+import com.lwkandroid.lib.common.app.ActivityStackCallBack;
 import com.lwkandroid.lib.core.imageloader.glide.GlideOkClient;
 import com.lwkandroid.lib.core.net.RxHttp;
 import com.lwkandroid.lib.core.utils.CrashUtils;
@@ -36,6 +37,8 @@ public class DebugToolProvider extends ContentProvider
     {
         //添加崩溃日志记录
         CrashUtils.init();
+        //Activity栈管理
+        ActivityThread.currentApplication().registerActivityLifecycleCallbacks(new ActivityStackCallBack());
         //启动严格模式
         //        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectAll().penaltyLog().build());
         //        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().detectAll().penaltyLog().build());

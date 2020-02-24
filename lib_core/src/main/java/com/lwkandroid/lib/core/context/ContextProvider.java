@@ -15,7 +15,7 @@ import androidx.annotation.Nullable;
  * @author LWK
  * @date 2020/1/6
  */
-final class ContextProvider extends ContentProvider
+public final class ContextProvider extends ContentProvider
 {
     public static Context mContext;
 
