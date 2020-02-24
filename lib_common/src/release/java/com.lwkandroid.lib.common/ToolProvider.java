@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 /**
- * Description:Debug模式下辅助工具
+ * Description:辅助工具
  *
  * @author LWK
  * @date 2020/2/15

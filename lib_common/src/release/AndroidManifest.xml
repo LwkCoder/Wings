@@ -3,8 +3,8 @@
 
     <application>
         <provider
-            android:name=".DebugToolProvider"
-            android:authorities="${applicationId}.DebugToolProvider" />
+            android:name=".ToolProvider"
+            android:authorities="${applicationId}.ToolProvider" />
     </application>
 
 </manifest>

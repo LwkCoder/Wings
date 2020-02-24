@@ -23,15 +23,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 /**
- * Description:Debug模式下辅助工具
+ * Description:辅助工具
  *
  * @author LWK
  * @date 2020/2/15
  */
-public class DebugToolProvider extends ContentProvider
+public class ToolProvider extends ContentProvider
 {
-    private static RefWatcher mRefWatcher;
-
     @Override
     public boolean onCreate()
     {
@@ -65,12 +63,12 @@ public class DebugToolProvider extends ContentProvider
                 .instanceField("android.view.ViewGroup$ViewLocationHolder", "sPool").alwaysExclude()
                 .staticField("android.view.ViewGroup$ViewLocationHolder", "sPool").alwaysExclude()
                 .build();
-        mRefWatcher = LeakCanary
+        RefWatcher refWatcher = LeakCanary
                 .refWatcher(getContext())
                 .listenerServiceClass(DisplayLeakService.class)
                 .excludedRefs(excludedRefs)
                 .buildAndInstall();
-        ActivityThread.currentApplication().registerActivityLifecycleCallbacks(new LeakCanaryCallBack(mRefWatcher));
+        ActivityThread.currentApplication().registerActivityLifecycleCallbacks(new LeakCanaryCallBack(refWatcher));
         //添加Activity生命周期日志记录
         ActivityThread.currentApplication().registerActivityLifecycleCallbacks(new ActivityLogCallBack());
         return false;

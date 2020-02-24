@@ -50,7 +50,6 @@ public class ActivityLifecycleHelper implements Application.ActivityLifecycleCal
         static final ActivityLifecycleHelper INSTANCE = new ActivityLifecycleHelper();
     }
 
-
     public interface OnAppStatusChangedListener
     {
         void onForeground(Activity activity);
