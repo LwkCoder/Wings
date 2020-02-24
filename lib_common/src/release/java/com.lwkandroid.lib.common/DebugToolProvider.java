@@ -6,7 +6,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
 
-import com.lwkandroid.lib.common.app.ActivityStackCallBack;
+import com.lwkandroid.lib.common.app.ActivityLifecycleHelper;
 import com.lwkandroid.lib.core.utils.CrashUtils;
 
 import androidx.annotation.NonNull;
@@ -26,7 +26,7 @@ public class DebugToolProvider extends ContentProvider
         //添加崩溃日志记录
         CrashUtils.init();
         //Activity栈管理
-        ActivityThread.currentApplication().registerActivityLifecycleCallbacks(new ActivityStackCallBack());
+        ActivityThread.currentApplication().registerActivityLifecycleCallbacks(ActivityLifecycleHelper.get());
         return false;
     }
 
