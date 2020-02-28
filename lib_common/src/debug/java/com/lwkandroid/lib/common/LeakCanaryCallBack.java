@@ -77,9 +77,10 @@ public class LeakCanaryCallBack extends ActivityLifecycleCallbacksAdapter
                     mRootField.setAccessible(true);
                     mRootField.set(viewLocationHolder, null);
                 }
-            } catch (ClassNotFoundException | NoSuchFieldException | IllegalAccessException e)
+            } catch (ClassNotFoundException | NoSuchFieldException | IllegalAccessException ignore)
             {
-                e.printStackTrace();
+                //                e.printStackTrace();
+                //... Nothing to do
             }
         }
         mRefWatcher.watch(activity);

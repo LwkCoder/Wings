@@ -6,6 +6,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 
+import com.lwkandroid.lib.core.utils.CrashUtils;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -15,7 +17,7 @@ import androidx.annotation.Nullable;
  * @author LWK
  * @date 2020/1/6
  */
-public final class ContextProvider extends ContentProvider
+public class ContextProvider extends ContentProvider
 {
     public static Context mContext;
 
@@ -23,6 +25,7 @@ public final class ContextProvider extends ContentProvider
     public boolean onCreate()
     {
         mContext = getContext();
+        initLibs();
         return true;
     }
 
@@ -57,5 +60,13 @@ public final class ContextProvider extends ContentProvider
     public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs)
     {
         throw new IllegalAccessError("Not Implemented.This provider only provides the global variable of Application context");
+    }
+
+    /**
+     * //初始化一些必要的工具
+     */
+    private void initLibs()
+    {
+        CrashUtils.init();
     }
 }

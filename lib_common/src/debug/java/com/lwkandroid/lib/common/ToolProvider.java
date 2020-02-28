@@ -12,7 +12,6 @@ import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.lwkandroid.lib.common.app.ActivityLifecycleHelper;
 import com.lwkandroid.lib.core.imageloader.glide.GlideOkClient;
 import com.lwkandroid.lib.core.net.RxHttp;
-import com.lwkandroid.lib.core.utils.CrashUtils;
 import com.squareup.leakcanary.AndroidExcludedRefs;
 import com.squareup.leakcanary.DisplayLeakService;
 import com.squareup.leakcanary.ExcludedRefs;
@@ -33,10 +32,11 @@ public class ToolProvider extends ContentProvider
     @Override
     public boolean onCreate()
     {
-        //添加崩溃日志记录
-        CrashUtils.init();
         //Activity栈管理
         ActivityThread.currentApplication().registerActivityLifecycleCallbacks(ActivityLifecycleHelper.get());
+
+        //添加Activity生命周期日志记录
+        ActivityThread.currentApplication().registerActivityLifecycleCallbacks(new ActivityLogCallBack());
         //启动严格模式
         //        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectAll().penaltyLog().build());
         //        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().detectAll().penaltyLog().build());
@@ -69,8 +69,6 @@ public class ToolProvider extends ContentProvider
                 .excludedRefs(excludedRefs)
                 .buildAndInstall();
         ActivityThread.currentApplication().registerActivityLifecycleCallbacks(new LeakCanaryCallBack(refWatcher));
-        //添加Activity生命周期日志记录
-        ActivityThread.currentApplication().registerActivityLifecycleCallbacks(new ActivityLogCallBack());
         return false;
     }
 
@@ -106,4 +104,5 @@ public class ToolProvider extends ContentProvider
     {
         return 0;
     }
+
 }

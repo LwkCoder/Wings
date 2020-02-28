@@ -1,4 +1,4 @@
-package com.lwkandroid.wings.utils;
+package com.lwkandroid.lib.core.utils;
 
 import android.app.Activity;
 import android.app.KeyguardManager;
@@ -19,8 +19,6 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.lwkandroid.lib.core.context.AppContext;
-import com.lwkandroid.lib.core.utils.BarUtils;
-import com.lwkandroid.lib.core.utils.WingsCallBack;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;

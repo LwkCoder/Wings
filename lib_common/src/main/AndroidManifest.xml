@@ -1,2 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.lwkandroid.lib.common" />
+    package="com.lwkandroid.lib.common">
+
+    <application>
+        <provider
+            android:name=".ToolProvider"
+            android:authorities="${applicationId}.ToolProvider" />
+    </application>
+</manifest>

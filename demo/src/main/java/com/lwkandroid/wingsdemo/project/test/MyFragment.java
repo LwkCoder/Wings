@@ -75,7 +75,7 @@ public class MyFragment extends AppBaseFragment<MyFragmentPresenter> implements 
     {
         Observable.interval(1000, TimeUnit.MILLISECONDS)
                 .compose(RxSchedulers.applyComputation2Main())
-                .compose(RxLife.with(this).bindUtilOnDestory())
+                .compose(RxLife.with(this).bindUtilOnDestroy())
                 .subscribe(new ApiBaseObserver<Long>()
                 {
                     @Override

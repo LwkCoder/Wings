@@ -7,7 +7,6 @@ import android.database.Cursor;
 import android.net.Uri;
 
 import com.lwkandroid.lib.common.app.ActivityLifecycleHelper;
-import com.lwkandroid.lib.core.utils.CrashUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,13 +17,11 @@ import androidx.annotation.Nullable;
  * @author LWK
  * @date 2020/2/15
  */
-public class DebugToolProvider extends ContentProvider
+public class ToolProvider extends ContentProvider
 {
     @Override
     public boolean onCreate()
     {
-        //添加崩溃日志记录
-        CrashUtils.init();
         //Activity栈管理
         ActivityThread.currentApplication().registerActivityLifecycleCallbacks(ActivityLifecycleHelper.get());
         return false;

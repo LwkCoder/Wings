@@ -1,5 +1,6 @@
 package com.lwkandroid.lib.core.rx.life;
 
+import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
 
 /**
@@ -12,5 +13,10 @@ public final class RxLife
     public static RxLifeProvider with(LifecycleOwner owner)
     {
         return new RxLifeProvider(owner);
+    }
+
+    public static RxLifeProvider with(Lifecycle lifecycle)
+    {
+        return new RxLifeProvider(lifecycle);
     }
 }

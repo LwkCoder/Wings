@@ -19,7 +19,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lwkandroid.lib.core.context.AppContext;
-import com.lwkandroid.wings.utils.ScreenUtils;
 
 import java.lang.reflect.Field;
 
