@@ -34,7 +34,7 @@ import androidx.annotation.Nullable;
  * @author LWK
  * @date 2020/2/24
  */
-public class ActivityLifecycleHelper implements Application.ActivityLifecycleCallbacks
+public final class ActivityLifecycleHelper implements Application.ActivityLifecycleCallbacks
 {
     private ActivityLifecycleHelper()
     {

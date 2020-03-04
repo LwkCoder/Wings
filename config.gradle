@@ -34,7 +34,7 @@ ext {
     SwipeRefreshXVersion = "1.1.0-alpha03"
     ImagePickerVersion = "1.4.4"
     AndPermissionVersion = "2.0.3"
-    RcvAdapterVersion = "1.4.2"
+    RcvAdapterVersion = "1.4.3"
     OkHttp3Version = "4.2.2"
     GlideVersion = "4.10.0"
     GsonVersion = "2.8.6"

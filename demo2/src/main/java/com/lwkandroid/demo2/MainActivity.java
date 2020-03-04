@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.lwkandroid.demo2.test.TestActivity;
 import com.lwkandroid.lib.common.mvp.MvpBaseActivity;
 
 /**
@@ -42,6 +43,7 @@ public class MainActivity extends MvpBaseActivity<MainPresenter> implements IMai
     @Override
     protected void initUI(View contentView)
     {
+        startActivity(new Intent(MainActivity.this, TestActivity.class));
     }
 
     @Override
