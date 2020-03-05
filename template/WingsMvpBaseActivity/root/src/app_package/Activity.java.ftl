@@ -4,6 +4,7 @@ import ${superClassFqcn};
 import android.os.Bundle;
 import android.content.Intent;
 import android.view.View;
+import ${applicationPackage}.R;
 import com.lwkandroid.lib.common.mvp.MvpBaseActivity;
 
 import androidx.annotation.Nullable;

@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 
 /**
@@ -18,7 +19,7 @@ import androidx.lifecycle.LifecycleOwner;
  * @author LWK
  * @date 2020/2/28
  */
-public abstract class MvpBaseFragment<P extends IMvpBasePresenter> extends Fragment
+public abstract class MvpBaseFragment<P extends LifecycleObserver> extends Fragment
         implements IContentView, ContentViewImpl.OnClickListenerDispatcher, View.OnClickListener, IMvpBaseView<P>
 {
     private ContentViewImpl mContentImpl = new ContentViewImpl(this);

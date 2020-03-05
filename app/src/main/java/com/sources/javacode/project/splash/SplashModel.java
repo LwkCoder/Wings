@@ -1,9 +1,13 @@
 package com.sources.javacode.project.splash;
 
+import com.lwkandroid.lib.common.mvp.MvpBaseModelImpl;
+
 /**
- * Created by LWK
- *  Model层
+ * Description:Model层
+ *
+ * @author
+ * @date
  */
-class SplashModel extends SplashContract.Model
+class SplashModel extends MvpBaseModelImpl implements SplashContract.IModel
 {
 }

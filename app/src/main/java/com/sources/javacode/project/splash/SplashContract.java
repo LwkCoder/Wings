@@ -1,25 +1,32 @@
 package com.sources.javacode.project.splash;
 
-import com.sources.javacode.app.AppBaseModel;
-import com.sources.javacode.app.AppBasePresenter;
-import com.sources.javacode.app.IAppBaseView;
+import com.lwkandroid.lib.common.mvp.IMvpBaseModel;
+import com.lwkandroid.lib.common.mvp.IMvpBasePresenter;
+import com.lwkandroid.lib.common.mvp.IMvpBaseView;
+
+import androidx.lifecycle.LifecycleObserver;
+import androidx.lifecycle.LifecycleOwner;
 
 /**
- * Created by LWK
- *  契约层
+ * Description:契约层
+ *
+ * @author
+ * @date
  */
 interface SplashContract
 {
-    interface IView extends IAppBaseView
+    interface IView<P extends LifecycleObserver> extends IMvpBaseView<P>
     {
+
     }
 
-    abstract class Model extends AppBaseModel
+    interface IModel extends IMvpBaseModel
     {
+
     }
 
-    abstract class Presenter extends AppBasePresenter
+    interface IPresenter<V extends LifecycleOwner, M> extends IMvpBasePresenter<V, M>
     {
-    }
 
+    }
 }

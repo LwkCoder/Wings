@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<template
+    format="5"
+    revision="5"
+    name="Wings MvpListFragment with SwipeRefreshLayout(Java)"
+    minApi="16"
+    minBuildApi="16"
+	requireAndroidX="true"
+    description="Creates a new MvpListFragment with SwipeRefreshLayout">
+
+    <category value="Fragment" />
+
+    <parameter
+        id="uiClassName"
+        name="Class Name"
+        type="string"
+        constraints="class|unique|nonempty"
+        suggest="${layoutToActivity(layoutName)}"
+        default="App"
+        help="The name of the fragment class to be created" />
+
+    <parameter
+        id="generateLayout"
+        name="Generate Layout File"
+        type="boolean"
+        default="true"
+        help="If true, a layout file will be generated" />
+		
+	<parameter
+        id="dataSourceClass"
+        name="DataSource Name"
+        type="string"
+        constraints="class|nonempty"
+        default="String"
+        help="The dataSource class name for the adapter"/>
+
+    <parameter
+        id="layoutName"
+        name="Layout Name"
+        type="string"
+        constraints="layout|unique|nonempty"
+        suggest="fragment_${classToResource(uiClassName)}"
+        default="fragment_app"
+        visibility="generateLayout"
+        help="The name of the layout to create" />
+
+    <!-- 128x128 thumbnails relative to template.xml -->
+    <thumbs>
+        <!-- default thumbnail is required -->
+        <thumb>template.png</thumb>
+    </thumbs>
+
+    <globals file="globals.xml.ftl" />
+    <execute file="recipe.xml.ftl" />
+
+</template>

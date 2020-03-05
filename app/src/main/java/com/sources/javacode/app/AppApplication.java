@@ -3,10 +3,9 @@ package com.sources.javacode.app;
 import android.app.Application;
 import android.os.Build;
 
-import com.lwkandroid.wings.Wings;
-import com.lwkandroid.wings.app.WingsInitOptions;
-import com.lwkandroid.wings.log.KLog;
-import com.lwkandroid.wings.utils.AppUtils;
+import com.lwkandroid.lib.core.log.KLog;
+import com.lwkandroid.lib.core.net.RxHttp;
+import com.lwkandroid.lib.core.utils.AppUtils;
 import com.sources.javacode.BuildConfig;
 import com.sources.javacode.net.ApiURL;
 
@@ -27,10 +26,7 @@ public class AppApplication extends Application
         AppConfig.LIB_CONFIG1 = BuildConfig.LibConfig1;
         AppConfig.LIB_CONFIG2 = BuildConfig.LibConfig2;
 
-        WingsInitOptions options = new WingsInitOptions(this);
-        options.setApplicationContext(this);
-        options.setApiBaseUrl(ApiURL.HOST);
-        Wings.init(options);
+        RxHttp.getGlobalOptions().setBaseUrl(ApiURL.HOST);
 
         if (BuildConfig.DEBUG)
         {

@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.getkeepsafe.dexcount'
 apply plugin: "com.blankj.bus"
+apply plugin: 'kotlin-android-extensions'
 
 def appConfig = rootProject.ext.appConfig
 def urls = rootProject.ext.url
@@ -122,11 +123,11 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    debugImplementation project(':Wings')
-    releaseImplementation project(':Wings')
-    implementation project(':lib_core')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "androidx.core:core-ktx:$KotlinCoreVersion"
+    implementation project(':lib_common')
 
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.2.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    testImplementation "junit:junit:$JunitVersion"
+    androidTestImplementation "androidx.test.ext:junit:$AndroidXJunitVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$AndroidXEspressoCoreVersion"
 }

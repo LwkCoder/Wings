@@ -1,26 +1,40 @@
 package com.sources.javacode.project.splash;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 
-import com.lwkandroid.lib.core.context.AppContext;
+import com.lwkandroid.lib.common.mvp.MvpBaseActivity;
 import com.sources.javacode.R;
-import com.sources.javacode.app.AppBaseActivity;
+
+import androidx.annotation.Nullable;
 
 /**
- * View层
+ * Description:View层
  *
- * @author LWK
+ * @author
+ * @date
  */
-public class SplashActivity extends AppBaseActivity<SplashPresenter> implements SplashContract.IView
+public class SplashActivity extends MvpBaseActivity<SplashPresenter> implements SplashContract.IView<SplashPresenter>
 {
+
+    @Override
+    protected void setBarColor()
+    {
+
+    }
+
+    @Override
+    protected SplashPresenter createPresenter()
+    {
+        return new SplashPresenter(this, new SplashModel());
+    }
+
 
     @Override
     protected void getIntentData(Intent intent, boolean newIntent)
     {
+
     }
 
     @Override
@@ -32,13 +46,11 @@ public class SplashActivity extends AppBaseActivity<SplashPresenter> implements 
     @Override
     protected void initUI(View contentView)
     {
-        ImageView imageView = find(R.id.img);
-        Drawable drawable = AppContext.get().getResources().getDrawable(R.mipmap.ic_launcher);
-        imageView.setImageDrawable(drawable);
+
     }
 
     @Override
-    protected void initData(Bundle savedInstanceState)
+    protected void initData(@Nullable Bundle savedInstanceState)
     {
 
     }
@@ -46,7 +58,11 @@ public class SplashActivity extends AppBaseActivity<SplashPresenter> implements 
     @Override
     public void onClick(int id, View view)
     {
-
+        switch (id)
+        {
+            default:
+                break;
+        }
     }
 
 }

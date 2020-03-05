@@ -1,14 +1,18 @@
 package com.sources.javacode.project.splash;
 
+import com.lwkandroid.lib.common.mvp.MvpBasePresenterImpl;
+
 /**
- * Created by LWK
- *  Presenter层
+ * Description:Presenter层
+ *
+ * @author
+ * @date
  */
-class SplashPresenter extends SplashContract.Presenter
+class SplashPresenter extends MvpBasePresenterImpl<SplashContract.IView, SplashContract.IModel>
+        implements SplashContract.IPresenter<SplashContract.IView, SplashContract.IModel>
 {
-    @Override
-    public SplashContract.Model createModel()
+    public SplashPresenter(SplashContract.IView viewImpl, SplashContract.IModel modelImpl)
     {
-        return new SplashModel();
+        super(viewImpl, modelImpl);
     }
 }

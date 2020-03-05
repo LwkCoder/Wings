@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.sources.javacode"
-          xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.sources.javacode">
 
     <application
         android:name=".app.AppApplication"
@@ -13,24 +13,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="n">
+        <activity
+            android:name=".project.splash.SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseActivityStyle">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <meta-data
             android:name="CHANNEL_NAME"
-            android:value="${CHANNEL_NAME}"/>
-
-        <activity
-            android:name=".project.splash.SplashActivity"
-            android:theme="@style/BaseActivityStyle">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".project.home.HomeActivity"
-            android:theme="@style/BaseActivityStyle">
-        </activity>
+            android:value="${CHANNEL_NAME}" />
     </application>
 
 </manifest>
