@@ -16,8 +16,6 @@ public interface IRefreshWrapper<RV>
 
     void autoRefresh();
 
-    void callRefreshing();
-
     void callRefreshSuccess();
 
     void callRefreshFail(Throwable throwable);

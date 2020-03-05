@@ -3,12 +3,12 @@ package com.lwkandroid.lib.common.mvp.list;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 /**
- * Description:SwipeRefreshLayout实现的下拉刷新机制
+ * Description:SwipeRefreshLayout实现的下拉刷新状态实现
  *
  * @author LWK
  * @date 2020/3/2
  */
-public class SwipeRefreshLayoutWrapper implements IRefreshWrapper<SwipeRefreshLayout>, SwipeRefreshLayout.OnRefreshListener
+public final class SwipeRefreshLayoutWrapper implements IRefreshWrapper<SwipeRefreshLayout>, SwipeRefreshLayout.OnRefreshListener
 {
     private SwipeRefreshLayout mRefreshLayout;
     private OnRefreshRequestedListener mRefreshListener;
@@ -42,17 +42,11 @@ public class SwipeRefreshLayoutWrapper implements IRefreshWrapper<SwipeRefreshLa
     @Override
     public void autoRefresh()
     {
-        callRefreshing();
-        onRefresh();
-    }
-
-    @Override
-    public void callRefreshing()
-    {
         if (mRefreshLayout != null)
         {
             mRefreshLayout.setRefreshing(true);
         }
+        onRefresh();
     }
 
     @Override

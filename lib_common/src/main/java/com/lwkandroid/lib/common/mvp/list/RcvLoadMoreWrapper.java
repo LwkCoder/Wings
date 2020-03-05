@@ -4,12 +4,12 @@ import com.lwkandroid.rcvadapter.RcvMultiAdapter;
 import com.lwkandroid.rcvadapter.listener.RcvLoadMoreListener;
 
 /**
- * Description:RcvMultiAdapter实现的自动加载机制
+ * Description:RcvMultiAdapter实现的自动加载状态实现
  *
  * @author LWK
  * @date 2020/3/3
  */
-public class RcvLoadMoreWrapper implements ILoadMoreWrapper<RcvMultiAdapter>, RcvLoadMoreListener
+public final class RcvLoadMoreWrapper implements ILoadMoreWrapper<RcvMultiAdapter>, RcvLoadMoreListener
 {
     private RcvMultiAdapter mAdapter;
     private OnLoadMoreRequestedListener mListener;
