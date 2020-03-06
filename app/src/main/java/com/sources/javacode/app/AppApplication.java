@@ -2,9 +2,7 @@ package com.sources.javacode.app;
 
 import android.app.Application;
 import android.os.Build;
-import android.util.Log;
 
-import com.lwkandroid.lib.core.context.AppContext;
 import com.lwkandroid.lib.core.log.KLog;
 import com.lwkandroid.lib.core.net.RxHttp;
 import com.lwkandroid.lib.core.utils.AppUtils;
@@ -28,8 +26,9 @@ public class AppApplication extends Application
         AppConfig.LIB_CONFIG1 = BuildConfig.LibConfig1;
         AppConfig.LIB_CONFIG2 = BuildConfig.LibConfig2;
 
-        RxHttp.getGlobalOptions().setBaseUrl(ApiURL.HOST);
-        Log.e("ss", String.valueOf("-------->" + AppContext.get() == null));
+        //初始化网络请求库
+        RxHttp.init(BuildConfig.DEBUG, ApiURL.HOST);
+
         if (BuildConfig.DEBUG)
         {
             KLog.i(new StringBuilder()
@@ -50,6 +49,7 @@ public class AppApplication extends Application
                     .append("********************************************************"));
         }
 
+        //注册Activity回调
         registerActivityLifecycleCallbacks(new AppLifecycleCallBack());
     }
 }
