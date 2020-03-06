@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.lwkandroid.lib.common.mvp.MvpBaseActivity;
+import com.lwkandroid.lib.core.context.AppContext;
 import com.sources.javacode.R;
 
 import androidx.annotation.Nullable;
@@ -40,7 +41,7 @@ public class SplashActivity extends MvpBaseActivity<SplashPresenter> implements 
     @Override
     protected void initUI(View contentView)
     {
-
+        showLongToast("全局Context是否为空：" + (AppContext.get() == null));
     }
 
     @Override
