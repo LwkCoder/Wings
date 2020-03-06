@@ -17,12 +17,6 @@ public class MainActivity extends MvpBaseActivity<MainPresenter> implements IMai
 {
 
     @Override
-    protected void setBarColor()
-    {
-
-    }
-
-    @Override
     protected MainPresenter createPresenter()
     {
         return new MainPresenter(this, new MainModel());

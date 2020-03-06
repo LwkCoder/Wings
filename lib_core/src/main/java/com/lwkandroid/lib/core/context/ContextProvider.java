@@ -6,7 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 
-import com.lwkandroid.lib.core.utils.CrashUtils;
+import com.lwkandroid.lib.common.WingsTools;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,8 +24,9 @@ public class ContextProvider extends ContentProvider
     @Override
     public boolean onCreate()
     {
-        mContext = getContext();
-        initLibs();
+        mContext = getContext().getApplicationContext();
+        //初始化一些工具
+        WingsTools.initTools(mContext);
         return true;
     }
 
@@ -62,11 +63,4 @@ public class ContextProvider extends ContentProvider
         throw new IllegalAccessError("Not Implemented.This provider only provides the global variable of Application context");
     }
 
-    /**
-     * //初始化一些必要的工具
-     */
-    private void initLibs()
-    {
-        CrashUtils.init();
-    }
 }

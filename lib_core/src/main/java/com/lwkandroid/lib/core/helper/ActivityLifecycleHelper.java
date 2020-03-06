@@ -1,4 +1,4 @@
-package com.lwkandroid.lib.common.app;
+package com.lwkandroid.lib.core.helper;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;

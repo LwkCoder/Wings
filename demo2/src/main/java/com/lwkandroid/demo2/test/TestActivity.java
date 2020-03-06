@@ -35,12 +35,6 @@ public class TestActivity extends MvpBaseActivity<TestPresenter> implements Test
     private RcvSingleAdapter<String> mAdapter;
 
     @Override
-    protected void setBarColor()
-    {
-
-    }
-
-    @Override
     protected TestPresenter createPresenter()
     {
         return new TestPresenter(this, new TestModel());
