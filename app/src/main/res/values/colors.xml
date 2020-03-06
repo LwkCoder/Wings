@@ -4,6 +4,6 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="statusbar">@color/colorPrimaryDark</color>
-    <color name="actionbar">@color/colorPrimary</color>
+    <color name="statusbar">#232b35</color>
+    <color name="actionbar">#2d3845</color>
 </resources>

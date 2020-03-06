@@ -1,29 +1,31 @@
-package ${packageName};
+package com.sources.javacode.project.home;
 
-import ${superClassFqcn};
-import android.os.Bundle;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
-import ${applicationPackage}.R;
+
 import com.lwkandroid.lib.common.mvp.MvpBaseActivity;
+import com.sources.javacode.R;
 
 import androidx.annotation.Nullable;
 
 /**
  * Description:View层
+ *
  * @author
  * @date
  */
-public class ${uiClassName}Activity extends MvpBaseActivity<${uiClassName}Presenter> implements ${uiClassName}Contract.IView<${uiClassName}Presenter> {
-	
-	@Override
-    protected ${uiClassName}Presenter createPresenter()
+public class HomeActivity extends MvpBaseActivity<HomePresenter> implements HomeContract.IView<HomePresenter>
+{
+
+    @Override
+    protected HomePresenter createPresenter()
     {
-        return new ${uiClassName}Presenter(this, new ${uiClassName}Model());
+        return new HomePresenter(this, new HomeModel());
     }
 
 
-	@Override
+    @Override
     protected void getIntentData(Intent intent, boolean newIntent)
     {
 
@@ -32,17 +34,13 @@ public class ${uiClassName}Activity extends MvpBaseActivity<${uiClassName}Presen
     @Override
     protected int getContentViewId()
     {
-		<#if generateLayout>
-		return R.layout.${layoutName};
-		<#else>	
-		return 0;
-		</#if>
+        return R.layout.activity_home;
     }
-	
-	@Override
+
+    @Override
     protected void initUI(View contentView)
     {
-		
+
     }
 
     @Override
@@ -54,11 +52,11 @@ public class ${uiClassName}Activity extends MvpBaseActivity<${uiClassName}Presen
     @Override
     public void onClick(int id, View view)
     {
-		switch (id)
+        switch (id)
         {
             default:
                 break;
         }
     }
-	
+
 }

@@ -19,12 +19,6 @@ public class SplashActivity extends MvpBaseActivity<SplashPresenter> implements 
 {
 
     @Override
-    protected void setBarColor()
-    {
-
-    }
-
-    @Override
     protected SplashPresenter createPresenter()
     {
         return new SplashPresenter(this, new SplashModel());

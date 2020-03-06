@@ -1,7 +1,7 @@
 package com.lwkandroid.lib.core.imageloader.glide;
 
 
-import com.lwkandroid.lib.core.net.interceptor.OkProgressInterceptor;
+import com.lwkandroid.lib.core.net.RxHttp;
 
 import java.util.concurrent.TimeUnit;
 
@@ -23,7 +23,7 @@ public final class GlideOkClient
                 .readTimeout(DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS)
                 .writeTimeout(DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS)
                 .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS)
-                .addInterceptor(new OkProgressInterceptor());
+                .addInterceptor(RxHttp.getProgressInterceptor());
     }
 
     private static final class Holder

@@ -34,12 +34,6 @@ public class ${uiClassName}Activity extends MvpBaseActivity<${uiClassName}Presen
     private RcvSingleAdapter<${dataSourceClass}> mAdapter;
 	
 	@Override
-    protected void setBarColor()
-    {
-        
-    }
-	
-	@Override
     protected ${uiClassName}Presenter createPresenter()
     {
         return new ${uiClassName}Presenter(this, new ${uiClassName}Model());

@@ -14,6 +14,9 @@
         android:theme="@style/AppTheme"
         tools:targetApi="n">
         <activity
+            android:name=".project.home.HomeActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
             android:name=".project.splash.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/BaseActivityStyle">

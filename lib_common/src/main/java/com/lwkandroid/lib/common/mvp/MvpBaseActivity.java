@@ -25,7 +25,6 @@ public abstract class MvpBaseActivity<P extends LifecycleObserver> extends AppCo
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
-        setBarColor();
         super.onCreate(savedInstanceState);
         //初始化Presenter
         setPresenter(createPresenter());
@@ -143,11 +142,6 @@ public abstract class MvpBaseActivity<P extends LifecycleObserver> extends AppCo
     {
         onClick(v.getId(), v);
     }
-
-    /**
-     * 子类实现，设置状态栏/导航栏
-     */
-    protected abstract void setBarColor();
 
     /**
      * 创建对应Presenter层
