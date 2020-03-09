@@ -22,15 +22,9 @@ import androidx.annotation.DrawableRes;
  */
 public final class ImageLoader
 {
-    static
-    {
-        GLOBAL_OPTIONS = new ImageGlobalOptions();
-        LOADER = new GlideLoader();
-    }
+    private static final ImageGlobalOptions GLOBAL_OPTIONS = new ImageGlobalOptions();
 
-    private static final ImageGlobalOptions GLOBAL_OPTIONS;
-
-    private static final ILoaderStrategy LOADER;
+    private static ILoaderStrategy mLoaderImpl = new GlideLoader();
 
     private ImageLoader()
     {
@@ -49,7 +43,21 @@ public final class ImageLoader
      */
     public static ILoaderStrategy getLoader()
     {
-        return LOADER;
+        if (mLoaderImpl == null)
+        {
+            mLoaderImpl = new GlideLoader();
+        }
+        return mLoaderImpl;
+    }
+
+    /**
+     * 设置实现类
+     *
+     * @param loader
+     */
+    public static void setLoader(ILoaderStrategy loader)
+    {
+        mLoaderImpl = loader;
     }
 
     /**
@@ -119,7 +127,7 @@ public final class ImageLoader
      */
     public static void downloadFile(Context context, String url, ImageDownLoadCallBack<File> callBack)
     {
-        LOADER.downloadFile(context, url, callBack);
+        mLoaderImpl.downloadFile(context, url, callBack);
     }
 
     /**
@@ -133,7 +141,7 @@ public final class ImageLoader
      */
     public static void downloadFile(Context context, String url, int maxWidth, int maxHeight, ImageDownLoadCallBack<File> callBack)
     {
-        LOADER.downloadFile(context, url, maxWidth, maxHeight, callBack);
+        mLoaderImpl.downloadFile(context, url, maxWidth, maxHeight, callBack);
     }
 
     /**
@@ -145,7 +153,7 @@ public final class ImageLoader
      */
     public static void downloadBitmap(Context context, String url, ImageDownLoadCallBack<Bitmap> callBack)
     {
-        LOADER.downloadBitmap(context, url, callBack);
+        mLoaderImpl.downloadBitmap(context, url, callBack);
     }
 
     /**
@@ -159,6 +167,6 @@ public final class ImageLoader
      */
     public static void downloadBitmap(Context context, String url, int maxWidth, int maxHeight, ImageDownLoadCallBack<Bitmap> callBack)
     {
-        LOADER.downloadBitmap(context, url, maxWidth, maxHeight, callBack);
+        mLoaderImpl.downloadBitmap(context, url, maxWidth, maxHeight, callBack);
     }
 }
