@@ -1,31 +1,26 @@
-package com.lwkandroid.lib.core.imageloader.glide;
+package com.sources.javacode.utils;
 
 import android.content.Context;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.GlideBuilder;
-import com.bumptech.glide.Registry;
 import com.bumptech.glide.annotation.GlideModule;
-import com.bumptech.glide.integration.okhttp3.OkHttpUrlLoader;
 import com.bumptech.glide.load.engine.bitmap_recycle.LruBitmapPool;
 import com.bumptech.glide.load.engine.cache.DiskLruCacheFactory;
 import com.bumptech.glide.load.engine.cache.LruResourceCache;
 import com.bumptech.glide.load.engine.cache.MemorySizeCalculator;
-import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.module.AppGlideModule;
 import com.lwkandroid.lib.core.imageloader.ImageLoader;
 import com.lwkandroid.lib.core.utils.SDCardUtils;
 
-import java.io.InputStream;
-
 /**
  * 自定义GlideModule
+ * 【该类必须放在Application模块中】
  *
  * @author LWK
  */
 
 @GlideModule
-public final class GlideLoaderModule extends AppGlideModule
+public final class GlideAppModule extends AppGlideModule
 {
     /**
      * 默认缓存里的倍数
@@ -55,10 +50,9 @@ public final class GlideLoaderModule extends AppGlideModule
     }
 
     @Override
-    public void registerComponents(Context context, Glide glide, Registry registry)
+    public boolean isManifestParsingEnabled()
     {
-        super.registerComponents(context, glide, registry);
-        registry.replace(GlideUrl.class, InputStream.class,
-                new OkHttpUrlLoader.Factory(GlideOkClient.get().getClient()));
+        //v4版本不需要解析清单文件，加快速度
+        return false;
     }
 }

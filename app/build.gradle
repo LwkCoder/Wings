@@ -126,6 +126,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "androidx.core:core-ktx:$KotlinCoreVersion"
     implementation project(':lib_common')
+    annotationProcessor "com.github.bumptech.glide:compiler:$GlideVersion"
 
     testImplementation "junit:junit:$JunitVersion"
     androidTestImplementation "androidx.test.ext:junit:$AndroidXJunitVersion"
