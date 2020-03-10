@@ -9,7 +9,7 @@ import com.lwkandroid.lib.core.utils.ResourceUtils;
  *
  * @author LWK
  */
-public class ApiExceptionMsgConverterImpl implements IApiExceptionMsgConverter
+public class ApiExceptionMsgParserImpl implements IApiExceptionMsgParser
 {
     @Override
     public String parserMessageByCode(int errorCode, String throwMessage)

@@ -5,7 +5,7 @@ import com.lwkandroid.lib.core.net.cache.operator.IDiskCacheOperator;
 import com.lwkandroid.lib.core.net.constants.ApiCacheMode;
 import com.lwkandroid.lib.core.net.constants.ApiRequestType;
 import com.lwkandroid.lib.core.net.cookie.ICookieJar;
-import com.lwkandroid.lib.core.net.exception.IApiExceptionMsgConverter;
+import com.lwkandroid.lib.core.net.exception.IApiExceptionMsgParser;
 import com.lwkandroid.lib.core.net.https.HttpsUtils;
 import com.lwkandroid.lib.core.net.parser.IApiStringParser;
 import com.lwkandroid.lib.core.net.retry.IAutoRetry;
@@ -195,9 +195,9 @@ public interface IApiRequestOptions
 
         IDiskCacheOperator getCacheOperator();
 
-        T setApiExceptionMsg(IApiExceptionMsgConverter apiExceptionMsg);
+        T setApiExceptionMsgParser(IApiExceptionMsgParser apiExceptionMsg);
 
-        IApiExceptionMsgConverter getApiExceptionMsg();
+        IApiExceptionMsgParser getApiExceptionMsgParser();
 
         T addDynamicFormData(String key, IApiDynamicFormData dataCallBack);
 

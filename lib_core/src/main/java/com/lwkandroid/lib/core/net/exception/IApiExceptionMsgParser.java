@@ -6,7 +6,7 @@ package com.lwkandroid.lib.core.net.exception;
  * @author LWK
  */
 
-public interface IApiExceptionMsgConverter
+public interface IApiExceptionMsgParser
 {
     String parserMessageByCode(int errorCode, String throwMessage);
 }

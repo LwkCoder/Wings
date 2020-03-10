@@ -44,7 +44,7 @@ public class ApiException extends Exception
         super(throwMessage);
         this.code = code;
         this.throwMessage = throwMessage;
-        this.displayMessage = RxHttp.getGlobalOptions().getApiExceptionMsg().parserMessageByCode(code, throwMessage);
+        this.displayMessage = RxHttp.getGlobalOptions().getApiExceptionMsgParser().parserMessageByCode(code, throwMessage);
     }
 
     public int getCode()

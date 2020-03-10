@@ -7,8 +7,8 @@ import com.lwkandroid.lib.core.net.constants.ApiCacheMode;
 import com.lwkandroid.lib.core.net.constants.ApiConstants;
 import com.lwkandroid.lib.core.net.cookie.CookieManager;
 import com.lwkandroid.lib.core.net.cookie.ICookieJar;
-import com.lwkandroid.lib.core.net.exception.ApiExceptionMsgConverterImpl;
-import com.lwkandroid.lib.core.net.exception.IApiExceptionMsgConverter;
+import com.lwkandroid.lib.core.net.exception.ApiExceptionMsgParserImpl;
+import com.lwkandroid.lib.core.net.exception.IApiExceptionMsgParser;
 import com.lwkandroid.lib.core.net.https.HttpsUtils;
 import com.lwkandroid.lib.core.net.parser.ApiStringParser;
 import com.lwkandroid.lib.core.net.parser.IApiStringParser;
@@ -67,7 +67,7 @@ public class ApiGlobalOptions implements IApiRequestOptions.Global<ApiGlobalOpti
     /**
      * 设置错误描述的对象
      */
-    private IApiExceptionMsgConverter mApiExceptionMsg;
+    private IApiExceptionMsgParser mApiExceptionMsgParser;
     /**
      * 动态参数Map
      */
@@ -85,7 +85,7 @@ public class ApiGlobalOptions implements IApiRequestOptions.Global<ApiGlobalOpti
         setApiRestfulResultType(ApiRestfulResult.class);
         setApiRestfulResultOkCode(ApiConstants.RESULT_OK_CODE);
         setApiStringParser(new ApiStringParser());
-        setApiExceptionMsg(new ApiExceptionMsgConverterImpl());
+        setApiExceptionMsgParser(new ApiExceptionMsgParserImpl());
         setAutoRetryJudge(new AutoRetryJudgeImpl());
         setAutoRetryDelay(1000);
         setCacheMode(ApiCacheMode.NO_CACHE);
@@ -579,16 +579,16 @@ public class ApiGlobalOptions implements IApiRequestOptions.Global<ApiGlobalOpti
     }
 
     @Override
-    public ApiGlobalOptions setApiExceptionMsg(IApiExceptionMsgConverter apiExceptionMsg)
+    public ApiGlobalOptions setApiExceptionMsgParser(IApiExceptionMsgParser parser)
     {
-        this.mApiExceptionMsg = apiExceptionMsg;
+        this.mApiExceptionMsgParser = parser;
         return this;
     }
 
     @Override
-    public IApiExceptionMsgConverter getApiExceptionMsg()
+    public IApiExceptionMsgParser getApiExceptionMsgParser()
     {
-        return mApiExceptionMsg;
+        return mApiExceptionMsgParser;
     }
 
     @Override
