@@ -98,7 +98,7 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':Wings')
-    implementation project(':lib_core')
+//    implementation project(':lib_common')
     implementation 'com.lwkandroid.widget:NineGridView:1.2.6'
 //    implementation 'com.github.yellowcath:YcShareElement:1.3.1'
 //    implementation 'com.github.chrisbanes:PhotoView:2.0.0'
