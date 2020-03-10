@@ -6,7 +6,7 @@ import android.content.Context;
 import com.chuckerteam.chucker.api.ChuckerInterceptor;
 import com.facebook.stetho.Stetho;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
-import com.lwkandroid.lib.core.helper.ActivityLifecycleHelper;
+import com.lwkandroid.lib.core.app.ActivityLifecycleHelper;
 import com.lwkandroid.lib.core.imageloader.glide.GlideOkClient;
 import com.lwkandroid.lib.core.net.RxHttp;
 import com.lwkandroid.lib.core.utils.CrashUtils;
