@@ -14,7 +14,7 @@ import io.reactivex.functions.Function;
  *
  * @author LWK
  */
-public class StringCacheToRestfulDataListCacheFunc<T> implements Function<ResultCacheWrapper<String>,
+public final class StringCacheToRestfulDataListCacheFunc<T> implements Function<ResultCacheWrapper<String>,
         ObservableSource<ResultCacheWrapper<List<T>>>>
 {
     private IApiStringParser mParser;

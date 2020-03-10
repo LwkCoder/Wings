@@ -14,9 +14,9 @@ import io.reactivex.ObservableSource;
  *
  * @author LWK
  */
-public class StringCacheToObjectDataListCacheFunc<T> extends AbsDataListCacheFunction<T>
+public final class StringCacheToCustomDataListCacheFunc<T> extends AbsDataListCacheFunction<T>
 {
-    public StringCacheToObjectDataListCacheFunc(IApiStringParser parser, Class<T> classType)
+    public StringCacheToCustomDataListCacheFunc(IApiStringParser parser, Class<T> classType)
     {
         super(parser, classType);
     }
