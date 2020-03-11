@@ -12,11 +12,11 @@
     <string name="qrcodescan_error">Unable to identify QR code / bar code</string>
     <string name="qrcodescan_decode_error">Unable to identify QR code / bar code</string>
     <string name="qrcode_dialog_message">Identifying...</string>
-
+t
     <string name="dialog_permission_title">Permissions prompt</string>
-    <string name="dialog_runtime_rationale_message">%1$s needs to use the following permissions, which may cause the program to fail if be rejected:\n\n%2$s</string>
+    <string name="dialog_runtime_rationale_message">%1$s needs to use the following permissions, to ensure normal use of functions:\n%2$s</string>
     <string name="dialog_runtime_rationale_process">Authorize</string>
-    <string name="dialog_runtime_neverask_message">%1$s can not obtain the following permissions, you can manually open the interface to ensure the normal operation of the program:\n\n%2$s</string>
+    <string name="dialog_runtime_neverask_message">%1$s can not obtain the following permissions, you can manually authorize in the settings interface to ensure normal use of functions:\n%2$s</string>
     <string name="dialog_runtime_neverask_process">To Setting</string>
     <string name="dialog_install_rationale_message">%1$s needs the permission of installing application</string>
     <string name="dialog_install_rationale_process">Authorize</string>

@@ -1,5 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.lwkandroid.lib.common">
 
+    <application>
+        <activity
+            android:name=".qrcode.QRCodeScanActivity"
+            android:screenOrientation="portrait"></activity>
+    </application>
 
 </manifest>
