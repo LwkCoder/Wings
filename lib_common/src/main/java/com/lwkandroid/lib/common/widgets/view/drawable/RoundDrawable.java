@@ -1,4 +1,4 @@
-package com.lwkandroid.lib.common.widgets.ui.drawable;
+package com.lwkandroid.lib.common.widgets.view.drawable;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;

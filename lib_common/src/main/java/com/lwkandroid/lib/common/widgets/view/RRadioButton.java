@@ -1,27 +1,27 @@
-package com.lwkandroid.lib.common.widgets.ui;
+package com.lwkandroid.lib.common.widgets.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
-import com.lwkandroid.lib.common.widgets.ui.helper.IRHelper;
-import com.lwkandroid.lib.common.widgets.ui.helper.RCheckHelper;
+import com.lwkandroid.lib.common.widgets.view.helper.IRHelper;
+import com.lwkandroid.lib.common.widgets.view.helper.RCheckHelper;
 
 
 /**
- * RCheckBox
+ * RRadioButton
  */
-public class RCheckBox extends androidx.appcompat.widget.AppCompatCheckBox implements IRHelper<RCheckHelper>
+public class RRadioButton extends androidx.appcompat.widget.AppCompatRadioButton implements IRHelper<RCheckHelper>
 {
 
     private RCheckHelper mHelper;
 
-    public RCheckBox(Context context)
+    public RRadioButton(Context context)
     {
         this(context, null);
     }
 
-    public RCheckBox(Context context, AttributeSet attrs)
+    public RRadioButton(Context context, AttributeSet attrs)
     {
         super(context, attrs);
         mHelper = new RCheckHelper(context, this, attrs);

@@ -2,6 +2,7 @@
 <resources>
     <!--margin、padding常用大小-->
     <dimen name="spacing_huge">40dp</dimen>
+    <dimen name="spacing_larger">28dp</dimen>
     <dimen name="spacing_large">24dp</dimen>
     <dimen name="spacing_normal">16dp</dimen>
     <dimen name="spacing_medium">12dp</dimen>

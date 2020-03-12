@@ -1,4 +1,4 @@
-package com.lwkandroid.lib.common.widgets.ui.helper;
+package com.lwkandroid.lib.common.widgets.view.helper;
 
 /**
  * Helper

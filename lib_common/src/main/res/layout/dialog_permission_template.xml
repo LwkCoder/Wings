@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/spacing_normal"
-    android:background="@drawable/bg_dialog_permission_rationale">
+    android:background="@drawable/bg_dialog_permission">
 
-    <com.lwkandroid.lib.common.widgets.ui.RTextView
+    <com.lwkandroid.lib.common.widgets.view.RTextView
         android:id="@+id/tv_dialog_permission_template_title"
         style="@style/NormalTextStyle"
         android:layout_gravity="center_horizontal"
@@ -21,7 +21,7 @@
         app:text_color_normal="@color/text_black_normal"
         tools:text="@string/dialog_permission_title" />
 
-    <com.lwkandroid.lib.common.widgets.ui.RTextView
+    <com.lwkandroid.lib.common.widgets.view.RTextView
         android:id="@+id/tv_dialog_permission_template_content"
         style="@style/MediumTextStyle"
         android:layout_width="0dp"
@@ -44,7 +44,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_dialog_permission_template_content" />
 
-    <com.lwkandroid.lib.common.widgets.ui.RTextView
+    <com.lwkandroid.lib.common.widgets.view.RTextView
         android:id="@+id/tv_dialog_permission_template_cancel"
         style="@style/NormalTextStyle"
         android:layout_width="0dp"
@@ -56,7 +56,7 @@
         app:layout_constraintTop_toBottomOf="@+id/view_dialog_permission_template_line"
         tools:text="@string/cancel" />
 
-    <com.lwkandroid.lib.common.widgets.ui.RTextView
+    <com.lwkandroid.lib.common.widgets.view.RTextView
         android:id="@+id/tv_dialog_permission_template_confirm"
         style="@style/NormalTextStyle"
         android:layout_width="0dp"

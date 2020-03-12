@@ -1,4 +1,4 @@
-package com.lwkandroid.lib.common.widgets.ui.drawable;
+package com.lwkandroid.lib.common.widgets.view.drawable;
 
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;

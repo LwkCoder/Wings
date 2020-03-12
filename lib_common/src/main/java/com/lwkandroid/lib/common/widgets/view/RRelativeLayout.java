@@ -1,11 +1,11 @@
-package com.lwkandroid.lib.common.widgets.ui;
+package com.lwkandroid.lib.common.widgets.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.RelativeLayout;
 
-import com.lwkandroid.lib.common.widgets.ui.helper.IRHelper;
-import com.lwkandroid.lib.common.widgets.ui.helper.RBaseHelper;
+import com.lwkandroid.lib.common.widgets.view.helper.IRHelper;
+import com.lwkandroid.lib.common.widgets.view.helper.RBaseHelper;
 
 
 /**

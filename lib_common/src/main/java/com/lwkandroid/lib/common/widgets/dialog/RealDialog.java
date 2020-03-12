@@ -18,7 +18,7 @@ import androidx.fragment.app.DialogFragment;
  *
  * @author LWK
  */
-public class RealDialog extends DialogFragment
+public final class RealDialog extends DialogFragment
 {
     private static final String KEY_BUNDLE = "options";
     private DialogOptions mOptions;
@@ -53,11 +53,9 @@ public class RealDialog extends DialogFragment
             window.setWindowAnimations(mOptions.getAnimStyle());
         }
 
-        getDialog().setCancelable(mOptions.isCancelable());
+        setCancelable(mOptions.isCancelable());
         getDialog().setCanceledOnTouchOutside(mOptions.isCanceledOnTouchOutside());
-        getDialog().setOnCancelListener(mOptions.getCancelListener());
         getDialog().setOnShowListener(mOptions.getShowListener());
-        getDialog().setOnDismissListener(mOptions.getDismissListener());
         mOptions.getContentView().initContentView(inflater);
         return mOptions.getContentView().getRealContentView();
     }
@@ -73,6 +71,20 @@ public class RealDialog extends DialogFragment
             {
                 mOptions.getChildClickListenerArray().clear();
             }
+        }
+        if (mOptions.getDismissListener() != null)
+        {
+            mOptions.getDismissListener().onDismiss(dialog);
+        }
+    }
+
+    @Override
+    public void onCancel(@NonNull DialogInterface dialog)
+    {
+        super.onCancel(dialog);
+        if (mOptions.getCancelListener() != null)
+        {
+            mOptions.getCancelListener().onCancel(dialog);
         }
     }
 

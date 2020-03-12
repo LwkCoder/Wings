@@ -1,4 +1,4 @@
-package com.lwkandroid.lib.common.widgets.ui.helper;
+package com.lwkandroid.lib.common.widgets.view.helper;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -21,7 +21,7 @@ import android.view.ViewConfiguration;
 import android.view.ViewTreeObserver;
 
 import com.lwkandroid.lib.common.R;
-import com.lwkandroid.lib.common.widgets.ui.drawable.ShadowDrawable;
+import com.lwkandroid.lib.common.widgets.view.drawable.ShadowDrawable;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.StyleableRes;

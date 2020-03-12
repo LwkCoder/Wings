@@ -1,4 +1,4 @@
-package com.lwkandroid.lib.common.widgets.ui;
+package com.lwkandroid.lib.common.widgets.view;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -10,7 +10,7 @@ import android.graphics.drawable.LayerDrawable;
 import android.util.AttributeSet;
 
 import com.lwkandroid.lib.common.R;
-import com.lwkandroid.lib.common.widgets.ui.drawable.RoundDrawable;
+import com.lwkandroid.lib.common.widgets.view.drawable.RoundDrawable;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;

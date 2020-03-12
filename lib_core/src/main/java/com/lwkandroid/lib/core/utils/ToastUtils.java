@@ -35,12 +35,7 @@ import androidx.annotation.StringRes;
 import androidx.core.app.NotificationManagerCompat;
 
 /**
- * <pre>
- *     author: Blankj
- *     blog  : http://blankj.com
- *     time  : 2016/09/29
- *     desc  : utils about toast
- * </pre>
+ * Toast工具类
  */
 public final class ToastUtils
 {
