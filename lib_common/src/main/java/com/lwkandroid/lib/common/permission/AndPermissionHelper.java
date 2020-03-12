@@ -12,9 +12,9 @@ import java.util.List;
  * @author LWK
  * @date 2020/3/11
  */
-public final class AndPermissionDialogHelper
+public final class AndPermissionHelper
 {
-    private AndPermissionDialogHelper()
+    private AndPermissionHelper()
     {
     }
 
@@ -81,7 +81,7 @@ public final class AndPermissionDialogHelper
 
     public static void setRuntimeDeniedRationale(Rationale<List<String>> rationale)
     {
-        AndPermissionDialogHelper.mRuntimeDeniedRationale = rationale;
+        AndPermissionHelper.mRuntimeDeniedRationale = rationale;
     }
 
     public static Action<List<String>> getRuntimeDeniedAction()
@@ -95,7 +95,7 @@ public final class AndPermissionDialogHelper
 
     public static void setRuntimeDeniedAction(Action<List<String>> action)
     {
-        AndPermissionDialogHelper.mRuntimeDeniedAction = action;
+        AndPermissionHelper.mRuntimeDeniedAction = action;
     }
 
     public static Rationale<File> getInstallDeniedRationale()
@@ -109,7 +109,7 @@ public final class AndPermissionDialogHelper
 
     public static void setInstallDeniedRationale(Rationale<File> rationale)
     {
-        AndPermissionDialogHelper.mInstallDeniedRationale = rationale;
+        AndPermissionHelper.mInstallDeniedRationale = rationale;
     }
 
     public static Action<File> getInstallDeniedAction()
@@ -123,7 +123,7 @@ public final class AndPermissionDialogHelper
 
     public static void setInstallDeniedAction(Action<File> action)
     {
-        AndPermissionDialogHelper.mInstallDeniedAction = action;
+        AndPermissionHelper.mInstallDeniedAction = action;
     }
 
     public static Rationale<Void> getOverlayDeniedRationale()
@@ -137,7 +137,7 @@ public final class AndPermissionDialogHelper
 
     public static void setOverlayDeniedRationale(Rationale<Void> rationale)
     {
-        AndPermissionDialogHelper.mOverlayDeniedRationale = rationale;
+        AndPermissionHelper.mOverlayDeniedRationale = rationale;
     }
 
     public static Action<Void> getOverlayDeniedAction()
@@ -151,7 +151,7 @@ public final class AndPermissionDialogHelper
 
     public static void setOverlayDeniedAction(Action<Void> action)
     {
-        AndPermissionDialogHelper.mOverlayDeniedAction = action;
+        AndPermissionHelper.mOverlayDeniedAction = action;
     }
 
     public static Rationale<Void> getNotificationShowDeniedRationale()
@@ -165,7 +165,7 @@ public final class AndPermissionDialogHelper
 
     public static void setNotificationShowDeniedRationale(Rationale<Void> rationale)
     {
-        AndPermissionDialogHelper.mNotificationShowDeniedRationale = rationale;
+        AndPermissionHelper.mNotificationShowDeniedRationale = rationale;
     }
 
     public static Action<Void> getNotificationShowDeniedAction()
@@ -179,7 +179,7 @@ public final class AndPermissionDialogHelper
 
     public static void setNotificationShowDeniedAction(Action<Void> action)
     {
-        AndPermissionDialogHelper.mNotificationShowDeniedAction = action;
+        AndPermissionHelper.mNotificationShowDeniedAction = action;
     }
 
     public static Rationale<Void> getNotificationAccessDeniedRationale()
@@ -193,7 +193,7 @@ public final class AndPermissionDialogHelper
 
     public static void setNotificationAccessDeniedRationale(Rationale<Void> rationale)
     {
-        AndPermissionDialogHelper.mNotificationAccessDeniedRationale = rationale;
+        AndPermissionHelper.mNotificationAccessDeniedRationale = rationale;
     }
 
     public static Action<Void> getNotificationAccessDeniedAction()
@@ -207,6 +207,6 @@ public final class AndPermissionDialogHelper
 
     public static void setNotificationAccessDeniedAction(Action<Void> action)
     {
-        AndPermissionDialogHelper.mNotificationAccessDeniedAction = action;
+        AndPermissionHelper.mNotificationAccessDeniedAction = action;
     }
 }

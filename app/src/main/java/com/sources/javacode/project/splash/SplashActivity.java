@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.lwkandroid.lib.common.mvp.MvpBaseActivity;
-import com.lwkandroid.lib.common.permission.AndPermissionDialogHelper;
+import com.lwkandroid.lib.common.permission.AndPermissionHelper;
 import com.lwkandroid.lib.core.context.AppContext;
 import com.lwkandroid.lib.core.log.KLog;
 import com.sources.javacode.R;
@@ -54,7 +54,7 @@ public class SplashActivity extends MvpBaseActivity<SplashPresenter> implements 
         AndPermission.with(this)
                 .notification()
                 .permission()
-                .rationale(AndPermissionDialogHelper.getNotificationShowDeniedRationale())
+                .rationale(AndPermissionHelper.getNotificationShowDeniedRationale())
                 .onGranted(new Action<Void>()
                 {
                     @Override
@@ -63,7 +63,7 @@ public class SplashActivity extends MvpBaseActivity<SplashPresenter> implements 
                         KLog.e("已授权");
                     }
                 })
-                .onDenied(AndPermissionDialogHelper.getNotificationShowDeniedAction())
+                .onDenied(AndPermissionHelper.getNotificationShowDeniedAction())
                 .start();
 
     }

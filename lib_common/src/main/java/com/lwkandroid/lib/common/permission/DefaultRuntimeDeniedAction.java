@@ -46,7 +46,7 @@ final class DefaultRuntimeDeniedAction implements Action<List<String>>
                         AndPermission.with(ActivityLifecycleHelper.get().getTopActivity())
                                 .runtime()
                                 .setting()
-                                .start(AndPermissionDialogHelper.REQUEST_CODE_SETTING);
+                                .start(AndPermissionHelper.REQUEST_CODE_SETTING);
                     })
                     .setCancelable(false)
                     .setDarkWindowDegree(0.1f)
