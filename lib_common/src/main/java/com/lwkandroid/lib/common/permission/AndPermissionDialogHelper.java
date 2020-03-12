@@ -20,24 +20,54 @@ public final class AndPermissionDialogHelper
 
     public static final int REQUEST_CODE_SETTING = 100;
 
+    /**
+     * 运行时权限被拒绝后的解释性过程
+     */
     private static Rationale<List<String>> mRuntimeDeniedRationale;
 
+    /**
+     * 运行时权限被拒绝后的操作
+     */
     private static Action<List<String>> mRuntimeDeniedAction;
 
+    /**
+     * 安装apk权限被拒绝后的解释性过程
+     */
     private static Rationale<File> mInstallDeniedRationale;
 
+    /**
+     * 安装apk时权限被拒绝后的操作
+     */
     private static Action<File> mInstallDeniedAction;
 
+    /**
+     * 悬浮窗权限被拒绝后的解释性过程
+     */
     private static Rationale<Void> mOverlayDeniedRationale;
 
+    /**
+     * 悬浮窗权限被拒绝后的操作
+     */
     private static Action<Void> mOverlayDeniedAction;
 
+    /**
+     * 发送通知栏权限被拒绝后的解释性过程
+     */
     private static Rationale<Void> mNotificationShowDeniedRationale;
 
+    /**
+     * 发送通知栏权限被拒绝后的操作
+     */
     private static Action<Void> mNotificationShowDeniedAction;
 
+    /**
+     * 访问通知栏权限被拒绝后的解释性过程
+     */
     private static Rationale<Void> mNotificationAccessDeniedRationale;
 
+    /**
+     * 访问通知栏权限被拒绝后的操作
+     */
     private static Action<Void> mNotificationAccessDeniedAction;
 
     public static Rationale<List<String>> getRuntimeDeniedRationale()
