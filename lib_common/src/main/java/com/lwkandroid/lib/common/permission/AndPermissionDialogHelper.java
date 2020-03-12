@@ -12,7 +12,7 @@ import java.util.List;
  * @author LWK
  * @date 2020/3/11
  */
-public class AndPermissionDialogHelper
+public final class AndPermissionDialogHelper
 {
     private AndPermissionDialogHelper()
     {

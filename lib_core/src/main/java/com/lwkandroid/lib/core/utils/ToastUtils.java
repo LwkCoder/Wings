@@ -1,8 +1,10 @@
 package com.lwkandroid.lib.core.utils;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.ColorDrawable;
@@ -13,11 +15,14 @@ import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.lwkandroid.lib.core.app.ActivityLifecycleHelper;
 import com.lwkandroid.lib.core.context.AppContext;
 
 import java.lang.reflect.Field;
@@ -66,6 +71,11 @@ public final class ToastUtils
         {
             HANDLER.post(runnable);
         }
+    }
+
+    private static void runOnUiThreadDelayed(Runnable runnable, long delay)
+    {
+        HANDLER.postDelayed(runnable, delay);
     }
 
     /**
@@ -428,8 +438,7 @@ public final class ToastUtils
             {
                 return new SystemToast(makeNormalToast(context, text, duration));
             }
-            return null;
-            //            return new ToastWithoutNotification(makeNormalToast(context, text, duration));
+            return new ToastWithoutNotification(makeNormalToast(context, text, duration));
         }
 
         static IToast newToast(Context context)
@@ -438,8 +447,7 @@ public final class ToastUtils
             {
                 return new SystemToast(new Toast(context));
             }
-            return null;
-            //            return new ToastWithoutNotification(new Toast(context));
+            return new ToastWithoutNotification(new Toast(context));
         }
 
         private static Toast makeNormalToast(Context context, CharSequence text, int duration)
@@ -512,6 +520,130 @@ public final class ToastUtils
                     Log.e("ToastUtils", e.toString());
                 }
             }
+        }
+    }
+
+    static class ToastWithoutNotification extends AbsToast
+    {
+
+        private View mView;
+        private WindowManager mWM;
+
+        private WindowManager.LayoutParams mParams = new WindowManager.LayoutParams();
+
+        private static final ActivityLifecycleHelper.OnActivityDestroyedListener LISTENER =
+                new ActivityLifecycleHelper.OnActivityDestroyedListener()
+                {
+                    @Override
+                    public void onActivityDestroyed(Activity activity)
+                    {
+                        if (iToast == null)
+                        {
+                            return;
+                        }
+                        activity.getWindow().getDecorView().setVisibility(View.GONE);
+                        iToast.cancel();
+                        ActivityLifecycleHelper.get().removeOnActivityDestroyedListener(activity, LISTENER);
+                    }
+                };
+
+        ToastWithoutNotification(Toast toast)
+        {
+            super(toast);
+        }
+
+        @Override
+        public void show()
+        {
+            runOnUiThreadDelayed(() -> realShow(), 300);
+        }
+
+        private void realShow()
+        {
+            if (mToast == null)
+            {
+                return;
+            }
+            mView = mToast.getView();
+            if (mView == null)
+            {
+                return;
+            }
+            final Context context = mToast.getView().getContext();
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N_MR1)
+            {
+                mWM = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+                mParams.type = WindowManager.LayoutParams.TYPE_TOAST;
+            } else
+            {
+                Context topActivityOrApp = ActivityLifecycleHelper.get().getTopActivity();
+                if (!(topActivityOrApp instanceof Activity))
+                {
+                    Log.e("ToastUtils", "Couldn't get top Activity.");
+                    return;
+                }
+                Activity topActivity = (Activity) topActivityOrApp;
+                if (topActivity.isFinishing() || topActivity.isDestroyed())
+                {
+                    Log.e("ToastUtils", topActivity + " is useless");
+                    return;
+                }
+                mWM = topActivity.getWindowManager();
+                mParams.type = WindowManager.LayoutParams.LAST_APPLICATION_WINDOW;
+                ActivityLifecycleHelper.get().addOnActivityDestroyedListener(topActivity, LISTENER);
+            }
+
+            mParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
+            mParams.width = WindowManager.LayoutParams.WRAP_CONTENT;
+            mParams.format = PixelFormat.TRANSLUCENT;
+            mParams.windowAnimations = android.R.style.Animation_Toast;
+            mParams.setTitle("ToastWithoutNotification");
+            mParams.flags = WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
+                    | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+                    | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE;
+            mParams.packageName = AppUtils.getPackageName();
+
+            mParams.gravity = mToast.getGravity();
+            if ((mParams.gravity & Gravity.HORIZONTAL_GRAVITY_MASK) == Gravity.FILL_HORIZONTAL)
+            {
+                mParams.horizontalWeight = 1.0f;
+            }
+            if ((mParams.gravity & Gravity.VERTICAL_GRAVITY_MASK) == Gravity.FILL_VERTICAL)
+            {
+                mParams.verticalWeight = 1.0f;
+            }
+
+            mParams.x = mToast.getXOffset();
+            mParams.y = mToast.getYOffset();
+            mParams.horizontalMargin = mToast.getHorizontalMargin();
+            mParams.verticalMargin = mToast.getVerticalMargin();
+
+            try
+            {
+                if (mWM != null)
+                {
+                    mWM.addView(mView, mParams);
+                }
+            } catch (Exception ignored)
+            {/**/}
+
+            runOnUiThreadDelayed(() -> cancel(), mToast.getDuration() == Toast.LENGTH_SHORT ? 2000 : 3500);
+        }
+
+        @Override
+        public void cancel()
+        {
+            try
+            {
+                if (mWM != null)
+                {
+                    mWM.removeViewImmediate(mView);
+                }
+            } catch (Exception ignored)
+            {/**/}
+            mView = null;
+            mWM = null;
+            mToast = null;
         }
     }
 

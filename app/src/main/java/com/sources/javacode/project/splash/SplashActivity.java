@@ -7,6 +7,7 @@ import android.view.View;
 import com.lwkandroid.lib.common.mvp.MvpBaseActivity;
 import com.lwkandroid.lib.common.permission.AndPermissionDialogHelper;
 import com.lwkandroid.lib.core.context.AppContext;
+import com.lwkandroid.lib.core.log.KLog;
 import com.sources.javacode.R;
 import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
@@ -59,7 +60,7 @@ public class SplashActivity extends MvpBaseActivity<SplashPresenter> implements 
                     @Override
                     public void onAction(Void data)
                     {
-                        showShortToast("已授权");
+                        KLog.e("已授权");
                     }
                 })
                 .onDenied(AndPermissionDialogHelper.getNotificationShowDeniedAction())

@@ -113,6 +113,22 @@ public final class ActivityLifecycleHelper implements Application.ActivityLifecy
         mDestroyedListenerMap.remove(activity);
     }
 
+    public void removeOnActivityDestroyedListener(final Activity activity, final OnActivityDestroyedListener listener)
+    {
+        if (activity == null || listener == null)
+        {
+            return;
+        }
+        List<OnActivityDestroyedListener> listeners = mDestroyedListenerMap.get(activity);
+        if (listeners == null)
+        {
+            return;
+        } else
+        {
+            listeners.remove(listener);
+        }
+    }
+
     public void addOnActivityDestroyedListener(final Activity activity,
                                                final OnActivityDestroyedListener listener)
     {
