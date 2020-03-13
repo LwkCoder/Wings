@@ -3,9 +3,12 @@
     <string name="qrcodescan_title">二维码/条码</string>
     <string name="qrcodescan_album">相册</string>
     <string name="qrcodescan_hint">将二维码/条码放入框内，即可自动扫描</string>
-    <string name="qrcodescan_error">无法识别二维码/条码</string>
+    <string name="qrcodescan_open_camera_error">无法正常使用摄像头</string>
     <string name="qrcodescan_decode_error">无法识别图片内二维码/条码</string>
     <string name="qrcode_dialog_message">正在识别...</string>
+    <string name="qrcode_turn_on_light">轻触照亮</string>
+    <string name="qrcode_turn_off_light">轻触关闭</string>
+    <string name="qrcode_parse_picture">识别图片</string>
 
     <string name="dialog_permission_title">权限申请</string>
     <string name="dialog_runtime_rationale_message">%1$s需要使用以下权限，以保证正常使用功能:\n%2$s</string>

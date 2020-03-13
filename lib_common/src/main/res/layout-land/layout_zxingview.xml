@@ -14,24 +14,35 @@
         app:qrcv_verticalBias="0.5" />
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|bottom"
-        android:layout_marginLeft="@dimen/spacing_huge"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical|right"
+        android:layout_marginTop="@dimen/spacing_huge"
         android:layout_marginRight="@dimen/spacing_huge"
-        android:layout_marginBottom="70dp"
-        android:orientation="horizontal">
+        android:layout_marginBottom="@dimen/spacing_huge"
+        android:orientation="vertical">
 
-        <View
-            android:layout_width="0dp"
+        <com.lwkandroid.lib.common.widgets.view.RTextView
+            android:id="@+id/tv_qrcode_scan_pictures"
+            android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_weight="1" />
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:drawablePadding="@dimen/spacing_small"
+            android:gravity="center_horizontal"
+            android:text="@string/qrcode_parse_picture"
+            app:icon_direction="top"
+            app:icon_height="50dp"
+            app:icon_src_normal="@drawable/ic_qrcode_album_normal"
+            app:icon_src_pressed="@drawable/ic_qrcode_album_pressed"
+            app:icon_width="50dp"
+            app:text_color_normal="@color/white" />
 
         <com.lwkandroid.lib.common.widgets.view.RCheckBox
             android:id="@+id/ck_qrcode_scan_light"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
             android:layout_weight="1"
             android:button="@null"
             android:drawablePadding="@dimen/spacing_small"
@@ -46,21 +57,10 @@
             app:icon_with_text="false"
             app:text_color_normal="@color/white" />
 
-        <com.lwkandroid.lib.common.widgets.view.RTextView
-            android:id="@+id/tv_qrcode_scan_pictures"
+        <View
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_weight="1"
-            android:drawablePadding="@dimen/spacing_small"
-            android:gravity="center_horizontal"
-            android:text="@string/qrcode_parse_picture"
-            app:icon_direction="top"
-            app:icon_height="50dp"
-            app:icon_src_normal="@drawable/ic_qrcode_album_normal"
-            app:icon_src_pressed="@drawable/ic_qrcode_album_pressed"
-            app:icon_width="50dp"
-            app:text_color_normal="@color/white" />
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
     </LinearLayout>
 

@@ -5,17 +5,10 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.lwkandroid.lib.common.mvp.MvpBaseActivity;
-import com.lwkandroid.lib.common.rx.ApiDialogObserver;
-import com.lwkandroid.lib.core.context.AppContext;
-import com.lwkandroid.lib.core.log.KLog;
-import com.lwkandroid.lib.core.net.bean.ApiException;
-import com.lwkandroid.lib.core.rx.life.RxLife;
+import com.lwkandroid.lib.common.qrcode.QRCodeScanActivity;
 import com.sources.javacode.R;
 
-import java.util.concurrent.TimeUnit;
-
 import androidx.annotation.Nullable;
-import io.reactivex.Observable;
 
 /**
  * Description:View层
@@ -48,7 +41,6 @@ public class SplashActivity extends MvpBaseActivity<SplashPresenter> implements 
     @Override
     protected void initUI(View contentView)
     {
-        showLongToast("全局Context是否为空：" + (AppContext.get() == null));
     }
 
     @Override
@@ -63,25 +55,26 @@ public class SplashActivity extends MvpBaseActivity<SplashPresenter> implements 
         switch (id)
         {
             case R.id.btn_test:
-                Observable.interval(1, TimeUnit.SECONDS)
-                        .compose(RxLife.with(this).bindUtilOnDestroy())
-                        .onTerminateDetach()
-                        .subscribe(new ApiDialogObserver<Long>()
-                        {
-                            @Override
-                            public void subOnNext(Long aLong)
-                            {
-                                KLog.e("收到：" + aLong);
-                            }
-
-                            @Override
-                            public void subOnError(ApiException e)
-                            {
-                                KLog.e(e.toString());
-                            }
-                        }.setMessage("发送中")
-                        .setCancelable(true)
-                        .setCanceledOnTouchOutside(true));
+                //                Observable.interval(1, TimeUnit.SECONDS)
+                //                        .compose(RxLife.with(this).bindUtilOnDestroy())
+                //                        .onTerminateDetach()
+                //                        .subscribe(new ApiDialogObserver<Long>()
+                //                        {
+                //                            @Override
+                //                            public void subOnNext(Long aLong)
+                //                            {
+                //                                KLog.e("收到：" + aLong);
+                //                            }
+                //
+                //                            @Override
+                //                            public void subOnError(ApiException e)
+                //                            {
+                //                                KLog.e(e.toString());
+                //                            }
+                //                        }.setMessage("发送中")
+                //                                .setCancelable(true)
+                //                                .setCanceledOnTouchOutside(true));
+                QRCodeScanActivity.start(this, 100);
                 break;
             default:
                 break;

@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import com.lwkandroid.lib.common.widgets.dialog.DialogCreator;
 import com.lwkandroid.lib.common.widgets.ui.LoadingDialogContent;
 import com.lwkandroid.lib.core.app.ActivityLifecycleHelper;
-import com.lwkandroid.lib.core.net.bean.ApiException;
 import com.lwkandroid.lib.core.net.observer.ApiBaseObserver;
 import com.lwkandroid.lib.core.utils.ResourceUtils;
 
@@ -88,18 +87,6 @@ public abstract class ApiDialogObserver<T> extends ApiBaseObserver<T> implements
     {
         dismissDialog();
         super.onComplete();
-    }
-
-    @Override
-    public void subOnNext(T t)
-    {
-
-    }
-
-    @Override
-    public void subOnError(ApiException e)
-    {
-
     }
 
     @Override

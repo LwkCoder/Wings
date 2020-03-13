@@ -7,6 +7,8 @@ import android.os.Parcelable;
 import com.lwkandroid.lib.common.R;
 import com.lwkandroid.lib.core.utils.ResourceUtils;
 
+import androidx.annotation.AnimRes;
+
 
 /**
  * Created by LWK
@@ -26,19 +28,7 @@ public class QRCodeOptions implements Parcelable
     /**
      * 是否全屏扫描
      */
-    private boolean fullScreenScan = true;
-    /**
-     * ActionBar的标题
-     */
-    private String actionBarTitle = ResourceUtils.getString(R.string.qrcodescan_title);
-    /**
-     * ActionBar的背景色
-     */
-    private int actionBarBgColor = Color.parseColor("#50000000");
-    /**
-     * ActionBar文字颜色
-     */
-    private int actionBarTextColor = Color.WHITE;
+    private boolean fullScreenScan = false;
     /**
      * 扫描框的颜色
      */
@@ -60,13 +50,23 @@ public class QRCodeOptions implements Parcelable
      */
     private String hintText = ResourceUtils.getString(R.string.qrcodescan_hint);
     /**
-     *
+     * 提示语颜色
      */
-    private int hintColor = ResourceUtils.getColor(R.color.gray_darker);
+    private int hintColor = ResourceUtils.getColor(R.color.gray_lightest);
     /**
      * 二维码太小自动缩放
      */
     private boolean autoZoom = false;
+    /**
+     * 进入动画
+     */
+    private @AnimRes
+    int enterAnim = R.anim.slide_in_bottom;
+    /**
+     * 退出动画
+     */
+    private @AnimRes
+    int exitAnim = R.anim.slide_out_top;
 
     public QRCodeOptions()
     {
@@ -100,36 +100,6 @@ public class QRCodeOptions implements Parcelable
     public void setFullScreenScan(boolean fullScreenScan)
     {
         this.fullScreenScan = fullScreenScan;
-    }
-
-    public String getActionBarTitle()
-    {
-        return actionBarTitle;
-    }
-
-    public void setActionBarTitle(String actionBarTitle)
-    {
-        this.actionBarTitle = actionBarTitle;
-    }
-
-    public int getActionBarBgColor()
-    {
-        return actionBarBgColor;
-    }
-
-    public void setActionBarBgColor(int actionBarBgColor)
-    {
-        this.actionBarBgColor = actionBarBgColor;
-    }
-
-    public int getActionBarTextColor()
-    {
-        return actionBarTextColor;
-    }
-
-    public void setActionBarTextColor(int actionBarTextColor)
-    {
-        this.actionBarTextColor = actionBarTextColor;
     }
 
     public int getRectCornerColor()
@@ -202,6 +172,26 @@ public class QRCodeOptions implements Parcelable
         this.autoZoom = autoZoom;
     }
 
+    public int getEnterAnim()
+    {
+        return enterAnim;
+    }
+
+    public void setEnterAnim(int enterAnim)
+    {
+        this.enterAnim = enterAnim;
+    }
+
+    public int getExitAnim()
+    {
+        return exitAnim;
+    }
+
+    public void setExitAnim(int exitAnim)
+    {
+        this.exitAnim = exitAnim;
+    }
+
     @Override
     public String toString()
     {
@@ -209,9 +199,6 @@ public class QRCodeOptions implements Parcelable
                 "isBarCodeMode=" + isBarCodeMode +
                 ", showAlbum=" + showAlbum +
                 ", fullScreenScan=" + fullScreenScan +
-                ", actionBarTitle='" + actionBarTitle + '\'' +
-                ", actionBarBgColor=" + actionBarBgColor +
-                ", actionBarTextColor=" + actionBarTextColor +
                 ", rectColor=" + rectColor +
                 ", rectCornerColor=" + rectCornerColor +
                 ", scanLineColor=" + scanLineColor +
@@ -219,6 +206,8 @@ public class QRCodeOptions implements Parcelable
                 ", hintText='" + hintText + '\'' +
                 ", hintColor=" + hintColor +
                 ", autoZoom=" + autoZoom +
+                ", enterAnim=" + enterAnim +
+                ", exitAnim=" + exitAnim +
                 '}';
     }
 
@@ -234,9 +223,6 @@ public class QRCodeOptions implements Parcelable
         dest.writeByte(this.isBarCodeMode ? (byte) 1 : (byte) 0);
         dest.writeByte(this.showAlbum ? (byte) 1 : (byte) 0);
         dest.writeByte(this.fullScreenScan ? (byte) 1 : (byte) 0);
-        dest.writeString(this.actionBarTitle);
-        dest.writeInt(this.actionBarBgColor);
-        dest.writeInt(this.actionBarTextColor);
         dest.writeInt(this.rectColor);
         dest.writeInt(this.rectCornerColor);
         dest.writeInt(this.scanLineColor);
@@ -244,6 +230,8 @@ public class QRCodeOptions implements Parcelable
         dest.writeString(this.hintText);
         dest.writeInt(this.hintColor);
         dest.writeByte(this.autoZoom ? (byte) 1 : (byte) 0);
+        dest.writeInt(this.enterAnim);
+        dest.writeInt(this.exitAnim);
     }
 
     protected QRCodeOptions(Parcel in)
@@ -251,9 +239,6 @@ public class QRCodeOptions implements Parcelable
         this.isBarCodeMode = in.readByte() != 0;
         this.showAlbum = in.readByte() != 0;
         this.fullScreenScan = in.readByte() != 0;
-        this.actionBarTitle = in.readString();
-        this.actionBarBgColor = in.readInt();
-        this.actionBarTextColor = in.readInt();
         this.rectColor = in.readInt();
         this.rectCornerColor = in.readInt();
         this.scanLineColor = in.readInt();
@@ -261,6 +246,8 @@ public class QRCodeOptions implements Parcelable
         this.hintText = in.readString();
         this.hintColor = in.readInt();
         this.autoZoom = in.readByte() != 0;
+        this.enterAnim = in.readInt();
+        this.exitAnim = in.readInt();
     }
 
     public static final Creator<QRCodeOptions> CREATOR = new Creator<QRCodeOptions>()
@@ -277,97 +264,4 @@ public class QRCodeOptions implements Parcelable
             return new QRCodeOptions[size];
         }
     };
-
-    public static class Builder
-    {
-        private QRCodeOptions options;
-
-        public Builder()
-        {
-            this.options = new QRCodeOptions();
-        }
-
-        public Builder setShowAlbum(boolean showAlbum)
-        {
-            options.setShowAlbum(showAlbum);
-            return this;
-        }
-
-        public Builder setFullScreenScan(boolean fullScreenScan)
-        {
-            options.setFullScreenScan(fullScreenScan);
-            return this;
-        }
-
-        public Builder setActionBarTitle(String title)
-        {
-            options.setActionBarTitle(title);
-            return this;
-        }
-
-        public Builder setActionBarBgColor(int color)
-        {
-            options.setActionBarBgColor(color);
-            return this;
-        }
-
-        public Builder setActionBarTextColor(int color)
-        {
-            options.setActionBarTextColor(color);
-            return this;
-        }
-
-        public Builder setRectCornerColor(int color)
-        {
-            options.setRectCornerColor(color);
-            return this;
-        }
-
-        public Builder setScanLineColor(int color)
-        {
-            options.setScanLineColor(color);
-            return this;
-        }
-
-        public Builder setScanLineAnimDuration(int duration)
-        {
-            options.setScanLineAnimDuration(duration);
-            return this;
-        }
-
-        public Builder setHintText(String hint)
-        {
-            options.setHintText(hint);
-            return this;
-        }
-
-        public Builder setHintColor(int color)
-        {
-            options.setHintColor(color);
-            return this;
-        }
-
-        public Builder setIsBarCodeMode(boolean isBarCodeMode)
-        {
-            options.setBarCodeMode(isBarCodeMode);
-            return this;
-        }
-
-        public Builder setRectColor(int color)
-        {
-            options.setRectColor(color);
-            return this;
-        }
-
-        public Builder setAutoZoom(boolean autoZoom)
-        {
-            options.setAutoZoom(autoZoom);
-            return this;
-        }
-
-        public QRCodeOptions build()
-        {
-            return options;
-        }
-    }
 }
