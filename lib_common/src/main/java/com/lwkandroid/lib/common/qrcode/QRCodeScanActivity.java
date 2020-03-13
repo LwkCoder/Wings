@@ -87,12 +87,10 @@ public class QRCodeScanActivity extends MvpBaseActivity<QRCodeScanPresenter> imp
         if (intent != null)
         {
             mOptions = intent.getParcelableExtra(KEY_OPTIONS);
-            KLog.e("获取传递配置");
         }
         if (mOptions == null)
         {
             mOptions = new QRCodeOptions();
-            KLog.e("创建配置");
         }
     }
 
