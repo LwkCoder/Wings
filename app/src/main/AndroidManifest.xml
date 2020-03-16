@@ -3,8 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.sources.javacode">
 
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
     <application
         android:name=".app.AppApplication"
         android:allowBackup="true"
@@ -15,13 +16,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="n">
-        <activity
-            android:name=".project.home.HomeActivity"
-            android:screenOrientation="portrait"></activity>
+
+        <meta-data
+            android:name="CHANNEL_NAME"
+            android:value="${CHANNEL_NAME}" />
+
         <activity
             android:name=".project.splash.SplashActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/BaseActivityStyle">
+            android:theme="@style/LauncherStyle">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,9 +32,10 @@
             </intent-filter>
         </activity>
 
-        <meta-data
-            android:name="CHANNEL_NAME"
-            android:value="${CHANNEL_NAME}" />
+        <activity
+            android:name=".project.home.HomeActivity"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>
