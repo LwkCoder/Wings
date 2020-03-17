@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.lwkandroid.lib.common.mvp.MvpBaseActivity;
+import com.lwkandroid.lib.common.qrcode.QRCodeScanHelper;
 import com.sources.javacode.R;
 
 import androidx.annotation.Nullable;
@@ -40,7 +41,7 @@ public class HomeActivity extends MvpBaseActivity<HomePresenter> implements Home
     @Override
     protected void initUI(View contentView)
     {
-
+        addClick(R.id.btn_home_test);
     }
 
     @Override
@@ -54,6 +55,9 @@ public class HomeActivity extends MvpBaseActivity<HomePresenter> implements Home
     {
         switch (id)
         {
+            case R.id.btn_home_test:
+                QRCodeScanHelper.startScanQRCode(this, 100);
+                break;
             default:
                 break;
         }

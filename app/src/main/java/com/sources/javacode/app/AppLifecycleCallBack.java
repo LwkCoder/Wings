@@ -22,14 +22,14 @@ public class AppLifecycleCallBack implements Application.ActivityLifecycleCallba
     @Override
     public void onActivityPreCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState)
     {
-        //在此设置状态栏、导航栏颜色
-        BarUtils.setStatusBarColor(activity, ResourceUtils.getColor(R.color.statusbar));
+
     }
 
     @Override
     public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState)
     {
-
+        //在此设置状态栏、导航栏颜色
+        BarUtils.setStatusBarColor(activity, ResourceUtils.getColor(R.color.statusbar));
     }
 
     @Override

@@ -6,7 +6,7 @@ def appConfig = rootProject.ext.appConfig
 
 android {
     compileSdkVersion appConfig.compileSdkVersion
-    publishNonDefault true
+//    publishNonDefault true
 
 
     defaultConfig {

@@ -17,7 +17,7 @@ interface SplashContract
 {
     interface IView<P extends LifecycleObserver> extends IMvpBaseView<P>
     {
-
+        void toHome();
     }
 
     interface IModel extends IMvpBaseModel
@@ -27,6 +27,6 @@ interface SplashContract
 
     interface IPresenter<V extends LifecycleOwner, M> extends IMvpBasePresenter<V, M>
     {
-
+        void waitForLaunch();
     }
 }

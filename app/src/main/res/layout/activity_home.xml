@@ -5,4 +5,10 @@
     android:fitsSystemWindows="true"
     tools:context="com.sources.javacode.project.home.HomeActivity">
 
+    <Button
+        android:id="@+id/btn_home_test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TEST"/>
+
 </FrameLayout>
