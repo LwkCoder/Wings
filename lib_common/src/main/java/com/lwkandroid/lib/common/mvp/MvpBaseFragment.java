@@ -23,7 +23,7 @@ public abstract class MvpBaseFragment<P extends LifecycleObserver> extends Fragm
         implements IContentView, ContentViewImpl.OnClickListenerDispatcher, View.OnClickListener, IMvpBaseView<P>
 {
     private ContentViewImpl mContentImpl = new ContentViewImpl(this);
-    private MvpBaseViewImpl<P> mViewImpl = new MvpBaseViewImpl<>(this.getFragmentActivity(), this);
+    private MvpBaseViewImpl<P> mViewImpl = new MvpBaseViewImpl<>(getActivity(), this);
 
     @Override
     public void onAttach(@NonNull Context context)
