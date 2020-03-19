@@ -4,6 +4,7 @@
     <application>
         <activity android:name="${packageName}.${uiClassName}Activity"
 		android:screenOrientation="portrait"
+		android:theme="@style/BaseActivityStyle"
             <#if generateActivityTitle!true>
                 <#if isNewProject>
                     android:label="@string/app_name"
