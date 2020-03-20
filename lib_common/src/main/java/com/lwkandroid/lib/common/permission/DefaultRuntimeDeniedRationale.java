@@ -26,7 +26,7 @@ import androidx.fragment.app.FragmentActivity;
  * @author LWK
  * @date 2020/3/11
  */
-final class DefaultRuntimeDeniedRationale implements Rationale<List<String>>
+public class DefaultRuntimeDeniedRationale implements Rationale<List<String>>
 {
     @Override
     public void showRationale(Context context, List<String> data, RequestExecutor executor)

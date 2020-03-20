@@ -12,7 +12,7 @@ import java.io.File;
  * @author LWK
  * @date 2020/3/11
  */
-final class DefaultInstallDeniedAction implements Action<File>
+public class DefaultInstallDeniedAction implements Action<File>
 {
     @Override
     public void onAction(File data)

@@ -24,7 +24,7 @@ import androidx.fragment.app.FragmentActivity;
  * @author LWK
  * @date 2020/3/11
  */
-final class DefaultInstallDeniedRationale implements Rationale<File>
+public class DefaultInstallDeniedRationale implements Rationale<File>
 {
     @Override
     public void showRationale(Context context, File data, RequestExecutor executor)

@@ -10,7 +10,7 @@ import com.yanzhenjie.permission.Action;
  * @author LWK
  * @date 2020/3/11
  */
-final class DefaultOverlayDeniedAction implements Action<Void>
+public class DefaultOverlayDeniedAction implements Action<Void>
 {
     @Override
     public void onAction(Void data)

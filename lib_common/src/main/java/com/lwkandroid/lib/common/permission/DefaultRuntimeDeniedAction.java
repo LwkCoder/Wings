@@ -26,7 +26,7 @@ import androidx.fragment.app.FragmentActivity;
  * @author LWK
  * @date 2020/3/11
  */
-final class DefaultRuntimeDeniedAction implements Action<List<String>>
+public class DefaultRuntimeDeniedAction implements Action<List<String>>
 {
     @Override
     public void onAction(List<String> data)

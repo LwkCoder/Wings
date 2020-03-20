@@ -22,7 +22,7 @@ import androidx.fragment.app.FragmentActivity;
  * @author LWK
  * @date 2020/3/11
  */
-final class DefaultShowNotificationDeniedRationale implements Rationale<Void>
+public class DefaultShowNotificationDeniedRationale implements Rationale<Void>
 {
 
     @Override
