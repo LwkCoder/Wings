@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/spacing_normal"
-    android:background="@drawable/bg_dialog_permission">
+    android:background="@drawable/bg_dialog_template_white">
 
     <com.lwkandroid.lib.common.widgets.view.RTextView
         android:id="@+id/tv_dialog_permission_template_title"
