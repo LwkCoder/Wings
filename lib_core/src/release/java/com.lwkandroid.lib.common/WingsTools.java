@@ -3,17 +3,8 @@ package com.lwkandroid.lib.common;
 import android.app.ActivityThread;
 import android.content.Context;
 
-import com.chuckerteam.chucker.api.ChuckerInterceptor;
-import com.facebook.stetho.Stetho;
-import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.lwkandroid.lib.core.app.ActivityLifecycleHelper;
-import com.lwkandroid.lib.core.imageloader.glide.GlideOkClient;
-import com.lwkandroid.lib.core.net.RxHttp;
-import com.squareup.leakcanary.AndroidExcludedRefs;
-import com.squareup.leakcanary.DisplayLeakService;
-import com.squareup.leakcanary.ExcludedRefs;
-import com.squareup.leakcanary.LeakCanary;
-import com.squareup.leakcanary.RefWatcher;
+import com.lwkandroid.lib.core.utils.CrashUtils;
 
 /**
  * Description:工具初始化入口
