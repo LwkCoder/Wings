@@ -69,5 +69,6 @@ public class SplashActivity extends MvpBaseActivity<SplashPresenter> implements 
     public void toHome()
     {
         startActivity(new Intent(this, HomeActivity.class));
+        finish();
     }
 }
