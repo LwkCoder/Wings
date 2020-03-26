@@ -110,6 +110,18 @@ public abstract class PopBaseContentView
     }
 
     /**
+     * 查找View
+     *
+     * @param vId view的id
+     * @param <T> View
+     * @return View
+     */
+    public <T extends View> T find(int vId)
+    {
+        return mRealContentView != null ? mRealContentView.findViewById(vId) : null;
+    }
+
+    /**
      * 获取PopCreator对象
      */
     public PopCreator getCreator()

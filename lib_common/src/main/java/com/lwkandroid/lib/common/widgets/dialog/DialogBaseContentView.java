@@ -108,6 +108,18 @@ public abstract class DialogBaseContentView
     }
 
     /**
+     * 查找View
+     *
+     * @param vId view的id
+     * @param <T> View
+     * @return View
+     */
+    public <T extends View> T find(int vId)
+    {
+        return mRealContentView != null ? mRealContentView.findViewById(vId) : null;
+    }
+
+    /**
      * 子类实现，指定布局id
      */
     public abstract int getContentViewLayoutResId();
