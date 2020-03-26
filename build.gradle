@@ -1,7 +1,10 @@
 apply from: "config.gradle"
 
 buildscript {
+    ext.gradle_version = '3.5.3'
     ext.kotlin_version = '1.3.61'
+    ext.dexcount_version = '1.0.2'
+    ext.bus_version = '2.4'
 
     repositories {
         mavenCentral()
@@ -14,10 +17,10 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.3'
-        classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.8.6'
+        classpath "com.android.tools.build:gradle:$gradle_version"
+        classpath "com.getkeepsafe.dexcount:dexcount-gradle-plugin:$dexcount_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'com.blankj:bus-gradle-plugin:2.4'
+        classpath "com.blankj:bus-gradle-plugin:$bus_version"
     }
 }
 
