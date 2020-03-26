@@ -31,7 +31,7 @@ ext {
     AppCompatXVersion = "1.1.0"
     AnnotationXVersion = "1.1.0"
     RecyclerViewXVersion = "1.1.0"
-    SwipeRefreshXVersion = "1.1.0-alpha03"
+    SwipeRefreshXVersion = "1.1.0-beta01"
     ImagePickerVersion = "1.4.4"
     AndPermissionVersion = "2.0.3"
     RcvAdapterVersion = "1.4.3"
@@ -53,5 +53,4 @@ ext {
     JunitVersion = "4.12"
     AndroidXJunitVersion = "1.1.1"
     AndroidXEspressoCoreVersion = "3.2.0"
-    AndroidXSwipeRefreshLayoutVersion="1.1.0-alpha03"
 }

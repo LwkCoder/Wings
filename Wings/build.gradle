@@ -45,7 +45,7 @@ dependencies {
     api "com.squareup.retrofit2:retrofit:$RetrofitVersion"
 //    api "com.squareup.retrofit2:converter-gson:$RetrofitVersion"
     api "com.squareup.retrofit2:adapter-rxjava2:$RetrofitVersion"
-    api "androidx.swiperefreshlayout:swiperefreshlayout:$AndroidXSwipeRefreshLayoutVersion"
+    api "androidx.swiperefreshlayout:swiperefreshlayout:$SwipeRefreshXVersion"
 
     debugApi "com.squareup.leakcanary:leakcanary-android:$LeakCanaryVersion"
     debugApi "com.squareup.leakcanary:leakcanary-support-fragment:$LeakCanaryVersion"
