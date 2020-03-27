@@ -8,6 +8,7 @@ import com.lwkandroid.lib.core.net.constants.ApiExceptionCode;
 import com.lwkandroid.lib.core.utils.StringUtils;
 import com.lwkandroid.lib.core.utils.json.JsonUtils;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,20 +39,36 @@ public class ApiStringParser implements IApiStringParser
     }
 
     @Override
-    public <T> ObservableTransformer<String, List<T>> parseRestfulDataList(final Class<T> dataClass)
+    public <T> ObservableTransformer<String, T[]> parseCustomDataArray(Class<T> dataClass)
     {
-        return upstream -> upstream.map((Function<String, List<T>>) s -> {
+        return upstream -> upstream.map(s -> {
+            return JsonUtils.fromJson(s, JsonUtils.getArrayType(dataClass));
+        });
+    }
+
+    @Override
+    public <T> ObservableTransformer<String, T[]> parseRestfulDataArray(Class<T> dataClass)
+    {
+        return upstream -> upstream.map(s -> {
             String dataJsonString = parseRestfulDataJson(s);
             return StringUtils.isNotEmpty(dataJsonString) ?
-                    JsonUtils.fromJson(dataJsonString, JsonUtils.getListType(dataClass)) : new ArrayList<T>();
+                    JsonUtils.fromJson(dataJsonString, JsonUtils.getArrayType(dataClass)) : (T[]) Array.newInstance(dataClass, 0);
         });
     }
 
     @Override
     public <T> ObservableTransformer<String, List<T>> parseCustomDataList(final Class<T> dataClass)
     {
+        return upstream -> upstream.map((Function<String, List<T>>) s -> JsonUtils.fromJson(s, JsonUtils.getListType(dataClass)));
+    }
+
+    @Override
+    public <T> ObservableTransformer<String, List<T>> parseRestfulDataList(final Class<T> dataClass)
+    {
         return upstream -> upstream.map((Function<String, List<T>>) s -> {
-            return JsonUtils.fromJson(s, JsonUtils.getListType(dataClass));
+            String dataJsonString = parseRestfulDataJson(s);
+            return StringUtils.isNotEmpty(dataJsonString) ?
+                    JsonUtils.fromJson(dataJsonString, JsonUtils.getListType(dataClass)) : new ArrayList<T>();
         });
     }
 

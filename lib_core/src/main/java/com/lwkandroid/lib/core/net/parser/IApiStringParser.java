@@ -44,4 +44,21 @@ public interface IApiStringParser
      * @param <T>       对象泛型
      */
     <T> ObservableTransformer<String, List<T>> parseRestfulDataList(final Class<T> dataClass);
+
+    /**
+     * 将结果解析为某一Object类型数组数据
+     *
+     * @param dataClass 对象的Class
+     * @param <T>       对象泛型
+     * @return
+     */
+    <T> ObservableTransformer<String, T[]> parseCustomDataArray(final Class<T> dataClass);
+
+    /**
+     * 将结果解析为{@link com.lwkandroid.lib.core.net.bean.IApiRestfulResult}，并获取Object类型数组数据
+     *
+     * @param dataClass 对象的Class
+     * @param <T>       对象泛型
+     */
+    <T> ObservableTransformer<String, T[]> parseRestfulDataArray(final Class<T> dataClass);
 }

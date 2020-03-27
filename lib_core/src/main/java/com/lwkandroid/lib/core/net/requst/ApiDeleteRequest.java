@@ -118,4 +118,28 @@ public final class ApiDeleteRequest extends ApiBaseRequest<ApiDeleteRequest> imp
     {
         return mStringResponseImpl.parseCustomDataList(tOfClass);
     }
+
+    @Override
+    public <T> Observable<ResultCacheWrapper<T[]>> parseRestfulDataArrayWithCache(Class<T> tOfClass)
+    {
+        return mStringResponseImpl.parseCustomDataArrayWithCache(tOfClass);
+    }
+
+    @Override
+    public <T> Observable<T[]> parseRestfulDataArray(Class<T> tOfClass)
+    {
+        return mStringResponseImpl.parseRestfulDataArray(tOfClass);
+    }
+
+    @Override
+    public <T> Observable<ResultCacheWrapper<T[]>> parseCustomDataArrayWithCache(Class<T> tOfClass)
+    {
+        return mStringResponseImpl.parseCustomDataArrayWithCache(tOfClass);
+    }
+
+    @Override
+    public <T> Observable<T[]> parseCustomDataArray(Class<T> tOfClass)
+    {
+        return mStringResponseImpl.parseCustomDataArray(tOfClass);
+    }
 }

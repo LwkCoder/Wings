@@ -24,8 +24,8 @@ public final class StringCacheToRestfulDataObjectCacheFunc<T> extends AbsDataCac
     public ObservableSource<ResultCacheWrapper<T>> apply(final ResultCacheWrapper<String> resultBean) throws Exception
     {
         return Observable.just(resultBean)
-                .map(new CacheDataGetterFunc<String>())
+                .map(new CacheDataGetterFunc<>())
                 .compose(getParser().parseRestfulDataObject(getClassType()))
-                .map(t -> new ResultCacheWrapper<T>(resultBean.isCache(), t));
+                .map(t -> new ResultCacheWrapper<>(resultBean.isCache(), t));
     }
 }

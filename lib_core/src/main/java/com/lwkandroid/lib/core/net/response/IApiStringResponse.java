@@ -64,4 +64,12 @@ public interface IApiStringResponse
      * 直接获取某一个对象的集合的网络请求结果
      */
     <T> Observable<List<T>> parseCustomDataList(Class<T> tOfClass);
+
+    <T> Observable<ResultCacheWrapper<T[]>> parseRestfulDataArrayWithCache(Class<T> tOfClass);
+
+    <T> Observable<T[]> parseRestfulDataArray(Class<T> tOfClass);
+
+    <T> Observable<ResultCacheWrapper<T[]>> parseCustomDataArrayWithCache(Class<T> tOfClass);
+
+    <T> Observable<T[]> parseCustomDataArray(Class<T> tOfClass);
 }
