@@ -3,7 +3,6 @@ package com.lwkandroid.lib.core.net.cache.func;
 import com.lwkandroid.lib.core.net.bean.ResultCacheWrapper;
 import com.lwkandroid.lib.core.net.parser.IApiStringParser;
 
-import io.reactivex.ObservableSource;
 import io.reactivex.functions.Function;
 
 /**
@@ -12,13 +11,13 @@ import io.reactivex.functions.Function;
  * @author LWK
  * @date 2019/6/6
  */
-public abstract class AbsDataCacheFunction<T> implements Function<ResultCacheWrapper<String>,
-        ObservableSource<ResultCacheWrapper<T>>>
+public abstract class AbsObjectCacheFunc<T> implements Function<ResultCacheWrapper<String>,
+        ResultCacheWrapper<T>>
 {
     private IApiStringParser mParser;
     private Class<T> mClassType;
 
-    AbsDataCacheFunction(IApiStringParser parser, Class<T> classType)
+    AbsObjectCacheFunc(IApiStringParser parser, Class<T> classType)
     {
         this.mParser = parser;
         this.mClassType = classType;

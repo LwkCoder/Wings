@@ -8,7 +8,7 @@ import okhttp3.ResponseBody;
  *
  * @author LWK
  */
-abstract class AbsResponseConverter<T> implements Function<ResponseBody, T>
+public abstract class AbsResponseFunc<T> implements Function<ResponseBody, T>
 {
     @Override
     public T apply(ResponseBody body) throws Exception

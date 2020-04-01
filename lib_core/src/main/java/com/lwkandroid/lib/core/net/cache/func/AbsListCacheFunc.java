@@ -6,7 +6,6 @@ import com.lwkandroid.lib.core.net.parser.IApiStringParser;
 
 import java.util.List;
 
-import io.reactivex.ObservableSource;
 import io.reactivex.functions.Function;
 
 /**
@@ -15,13 +14,13 @@ import io.reactivex.functions.Function;
  * @author LWK
  * @date 2019/6/6
  */
-public abstract class AbsDataListCacheFunction<T> implements Function<ResultCacheWrapper<String>,
-        ObservableSource<ResultCacheWrapper<List<T>>>>
+public abstract class AbsListCacheFunc<T> implements Function<ResultCacheWrapper<String>,
+        ResultCacheWrapper<List<T>>>
 {
     private IApiStringParser mParser;
     private Class<T> mClassType;
 
-    AbsDataListCacheFunction(IApiStringParser parser, Class<T> classType)
+    AbsListCacheFunc(IApiStringParser parser, Class<T> classType)
     {
         this.mParser = parser;
         this.mClassType = classType;

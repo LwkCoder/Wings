@@ -7,7 +7,7 @@ import okhttp3.ResponseBody;
  *
  * @author LWK
  */
-final class StringResponseConverter extends AbsResponseConverter<String>
+public final class ResponseToStringFunc extends AbsResponseFunc<String>
 {
     @Override
     public String convert(ResponseBody body) throws Exception

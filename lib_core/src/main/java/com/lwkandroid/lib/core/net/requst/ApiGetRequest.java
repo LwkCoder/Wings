@@ -54,86 +54,86 @@ public final class ApiGetRequest extends ApiBaseRequest<ApiGetRequest> implement
     }
 
     @Override
-    public Observable<ResultCacheWrapper<String>> returnStringResponseCache()
+    public Observable<ResultCacheWrapper<String>> returnStringWithCache()
     {
-        return mStringResponseImpl.returnStringResponseCache();
+        return mStringResponseImpl.returnStringWithCache();
     }
 
     @Override
-    public Observable<String> returnStringResponse()
+    public Observable<String> returnString()
     {
-        return mStringResponseImpl.returnStringResponse();
+        return mStringResponseImpl.returnString();
     }
 
     @Override
-    public <T> Observable<ResultCacheWrapper<T>> parseRestfulDataObjectWithCache(Class<T> tOfClass)
+    public <T> Observable<ResultCacheWrapper<T>> parseRestfulObjectWithCache(Class<T> tOfClass)
     {
-        return mStringResponseImpl.parseRestfulDataObjectWithCache(tOfClass);
+        return mStringResponseImpl.parseRestfulObjectWithCache(tOfClass);
     }
 
     @Override
-    public <T> Observable<T> parseRestfulDataObject(Class<T> tOfClass)
+    public <T> Observable<T> parseRestfulObject(Class<T> tOfClass)
     {
-        return mStringResponseImpl.parseRestfulDataObject(tOfClass);
+        return mStringResponseImpl.parseRestfulObject(tOfClass);
     }
 
     @Override
-    public <T> Observable<ResultCacheWrapper<T>> parseCustomDataObjectWithCache(Class<T> tOfClass)
+    public <T> Observable<ResultCacheWrapper<T>> parseCustomObjectWithCache(Class<T> tOfClass)
     {
-        return mStringResponseImpl.parseCustomDataObjectWithCache(tOfClass);
+        return mStringResponseImpl.parseCustomObjectWithCache(tOfClass);
     }
 
     @Override
-    public <T> Observable<T> parseCustomDataObject(Class<T> tOfClass)
+    public <T> Observable<T> parseCustomObject(Class<T> tOfClass)
     {
-        return mStringResponseImpl.parseCustomDataObject(tOfClass);
+        return mStringResponseImpl.parseCustomObject(tOfClass);
     }
 
     @Override
-    public <T> Observable<ResultCacheWrapper<List<T>>> parseRestfulDataListWithCache(Class<T> tOfClass)
+    public <T> Observable<ResultCacheWrapper<List<T>>> parseRestfulListWithCache(Class<T> tOfClass)
     {
-        return mStringResponseImpl.parseRestfulDataListWithCache(tOfClass);
+        return mStringResponseImpl.parseRestfulListWithCache(tOfClass);
     }
 
     @Override
-    public <T> Observable<List<T>> parseRestfulDataList(Class<T> tOfClass)
+    public <T> Observable<List<T>> parseRestfulList(Class<T> tOfClass)
     {
-        return mStringResponseImpl.parseRestfulDataList(tOfClass);
+        return mStringResponseImpl.parseRestfulList(tOfClass);
     }
 
     @Override
-    public <T> Observable<ResultCacheWrapper<List<T>>> parseCustomDataListWithCache(Class<T> tOfClass)
+    public <T> Observable<ResultCacheWrapper<List<T>>> parseCustomListWithCache(Class<T> tOfClass)
     {
-        return mStringResponseImpl.parseCustomDataListWithCache(tOfClass);
+        return mStringResponseImpl.parseCustomListWithCache(tOfClass);
     }
 
     @Override
-    public <T> Observable<List<T>> parseCustomDataList(Class<T> tOfClass)
+    public <T> Observable<List<T>> parseCustomList(Class<T> tOfClass)
     {
-        return mStringResponseImpl.parseCustomDataList(tOfClass);
+        return mStringResponseImpl.parseCustomList(tOfClass);
     }
 
     @Override
-    public <T> Observable<ResultCacheWrapper<T[]>> parseRestfulDataArrayWithCache(Class<T> tOfClass)
+    public <T> Observable<ResultCacheWrapper<T[]>> parseRestfulArrayWithCache(Class<T> tOfClass)
     {
-        return mStringResponseImpl.parseCustomDataArrayWithCache(tOfClass);
+        return mStringResponseImpl.parseCustomArrayWithCache(tOfClass);
     }
 
     @Override
-    public <T> Observable<T[]> parseRestfulDataArray(Class<T> tOfClass)
+    public <T> Observable<T[]> parseRestfulArray(Class<T> tOfClass)
     {
-        return mStringResponseImpl.parseRestfulDataArray(tOfClass);
+        return mStringResponseImpl.parseRestfulArray(tOfClass);
     }
 
     @Override
-    public <T> Observable<ResultCacheWrapper<T[]>> parseCustomDataArrayWithCache(Class<T> tOfClass)
+    public <T> Observable<ResultCacheWrapper<T[]>> parseCustomArrayWithCache(Class<T> tOfClass)
     {
-        return mStringResponseImpl.parseCustomDataArrayWithCache(tOfClass);
+        return mStringResponseImpl.parseCustomArrayWithCache(tOfClass);
     }
 
     @Override
-    public <T> Observable<T[]> parseCustomDataArray(Class<T> tOfClass)
+    public <T> Observable<T[]> parseCustomArray(Class<T> tOfClass)
     {
-        return mStringResponseImpl.parseCustomDataArray(tOfClass);
+        return mStringResponseImpl.parseCustomArray(tOfClass);
     }
 }

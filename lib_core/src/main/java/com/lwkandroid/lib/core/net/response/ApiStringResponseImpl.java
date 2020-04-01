@@ -4,15 +4,14 @@ package com.lwkandroid.lib.core.net.response;
 import com.lwkandroid.lib.core.net.bean.ResultCacheWrapper;
 import com.lwkandroid.lib.core.net.cache.RxCache;
 import com.lwkandroid.lib.core.net.cache.func.CacheDataGetterFunc;
-import com.lwkandroid.lib.core.net.cache.func.StringCacheToCustomDataArrayCacheFunc;
-import com.lwkandroid.lib.core.net.cache.func.StringCacheToCustomDataListCacheFunc;
-import com.lwkandroid.lib.core.net.cache.func.StringCacheToCustomDataObjectCacheFunc;
-import com.lwkandroid.lib.core.net.cache.func.StringCacheToRestfulDataArrayCacheFunc;
-import com.lwkandroid.lib.core.net.cache.func.StringCacheToRestfulDataListCacheFunc;
-import com.lwkandroid.lib.core.net.cache.func.StringCacheToRestfulDataObjectCacheFunc;
+import com.lwkandroid.lib.core.net.cache.func.StringToCustomArrayCacheFunc;
+import com.lwkandroid.lib.core.net.cache.func.StringToCustomListCacheFunc;
+import com.lwkandroid.lib.core.net.cache.func.StringToCustomObjectCacheFunc;
+import com.lwkandroid.lib.core.net.cache.func.StringToRestfulArrayCacheFunc;
+import com.lwkandroid.lib.core.net.cache.func.StringToRestfulListCacheFunc;
+import com.lwkandroid.lib.core.net.cache.func.StringToRestfulObjectCacheFunc;
 import com.lwkandroid.lib.core.net.exception.ApiExceptionConvertFunc;
 import com.lwkandroid.lib.core.net.requst.ApiBaseRequest;
-import com.lwkandroid.lib.core.net.response.func.ApiResponseBodyConverter;
 import com.lwkandroid.lib.core.net.retry.AutoRetryFunc;
 
 import java.util.List;
@@ -35,7 +34,7 @@ public final class ApiStringResponseImpl<R extends ApiBaseRequest<R>> implements
     }
 
     @Override
-    public Observable<ResultCacheWrapper<String>> returnStringResponseCache()
+    public Observable<ResultCacheWrapper<String>> returnStringWithCache()
     {
         return mRequest.invokeRequest()
                 .map(ApiResponseBodyConverter.convertToString())
@@ -46,93 +45,93 @@ public final class ApiStringResponseImpl<R extends ApiBaseRequest<R>> implements
     }
 
     @Override
-    public Observable<String> returnStringResponse()
+    public Observable<String> returnString()
     {
-        return returnStringResponseCache()
+        return returnStringWithCache()
                 .map(new CacheDataGetterFunc<>());
     }
 
     @Override
-    public <T> Observable<ResultCacheWrapper<T>> parseRestfulDataObjectWithCache(Class<T> tOfClass)
+    public <T> Observable<ResultCacheWrapper<T>> parseRestfulObjectWithCache(Class<T> tOfClass)
     {
-        return returnStringResponseCache()
-                .flatMap(new StringCacheToRestfulDataObjectCacheFunc<>(mRequest.getApiStringParser(), tOfClass));
+        return returnStringWithCache()
+                .map(new StringToRestfulObjectCacheFunc<>(mRequest.getApiStringParser(), tOfClass));
     }
 
     @Override
-    public <T> Observable<T> parseRestfulDataObject(Class<T> tOfClass)
+    public <T> Observable<T> parseRestfulObject(Class<T> tOfClass)
     {
-        return parseRestfulDataObjectWithCache(tOfClass)
+        return parseRestfulObjectWithCache(tOfClass)
                 .map(new CacheDataGetterFunc<>());
     }
 
     @Override
-    public <T> Observable<ResultCacheWrapper<T>> parseCustomDataObjectWithCache(Class<T> tOfClass)
+    public <T> Observable<ResultCacheWrapper<T>> parseCustomObjectWithCache(Class<T> tOfClass)
     {
-        return returnStringResponseCache()
-                .flatMap(new StringCacheToCustomDataObjectCacheFunc<>(mRequest.getApiStringParser(), tOfClass));
+        return returnStringWithCache()
+                .map(new StringToCustomObjectCacheFunc<>(mRequest.getApiStringParser(), tOfClass));
     }
 
     @Override
-    public <T> Observable<T> parseCustomDataObject(Class<T> tOfClass)
+    public <T> Observable<T> parseCustomObject(Class<T> tOfClass)
     {
-        return parseCustomDataObjectWithCache(tOfClass)
+        return parseCustomObjectWithCache(tOfClass)
                 .map(new CacheDataGetterFunc<>());
     }
 
     @Override
-    public <T> Observable<ResultCacheWrapper<List<T>>> parseRestfulDataListWithCache(Class<T> tOfClass)
+    public <T> Observable<ResultCacheWrapper<List<T>>> parseRestfulListWithCache(Class<T> tOfClass)
     {
-        return returnStringResponseCache()
-                .flatMap(new StringCacheToRestfulDataListCacheFunc<>(mRequest.getApiStringParser(), tOfClass));
+        return returnStringWithCache()
+                .map(new StringToRestfulListCacheFunc<>(mRequest.getApiStringParser(), tOfClass));
     }
 
     @Override
-    public <T> Observable<List<T>> parseRestfulDataList(Class<T> tOfClass)
+    public <T> Observable<List<T>> parseRestfulList(Class<T> tOfClass)
     {
-        return parseRestfulDataListWithCache(tOfClass)
+        return parseRestfulListWithCache(tOfClass)
                 .map(new CacheDataGetterFunc<>());
     }
 
     @Override
-    public <T> Observable<ResultCacheWrapper<List<T>>> parseCustomDataListWithCache(Class<T> tOfClass)
+    public <T> Observable<ResultCacheWrapper<List<T>>> parseCustomListWithCache(Class<T> tOfClass)
     {
-        return returnStringResponseCache()
-                .flatMap(new StringCacheToCustomDataListCacheFunc<>(mRequest.getApiStringParser(), tOfClass));
+        return returnStringWithCache()
+                .map(new StringToCustomListCacheFunc<>(mRequest.getApiStringParser(), tOfClass));
     }
 
     @Override
-    public <T> Observable<List<T>> parseCustomDataList(Class<T> tOfClass)
+    public <T> Observable<List<T>> parseCustomList(Class<T> tOfClass)
     {
-        return parseCustomDataListWithCache(tOfClass)
+        return parseCustomListWithCache(tOfClass)
                 .map(new CacheDataGetterFunc<>());
     }
 
     @Override
-    public <T> Observable<ResultCacheWrapper<T[]>> parseRestfulDataArrayWithCache(Class<T> tOfClass)
+    public <T> Observable<ResultCacheWrapper<T[]>> parseRestfulArrayWithCache(Class<T> tOfClass)
     {
-        return returnStringResponseCache()
-                .flatMap(new StringCacheToRestfulDataArrayCacheFunc<>(mRequest.getApiStringParser(), tOfClass));
+        return returnStringWithCache()
+                .map(new StringToRestfulArrayCacheFunc<>(mRequest.getApiStringParser(), tOfClass));
     }
 
     @Override
-    public <T> Observable<T[]> parseRestfulDataArray(Class<T> tOfClass)
+    public <T> Observable<T[]> parseRestfulArray(Class<T> tOfClass)
     {
-        return parseRestfulDataArrayWithCache(tOfClass)
+        return parseRestfulArrayWithCache(tOfClass)
                 .map(new CacheDataGetterFunc<>());
     }
 
     @Override
-    public <T> Observable<ResultCacheWrapper<T[]>> parseCustomDataArrayWithCache(Class<T> tOfClass)
+    public <T> Observable<ResultCacheWrapper<T[]>> parseCustomArrayWithCache(Class<T> tOfClass)
     {
-        return returnStringResponseCache()
-                .flatMap(new StringCacheToCustomDataArrayCacheFunc<>(mRequest.getApiStringParser(), tOfClass));
+        return returnStringWithCache()
+                .map(new StringToCustomArrayCacheFunc<>(mRequest.getApiStringParser(), tOfClass));
     }
 
     @Override
-    public <T> Observable<T[]> parseCustomDataArray(Class<T> tOfClass)
+    public <T> Observable<T[]> parseCustomArray(Class<T> tOfClass)
     {
-        return parseCustomDataArrayWithCache(tOfClass)
+        return parseCustomArrayWithCache(tOfClass)
                 .map(new CacheDataGetterFunc<>());
     }
 }

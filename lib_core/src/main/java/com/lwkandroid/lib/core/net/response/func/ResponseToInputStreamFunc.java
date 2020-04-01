@@ -9,7 +9,7 @@ import okhttp3.ResponseBody;
  *
  * @author LWK
  */
-final class InputStreamResponseConverter extends AbsResponseConverter<InputStream>
+public final class ResponseToInputStreamFunc extends AbsResponseFunc<InputStream>
 {
     @Override
     public InputStream convert(ResponseBody body) throws Exception

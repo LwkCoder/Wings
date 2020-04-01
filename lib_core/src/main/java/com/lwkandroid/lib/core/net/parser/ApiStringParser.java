@@ -12,9 +12,6 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.ObservableTransformer;
-import io.reactivex.functions.Function;
-
 /**
  * 将String类型的网络请求结果转换为{@link IApiRestfulResult}的实现类
  *
@@ -23,53 +20,45 @@ import io.reactivex.functions.Function;
 public class ApiStringParser implements IApiStringParser
 {
     @Override
-    public <T> ObservableTransformer<String, T> parseCustomDataObject(final Class<T> dataClass)
+    public <T> T parseCustomDataObject(String data, Class<T> dataClass)
     {
-        return upstream -> upstream.map((Function<String, T>) s -> dataClass == String.class ? (T) s : JsonUtils.fromJson(s, dataClass));
+        return JsonUtils.fromJson(data, dataClass);
     }
 
     @Override
-    public <T> ObservableTransformer<String, T> parseRestfulDataObject(final Class<T> dataClass)
+    public <T> T parseRestfulDataObject(String data, Class<T> dataClass) throws Exception
     {
-        return upstream -> upstream.map((Function<String, T>) s -> {
-            String dataJsonString = parseRestfulDataJson(s);
-            return StringUtils.isNotEmpty(dataJsonString) ?
-                    JsonUtils.fromJson(dataJsonString, dataClass) : dataClass.newInstance();
-        });
+        String dataJsonString = parseRestfulDataJson(data);
+        return StringUtils.isNotEmpty(dataJsonString) ?
+                JsonUtils.fromJson(dataJsonString, dataClass) : dataClass.newInstance();
     }
 
     @Override
-    public <T> ObservableTransformer<String, T[]> parseCustomDataArray(Class<T> dataClass)
+    public <T> List<T> parseCustomDataList(String data, Class<T> dataClass) throws Exception
     {
-        return upstream -> upstream.map(s -> {
-            return JsonUtils.fromJson(s, JsonUtils.getArrayType(dataClass));
-        });
+        return JsonUtils.fromJson(data, JsonUtils.getListType(dataClass));
     }
 
     @Override
-    public <T> ObservableTransformer<String, T[]> parseRestfulDataArray(Class<T> dataClass)
+    public <T> List<T> parseRestfulDataList(String data, Class<T> dataClass) throws Exception
     {
-        return upstream -> upstream.map(s -> {
-            String dataJsonString = parseRestfulDataJson(s);
-            return StringUtils.isNotEmpty(dataJsonString) ?
-                    JsonUtils.fromJson(dataJsonString, JsonUtils.getArrayType(dataClass)) : (T[]) Array.newInstance(dataClass, 0);
-        });
+        String dataJsonString = parseRestfulDataJson(data);
+        return StringUtils.isNotEmpty(dataJsonString) ?
+                JsonUtils.fromJson(dataJsonString, JsonUtils.getListType(dataClass)) : new ArrayList<>();
     }
 
     @Override
-    public <T> ObservableTransformer<String, List<T>> parseCustomDataList(final Class<T> dataClass)
+    public <T> T[] parseCustomDataArray(String data, Class<T> dataClass) throws Exception
     {
-        return upstream -> upstream.map((Function<String, List<T>>) s -> JsonUtils.fromJson(s, JsonUtils.getListType(dataClass)));
+        return JsonUtils.fromJson(data, JsonUtils.getArrayType(dataClass));
     }
 
     @Override
-    public <T> ObservableTransformer<String, List<T>> parseRestfulDataList(final Class<T> dataClass)
+    public <T> T[] parseRestfulDataArray(String data, Class<T> dataClass) throws Exception
     {
-        return upstream -> upstream.map((Function<String, List<T>>) s -> {
-            String dataJsonString = parseRestfulDataJson(s);
-            return StringUtils.isNotEmpty(dataJsonString) ?
-                    JsonUtils.fromJson(dataJsonString, JsonUtils.getListType(dataClass)) : new ArrayList<T>();
-        });
+        String dataJsonString = parseRestfulDataJson(data);
+        return StringUtils.isNotEmpty(dataJsonString) ?
+                JsonUtils.fromJson(dataJsonString, JsonUtils.getArrayType(dataClass)) : (T[]) Array.newInstance(dataClass, 0);
     }
 
     /**

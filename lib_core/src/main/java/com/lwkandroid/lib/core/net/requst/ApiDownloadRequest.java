@@ -13,7 +13,7 @@ import com.lwkandroid.lib.core.net.parser.ApiIS2BitmapParser;
 import com.lwkandroid.lib.core.net.parser.ApiIS2FileParser;
 import com.lwkandroid.lib.core.net.response.IApiBytesResponse;
 import com.lwkandroid.lib.core.net.response.IApiInputStreamResponse;
-import com.lwkandroid.lib.core.net.response.func.ApiResponseBodyConverter;
+import com.lwkandroid.lib.core.net.response.ApiResponseBodyConverter;
 import com.lwkandroid.lib.core.net.retry.AutoRetryFunc;
 import com.lwkandroid.lib.core.net.utils.RequestBodyUtils;
 

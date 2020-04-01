@@ -7,7 +7,7 @@ import okhttp3.ResponseBody;
  *
  * @author LWK
  */
-final class BytesResponseConverter extends AbsResponseConverter<byte[]>
+public final class ResponseToBytesFunc extends AbsResponseFunc<byte[]>
 {
     @Override
     public byte[] convert(ResponseBody body) throws Exception

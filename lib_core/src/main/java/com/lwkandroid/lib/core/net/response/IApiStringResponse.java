@@ -18,58 +18,70 @@ public interface IApiStringResponse
     /**
      * 获取缓存结果包装的字符串类型的网络请求结果
      */
-    Observable<ResultCacheWrapper<String>> returnStringResponseCache();
+    Observable<ResultCacheWrapper<String>> returnStringWithCache();
 
     /**
      * 直接获取字符串类型的网络请求结果
      */
-    Observable<String> returnStringResponse();
+    Observable<String> returnString();
 
     /**
      * 获取缓存结果包装的ApiRestfulResult对象内数据的网络请求结果
      */
-    <T> Observable<ResultCacheWrapper<T>> parseRestfulDataObjectWithCache(Class<T> tOfClass);
+    <T> Observable<ResultCacheWrapper<T>> parseRestfulObjectWithCache(Class<T> tOfClass);
 
     /**
      * 直接获取ApiRestfulResult对象内数据的网络请求结果
      */
-    <T> Observable<T> parseRestfulDataObject(Class<T> tOfClass);
+    <T> Observable<T> parseRestfulObject(Class<T> tOfClass);
 
     /**
      * 获取缓存结果包装的某一个对象的网络请求结果
      */
-    <T> Observable<ResultCacheWrapper<T>> parseCustomDataObjectWithCache(Class<T> tOfClass);
+    <T> Observable<ResultCacheWrapper<T>> parseCustomObjectWithCache(Class<T> tOfClass);
 
     /**
      * 直接获取某一个对象的网络请求结果
      */
-    <T> Observable<T> parseCustomDataObject(Class<T> tOfClass);
+    <T> Observable<T> parseCustomObject(Class<T> tOfClass);
 
     /**
      * 获取缓存结果包装的ApiRestfulResult对象内数据集合的网络请求结果
      */
-    <T> Observable<ResultCacheWrapper<List<T>>> parseRestfulDataListWithCache(Class<T> tOfClass);
+    <T> Observable<ResultCacheWrapper<List<T>>> parseRestfulListWithCache(Class<T> tOfClass);
 
     /**
      * 直接获取ApiRestfulResult对象内数据集合的网络请求结果
      */
-    <T> Observable<List<T>> parseRestfulDataList(Class<T> tOfClass);
+    <T> Observable<List<T>> parseRestfulList(Class<T> tOfClass);
 
     /**
      * 获取缓存结果包装的某个一对象的集合的网络请求结果
      */
-    <T> Observable<ResultCacheWrapper<List<T>>> parseCustomDataListWithCache(Class<T> tOfClass);
+    <T> Observable<ResultCacheWrapper<List<T>>> parseCustomListWithCache(Class<T> tOfClass);
 
     /**
      * 直接获取某一个对象的集合的网络请求结果
      */
-    <T> Observable<List<T>> parseCustomDataList(Class<T> tOfClass);
+    <T> Observable<List<T>> parseCustomList(Class<T> tOfClass);
 
-    <T> Observable<ResultCacheWrapper<T[]>> parseRestfulDataArrayWithCache(Class<T> tOfClass);
+    /**
+     * 获取缓存结果包装的ApiRestfulResult对象数组的网络请求结果
+     */
+    <T> Observable<ResultCacheWrapper<T[]>> parseRestfulArrayWithCache(Class<T> tOfClass);
 
-    <T> Observable<T[]> parseRestfulDataArray(Class<T> tOfClass);
+    /**
+     * 直接获取ApiRestfulResult对象内数据数组的网络请求结果
+     */
+    <T> Observable<T[]> parseRestfulArray(Class<T> tOfClass);
 
-    <T> Observable<ResultCacheWrapper<T[]>> parseCustomDataArrayWithCache(Class<T> tOfClass);
+    /**
+     * 获取缓存结果包装的某一对象数组的网络请求结果
+     */
+    <T> Observable<ResultCacheWrapper<T[]>> parseCustomArrayWithCache(Class<T> tOfClass);
 
-    <T> Observable<T[]> parseCustomDataArray(Class<T> tOfClass);
+    /**
+     * 获取某一对象数组的网络请求结果
+     */
+    <T> Observable<T[]> parseCustomArray(Class<T> tOfClass);
 }
