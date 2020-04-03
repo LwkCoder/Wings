@@ -53,8 +53,12 @@ public final class ApiStringResponseImpl<R extends ApiBaseRequest<R>> implements
     @Override
     public <T> Observable<ResultCacheWrapper<T>> parseRestfulObjectWithCache(Class<T> tOfClass)
     {
-        return returnStringWithCache()
-                .map(new StringToRestfulObjectCacheFunc<>(mRequest.getApiStringParser(), tOfClass));
+        return mRequest.invokeRequest()
+                .map(ApiResponseBodyConverter.convertToString())
+                .compose(RxCache.transform(mRequest.getFinalCacheOptions(), String.class))
+                .map(new StringToRestfulObjectCacheFunc<>(mRequest.getApiStringParser(), tOfClass))
+                .compose(new ApiErrorHandlerTransformer<>(RxHttp.getGlobalOptions().getRetryConfig(),
+                        RxHttp.getGlobalOptions().getApiErrorConsumer()));
     }
 
     @Override
@@ -67,8 +71,12 @@ public final class ApiStringResponseImpl<R extends ApiBaseRequest<R>> implements
     @Override
     public <T> Observable<ResultCacheWrapper<T>> parseCustomObjectWithCache(Class<T> tOfClass)
     {
-        return returnStringWithCache()
-                .map(new StringToCustomObjectCacheFunc<>(mRequest.getApiStringParser(), tOfClass));
+        return mRequest.invokeRequest()
+                .map(ApiResponseBodyConverter.convertToString())
+                .compose(RxCache.transform(mRequest.getFinalCacheOptions(), String.class))
+                .map(new StringToCustomObjectCacheFunc<>(mRequest.getApiStringParser(), tOfClass))
+                .compose(new ApiErrorHandlerTransformer<>(RxHttp.getGlobalOptions().getRetryConfig(),
+                        RxHttp.getGlobalOptions().getApiErrorConsumer()));
     }
 
     @Override
@@ -81,8 +89,12 @@ public final class ApiStringResponseImpl<R extends ApiBaseRequest<R>> implements
     @Override
     public <T> Observable<ResultCacheWrapper<List<T>>> parseRestfulListWithCache(Class<T> tOfClass)
     {
-        return returnStringWithCache()
-                .map(new StringToRestfulListCacheFunc<>(mRequest.getApiStringParser(), tOfClass));
+        return mRequest.invokeRequest()
+                .map(ApiResponseBodyConverter.convertToString())
+                .compose(RxCache.transform(mRequest.getFinalCacheOptions(), String.class))
+                .map(new StringToRestfulListCacheFunc<>(mRequest.getApiStringParser(), tOfClass))
+                .compose(new ApiErrorHandlerTransformer<>(RxHttp.getGlobalOptions().getRetryConfig(),
+                        RxHttp.getGlobalOptions().getApiErrorConsumer()));
     }
 
     @Override
@@ -95,8 +107,12 @@ public final class ApiStringResponseImpl<R extends ApiBaseRequest<R>> implements
     @Override
     public <T> Observable<ResultCacheWrapper<List<T>>> parseCustomListWithCache(Class<T> tOfClass)
     {
-        return returnStringWithCache()
-                .map(new StringToCustomListCacheFunc<>(mRequest.getApiStringParser(), tOfClass));
+        return mRequest.invokeRequest()
+                .map(ApiResponseBodyConverter.convertToString())
+                .compose(RxCache.transform(mRequest.getFinalCacheOptions(), String.class))
+                .map(new StringToCustomListCacheFunc<>(mRequest.getApiStringParser(), tOfClass))
+                .compose(new ApiErrorHandlerTransformer<>(RxHttp.getGlobalOptions().getRetryConfig(),
+                        RxHttp.getGlobalOptions().getApiErrorConsumer()));
     }
 
     @Override
@@ -109,8 +125,12 @@ public final class ApiStringResponseImpl<R extends ApiBaseRequest<R>> implements
     @Override
     public <T> Observable<ResultCacheWrapper<T[]>> parseRestfulArrayWithCache(Class<T> tOfClass)
     {
-        return returnStringWithCache()
-                .map(new StringToRestfulArrayCacheFunc<>(mRequest.getApiStringParser(), tOfClass));
+        return mRequest.invokeRequest()
+                .map(ApiResponseBodyConverter.convertToString())
+                .compose(RxCache.transform(mRequest.getFinalCacheOptions(), String.class))
+                .map(new StringToRestfulArrayCacheFunc<>(mRequest.getApiStringParser(), tOfClass))
+                .compose(new ApiErrorHandlerTransformer<>(RxHttp.getGlobalOptions().getRetryConfig(),
+                        RxHttp.getGlobalOptions().getApiErrorConsumer()));
     }
 
     @Override
@@ -123,8 +143,12 @@ public final class ApiStringResponseImpl<R extends ApiBaseRequest<R>> implements
     @Override
     public <T> Observable<ResultCacheWrapper<T[]>> parseCustomArrayWithCache(Class<T> tOfClass)
     {
-        return returnStringWithCache()
-                .map(new StringToCustomArrayCacheFunc<>(mRequest.getApiStringParser(), tOfClass));
+        return mRequest.invokeRequest()
+                .map(ApiResponseBodyConverter.convertToString())
+                .compose(RxCache.transform(mRequest.getFinalCacheOptions(), String.class))
+                .map(new StringToCustomArrayCacheFunc<>(mRequest.getApiStringParser(), tOfClass))
+                .compose(new ApiErrorHandlerTransformer<>(RxHttp.getGlobalOptions().getRetryConfig(),
+                        RxHttp.getGlobalOptions().getApiErrorConsumer()));
     }
 
     @Override

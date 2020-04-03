@@ -137,15 +137,21 @@ public final class ApiDownloadRequest extends ApiBaseRequest<ApiDownloadRequest>
     @Override
     public Observable<File> parseAsFileFromIS()
     {
-        return returnISResponse()
-                .compose(new ApiIS2FileParser(getSaveFolderPath(), getFileName()).parseAsFile());
+        return invokeRequest()
+                .map(ApiResponseBodyConverter.convertToInputStream())
+                .compose(new ApiIS2FileParser(getSaveFolderPath(), getFileName()).parseAsFile())
+                .compose(new ApiErrorHandlerTransformer<>(RxHttp.getGlobalOptions().getRetryConfig(),
+                        RxHttp.getGlobalOptions().getApiErrorConsumer()));
     }
 
     @Override
     public Observable<Bitmap> parseAsBitmapFromIS()
     {
-        return returnISResponse()
-                .compose(new ApiIS2BitmapParser(getBitmapMaxWidth(), getBitmapMaxHeight()).parseAsBitmap());
+        return invokeRequest()
+                .map(ApiResponseBodyConverter.convertToInputStream())
+                .compose(new ApiIS2BitmapParser(getBitmapMaxWidth(), getBitmapMaxHeight()).parseAsBitmap())
+                .compose(new ApiErrorHandlerTransformer<>(RxHttp.getGlobalOptions().getRetryConfig(),
+                        RxHttp.getGlobalOptions().getApiErrorConsumer()));
     }
 
     @Override
@@ -160,14 +166,20 @@ public final class ApiDownloadRequest extends ApiBaseRequest<ApiDownloadRequest>
     @Override
     public Observable<File> parseAsFileFromBytes()
     {
-        return returnByteArrayResponse()
-                .compose(new ApiBytes2FileParser(getSaveFolderPath(), getFileName()).parseAsFile());
+        return invokeRequest()
+                .map(ApiResponseBodyConverter.convertToBytes())
+                .compose(new ApiBytes2FileParser(getSaveFolderPath(), getFileName()).parseAsFile())
+                .compose(new ApiErrorHandlerTransformer<>(RxHttp.getGlobalOptions().getRetryConfig(),
+                        RxHttp.getGlobalOptions().getApiErrorConsumer()));
     }
 
     @Override
     public Observable<Bitmap> parseAsBitmapFromBytes()
     {
-        return returnByteArrayResponse()
-                .compose(new ApiBytes2BitmapParser(getBitmapMaxWidth(), getBitmapMaxHeight()).parseAsBitmap());
+        return invokeRequest()
+                .map(ApiResponseBodyConverter.convertToBytes())
+                .compose(new ApiBytes2BitmapParser(getBitmapMaxWidth(), getBitmapMaxHeight()).parseAsBitmap())
+                .compose(new ApiErrorHandlerTransformer<>(RxHttp.getGlobalOptions().getRetryConfig(),
+                        RxHttp.getGlobalOptions().getApiErrorConsumer()));
     }
 }
