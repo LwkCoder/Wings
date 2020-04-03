@@ -97,6 +97,8 @@ public class ApiGlobalOptions implements IApiRequestOptions.Global<ApiGlobalOpti
         setCacheMode(ApiCacheMode.NO_CACHE);
         setCacheVersion(BuildConfig.VERSION_CODE);
         setCookieManager(new CookieManager());
+        setRetryConfig(RetryConfig.noRetry());
+        setApiErrorConsumer(ApiErrorConsumer.empty());
     }
 
     @Override
