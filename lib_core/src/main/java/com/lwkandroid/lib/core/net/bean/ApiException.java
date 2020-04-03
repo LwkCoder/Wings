@@ -4,7 +4,6 @@ import android.net.ParseException;
 
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializer;
-import com.lwkandroid.lib.core.net.RxHttp;
 import com.lwkandroid.lib.core.net.constants.ApiExceptionCode;
 
 import org.apache.http.conn.ConnectTimeoutException;
@@ -41,10 +40,15 @@ public class ApiException extends Exception
 
     public ApiException(int code, String throwMessage)
     {
+        this(code, throwMessage, null);
+    }
+
+    public ApiException(int code, String throwMessage, String displayMessage)
+    {
         super(throwMessage);
         this.code = code;
         this.throwMessage = throwMessage;
-        this.displayMessage = RxHttp.getGlobalOptions().getApiExceptionMsgParser().parserMessageByCode(code, throwMessage);
+        this.displayMessage = displayMessage;
     }
 
     public int getCode()
@@ -139,7 +143,7 @@ public class ApiException extends Exception
         } else
         {
             e.printStackTrace();
-            return new ApiException(ApiExceptionCode.UNKNOWN, e.getMessage());
+            return new ApiException(ApiExceptionCode.UNDEFINE, e.getMessage());
         }
     }
 }

@@ -4,17 +4,17 @@ import android.graphics.Bitmap;
 import android.text.TextUtils;
 
 import com.lwkandroid.lib.core.net.ApiService;
+import com.lwkandroid.lib.core.net.RxHttp;
 import com.lwkandroid.lib.core.net.constants.ApiConstants;
 import com.lwkandroid.lib.core.net.constants.ApiRequestType;
-import com.lwkandroid.lib.core.net.exception.ApiExceptionConvertFunc;
+import com.lwkandroid.lib.core.net.exception.ApiErrorHandlerTransformer;
 import com.lwkandroid.lib.core.net.parser.ApiBytes2BitmapParser;
 import com.lwkandroid.lib.core.net.parser.ApiBytes2FileParser;
 import com.lwkandroid.lib.core.net.parser.ApiIS2BitmapParser;
 import com.lwkandroid.lib.core.net.parser.ApiIS2FileParser;
+import com.lwkandroid.lib.core.net.response.ApiResponseBodyConverter;
 import com.lwkandroid.lib.core.net.response.IApiBytesResponse;
 import com.lwkandroid.lib.core.net.response.IApiInputStreamResponse;
-import com.lwkandroid.lib.core.net.response.ApiResponseBodyConverter;
-import com.lwkandroid.lib.core.net.retry.AutoRetryFunc;
 import com.lwkandroid.lib.core.net.utils.RequestBodyUtils;
 
 import java.io.File;
@@ -130,8 +130,8 @@ public final class ApiDownloadRequest extends ApiBaseRequest<ApiDownloadRequest>
     {
         return invokeRequest()
                 .map(ApiResponseBodyConverter.convertToInputStream())
-                .onErrorResumeNext(new ApiExceptionConvertFunc<>())
-                .retryWhen(new AutoRetryFunc(getSubUrl(), getAutoRetryCount(), getAutoRetryDelay(), getAutoRetryJudge()));
+                .compose(new ApiErrorHandlerTransformer<>(RxHttp.getGlobalOptions().getRetryConfig(),
+                        RxHttp.getGlobalOptions().getApiErrorConsumer()));
     }
 
     @Override
@@ -153,8 +153,8 @@ public final class ApiDownloadRequest extends ApiBaseRequest<ApiDownloadRequest>
     {
         return invokeRequest()
                 .map(ApiResponseBodyConverter.convertToBytes())
-                .onErrorResumeNext(new ApiExceptionConvertFunc<>())
-                .retryWhen(new AutoRetryFunc(getSubUrl(), getAutoRetryCount(), getAutoRetryDelay(), getAutoRetryJudge()));
+                .compose(new ApiErrorHandlerTransformer<>(RxHttp.getGlobalOptions().getRetryConfig(),
+                        RxHttp.getGlobalOptions().getApiErrorConsumer()));
     }
 
     @Override

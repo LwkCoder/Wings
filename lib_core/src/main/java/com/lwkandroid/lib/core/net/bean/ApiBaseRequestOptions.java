@@ -5,7 +5,6 @@ import com.lwkandroid.lib.core.net.RxHttp;
 import com.lwkandroid.lib.core.net.constants.ApiRequestType;
 import com.lwkandroid.lib.core.net.https.HttpsUtils;
 import com.lwkandroid.lib.core.net.parser.IApiStringParser;
-import com.lwkandroid.lib.core.net.retry.IAutoRetry;
 import com.lwkandroid.lib.core.net.utils.FormDataMap;
 
 import java.io.InputStream;
@@ -117,9 +116,6 @@ public class ApiBaseRequestOptions<T extends ApiBaseRequestOptions> implements I
         setBaseUrl(RxHttp.getGlobalOptions().getBaseUrl());
         setCacheMode(RxHttp.getGlobalOptions().getCacheMode());
         setCacheTime(RxHttp.getGlobalOptions().getCacheTime());
-        setAutoRetryJudge(RxHttp.getGlobalOptions().getAutoRetryJudge());
-        setAutoRetryDelay(RxHttp.getGlobalOptions().getAutoRetryDelay());
-        setAutoRetryCount(RxHttp.getGlobalOptions().getAutoRetryCount());
         setHttpsSSLParams(RxHttp.getGlobalOptions().getHttpsSSLParams());
         setHostnameVerifier(RxHttp.getGlobalOptions().getHostnameVerifier());
     }
@@ -370,45 +366,6 @@ public class ApiBaseRequestOptions<T extends ApiBaseRequestOptions> implements I
     public long getCacheTime()
     {
         return mCommonImpl.getCacheTime();
-    }
-
-    @Override
-    public T setAutoRetryJudge(IAutoRetry autoRetry)
-    {
-        mCommonImpl.setAutoRetryJudge(autoRetry);
-        return (T) this;
-    }
-
-    @Override
-    public IAutoRetry getAutoRetryJudge()
-    {
-        return mCommonImpl.getAutoRetryJudge();
-    }
-
-    @Override
-    public T setAutoRetryCount(int count)
-    {
-        mCommonImpl.setAutoRetryCount(count);
-        return (T) this;
-    }
-
-    @Override
-    public int getAutoRetryCount()
-    {
-        return mCommonImpl.getAutoRetryCount();
-    }
-
-    @Override
-    public T setAutoRetryDelay(int delay)
-    {
-        mCommonImpl.setAutoRetryDelay(delay);
-        return (T) this;
-    }
-
-    @Override
-    public int getAutoRetryDelay()
-    {
-        return mCommonImpl.getAutoRetryDelay();
     }
 
     @Override

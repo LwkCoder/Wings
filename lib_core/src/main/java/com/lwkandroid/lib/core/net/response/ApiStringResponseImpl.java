@@ -1,6 +1,7 @@
 package com.lwkandroid.lib.core.net.response;
 
 
+import com.lwkandroid.lib.core.net.RxHttp;
 import com.lwkandroid.lib.core.net.bean.ResultCacheWrapper;
 import com.lwkandroid.lib.core.net.cache.RxCache;
 import com.lwkandroid.lib.core.net.cache.func.CacheDataGetterFunc;
@@ -10,9 +11,8 @@ import com.lwkandroid.lib.core.net.cache.func.StringToCustomObjectCacheFunc;
 import com.lwkandroid.lib.core.net.cache.func.StringToRestfulArrayCacheFunc;
 import com.lwkandroid.lib.core.net.cache.func.StringToRestfulListCacheFunc;
 import com.lwkandroid.lib.core.net.cache.func.StringToRestfulObjectCacheFunc;
-import com.lwkandroid.lib.core.net.exception.ApiExceptionConvertFunc;
+import com.lwkandroid.lib.core.net.exception.ApiErrorHandlerTransformer;
 import com.lwkandroid.lib.core.net.requst.ApiBaseRequest;
-import com.lwkandroid.lib.core.net.retry.AutoRetryFunc;
 
 import java.util.List;
 
@@ -39,9 +39,8 @@ public final class ApiStringResponseImpl<R extends ApiBaseRequest<R>> implements
         return mRequest.invokeRequest()
                 .map(ApiResponseBodyConverter.convertToString())
                 .compose(RxCache.transform(mRequest.getFinalCacheOptions(), String.class))
-                .onErrorResumeNext(new ApiExceptionConvertFunc<>())
-                .retryWhen(new AutoRetryFunc(mRequest.getSubUrl(), mRequest.getAutoRetryCount(),
-                        mRequest.getAutoRetryDelay(), mRequest.getAutoRetryJudge()));
+                .compose(new ApiErrorHandlerTransformer<>(RxHttp.getGlobalOptions().getRetryConfig(),
+                        RxHttp.getGlobalOptions().getApiErrorConsumer()));
     }
 
     @Override

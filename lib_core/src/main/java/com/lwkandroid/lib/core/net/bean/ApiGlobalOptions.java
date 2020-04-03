@@ -7,13 +7,13 @@ import com.lwkandroid.lib.core.net.constants.ApiCacheMode;
 import com.lwkandroid.lib.core.net.constants.ApiConstants;
 import com.lwkandroid.lib.core.net.cookie.CookieManager;
 import com.lwkandroid.lib.core.net.cookie.ICookieJar;
+import com.lwkandroid.lib.core.net.exception.ApiErrorConsumer;
 import com.lwkandroid.lib.core.net.exception.ApiExceptionMsgParserImpl;
 import com.lwkandroid.lib.core.net.exception.IApiExceptionMsgParser;
+import com.lwkandroid.lib.core.net.exception.RetryConfig;
 import com.lwkandroid.lib.core.net.https.HttpsUtils;
 import com.lwkandroid.lib.core.net.parser.ApiStringParser;
 import com.lwkandroid.lib.core.net.parser.IApiStringParser;
-import com.lwkandroid.lib.core.net.retry.AutoRetryJudgeImpl;
-import com.lwkandroid.lib.core.net.retry.IAutoRetry;
 import com.lwkandroid.lib.core.net.utils.FormDataMap;
 import com.lwkandroid.lib.core.utils.StringUtils;
 
@@ -76,6 +76,14 @@ public class ApiGlobalOptions implements IApiRequestOptions.Global<ApiGlobalOpti
      * 动态HeaderMap
      */
     private Map<String, IApiDynamicHeader> mDynamicHeaderMap;
+    /**
+     * 自动重试配置
+     */
+    private RetryConfig mRetryConfig;
+    /**
+     * 发生错误后统一处理
+     */
+    private ApiErrorConsumer mErrorConsumer;
 
     public ApiGlobalOptions()
     {
@@ -86,8 +94,6 @@ public class ApiGlobalOptions implements IApiRequestOptions.Global<ApiGlobalOpti
         setApiRestfulResultOkCode(ApiConstants.RESULT_OK_CODE);
         setApiStringParser(new ApiStringParser());
         setApiExceptionMsgParser(new ApiExceptionMsgParserImpl());
-        setAutoRetryJudge(new AutoRetryJudgeImpl());
-        setAutoRetryDelay(1000);
         setCacheMode(ApiCacheMode.NO_CACHE);
         setCacheVersion(BuildConfig.VERSION_CODE);
         setCookieManager(new CookieManager());
@@ -355,45 +361,6 @@ public class ApiGlobalOptions implements IApiRequestOptions.Global<ApiGlobalOpti
     }
 
     @Override
-    public ApiGlobalOptions setAutoRetryJudge(IAutoRetry autoRetry)
-    {
-        mCommonImpl.setAutoRetryJudge(autoRetry);
-        return this;
-    }
-
-    @Override
-    public IAutoRetry getAutoRetryJudge()
-    {
-        return mCommonImpl.getAutoRetryJudge();
-    }
-
-    @Override
-    public ApiGlobalOptions setAutoRetryCount(int count)
-    {
-        mCommonImpl.setAutoRetryCount(count);
-        return this;
-    }
-
-    @Override
-    public int getAutoRetryCount()
-    {
-        return mCommonImpl.getAutoRetryCount();
-    }
-
-    @Override
-    public ApiGlobalOptions setAutoRetryDelay(int delay)
-    {
-        mCommonImpl.setAutoRetryDelay(delay);
-        return this;
-    }
-
-    @Override
-    public int getAutoRetryDelay()
-    {
-        return mCommonImpl.getAutoRetryDelay();
-    }
-
-    @Override
     public ApiGlobalOptions setHttpsCertificates(InputStream... certificates)
     {
         mCommonImpl.setHttpsCertificates(certificates);
@@ -628,5 +595,31 @@ public class ApiGlobalOptions implements IApiRequestOptions.Global<ApiGlobalOpti
             mDynamicFormDataMap = new TreeMap<>();
         }
         return mDynamicFormDataMap;
+    }
+
+    @Override
+    public ApiGlobalOptions setRetryConfig(RetryConfig configProvider)
+    {
+        this.mRetryConfig = configProvider;
+        return this;
+    }
+
+    @Override
+    public RetryConfig getRetryConfig()
+    {
+        return mRetryConfig;
+    }
+
+    @Override
+    public ApiGlobalOptions setApiErrorConsumer(ApiErrorConsumer consumer)
+    {
+        this.mErrorConsumer = consumer;
+        return this;
+    }
+
+    @Override
+    public ApiErrorConsumer getApiErrorConsumer()
+    {
+        return mErrorConsumer;
     }
 }

@@ -8,9 +8,9 @@ package com.lwkandroid.lib.core.net.constants;
 public class ApiExceptionCode
 {
     /**
-     * 未知错误
+     * 未定义错误
      */
-    public static final int UNKNOWN = 100000000;
+    public static final int UNDEFINE = 100000000;
 
     /**
      * 解析错误

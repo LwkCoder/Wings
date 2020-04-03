@@ -5,8 +5,6 @@ import com.lwkandroid.lib.core.net.constants.ApiCacheMode;
 import com.lwkandroid.lib.core.net.https.HttpsUtils;
 import com.lwkandroid.lib.core.net.parser.ApiStringParser;
 import com.lwkandroid.lib.core.net.parser.IApiStringParser;
-import com.lwkandroid.lib.core.net.retry.AutoRetryJudgeImpl;
-import com.lwkandroid.lib.core.net.retry.IAutoRetry;
 import com.lwkandroid.lib.core.net.utils.FormDataMap;
 import com.lwkandroid.lib.core.utils.StringUtils;
 
@@ -72,18 +70,6 @@ public class ApiCommonOptionsImpl implements IApiRequestOptions.Common<ApiCommon
      * 缓存时长
      */
     private long mCacheTime = -1;
-    /**
-     * 自动重试次数
-     */
-    private int mAutoRetryCount = 0;
-    /**
-     * 自动重试间隔,ms
-     */
-    private int mAutoRetryDelay;
-    /**
-     * 判断自动重试时机的对象
-     */
-    private IAutoRetry mAutoRetry;
     /**
      * Https证书
      */
@@ -360,49 +346,6 @@ public class ApiCommonOptionsImpl implements IApiRequestOptions.Common<ApiCommon
     public long getCacheTime()
     {
         return mCacheTime;
-    }
-
-    @Override
-    public ApiCommonOptionsImpl setAutoRetryJudge(IAutoRetry autoRetry)
-    {
-        this.mAutoRetry = autoRetry;
-        return this;
-    }
-
-    @Override
-    public IAutoRetry getAutoRetryJudge()
-    {
-        if (mAutoRetry == null)
-        {
-            mAutoRetry = new AutoRetryJudgeImpl();
-        }
-        return mAutoRetry;
-    }
-
-    @Override
-    public ApiCommonOptionsImpl setAutoRetryCount(int count)
-    {
-        this.mAutoRetryCount = count;
-        return this;
-    }
-
-    @Override
-    public int getAutoRetryCount()
-    {
-        return mAutoRetryCount;
-    }
-
-    @Override
-    public ApiCommonOptionsImpl setAutoRetryDelay(int delay)
-    {
-        this.mAutoRetryDelay = delay;
-        return this;
-    }
-
-    @Override
-    public int getAutoRetryDelay()
-    {
-        return mAutoRetryDelay;
     }
 
     @Override

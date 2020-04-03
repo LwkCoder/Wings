@@ -21,6 +21,10 @@ public class CommonDialogContent extends DialogBaseContentView
     private String mContent;
     private String mPositive;
     private String mNegative;
+    private RTextView mTvTitle;
+    private RTextView mTvContent;
+    private RTextView mTvPositive;
+    private RTextView mTvNegative;
 
     public CommonDialogContent setTitle(String title)
     {
@@ -79,14 +83,24 @@ public class CommonDialogContent extends DialogBaseContentView
     @Override
     public void initUIAndData(View contentView, DialogOptions options, DialogCreator creator)
     {
-        RTextView tvTitle = find(R.id.tv_dialog_template_title);
-        RTextView tvContent = find(R.id.tv_dialog_template_content);
-        RTextView tvPositive = find(R.id.tv_dialog_template_positive);
-        RTextView tvNegative = find(R.id.tv_dialog_template_negative);
+        mTvTitle = find(R.id.tv_dialog_template_title);
+        mTvContent = find(R.id.tv_dialog_template_content);
+        mTvPositive = find(R.id.tv_dialog_template_positive);
+        mTvNegative = find(R.id.tv_dialog_template_negative);
 
-        tvTitle.setText(mTitle);
-        tvContent.setText(mContent);
-        tvPositive.setText(mPositive);
-        tvNegative.setText(mNegative);
+        mTvTitle.setText(mTitle);
+        mTvContent.setText(mContent);
+        mTvPositive.setText(mPositive);
+        mTvNegative.setText(mNegative);
+    }
+
+    public int getPositiveButtonId()
+    {
+        return R.id.tv_dialog_template_positive;
+    }
+
+    public int getNegativeButtonId()
+    {
+        return R.id.tv_dialog_template_negative;
     }
 }

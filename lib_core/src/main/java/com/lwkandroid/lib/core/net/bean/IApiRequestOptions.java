@@ -5,10 +5,11 @@ import com.lwkandroid.lib.core.net.cache.operator.IDiskCacheOperator;
 import com.lwkandroid.lib.core.net.constants.ApiCacheMode;
 import com.lwkandroid.lib.core.net.constants.ApiRequestType;
 import com.lwkandroid.lib.core.net.cookie.ICookieJar;
+import com.lwkandroid.lib.core.net.exception.ApiErrorConsumer;
 import com.lwkandroid.lib.core.net.exception.IApiExceptionMsgParser;
+import com.lwkandroid.lib.core.net.exception.RetryConfig;
 import com.lwkandroid.lib.core.net.https.HttpsUtils;
 import com.lwkandroid.lib.core.net.parser.IApiStringParser;
-import com.lwkandroid.lib.core.net.retry.IAutoRetry;
 import com.lwkandroid.lib.core.net.utils.FormDataMap;
 
 import java.io.InputStream;
@@ -110,18 +111,6 @@ public interface IApiRequestOptions
 
         long getCacheTime();
 
-        T setAutoRetryJudge(IAutoRetry autoRetry);
-
-        IAutoRetry getAutoRetryJudge();
-
-        T setAutoRetryCount(int count);
-
-        int getAutoRetryCount();
-
-        T setAutoRetryDelay(int delay);
-
-        int getAutoRetryDelay();
-
         /**
          * Https单项认证、自签名证书
          * 不传参数代表信任所有证书
@@ -206,6 +195,14 @@ public interface IApiRequestOptions
         T clearDynamicFormData();
 
         Map<String, IApiDynamicFormData> getDynamicFormDataMap();
+
+        T setRetryConfig(RetryConfig configProvider);
+
+        RetryConfig getRetryConfig();
+
+        T setApiErrorConsumer(ApiErrorConsumer consumer);
+
+        ApiErrorConsumer getApiErrorConsumer();
     }
 
     /**
