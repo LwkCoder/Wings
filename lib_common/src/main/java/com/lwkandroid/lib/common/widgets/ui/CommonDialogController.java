@@ -1,21 +1,21 @@
 package com.lwkandroid.lib.common.widgets.ui;
 
+import android.content.DialogInterface;
 import android.view.View;
 
 import com.lwkandroid.lib.common.R;
-import com.lwkandroid.lib.common.widgets.dialog.DialogBaseContentView;
-import com.lwkandroid.lib.common.widgets.dialog.DialogCreator;
-import com.lwkandroid.lib.common.widgets.dialog.DialogOptions;
+import com.lwkandroid.lib.common.widgets.dialog.IDialogUiController;
+import com.lwkandroid.lib.common.widgets.dialog.WingsDialog;
 import com.lwkandroid.lib.common.widgets.view.RTextView;
 import com.lwkandroid.lib.core.utils.ResourceUtils;
 
 /**
- * Description:通用Dialog样式模版
+ * Description:通用Dialog样式控制层
  *
  * @author LWK
- * @date 2020/3/26
+ * @date 2020/4/7
  */
-public class CommonDialogContent extends DialogBaseContentView
+public class CommonDialogController implements IDialogUiController
 {
     private String mTitle;
     private String mContent;
@@ -26,72 +26,90 @@ public class CommonDialogContent extends DialogBaseContentView
     private RTextView mTvPositive;
     private RTextView mTvNegative;
 
-    public CommonDialogContent setTitle(String title)
+    public CommonDialogController setTitle(String title)
     {
         this.mTitle = title;
         return this;
     }
 
-    public CommonDialogContent setTitle(int resId)
+    public CommonDialogController setTitle(int resId)
     {
         this.mTitle = ResourceUtils.getString(resId);
         return this;
     }
 
-    public CommonDialogContent setContent(int resId)
+    public CommonDialogController setContent(int resId)
     {
         this.mContent = ResourceUtils.getString(resId);
         return this;
     }
 
-    public CommonDialogContent setContent(String content)
+    public CommonDialogController setContent(String content)
     {
         this.mContent = content;
         return this;
     }
 
-    public CommonDialogContent setPositive(String positive)
+    public CommonDialogController setPositive(String positive)
     {
         this.mPositive = positive;
         return this;
     }
 
-    public CommonDialogContent setPositive(int resId)
+    public CommonDialogController setPositive(int resId)
     {
         this.mPositive = ResourceUtils.getString(resId);
         return this;
     }
 
-    public CommonDialogContent setNegative(int resId)
+    public CommonDialogController setNegative(int resId)
     {
         this.mNegative = ResourceUtils.getString(resId);
         return this;
     }
 
-    public CommonDialogContent setNegative(String negative)
+    public CommonDialogController setNegative(String negative)
     {
         this.mNegative = negative;
         return this;
     }
 
     @Override
-    public int getContentViewLayoutResId()
+    public int getLayoutId()
     {
         return R.layout.dialog_content_template;
     }
 
     @Override
-    public void initUIAndData(View contentView, DialogOptions options, DialogCreator creator)
+    public void onCreateView(View contentView, WingsDialog dialog)
     {
-        mTvTitle = find(R.id.tv_dialog_template_title);
-        mTvContent = find(R.id.tv_dialog_template_content);
-        mTvPositive = find(R.id.tv_dialog_template_positive);
-        mTvNegative = find(R.id.tv_dialog_template_negative);
+        mTvTitle = contentView.findViewById(R.id.tv_dialog_template_title);
+        mTvContent = contentView.findViewById(R.id.tv_dialog_template_content);
+        mTvPositive = contentView.findViewById(R.id.tv_dialog_template_positive);
+        mTvNegative = contentView.findViewById(R.id.tv_dialog_template_negative);
 
         mTvTitle.setText(mTitle);
         mTvContent.setText(mContent);
         mTvPositive.setText(mPositive);
         mTvNegative.setText(mNegative);
+    }
+
+    @Override
+    public void onShow(DialogInterface dialog)
+    {
+
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog)
+    {
+
+    }
+
+    @Override
+    public void onCancel(DialogInterface dialog)
+    {
+
     }
 
     public int getPositiveButtonId()

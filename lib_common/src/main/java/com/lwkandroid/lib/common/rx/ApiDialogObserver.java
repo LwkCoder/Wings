@@ -2,8 +2,9 @@ package com.lwkandroid.lib.common.rx;
 
 import android.content.DialogInterface;
 
-import com.lwkandroid.lib.common.widgets.dialog.DialogCreator;
-import com.lwkandroid.lib.common.widgets.ui.LoadingDialogContent;
+import com.lwkandroid.lib.common.widgets.dialog.DialogBuilder;
+import com.lwkandroid.lib.common.widgets.dialog.WingsDialog;
+import com.lwkandroid.lib.common.widgets.ui.LoadingDialogController;
 import com.lwkandroid.lib.core.app.ActivityLifecycleHelper;
 import com.lwkandroid.lib.core.net.observer.ApiBaseObserver;
 import com.lwkandroid.lib.core.utils.ResourceUtils;
@@ -24,7 +25,7 @@ public abstract class ApiDialogObserver<T> extends ApiBaseObserver<T> implements
 {
     private Disposable mDisposable;
     private Subscription mSubscription;
-    private DialogCreator mDialogCreator;
+    private WingsDialog mDialog;
     private boolean mCancelable = true;
     private boolean mCanceledOnTouchOutside = false;
     private String mMessage;
@@ -98,22 +99,24 @@ public abstract class ApiDialogObserver<T> extends ApiBaseObserver<T> implements
     private void showDialog()
     {
         dismissDialog();
-        mDialogCreator = DialogCreator.create(new LoadingDialogContent(mMessage))
+
+        mDialog = DialogBuilder.with(new LoadingDialogController(mMessage))
                 .setCancelable(mCancelable)
                 .setCanceledOnTouchOutside(mCanceledOnTouchOutside)
                 .setDarkWindowDegree(mDarkWindowDegree)
-                .setOnDismissListener(this)
                 .setFocusable(true)
+                .build()
+                .setDialogDismissListener(this)
                 .show((FragmentActivity) ActivityLifecycleHelper.get().getTopActivity());
     }
 
     private void dismissDialog()
     {
-        if (mDialogCreator != null)
+        if (mDialog != null)
         {
-            mDialogCreator.dismiss();
+            mDialog.dismiss();
         }
-        mDialogCreator = null;
+        mDialog = null;
     }
 
     private void release()

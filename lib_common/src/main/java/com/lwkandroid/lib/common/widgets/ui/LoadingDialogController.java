@@ -1,36 +1,36 @@
 package com.lwkandroid.lib.common.widgets.ui;
 
+import android.content.DialogInterface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.lwkandroid.lib.common.R;
-import com.lwkandroid.lib.common.widgets.dialog.DialogBaseContentView;
-import com.lwkandroid.lib.common.widgets.dialog.DialogCreator;
-import com.lwkandroid.lib.common.widgets.dialog.DialogOptions;
+import com.lwkandroid.lib.common.widgets.dialog.IDialogUiController;
+import com.lwkandroid.lib.common.widgets.dialog.WingsDialog;
 import com.lwkandroid.lib.core.utils.ResourceUtils;
 import com.lwkandroid.lib.core.utils.StringUtils;
 
 import androidx.annotation.StringRes;
 
 /**
- * Description:加载过程中显示的dialog内容
+ * Description:Loading弹窗控制层
  *
  * @author LWK
- * @date 2020/3/12
+ * @date 2020/4/7
  */
-public class LoadingDialogContent extends DialogBaseContentView
+public class LoadingDialogController implements IDialogUiController
 {
     private String mMessage;
     private ViewGroup mViewGroupRoot;
     private LoadingView mLoadingView;
     private TextView mTvMessage;
 
-    public LoadingDialogContent()
+    public LoadingDialogController()
     {
     }
 
-    public LoadingDialogContent(String message)
+    public LoadingDialogController(String message)
     {
         this.mMessage = message;
     }
@@ -78,17 +78,35 @@ public class LoadingDialogContent extends DialogBaseContentView
     }
 
     @Override
-    public int getContentViewLayoutResId()
+    public int getLayoutId()
     {
         return R.layout.dialog_loading;
     }
 
     @Override
-    public void initUIAndData(View contentView, DialogOptions options, DialogCreator creator)
+    public void onCreateView(View contentView, WingsDialog dialog)
     {
         mViewGroupRoot = contentView.findViewById(R.id.ll_loading_dialog_root);
         mLoadingView = contentView.findViewById(R.id.lv_loading_dialog);
         mTvMessage = contentView.findViewById(R.id.tv_loading_dialog);
         setMessage(mMessage);
+    }
+
+    @Override
+    public void onShow(DialogInterface dialog)
+    {
+
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog)
+    {
+
+    }
+
+    @Override
+    public void onCancel(DialogInterface dialog)
+    {
+
     }
 }

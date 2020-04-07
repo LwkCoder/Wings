@@ -5,8 +5,8 @@ import android.content.Intent;
 
 import com.lwkandroid.demo.rxhttp.bean.AccessTokenResultBean;
 import com.lwkandroid.demo.rxhttp.login.LoginActivity;
-import com.lwkandroid.lib.common.widgets.dialog.DialogCreator;
-import com.lwkandroid.lib.common.widgets.ui.CommonDialogContent;
+import com.lwkandroid.lib.common.widgets.dialog.DialogBuilder;
+import com.lwkandroid.lib.common.widgets.ui.CommonDialogController;
 import com.lwkandroid.lib.core.app.ActivityLifecycleHelper;
 import com.lwkandroid.lib.core.log.KLog;
 import com.lwkandroid.lib.core.net.bean.ApiException;
@@ -39,23 +39,24 @@ public final class AppErrorConfig
             switch (e.getCode())
             {
                 case AppErrorCode.USER_NOT_LOGIN:
-                    CommonDialogContent content = new CommonDialogContent()
+                    CommonDialogController content = new CommonDialogController()
                             .setTitle("登录失效")
                             .setContent("身份验证过期，需要重新登录以验证身份")
                             .setPositive("去登录")
                             .setNegative("退出");
-                    DialogCreator.create(content)
+                    DialogBuilder.with(content)
                             .setCanceledOnTouchOutside(false)
                             .setCancelable(false)
-                            .addOnChildClickListener(content.getPositiveButtonId(), (viewId, view, contentView, creator) -> {
-                                creator.dismiss();
+                            .build()
+                            .addOnChildClickListener(content.getPositiveButtonId(), (viewId, view, contentView, dialog) -> {
+                                dialog.dismiss();
                                 Activity tActivity = ActivityLifecycleHelper.get().getTopActivity();
                                 Intent intent = new Intent(tActivity, LoginActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 tActivity.startActivity(intent);
                             })
-                            .addOnChildClickListener(content.getNegativeButtonId(), (viewId, view, contentView, creator) -> {
-                                creator.dismiss();
+                            .addOnChildClickListener(content.getNegativeButtonId(), (viewId, view, contentView, dialog) -> {
+                                dialog.dismiss();
                                 ToastUtils.showShort("点击了退出APP");
                             })
                             .show((FragmentActivity) ActivityLifecycleHelper.get().getTopActivity());
