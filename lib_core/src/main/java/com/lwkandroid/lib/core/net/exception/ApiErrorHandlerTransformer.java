@@ -13,9 +13,11 @@ import io.reactivex.MaybeTransformer;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
+import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.SingleSource;
 import io.reactivex.SingleTransformer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 /**
  * Description:全局错误处理操作
@@ -23,14 +25,22 @@ import io.reactivex.SingleTransformer;
  * @author LWK
  * @date 2020/4/2
  */
-public class ApiErrorHandlerTransformer<T> implements ObservableTransformer<T, T>, FlowableTransformer<T, T>, SingleTransformer<T, T>,
+public class ApiErrorHandlerTransformer<T> implements ObservableTransformer<T, T>,
+        FlowableTransformer<T, T>, SingleTransformer<T, T>,
         MaybeTransformer<T, T>, CompletableTransformer
 {
+    private Scheduler mHandlerScheduler;
     private RetryConfig mRetryConfigProvider;
     private ApiErrorConsumer mErrorConsumer;
 
     public ApiErrorHandlerTransformer(RetryConfig retryConfigProvider, ApiErrorConsumer errorConsumer)
     {
+        this(AndroidSchedulers.mainThread(), retryConfigProvider, errorConsumer);
+    }
+
+    public ApiErrorHandlerTransformer(Scheduler handlerScheduler, RetryConfig retryConfigProvider, ApiErrorConsumer errorConsumer)
+    {
+        this.mHandlerScheduler = handlerScheduler;
         this.mRetryConfigProvider = retryConfigProvider;
         this.mErrorConsumer = errorConsumer;
     }
@@ -38,7 +48,9 @@ public class ApiErrorHandlerTransformer<T> implements ObservableTransformer<T, T
     @Override
     public CompletableSource apply(Completable upstream)
     {
-        return upstream.onErrorResumeNext(new ApiExceptionConvertFunc())
+        return upstream
+                .observeOn(mHandlerScheduler)
+                .onErrorResumeNext(new ApiExceptionConvertFunc())
                 .retryWhen(new ApiRetryFlowableExecutor(mRetryConfigProvider))
                 .doOnError(mErrorConsumer);
     }
@@ -46,7 +58,9 @@ public class ApiErrorHandlerTransformer<T> implements ObservableTransformer<T, T
     @Override
     public Publisher<T> apply(Flowable<T> upstream)
     {
-        return upstream.onErrorResumeNext(new ApiExceptionConvertFunc())
+        return upstream
+                .observeOn(mHandlerScheduler)
+                .onErrorResumeNext(new ApiExceptionConvertFunc())
                 .retryWhen(new ApiRetryFlowableExecutor(mRetryConfigProvider))
                 .doOnError(mErrorConsumer);
     }
@@ -54,7 +68,9 @@ public class ApiErrorHandlerTransformer<T> implements ObservableTransformer<T, T
     @Override
     public MaybeSource<T> apply(Maybe<T> upstream)
     {
-        return upstream.onErrorResumeNext(new ApiExceptionConvertFunc())
+        return upstream
+                .observeOn(mHandlerScheduler)
+                .onErrorResumeNext(new ApiExceptionConvertFunc())
                 .retryWhen(new ApiRetryFlowableExecutor(mRetryConfigProvider))
                 .doOnError(mErrorConsumer);
     }
@@ -62,7 +78,9 @@ public class ApiErrorHandlerTransformer<T> implements ObservableTransformer<T, T
     @Override
     public ObservableSource<T> apply(Observable<T> upstream)
     {
-        return upstream.onErrorResumeNext(new ApiExceptionConvertFunc())
+        return upstream
+                .observeOn(mHandlerScheduler)
+                .onErrorResumeNext(new ApiExceptionConvertFunc())
                 .retryWhen(new ApiRetryObservableExecutor(mRetryConfigProvider))
                 .doOnError(mErrorConsumer);
     }
@@ -70,7 +88,9 @@ public class ApiErrorHandlerTransformer<T> implements ObservableTransformer<T, T
     @Override
     public SingleSource<T> apply(Single<T> upstream)
     {
-        return upstream.onErrorResumeNext(new ApiExceptionConvertFunc())
+        return upstream
+                .observeOn(mHandlerScheduler)
+                .onErrorResumeNext(new ApiExceptionConvertFunc())
                 .retryWhen(new ApiRetryFlowableExecutor(mRetryConfigProvider))
                 .doOnError(mErrorConsumer);
     }

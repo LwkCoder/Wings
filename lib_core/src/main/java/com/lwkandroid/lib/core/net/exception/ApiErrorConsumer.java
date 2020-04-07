@@ -21,7 +21,7 @@ public abstract class ApiErrorConsumer implements Consumer<Throwable>
         return new ApiErrorConsumer()
         {
             @Override
-            public void onAcceptApiException(ApiException e)
+            public void onAcceptedException(ApiException e)
             {
 
             }
@@ -34,8 +34,14 @@ public abstract class ApiErrorConsumer implements Consumer<Throwable>
         ApiException e = ApiException.handleThrowable(throwable);
         String displayMessage = RxHttp.getGlobalOptions().getApiExceptionMsgParser().parserMessageByCode(e.getCode(), e.getThrowMessage());
         e.setDisplayMessage(displayMessage);
-        onAcceptApiException(e);
+        onAcceptedException(e);
     }
 
-    public abstract void onAcceptApiException(ApiException e);
+    /**
+     * 子类实现，预先处理Exception
+     * 通常用作全局处理的操作
+     *
+     * @param e
+     */
+    public abstract void onAcceptedException(ApiException e);
 }

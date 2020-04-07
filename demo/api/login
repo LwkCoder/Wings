@@ -1,0 +1,10 @@
+{
+"code":200,
+"msg":"ok",
+"data":{
+"private_token":"123456qwer",
+"private_expire":1594089070000,
+"access_token":"QWER123456",
+"access_expire":1586226670000
+}
+}

@@ -1,12 +1,11 @@
-package com.sources.javacode.project.home;
+package com.lwkandroid.demo.rxhttp.login;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.lwkandroid.demo.R;
 import com.lwkandroid.lib.common.mvp.MvpBaseActivity;
-import com.lwkandroid.lib.common.qrcode.QRCodeScanHelper;
-import com.sources.javacode.R;
 
 import androidx.annotation.Nullable;
 
@@ -16,13 +15,13 @@ import androidx.annotation.Nullable;
  * @author
  * @date
  */
-public class HomeActivity extends MvpBaseActivity<HomePresenter> implements HomeContract.IView<HomePresenter>
+public class LoginActivity extends MvpBaseActivity<LoginPresenter> implements LoginContract.IView<LoginPresenter>
 {
 
     @Override
-    protected HomePresenter createPresenter()
+    protected LoginPresenter createPresenter()
     {
-        return new HomePresenter(this, new HomeModel());
+        return new LoginPresenter(this, new LoginModel());
     }
 
 
@@ -35,14 +34,13 @@ public class HomeActivity extends MvpBaseActivity<HomePresenter> implements Home
     @Override
     protected int getContentViewId()
     {
-        return R.layout.activity_home;
+        return R.layout.activity_login;
     }
 
     @Override
     protected void initUI(View contentView)
     {
-        addClick(R.id.btn_home_test01);
-        addClick(R.id.btn_home_test02);
+        addClick(R.id.btn_login);
     }
 
     @Override
@@ -56,12 +54,24 @@ public class HomeActivity extends MvpBaseActivity<HomePresenter> implements Home
     {
         switch (id)
         {
-            case R.id.btn_home_test01:
-                QRCodeScanHelper.startScanQRCode(this, 100);
+            case R.id.btn_login:
+                getPresenter().login("111", "122");
                 break;
             default:
                 break;
         }
     }
 
+    @Override
+    public void onLoginSuccess()
+    {
+        showShortToast("登录成功");
+        finish();
+    }
+
+    @Override
+    public void onLoginFail()
+    {
+
+    }
 }

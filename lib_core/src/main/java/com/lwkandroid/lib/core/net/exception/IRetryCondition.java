@@ -3,9 +3,9 @@ package com.lwkandroid.lib.core.net.exception;
 import io.reactivex.Single;
 
 /**
- * Description:
+ * Description:定义需要重试的条件的接口
  *
- * @author 20180004
+ * @author LWK
  * @date 2020/4/2
  */
 public interface IRetryCondition

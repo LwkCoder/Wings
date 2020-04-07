@@ -5,11 +5,9 @@ import android.os.Build;
 
 import com.lwkandroid.lib.core.log.KLog;
 import com.lwkandroid.lib.core.net.RxHttp;
-import com.lwkandroid.lib.core.net.exception.RetryConfig;
 import com.lwkandroid.lib.core.utils.AppUtils;
 import com.sources.javacode.BuildConfig;
 import com.sources.javacode.net.ApiURL;
-import com.sources.javacode.net.AppErrorHandlerConfig;
 
 /**
  * Application入口
@@ -30,8 +28,6 @@ public class AppApplication extends Application
 
         //初始化网络请求库
         RxHttp.init(BuildConfig.DEBUG, ApiURL.HOST);
-        RxHttp.getGlobalOptions().setApiErrorConsumer(AppErrorHandlerConfig.ERROR_CONSUMER);
-        RxHttp.getGlobalOptions().setRetryConfig(new RetryConfig(3, 1000, AppErrorHandlerConfig.RETRY_CONDITION));
 
         if (BuildConfig.DEBUG)
         {

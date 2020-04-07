@@ -11,7 +11,7 @@ import io.reactivex.functions.Function;
  *
  * @author LWK
  */
-public class ApiExceptionConvertFunc<T> implements Function<Throwable, ObservableSource<T>>
+public final class ApiExceptionConvertFunc<T> implements Function<Throwable, ObservableSource<T>>
 {
     @Override
     public ObservableSource<T> apply(Throwable throwable) throws Exception

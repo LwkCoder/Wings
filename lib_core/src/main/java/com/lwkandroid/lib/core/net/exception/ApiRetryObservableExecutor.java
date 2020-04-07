@@ -10,12 +10,12 @@ import io.reactivex.Single;
 import io.reactivex.functions.Function;
 
 /**
- * Description:
+ * Description:适用于Observable的重试操作
  *
- * @author 20180004
+ * @author LWK
  * @date 2020/4/2
  */
-public class ApiRetryObservableExecutor implements Function<Observable<? extends Throwable>, Observable<?>>
+public final class ApiRetryObservableExecutor implements Function<Observable<? extends Throwable>, Observable<?>>
 {
     private RetryConfig mRetryConfigProvider;
     private int mCurrentRetryCount = 0;

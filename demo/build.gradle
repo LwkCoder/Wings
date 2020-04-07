@@ -1,0 +1,103 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.getkeepsafe.dexcount'
+apply plugin: "com.blankj.bus"
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+def appConfig = rootProject.ext.appConfig
+
+def keystorePropertiesFile = rootProject.file("key/keystore.properties")
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
+def formatDate() {
+    return new Date().format("yyyyMMdd", TimeZone.getTimeZone("UTC"))
+}
+
+bus {
+    busUtilsClass "com.lwkandroid.lib.core.utils.BusUtils"
+}
+android {
+    compileSdkVersion appConfig.compileSdkVersion
+
+    defaultConfig {
+        applicationId "com.lwkandroid.demo"
+        minSdkVersion appConfig.minSdkVersion
+        targetSdkVersion appConfig.targetSdkVersion
+        versionCode appConfig.versionCode
+        versionName appConfig.versionName
+        flavorDimensions appConfig.versionName
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath true
+            }
+        }
+
+        ndk {
+            //选择要添加的对应cpu类型的.so库。
+            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a', 'mips', 'mip64', 'x86', 'x86_64'
+        }
+    }
+
+    signingConfigs {
+        debug {
+            keyAlias keystoreProperties.keyAlias
+            keyPassword keystoreProperties.keyPassword
+            storeFile rootProject.file(keystoreProperties.storeFile)
+            storePassword keystoreProperties.storePassword
+        }
+        release {
+            keyAlias keystoreProperties.keyAlias
+            keyPassword keystoreProperties.keyPassword
+            storeFile rootProject.file(keystoreProperties.storeFile)
+            storePassword keystoreProperties.storePassword
+        }
+    }
+
+    productFlavors {
+        normal {
+            manifestPlaceholders = [CHANNEL_NAME: "default"]
+            buildConfigField("String", "APP_CHANNEL", "\"default\"")
+        }
+    }
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "app_v${appConfig.versionName}_${formatDate()}_${variant.productFlavors[0].name}.apk"
+        }
+    }
+
+    sourceSets {
+        main {
+            assets.srcDirs = ['src/main/assets', 'src/main/assets/']
+            jniLibs.srcDirs('libs')
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
+    }
+
+    lintOptions {
+        abortOnError false
+        disable 'GoogleAppIndexingWarning'
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "androidx.core:core-ktx:$KotlinCoreVersion"
+    implementation project(':lib_common')
+    annotationProcessor "com.github.bumptech.glide:compiler:$GlideVersion"
+
+    testImplementation "junit:junit:$JunitVersion"
+    androidTestImplementation "androidx.test.ext:junit:$AndroidXJunitVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$AndroidXEspressoCoreVersion"
+}
