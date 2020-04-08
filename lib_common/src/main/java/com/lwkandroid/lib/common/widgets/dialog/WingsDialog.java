@@ -36,7 +36,11 @@ public final class WingsDialog extends DialogFragment implements DialogInterface
     private IDialogUiController mUiController;
     private SparseArray<OnDialogChildClickListener> mChildClickArray = new SparseArray<>();
 
-    public static WingsDialog create(DialogConfig dialogConfig)
+    private WingsDialog()
+    {
+    }
+
+    static WingsDialog create(DialogConfig dialogConfig)
     {
         Bundle bundle = new Bundle();
         bundle.putParcelable(BUNDLE_KEY, dialogConfig);
