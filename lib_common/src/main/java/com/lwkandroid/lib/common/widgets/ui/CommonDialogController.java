@@ -1,13 +1,17 @@
 package com.lwkandroid.lib.common.widgets.ui;
 
 import android.content.DialogInterface;
-import android.view.View;
+import android.view.ViewGroup;
 
 import com.lwkandroid.lib.common.R;
 import com.lwkandroid.lib.common.widgets.dialog.IDialogUiController;
 import com.lwkandroid.lib.common.widgets.dialog.WingsDialog;
 import com.lwkandroid.lib.common.widgets.view.RTextView;
 import com.lwkandroid.lib.core.utils.ResourceUtils;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleOwner;
 
 /**
  * Description:通用Dialog样式控制层
@@ -81,12 +85,12 @@ public class CommonDialogController implements IDialogUiController
     }
 
     @Override
-    public void onCreateView(View contentView, WingsDialog dialog)
+    public void onCreateView(ViewGroup parentView, WingsDialog dialog)
     {
-        mTvTitle = contentView.findViewById(R.id.tv_dialog_template_title);
-        mTvContent = contentView.findViewById(R.id.tv_dialog_template_content);
-        mTvPositive = contentView.findViewById(R.id.tv_dialog_template_positive);
-        mTvNegative = contentView.findViewById(R.id.tv_dialog_template_negative);
+        mTvTitle = parentView.findViewById(R.id.tv_dialog_template_title);
+        mTvContent = parentView.findViewById(R.id.tv_dialog_template_content);
+        mTvPositive = parentView.findViewById(R.id.tv_dialog_template_positive);
+        mTvNegative = parentView.findViewById(R.id.tv_dialog_template_negative);
 
         mTvTitle.setText(mTitle);
         mTvContent.setText(mContent);
@@ -120,5 +124,11 @@ public class CommonDialogController implements IDialogUiController
     public int getNegativeButtonId()
     {
         return R.id.tv_dialog_template_negative;
+    }
+
+    @Override
+    public void onStateChanged(@NonNull LifecycleOwner source, @NonNull Lifecycle.Event event)
+    {
+
     }
 }

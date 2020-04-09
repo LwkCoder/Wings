@@ -4,8 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.lwkandroid.demo.pop.PopActivity;
 import com.lwkandroid.demo.rxhttp.RxHttpActivity;
 import com.lwkandroid.lib.common.mvp.MvpBaseActivity;
+import com.lwkandroid.lib.core.log.KLog;
+import com.lwkandroid.lib.core.utils.encode.EncodeUtils;
 
 import androidx.annotation.Nullable;
 
@@ -41,12 +44,14 @@ public class MainActivity extends MvpBaseActivity<MainPresenter> implements Main
     protected void initUI(View contentView)
     {
         addClick(R.id.btn_main_01);
+        addClick(R.id.btn_main_02);
     }
 
     @Override
     protected void initData(@Nullable Bundle savedInstanceState)
     {
-
+        String s = "哈哈HHhh123!@#...。。。";
+        KLog.e("--->" + EncodeUtils.hex().encode(s, "-"));
     }
 
     @Override
@@ -57,9 +62,11 @@ public class MainActivity extends MvpBaseActivity<MainPresenter> implements Main
             case R.id.btn_main_01:
                 startActivity(new Intent(MainActivity.this, RxHttpActivity.class));
                 break;
+            case R.id.btn_main_02:
+                startActivity(new Intent(MainActivity.this, PopActivity.class));
+                break;
             default:
                 break;
         }
     }
-
 }

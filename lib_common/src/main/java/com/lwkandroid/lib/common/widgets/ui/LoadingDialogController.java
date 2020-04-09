@@ -11,7 +11,10 @@ import com.lwkandroid.lib.common.widgets.dialog.WingsDialog;
 import com.lwkandroid.lib.core.utils.ResourceUtils;
 import com.lwkandroid.lib.core.utils.StringUtils;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleOwner;
 
 /**
  * Description:Loading弹窗控制层
@@ -84,11 +87,11 @@ public class LoadingDialogController implements IDialogUiController
     }
 
     @Override
-    public void onCreateView(View contentView, WingsDialog dialog)
+    public void onCreateView(ViewGroup parentView, WingsDialog dialog)
     {
-        mViewGroupRoot = contentView.findViewById(R.id.ll_loading_dialog_root);
-        mLoadingView = contentView.findViewById(R.id.lv_loading_dialog);
-        mTvMessage = contentView.findViewById(R.id.tv_loading_dialog);
+        mViewGroupRoot = parentView.findViewById(R.id.ll_loading_dialog_root);
+        mLoadingView = parentView.findViewById(R.id.lv_loading_dialog);
+        mTvMessage = parentView.findViewById(R.id.tv_loading_dialog);
         setMessage(mMessage);
     }
 
@@ -106,6 +109,12 @@ public class LoadingDialogController implements IDialogUiController
 
     @Override
     public void onCancel(DialogInterface dialog)
+    {
+
+    }
+
+    @Override
+    public void onStateChanged(@NonNull LifecycleOwner source, @NonNull Lifecycle.Event event)
     {
 
     }

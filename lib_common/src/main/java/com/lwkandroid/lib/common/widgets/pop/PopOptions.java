@@ -5,6 +5,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupWindow;
 
+import com.lwkandroid.lib.common.widgets.pop2.XGravity;
+import com.lwkandroid.lib.common.widgets.pop2.YGravity;
+
 import androidx.annotation.StyleRes;
 
 /**

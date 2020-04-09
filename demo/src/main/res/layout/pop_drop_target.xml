@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.lwkandroid.lib.common.widgets.view.RTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/NormalTextStyle"
+    android:background="@color/gray_darker"
+    android:layout_width="120dp"
+    android:gravity="center"
+    android:padding="@dimen/spacing_normal"
+    android:text="我是POP">
+
+</com.lwkandroid.lib.common.widgets.view.RTextView>

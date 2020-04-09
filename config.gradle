@@ -32,7 +32,7 @@ ext {
     AnnotationXVersion = "1.1.0"
     RecyclerViewXVersion = "1.1.0"
     SwipeRefreshXVersion = "1.1.0-beta01"
-    ImagePickerVersion = "1.4.4"
+    ImagePickerVersion = "1.4.5"
     AndPermissionVersion = "2.0.3"
     RcvAdapterVersion = "1.4.3"
     OkHttp3Version = "4.2.2"

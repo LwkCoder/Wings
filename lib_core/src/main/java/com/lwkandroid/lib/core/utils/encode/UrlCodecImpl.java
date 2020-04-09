@@ -12,6 +12,7 @@ import java.net.URLDecoder;
 public final class UrlCodecImpl implements IUrlCodec
 {
     private static final String UTF8_STRING = "UTF-8";
+    private static final String EMPTY_STRING = "";
 
     @Override
     public String encode(String data)
@@ -24,7 +25,7 @@ public final class UrlCodecImpl implements IUrlCodec
     {
         if (data == null || data.length() == 0)
         {
-            return "";
+            return EMPTY_STRING;
         }
         try
         {
@@ -46,7 +47,7 @@ public final class UrlCodecImpl implements IUrlCodec
     {
         if (data == null || data.length() == 0)
         {
-            return "";
+            return EMPTY_STRING;
         }
         try
         {

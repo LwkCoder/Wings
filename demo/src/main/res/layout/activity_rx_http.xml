@@ -26,32 +26,22 @@
 
             <com.lwkandroid.lib.common.widgets.view.RTextView
                 android:id="@+id/btn_rxhttp_01"
-                style="@style/NormalTextStyle"
+                style="@style/NormalButtonStyle"
                 android:layout_width="match_parent"
-                android:gravity="center"
-                android:padding="@dimen/spacing_small"
                 android:text="模拟未登录情况下的请求"
+                app:background_normal="@color/white"
                 app:border_color_normal="@color/actionbar"
-                app:border_width_normal="1dp"
-                app:corner_radius="@dimen/spacing_small"
-                app:ripple="true"
-                app:ripple_color="@color/gray_lighter"
-                app:text_color_normal="@color/actionbar" />
+                app:border_width_normal="1dp" />
 
             <com.lwkandroid.lib.common.widgets.view.RTextView
                 android:id="@+id/btn_rxhttp_02"
-                style="@style/NormalTextStyle"
+                style="@style/NormalButtonStyle"
                 android:layout_width="match_parent"
-                android:gravity="center"
-                android:padding="@dimen/spacing_small"
-                android:text="模拟自动刷新AccessToken"
-                app:border_color_normal="@color/actionbar"
-                app:border_width_normal="1dp"
                 android:layout_marginTop="@dimen/spacing_normal"
-                app:corner_radius="@dimen/spacing_small"
-                app:ripple="true"
-                app:ripple_color="@color/gray_lighter"
-                app:text_color_normal="@color/actionbar" />
+                android:text="模拟自动刷新AccessToken"
+                app:background_normal="@color/white"
+                app:border_color_normal="@color/actionbar"
+                app:border_width_normal="1dp" />
         </LinearLayout>
 
     </ScrollView>

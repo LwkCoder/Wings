@@ -3,6 +3,9 @@ package com.lwkandroid.lib.common.widgets.pop;
 import android.view.View;
 import android.widget.PopupWindow;
 
+import com.lwkandroid.lib.common.widgets.pop2.XGravity;
+import com.lwkandroid.lib.common.widgets.pop2.YGravity;
+
 /**
  * Created by LWK
  * 定义PopCreator外部可调方法的接口

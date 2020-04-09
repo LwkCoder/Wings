@@ -38,6 +38,72 @@
         <item name="android:textSize">@dimen/text_size_huge</item>
     </style>
 
+    <!--微小文本按钮风格-->
+    <style name="TinyButtonStyle" parent="TinyTextStyle">
+        <item name="corner_radius">@dimen/spacing_tiny</item>
+        <item name="android:padding">@dimen/spacing_small</item>
+        <item name="android:gravity">center</item>
+        <item name="ripple">true</item>
+        <item name="ripple_color">@color/gray_lighter</item>
+        <item name="text_color_normal">@color/text_black_normal</item>
+        <item name="background_normal">@color/gray_darker</item>
+    </style>
+
+    <!--小文本按钮风格-->
+    <style name="SmallButtonStyle" parent="SmallTextStyle">
+        <item name="corner_radius">@dimen/spacing_tiny</item>
+        <item name="android:padding">@dimen/spacing_small</item>
+        <item name="android:gravity">center</item>
+        <item name="ripple">true</item>
+        <item name="ripple_color">@color/gray_lighter</item>
+        <item name="text_color_normal">@color/text_black_normal</item>
+        <item name="background_normal">@color/gray_darker</item>
+    </style>
+
+    <!--中等文本风格-->
+    <style name="MediumButtonStyle" parent="MediumTextStyle">
+        <item name="corner_radius">@dimen/spacing_tiny</item>
+        <item name="android:padding">@dimen/spacing_small</item>
+        <item name="android:gravity">center</item>
+        <item name="ripple">true</item>
+        <item name="ripple_color">@color/gray_lighter</item>
+        <item name="text_color_normal">@color/text_black_normal</item>
+        <item name="background_normal">@color/gray_darker</item>
+    </style>
+
+    <!--正常文本风格-->
+    <style name="NormalButtonStyle" parent="NormalTextStyle">
+        <item name="corner_radius">@dimen/spacing_tiny</item>
+        <item name="android:padding">@dimen/spacing_small</item>
+        <item name="android:gravity">center</item>
+        <item name="ripple">true</item>
+        <item name="ripple_color">@color/gray_lighter</item>
+        <item name="text_color_normal">@color/text_black_normal</item>
+        <item name="background_normal">@color/gray_darker</item>
+    </style>
+
+    <!--大文本风格-->
+    <style name="LargeButtonStyle" parent="LargeTextStyle">
+        <item name="corner_radius">@dimen/spacing_tiny</item>
+        <item name="android:padding">@dimen/spacing_small</item>
+        <item name="android:gravity">center</item>
+        <item name="ripple">true</item>
+        <item name="ripple_color">@color/gray_lighter</item>
+        <item name="text_color_normal">@color/text_black_normal</item>
+        <item name="background_normal">@color/gray_darker</item>
+    </style>
+
+    <!--超大文本风格-->
+    <style name="HugeButtonStyle" parent="HugeTextStyle">
+        <item name="corner_radius">@dimen/spacing_tiny</item>
+        <item name="android:padding">@dimen/spacing_small</item>
+        <item name="android:gravity">center</item>
+        <item name="ripple">true</item>
+        <item name="ripple_color">@color/gray_lighter</item>
+        <item name="text_color_normal">@color/text_black_normal</item>
+        <item name="background_normal">@color/gray_darker</item>
+    </style>
+
     <!--水平线条-->
     <style name="VerticalLine">
         <item name="android:layout_width">match_parent</item>

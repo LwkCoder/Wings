@@ -18,15 +18,14 @@ import com.lwkandroid.lib.core.context.AppContext;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ConcurrentHashMap;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.Lifecycle;
 
 /**
  * Description:Activity生命周期帮助类
@@ -50,21 +49,9 @@ public final class ActivityLifecycleHelper implements Application.ActivityLifecy
         static final ActivityLifecycleHelper INSTANCE = new ActivityLifecycleHelper();
     }
 
-    public interface OnAppStatusChangedListener
-    {
-        void onForeground(Activity activity);
-
-        void onBackground(Activity activity);
-    }
-
-    public interface OnActivityDestroyedListener
-    {
-        void onActivityDestroyed(Activity activity);
-    }
-
     private final LinkedList<Activity> mActivityList = new LinkedList<>();
     private final List<OnAppStatusChangedListener> mStatusListeners = new ArrayList<>();
-    private final Map<Activity, List<OnActivityDestroyedListener>> mDestroyedListenerMap = new HashMap<>();
+    private final Map<Activity, List<OnActivityLifecycleListener>> mActivityLifecycleListenersMap = new ConcurrentHashMap<>();
     private int mForegroundCount = 0;
     private int mConfigCount = 0;
     private boolean mIsBackground = false;
@@ -104,58 +91,44 @@ public final class ActivityLifecycleHelper implements Application.ActivityLifecy
         mStatusListeners.remove(listener);
     }
 
-    public void removeOnActivityDestroyedListener(final Activity activity)
+    public void addActivityLifecycleListener(final Activity activity,
+                                             final OnActivityLifecycleListener listener)
+    {
+        if (activity == null || listener == null)
+        {
+            return;
+        }
+        runOnUiThread(() -> addActivityLifecycleListenerInner(activity, listener));
+    }
+
+    public void removeActivityLifecycleCallbacks(final Activity activity)
     {
         if (activity == null)
         {
             return;
         }
-        mDestroyedListenerMap.remove(activity);
+        runOnUiThread(() -> mActivityLifecycleListenersMap.remove(activity));
     }
 
-    public void removeOnActivityDestroyedListener(final Activity activity, final OnActivityDestroyedListener listener)
+    public void removeActivityLifecycleCallbacks(final Activity activity,
+                                                 final OnActivityLifecycleListener callbacks)
     {
-        if (activity == null || listener == null)
+        if (activity == null || callbacks == null)
         {
             return;
         }
-        List<OnActivityDestroyedListener> listeners = mDestroyedListenerMap.get(activity);
-        if (listeners == null)
-        {
-            return;
-        } else
-        {
-            listeners.remove(listener);
-        }
+        runOnUiThread(() -> removeActivityLifecycleListenerInner(activity, callbacks));
     }
 
-    public void addOnActivityDestroyedListener(final Activity activity,
-                                               final OnActivityDestroyedListener listener)
-    {
-        if (activity == null || listener == null)
-        {
-            return;
-        }
-        List<OnActivityDestroyedListener> listeners = mDestroyedListenerMap.get(activity);
-        if (listeners == null)
-        {
-            listeners = new CopyOnWriteArrayList<>();
-            mDestroyedListenerMap.put(activity, listeners);
-        } else
-        {
-            if (listeners.contains(listener))
-            {
-                return;
-            }
-        }
-        listeners.add(listener);
-    }
-
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////    以下是重写方法   /////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @Override
     public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState)
     {
         setTopActivity(activity);
+        invokeActivityLifecycleListener(activity, Lifecycle.Event.ON_CREATE);
     }
 
     @Override
@@ -172,6 +145,7 @@ public final class ActivityLifecycleHelper implements Application.ActivityLifecy
         {
             ++mForegroundCount;
         }
+        invokeActivityLifecycleListener(activity, Lifecycle.Event.ON_START);
     }
 
     @Override
@@ -184,12 +158,13 @@ public final class ActivityLifecycleHelper implements Application.ActivityLifecy
             postStatus(activity, true);
         }
         processHideSoftInputOnActivityDestroy(activity, false);
+        invokeActivityLifecycleListener(activity, Lifecycle.Event.ON_RESUME);
     }
 
     @Override
     public void onActivityPaused(@NonNull Activity activity)
     {
-
+        invokeActivityLifecycleListener(activity, Lifecycle.Event.ON_PAUSE);
     }
 
     @Override
@@ -208,6 +183,7 @@ public final class ActivityLifecycleHelper implements Application.ActivityLifecy
             }
         }
         processHideSoftInputOnActivityDestroy(activity, true);
+        invokeActivityLifecycleListener(activity, Lifecycle.Event.ON_STOP);
     }
 
     @Override
@@ -220,8 +196,75 @@ public final class ActivityLifecycleHelper implements Application.ActivityLifecy
     public void onActivityDestroyed(@NonNull Activity activity)
     {
         mActivityList.remove(activity);
-        consumeOnActivityDestroyedListener(activity);
         fixSoftInputLeaks(activity.getWindow());
+        invokeActivityLifecycleListener(activity, Lifecycle.Event.ON_DESTROY);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////    以下是私有方法   /////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    private void addActivityLifecycleListenerInner(final Activity activity,
+                                                   final OnActivityLifecycleListener listener)
+    {
+        List<OnActivityLifecycleListener> listeners = mActivityLifecycleListenersMap.get(activity);
+        if (listeners == null)
+        {
+            listeners = new ArrayList<>();
+            mActivityLifecycleListenersMap.put(activity, listeners);
+        } else
+        {
+            if (listeners.contains(listener))
+            {
+                return;
+            }
+        }
+        listeners.add(listener);
+    }
+
+    private void removeActivityLifecycleListenerInner(final Activity activity,
+                                                      final OnActivityLifecycleListener listener)
+    {
+        List<OnActivityLifecycleListener> listeners = mActivityLifecycleListenersMap.get(activity);
+        if (listeners != null && !listeners.isEmpty())
+        {
+            listeners.remove(listener);
+        }
+    }
+
+    private void invokeActivityLifecycleListener(Activity activity, Lifecycle.Event event)
+    {
+        List<OnActivityLifecycleListener> listeners = mActivityLifecycleListenersMap.get(activity);
+        if (listeners != null)
+        {
+            for (OnActivityLifecycleListener listener : listeners)
+            {
+                listener.onLifecycleChanged(activity, event);
+                if (event.equals(Lifecycle.Event.ON_CREATE))
+                {
+                    listener.onActivityCreated(activity);
+                } else if (event.equals(Lifecycle.Event.ON_START))
+                {
+                    listener.onActivityStarted(activity);
+                } else if (event.equals(Lifecycle.Event.ON_RESUME))
+                {
+                    listener.onActivityResumed(activity);
+                } else if (event.equals(Lifecycle.Event.ON_PAUSE))
+                {
+                    listener.onActivityPaused(activity);
+                } else if (event.equals(Lifecycle.Event.ON_STOP))
+                {
+                    listener.onActivityStopped(activity);
+                } else if (event.equals(Lifecycle.Event.ON_DESTROY))
+                {
+                    listener.onActivityDestroyed(activity);
+                }
+            }
+            if (event.equals(Lifecycle.Event.ON_DESTROY))
+            {
+                mActivityLifecycleListenersMap.remove(activity);
+            }
+        }
     }
 
     private void setTopActivity(final Activity activity)
@@ -282,28 +325,20 @@ public final class ActivityLifecycleHelper implements Application.ActivityLifecy
         }
     }
 
-    private void consumeOnActivityDestroyedListener(Activity activity)
-    {
-        Iterator<Map.Entry<Activity, List<OnActivityDestroyedListener>>> iterator
-                = mDestroyedListenerMap.entrySet().iterator();
-        while (iterator.hasNext())
-        {
-            Map.Entry<Activity, List<OnActivityDestroyedListener>> entry = iterator.next();
-            if (entry.getKey() == activity)
-            {
-                List<OnActivityDestroyedListener> value = entry.getValue();
-                for (OnActivityDestroyedListener listener : value)
-                {
-                    listener.onActivityDestroyed(activity);
-                }
-                iterator.remove();
-            }
-        }
-    }
-
     private void runOnUiThreadDelayed(Runnable runnable, long millSeconds)
     {
         mHandler.postDelayed(runnable, millSeconds);
+    }
+
+    private void runOnUiThread(Runnable runnable)
+    {
+        if (Looper.myLooper() == Looper.getMainLooper())
+        {
+            runnable.run();
+        } else
+        {
+            mHandler.post(runnable);
+        }
     }
 
     private void fixSoftInputLeaks(final Window window)

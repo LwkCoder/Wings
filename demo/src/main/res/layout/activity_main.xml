@@ -25,16 +25,22 @@
 
             <com.lwkandroid.lib.common.widgets.view.RTextView
                 android:id="@+id/btn_main_01"
-                style="@style/NormalTextStyle"
+                style="@style/NormalButtonStyle"
                 android:layout_width="match_parent"
-                android:gravity="center"
-                android:padding="@dimen/spacing_small"
                 android:text="网络请求示例"
+                app:background_normal="@color/white"
                 app:border_color_normal="@color/actionbar"
-                app:border_width_normal="1dp"
-                app:corner_radius="@dimen/spacing_small"
-                app:ripple="true"
-                app:ripple_color="@color/gray_lighter" />
+                app:border_width_normal="1dp" />
+
+            <com.lwkandroid.lib.common.widgets.view.RTextView
+                android:id="@+id/btn_main_02"
+                style="@style/NormalButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/spacing_normal"
+                android:text="PopupWindow工具示例"
+                app:background_normal="@color/white"
+                app:border_color_normal="@color/actionbar"
+                app:border_width_normal="1dp" />
 
         </LinearLayout>
 

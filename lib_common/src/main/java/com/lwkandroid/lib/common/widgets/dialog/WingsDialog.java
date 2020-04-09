@@ -116,7 +116,7 @@ public final class WingsDialog extends DialogFragment implements DialogInterface
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
-        if (mUiController == null || mUiController.getLayoutId() == -1)
+        if (mUiController == null)
         {
             throw new IllegalArgumentException("You must to set a IDialogUiController with nonNull layout resource for WingsDialog !");
         }
@@ -180,6 +180,10 @@ public final class WingsDialog extends DialogFragment implements DialogInterface
     public void onDestroy()
     {
         super.onDestroy();
+        if (getDialog() != null && getDialog().isShowing())
+        {
+            dismiss();
+        }
         if (mUiController != null)
         {
             getLifecycle().removeObserver(mUiController);

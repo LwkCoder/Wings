@@ -2,6 +2,9 @@ package com.lwkandroid.lib.common.widgets.pop;
 
 import android.view.View;
 
+import com.lwkandroid.lib.common.widgets.pop2.XGravity;
+import com.lwkandroid.lib.common.widgets.pop2.YGravity;
+
 /**
  * 设置给配置参数调用PopupWindow显示方式的接口
  *

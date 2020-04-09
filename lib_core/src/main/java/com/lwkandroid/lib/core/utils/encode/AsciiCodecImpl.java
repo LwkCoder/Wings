@@ -9,6 +9,7 @@ package com.lwkandroid.lib.core.utils.encode;
 public final class AsciiCodecImpl implements IAsciiCodec
 {
     private static final String SPLIT_CHAR = " ";
+    private static final String EMPTY_STRING = "";
 
     @Override
     public String encode(String data)
@@ -21,7 +22,7 @@ public final class AsciiCodecImpl implements IAsciiCodec
     {
         if (data == null || data.length() == 0)
         {
-            return "";
+            return EMPTY_STRING;
         }
         StringBuilder builder = new StringBuilder();
         for (int i = 0, length = data.length(); i < length; i++)
@@ -45,7 +46,7 @@ public final class AsciiCodecImpl implements IAsciiCodec
     {
         if (asciiString == null || asciiString.length() == 0)
         {
-            return "";
+            return EMPTY_STRING;
         }
         StringBuilder builder = new StringBuilder();
         String[] valueChars = asciiString.split(splitChar);

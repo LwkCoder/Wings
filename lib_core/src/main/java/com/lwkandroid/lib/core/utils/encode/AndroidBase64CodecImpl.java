@@ -3,6 +3,7 @@ package com.lwkandroid.lib.core.utils.encode;
 import android.util.Base64;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Description: Android上Base64编解码方法实现类
@@ -12,7 +13,7 @@ import java.nio.charset.Charset;
  */
 public final class AndroidBase64CodecImpl implements IBase64Codec
 {
-    private static final Charset UTF8 = Charset.forName("UTF-8");
+    private static final Charset UTF8 = StandardCharsets.UTF_8;
 
     @Override
     public byte[] encode(byte[] data)

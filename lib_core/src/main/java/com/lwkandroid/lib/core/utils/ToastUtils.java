@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lwkandroid.lib.core.app.ActivityLifecycleHelper;
+import com.lwkandroid.lib.core.app.OnActivityLifecycleListener;
 import com.lwkandroid.lib.core.context.AppContext;
 
 import java.lang.reflect.Field;
@@ -31,6 +32,7 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.core.app.NotificationManagerCompat;
 
@@ -289,7 +291,7 @@ public final class ToastUtils
         try
         {
             CharSequence text = ResourceUtils.getString(resId);
-            if (args != null)
+            if (args != null && args.length > 0)
             {
                 text = String.format(text.toString(), args);
             }
@@ -308,7 +310,7 @@ public final class ToastUtils
             text = NULL;
         } else
         {
-            if (args != null)
+            if (args != null && args.length > 0)
             {
                 text = String.format(format, args);
             }
@@ -526,22 +528,6 @@ public final class ToastUtils
 
         private WindowManager.LayoutParams mParams = new WindowManager.LayoutParams();
 
-        private static final ActivityLifecycleHelper.OnActivityDestroyedListener LISTENER =
-                new ActivityLifecycleHelper.OnActivityDestroyedListener()
-                {
-                    @Override
-                    public void onActivityDestroyed(Activity activity)
-                    {
-                        if (iToast == null)
-                        {
-                            return;
-                        }
-                        activity.getWindow().getDecorView().setVisibility(View.GONE);
-                        iToast.cancel();
-                        ActivityLifecycleHelper.get().removeOnActivityDestroyedListener(activity, LISTENER);
-                    }
-                };
-
         ToastWithoutNotification(Toast toast)
         {
             super(toast);
@@ -585,7 +571,7 @@ public final class ToastUtils
                 }
                 mWM = topActivity.getWindowManager();
                 mParams.type = WindowManager.LayoutParams.LAST_APPLICATION_WINDOW;
-                ActivityLifecycleHelper.get().addOnActivityDestroyedListener(topActivity, LISTENER);
+                ActivityLifecycleHelper.get().addActivityLifecycleListener(topActivity, getActivityLifecycleCallbacks());
             }
 
             mParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
@@ -623,6 +609,23 @@ public final class ToastUtils
             {/**/}
 
             runOnUiThreadDelayed(() -> cancel(), mToast.getDuration() == Toast.LENGTH_SHORT ? 2000 : 3500);
+        }
+
+        private OnActivityLifecycleListener getActivityLifecycleCallbacks()
+        {
+            return new OnActivityLifecycleListener()
+            {
+                @Override
+                public void onActivityDestroyed(@NonNull Activity activity)
+                {
+                    if (iToast == null)
+                    {
+                        return;
+                    }
+                    activity.getWindow().getDecorView().setVisibility(View.GONE);
+                    iToast.cancel();
+                }
+            };
         }
 
         @Override

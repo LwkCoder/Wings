@@ -9,6 +9,7 @@ package com.lwkandroid.lib.core.utils.encode;
 public final class BinCodecImpl implements IBinCodec
 {
     private static final String SPLIT_CHAR = " ";
+    private static final String EMPTY_STRING = "";
 
     @Override
     public String encode(String data)
@@ -21,7 +22,7 @@ public final class BinCodecImpl implements IBinCodec
     {
         if (data == null || data.length() == 0)
         {
-            return "";
+            return EMPTY_STRING;
         }
 
         char[] chars = data.toCharArray();
@@ -48,7 +49,7 @@ public final class BinCodecImpl implements IBinCodec
     {
         if (data == null || data.length() == 0)
         {
-            return "";
+            return EMPTY_STRING;
         }
 
         String[] chars = data.split(splitChar);

@@ -16,6 +16,8 @@ import android.view.animation.LinearInterpolator;
 import android.widget.PopupWindow;
 
 
+import com.lwkandroid.lib.common.widgets.pop2.XGravity;
+import com.lwkandroid.lib.common.widgets.pop2.YGravity;
 import com.lwkandroid.lib.core.context.AppContext;
 
 import java.lang.ref.WeakReference;

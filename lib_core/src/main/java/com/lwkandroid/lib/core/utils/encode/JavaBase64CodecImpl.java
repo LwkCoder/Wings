@@ -1,6 +1,7 @@
 package com.lwkandroid.lib.core.utils.encode;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
 import androidx.annotation.RequiresApi;
@@ -16,7 +17,7 @@ import static android.os.Build.VERSION_CODES.O;
 @RequiresApi(O)
 public final class JavaBase64CodecImpl implements IBase64Codec
 {
-    private static final Charset UTF8 = Charset.forName("UTF-8");
+    private static final Charset UTF8 = StandardCharsets.UTF_8;
 
     @Override
     public byte[] encode(byte[] data)

@@ -16,7 +16,7 @@ import androidx.annotation.StyleRes;
  * @author LWK
  * @date 2020/4/7
  */
-public final class DialogConfig implements Parcelable
+final class DialogConfig implements Parcelable
 {
     private int mLayoutWidth = ViewGroup.LayoutParams.WRAP_CONTENT;
     private int mLayoutHeight = ViewGroup.LayoutParams.WRAP_CONTENT;

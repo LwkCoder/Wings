@@ -1,10 +1,10 @@
 package com.lwkandroid.lib.common.widgets.dialog;
 
 import android.content.DialogInterface;
-import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.LayoutRes;
-import androidx.lifecycle.LifecycleObserver;
+import androidx.lifecycle.LifecycleEventObserver;
 
 /**
  * Description:定义Dialog UI层的操作接口
@@ -12,12 +12,12 @@ import androidx.lifecycle.LifecycleObserver;
  * @author LWK
  * @date 2020/4/7
  */
-public interface IDialogUiController extends LifecycleObserver
+public interface IDialogUiController extends LifecycleEventObserver
 {
     @LayoutRes
     int getLayoutId();
 
-    void onCreateView(View contentView, WingsDialog dialog);
+    void onCreateView(ViewGroup parentView, WingsDialog dialog);
 
     void onShow(DialogInterface dialog);
 
