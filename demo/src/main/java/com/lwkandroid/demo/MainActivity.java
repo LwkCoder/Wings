@@ -7,8 +7,6 @@ import android.view.View;
 import com.lwkandroid.demo.pop.PopActivity;
 import com.lwkandroid.demo.rxhttp.RxHttpActivity;
 import com.lwkandroid.lib.common.mvp.MvpBaseActivity;
-import com.lwkandroid.lib.core.log.KLog;
-import com.lwkandroid.lib.core.utils.encode.EncodeUtils;
 
 import androidx.annotation.Nullable;
 
@@ -50,8 +48,6 @@ public class MainActivity extends MvpBaseActivity<MainPresenter> implements Main
     @Override
     protected void initData(@Nullable Bundle savedInstanceState)
     {
-        String s = "哈哈HHhh123!@#...。。。";
-        KLog.e("--->" + EncodeUtils.hex().encode(s, "-"));
     }
 
     @Override

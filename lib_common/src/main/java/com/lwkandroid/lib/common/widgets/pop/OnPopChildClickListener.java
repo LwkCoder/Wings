@@ -1,6 +1,7 @@
 package com.lwkandroid.lib.common.widgets.pop;
 
 import android.view.View;
+import android.view.ViewGroup;
 
 /**
  * Description:Pop子控件点击事件
@@ -10,5 +11,5 @@ import android.view.View;
  */
 public interface OnPopChildClickListener
 {
-    void onPopChildClicked(int viewId, View view, View contentView, PopCreator popCreator);
+    void onPopChildClicked(int viewId, View view, ViewGroup contentView, WingsPopupWindow popupWindow);
 }

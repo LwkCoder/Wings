@@ -10,7 +10,7 @@ import java.io.File;
 /**
  * 路径工具类
  */
-public class PathUtils
+public final class PathUtils
 {
 
     private PathUtils()

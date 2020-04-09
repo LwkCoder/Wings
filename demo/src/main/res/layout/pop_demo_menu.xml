@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="150dp"
+    android:layout_height="wrap_content"
+    android:background="@color/statusbar"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <com.lwkandroid.lib.common.widgets.view.RTextView
+        android:id="@+id/tv_pop_menu01"
+        style="@style/MediumTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="@dimen/spacing_normal"
+        android:text="MENU01"
+        app:ripple="true"
+        app:ripple_color="@color/colorAccent"
+        app:text_color_normal="@color/white" />
+
+    <com.lwkandroid.lib.common.widgets.view.RTextView
+        android:id="@+id/tv_pop_menu02"
+        style="@style/MediumTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="@dimen/spacing_normal"
+        android:text="MENU02"
+        app:ripple="true"
+        app:ripple_color="@color/colorAccent"
+        app:text_color_normal="@color/white" />
+
+    <com.lwkandroid.lib.common.widgets.view.RTextView
+        android:id="@+id/tv_pop_menu03"
+        style="@style/MediumTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="@dimen/spacing_normal"
+        android:text="MENU03"
+        app:ripple="true"
+        app:ripple_color="@color/colorAccent"
+        app:text_color_normal="@color/white" />
+
+
+</LinearLayout>

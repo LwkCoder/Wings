@@ -1,4 +1,4 @@
-package com.lwkandroid.lib.common.widgets.pop2;
+package com.lwkandroid.lib.common.widgets.pop;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

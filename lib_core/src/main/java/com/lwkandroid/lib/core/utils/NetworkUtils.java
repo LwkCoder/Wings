@@ -28,7 +28,7 @@ import static android.content.Context.WIFI_SERVICE;
  *
  * @author LWK
  */
-public class NetworkUtils
+public final class NetworkUtils
 {
     private NetworkUtils()
     {

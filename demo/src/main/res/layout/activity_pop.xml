@@ -1,16 +1,183 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context=".pop.PopActivity">
 
-    <Button
-        android:id="@+id/btn_pop"
-        style="@style/NormalTextStyle"
-        android:layout_gravity="center"
-        android:text="测试测试"/>
+    <com.lwkandroid.widget.comactionbar.ComActionBar
+        android:id="@+id/cab_pop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:bg_color="@color/actionbar"
+        app:is_left_as_back="true"
+        app:right_image01="@drawable/ic_menu"
+        app:title_text="POP" />
 
-</FrameLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/spacing_tiny">
+
+        <com.lwkandroid.lib.common.widgets.view.RTextView
+            android:id="@+id/btn_pop_01"
+            style="@style/NormalButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_margin="@dimen/spacing_tiny"
+            android:text="showAtLocation 屏幕中间"
+            app:background_normal="@color/white"
+            app:border_color_normal="@color/text_black_normal"
+            app:border_width_normal="1dp" />
+
+        <com.lwkandroid.lib.common.widgets.view.RTextView
+            style="@style/LargeTextStyle"
+            android:layout_marginTop="@dimen/spacing_normal"
+            android:text="X轴方向:" />
+
+        <RadioGroup
+            android:id="@+id/rg_pop_x"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.lwkandroid.lib.common.widgets.view.RRadioButton
+                android:id="@+id/rb_pop_x_left"
+                style="@style/NormalTextStyle"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:button="@null"
+                android:gravity="center"
+                android:text="LEFT"
+                app:text_color_checked="@color/colorAccent"
+                app:text_color_normal="@color/text_black_normal" />
+
+            <com.lwkandroid.lib.common.widgets.view.RRadioButton
+                android:id="@+id/rb_pop_x_align_left"
+                style="@style/NormalTextStyle"
+                android:button="@null"
+                android:gravity="center"
+                android:text="ALIGN_LEFT"
+                app:text_color_checked="@color/colorAccent"
+                app:text_color_normal="@color/text_black_normal" />
+
+            <com.lwkandroid.lib.common.widgets.view.RRadioButton
+                android:id="@+id/rb_pop_x_center"
+                style="@style/NormalTextStyle"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:button="@null"
+                android:checked="true"
+                android:gravity="center"
+                android:text="CENTER"
+                app:text_color_checked="@color/colorAccent"
+                app:text_color_normal="@color/text_black_normal" />
+
+            <com.lwkandroid.lib.common.widgets.view.RRadioButton
+                android:id="@+id/rb_pop_x_right"
+                style="@style/NormalTextStyle"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:button="@null"
+                android:gravity="center"
+                android:text="RIGHT"
+                app:text_color_checked="@color/colorAccent"
+                app:text_color_normal="@color/text_black_normal" />
+
+            <com.lwkandroid.lib.common.widgets.view.RRadioButton
+                android:id="@+id/rb_pop_x_align_right"
+                style="@style/NormalTextStyle"
+                android:button="@null"
+                android:gravity="center"
+                android:text="ALIGN_RIGHT"
+                app:text_color_checked="@color/colorAccent"
+                app:text_color_normal="@color/text_black_normal" />
+        </RadioGroup>
+
+        <com.lwkandroid.lib.common.widgets.view.RTextView
+            style="@style/LargeTextStyle"
+            android:layout_marginTop="@dimen/spacing_normal"
+            android:text="Y轴方向:" />
+
+        <RadioGroup
+            android:id="@+id/rg_pop_y"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.lwkandroid.lib.common.widgets.view.RRadioButton
+                android:id="@+id/rb_pop_y_above"
+                style="@style/NormalTextStyle"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:button="@null"
+                android:checked="true"
+                android:gravity="center"
+                android:text="ABOVE"
+                app:text_color_checked="@color/colorAccent"
+                app:text_color_normal="@color/text_black_normal" />
+
+            <com.lwkandroid.lib.common.widgets.view.RRadioButton
+                android:id="@+id/rb_pop_y_align_top"
+                style="@style/NormalTextStyle"
+                android:button="@null"
+                android:gravity="center"
+                android:text="ALIGN_TOP"
+                app:text_color_checked="@color/colorAccent"
+                app:text_color_normal="@color/text_black_normal" />
+
+            <com.lwkandroid.lib.common.widgets.view.RRadioButton
+                android:id="@+id/rb_pop_y_center"
+                style="@style/NormalTextStyle"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:button="@null"
+                android:gravity="center"
+                android:text="CENTER"
+                app:text_color_checked="@color/colorAccent"
+                app:text_color_normal="@color/text_black_normal" />
+
+            <com.lwkandroid.lib.common.widgets.view.RRadioButton
+                android:id="@+id/rb_pop_y_below"
+                style="@style/NormalTextStyle"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:button="@null"
+                android:gravity="center"
+                android:text="BELOW"
+                app:text_color_checked="@color/colorAccent"
+                app:text_color_normal="@color/text_black_normal" />
+
+            <com.lwkandroid.lib.common.widgets.view.RRadioButton
+                android:id="@+id/rb_pop_y_align_bottom"
+                style="@style/NormalTextStyle"
+                android:button="@null"
+                android:gravity="center"
+                android:text="ALIGN_BOTTOM"
+                app:text_color_checked="@color/colorAccent"
+                app:text_color_normal="@color/text_black_normal" />
+        </RadioGroup>
+
+        <com.lwkandroid.lib.common.widgets.view.RTextView
+            android:id="@+id/btn_pop_02"
+            style="@style/NormalButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/spacing_normal"
+            android:text="showWithAnchor"
+            app:background_normal="@color/white"
+            app:border_color_normal="@color/text_black_normal"
+            app:border_width_normal="1dp" />
+    </LinearLayout>
+
+    <com.lwkandroid.lib.common.widgets.view.RTextView
+        android:id="@+id/tv_pop_target"
+        style="@style/NormalButtonStyle"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="200dp"
+        android:text="我是目标View"
+        app:text_color_normal="@color/text_black_normal" />
+
+</LinearLayout>
