@@ -49,6 +49,11 @@ public final class EncodeUtils
     private static final IAsciiCodec ASCII_CODEC = new AsciiCodecImpl();
 
     /**
+     * Unicode编解码实现
+     */
+    private static final IUnicodeCodec UNICODE_CODEC = new UnicodeCodecImpl();
+
+    /**
      * Base64编解码入口【默认使用Android实现】
      */
     public static IBase64Codec base64()
@@ -103,5 +108,13 @@ public final class EncodeUtils
     public static IAsciiCodec ascii()
     {
         return ASCII_CODEC;
+    }
+
+    /**
+     * Unicode编解码入口
+     */
+    public static IUnicodeCodec unicode()
+    {
+        return UNICODE_CODEC;
     }
 }

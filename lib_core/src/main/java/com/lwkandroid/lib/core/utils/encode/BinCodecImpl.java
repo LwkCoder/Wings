@@ -8,13 +8,13 @@ package com.lwkandroid.lib.core.utils.encode;
  */
 public final class BinCodecImpl implements IBinCodec
 {
-    private static final String SPLIT_CHAR = " ";
+    private static final String DEFAULT_SPLIT = " ";
     private static final String EMPTY_STRING = "";
 
     @Override
     public String encode(String data)
     {
-        return encode(data, SPLIT_CHAR);
+        return encode(data, DEFAULT_SPLIT);
     }
 
     @Override
@@ -41,7 +41,7 @@ public final class BinCodecImpl implements IBinCodec
     @Override
     public String decode(String data)
     {
-        return decode(data, SPLIT_CHAR);
+        return decode(data, DEFAULT_SPLIT);
     }
 
     @Override

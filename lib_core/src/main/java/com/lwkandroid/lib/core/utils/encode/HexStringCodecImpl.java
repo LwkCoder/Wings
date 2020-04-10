@@ -23,25 +23,22 @@ public final class HexStringCodecImpl implements IHexStringCodec
     }
 
     @Override
-    public String encode(byte[] data, String spiltStr)
+    public String encode(byte[] data, String splitStr)
     {
         if (data == null || data.length == 0)
         {
             return EMPTY_STRING;
         }
-        StringBuilder sb = new StringBuilder(data.length * 2);
+        StringBuilder builder = new StringBuilder(data.length * 2);
         //将字节数组中每个字节拆解成2位16进制整数
         for (int i = 0, length = data.length; i < data.length; i++)
         {
             byte b = data[i];
-            sb.append(HEX_STRING.charAt((b & 0xf0) >> 4));
-            sb.append(HEX_STRING.charAt((b & 0x0f)));
-            if (i != length - 1)
-            {
-                sb.append(spiltStr);
-            }
+            builder.append(HEX_STRING.charAt((b & 0xf0) >> 4))
+                    .append(HEX_STRING.charAt((b & 0x0f)))
+                    .append(i != length - 1 ? splitStr : EMPTY_STRING);
         }
-        return sb.toString();
+        return builder.toString();
     }
 
     @Override
@@ -51,9 +48,9 @@ public final class HexStringCodecImpl implements IHexStringCodec
     }
 
     @Override
-    public String encode(String data, String spiltStr)
+    public String encode(String data, String splitStr)
     {
-        return encode(data, spiltStr, UTF8);
+        return encode(data, splitStr, UTF8);
     }
 
     @Override
@@ -63,13 +60,13 @@ public final class HexStringCodecImpl implements IHexStringCodec
     }
 
     @Override
-    public String encode(String data, String spiltStr, Charset charset)
+    public String encode(String data, String splitStr, Charset charset)
     {
         if (data == null || data.length() == 0)
         {
             return EMPTY_STRING;
         }
-        return encode(data.getBytes(charset), spiltStr);
+        return encode(data.getBytes(charset), splitStr);
     }
 
     @Override
@@ -79,9 +76,9 @@ public final class HexStringCodecImpl implements IHexStringCodec
     }
 
     @Override
-    public String decodeToString(String hexString, String spiltStr)
+    public String decodeToString(String hexString, String splitStr)
     {
-        return new String(decodeToBytes(hexString, spiltStr), UTF8);
+        return new String(decodeToBytes(hexString, splitStr), UTF8);
     }
 
     @Override
@@ -91,9 +88,9 @@ public final class HexStringCodecImpl implements IHexStringCodec
     }
 
     @Override
-    public byte[] decodeToBytes(String hexString, String spiltStr)
+    public byte[] decodeToBytes(String hexString, String splitStr)
     {
-        return decodeToBytes(hexString, spiltStr, UTF8);
+        return decodeToBytes(hexString, splitStr, UTF8);
     }
 
     @Override
@@ -103,9 +100,9 @@ public final class HexStringCodecImpl implements IHexStringCodec
     }
 
     @Override
-    public String decodeToString(String hexString, String spiltStr, Charset charset)
+    public String decodeToString(String hexString, String splitStr, Charset charset)
     {
-        return new String(decodeToBytes(hexString, spiltStr, charset), charset);
+        return new String(decodeToBytes(hexString, splitStr, charset), charset);
     }
 
     @Override
@@ -115,13 +112,13 @@ public final class HexStringCodecImpl implements IHexStringCodec
     }
 
     @Override
-    public byte[] decodeToBytes(String hexString, String spiltStr, Charset charset)
+    public byte[] decodeToBytes(String hexString, String splitStr, Charset charset)
     {
         if (hexString == null || hexString.length() == 0)
         {
             return new byte[0];
         }
-        hexString = hexString.replaceAll(spiltStr, EMPTY_STRING);
+        hexString = hexString.replaceAll(splitStr, EMPTY_STRING);
         char[] chars = hexString.toCharArray();
         byte[] bytes = new byte[chars.length / 2];
         for (int i = 0, n, length = bytes.length; i < length; i++)

@@ -8,13 +8,13 @@ package com.lwkandroid.lib.core.utils.encode;
  */
 public final class AsciiCodecImpl implements IAsciiCodec
 {
-    private static final String SPLIT_CHAR = " ";
+    private static final String DEFAULT_SPLIT = " ";
     private static final String EMPTY_STRING = "";
 
     @Override
     public String encode(String data)
     {
-        return encode(data, SPLIT_CHAR);
+        return encode(data, DEFAULT_SPLIT);
     }
 
     @Override
@@ -38,7 +38,7 @@ public final class AsciiCodecImpl implements IAsciiCodec
     @Override
     public String decode(String asciiString)
     {
-        return decode(asciiString, SPLIT_CHAR);
+        return decode(asciiString, DEFAULT_SPLIT);
     }
 
     @Override
