@@ -146,6 +146,7 @@ public final class PathUtils
      *
      * @return the path of /storage/emulated/0
      */
+    @Deprecated
     public static String getExternalStoragePath()
     {
         if (isExternalStorageDisable())
@@ -160,6 +161,7 @@ public final class PathUtils
      *
      * @return the path of /storage/emulated/0/Music
      */
+    @Deprecated
     public static String getExternalMusicPath()
     {
         if (isExternalStorageDisable())
@@ -174,6 +176,7 @@ public final class PathUtils
      *
      * @return the path of /storage/emulated/0/Podcasts
      */
+    @Deprecated
     public static String getExternalPodcastsPath()
     {
         if (isExternalStorageDisable())
@@ -188,6 +191,7 @@ public final class PathUtils
      *
      * @return the path of /storage/emulated/0/Ringtones
      */
+    @Deprecated
     public static String getExternalRingtonesPath()
     {
         if (isExternalStorageDisable())
@@ -202,6 +206,7 @@ public final class PathUtils
      *
      * @return the path of /storage/emulated/0/Alarms
      */
+    @Deprecated
     public static String getExternalAlarmsPath()
     {
         if (isExternalStorageDisable())
@@ -216,6 +221,7 @@ public final class PathUtils
      *
      * @return the path of /storage/emulated/0/Notifications
      */
+    @Deprecated
     public static String getExternalNotificationsPath()
     {
         if (isExternalStorageDisable())
@@ -230,6 +236,7 @@ public final class PathUtils
      *
      * @return the path of /storage/emulated/0/Pictures
      */
+    @Deprecated
     public static String getExternalPicturesPath()
     {
         if (isExternalStorageDisable())
@@ -244,6 +251,7 @@ public final class PathUtils
      *
      * @return the path of /storage/emulated/0/Movies
      */
+    @Deprecated
     public static String getExternalMoviesPath()
     {
         if (isExternalStorageDisable())
@@ -258,6 +266,7 @@ public final class PathUtils
      *
      * @return the path of /storage/emulated/0/Download
      */
+    @Deprecated
     public static String getExternalDownloadsPath()
     {
         if (isExternalStorageDisable())
@@ -272,6 +281,7 @@ public final class PathUtils
      *
      * @return the path of /storage/emulated/0/DCIM
      */
+    @Deprecated
     public static String getExternalDcimPath()
     {
         if (isExternalStorageDisable())
@@ -286,6 +296,7 @@ public final class PathUtils
      *
      * @return the path of /storage/emulated/0/Documents
      */
+    @Deprecated
     public static String getExternalDocumentsPath()
     {
         if (isExternalStorageDisable())
