@@ -52,7 +52,11 @@ public final class WingsTools
                 .build());
         GlideOkClient.get().getBuilder().addNetworkInterceptor(new StethoInterceptor());
         //设置LeakCanary
-        List<ReferenceMatcher> referenceMatchers = LeakCanary.INSTANCE.getConfig().getReferenceMatchers();
+        LeakCanary.Config config = LeakCanary.getConfig().newBuilder()
+                .dumpHeapWhenDebugging(true)
+                .maxStoredHeapDumps(10)
+                .build();
+        List<ReferenceMatcher> referenceMatchers = config.getReferenceMatchers();
         referenceMatchers.add(new IgnoredReferenceMatcher(
                 new ReferencePattern.InstanceFieldPattern("android.view.inputmethod.InputMethodManager", "sInstance")));
         referenceMatchers.add(new IgnoredReferenceMatcher(
@@ -67,5 +71,6 @@ public final class WingsTools
                 new ReferencePattern.InstanceFieldPattern("android.view.ViewGroup$ViewLocationHolder", "sPool")));
         referenceMatchers.add(new IgnoredReferenceMatcher(
                 new ReferencePattern.StaticFieldPattern("android.view.ViewGroup$ViewLocationHolder", "sPool")));
+        LeakCanary.setConfig(config);
     }
 }

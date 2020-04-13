@@ -44,7 +44,7 @@ ext {
     RXBindingVersion = "3.0.0"
     BGACodeVersion = "1.3.6"
     ComActionBarVersion = "1.1.7"
-    LeakCanaryVersion = "2.1"
+    LeakCanaryVersion = "2.2"
     StethoVersion = "1.5.1"
     DiskLruCacheVersion = "2.0.2"
     ChuckerVersion = "3.0.1"
