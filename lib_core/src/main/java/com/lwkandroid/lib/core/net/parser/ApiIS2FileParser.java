@@ -15,7 +15,7 @@ import io.reactivex.ObservableTransformer;
 import io.reactivex.functions.Function;
 
 /**
- *  将InputStream类型的网络请求结果转换为File并写入存储的实现类
+ * 将InputStream类型的网络请求结果转换为File并写入存储的实现类
  *
  * @author LWK
  */
@@ -48,7 +48,7 @@ public class ApiIS2FileParser implements IApiInputStreamParser.FileParser
         }
         if (StringUtils.isEmpty(mSavePath))
         {
-            mSavePath = PathUtils.getExternalAppFilesPath();
+            mSavePath = PathUtils.getExAppFilesPath();
         }
         mSavePath = mSavePath.replaceAll("//", "/");
 

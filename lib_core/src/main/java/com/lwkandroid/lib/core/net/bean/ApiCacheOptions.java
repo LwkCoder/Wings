@@ -209,7 +209,7 @@ public class ApiCacheOptions
             if (TextUtils.isEmpty(options.getCachePath()))
             {
                 options.setCachePath(new StringBuffer()
-                        .append(PathUtils.getExternalAppCachePath())
+                        .append(PathUtils.getExAppCachePath())
                         .append("/net/")
                         .toString());
             }

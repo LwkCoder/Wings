@@ -8,7 +8,7 @@ import androidx.annotation.StyleRes;
  * @author LWK
  * @date 2020/4/8
  */
-public class PopBuilder
+public final class PopBuilder
 {
     private PopConfig mConfig;
     private IPopUiController mController;

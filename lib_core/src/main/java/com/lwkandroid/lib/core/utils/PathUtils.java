@@ -53,7 +53,7 @@ public final class PathUtils
      *
      * @return the path of /data/data/package
      */
-    public static String getInternalAppDataPath()
+    public static String getInAppDataPath()
     {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N)
         {
@@ -67,7 +67,7 @@ public final class PathUtils
      *
      * @return the path of /data/data/package/code_cache
      */
-    public static String getInternalAppCodeCacheDir()
+    public static String getInAppCodeCacheDir()
     {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
         {
@@ -81,7 +81,7 @@ public final class PathUtils
      *
      * @return the path of /data/data/package/cache
      */
-    public static String getInternalAppCachePath()
+    public static String getInAppCachePath()
     {
         return getAbsolutePath(AppContext.get().getCacheDir());
     }
@@ -91,7 +91,7 @@ public final class PathUtils
      *
      * @return the path of /data/data/package/databases
      */
-    public static String getInternalAppDbsPath()
+    public static String getInAppDbsPath()
     {
         return AppContext.get().getApplicationInfo().dataDir + "/databases";
     }
@@ -102,7 +102,7 @@ public final class PathUtils
      * @param name The name of database.
      * @return the path of /data/data/package/databases/name
      */
-    public static String getInternalAppDbPath(String name)
+    public static String getInAppDbPath(String name)
     {
         return getAbsolutePath(AppContext.get().getDatabasePath(name));
     }
@@ -112,7 +112,7 @@ public final class PathUtils
      *
      * @return the path of /data/data/package/files
      */
-    public static String getInternalAppFilesPath()
+    public static String getInAppFilesPath()
     {
         return getAbsolutePath(AppContext.get().getFilesDir());
     }
@@ -122,7 +122,7 @@ public final class PathUtils
      *
      * @return the path of /data/data/package/shared_prefs
      */
-    public static String getInternalAppSpPath()
+    public static String getInAppSpPath()
     {
         return AppContext.get().getApplicationInfo().dataDir + "/shared_prefs";
     }
@@ -132,7 +132,7 @@ public final class PathUtils
      *
      * @return the path of /data/data/package/no_backup
      */
-    public static String getInternalAppNoBackupFilesPath()
+    public static String getInAppNoBackupFilesPath()
     {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
         {
@@ -147,9 +147,9 @@ public final class PathUtils
      * @return the path of /storage/emulated/0
      */
     @Deprecated
-    public static String getExternalStoragePath()
+    public static String getExStoragePath()
     {
-        if (isExternalStorageDisable())
+        if (isExStorageDisable())
         {
             return "";
         }
@@ -162,9 +162,9 @@ public final class PathUtils
      * @return the path of /storage/emulated/0/Music
      */
     @Deprecated
-    public static String getExternalMusicPath()
+    public static String getExMusicPath()
     {
-        if (isExternalStorageDisable())
+        if (isExStorageDisable())
         {
             return "";
         }
@@ -177,9 +177,9 @@ public final class PathUtils
      * @return the path of /storage/emulated/0/Podcasts
      */
     @Deprecated
-    public static String getExternalPodcastsPath()
+    public static String getExPodcastsPath()
     {
-        if (isExternalStorageDisable())
+        if (isExStorageDisable())
         {
             return "";
         }
@@ -192,9 +192,9 @@ public final class PathUtils
      * @return the path of /storage/emulated/0/Ringtones
      */
     @Deprecated
-    public static String getExternalRingtonesPath()
+    public static String getExRingtonesPath()
     {
-        if (isExternalStorageDisable())
+        if (isExStorageDisable())
         {
             return "";
         }
@@ -207,9 +207,9 @@ public final class PathUtils
      * @return the path of /storage/emulated/0/Alarms
      */
     @Deprecated
-    public static String getExternalAlarmsPath()
+    public static String getExAlarmsPath()
     {
-        if (isExternalStorageDisable())
+        if (isExStorageDisable())
         {
             return "";
         }
@@ -222,9 +222,9 @@ public final class PathUtils
      * @return the path of /storage/emulated/0/Notifications
      */
     @Deprecated
-    public static String getExternalNotificationsPath()
+    public static String getExNotificationsPath()
     {
-        if (isExternalStorageDisable())
+        if (isExStorageDisable())
         {
             return "";
         }
@@ -237,9 +237,9 @@ public final class PathUtils
      * @return the path of /storage/emulated/0/Pictures
      */
     @Deprecated
-    public static String getExternalPicturesPath()
+    public static String getExPicturesPath()
     {
-        if (isExternalStorageDisable())
+        if (isExStorageDisable())
         {
             return "";
         }
@@ -252,9 +252,9 @@ public final class PathUtils
      * @return the path of /storage/emulated/0/Movies
      */
     @Deprecated
-    public static String getExternalMoviesPath()
+    public static String getExMoviesPath()
     {
-        if (isExternalStorageDisable())
+        if (isExStorageDisable())
         {
             return "";
         }
@@ -267,9 +267,9 @@ public final class PathUtils
      * @return the path of /storage/emulated/0/Download
      */
     @Deprecated
-    public static String getExternalDownloadsPath()
+    public static String getExDownloadsPath()
     {
-        if (isExternalStorageDisable())
+        if (isExStorageDisable())
         {
             return "";
         }
@@ -282,9 +282,9 @@ public final class PathUtils
      * @return the path of /storage/emulated/0/DCIM
      */
     @Deprecated
-    public static String getExternalDcimPath()
+    public static String getExDcimPath()
     {
-        if (isExternalStorageDisable())
+        if (isExStorageDisable())
         {
             return "";
         }
@@ -297,9 +297,9 @@ public final class PathUtils
      * @return the path of /storage/emulated/0/Documents
      */
     @Deprecated
-    public static String getExternalDocumentsPath()
+    public static String getExDocumentsPath()
     {
-        if (isExternalStorageDisable())
+        if (isExStorageDisable())
         {
             return "";
         }
@@ -315,9 +315,9 @@ public final class PathUtils
      *
      * @return the path of /storage/emulated/0/Android/data/package
      */
-    public static String getExternalAppDataPath()
+    public static String getExAppDataPath()
     {
-        if (isExternalStorageDisable())
+        if (isExStorageDisable())
         {
             return "";
         }
@@ -334,9 +334,9 @@ public final class PathUtils
      *
      * @return the path of /storage/emulated/0/Android/data/package/cache
      */
-    public static String getExternalAppCachePath()
+    public static String getExAppCachePath()
     {
-        if (isExternalStorageDisable())
+        if (isExStorageDisable())
         {
             return "";
         }
@@ -348,9 +348,9 @@ public final class PathUtils
      *
      * @return the path of /storage/emulated/0/Android/data/package/files
      */
-    public static String getExternalAppFilesPath()
+    public static String getExAppFilesPath()
     {
-        if (isExternalStorageDisable())
+        if (isExStorageDisable())
         {
             return "";
         }
@@ -362,9 +362,9 @@ public final class PathUtils
      *
      * @return the path of /storage/emulated/0/Android/data/package/files/Music
      */
-    public static String getExternalAppMusicPath()
+    public static String getExAppMusicPath()
     {
-        if (isExternalStorageDisable())
+        if (isExStorageDisable())
         {
             return "";
         }
@@ -376,9 +376,9 @@ public final class PathUtils
      *
      * @return the path of /storage/emulated/0/Android/data/package/files/Podcasts
      */
-    public static String getExternalAppPodcastsPath()
+    public static String getExAppPodcastsPath()
     {
-        if (isExternalStorageDisable())
+        if (isExStorageDisable())
         {
             return "";
         }
@@ -390,9 +390,9 @@ public final class PathUtils
      *
      * @return the path of /storage/emulated/0/Android/data/package/files/Ringtones
      */
-    public static String getExternalAppRingtonesPath()
+    public static String getExAppRingtonesPath()
     {
-        if (isExternalStorageDisable())
+        if (isExStorageDisable())
         {
             return "";
         }
@@ -404,9 +404,9 @@ public final class PathUtils
      *
      * @return the path of /storage/emulated/0/Android/data/package/files/Alarms
      */
-    public static String getExternalAppAlarmsPath()
+    public static String getExAppAlarmsPath()
     {
-        if (isExternalStorageDisable())
+        if (isExStorageDisable())
         {
             return "";
         }
@@ -418,9 +418,9 @@ public final class PathUtils
      *
      * @return the path of /storage/emulated/0/Android/data/package/files/Notifications
      */
-    public static String getExternalAppNotificationsPath()
+    public static String getExAppNotificationsPath()
     {
-        if (isExternalStorageDisable())
+        if (isExStorageDisable())
         {
             return "";
         }
@@ -432,9 +432,9 @@ public final class PathUtils
      *
      * @return path of /storage/emulated/0/Android/data/package/files/Pictures
      */
-    public static String getExternalAppPicturesPath()
+    public static String getExAppPicturesPath()
     {
-        if (isExternalStorageDisable())
+        if (isExStorageDisable())
         {
             return "";
         }
@@ -446,9 +446,9 @@ public final class PathUtils
      *
      * @return the path of /storage/emulated/0/Android/data/package/files/Movies
      */
-    public static String getExternalAppMoviesPath()
+    public static String getExAppMoviesPath()
     {
-        if (isExternalStorageDisable())
+        if (isExStorageDisable())
         {
             return "";
         }
@@ -460,9 +460,9 @@ public final class PathUtils
      *
      * @return the path of /storage/emulated/0/Android/data/package/files/Download
      */
-    public static String getExternalAppDownloadPath()
+    public static String getExAppDownloadPath()
     {
-        if (isExternalStorageDisable())
+        if (isExStorageDisable())
         {
             return "";
         }
@@ -474,9 +474,9 @@ public final class PathUtils
      *
      * @return the path of /storage/emulated/0/Android/data/package/files/DCIM
      */
-    public static String getExternalAppDcimPath()
+    public static String getExAppDcimPath()
     {
-        if (isExternalStorageDisable())
+        if (isExStorageDisable())
         {
             return "";
         }
@@ -488,9 +488,9 @@ public final class PathUtils
      *
      * @return the path of /storage/emulated/0/Android/data/package/files/Documents
      */
-    public static String getExternalAppDocumentsPath()
+    public static String getExAppDocumentsPath()
     {
-        if (isExternalStorageDisable())
+        if (isExStorageDisable())
         {
             return "";
         }
@@ -506,16 +506,16 @@ public final class PathUtils
      *
      * @return the path of /storage/emulated/0/Android/obb/package
      */
-    public static String getExternalAppObbPath()
+    public static String getExAppObbPath()
     {
-        if (isExternalStorageDisable())
+        if (isExStorageDisable())
         {
             return "";
         }
         return getAbsolutePath(AppContext.get().getObbDir());
     }
 
-    private static boolean isExternalStorageDisable()
+    private static boolean isExStorageDisable()
     {
         return !Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState());
     }

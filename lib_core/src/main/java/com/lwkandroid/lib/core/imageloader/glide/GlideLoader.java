@@ -256,7 +256,7 @@ public class GlideLoader implements ILoaderStrategy<GlideLoaderOptions>
         } else
         {
             return new StringBuffer()
-                    .append(PathUtils.getExternalAppCachePath())
+                    .append(PathUtils.getExAppCachePath())
                     .append("/image/").toString();
         }
     }

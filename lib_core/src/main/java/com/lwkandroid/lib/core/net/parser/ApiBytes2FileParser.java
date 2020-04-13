@@ -45,7 +45,7 @@ public class ApiBytes2FileParser implements IApiBytesArrayParser.FileParser
         }
         if (StringUtils.isEmpty(mSavePath))
         {
-            mSavePath = PathUtils.getExternalAppFilesPath();
+            mSavePath = PathUtils.getExAppFilesPath();
         }
         mSavePath = mSavePath.replaceAll("//", "/");
 
