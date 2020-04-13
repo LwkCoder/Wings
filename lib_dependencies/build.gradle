@@ -51,7 +51,7 @@ dependencies {
     api "com.android.support.constraint:constraint-layout:$ConstraintLayoutVersion"
 
     debugApi "com.squareup.leakcanary:leakcanary-android:$LeakCanaryVersion"
-    debugApi "com.squareup.leakcanary:leakcanary-support-fragment:$LeakCanaryVersion"
+//    debugApi "com.squareup.leakcanary:leakcanary-support-fragment:$LeakCanaryVersion"
     debugApi "com.facebook.stetho:stetho:$StethoVersion"
     debugApi "com.facebook.stetho:stetho-okhttp3:$StethoVersion"
     debugApi "com.github.ChuckerTeam.Chucker:library:$ChuckerVersion"
