@@ -50,6 +50,10 @@ public final class ViewInjector
                 if (finder != null)
                 {
                     int viewId = finder.value();
+                    if (viewId == View.NO_ID)
+                    {
+                        continue;
+                    }
                     View view = contentView.findViewById(viewId);
                     field.setAccessible(true);
                     field.set(object, view);
@@ -69,6 +73,10 @@ public final class ViewInjector
             if ((viewClicker = method.getAnnotation(ClickView.class)) != null)
             {
                 int viewId = viewClicker.value();
+                if (viewId == View.NO_ID)
+                {
+                    continue;
+                }
                 View view = contentView.findViewById(viewId);
                 view.setOnClickListener(arg0 -> {
                     try
@@ -85,6 +93,10 @@ public final class ViewInjector
                 int[] viewIds = viewsClicker.values();
                 for (int viewId : viewIds)
                 {
+                    if (viewId == View.NO_ID)
+                    {
+                        continue;
+                    }
                     final View view = contentView.findViewById(viewId);
                     view.setOnClickListener(arg0 -> {
                         try

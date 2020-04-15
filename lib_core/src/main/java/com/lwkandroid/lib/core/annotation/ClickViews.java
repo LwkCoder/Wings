@@ -1,7 +1,5 @@
 package com.lwkandroid.lib.core.annotation;
 
-import android.view.View;
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -19,5 +17,5 @@ import androidx.annotation.IdRes;
 @Target(ElementType.METHOD)
 public @interface ClickViews
 {
-    @IdRes int[] values() default {View.NO_ID};
+    @IdRes int[] values();
 }
