@@ -1,10 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context=".dialog.DialogActivity">
 
+    <com.lwkandroid.widget.comactionbar.ComActionBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:bg_color="@color/actionbar"
+        app:is_left_as_back="true"
+        app:title_text="Dialog示例" />
 
-</FrameLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/spacing_normal">
+
+            <com.lwkandroid.lib.common.widgets.view.RTextView
+                android:id="@+id/btn_dialog_01"
+                style="@style/NormalButtonStyle"
+                android:layout_width="match_parent"
+                android:text="Loading样式"
+                app:background_normal="@color/white"
+                app:border_color_normal="@color/actionbar"
+                app:border_width_normal="1dp" />
+
+            <com.lwkandroid.lib.common.widgets.view.RTextView
+                android:id="@+id/btn_dialog_02"
+                style="@style/NormalButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/spacing_normal"
+                android:text="CommonDialog样式"
+                app:background_normal="@color/white"
+                app:border_color_normal="@color/actionbar"
+                app:border_width_normal="1dp" />
+
+            <com.lwkandroid.lib.common.widgets.view.RTextView
+                android:id="@+id/btn_dialog_03"
+                style="@style/NormalButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/spacing_normal"
+                android:text="自定义样式"
+                app:background_normal="@color/white"
+                app:border_color_normal="@color/actionbar"
+                app:border_width_normal="1dp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>
