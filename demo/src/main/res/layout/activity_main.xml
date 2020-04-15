@@ -15,7 +15,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -42,6 +43,21 @@
                 app:border_color_normal="@color/actionbar"
                 app:border_width_normal="1dp" />
 
+            <com.lwkandroid.lib.common.widgets.view.RTextView
+                android:id="@+id/btn_main_03"
+                style="@style/NormalButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/spacing_normal"
+                android:text="Dialog工具示例"
+                app:background_normal="@color/white"
+                app:border_color_normal="@color/actionbar"
+                app:border_width_normal="1dp" />
+
+
+            <!--            <FrameLayout-->
+            <!--                android:id="@+id/main_container"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="match_parent"/>-->
         </LinearLayout>
 
     </ScrollView>

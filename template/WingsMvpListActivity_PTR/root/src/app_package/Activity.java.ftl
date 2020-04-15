@@ -12,6 +12,9 @@ import com.lwkandroid.lib.common.mvp.list.RcvLoadMoreWrapper;
 import com.lwkandroid.lib.common.mvp.list.PTRLayoutWrapper;
 import com.lwkandroid.rcvadapter.RcvMultiAdapter;
 import com.lwkandroid.rcvadapter.RcvSingleAdapter;
+import com.lwkandroid.lib.core.annotation.ClickViews;
+import com.lwkandroid.lib.core.annotation.ViewInjector;
+import com.lwkandroid.lib.core.annotation.FindView;
 
 import java.util.List;
 
@@ -30,6 +33,7 @@ public class ${uiClassName}Activity extends MvpBaseActivity<${uiClassName}Presen
 {
 	private IRefreshWrapper<PTRLayout> mRefreshWrapper;
     private ILoadMoreWrapper<RcvMultiAdapter> mLoadMoreWrapper;
+	@FindView(R.id.recycleView)
     private RecyclerView mRecyclerView;
     private RcvSingleAdapter<${dataSourceClass}> mAdapter;
 	
@@ -59,9 +63,9 @@ public class ${uiClassName}Activity extends MvpBaseActivity<${uiClassName}Presen
 	@Override
     protected void initUI(View contentView)
     {
+		ViewInjector.with(this);
 		//关联刷新控件，由包装类代理
         mRefreshWrapper = new PTRLayoutWrapper(find(R.id.ptrLayout));
-        mRecyclerView = find(R.id.recycleView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         mAdapter = new ${uiClassName}Adapter(this);
         //关联自动加载，由包装类代理
@@ -80,6 +84,7 @@ public class ${uiClassName}Activity extends MvpBaseActivity<${uiClassName}Presen
     }
 
     @Override
+	@ClickViews(values = {})
     public void onClick(int id, View view)
     {
         switch (id)

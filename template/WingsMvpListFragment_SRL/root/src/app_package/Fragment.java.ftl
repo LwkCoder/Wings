@@ -31,6 +31,7 @@ public class ${uiClassName}Fragment extends MvpBaseFragment<${uiClassName}Presen
 {
 	private IRefreshWrapper<SwipeRefreshLayout> mRefreshWrapper;
     private ILoadMoreWrapper<RcvMultiAdapter> mLoadMoreWrapper;
+	@FindView(R.id.recycleView)
     private RecyclerView mRecyclerView;
     private RcvSingleAdapter<${dataSourceClass}> mAdapter;
 	
@@ -59,9 +60,9 @@ public class ${uiClassName}Fragment extends MvpBaseFragment<${uiClassName}Presen
 	@Override
     protected void initUI(View contentView)
     {
+		ViewInjector.with(this);
 		//关联刷新控件，由包装类代理
         mRefreshWrapper = new SwipeRefreshLayoutWrapper(find(R.id.swipeRefreshLayout));
-        mRecyclerView = find(R.id.recycleView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getFragmentActivity(), RecyclerView.VERTICAL, false));
         mAdapter = new ${uiClassName}Adapter(getFragmentActivity());
         //关联自动加载，由包装类代理
@@ -80,6 +81,7 @@ public class ${uiClassName}Fragment extends MvpBaseFragment<${uiClassName}Presen
     }
 
     @Override
+	@ClickViews(values = {})
     public void onClick(int id, View view)
     {
         switch (id)

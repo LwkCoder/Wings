@@ -7,6 +7,8 @@ import android.view.View;
 import androidx.annotation.Nullable;
 import ${applicationPackage}.R;
 import com.lwkandroid.lib.common.mvp.MvpBaseFragment;
+import com.lwkandroid.lib.core.annotation.ClickViews;
+import com.lwkandroid.lib.core.annotation.ViewInjector;
 /**
  * Description:View层
  * @author
@@ -48,7 +50,7 @@ public class ${uiClassName}Fragment extends MvpBaseFragment<${uiClassName}Presen
 	@Override
     protected void initUI(View contentView)
     {
-
+		ViewInjector.with(this);
     }
 
     @Override
@@ -58,6 +60,7 @@ public class ${uiClassName}Fragment extends MvpBaseFragment<${uiClassName}Presen
     }
 
     @Override
+	@ClickViews(values = {})
     public void onClick(int id, View view)
     {
 		switch (id)

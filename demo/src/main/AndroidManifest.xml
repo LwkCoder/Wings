@@ -11,9 +11,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".pop.PopActivity"
+            android:name=".dialog.DialogActivity"
             android:screenOrientation="portrait"
             android:theme="@style/BaseActivityStyle"></activity>
+        <activity
+            android:name=".pop.PopActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseActivityStyle" />
         <activity
             android:name=".rxhttp.login.LoginActivity"
             android:screenOrientation="portrait"

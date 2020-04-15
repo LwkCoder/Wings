@@ -1,4 +1,4 @@
-package com.lwkandroid.demo.rxhttp;
+package com.lwkandroid.demo.dialog;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,13 +17,12 @@ import androidx.annotation.Nullable;
  * @author
  * @date
  */
-public class RxHttpActivity extends MvpBaseActivity<RxHttpPresenter> implements RxHttpContract.IView<RxHttpPresenter>
+public class DialogActivity extends MvpBaseActivity<DialogPresenter> implements DialogContract.IView<DialogPresenter>
 {
-
     @Override
-    protected RxHttpPresenter createPresenter()
+    protected DialogPresenter createPresenter()
     {
-        return new RxHttpPresenter(this, new RxHttpModel());
+        return new DialogPresenter(this, new DialogModel());
     }
 
 
@@ -36,7 +35,7 @@ public class RxHttpActivity extends MvpBaseActivity<RxHttpPresenter> implements 
     @Override
     protected int getContentViewId()
     {
-        return R.layout.activity_rx_http;
+        return R.layout.activity_dialog;
     }
 
     @Override
@@ -48,21 +47,14 @@ public class RxHttpActivity extends MvpBaseActivity<RxHttpPresenter> implements 
     @Override
     protected void initData(@Nullable Bundle savedInstanceState)
     {
-
     }
 
     @Override
-    @ClickViews(values = {R.id.btn_rxhttp_01, R.id.btn_rxhttp_02})
+    @ClickViews(values = {})
     public void onClick(int id, View view)
     {
         switch (id)
         {
-            case R.id.btn_rxhttp_01:
-                getPresenter().test01();
-                break;
-            case R.id.btn_rxhttp_02:
-                getPresenter().test02();
-                break;
             default:
                 break;
         }

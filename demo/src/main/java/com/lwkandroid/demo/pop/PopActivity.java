@@ -14,6 +14,9 @@ import com.lwkandroid.lib.common.widgets.pop.PopBuilder;
 import com.lwkandroid.lib.common.widgets.pop.WingsPopupWindow;
 import com.lwkandroid.lib.common.widgets.pop.XGravity;
 import com.lwkandroid.lib.common.widgets.pop.YGravity;
+import com.lwkandroid.lib.core.annotation.ClickViews;
+import com.lwkandroid.lib.core.annotation.FindView;
+import com.lwkandroid.lib.core.annotation.ViewInjector;
 import com.lwkandroid.widget.comactionbar.ComActionBar;
 
 import androidx.annotation.Nullable;
@@ -26,10 +29,13 @@ import androidx.annotation.Nullable;
  */
 public class PopActivity extends MvpBaseActivity<PopPresenter> implements PopContract.IView<PopPresenter>
 {
-
+    @FindView(R.id.tv_pop_target)
     private View mTargetView;
+    @FindView(R.id.rg_pop_x)
     private RadioGroup mRadioGroupX;
+    @FindView(R.id.rg_pop_y)
     private RadioGroup mRadioGroupY;
+    @FindView(R.id.cab_pop)
     ComActionBar actionBar;
 
     @Override
@@ -54,15 +60,7 @@ public class PopActivity extends MvpBaseActivity<PopPresenter> implements PopCon
     @Override
     protected void initUI(View contentView)
     {
-        actionBar = find(R.id.cab_pop);
-        actionBar.setRightClickListener01(this);
-
-        mRadioGroupX = find(R.id.rg_pop_x);
-        mRadioGroupY = find(R.id.rg_pop_y);
-        mTargetView = find(R.id.tv_pop_target);
-
-        addClick(R.id.btn_pop_01);
-        addClick(R.id.btn_pop_02);
+        ViewInjector.with(this);
     }
 
     @Override
@@ -71,6 +69,7 @@ public class PopActivity extends MvpBaseActivity<PopPresenter> implements PopCon
     }
 
     @Override
+    @ClickViews(values = {R.id.fl_comactionbar_right01, R.id.btn_pop_01, R.id.btn_pop_02})
     public void onClick(int id, View view)
     {
         switch (id)
