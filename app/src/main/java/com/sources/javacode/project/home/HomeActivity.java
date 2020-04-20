@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.lwkandroid.lib.common.mvp.MvpBaseActivity;
 import com.lwkandroid.lib.common.qrcode.QRCodeScanHelper;
+import com.lwkandroid.lib.core.annotation.ClickViews;
 import com.sources.javacode.R;
 
 import androidx.annotation.Nullable;
@@ -41,8 +42,6 @@ public class HomeActivity extends MvpBaseActivity<HomePresenter> implements Home
     @Override
     protected void initUI(View contentView)
     {
-        addClick(R.id.btn_home_test01);
-        addClick(R.id.btn_home_test02);
     }
 
     @Override
@@ -52,6 +51,7 @@ public class HomeActivity extends MvpBaseActivity<HomePresenter> implements Home
     }
 
     @Override
+    @ClickViews(values = {R.id.btn_home_test01, R.id.btn_home_test02})
     public void onClick(int id, View view)
     {
         switch (id)
