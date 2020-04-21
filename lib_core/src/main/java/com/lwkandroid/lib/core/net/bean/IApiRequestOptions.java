@@ -1,6 +1,7 @@
 package com.lwkandroid.lib.core.net.bean;
 
 
+import com.lwkandroid.lib.core.callback.WingsSupplier;
 import com.lwkandroid.lib.core.net.cache.operator.IDiskCacheOperator;
 import com.lwkandroid.lib.core.net.constants.ApiCacheMode;
 import com.lwkandroid.lib.core.net.constants.ApiRequestType;
@@ -156,13 +157,13 @@ public interface IApiRequestOptions
 
         T clearHeaders();
 
-        T addDynamicHeader(String tag, IApiDynamicHeader callBack);
+        T addDynamicHeader(String tag, WingsSupplier<String> supplier);
 
         T removeDynamicHeader(String tag);
 
         T clearDynamicHeader();
 
-        Map<String, IApiDynamicHeader> getDynamicHeaderMap();
+        Map<String, WingsSupplier<String>> getDynamicHeaderMap();
 
         T setCookieManager(ICookieJar cookieJarImpl);
 
@@ -188,13 +189,13 @@ public interface IApiRequestOptions
 
         IApiExceptionMsgParser getApiExceptionMsgParser();
 
-        T addDynamicFormData(String key, IApiDynamicFormData dataCallBack);
+        T addDynamicFormData(String key, WingsSupplier<Object> supplier);
 
         T removeDynamicFormData(String key);
 
         T clearDynamicFormData();
 
-        Map<String, IApiDynamicFormData> getDynamicFormDataMap();
+        Map<String, WingsSupplier<Object>> getDynamicFormDataMap();
 
         T setRetryConfig(RetryConfig configProvider);
 

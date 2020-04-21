@@ -1,9 +1,8 @@
 package com.lwkandroid.lib.core.net.utils;
 
+import com.lwkandroid.lib.core.callback.WingsSupplier;
 import com.lwkandroid.lib.core.net.RxHttp;
 import com.lwkandroid.lib.core.net.bean.ApiGlobalOptions;
-import com.lwkandroid.lib.core.net.bean.IApiDynamicFormData;
-import com.lwkandroid.lib.core.net.bean.IApiDynamicHeader;
 import com.lwkandroid.lib.core.net.interceptor.ApiHeaderInterceptor;
 import com.lwkandroid.lib.core.net.interceptor.RetrofitFormDataInterceptor;
 
@@ -52,10 +51,10 @@ public final class RetrofitUtils
 
         /*添加全局参数和Header*/
         FormDataMap globalFormDataMap = RxHttp.getGlobalOptions().getFormDataMap();
-        Map<String, IApiDynamicFormData> globalDynamicFormDataMap = RxHttp.getGlobalOptions().getDynamicFormDataMap();
-        for (Map.Entry<String, IApiDynamicFormData> entry : globalDynamicFormDataMap.entrySet())
+        Map<String, WingsSupplier<Object>> globalDynamicFormDataMap = RxHttp.getGlobalOptions().getDynamicFormDataMap();
+        for (Map.Entry<String, WingsSupplier<Object>> entry : globalDynamicFormDataMap.entrySet())
         {
-            globalFormDataMap.addParam(entry.getKey(), entry.getValue().getFormData());
+            globalFormDataMap.addParam(entry.getKey(), entry.getValue().get());
         }
         if (globalFormDataMap != null && globalFormDataMap.size() > 0)
         {
@@ -63,10 +62,10 @@ public final class RetrofitUtils
         }
 
         Map<String, String> globalHeaderMap = RxHttp.getGlobalOptions().getHeadersMap();
-        Map<String, IApiDynamicHeader> globalDynamicHeaderMap = RxHttp.getGlobalOptions().getDynamicHeaderMap();
-        for (Map.Entry<String, IApiDynamicHeader> entry : globalDynamicHeaderMap.entrySet())
+        Map<String, WingsSupplier<String>> globalDynamicHeaderMap = RxHttp.getGlobalOptions().getDynamicHeaderMap();
+        for (Map.Entry<String, WingsSupplier<String>> entry : globalDynamicHeaderMap.entrySet())
         {
-            globalHeaderMap.put(entry.getKey(), entry.getValue().getHeader());
+            globalHeaderMap.put(entry.getKey(), entry.getValue().get());
         }
         if (globalHeaderMap != null && globalHeaderMap.size() > 0)
         {

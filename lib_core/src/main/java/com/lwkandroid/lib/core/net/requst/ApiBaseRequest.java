@@ -1,12 +1,11 @@
 package com.lwkandroid.lib.core.net.requst;
 
 
+import com.lwkandroid.lib.core.callback.WingsSupplier;
 import com.lwkandroid.lib.core.net.ApiService;
 import com.lwkandroid.lib.core.net.RxHttp;
 import com.lwkandroid.lib.core.net.bean.ApiBaseRequestOptions;
 import com.lwkandroid.lib.core.net.bean.ApiCacheOptions;
-import com.lwkandroid.lib.core.net.bean.IApiDynamicFormData;
-import com.lwkandroid.lib.core.net.bean.IApiDynamicHeader;
 import com.lwkandroid.lib.core.net.constants.ApiRequestType;
 import com.lwkandroid.lib.core.net.utils.FormDataMap;
 
@@ -91,10 +90,10 @@ public abstract class ApiBaseRequest<T extends ApiBaseRequestOptions> extends Ap
 
         //获取Headers
         Map<String, String> globalHeaderMap = RxHttp.getGlobalOptions().getHeadersMap();
-        Map<String, IApiDynamicHeader> globalDynamicHeaderMap = RxHttp.getGlobalOptions().getDynamicHeaderMap();
-        for (Map.Entry<String, IApiDynamicHeader> entry : globalDynamicHeaderMap.entrySet())
+        Map<String, WingsSupplier<String>> globalDynamicHeaderMap = RxHttp.getGlobalOptions().getDynamicHeaderMap();
+        for (Map.Entry<String, WingsSupplier<String>> entry : globalDynamicHeaderMap.entrySet())
         {
-            globalHeaderMap.put(entry.getKey(), entry.getValue().getHeader());
+            globalHeaderMap.put(entry.getKey(), entry.getValue().get());
         }
         Map<String, String> allHeadersMap = mergeParams(
                 globalHeaderMap, getHeadersMap(),
@@ -102,10 +101,10 @@ public abstract class ApiBaseRequest<T extends ApiBaseRequestOptions> extends Ap
 
         //获取表单参数
         FormDataMap globalFormDataMap = RxHttp.getGlobalOptions().getFormDataMap();
-        Map<String, IApiDynamicFormData> globalDynamicFormDataMap = RxHttp.getGlobalOptions().getDynamicFormDataMap();
-        for (Map.Entry<String, IApiDynamicFormData> entry : globalDynamicFormDataMap.entrySet())
+        Map<String, WingsSupplier<Object>> globalDynamicFormDataMap = RxHttp.getGlobalOptions().getDynamicFormDataMap();
+        for (Map.Entry<String, WingsSupplier<Object>> entry : globalDynamicFormDataMap.entrySet())
         {
-            globalFormDataMap.addParam(entry.getKey(), entry.getValue().getFormData());
+            globalFormDataMap.addParam(entry.getKey(), entry.getValue().get());
         }
         Map<String, Object> allFormDataMap = mergeParams(
                 globalFormDataMap,

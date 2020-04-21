@@ -2,6 +2,7 @@ package com.lwkandroid.lib.core.net.bean;
 
 
 import com.lwkandroid.lib.core.BuildConfig;
+import com.lwkandroid.lib.core.callback.WingsSupplier;
 import com.lwkandroid.lib.core.net.cache.operator.IDiskCacheOperator;
 import com.lwkandroid.lib.core.net.constants.ApiCacheMode;
 import com.lwkandroid.lib.core.net.constants.ApiConstants;
@@ -71,11 +72,11 @@ public class ApiGlobalOptions implements IApiRequestOptions.Global<ApiGlobalOpti
     /**
      * 动态参数Map
      */
-    private Map<String, IApiDynamicFormData> mDynamicFormDataMap;
+    private Map<String, WingsSupplier<Object>> mDynamicFormDataMap;
     /**
      * 动态HeaderMap
      */
-    private Map<String, IApiDynamicHeader> mDynamicHeaderMap;
+    private Map<String, WingsSupplier<String>> mDynamicHeaderMap;
     /**
      * 自动重试配置
      */
@@ -444,17 +445,17 @@ public class ApiGlobalOptions implements IApiRequestOptions.Global<ApiGlobalOpti
     }
 
     @Override
-    public ApiGlobalOptions addDynamicHeader(String tag, IApiDynamicHeader callBack)
+    public ApiGlobalOptions addDynamicHeader(String tag, WingsSupplier<String> supplier)
     {
         if (StringUtils.isTrimEmpty(tag))
         {
             throw new IllegalArgumentException("RxHttp addDynamicHeader() tag can not be trim empty !");
         }
-        if (callBack == null)
+        if (supplier == null)
         {
             throw new IllegalArgumentException("RxHttp addDynamicHeader() callback can not be null !");
         }
-        getDynamicHeaderMap().put(tag, callBack);
+        getDynamicHeaderMap().put(tag, supplier);
         return this;
     }
 
@@ -473,7 +474,7 @@ public class ApiGlobalOptions implements IApiRequestOptions.Global<ApiGlobalOpti
     }
 
     @Override
-    public Map<String, IApiDynamicHeader> getDynamicHeaderMap()
+    public Map<String, WingsSupplier<String>> getDynamicHeaderMap()
     {
         if (mDynamicHeaderMap == null)
         {
@@ -561,17 +562,17 @@ public class ApiGlobalOptions implements IApiRequestOptions.Global<ApiGlobalOpti
     }
 
     @Override
-    public ApiGlobalOptions addDynamicFormData(String key, IApiDynamicFormData dataCallBack)
+    public ApiGlobalOptions addDynamicFormData(String key, WingsSupplier<Object> supplier)
     {
         if (StringUtils.isTrimEmpty(key))
         {
             throw new IllegalArgumentException("RxHttp query param's key can not be trim empty !");
         }
-        if (dataCallBack == null)
+        if (supplier == null)
         {
             throw new IllegalArgumentException("RxHttp addParams FormData's callback can not be null !");
         }
-        getDynamicFormDataMap().put(key, dataCallBack);
+        getDynamicFormDataMap().put(key, supplier);
         return this;
     }
 
@@ -590,7 +591,7 @@ public class ApiGlobalOptions implements IApiRequestOptions.Global<ApiGlobalOpti
     }
 
     @Override
-    public Map<String, IApiDynamicFormData> getDynamicFormDataMap()
+    public Map<String, WingsSupplier<Object>> getDynamicFormDataMap()
     {
         if (mDynamicFormDataMap == null)
         {
