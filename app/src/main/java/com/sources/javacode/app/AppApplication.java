@@ -23,8 +23,8 @@ public class AppApplication extends Application
         super.onCreate();
         ApiURL.HOST = BuildConfig.HOST;
         AppConfig.CHANNEL_NAME = BuildConfig.APP_CHANNEL;
-        AppConfig.LIB_CONFIG1 = BuildConfig.LibConfig1;
-        AppConfig.LIB_CONFIG2 = BuildConfig.LibConfig2;
+        AppConfig.LIB_CONFIG1 = BuildConfig.libKey1;
+        AppConfig.LIB_CONFIG2 = BuildConfig.libKey2;
 
         //初始化网络请求库
         RxHttp.init(BuildConfig.DEBUG, ApiURL.HOST);

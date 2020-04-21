@@ -11,8 +11,8 @@ ext {
 
     /*项目网络请求域名*/
     url = [
-            "debugUrl"  : "http://lf.snssdk.com/neihan/",
-            "releaseUrl": "http://lf.snssdk.com/neihan/"
+            "debugUrl"  : "http://localhost:8080",
+            "releaseUrl": "http://localhost:8080"
     ]
 
     /*App名称*/
@@ -23,34 +23,34 @@ ext {
 
     /*依赖库参数*/
     libsConfig = [
-            "LibConfig1": "LibConfig1",
-            "LibConfig2": "LibConfig2"
+            "libKey1": "libValue111",
+            "libKey2": "libValue222"
     ]
 
     /*依赖库的版本号*/
     AppCompatXVersion = "1.1.0"
     AnnotationXVersion = "1.1.0"
-    RecyclerViewXVersion = "1.1.0"
-    SwipeRefreshXVersion = "1.1.0-beta01"
-    ImagePickerVersion = "1.4.6"
+    AndroidXJunitVersion = "1.1.1"
+    AndroidXEspressoCoreVersion = "3.2.0"
     AndPermissionVersion = "2.0.3"
-    RcvAdapterVersion = "1.4.3"
-    OkHttp3Version = "4.2.2"
+    BGACodeVersion = "1.3.6"
+    ComActionBarVersion = "1.1.7"
+    ConstraintLayoutVersion = "1.1.3"
+    ChuckerVersion = "3.0.1"
+    DiskLruCacheVersion = "2.0.2"
     GlideVersion = "4.11.0"
     GsonVersion = "2.8.6"
+    ImagePickerVersion = "1.4.6"
+    JunitVersion = "4.12"
+    KotlinCoreVersion = "1.2.0"
+    LeakCanaryVersion = "2.2"
+    OkHttp3Version = "4.2.2"
+    RecyclerViewXVersion = "1.1.0"
+    RcvAdapterVersion = "1.4.3"
     RetrofitVersion = "2.6.2"
     RXJava2Version = "2.2.15"
     RXAndroidVersion = "2.1.1"
     RXBindingVersion = "3.0.0"
-    BGACodeVersion = "1.3.6"
-    ComActionBarVersion = "1.1.7"
-    LeakCanaryVersion = "2.2"
+    SwipeRefreshXVersion = "1.1.0-beta01"
     StethoVersion = "1.5.1"
-    DiskLruCacheVersion = "2.0.2"
-    ChuckerVersion = "3.0.1"
-    ConstraintLayoutVersion = "1.1.3"
-    KotlinCoreVersion = "1.2.0"
-    JunitVersion = "4.12"
-    AndroidXJunitVersion = "1.1.1"
-    AndroidXEspressoCoreVersion = "3.2.0"
 }
