@@ -5,7 +5,7 @@ package com.lwkandroid.lib.core.net.bean;
  *
  * @author LWK
  */
-public interface IApiRestfulResult<T>
+public interface IApiRestfulResult
 {
     /**
      * 获取请求结果唯一状态码
@@ -20,7 +20,7 @@ public interface IApiRestfulResult<T>
     /**
      * 获取请求结果数据
      */
-    T getData();
+    Object getData();
 
     /**
      * 快捷判断该次请求是否成功

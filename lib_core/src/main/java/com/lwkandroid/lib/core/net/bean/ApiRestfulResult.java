@@ -3,22 +3,19 @@ package com.lwkandroid.lib.core.net.bean;
 import com.lwkandroid.lib.core.annotation.NotProguard;
 import com.lwkandroid.lib.core.net.RxHttp;
 
-import java.io.Serializable;
-
 /**
  * RestFul风格默认的请求结果
  *
  * @author LWK
  */
 @NotProguard
-public class ApiRestfulResult<T> implements IApiRestfulResult<T>, Serializable
+public class ApiRestfulResult implements IApiRestfulResult
 {
-    private static final long serialVersionUID = 4302225912527235188L;
     private int code;
 
     private String msg;
 
-    private T data;
+    private Object data;
 
     public void setCode(int code)
     {
@@ -35,7 +32,7 @@ public class ApiRestfulResult<T> implements IApiRestfulResult<T>, Serializable
         this.msg = msg;
     }
 
-    public void setData(T data)
+    public void setData(Object data)
     {
         this.data = data;
     }
@@ -53,7 +50,7 @@ public class ApiRestfulResult<T> implements IApiRestfulResult<T>, Serializable
     }
 
     @Override
-    public T getData()
+    public Object getData()
     {
         return data;
     }

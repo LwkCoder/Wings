@@ -70,7 +70,7 @@ public class ApiStringParser implements IApiStringParser
      */
     private String parseRestfulDataJson(String response) throws ApiException
     {
-        IApiRestfulResult<Object> result = JsonUtils.fromJson(response, RxHttp.getGlobalOptions().getApiRestfulResultType());
+        IApiRestfulResult result = JsonUtils.fromJson(response, RxHttp.getGlobalOptions().getApiRestfulResultType());
         if (result == null)
         {
             throw new ApiException(ApiExceptionCode.RESPONSE_EMPTY, "Could not get any Response");
