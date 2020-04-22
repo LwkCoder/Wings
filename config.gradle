@@ -51,6 +51,6 @@ ext {
     RXJava2Version = "2.2.15"
     RXAndroidVersion = "2.1.1"
     RXBindingVersion = "3.0.0"
-    SwipeRefreshXVersion = "1.1.0-beta01"
+    SwipeRefreshXVersion = "1.1.0-rc01"
     StethoVersion = "1.5.1"
 }
