@@ -20,12 +20,6 @@ import androidx.annotation.Nullable;
 public class AppLifecycleCallBack implements Application.ActivityLifecycleCallbacks
 {
     @Override
-    public void onActivityPreCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState)
-    {
-
-    }
-
-    @Override
     public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState)
     {
         //在此设置状态栏、导航栏颜色

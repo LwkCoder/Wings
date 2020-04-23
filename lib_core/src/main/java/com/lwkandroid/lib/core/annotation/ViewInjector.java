@@ -3,6 +3,8 @@ package com.lwkandroid.lib.core.annotation;
 import android.app.Activity;
 import android.view.View;
 
+import com.lwkandroid.lib.core.log.KLog;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -35,6 +37,7 @@ public final class ViewInjector
     {
         if (object == null || contentView == null)
         {
+            KLog.e("ViewInjector can not inject with null object or null contentView.");
             return;
         }
 
@@ -78,6 +81,11 @@ public final class ViewInjector
                     continue;
                 }
                 View view = contentView.findViewById(viewId);
+                if (view == null)
+                {
+                    KLog.e("ViewInjector can not find view with id=" + viewId + " in " + object.getClass().getName());
+                    continue;
+                }
                 view.setOnClickListener(arg0 -> {
                     try
                     {
@@ -98,6 +106,11 @@ public final class ViewInjector
                         continue;
                     }
                     final View view = contentView.findViewById(viewId);
+                    if (view == null)
+                    {
+                        KLog.e("ViewInjector can not find view with id=" + viewId + " in " + object.getClass().getName());
+                        continue;
+                    }
                     view.setOnClickListener(arg0 -> {
                         try
                         {
