@@ -61,7 +61,7 @@ public final class QRCodeScanHelper
             return data.getStringExtra(QRCodeScanActivity.KEY_RESULT);
         } else
         {
-            return null;
+            return "";
         }
     }
 }

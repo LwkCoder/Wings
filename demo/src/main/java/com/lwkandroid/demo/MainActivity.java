@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.lwkandroid.demo.dialog.DialogActivity;
 import com.lwkandroid.demo.pop.PopActivity;
+import com.lwkandroid.demo.qrcode.QrCodeActivity;
 import com.lwkandroid.demo.rxhttp.RxHttpActivity;
 import com.lwkandroid.lib.common.mvp.MvpBaseActivity;
 import com.lwkandroid.lib.core.annotation.ClickViews;
@@ -53,7 +54,8 @@ public class MainActivity extends MvpBaseActivity<MainPresenter> implements Main
     }
 
     @Override
-    @ClickViews(values = {R.id.btn_main_01, R.id.btn_main_02, R.id.btn_main_03})
+    @ClickViews(values = {R.id.btn_main_01, R.id.btn_main_02,
+            R.id.btn_main_03, R.id.btn_main_04})
     public void onClick(int id, View view)
     {
         switch (id)
@@ -66,6 +68,9 @@ public class MainActivity extends MvpBaseActivity<MainPresenter> implements Main
                 break;
             case R.id.btn_main_03:
                 startActivity(new Intent(MainActivity.this, DialogActivity.class));
+                break;
+            case R.id.btn_main_04:
+                startActivity(new Intent(MainActivity.this, QrCodeActivity.class));
                 break;
             default:
                 break;

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.lwkandroid.lib.common.widgets.view.RLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".qrcode.QrCodeActivity">
+
+    <com.lwkandroid.widget.comactionbar.ComActionBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:bg_color="@color/actionbar"
+        app:is_left_as_back="true"
+        app:title_text="二维码示例" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
+
+        <com.lwkandroid.lib.common.widgets.view.RLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/spacing_normal">
+
+            <com.lwkandroid.lib.common.widgets.view.RConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/spacing_small"
+                app:border_color_normal="@color/text_black_normal"
+                app:border_width_normal="1dp"
+                app:corner_radius="@dimen/spacing_tiny">
+
+                <com.lwkandroid.lib.common.widgets.view.REditText
+                    android:id="@+id/ed_qrcode"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:background="@color/transparent"
+                    android:gravity="left|top"
+                    android:hint="二维码明文内容"
+                    android:textSize="@dimen/text_size_medium"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:text_color_normal="@color/text_black_normal" />
+
+                <com.lwkandroid.lib.common.widgets.view.RTextView
+                    android:id="@+id/btn_qrcode_clear"
+                    style="@style/NormalButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:layout_marginRight="@dimen/spacing_tiny"
+                    android:text="清空内容"
+                    android:textSize="@dimen/text_size_normal"
+                    app:background_normal="@android:color/holo_red_light"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/btn_qrcode_copy"
+                    app:layout_constraintTop_toBottomOf="@+id/ed_qrcode"
+                    app:text_color_normal="@color/white" />
+
+                <com.lwkandroid.lib.common.widgets.view.RTextView
+                    android:id="@+id/btn_qrcode_copy"
+                    style="@style/NormalButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_marginLeft="@dimen/spacing_tiny"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:text="复制内容"
+                    android:textSize="@dimen/text_size_normal"
+                    app:background_normal="@android:color/holo_green_light"
+                    app:background_unable="@color/gray_lighter"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintLeft_toRightOf="@+id/btn_qrcode_clear"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ed_qrcode"
+                    app:text_color_normal="@color/white" />
+
+            </com.lwkandroid.lib.common.widgets.view.RConstraintLayout>
+
+            <com.lwkandroid.lib.common.widgets.view.RTextView
+                android:id="@+id/btn_qrcode01"
+                style="@style/NormalButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/spacing_normal"
+                android:text="生成二维码图片"
+                app:background_normal="@color/white"
+                app:border_color_normal="@color/actionbar"
+                app:border_width_normal="1dp" />
+
+            <com.lwkandroid.lib.common.widgets.view.RTextView
+                android:id="@+id/btn_qrcode02"
+                style="@style/NormalButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/spacing_normal"
+                android:text="跳转扫描二维码"
+                app:background_normal="@color/white"
+                app:border_color_normal="@color/actionbar"
+                app:border_width_normal="1dp" />
+
+            <com.lwkandroid.lib.common.widgets.view.RTextView
+                android:id="@+id/btn_qrcode03"
+                style="@style/NormalButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/spacing_normal"
+                android:text="识别相册二维码"
+                app:background_normal="@color/white"
+                app:border_color_normal="@color/actionbar"
+                app:border_width_normal="1dp" />
+
+
+        </com.lwkandroid.lib.common.widgets.view.RLinearLayout>
+
+    </ScrollView>
+
+</com.lwkandroid.lib.common.widgets.view.RLinearLayout>
