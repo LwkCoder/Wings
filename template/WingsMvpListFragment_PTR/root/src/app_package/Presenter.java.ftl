@@ -42,7 +42,7 @@ class ${uiClassName}Presenter extends MvpBasePresenterImpl<${uiClassName}Contrac
                 .subscribe(new ApiBaseObserver<List<${dataSourceClass}>>()
                 {
                     @Override
-                    public void subOnNext(List<${dataSourceClass}> list)
+                    public void subOnNext(List<${dataSourceClass}> list, list.size() < PAGE_SIZE)
                     {
                         //刷新成功后重置页码
                         mCurrentIndex = PAGE_INDEX_DEFAULT;

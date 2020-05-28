@@ -130,13 +130,27 @@ public class ${uiClassName}Fragment extends MvpBaseFragment<${uiClassName}Presen
     }
 
     @Override
-    public void onRefreshSuccess(List<${dataSourceClass}> dataList)
+    public void onRefreshSuccess(List<${dataSourceClass}> dataList, boolean noMoreData)
     {
         mRefreshWrapper.callRefreshSuccess();
         mAdapter.refreshDatas(dataList);
         //配置自动加载
-        mLoadMoreWrapper.enableLoadMore(isLoadMoreEnable());
-        mLoadMoreWrapper.setOnLoadMoreRequestedListener(this);
+        if (isLoadMoreEnable())
+        {
+            mLoadMoreWrapper.enableLoadMore(true);
+            if (noMoreData)
+            {
+                mLoadMoreWrapper.setOnLoadMoreRequestedListener(null);
+                mLoadMoreWrapper.callLoadMoreNoMoreData();
+            } else
+            {
+                mLoadMoreWrapper.setOnLoadMoreRequestedListener(this);
+            }
+        } else
+        {
+            mLoadMoreWrapper.enableLoadMore(false);
+            mLoadMoreWrapper.setOnLoadMoreRequestedListener(null);
+        }
     }
 
     @Override

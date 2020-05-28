@@ -16,6 +16,6 @@ class ${uiClassName}Model extends MvpBaseModelImpl implements ${uiClassName}Cont
     public Observable<List<${dataSourceClass}>> requestData(int pageIndex, int pageSize, long timeStamp, String... args)
     {
         //TODO 实现请求数据的方法
-        return null;
+        return Observable.just(new ArrayList<>());
     }
 }

@@ -29,7 +29,7 @@ interface ${uiClassName}Contract
 
         void autoRefresh();
 
-        void onRefreshSuccess(List<${dataSourceClass}> dataList);
+        void onRefreshSuccess(List<${dataSourceClass}> dataList, boolean noMoreData);
 
         void onRefreshFail(String message, Throwable throwable);
 

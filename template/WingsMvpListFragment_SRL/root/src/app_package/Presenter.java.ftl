@@ -46,7 +46,7 @@ class ${uiClassName}Presenter extends MvpBasePresenterImpl<${uiClassName}Contrac
                     {
                         //刷新成功后重置页码
                         mCurrentIndex = PAGE_INDEX_DEFAULT;
-                        getViewImpl().onRefreshSuccess(list);
+                        getViewImpl().onRefreshSuccess(list, list.size() < PAGE_SIZE);
                     }
 
                     @Override
