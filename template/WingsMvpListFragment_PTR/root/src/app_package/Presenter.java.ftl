@@ -74,7 +74,7 @@ class ${uiClassName}Presenter extends MvpBasePresenterImpl<${uiClassName}Contrac
                         //同步页码
                         mCurrentIndex = nextPageIndex;
                         getViewImpl().onLoadMoreSuccess(list);
-                        if (list != null && list.size() < PAGE_SIZE)
+                        if (list == null || list.size() < PAGE_SIZE)
                         {
                             getViewImpl().onLoadMoreNoMoreData();
                         }
