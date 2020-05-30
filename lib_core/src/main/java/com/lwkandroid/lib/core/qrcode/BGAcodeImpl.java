@@ -71,6 +71,12 @@ final class BGAcodeImpl implements IQRCodeStrategy
     }
 
     @Override
+    public Bitmap encodeBarcode(String content, int width, int height, int textSize)
+    {
+        return QRCodeEncoder.syncEncodeBarcode(content, width, height, textSize);
+    }
+
+    @Override
     public Observable<Bitmap> encodeQRCodeByRxJava(String content, int size)
     {
         return encodeQRCodeByRxJava(content, size, Color.BLACK, Color.WHITE, null);
@@ -93,6 +99,14 @@ final class BGAcodeImpl implements IQRCodeStrategy
     {
         return Observable.just(content)
                 .map(s -> encodeQRCode(s, size, fColor, bColor, logo))
+                .compose(RxSchedulers.applyIo2Main());
+    }
+
+    @Override
+    public Observable<Bitmap> encodeBarcodeByRxjava(String content, int width, int height, int textSize)
+    {
+        return Observable.just(content)
+                .map(s -> encodeBarcode(content, width, height, textSize))
                 .compose(RxSchedulers.applyIo2Main());
     }
 }

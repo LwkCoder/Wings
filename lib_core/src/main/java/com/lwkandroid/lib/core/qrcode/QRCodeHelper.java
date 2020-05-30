@@ -136,6 +136,20 @@ public final class QRCodeHelper
     }
 
     /**
+     * 创建一张条码位图
+     *
+     * @param content  内容
+     * @param width    宽度
+     * @param height   高度
+     * @param textSize 字体大小，px，为0不显示
+     * @return 条码码位图
+     */
+    public static Bitmap encodeBarcode(String content, int width, int height, int textSize)
+    {
+        return IMPL.encodeBarcode(content, width, height, textSize);
+    }
+
+    /**
      * 配合RxJava创建一张二维码位图
      * 【IO线程异步生成，订阅在主线程】
      *
@@ -195,5 +209,19 @@ public final class QRCodeHelper
                                                           Bitmap logo)
     {
         return IMPL.encodeQRCodeByRxJava(content, size, fColor, bColor, logo);
+    }
+
+    /**
+     * 配合RxJava创建一张条码位图
+     *
+     * @param content  内容
+     * @param width    宽度
+     * @param height   高度
+     * @param textSize 字体大小，px，为0不显示
+     * @return 条码位图
+     */
+    public static Observable<Bitmap> encodeBarcodeByRxjava(String content, int width, int height, int textSize)
+    {
+        return IMPL.encodeBarcodeByRxjava(content, width, height, textSize);
     }
 }

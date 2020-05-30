@@ -95,6 +95,17 @@ public interface IQRCodeStrategy
     Bitmap encodeQRCode(String content, int size, int fColor, int bColor, Bitmap logo);
 
     /**
+     * 创建一张条码位图
+     *
+     * @param content  内容
+     * @param width    宽度
+     * @param height   高度
+     * @param textSize 字体大小，px，为0不显示
+     * @return 条码位图
+     */
+    Bitmap encodeBarcode(String content, int width, int height, int textSize);
+
+    /**
      * 配合RxJava创建一张二维码位图
      * 【IO线程异步生成，订阅在主线程】
      *
@@ -139,4 +150,15 @@ public interface IQRCodeStrategy
      * @return 二维码位图
      */
     Observable<Bitmap> encodeQRCodeByRxJava(String content, int size, int fColor, int bColor, Bitmap logo);
+
+    /**
+     * 配合RxJava创建一张条码位图
+     *
+     * @param content  内容
+     * @param width    宽度
+     * @param height   高度
+     * @param textSize 字体大小，px，为0不显示
+     * @return 条码位图
+     */
+    Observable<Bitmap> encodeBarcodeByRxjava(String content, int width, int height, int textSize);
 }
