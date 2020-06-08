@@ -195,52 +195,6 @@ public final class ScreenUtils
         return ret;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public static void createBitmapFromView(final Window window, final View view, final WingsCallBack<Bitmap> callBack)
-    {
-        if (view == null)
-        {
-            if (callBack != null)
-            {
-                callBack.onCallBackSuccess(null);
-            }
-            return;
-        }
-
-        view.post(() -> {
-            try
-            {
-                int width = view.getWidth();
-                int height = view.getHeight();
-                int[] location = new int[2];
-                view.getLocationInWindow(location);
-                final Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888, true);
-                PixelCopy.request(window, new Rect(location[0], location[1], location[0] + width, location[1] + height),
-                        bitmap, copyResult -> {
-                            if (copyResult == PixelCopy.SUCCESS)
-                            {
-                                if (callBack != null)
-                                {
-                                    callBack.onCallBackSuccess(bitmap);
-                                }
-                            } else
-                            {
-                                if (callBack != null)
-                                {
-                                    callBack.onCallBackError(copyResult, new Exception("Fail to create bitmap from view"));
-                                }
-                            }
-                        }, new Handler(Looper.getMainLooper()));
-            } catch (Exception e)
-            {
-                if (callBack != null)
-                {
-                    callBack.onCallBackError(-1, e);
-                }
-            }
-        });
-    }
-
     /**
      * 判断是否锁屏
      *
