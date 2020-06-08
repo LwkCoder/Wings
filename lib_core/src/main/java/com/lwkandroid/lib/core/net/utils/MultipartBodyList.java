@@ -56,6 +56,7 @@ public class MultipartBodyList extends ArrayList<okhttp3.MultipartBody.Part>
     /**
      * 添加InputStream参数
      */
+    @Deprecated
     public MultipartBodyList addInputStream(String key, String fileName, InputStream stream)
     {
         add(MultipartBodyUtils.createFormDataPart(key, fileName,

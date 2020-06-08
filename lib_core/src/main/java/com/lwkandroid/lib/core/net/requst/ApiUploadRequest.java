@@ -83,7 +83,9 @@ public final class ApiUploadRequest extends ApiBaseRequest<ApiUploadRequest> imp
 
     /**
      * 添加该次请求的流数据
+     * 会发生Stream Close的错误，推荐使用其他方法
      */
+    @Deprecated
     public ApiUploadRequest addInputStream(String key, String fileName, InputStream stream)
     {
         checkBodyListNotNull();
