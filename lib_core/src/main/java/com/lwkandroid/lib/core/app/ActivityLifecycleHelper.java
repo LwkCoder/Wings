@@ -81,6 +81,11 @@ public final class ActivityLifecycleHelper implements Application.ActivityLifecy
         return topActivityByReflect;
     }
 
+    public List<Activity> getActivityList()
+    {
+        return mActivityList;
+    }
+
     public void addOnAppStatusChangedListener(final OnAppStatusChangedListener listener)
     {
         mStatusListeners.add(listener);
