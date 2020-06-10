@@ -1,7 +1,6 @@
 package com.lwkandroid.lib.core.net.utils;
 
 
-import com.lwkandroid.lib.core.log.KLog;
 import com.lwkandroid.lib.core.utils.StringUtils;
 
 import java.util.HashMap;
@@ -68,11 +67,11 @@ public class FormDataMap extends HashMap<String, Object>
     public FormDataMap addParam(String key, Object value)
     {
         checkKeyNotNull(key);
-        if (null == value)
-        {
-            KLog.e(TAG, "RxHttp query param's value can not be null , Ignore key=" + key);
-            return this;
-        }
+        //        if (null == value)
+        //        {
+        //            KLog.e(TAG, "RxHttp query param's value can not be null , Ignore key=" + key);
+        //            return this;
+        //        }
         put(key, value);
         return this;
     }
@@ -80,11 +79,11 @@ public class FormDataMap extends HashMap<String, Object>
     public FormDataMap addParam(String key, String value)
     {
         checkKeyNotNull(key);
-        if (StringUtils.isEmpty(value))
-        {
-            KLog.e(TAG, "RxHttp query param's value can not be null , Ignore key=" + key);
-            return this;
-        }
+        //        if (StringUtils.isEmpty(value))
+        //        {
+        //            KLog.e(TAG, "RxHttp query param's value can not be null , Ignore key=" + key);
+        //            return this;
+        //        }
         put(key, value);
         return this;
     }
