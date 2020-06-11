@@ -8,8 +8,8 @@ import android.widget.TextView;
 import com.lwkandroid.lib.common.R;
 import com.lwkandroid.lib.common.widgets.dialog.IDialogUiController;
 import com.lwkandroid.lib.common.widgets.dialog.WingsDialog;
-import com.lwkandroid.lib.core.utils.ResourceUtils;
-import com.lwkandroid.lib.core.utils.StringUtils;
+import com.lwkandroid.lib.core.utils.common.ResourceUtils;
+import com.lwkandroid.lib.core.utils.common.StringUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;

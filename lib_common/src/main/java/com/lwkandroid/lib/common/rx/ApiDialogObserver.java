@@ -7,7 +7,7 @@ import com.lwkandroid.lib.common.widgets.dialog.WingsDialog;
 import com.lwkandroid.lib.common.widgets.ui.LoadingDialogController;
 import com.lwkandroid.lib.core.app.ActivityLifecycleHelper;
 import com.lwkandroid.lib.core.net.observer.ApiBaseObserver;
-import com.lwkandroid.lib.core.utils.ResourceUtils;
+import com.lwkandroid.lib.core.utils.common.ResourceUtils;
 
 import org.reactivestreams.Subscription;
 

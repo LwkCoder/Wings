@@ -5,7 +5,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.lwkandroid.lib.common.R;
-import com.lwkandroid.lib.core.utils.ResourceUtils;
+import com.lwkandroid.lib.core.utils.common.ResourceUtils;
 
 import androidx.annotation.AnimRes;
 

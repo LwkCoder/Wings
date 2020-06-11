@@ -5,7 +5,7 @@ import com.google.gson.TypeAdapter;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.lwkandroid.lib.core.net.bean.ApiDiskCacheBean;
-import com.lwkandroid.lib.core.utils.CloseUtils;
+import com.lwkandroid.lib.core.utils.common.CloseUtils;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;

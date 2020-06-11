@@ -1,4 +1,4 @@
-package com.lwkandroid.lib.core.utils;
+package com.lwkandroid.lib.core.utils.common;
 
 import android.os.Build;
 import android.os.Environment;
@@ -30,7 +30,7 @@ public final class SDCardUtils
     /**
      * 获取SD卡路径（一般是：/storage/emulated/0/）
      *
-     * @deprecated use{@link com.lwkandroid.lib.core.utils.PathUtils}
+     * @deprecated use{@link com.lwkandroid.lib.core.utils.common.PathUtils}
      */
     @Deprecated
     public static String getSDCardPath()
@@ -47,7 +47,7 @@ public final class SDCardUtils
      * 获取默认缓存路径（一般是：/storage/emulated/0/Android/data/package-name/data/）
      *
      * @return 缓存路径
-     * @deprecated use{@link com.lwkandroid.lib.core.utils.PathUtils}
+     * @deprecated use{@link com.lwkandroid.lib.core.utils.common.PathUtils}
      */
     @Deprecated
     public static String getExternalCachePath()

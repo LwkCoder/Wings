@@ -14,7 +14,7 @@ import com.lwkandroid.lib.core.net.constants.ApiExceptionCode;
 import com.lwkandroid.lib.core.net.exception.ApiErrorConsumer;
 import com.lwkandroid.lib.core.net.exception.IRetryCondition;
 import com.lwkandroid.lib.core.net.observer.ApiBaseObserver;
-import com.lwkandroid.lib.core.utils.ToastUtils;
+import com.lwkandroid.lib.core.utils.common.ToastUtils;
 
 import androidx.fragment.app.FragmentActivity;
 import io.reactivex.Single;

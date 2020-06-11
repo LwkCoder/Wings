@@ -2,7 +2,7 @@ package com.lwkandroid.lib.core.net.parser;
 
 import android.graphics.Bitmap;
 
-import com.lwkandroid.lib.core.utils.ImageUtils;
+import com.lwkandroid.lib.core.utils.common.ImageUtils;
 
 import io.reactivex.ObservableTransformer;
 import io.reactivex.functions.Function;

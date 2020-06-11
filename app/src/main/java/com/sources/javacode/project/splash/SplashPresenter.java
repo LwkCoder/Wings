@@ -3,7 +3,7 @@ package com.sources.javacode.project.splash;
 import com.lwkandroid.lib.common.mvp.MvpBasePresenterImpl;
 import com.lwkandroid.lib.core.net.bean.ApiException;
 import com.lwkandroid.lib.core.net.observer.ApiBaseObserver;
-import com.lwkandroid.lib.core.utils.ToastUtils;
+import com.lwkandroid.lib.core.utils.common.ToastUtils;
 
 import java.util.concurrent.TimeUnit;
 

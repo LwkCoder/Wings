@@ -2,8 +2,8 @@ package com.lwkandroid.lib.core.log;
 
 
 import com.lwkandroid.lib.core.BuildConfig;
-import com.lwkandroid.lib.core.utils.AppUtils;
-import com.lwkandroid.lib.core.utils.StringUtils;
+import com.lwkandroid.lib.core.utils.common.AppUtils;
+import com.lwkandroid.lib.core.utils.common.StringUtils;
 
 import java.io.File;
 import java.io.PrintWriter;

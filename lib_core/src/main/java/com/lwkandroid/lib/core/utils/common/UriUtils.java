@@ -1,4 +1,4 @@
-package com.lwkandroid.lib.core.utils;
+package com.lwkandroid.lib.core.utils.common;
 
 import android.content.ContentResolver;
 import android.database.Cursor;

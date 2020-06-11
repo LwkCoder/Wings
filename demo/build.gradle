@@ -15,7 +15,7 @@ def formatDate() {
 }
 
 bus {
-    busUtilsClass "com.lwkandroid.lib.core.utils.BusUtils"
+    busUtilsClass "com.lwkandroid.lib.core.utils.common.BusUtils"
 }
 android {
     compileSdkVersion appConfig.compileSdkVersion

@@ -9,7 +9,7 @@ import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.lwkandroid.lib.core.app.ActivityLifecycleHelper;
 import com.lwkandroid.lib.core.imageloader.glide.GlideOkClient;
 import com.lwkandroid.lib.core.net.RxHttp;
-import com.lwkandroid.lib.core.utils.CrashUtils;
+import com.lwkandroid.lib.core.utils.common.CrashUtils;
 
 /**
  * Description:工具初始化入口

@@ -1,6 +1,6 @@
 package com.lwkandroid.lib.core.utils.encrypt;
 
-import com.lwkandroid.lib.core.utils.StringUtils;
+import com.lwkandroid.lib.core.utils.common.StringUtils;
 import com.lwkandroid.lib.core.utils.encode.EncodeUtils;
 
 import java.nio.charset.Charset;

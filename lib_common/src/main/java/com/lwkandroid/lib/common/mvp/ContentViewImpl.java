@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.lwkandroid.lib.core.utils.ToastUtils;
+import com.lwkandroid.lib.core.utils.common.ToastUtils;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;

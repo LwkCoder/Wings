@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
 
-import com.lwkandroid.lib.core.utils.BarUtils;
-import com.lwkandroid.lib.core.utils.ResourceUtils;
+import com.lwkandroid.lib.core.utils.common.BarUtils;
+import com.lwkandroid.lib.core.utils.common.ResourceUtils;
 import com.sources.javacode.R;
 
 import androidx.annotation.NonNull;

@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.animation.LinearInterpolator;
 
 import com.lwkandroid.lib.common.R;
-import com.lwkandroid.lib.core.utils.ConvertUtils;
+import com.lwkandroid.lib.core.utils.common.ConvertUtils;
 
 import androidx.annotation.NonNull;
 

@@ -4,7 +4,7 @@ import android.app.ActivityThread;
 import android.content.Context;
 
 import com.lwkandroid.lib.core.app.ActivityLifecycleHelper;
-import com.lwkandroid.lib.core.utils.CrashUtils;
+import com.lwkandroid.lib.core.utils.common.CrashUtils;
 
 /**
  * Description:工具初始化入口

@@ -15,7 +15,7 @@ import android.widget.Scroller;
 import com.lwkandroid.lib.common.BuildConfig;
 import com.lwkandroid.lib.common.R;
 import com.lwkandroid.lib.core.log.KLog;
-import com.lwkandroid.lib.core.utils.ConvertUtils;
+import com.lwkandroid.lib.core.utils.common.ConvertUtils;
 
 import androidx.annotation.Nullable;
 import androidx.core.view.NestedScrollingParent;

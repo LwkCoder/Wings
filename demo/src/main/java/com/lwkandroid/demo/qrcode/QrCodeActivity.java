@@ -24,8 +24,8 @@ import com.lwkandroid.lib.core.annotation.ClickViews;
 import com.lwkandroid.lib.core.annotation.FindView;
 import com.lwkandroid.lib.core.annotation.ViewInjector;
 import com.lwkandroid.lib.core.callback.WingsSupplier;
-import com.lwkandroid.lib.core.utils.ClipboardUtils;
-import com.lwkandroid.lib.core.utils.StringUtils;
+import com.lwkandroid.lib.core.utils.common.ClipboardUtils;
+import com.lwkandroid.lib.core.utils.common.StringUtils;
 
 import java.util.List;
 

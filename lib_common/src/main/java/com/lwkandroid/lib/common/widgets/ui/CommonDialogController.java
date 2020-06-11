@@ -7,7 +7,7 @@ import com.lwkandroid.lib.common.R;
 import com.lwkandroid.lib.common.widgets.dialog.IDialogUiController;
 import com.lwkandroid.lib.common.widgets.dialog.WingsDialog;
 import com.lwkandroid.lib.common.widgets.view.RTextView;
-import com.lwkandroid.lib.core.utils.ResourceUtils;
+import com.lwkandroid.lib.core.utils.common.ResourceUtils;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.Lifecycle;

@@ -1,4 +1,4 @@
-package com.lwkandroid.lib.core.utils;
+package com.lwkandroid.lib.core.utils.common;
 
 import java.io.Closeable;
 import java.io.IOException;

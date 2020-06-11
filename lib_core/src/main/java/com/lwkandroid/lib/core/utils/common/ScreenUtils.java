@@ -1,4 +1,4 @@
-package com.lwkandroid.lib.core.utils;
+package com.lwkandroid.lib.core.utils.common;
 
 import android.app.Activity;
 import android.app.KeyguardManager;
@@ -7,22 +7,15 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.Rect;
-import android.os.Build;
-import android.os.Handler;
-import android.os.Looper;
 import android.util.DisplayMetrics;
-import android.view.PixelCopy;
 import android.view.Surface;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.lwkandroid.lib.core.callback.WingsCallBack;
 import com.lwkandroid.lib.core.context.AppContext;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 
 /**
  * 屏幕相关工具类

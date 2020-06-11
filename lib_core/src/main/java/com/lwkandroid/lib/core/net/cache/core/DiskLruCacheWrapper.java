@@ -20,7 +20,7 @@ package com.lwkandroid.lib.core.net.cache.core;
 import com.jakewharton.disklrucache.DiskLruCache;
 import com.lwkandroid.lib.core.net.bean.ApiDiskCacheBean;
 import com.lwkandroid.lib.core.net.cache.operator.IDiskCacheOperator;
-import com.lwkandroid.lib.core.utils.CloseUtils;
+import com.lwkandroid.lib.core.utils.common.CloseUtils;
 
 import java.io.File;
 import java.io.IOException;

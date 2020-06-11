@@ -1,4 +1,4 @@
-package com.lwkandroid.lib.core.utils;
+package com.lwkandroid.lib.core.utils.common;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;

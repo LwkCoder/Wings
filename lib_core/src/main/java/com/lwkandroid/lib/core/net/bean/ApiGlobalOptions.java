@@ -16,7 +16,7 @@ import com.lwkandroid.lib.core.net.https.HttpsUtils;
 import com.lwkandroid.lib.core.net.parser.ApiStringParser;
 import com.lwkandroid.lib.core.net.parser.IApiStringParser;
 import com.lwkandroid.lib.core.net.utils.FormDataMap;
-import com.lwkandroid.lib.core.utils.StringUtils;
+import com.lwkandroid.lib.core.utils.common.StringUtils;
 
 import java.io.InputStream;
 import java.lang.reflect.Type;

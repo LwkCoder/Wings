@@ -5,7 +5,7 @@ import android.os.Build;
 
 import com.lwkandroid.lib.core.log.KLog;
 import com.lwkandroid.lib.core.net.RxHttp;
-import com.lwkandroid.lib.core.utils.AppUtils;
+import com.lwkandroid.lib.core.utils.common.AppUtils;
 import com.sources.javacode.BuildConfig;
 import com.sources.javacode.net.ApiURL;
 

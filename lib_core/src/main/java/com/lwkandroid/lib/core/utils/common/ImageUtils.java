@@ -1,4 +1,4 @@
-package com.lwkandroid.lib.core.utils;
+package com.lwkandroid.lib.core.utils.common;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -38,7 +38,7 @@ import androidx.annotation.IntRange;
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 
-import static com.lwkandroid.lib.core.utils.FileUtils.createFileByDeleteOldFile;
+import static com.lwkandroid.lib.core.utils.common.FileUtils.createFileByDeleteOldFile;
 
 /**
  * 图片操作相关类

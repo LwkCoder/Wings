@@ -22,7 +22,7 @@ import android.text.TextUtils;
 
 import com.lwkandroid.lib.core.context.AppContext;
 import com.lwkandroid.lib.core.log.KLog;
-import com.lwkandroid.lib.core.utils.AppUtils;
+import com.lwkandroid.lib.core.utils.common.AppUtils;
 import com.lwkandroid.lib.core.utils.encode.EncodeUtils;
 
 import java.io.ByteArrayInputStream;

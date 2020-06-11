@@ -10,7 +10,7 @@ import com.bumptech.glide.load.engine.cache.LruResourceCache;
 import com.bumptech.glide.load.engine.cache.MemorySizeCalculator;
 import com.bumptech.glide.module.AppGlideModule;
 import com.lwkandroid.lib.core.imageloader.ImageLoader;
-import com.lwkandroid.lib.core.utils.SDCardUtils;
+import com.lwkandroid.lib.core.utils.common.SDCardUtils;
 
 /**
  * 自定义GlideModule

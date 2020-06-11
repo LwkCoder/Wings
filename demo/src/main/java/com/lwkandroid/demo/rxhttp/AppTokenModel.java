@@ -3,7 +3,7 @@ package com.lwkandroid.demo.rxhttp;
 import com.lwkandroid.demo.rxhttp.bean.AccessTokenResultBean;
 import com.lwkandroid.lib.core.net.RxHttp;
 import com.lwkandroid.lib.core.rx.scheduler.RxSchedulers;
-import com.lwkandroid.lib.core.utils.StringUtils;
+import com.lwkandroid.lib.core.utils.common.StringUtils;
 
 import io.reactivex.Observable;
 

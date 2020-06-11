@@ -18,7 +18,7 @@
             android:name=".context.ContextProvider"
             android:authorities="${applicationId}.ContextProvider" />
         <provider
-            android:name=".utils.UriUtils$UriFileProvider"
+            android:name=".utils.common.UriUtils$UriFileProvider"
             android:authorities="${applicationId}.uriutils.provider"
             android:exported="false"
             android:grantUriPermissions="true"

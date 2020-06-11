@@ -2,7 +2,7 @@ package com.lwkandroid.lib.core.net.cache.operator;
 
 
 import com.lwkandroid.lib.core.net.bean.ApiDiskCacheBean;
-import com.lwkandroid.lib.core.utils.CloseUtils;
+import com.lwkandroid.lib.core.utils.common.CloseUtils;
 
 import java.io.IOException;
 import java.io.InputStream;

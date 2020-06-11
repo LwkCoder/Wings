@@ -2,7 +2,7 @@ package com.lwkandroid.lib.core.net.utils;
 
 
 import com.lwkandroid.lib.core.log.KLog;
-import com.lwkandroid.lib.core.utils.StringUtils;
+import com.lwkandroid.lib.core.utils.common.StringUtils;
 
 import java.io.File;
 import java.io.IOException;

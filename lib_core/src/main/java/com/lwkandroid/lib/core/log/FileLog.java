@@ -2,7 +2,7 @@ package com.lwkandroid.lib.core.log;
 
 import android.util.Log;
 
-import com.lwkandroid.lib.core.utils.FileIOUtils;
+import com.lwkandroid.lib.core.utils.common.FileIOUtils;
 
 import java.io.File;
 import java.util.Random;

@@ -2,8 +2,8 @@ package com.lwkandroid.lib.core.net.parser;
 
 import android.graphics.Bitmap;
 
-import com.lwkandroid.lib.core.utils.CloseUtils;
-import com.lwkandroid.lib.core.utils.ImageUtils;
+import com.lwkandroid.lib.core.utils.common.CloseUtils;
+import com.lwkandroid.lib.core.utils.common.ImageUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;

@@ -18,7 +18,7 @@ package com.lwkandroid.lib.core.net.https;
 
 
 import com.lwkandroid.lib.core.log.KLog;
-import com.lwkandroid.lib.core.utils.CloseUtils;
+import com.lwkandroid.lib.core.utils.common.CloseUtils;
 
 import java.io.InputStream;
 import java.security.KeyManagementException;

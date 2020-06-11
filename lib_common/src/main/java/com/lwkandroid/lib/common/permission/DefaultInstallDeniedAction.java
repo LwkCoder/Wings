@@ -1,7 +1,7 @@
 package com.lwkandroid.lib.common.permission;
 
 import com.lwkandroid.lib.common.R;
-import com.lwkandroid.lib.core.utils.ToastUtils;
+import com.lwkandroid.lib.core.utils.common.ToastUtils;
 import com.yanzhenjie.permission.Action;
 
 import java.io.File;

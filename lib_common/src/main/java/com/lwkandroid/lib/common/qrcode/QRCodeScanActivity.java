@@ -21,10 +21,10 @@ import com.lwkandroid.lib.core.log.KLog;
 import com.lwkandroid.lib.core.net.bean.ApiException;
 import com.lwkandroid.lib.core.qrcode.QRCodeHelper;
 import com.lwkandroid.lib.core.rx.life.RxLife;
-import com.lwkandroid.lib.core.utils.BarUtils;
-import com.lwkandroid.lib.core.utils.ResourceUtils;
-import com.lwkandroid.lib.core.utils.ScreenUtils;
-import com.lwkandroid.lib.core.utils.VibrateUtils;
+import com.lwkandroid.lib.core.utils.common.BarUtils;
+import com.lwkandroid.lib.core.utils.common.ResourceUtils;
+import com.lwkandroid.lib.core.utils.common.ScreenUtils;
+import com.lwkandroid.lib.core.utils.common.VibrateUtils;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.runtime.Permission;
 

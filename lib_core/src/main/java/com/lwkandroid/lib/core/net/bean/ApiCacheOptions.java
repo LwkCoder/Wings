@@ -8,8 +8,8 @@ import com.lwkandroid.lib.core.net.cache.operator.GsonDiskOperator;
 import com.lwkandroid.lib.core.net.cache.operator.IDiskCacheOperator;
 import com.lwkandroid.lib.core.net.constants.ApiCacheMode;
 import com.lwkandroid.lib.core.net.constants.ApiConstants;
-import com.lwkandroid.lib.core.utils.PathUtils;
-import com.lwkandroid.lib.core.utils.SDCardUtils;
+import com.lwkandroid.lib.core.utils.common.PathUtils;
+import com.lwkandroid.lib.core.utils.common.SDCardUtils;
 
 import java.io.File;
 

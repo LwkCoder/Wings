@@ -6,8 +6,8 @@ import com.lwkandroid.lib.common.R;
 import com.lwkandroid.lib.common.widgets.dialog.DialogBuilder;
 import com.lwkandroid.lib.common.widgets.ui.CommonDialogController;
 import com.lwkandroid.lib.core.app.ActivityLifecycleHelper;
-import com.lwkandroid.lib.core.utils.AppUtils;
-import com.lwkandroid.lib.core.utils.ResourceUtils;
+import com.lwkandroid.lib.core.utils.common.AppUtils;
+import com.lwkandroid.lib.core.utils.common.ResourceUtils;
 import com.yanzhenjie.permission.Rationale;
 import com.yanzhenjie.permission.RequestExecutor;
 

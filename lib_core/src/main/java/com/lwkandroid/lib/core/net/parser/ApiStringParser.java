@@ -5,7 +5,7 @@ import com.lwkandroid.lib.core.net.RxHttp;
 import com.lwkandroid.lib.core.net.bean.ApiException;
 import com.lwkandroid.lib.core.net.bean.IApiRestfulResult;
 import com.lwkandroid.lib.core.net.constants.ApiExceptionCode;
-import com.lwkandroid.lib.core.utils.StringUtils;
+import com.lwkandroid.lib.core.utils.common.StringUtils;
 import com.lwkandroid.lib.core.utils.json.JsonUtils;
 
 import java.lang.reflect.Array;

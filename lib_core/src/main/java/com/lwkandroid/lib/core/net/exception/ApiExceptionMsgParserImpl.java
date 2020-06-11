@@ -2,7 +2,7 @@ package com.lwkandroid.lib.core.net.exception;
 
 import com.lwkandroid.lib.core.R;
 import com.lwkandroid.lib.core.net.constants.ApiExceptionCode;
-import com.lwkandroid.lib.core.utils.ResourceUtils;
+import com.lwkandroid.lib.core.utils.common.ResourceUtils;
 
 /**
  * 设置ApiException错误描述的方法

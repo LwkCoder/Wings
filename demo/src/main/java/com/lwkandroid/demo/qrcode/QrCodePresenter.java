@@ -5,7 +5,7 @@ import android.graphics.Bitmap;
 import com.lwkandroid.lib.common.mvp.MvpBasePresenterImpl;
 import com.lwkandroid.lib.common.rx.ApiDialogObserver;
 import com.lwkandroid.lib.core.net.bean.ApiException;
-import com.lwkandroid.lib.core.utils.ToastUtils;
+import com.lwkandroid.lib.core.utils.common.ToastUtils;
 
 /**
  * Description:Presenter层
