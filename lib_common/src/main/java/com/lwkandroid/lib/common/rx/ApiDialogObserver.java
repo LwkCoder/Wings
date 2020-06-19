@@ -84,6 +84,13 @@ public abstract class ApiDialogObserver<T> extends ApiBaseObserver<T> implements
     }
 
     @Override
+    public void onSuccess(T t)
+    {
+        dismissDialog();
+        super.onSuccess(t);
+    }
+
+    @Override
     public void onComplete()
     {
         dismissDialog();

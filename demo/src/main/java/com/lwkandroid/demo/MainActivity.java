@@ -76,5 +76,4 @@ public class MainActivity extends MvpBaseActivity<MainPresenter> implements Main
                 break;
         }
     }
-
 }

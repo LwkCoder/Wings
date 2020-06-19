@@ -506,6 +506,27 @@ public final class ImageUtils
     }
 
     /**
+     * 获取图片原始宽高
+     *
+     * @param filePath 图片地址
+     * @return 宽高组成的int数组
+     */
+    public static int[] getImageSize(String filePath)
+    {
+        int[] res = new int[2];
+
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        options.inSampleSize = 1;
+        BitmapFactory.decodeFile(filePath, options);
+
+        res[0] = options.outWidth;
+        res[1] = options.outHeight;
+
+        return res;
+    }
+
+    /**
      * 保存bitmap.
      *
      * @param src      Bitmap数据源
