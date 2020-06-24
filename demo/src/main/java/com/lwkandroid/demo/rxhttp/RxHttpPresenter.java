@@ -2,7 +2,7 @@ package com.lwkandroid.demo.rxhttp;
 
 import com.lwkandroid.lib.common.mvp.MvpBasePresenterImpl;
 import com.lwkandroid.lib.core.net.bean.ApiException;
-import com.lwkandroid.lib.core.net.observer.ApiBaseObserver;
+import com.lwkandroid.lib.core.net.observer.ApiObserver;
 import com.lwkandroid.lib.core.utils.common.ToastUtils;
 
 /**
@@ -24,16 +24,16 @@ class RxHttpPresenter extends MvpBasePresenterImpl<RxHttpContract.IView, RxHttpC
     {
         getModelImpl().test01()
                 .compose(applyIo2MainUntilOnDestroy())
-                .subscribe(new ApiBaseObserver<String>()
+                .subscribe(new ApiObserver<String>()
                 {
                     @Override
-                    public void subOnNext(String s)
+                    public void onAccept(String s)
                     {
                         ToastUtils.showShort("请求成功:" + s);
                     }
 
                     @Override
-                    public void subOnError(ApiException e)
+                    public void onError(ApiException e)
                     {
                         ToastUtils.showShort("请求失败：" + e.getDisplayMessage());
                     }
@@ -45,16 +45,16 @@ class RxHttpPresenter extends MvpBasePresenterImpl<RxHttpContract.IView, RxHttpC
     {
         getModelImpl().test02()
                 .compose(applyIo2MainUntilOnDestroy())
-                .subscribe(new ApiBaseObserver<String>()
+                .subscribe(new ApiObserver<String>()
                 {
                     @Override
-                    public void subOnNext(String s)
+                    public void onAccept(String s)
                     {
                         ToastUtils.showShort("请求成功:" + s);
                     }
 
                     @Override
-                    public void subOnError(ApiException e)
+                    public void onError(ApiException e)
                     {
                         ToastUtils.showShort("请求失败：" + e.getDisplayMessage());
                     }

@@ -2,7 +2,7 @@ package com.sources.javacode.project.splash;
 
 import com.lwkandroid.lib.common.mvp.MvpBasePresenterImpl;
 import com.lwkandroid.lib.core.net.bean.ApiException;
-import com.lwkandroid.lib.core.net.observer.ApiBaseObserver;
+import com.lwkandroid.lib.core.net.observer.ApiObserver;
 import com.lwkandroid.lib.core.utils.common.ToastUtils;
 
 import java.util.concurrent.TimeUnit;
@@ -28,16 +28,16 @@ class SplashPresenter extends MvpBasePresenterImpl<SplashContract.IView, SplashC
     {
         Observable.timer(1500, TimeUnit.MILLISECONDS)
                 .compose(applyComputation2MainUntilOnDestroy())
-                .subscribe(new ApiBaseObserver<Long>()
+                .subscribe(new ApiObserver<Long>()
                 {
                     @Override
-                    public void subOnNext(Long aLong)
+                    public void onAccept(Long aLong)
                     {
                         getViewImpl().toHome();
                     }
 
                     @Override
-                    public void subOnError(ApiException e)
+                    public void onError(ApiException e)
                     {
                         ToastUtils.showShort(e.getDisplayMessage());
                     }

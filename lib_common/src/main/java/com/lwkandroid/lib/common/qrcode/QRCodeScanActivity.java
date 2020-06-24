@@ -14,7 +14,7 @@ import com.lwkandroid.imagepicker.data.ImagePickType;
 import com.lwkandroid.lib.common.R;
 import com.lwkandroid.lib.common.mvp.MvpBaseActivity;
 import com.lwkandroid.lib.common.permission.AndPermissionHelper;
-import com.lwkandroid.lib.common.rx.ApiDialogObserver;
+import com.lwkandroid.lib.common.rx.ApiLoadingObserver;
 import com.lwkandroid.lib.common.widgets.view.RCheckBox;
 import com.lwkandroid.lib.common.widgets.view.RTextView;
 import com.lwkandroid.lib.core.log.KLog;
@@ -209,16 +209,16 @@ public class QRCodeScanActivity extends MvpBaseActivity<QRCodeScanPresenter> imp
                 String picPath = imageList.get(0).getImagePath();
                 QRCodeHelper.decodeQRCodeByRxJava(picPath)
                         .compose(RxLife.with(this).bindUtilOnDestroy())
-                        .subscribe(new ApiDialogObserver<String>()
+                        .subscribe(new ApiLoadingObserver<String>()
                         {
                             @Override
-                            public void subOnNext(String s)
+                            public void onAccept(String s)
                             {
                                 onScanQRCodeSuccess(s);
                             }
 
                             @Override
-                            public void subOnError(ApiException e)
+                            public void onError(ApiException e)
                             {
                                 showLongToast(R.string.qrcodescan_decode_error);
                             }

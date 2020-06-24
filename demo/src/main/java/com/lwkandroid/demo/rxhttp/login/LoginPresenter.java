@@ -3,7 +3,7 @@ package com.lwkandroid.demo.rxhttp.login;
 import com.lwkandroid.demo.rxhttp.AppTokenModel;
 import com.lwkandroid.demo.rxhttp.bean.LoginResultBean;
 import com.lwkandroid.lib.common.mvp.MvpBasePresenterImpl;
-import com.lwkandroid.lib.common.rx.ApiDialogObserver;
+import com.lwkandroid.lib.common.rx.ApiLoadingObserver;
 import com.lwkandroid.lib.core.net.bean.ApiException;
 
 /**
@@ -29,16 +29,16 @@ class LoginPresenter extends MvpBasePresenterImpl<LoginContract.IView, LoginCont
                     //                    AppTokenModel.getInstance().setAccessToken(resultBean.getAccess_token());
                 })
                 .compose(applyIo2MainUntilOnDestroy())
-                .subscribe(new ApiDialogObserver<LoginResultBean>()
+                .subscribe(new ApiLoadingObserver<LoginResultBean>()
                 {
                     @Override
-                    public void subOnNext(LoginResultBean loginResultBean)
+                    public void onAccept(LoginResultBean loginResultBean)
                     {
                         getViewImpl().onLoginSuccess();
                     }
 
                     @Override
-                    public void subOnError(ApiException e)
+                    public void onError(ApiException e)
                     {
                         getViewImpl().onLoginFail();
                     }

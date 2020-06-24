@@ -3,7 +3,7 @@ package com.lwkandroid.demo.qrcode;
 import android.graphics.Bitmap;
 
 import com.lwkandroid.lib.common.mvp.MvpBasePresenterImpl;
-import com.lwkandroid.lib.common.rx.ApiDialogObserver;
+import com.lwkandroid.lib.common.rx.ApiLoadingObserver;
 import com.lwkandroid.lib.core.net.bean.ApiException;
 import com.lwkandroid.lib.core.utils.common.ToastUtils;
 
@@ -26,16 +26,16 @@ class QrCodePresenter extends MvpBasePresenterImpl<QrCodeContract.IView, QrCodeC
     {
         getModelImpl().createQrCodeBitmap(content, size)
                 .compose(applyIo2MainUntilOnDestroy())
-                .subscribe(new ApiDialogObserver<Bitmap>()
+                .subscribe(new ApiLoadingObserver<Bitmap>()
                 {
                     @Override
-                    public void subOnNext(Bitmap bitmap)
+                    public void onAccept(Bitmap bitmap)
                     {
                         getViewImpl().showQrCodeBitmap(bitmap);
                     }
 
                     @Override
-                    public void subOnError(ApiException e)
+                    public void onError(ApiException e)
                     {
                         ToastUtils.showShort(e.toString());
                     }
@@ -47,16 +47,16 @@ class QrCodePresenter extends MvpBasePresenterImpl<QrCodeContract.IView, QrCodeC
     {
         getModelImpl().parseQrCodePicture(filePath)
                 .compose(applyIo2MainUntilOnDestroy())
-                .subscribe(new ApiDialogObserver<String>()
+                .subscribe(new ApiLoadingObserver<String>()
                 {
                     @Override
-                    public void subOnNext(String s)
+                    public void onAccept(String s)
                     {
                         getViewImpl().showQrCodeContent(s);
                     }
 
                     @Override
-                    public void subOnError(ApiException e)
+                    public void onError(ApiException e)
                     {
                         ToastUtils.showShort(e.toString());
                     }

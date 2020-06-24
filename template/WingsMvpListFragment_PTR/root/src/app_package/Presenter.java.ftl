@@ -2,7 +2,7 @@ package ${packageName};
 
 import com.lwkandroid.lib.common.mvp.MvpBasePresenterImpl;
 import com.lwkandroid.lib.core.net.bean.ApiException;
-import com.lwkandroid.lib.core.net.observer.ApiBaseObserver;
+import com.lwkandroid.lib.core.net.observer.ApiObserver;
 
 import java.util.List;
 
@@ -39,23 +39,22 @@ class ${uiClassName}Presenter extends MvpBasePresenterImpl<${uiClassName}Contrac
         getModelImpl()
                 .requestData(PAGE_INDEX_DEFAULT, PAGE_SIZE, System.currentTimeMillis())
                 .compose(applyIo2MainUntilOnDestroy())
-                .subscribe(new ApiBaseObserver<List<${dataSourceClass}>>()
+                .subscribe(new ApiObserver<List<${dataSourceClass}>>()
                 {
                     @Override
-                    public void subOnNext(List<${dataSourceClass}> list, list.size() < PAGE_SIZE)
+                    public void onAccept(List<${dataSourceClass}> list)
                     {
                         //刷新成功后重置页码
                         mCurrentIndex = PAGE_INDEX_DEFAULT;
-                        getViewImpl().onRefreshSuccess(list);
+                        getViewImpl().onRefreshSuccess(list, list.size() < PAGE_SIZE);
                     }
 
                     @Override
-                    public void subOnError(ApiException e)
+                    public void onError(ApiException e)
                     {
                         getViewImpl().onRefreshFail(e.getDisplayMessage(), e);
                     }
                 });
-
     }
 
     @Override
@@ -66,10 +65,10 @@ class ${uiClassName}Presenter extends MvpBasePresenterImpl<${uiClassName}Contrac
         getModelImpl()
                 .requestData(nextPageIndex, PAGE_SIZE, System.currentTimeMillis())
                 .compose(applyIo2MainUntilOnDestroy())
-                .subscribe(new ApiBaseObserver<List<${dataSourceClass}>>()
+                .subscribe(new ApiObserver<List<${dataSourceClass}>>()
                 {
                     @Override
-                    public void subOnNext(List<${dataSourceClass}> list)
+                    public void onAccept(List<${dataSourceClass}> list)
                     {
                         //同步页码
                         mCurrentIndex = nextPageIndex;
@@ -81,7 +80,7 @@ class ${uiClassName}Presenter extends MvpBasePresenterImpl<${uiClassName}Contrac
                     }
 
                     @Override
-                    public void subOnError(ApiException e)
+                    public void onError(ApiException e)
                     {
                         getViewImpl().onLoadMoreFail(e.getDisplayMessage(), e);
                     }
