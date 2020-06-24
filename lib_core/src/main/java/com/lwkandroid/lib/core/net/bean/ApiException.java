@@ -40,7 +40,7 @@ public class ApiException extends Exception
 
     public ApiException(int code, String throwMessage)
     {
-        this(code, throwMessage, null);
+        this(code, throwMessage, throwMessage);
     }
 
     public ApiException(int code, String throwMessage, String displayMessage)
