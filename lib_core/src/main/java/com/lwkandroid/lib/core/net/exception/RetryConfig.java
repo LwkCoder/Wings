@@ -8,7 +8,7 @@ import io.reactivex.Single;
  * @author LWK
  * @date 2020/4/3
  */
-public class RetryConfig
+public final class RetryConfig
 {
     private int mMaxRetryCount = 1;
     private long mRetryDelay = 1000;

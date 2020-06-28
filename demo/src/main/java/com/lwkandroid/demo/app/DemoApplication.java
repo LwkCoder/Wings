@@ -22,9 +22,8 @@ public class DemoApplication extends Application
     {
         super.onCreate();
 
-        RetryConfig config = new RetryConfig(3, 1000, AppErrorConfig.RETRY_CONDITION);
         RxHttp.init(BuildConfig.DEBUG, AppUrl.BASE_URL)
-                .setRetryConfig(config)
+                .setRetryConfig(new RetryConfig(3, 1000, AppErrorConfig.RETRY_CONDITION))
                 .setApiErrorConsumer(AppErrorConfig.ERROR_CONSUMER)
                 .setApiExceptionMsgParser(new AppErrorMessageParser());
 
