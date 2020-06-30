@@ -124,7 +124,7 @@ public final class StringUtils
      * @param b 待校验字符串b
      * @return {@code true}: 相等<br>{@code false}: 不相等
      */
-    public static boolean equalsIgnoreCase(String a, String b)
+    public static boolean isEqualsIgnoreCase(String a, String b)
     {
         return a == null ? b == null : a.equalsIgnoreCase(b);
     }
