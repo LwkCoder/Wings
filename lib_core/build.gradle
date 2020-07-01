@@ -2,16 +2,12 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
-def appConfig = rootProject.ext.appConfig
-
 android {
-    compileSdkVersion appConfig.compileSdkVersion
-//    publishNonDefault true
-
+    compileSdkVersion rootProject.ext.androidConfig.compileSdkVersion
 
     defaultConfig {
-        minSdkVersion appConfig.minSdkVersion
-        targetSdkVersion appConfig.targetSdkVersion
+        minSdkVersion rootProject.ext.androidConfig.minSdkVersion
+        targetSdkVersion rootProject.ext.androidConfig.targetSdkVersion
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
@@ -26,12 +22,8 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "androidx.core:core-ktx:$KotlinCoreVersion"
     api project(':lib_dependencies')
-//    debugApi project(':lib_dependencies')
-//    releaseApi project(':lib_dependencies')
-    testImplementation "junit:junit:$JunitVersion"
-    androidTestImplementation "androidx.test.ext:junit:$AndroidXJunitVersion"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$AndroidXEspressoCoreVersion"
+    rootProject.ext.libDep.implementation.each { v -> implementation v }
+    rootProject.ext.libDep.testImplementation.each { v -> testImplementation v }
+    rootProject.ext.libDep.androidTestImplementation.each { v -> androidTestImplementation v }
 }

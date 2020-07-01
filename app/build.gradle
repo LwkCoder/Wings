@@ -4,11 +4,6 @@ apply plugin: "com.blankj.bus"
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
-def appConfig = rootProject.ext.appConfig
-def urls = rootProject.ext.url
-def libsConfig = rootProject.ext.libsConfig
-def appName = rootProject.ext.appName
-
 def keystorePropertiesFile = rootProject.file("key/keystore.properties")
 def keystoreProperties = new Properties()
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
@@ -22,15 +17,15 @@ bus {
 }
 
 android {
-    compileSdkVersion appConfig.compileSdkVersion
+    compileSdkVersion rootProject.ext.androidConfig.compileSdkVersion
 
     defaultConfig {
-        applicationId appConfig.applicationId
-        minSdkVersion appConfig.minSdkVersion
-        targetSdkVersion appConfig.targetSdkVersion
-        versionCode appConfig.versionCode
-        versionName appConfig.versionName
-        flavorDimensions appConfig.versionName
+        applicationId rootProject.ext.androidConfig.applicationId
+        minSdkVersion rootProject.ext.androidConfig.minSdkVersion
+        targetSdkVersion rootProject.ext.androidConfig.targetSdkVersion
+        versionCode rootProject.ext.androidConfig.versionCode
+        versionName rootProject.ext.androidConfig.versionName
+        flavorDimensions rootProject.ext.androidConfig.versionName
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -62,9 +57,9 @@ android {
     buildTypes {
         debug {
             applicationIdSuffix ".dev"
-            resValue "string", "app_name", appName.debug
-            buildConfigField("String", "HOST", "\"${urls.debugUrl}\"")
-            libsConfig.each { k, v -> buildConfigField("String", k, "\"$v\"") }
+            resValue "string", "app_name", rootProject.ext.appDebugConfig.appName
+            buildConfigField("String", "HOST", "\"${rootProject.ext.appDebugConfig.baseUrl}\"")
+            buildConfigField("String", "KEY1", "\"${rootProject.ext.appDebugConfig.key1}\"")
 
             zipAlignEnabled false
             shrinkResources false
@@ -74,9 +69,9 @@ android {
         }
         release {
             applicationIdSuffix ".release"
-            resValue "string", "app_name", appName.release
-            buildConfigField("String", "HOST", "\"${urls.releaseUrl}\"")
-            libsConfig.each { k, v -> buildConfigField("String", k, "\"$v\"") }
+            resValue "string", "app_name", rootProject.ext.appReleaseConfig.appName
+            buildConfigField("String", "HOST", "\"${rootProject.ext.appReleaseConfig.baseUrl}\"")
+            buildConfigField("String", "KEY1", "\"${rootProject.ext.appReleaseConfig.key1}\"")
 
             zipAlignEnabled true
             shrinkResources true
@@ -95,7 +90,7 @@ android {
 
     android.applicationVariants.all { variant ->
         variant.outputs.all {
-            outputFileName = "app_v${appConfig.versionName}_${formatDate()}_${variant.productFlavors[0].name}.apk"
+            outputFileName = "app_v${rootProject.ext.androidConfig.versionName}_${formatDate()}_${variant.productFlavors[0].name}.apk"
         }
     }
 
@@ -123,12 +118,9 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "androidx.core:core-ktx:$KotlinCoreVersion"
     implementation project(':lib_common')
-    annotationProcessor "com.github.bumptech.glide:compiler:$GlideVersion"
-
-    testImplementation "junit:junit:$JunitVersion"
-    androidTestImplementation "androidx.test.ext:junit:$AndroidXJunitVersion"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$AndroidXEspressoCoreVersion"
+    rootProject.ext.appDep.implementation.each { v -> implementation v }
+    rootProject.ext.appDep.testImplementation.each { v -> testImplementation v }
+    rootProject.ext.appDep.androidTestImplementation.each { v -> androidTestImplementation v }
+    rootProject.ext.appDep.annotationProcessor.each { v -> annotationProcessor v }
 }

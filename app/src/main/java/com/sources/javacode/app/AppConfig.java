@@ -9,6 +9,5 @@ package com.sources.javacode.app;
 public final class AppConfig
 {
     public static String CHANNEL_NAME;
-    public static String LIB_CONFIG1;
-    public static String LIB_CONFIG2;
+    public static String LIB_KEY1;
 }

@@ -4,8 +4,6 @@ apply plugin: "com.blankj.bus"
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
-def appConfig = rootProject.ext.appConfig
-
 def keystorePropertiesFile = rootProject.file("key/keystore.properties")
 def keystoreProperties = new Properties()
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
@@ -17,16 +15,17 @@ def formatDate() {
 bus {
     busUtilsClass "com.lwkandroid.lib.core.utils.common.BusUtils"
 }
+
 android {
-    compileSdkVersion appConfig.compileSdkVersion
+    compileSdkVersion rootProject.ext.androidConfig.compileSdkVersion
 
     defaultConfig {
         applicationId "com.lwkandroid.demo"
-        minSdkVersion appConfig.minSdkVersion
-        targetSdkVersion appConfig.targetSdkVersion
-        versionCode appConfig.versionCode
-        versionName appConfig.versionName
-        flavorDimensions appConfig.versionName
+        minSdkVersion rootProject.ext.androidConfig.minSdkVersion
+        targetSdkVersion rootProject.ext.androidConfig.targetSdkVersion
+        versionCode rootProject.ext.androidConfig.versionCode
+        versionName rootProject.ext.androidConfig.versionName
+        flavorDimensions rootProject.ext.androidConfig.versionName
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -81,7 +80,7 @@ android {
 
     android.applicationVariants.all { variant ->
         variant.outputs.all {
-            outputFileName = "app_v${appConfig.versionName}_${formatDate()}_${variant.productFlavors[0].name}.apk"
+            outputFileName = "app_v${rootProject.ext.androidConfig.versionName}_${formatDate()}_${variant.productFlavors[0].name}.apk"
         }
     }
 
@@ -109,12 +108,9 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "androidx.core:core-ktx:$KotlinCoreVersion"
     implementation project(':lib_common')
-    annotationProcessor "com.github.bumptech.glide:compiler:$GlideVersion"
-
-    testImplementation "junit:junit:$JunitVersion"
-    androidTestImplementation "androidx.test.ext:junit:$AndroidXJunitVersion"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$AndroidXEspressoCoreVersion"
+    rootProject.ext.appDep.implementation.each { v -> implementation v }
+    rootProject.ext.appDep.testImplementation.each { v -> testImplementation v }
+    rootProject.ext.appDep.androidTestImplementation.each { v -> androidTestImplementation v }
+    rootProject.ext.appDep.annotationProcessor.each { v -> annotationProcessor v }
 }

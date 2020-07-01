@@ -2,15 +2,12 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
-def appConfig = rootProject.ext.appConfig
-
 android {
-    compileSdkVersion appConfig.compileSdkVersion
-//    publishNonDefault true
+    compileSdkVersion rootProject.ext.androidConfig.compileSdkVersion
 
     defaultConfig {
-        minSdkVersion appConfig.minSdkVersion
-        targetSdkVersion appConfig.targetSdkVersion
+        minSdkVersion rootProject.ext.androidConfig.minSdkVersion
+        targetSdkVersion rootProject.ext.androidConfig.targetSdkVersion
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
@@ -25,38 +22,9 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "androidx.core:core-ktx:$KotlinCoreVersion"
-    api "androidx.appcompat:appcompat:$AppCompatXVersion"
-    api "androidx.annotation:annotation:$AnnotationXVersion"
-    api "androidx.recyclerview:recyclerview:$RecyclerViewXVersion"
-    api "androidx.swiperefreshlayout:swiperefreshlayout:$SwipeRefreshXVersion"
-    api "com.google.code.gson:gson:$GsonVersion"
-    api "com.yanzhenjie:permission:${AndPermissionVersion}"
-    api "com.lwkandroid.widget:ComActionBar:$ComActionBarVersion"
-    api "com.squareup.okhttp3:okhttp:$OkHttp3Version"
-    api "cn.bingoogolapple:bga-qrcode-zxing:$BGACodeVersion"
-    api "io.reactivex.rxjava2:rxjava:$RXJava2Version"
-    api "io.reactivex.rxjava2:rxandroid:$RXAndroidVersion"
-    api "com.jakewharton.rxbinding3:rxbinding-core:$RXBindingVersion"
-    api "com.jakewharton.rxbinding3:rxbinding-appcompat:$RXBindingVersion"
-    api "com.jakewharton:disklrucache:$DiskLruCacheVersion"
-    api "com.lwkandroid:recyclerviewadapter:$RcvAdapterVersion"
-    api "com.github.bumptech.glide:glide:$GlideVersion"
-    api "com.github.bumptech.glide:okhttp3-integration:$GlideVersion"
-    annotationProcessor "com.github.bumptech.glide:compiler:$GlideVersion"
-    api "com.lwkandroid:ImagePicker:$ImagePickerVersion"
-    api "com.squareup.retrofit2:retrofit:$RetrofitVersion"
-    api "com.squareup.retrofit2:adapter-rxjava2:$RetrofitVersion"
-    api "com.android.support.constraint:constraint-layout:$ConstraintLayoutVersion"
-
-    debugApi "com.squareup.leakcanary:leakcanary-android:$LeakCanaryVersion"
-//    debugApi "com.squareup.leakcanary:leakcanary-support-fragment:$LeakCanaryVersion"
-    debugApi "com.facebook.stetho:stetho:$StethoVersion"
-    debugApi "com.facebook.stetho:stetho-okhttp3:$StethoVersion"
-    debugApi "com.github.ChuckerTeam.Chucker:library:$ChuckerVersion"
-
-    testImplementation "junit:junit:$JunitVersion"
-    androidTestImplementation "androidx.test.ext:junit:$AndroidXJunitVersion"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$AndroidXEspressoCoreVersion"
+    rootProject.ext.libDep.implementation.each { v -> implementation v }
+    rootProject.ext.libDep.testImplementation.each { v -> testImplementation v }
+    rootProject.ext.libDep.androidTestImplementation.each { v -> androidTestImplementation v }
+    rootProject.ext.libDep.api.each { v -> api v }
+    rootProject.ext.libDep.debugApi.each { v -> debugApi v }
 }
