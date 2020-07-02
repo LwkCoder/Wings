@@ -21,12 +21,12 @@ public class AppApplication extends Application
     public void onCreate()
     {
         super.onCreate();
-        ApiURL.HOST = BuildConfig.HOST;
+        ApiURL.BASEURL = BuildConfig.baseUrl;
         AppConfig.CHANNEL_NAME = BuildConfig.APP_CHANNEL;
-        AppConfig.LIB_KEY1 = BuildConfig.KEY1;
+        AppConfig.LIB_KEY1 = BuildConfig.key1;
 
         //初始化网络请求库
-        RxHttp.init(BuildConfig.DEBUG, ApiURL.HOST);
+        RxHttp.init(BuildConfig.DEBUG, ApiURL.BASEURL);
 
         if (BuildConfig.DEBUG)
         {
@@ -38,7 +38,7 @@ public class AppApplication extends Application
                     .append("| ChannelName=").append(AppConfig.CHANNEL_NAME).append("\n")
                     .append("| PackageName=").append(AppUtils.getPackageName()).append("\n")
                     .append("| SHA1=").append(AppUtils.getAppSignatureSHA1()).append("\n")
-                    .append("| ApiURL.HOST=").append(ApiURL.HOST).append("\n")
+                    .append("| ApiURL.HOST=").append(ApiURL.BASEURL).append("\n")
                     .append("| Key1=").append(AppConfig.LIB_KEY1).append("\n")
                     .append("| DeviceManufacturer=").append(Build.MANUFACTURER).append("\n")
                     .append("| DeviceModel=").append(Build.MODEL).append("\n")

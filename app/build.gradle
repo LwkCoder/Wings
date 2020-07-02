@@ -58,8 +58,7 @@ android {
         debug {
             applicationIdSuffix ".dev"
             resValue "string", "app_name", rootProject.ext.appDebugConfig.appName
-            buildConfigField("String", "HOST", "\"${rootProject.ext.appDebugConfig.baseUrl}\"")
-            buildConfigField("String", "KEY1", "\"${rootProject.ext.appDebugConfig.key1}\"")
+            rootProject.ext.appDebugConfig.each { k, v -> buildConfigField("String", k, "\"${v}\"") }
 
             zipAlignEnabled false
             shrinkResources false
@@ -70,8 +69,7 @@ android {
         release {
             applicationIdSuffix ".release"
             resValue "string", "app_name", rootProject.ext.appReleaseConfig.appName
-            buildConfigField("String", "HOST", "\"${rootProject.ext.appReleaseConfig.baseUrl}\"")
-            buildConfigField("String", "KEY1", "\"${rootProject.ext.appReleaseConfig.key1}\"")
+            rootProject.ext.appReleaseConfig.each { k, v -> buildConfigField("String", k, "\"${v}\"") }
 
             zipAlignEnabled true
             shrinkResources true

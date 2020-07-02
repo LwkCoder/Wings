@@ -7,5 +7,5 @@ package com.sources.javacode.net;
 
 public final class ApiURL
 {
-    public static String HOST;
+    public static String BASEURL;
 }
