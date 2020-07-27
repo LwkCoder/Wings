@@ -63,7 +63,6 @@
                 app:border_color_normal="@color/actionbar"
                 app:border_width_normal="1dp" />
 
-
             <!--            <FrameLayout-->
             <!--                android:id="@+id/main_container"-->
             <!--                android:layout_width="match_parent"-->
