@@ -4,14 +4,14 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
-import com.lwkandroid.lib.common.widgets.view.helper.IRHelper;
 import com.lwkandroid.lib.common.widgets.view.helper.RCheckHelper;
+import com.lwkandroid.lib.common.widgets.view.iface.RHelper;
 
 
 /**
  * RRadioButton
  */
-public class RRadioButton extends androidx.appcompat.widget.AppCompatRadioButton implements IRHelper<RCheckHelper>
+public class RRadioButton extends androidx.appcompat.widget.AppCompatRadioButton implements RHelper<RCheckHelper>
 {
 
     private RCheckHelper mHelper;

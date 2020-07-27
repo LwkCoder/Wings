@@ -4,14 +4,14 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
-import com.lwkandroid.lib.common.widgets.view.helper.IRHelper;
 import com.lwkandroid.lib.common.widgets.view.helper.RTextViewHelper;
+import com.lwkandroid.lib.common.widgets.view.iface.RHelper;
 
 
 /**
  * REditText
  */
-public class REditText extends androidx.appcompat.widget.AppCompatEditText implements IRHelper<RTextViewHelper>
+public class REditText extends androidx.appcompat.widget.AppCompatEditText implements RHelper<RTextViewHelper>
 {
 
     private RTextViewHelper mHelper;

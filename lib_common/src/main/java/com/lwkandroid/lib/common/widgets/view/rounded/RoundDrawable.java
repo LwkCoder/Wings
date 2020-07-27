@@ -1,4 +1,4 @@
-package com.lwkandroid.lib.common.widgets.view.drawable;
+package com.lwkandroid.lib.common.widgets.view.rounded;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
@@ -23,7 +23,7 @@ import androidx.annotation.Nullable;
 /**
  * Round Drawable
  */
-public final class RoundDrawable extends Drawable
+public class RoundDrawable extends Drawable
 {
 
     private Bitmap mBitmap;
@@ -66,11 +66,11 @@ public final class RoundDrawable extends Drawable
         mBitmapHeight = bitmap.getHeight();
         mBitmapRect.set(0, 0, mBitmapWidth, mBitmapHeight);
 
-        mBitmapPaint = new Paint();
+        mBitmapPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mBitmapPaint.setStyle(Paint.Style.FILL);
         mBitmapPaint.setAntiAlias(true);
 
-        mBorderPaint = new Paint();
+        mBorderPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mBorderPaint.setStyle(Paint.Style.STROKE);
         mBorderPaint.setAntiAlias(true);
         updateBorder();
@@ -80,12 +80,9 @@ public final class RoundDrawable extends Drawable
     protected void onBoundsChange(Rect bounds)
     {
         super.onBoundsChange(bounds);
-        //更新Bounds
-        mBoundsFinal.set(bounds);
-        //更新变化矩阵
-        updateShaderMatrix();
-        //更新圆角
-        updateConner();
+        mBoundsFinal.set(bounds);//更新Bounds
+        updateShaderMatrix();//更新变化矩阵
+        updateConner();//更新圆角
     }
 
     @Override
@@ -188,8 +185,7 @@ public final class RoundDrawable extends Drawable
      */
     private void updateDrawablePath()
     {
-        //must重置
-        mPath.reset();
+        mPath.reset();//must重置
         mPath.addRoundRect(mDrawableRect, mCornerRadii, Path.Direction.CCW);
     }
 
@@ -198,8 +194,7 @@ public final class RoundDrawable extends Drawable
      */
     private void updateBorderPath()
     {
-        //must重置
-        mPath.reset();
+        mPath.reset();//must重置
         mPath.addRoundRect(mBorderRect, mCornerRadii, Path.Direction.CCW);
     }
 
@@ -244,8 +239,7 @@ public final class RoundDrawable extends Drawable
                 dy = (int) ((mBounds.height() - mBitmapHeight * scale) * 0.5f + 0.5f);
 
                 mRectF = new RectF(dx, dy, width + dx, height + dy);
-                //非圆 1/2兼容圆角
-                mRectF.inset(mCircle ? mBorderWidth : half, mCircle ? mBorderWidth : half);
+                mRectF.inset(mCircle ? mBorderWidth : half, mCircle ? mBorderWidth : half);//非圆 1/2兼容圆角
                 mShaderMatrix.reset();
                 mShaderMatrix.setScale(scale, scale);
                 mShaderMatrix.postTranslate(dx, dy);
@@ -263,15 +257,13 @@ public final class RoundDrawable extends Drawable
                 dy = halfH;
 
                 mRectF = new RectF(left, top, left + width, top + height);
-                //非圆 1/2兼容圆角
-                mRectF.inset(mCircle ? mBorderWidth : half, mCircle ? mBorderWidth : half);
+                mRectF.inset(mCircle ? mBorderWidth : half, mCircle ? mBorderWidth : half);//非圆 1/2兼容圆角
                 mShaderMatrix.reset();
                 mShaderMatrix.postTranslate((int) (dx + 0.5f) + half, (int) (dy + 0.5f) + half);
                 break;
             case CENTER_CROP:
                 mRectF.set(mBounds);
-                //非圆 1/2兼容圆角
-                mRectF.inset(mCircle ? mBorderWidth : half, mCircle ? mBorderWidth : half);
+                mRectF.inset(mCircle ? mBorderWidth : half, mCircle ? mBorderWidth : half);//非圆 1/2兼容圆角
                 if (mBitmapWidth * mRectF.height() > mRectF.width() * mBitmapHeight)
                 {
                     scale = mRectF.height() / (float) mBitmapHeight;
@@ -289,16 +281,14 @@ public final class RoundDrawable extends Drawable
             case FIT_CENTER:
             case FIT_END:
             case FIT_START:
-                //非圆 1/2兼容圆角
-                mBounds.inset(mCircle ? mBorderWidth : half, mCircle ? mBorderWidth : half);
+                mBounds.inset(mCircle ? mBorderWidth : half, mCircle ? mBorderWidth : half);//非圆 1/2兼容圆角
                 mRectF.set(mBitmapRect);
                 mShaderMatrix.setRectToRect(mBitmapRect, mBounds, scaleTypeToScaleToFit(mScaleType));
                 mShaderMatrix.mapRect(mRectF);
                 mShaderMatrix.setRectToRect(mBitmapRect, mRectF, Matrix.ScaleToFit.FILL);
                 break;
             case FIT_XY:
-                //非圆 1/2兼容圆角
-                mBounds.inset(mCircle ? mBorderWidth : half, mCircle ? mBorderWidth : half);
+                mBounds.inset(mCircle ? mBorderWidth : half, mCircle ? mBorderWidth : half);//非圆 1/2兼容圆角
                 mRectF.set(mBounds);
                 mShaderMatrix.reset();
                 mShaderMatrix.setRectToRect(mBitmapRect, mRectF, Matrix.ScaleToFit.FILL);
@@ -306,8 +296,7 @@ public final class RoundDrawable extends Drawable
         }
         if (mCircle)
         {
-            //还原
-            mBorderRect.set(mRectF.left - half, mRectF.top - half, mRectF.right + half, mRectF.bottom + half);
+            mBorderRect.set(mRectF.left - half, mRectF.top - half, mRectF.right + half, mRectF.bottom + half);//还原
         } else
         {
             mBorderRect.set(mBoundsFinal);
@@ -331,6 +320,43 @@ public final class RoundDrawable extends Drawable
         return mBitmap;
     }
 
+    /**
+     * 统一设置参数
+     */
+    public void setParams(ImageView.ScaleType scaleType, float borderWidth, int borderColor, boolean circle, float corner, float topLeft, float topRight, float bottomLeft, float bottomRight)
+    {
+        //scaleType
+        if (scaleType == null)
+        {
+            scaleType = ImageView.ScaleType.FIT_CENTER;
+        }
+        if (mScaleType != scaleType)
+        {
+            mScaleType = scaleType;
+        }
+
+        //borderWidth
+        mBorderWidth = borderWidth;
+        //borderColor
+        mBorderColor = borderColor;
+        updateBorder();
+
+        //circle
+        mCircle = circle;
+
+        //corner
+        mCorner = corner;
+        mCornerTopLeft = topLeft;
+        mCornerTopRight = topRight;
+        mCornerBottomLeft = bottomLeft;
+        mCornerBottomRight = bottomRight;
+        updateConner();
+
+        //update
+        updateShaderMatrix();//更新变化矩阵
+        invalidateSelf();//更新
+    }
+
     public RoundDrawable setScaleType(ImageView.ScaleType scaleType)
     {
         if (scaleType == null)
@@ -340,8 +366,7 @@ public final class RoundDrawable extends Drawable
         if (mScaleType != scaleType)
         {
             mScaleType = scaleType;
-            //更新变化矩阵
-            updateShaderMatrix();
+            updateShaderMatrix();//更新变化矩阵
             invalidateSelf();
         }
         return this;
@@ -350,8 +375,7 @@ public final class RoundDrawable extends Drawable
     public RoundDrawable setCircle(boolean circle)
     {
         mCircle = circle;
-        //更新变化矩阵
-        updateShaderMatrix();
+        updateShaderMatrix();//更新变化矩阵
         invalidateSelf();
         return this;
     }
@@ -360,8 +384,7 @@ public final class RoundDrawable extends Drawable
     {
         mBorderWidth = borderWidth;
         updateBorder();
-        //更新变化矩阵
-        updateShaderMatrix();
+        updateShaderMatrix();//更新变化矩阵
         invalidateSelf();
         return this;
     }
@@ -475,50 +498,4 @@ public final class RoundDrawable extends Drawable
                 return Matrix.ScaleToFit.CENTER;
         }
     }
-
-    /**
-     * 统一设置参数
-     */
-    public void setParams(ImageView.ScaleType scaleType,
-                          float borderWidth,
-                          int borderColor,
-                          boolean circle,
-                          float corner,
-                          float topLeft,
-                          float topRight,
-                          float bottomLeft,
-                          float bottomRight)
-    {
-        //scaleType
-        if (scaleType == null)
-        {
-            scaleType = ImageView.ScaleType.FIT_CENTER;
-        }
-        if (mScaleType != scaleType)
-        {
-            mScaleType = scaleType;
-        }
-
-        //borderWidth
-        mBorderWidth = borderWidth;
-        //borderColor
-        mBorderColor = borderColor;
-        updateBorder();
-
-        //circle
-        mCircle = circle;
-
-        //corner
-        mCorner = corner;
-        mCornerTopLeft = topLeft;
-        mCornerTopRight = topRight;
-        mCornerBottomLeft = bottomLeft;
-        mCornerBottomRight = bottomRight;
-        updateConner();
-
-        //update
-        updateShaderMatrix();//更新变化矩阵
-        invalidateSelf();//更新
-    }
-
 }

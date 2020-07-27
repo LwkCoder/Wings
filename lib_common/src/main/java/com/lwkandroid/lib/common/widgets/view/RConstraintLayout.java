@@ -3,15 +3,16 @@ package com.lwkandroid.lib.common.widgets.view;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import com.lwkandroid.lib.common.widgets.view.helper.IRHelper;
 import com.lwkandroid.lib.common.widgets.view.helper.RBaseHelper;
+import com.lwkandroid.lib.common.widgets.view.iface.RHelper;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
+
 
 /**
  * RConstraintLayout
  */
-public class RConstraintLayout extends ConstraintLayout implements IRHelper<RBaseHelper>
+public class RConstraintLayout extends ConstraintLayout implements RHelper<RBaseHelper>
 {
 
     private RBaseHelper mHelper;

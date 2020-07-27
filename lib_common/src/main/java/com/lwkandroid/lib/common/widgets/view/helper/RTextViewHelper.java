@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
-import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -17,12 +16,11 @@ import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
 import com.lwkandroid.lib.common.R;
-
-import java.util.ArrayList;
-import java.util.Collections;
+import com.lwkandroid.lib.common.widgets.view.utils.TextViewUtils;
 
 import androidx.annotation.ColorInt;
 import androidx.appcompat.content.res.AppCompatResources;
+
 
 /**
  * TextView-Helper
@@ -36,9 +34,39 @@ public class RTextViewHelper extends RBaseHelper<TextView>
     public static final int ICON_DIR_LEFT = 1, ICON_DIR_TOP = 2, ICON_DIR_RIGHT = 3, ICON_DIR_BOTTOM = 4;
 
     //icon
-    private int mIconHeight;
-    private int mIconWidth;
-    private int mIconDirection;
+    private int mIconHeightLeft;
+    private int mIconWidthLeft;
+    private int mIconHeightRight;
+    private int mIconWidthRight;
+
+    private int mIconHeightTop;
+    private int mIconWidthTop;
+    private int mIconHeightBottom;
+    private int mIconWidthBottom;
+
+    private Drawable mIconLeft = null;
+    private Drawable mIconNormalLeft;
+    private Drawable mIconPressedLeft;
+    private Drawable mIconUnableLeft;
+    private Drawable mIconSelectedLeft;
+
+    private Drawable mIconTop = null;
+    private Drawable mIconNormalTop;
+    private Drawable mIconPressedTop;
+    private Drawable mIconUnableTop;
+    private Drawable mIconSelectedTop;
+
+    private Drawable mIconBottom = null;
+    private Drawable mIconNormalBottom;
+    private Drawable mIconPressedBottom;
+    private Drawable mIconUnableBottom;
+    private Drawable mIconSelectedBottom;
+
+    private Drawable mIconRight = null;
+    private Drawable mIconNormalRight;
+    private Drawable mIconPressedRight;
+    private Drawable mIconUnableRight;
+    private Drawable mIconSelectedRight;
 
     // Text
     protected int mTextColorNormal;
@@ -47,13 +75,6 @@ public class RTextViewHelper extends RBaseHelper<TextView>
     protected int mTextColorSelected;
     protected ColorStateList mTextColorStateList;
     protected int[][] states = new int[5][];
-
-    //Icon
-    private Drawable mIcon = null;
-    private Drawable mIconNormal;
-    private Drawable mIconPressed;
-    private Drawable mIconUnable;
-    private Drawable mIconSelected;
 
     //typeface
     private String mTypefacePath;
@@ -149,37 +170,114 @@ public class RTextViewHelper extends RBaseHelper<TextView>
         //Vector兼容处理
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         {
-            mIconNormal = a.getDrawable(R.styleable.RTextView_icon_src_normal);
-            mIconPressed = a.getDrawable(R.styleable.RTextView_icon_src_pressed);
-            mIconUnable = a.getDrawable(R.styleable.RTextView_icon_src_unable);
-            mIconSelected = a.getDrawable(R.styleable.RTextView_icon_src_selected);
+            mIconNormalLeft = a.getDrawable(R.styleable.RTextView_icon_normal_left);
+            mIconPressedLeft = a.getDrawable(R.styleable.RTextView_icon_pressed_left);
+            mIconUnableLeft = a.getDrawable(R.styleable.RTextView_icon_unable_left);
+            mIconSelectedLeft = a.getDrawable(R.styleable.RTextView_icon_selected_left);
+            mIconNormalRight = a.getDrawable(R.styleable.RTextView_icon_normal_right);
+            mIconPressedRight = a.getDrawable(R.styleable.RTextView_icon_pressed_right);
+            mIconUnableRight = a.getDrawable(R.styleable.RTextView_icon_unable_right);
+            mIconSelectedRight = a.getDrawable(R.styleable.RTextView_icon_selected_right);
+            mIconNormalTop = a.getDrawable(R.styleable.RTextView_icon_normal_top);
+            mIconPressedTop = a.getDrawable(R.styleable.RTextView_icon_pressed_top);
+            mIconUnableTop = a.getDrawable(R.styleable.RTextView_icon_unable_top);
+            mIconSelectedTop = a.getDrawable(R.styleable.RTextView_icon_selected_top);
+            mIconNormalBottom = a.getDrawable(R.styleable.RTextView_icon_normal_bottom);
+            mIconPressedBottom = a.getDrawable(R.styleable.RTextView_icon_pressed_bottom);
+            mIconUnableBottom = a.getDrawable(R.styleable.RTextView_icon_unable_bottom);
+            mIconSelectedBottom = a.getDrawable(R.styleable.RTextView_icon_selected_bottom);
         } else
         {
-            int normalId = a.getResourceId(R.styleable.RTextView_icon_src_normal, -1);
-            int pressedId = a.getResourceId(R.styleable.RTextView_icon_src_pressed, -1);
-            int unableId = a.getResourceId(R.styleable.RTextView_icon_src_unable, -1);
-            int selectedId = a.getResourceId(R.styleable.RTextView_icon_src_selected, -1);
-
-            if (normalId != -1)
+            int normalIdLeft = a.getResourceId(R.styleable.RTextView_icon_normal_left, -1);
+            int pressedIdLeft = a.getResourceId(R.styleable.RTextView_icon_pressed_left, -1);
+            int unableIdLeft = a.getResourceId(R.styleable.RTextView_icon_unable_left, -1);
+            int selectedIdLeft = a.getResourceId(R.styleable.RTextView_icon_selected_left, -1);
+            int normalIdRight = a.getResourceId(R.styleable.RTextView_icon_normal_right, -1);
+            int pressedIdRight = a.getResourceId(R.styleable.RTextView_icon_pressed_right, -1);
+            int unableIdRight = a.getResourceId(R.styleable.RTextView_icon_unable_right, -1);
+            int selectedIdRight = a.getResourceId(R.styleable.RTextView_icon_selected_right, -1);
+            int normalIdTop = a.getResourceId(R.styleable.RTextView_icon_normal_top, -1);
+            int pressedIdTop = a.getResourceId(R.styleable.RTextView_icon_pressed_top, -1);
+            int unableIdTop = a.getResourceId(R.styleable.RTextView_icon_unable_top, -1);
+            int selectedIdTop = a.getResourceId(R.styleable.RTextView_icon_selected_top, -1);
+            int normalIdBottom = a.getResourceId(R.styleable.RTextView_icon_normal_bottom, -1);
+            int pressedIdBottom = a.getResourceId(R.styleable.RTextView_icon_pressed_bottom, -1);
+            int unableIdBottom = a.getResourceId(R.styleable.RTextView_icon_unable_bottom, -1);
+            int selectedIdBottom = a.getResourceId(R.styleable.RTextView_icon_selected_bottom, -1);
+            if (normalIdLeft != -1)
             {
-                mIconNormal = AppCompatResources.getDrawable(context, normalId);
+                mIconNormalLeft = AppCompatResources.getDrawable(context, normalIdLeft);
             }
-            if (pressedId != -1)
+            if (pressedIdLeft != -1)
             {
-                mIconPressed = AppCompatResources.getDrawable(context, pressedId);
+                mIconPressedLeft = AppCompatResources.getDrawable(context, pressedIdLeft);
             }
-            if (unableId != -1)
+            if (unableIdLeft != -1)
             {
-                mIconUnable = AppCompatResources.getDrawable(context, unableId);
+                mIconUnableLeft = AppCompatResources.getDrawable(context, unableIdLeft);
             }
-            if (selectedId != -1)
+            if (selectedIdLeft != -1)
             {
-                mIconSelected = AppCompatResources.getDrawable(context, selectedId);
+                mIconSelectedLeft = AppCompatResources.getDrawable(context, selectedIdLeft);
+            }
+            if (normalIdRight != -1)
+            {
+                mIconNormalRight = AppCompatResources.getDrawable(context, normalIdRight);
+            }
+            if (pressedIdRight != -1)
+            {
+                mIconPressedRight = AppCompatResources.getDrawable(context, pressedIdRight);
+            }
+            if (unableIdRight != -1)
+            {
+                mIconUnableRight = AppCompatResources.getDrawable(context, unableIdRight);
+            }
+            if (selectedIdRight != -1)
+            {
+                mIconSelectedRight = AppCompatResources.getDrawable(context, selectedIdRight);
+            }
+            if (normalIdTop != -1)
+            {
+                mIconNormalTop = AppCompatResources.getDrawable(context, normalIdTop);
+            }
+            if (pressedIdTop != -1)
+            {
+                mIconPressedTop = AppCompatResources.getDrawable(context, pressedIdTop);
+            }
+            if (unableIdTop != -1)
+            {
+                mIconUnableTop = AppCompatResources.getDrawable(context, unableIdTop);
+            }
+            if (selectedIdTop != -1)
+            {
+                mIconSelectedTop = AppCompatResources.getDrawable(context, selectedIdTop);
+            }
+            if (normalIdBottom != -1)
+            {
+                mIconNormalBottom = AppCompatResources.getDrawable(context, normalIdBottom);
+            }
+            if (pressedIdBottom != -1)
+            {
+                mIconPressedBottom = AppCompatResources.getDrawable(context, pressedIdBottom);
+            }
+            if (unableIdBottom != -1)
+            {
+                mIconUnableBottom = AppCompatResources.getDrawable(context, unableIdBottom);
+            }
+            if (selectedIdBottom != -1)
+            {
+                mIconSelectedBottom = AppCompatResources.getDrawable(context, selectedIdBottom);
             }
         }
-        mIconWidth = a.getDimensionPixelSize(R.styleable.RTextView_icon_width, 0);
-        mIconHeight = a.getDimensionPixelSize(R.styleable.RTextView_icon_height, 0);
-        mIconDirection = a.getInt(R.styleable.RTextView_icon_direction, ICON_DIR_LEFT);
+        mIconWidthLeft = a.getDimensionPixelSize(R.styleable.RTextView_icon_width_left, 0);
+        mIconHeightLeft = a.getDimensionPixelSize(R.styleable.RTextView_icon_height_left, 0);
+        mIconWidthRight = a.getDimensionPixelSize(R.styleable.RTextView_icon_width_right, 0);
+        mIconHeightRight = a.getDimensionPixelSize(R.styleable.RTextView_icon_height_right, 0);
+        mIconWidthBottom = a.getDimensionPixelSize(R.styleable.RTextView_icon_width_bottom, 0);
+        mIconHeightBottom = a.getDimensionPixelSize(R.styleable.RTextView_icon_height_bottom, 0);
+        mIconWidthTop = a.getDimensionPixelSize(R.styleable.RTextView_icon_width_top, 0);
+        mIconHeightTop = a.getDimensionPixelSize(R.styleable.RTextView_icon_height_top, 0);
+
         //text
         mTextColorNormal = a.getColor(R.styleable.RTextView_text_color_normal, mView.getCurrentTextColor());
         mTextColorPressed = a.getColor(R.styleable.RTextView_text_color_pressed, 0);
@@ -212,13 +310,22 @@ public class RTextViewHelper extends RBaseHelper<TextView>
          */
         if (!mView.isEnabled())
         {
-            mIcon = mIconUnable;
+            mIconLeft = mIconUnableLeft;
+            mIconRight = mIconUnableRight;
+            mIconTop = mIconUnableTop;
+            mIconBottom = mIconUnableBottom;
         } else if (mView.isSelected())
         {
-            mIcon = mIconSelected;
+            mIconLeft = mIconSelectedLeft;
+            mIconRight = mIconSelectedRight;
+            mIconTop = mIconSelectedTop;
+            mIconBottom = mIconSelectedBottom;
         } else
         {
-            mIcon = mIconNormal;
+            mIconLeft = mIconNormalLeft;
+            mIconRight = mIconNormalRight;
+            mIconTop = mIconNormalTop;
+            mIconBottom = mIconNormalBottom;
         }
 
         /**
@@ -237,16 +344,12 @@ public class RTextViewHelper extends RBaseHelper<TextView>
             mTextColorSelected = mTextColorNormal;
         }
 
-        // unable
-        states[0] = new int[]{-android.R.attr.state_enabled};
-        // focused
-        states[1] = new int[]{android.R.attr.state_focused};
-        // pressed
-        states[2] = new int[]{android.R.attr.state_pressed};
-        // selected
-        states[3] = new int[]{android.R.attr.state_selected};
-        // normal
-        states[4] = new int[]{android.R.attr.state_enabled};
+        //unable,focused,pressed,selected,normal
+        states[0] = new int[]{-android.R.attr.state_enabled};//unable
+        states[1] = new int[]{android.R.attr.state_focused};//focused
+        states[2] = new int[]{android.R.attr.state_pressed};//pressed
+        states[3] = new int[]{android.R.attr.state_selected};//selected
+        states[4] = new int[]{android.R.attr.state_enabled};//normal
 
         //设置文本颜色
         setTextColor();
@@ -288,166 +391,402 @@ public class RTextViewHelper extends RBaseHelper<TextView>
     /************************
      * Icon
      ************************/
-
-    public RTextViewHelper setIconNormal(Drawable icon)
+    public RTextViewHelper setIconNormalLeft(Drawable icon)
     {
-        this.mIconNormal = icon;
-        this.mIcon = icon;
+        this.mIconNormalLeft = icon;
+        this.mIconLeft = icon;
         setIcon();
         return this;
     }
 
-    public Drawable getIconNormal()
+    public RTextViewHelper setIconNormalRight(Drawable icon)
     {
-        return mIconNormal;
-    }
-
-    public RTextViewHelper setIconPressed(Drawable icon)
-    {
-        this.mIconPressed = icon;
-        this.mIcon = icon;
+        this.mIconNormalRight = icon;
+        this.mIconRight = icon;
         setIcon();
         return this;
     }
 
-    public Drawable getIconPressed()
+    public RTextViewHelper setIconNormalTop(Drawable icon)
     {
-        return mIconPressed;
-    }
-
-    public RTextViewHelper setIconUnable(Drawable icon)
-    {
-        this.mIconUnable = icon;
-        this.mIcon = icon;
+        this.mIconNormalTop = icon;
+        this.mIconTop = icon;
         setIcon();
         return this;
     }
 
-    public Drawable getIconUnable()
+    public RTextViewHelper setIconNormalBottom(Drawable icon)
     {
-        return mIconUnable;
-    }
-
-    public RTextViewHelper setIconSelected(Drawable icon)
-    {
-        this.mIconSelected = icon;
-        this.mIcon = icon;
+        this.mIconNormalBottom = icon;
+        this.mIconBottom = icon;
         setIcon();
         return this;
     }
 
-    public Drawable getIconSelected()
+    public Drawable getIconNormalLeft()
     {
-        return mIconSelected;
+        return mIconNormalLeft;
     }
 
-    public RTextViewHelper setIconSize(int iconWidth, int iconHeight)
+    public Drawable getIconNormalRight()
     {
-        this.mIconWidth = iconWidth;
-        this.mIconHeight = iconHeight;
+        return mIconNormalRight;
+    }
+
+    public Drawable getIconNormalTop()
+    {
+        return mIconNormalTop;
+    }
+
+    public Drawable getIconNormalBottom()
+    {
+        return mIconNormalBottom;
+    }
+
+    public RTextViewHelper setIconPressedLeft(Drawable icon)
+    {
+        this.mIconPressedLeft = icon;
+        this.mIconLeft = icon;
         setIcon();
         return this;
     }
 
-    public RTextViewHelper setIconWidth(int iconWidth)
+    public RTextViewHelper setIconPressedRight(Drawable icon)
     {
-        this.mIconWidth = iconWidth;
+        this.mIconPressedRight = icon;
+        this.mIconRight = icon;
         setIcon();
         return this;
     }
 
-    public int getIconWidth()
+    public RTextViewHelper setIconPressedTop(Drawable icon)
     {
-        return mIconWidth;
-    }
-
-    public RTextViewHelper setIconHeight(int iconHeight)
-    {
-        this.mIconHeight = iconHeight;
+        this.mIconPressedTop = icon;
+        this.mIconTop = icon;
         setIcon();
         return this;
     }
 
-    public int getIconHeight()
+    public RTextViewHelper setIconPressedBottom(Drawable icon)
     {
-        return mIconHeight;
-    }
-
-    public RTextViewHelper setIconDirection(int iconDirection)
-    {
-        this.mIconDirection = iconDirection;
+        this.mIconPressedBottom = icon;
+        this.mIconBottom = icon;
         setIcon();
         return this;
     }
 
-    public int getIconDirection()
+    public Drawable getIconPressedLeft()
     {
-        return mIconDirection;
+        return mIconPressedLeft;
     }
+
+    public Drawable getIconPressedRight()
+    {
+        return mIconPressedRight;
+    }
+
+    public Drawable getIconPressedTop()
+    {
+        return mIconPressedTop;
+    }
+
+    public Drawable getIconPressedBottom()
+    {
+        return mIconPressedBottom;
+    }
+
+    public RTextViewHelper setIconUnableLeft(Drawable icon)
+    {
+        this.mIconUnableLeft = icon;
+        this.mIconLeft = icon;
+        setIcon();
+        return this;
+    }
+
+    public RTextViewHelper setIconUnableRight(Drawable icon)
+    {
+        this.mIconUnableRight = icon;
+        this.mIconRight = icon;
+        setIcon();
+        return this;
+    }
+
+    public RTextViewHelper setIconUnableTop(Drawable icon)
+    {
+        this.mIconUnableTop = icon;
+        this.mIconTop = icon;
+        setIcon();
+        return this;
+    }
+
+    public RTextViewHelper setIconUnableBottom(Drawable icon)
+    {
+        this.mIconUnableBottom = icon;
+        this.mIconBottom = icon;
+        setIcon();
+        return this;
+    }
+
+    public Drawable getIconUnableLeft()
+    {
+        return mIconUnableLeft;
+    }
+
+    public Drawable getIconUnableRight()
+    {
+        return mIconUnableRight;
+    }
+
+    public Drawable getIconUnableTop()
+    {
+        return mIconUnableTop;
+    }
+
+    public Drawable getIconUnableBottom()
+    {
+        return mIconUnableBottom;
+    }
+
+    public RTextViewHelper setIconSelectedLeft(Drawable icon)
+    {
+        this.mIconSelectedLeft = icon;
+        this.mIconLeft = icon;
+        setIcon();
+        return this;
+    }
+
+    public RTextViewHelper setIconSelectedRight(Drawable icon)
+    {
+        this.mIconSelectedRight = icon;
+        this.mIconRight = icon;
+        setIcon();
+        return this;
+    }
+
+    public RTextViewHelper setIconSelectedTop(Drawable icon)
+    {
+        this.mIconSelectedTop = icon;
+        this.mIconTop = icon;
+        setIcon();
+        return this;
+    }
+
+    public RTextViewHelper setIconSelectedBottom(Drawable icon)
+    {
+        this.mIconSelectedBottom = icon;
+        this.mIconBottom = icon;
+        setIcon();
+        return this;
+    }
+
+    public Drawable getIconSelectedLeft()
+    {
+        return mIconSelectedLeft;
+    }
+
+    public Drawable getIconSelectedRight()
+    {
+        return mIconSelectedRight;
+    }
+
+    public Drawable getIconSelectedTop()
+    {
+        return mIconSelectedTop;
+    }
+
+    public Drawable getIconSelectedBottom()
+    {
+        return mIconSelectedBottom;
+    }
+
+    public RTextViewHelper setIconSizeLeft(int iconWidth, int iconHeight)
+    {
+        this.mIconWidthLeft = iconWidth;
+        this.mIconHeightLeft = iconHeight;
+        setIcon();
+        return this;
+    }
+
+    public RTextViewHelper setIconSizeRight(int iconWidth, int iconHeight)
+    {
+        this.mIconWidthRight = iconWidth;
+        this.mIconHeightRight = iconHeight;
+        setIcon();
+        return this;
+    }
+
+    public RTextViewHelper setIconSizeTop(int iconWidth, int iconHeight)
+    {
+        this.mIconWidthTop = iconWidth;
+        this.mIconHeightTop = iconHeight;
+        setIcon();
+        return this;
+    }
+
+    public RTextViewHelper setIconSizeBottom(int iconWidth, int iconHeight)
+    {
+        this.mIconWidthBottom = iconWidth;
+        this.mIconHeightBottom = iconHeight;
+        setIcon();
+        return this;
+    }
+
+    public int getIconWidthLeft()
+    {
+        return mIconWidthLeft;
+    }
+
+    public int getIconHeightLeft()
+    {
+        return mIconHeightLeft;
+    }
+
+    public int getIconWidthRight()
+    {
+        return mIconWidthRight;
+    }
+
+    public int getIconHeightRight()
+    {
+        return mIconHeightRight;
+    }
+
+    public int getIconWidthTop()
+    {
+        return mIconWidthTop;
+    }
+
+    public int getIconHeightTop()
+    {
+        return mIconHeightTop;
+    }
+
+    public int getIconWidthBottom()
+    {
+        return mIconWidthBottom;
+    }
+
+    public int getIconHeightBottom()
+    {
+        return mIconHeightBottom;
+    }
+
+    //    /**
+    //     * 主要用于子类调用
+    //     * 备注:用于库内确定逻辑的调用，不建议开发者直接调用
+    //     */
+    //    @Deprecated
+    //    @SuppressWarnings("unchecked")
+    //    protected void setIcon(Drawable icon)
+    //    {
+    //        this.mIcon = icon;
+    //        setIcon();
+    //    }
 
     /**
      * 主要用于子类调用
      * 备注:用于库内确定逻辑的调用，不建议开发者直接调用
+     * 备注：添加上下左右之后此处功能默认 drawableLeft
      */
     @SuppressWarnings("unchecked")
-    protected void setIcon(Drawable icon)
+    protected void setIconLeft(Drawable icon)
     {
-        this.mIcon = icon;
+        this.mIconLeft = icon;
+        setIcon();
+    }
+
+    @SuppressWarnings("unchecked")
+    protected void setIconRight(Drawable icon)
+    {
+        this.mIconRight = icon;
+        setIcon();
+    }
+
+    @SuppressWarnings("unchecked")
+    protected void setIconTop(Drawable icon)
+    {
+        this.mIconTop = icon;
+        setIcon();
+    }
+
+    @SuppressWarnings("unchecked")
+    protected void setIconBottom(Drawable icon)
+    {
+        this.mIconBottom = icon;
         setIcon();
     }
 
     private void setIcon()
     {
         //未设置图片大小
-        if (mIconHeight == 0 && mIconWidth == 0)
+        if (mIconHeightLeft == 0 && mIconWidthLeft == 0)
         {
-            if (mIcon != null)
+            if (mIconLeft != null)
             {
-                mIconWidth = mIcon.getIntrinsicWidth();
-                mIconHeight = mIcon.getIntrinsicHeight();
+                mIconWidthLeft = mIconLeft.getIntrinsicWidth();
+                mIconHeightLeft = mIconLeft.getIntrinsicHeight();
             }
         }
-        setIcon(mIcon, mIconWidth, mIconHeight, mIconDirection);
+        if (mIconHeightRight == 0 && mIconWidthRight == 0)
+        {
+            if (mIconRight != null)
+            {
+                mIconWidthRight = mIconRight.getIntrinsicWidth();
+                mIconHeightRight = mIconRight.getIntrinsicHeight();
+            }
+        }
+        if (mIconHeightTop == 0 && mIconWidthTop == 0)
+        {
+            if (mIconTop != null)
+            {
+                mIconWidthTop = mIconTop.getIntrinsicWidth();
+                mIconHeightTop = mIconTop.getIntrinsicHeight();
+            }
+        }
+        if (mIconHeightBottom == 0 && mIconWidthBottom == 0)
+        {
+            if (mIconBottom != null)
+            {
+                mIconWidthBottom = mIconBottom.getIntrinsicWidth();
+                mIconHeightBottom = mIconBottom.getIntrinsicHeight();
+            }
+        }
+
+        setIcon(mIconLeft, mIconRight, mIconTop, mIconBottom);
     }
 
-    private void setIcon(Drawable drawable, int drawableWidth, int drawableHeight, int direction)
+    /**
+     * 新版本设置icon逻辑代码
+     *
+     * @param drawableLeft
+     * @param drawableRight
+     * @param drawableTop
+     * @param drawableBottom
+     */
+    private void setIcon(Drawable drawableLeft, Drawable drawableRight, Drawable drawableTop, Drawable drawableBottom)
     {
-        if (drawable != null)
+        if (drawableLeft != null || drawableRight != null || drawableTop != null || drawableBottom != null)
         {
-            if (drawableWidth != 0 && drawableHeight != 0)
+            if (mIconHeightLeft != 0 && mIconWidthLeft != 0)
             {
-                drawable.setBounds(0, 0, drawableWidth, drawableHeight);
+                drawableLeft.setBounds(0, 0, mIconWidthLeft, mIconHeightLeft);
             }
-            //drawable间距
-            int drawablePadding = mView.getCompoundDrawablePadding();
-            //水平方向上drawable间距
-            int drawablePaddingHorizontal = drawablePadding;
-            //垂直方向上drawable间距
-            int drawablePaddingVertical = drawablePadding;
-            switch (direction)
+            if (mIconHeightRight != 0 && mIconWidthRight != 0)
             {
-                case ICON_DIR_LEFT:
-                    drawableHeight = 0;
-                    drawablePaddingVertical = 0;
-                    mView.setCompoundDrawables(drawable, null, null, null);
-                    break;
-                case ICON_DIR_TOP:
-                    drawableWidth = 0;
-                    drawablePaddingHorizontal = 0;
-                    mView.setCompoundDrawables(null, drawable, null, null);
-                    break;
-                case ICON_DIR_RIGHT:
-                    drawableHeight = 0;
-                    drawablePaddingVertical = 0;
-                    mView.setCompoundDrawables(null, null, drawable, null);
-                    break;
-                case ICON_DIR_BOTTOM:
-                    drawableWidth = 0;
-                    drawablePaddingHorizontal = 0;
-                    mView.setCompoundDrawables(null, null, null, drawable);
-                    break;
+                drawableRight.setBounds(0, 0, mIconWidthRight, mIconHeightRight);
             }
+            if (mIconHeightTop != 0 && mIconWidthTop != 0)
+            {
+                drawableTop.setBounds(0, 0, mIconWidthTop, mIconHeightTop);
+            }
+            if (mIconHeightBottom != 0 && mIconWidthBottom != 0)
+            {
+                drawableBottom.setBounds(0, 0, mIconWidthBottom, mIconHeightBottom);
+            }
+            //setDrawable
+            mView.setCompoundDrawables(drawableLeft, drawableTop, drawableRight, drawableBottom);
 
+            //drawable间距
             if (!mDrawableWithText)
             {
                 return;
@@ -457,43 +796,57 @@ public class RTextViewHelper extends RBaseHelper<TextView>
                 return;
             }
 
-            final int drawableWidthFinal = drawableWidth;
-            final int drawableHeightFinal = drawableHeight;
-            final int drawablePaddingVerticalFinal = drawablePaddingVertical;
-            final int drawablePaddingHorizontalFinal = drawablePaddingHorizontal;
-            //view.getLineCount() need post
-            mView.post(new Runnable()
+            int drawablePadding = mView.getCompoundDrawablePadding();
+            int drawablePaddingHorizontal = 0, drawablePaddingVertical = 0;
+            if (mIconLeft != null)
             {
-                @Override
-                public void run()
+                drawablePaddingHorizontal += drawablePadding;
+            }
+            if (mIconRight != null)
+            {
+                drawablePaddingHorizontal += drawablePadding;
+            }
+            if (mIconTop != null)
+            {
+                drawablePaddingVertical += drawablePadding;
+            }
+            if (mIconBottom != null)
+            {
+                drawablePaddingVertical += drawablePadding;
+            }
+
+            final int drawableWidthFinal = mIconWidthLeft + mIconWidthRight;
+            final int drawableHeightFinal = mIconHeightTop + mIconHeightBottom;
+
+            final int drawablePaddingVerticalFinal = drawablePaddingVertical;//垂直方向上drawable间距
+            final int drawablePaddingHorizontalFinal = drawablePaddingHorizontal;//水平方向上drawable间距
+            //view.getLineCount() need post
+            mView.post(() -> {
+
+                //水平方向计算
+                float textWidth = TextViewUtils.get().getTextWidth(mView, drawableWidthFinal, mPaddingLeft, mPaddingRight, drawablePaddingHorizontalFinal);
+                float bodyWidth = textWidth + drawableWidthFinal + drawablePaddingHorizontalFinal;//内容宽度
+                float actualWidth = mView.getWidth() - (mPaddingLeft + mPaddingRight);//实际可用宽度
+                int translateX = (int) (actualWidth - bodyWidth) / 2;//两边使用
+                if (translateX < 0)
                 {
-                    //水平方向计算
-                    float textWidth = getTextWidth(mView, drawableWidthFinal,
-                            mPaddingLeft, mPaddingRight, drawablePaddingHorizontalFinal);
-                    float bodyWidth = textWidth + drawableWidthFinal + drawablePaddingHorizontalFinal;//内容宽度
-                    float actualWidth = mView.getWidth() - (mPaddingLeft + mPaddingRight);//实际可用宽度
-                    int translateX = (int) (actualWidth - bodyWidth) / 2;//两边使用
-                    if (translateX < 0)
-                    {
-                        translateX = 0;
-                    }
-
-                    //垂直方向计算
-                    float textHeight = getTextHeight(mView, drawableHeightFinal, mPaddingTop,
-                            mPaddingBottom, drawablePaddingVerticalFinal);
-                    float bodyHeight = textHeight + drawableHeightFinal + drawablePaddingVerticalFinal;//内容高度
-                    float actualHeight = mView.getHeight() - (mPaddingTop + mPaddingBottom);//实际可用高度
-                    int translateY = (int) (actualHeight - bodyHeight) / 2;
-                    if (translateY < 0)
-                    {
-                        translateY = 0;
-                    }
-
-                    //关键技术点
-                    mView.setPadding(translateX + mPaddingLeft, translateY + mPaddingTop,
-                            translateX + mPaddingRight, translateY + mPaddingBottom);
+                    translateX = 0;
                 }
+
+                //垂直方向计算
+                float textHeight = TextViewUtils.get().getTextHeight(mView, drawableHeightFinal, mPaddingTop, mPaddingBottom, drawablePaddingVerticalFinal);
+                float bodyHeight = textHeight + drawableHeightFinal + drawablePaddingVerticalFinal;//内容高度
+                float actualHeight = mView.getHeight() - (mPaddingTop + mPaddingBottom);//实际可用高度
+                int translateY = (int) (actualHeight - bodyHeight) / 2;
+                if (translateY < 0)
+                {
+                    translateY = 0;
+                }
+
+                //关键技术点
+                mView.setPadding(translateX + mPaddingLeft, translateY + mPaddingTop, translateX + mPaddingRight, translateY + mPaddingBottom);
             });
+
         }
     }
 
@@ -595,18 +948,42 @@ public class RTextViewHelper extends RBaseHelper<TextView>
     {
         if (enabled)
         {
-            if (mIconNormal != null)
+            if (mIconNormalLeft != null)
             {
-                mIcon = mIconNormal;
-                setIcon();
+                mIconLeft = mIconNormalLeft;
             }
+            if (mIconNormalRight != null)
+            {
+                mIconRight = mIconNormalRight;
+            }
+            if (mIconNormalTop != null)
+            {
+                mIconTop = mIconNormalTop;
+            }
+            if (mIconNormalBottom != null)
+            {
+                mIconBottom = mIconNormalBottom;
+            }
+            setIcon();
         } else
         {
-            if (mIconUnable != null)
+            if (mIconUnableLeft != null)
             {
-                mIcon = mIconUnable;
-                setIcon();
+                mIconLeft = mIconUnableLeft;
             }
+            if (mIconUnableRight != null)
+            {
+                mIconRight = mIconUnableRight;
+            }
+            if (mIconUnableTop != null)
+            {
+                mIconTop = mIconUnableTop;
+            }
+            if (mIconUnableBottom != null)
+            {
+                mIconBottom = mIconUnableBottom;
+            }
+            setIcon();
         }
     }
 
@@ -623,18 +1000,42 @@ public class RTextViewHelper extends RBaseHelper<TextView>
         }
         if (selected)
         {
-            if (mIconSelected != null)
+            if (mIconSelectedLeft != null)
             {
-                mIcon = mIconSelected;
-                setIcon();
+                mIconLeft = mIconSelectedLeft;
             }
+            if (mIconSelectedRight != null)
+            {
+                mIconRight = mIconSelectedRight;
+            }
+            if (mIconSelectedTop != null)
+            {
+                mIconTop = mIconSelectedTop;
+            }
+            if (mIconSelectedBottom != null)
+            {
+                mIconBottom = mIconSelectedBottom;
+            }
+            setIcon();
         } else
         {
-            if (mIconNormal != null)
+            if (mIconNormalLeft != null)
             {
-                mIcon = mIconNormal;
-                setIcon();
+                mIconLeft = mIconNormalLeft;
             }
+            if (mIconNormalRight != null)
+            {
+                mIconRight = mIconNormalRight;
+            }
+            if (mIconNormalTop != null)
+            {
+                mIconTop = mIconNormalTop;
+            }
+            if (mIconNormalBottom != null)
+            {
+                mIconBottom = mIconNormalBottom;
+            }
+            setIcon();
         }
     }
 
@@ -652,37 +1053,66 @@ public class RTextViewHelper extends RBaseHelper<TextView>
         int action = event.getAction();
         switch (action)
         {
-            case MotionEvent.ACTION_UP:
-                if (mIconNormal != null)
+            case MotionEvent.ACTION_UP://抬起
+            case MotionEvent.ACTION_CANCEL://父级控件获取控制权
+                if (mIconNormalLeft != null)
                 {
-                    mIcon = mView.isSelected() ? mIconSelected : mIconNormal;
-                    setIcon();
+                    mIconLeft = mView.isSelected() ? mIconSelectedLeft : mIconNormalLeft;
                 }
-                break;
-            case MotionEvent.ACTION_DOWN:
-                if (mIconPressed != null)
+                if (mIconNormalRight != null)
                 {
-                    mIcon = mIconPressed;
-                    setIcon();
+                    mIconRight = mView.isSelected() ? mIconSelectedRight : mIconNormalRight;
                 }
+                if (mIconNormalTop != null)
+                {
+                    mIconTop = mView.isSelected() ? mIconSelectedTop : mIconNormalTop;
+                }
+                if (mIconNormalBottom != null)
+                {
+                    mIconBottom = mView.isSelected() ? mIconSelectedBottom : mIconNormalBottom;
+                }
+                setIcon();
                 break;
-            case MotionEvent.ACTION_MOVE:
+            case MotionEvent.ACTION_DOWN://按下
+                if (mIconPressedLeft != null)
+                {
+                    mIconLeft = mIconPressedLeft;
+                }
+                if (mIconPressedRight != null)
+                {
+                    mIconRight = mIconPressedRight;
+                }
+                if (mIconPressedTop != null)
+                {
+                    mIconTop = mIconPressedTop;
+                }
+                if (mIconPressedBottom != null)
+                {
+                    mIconBottom = mIconPressedBottom;
+                }
+                setIcon();
+                break;
+            case MotionEvent.ACTION_MOVE://移动
                 int x = (int) event.getX();
                 int y = (int) event.getY();
                 if (isOutsideView(x, y))
                 {
-                    if (mIconNormal != null)
+                    if (mIconNormalLeft != null)
                     {
-                        mIcon = mView.isSelected() ? mIconSelected : mIconNormal;
-                        setIcon();
+                        mIconLeft = mView.isSelected() ? mIconSelectedLeft : mIconNormalLeft;
                     }
-                }
-                break;
-            //父级控件获取控制权
-            case MotionEvent.ACTION_CANCEL:
-                if (mIconNormal != null)
-                {
-                    mIcon = mView.isSelected() ? mIconSelected : mIconNormal;
+                    if (mIconNormalRight != null)
+                    {
+                        mIconRight = mView.isSelected() ? mIconSelectedRight : mIconNormalRight;
+                    }
+                    if (mIconNormalTop != null)
+                    {
+                        mIconTop = mView.isSelected() ? mIconSelectedTop : mIconNormalTop;
+                    }
+                    if (mIconNormalBottom != null)
+                    {
+                        mIconBottom = mView.isSelected() ? mIconSelectedBottom : mIconNormalBottom;
+                    }
                     setIcon();
                 }
                 break;
@@ -690,90 +1120,16 @@ public class RTextViewHelper extends RBaseHelper<TextView>
     }
 
     /**
-     * 获取Text实际宽度
-     * 备注:单行最大宽度
-     *
-     * @param view                      view
-     * @param drawableWidth             drawable宽度
-     * @param paddingLeft               内边距-左
-     * @param paddingRight              内边距-右
-     * @param drawablePaddingHorizontal 水平方向上drawable间距
-     * @return
+     * 初始化按下状态文本颜色
+     * 备注:当存在 Checked 状态并且没有设置 Pressed 时，Pressed = Checked 更符合常规UI
+     * 备注:使用子类 RCheckHelper 中的属性，提供方法入口
      */
-    private float getTextWidth(TextView view, int drawableWidth, int paddingLeft, int paddingRight, int drawablePaddingHorizontal)
+    protected void initPressedTextColor(boolean hasCheckedTextColor, int textColorChecked)
     {
-        if (view == null)
+        if (!mHasPressedTextColor)
         {
-            return 0;
+            mTextColorPressed = hasCheckedTextColor ? textColorChecked : mTextColorNormal;
         }
-
-        float textWidth;
-        /**
-         * 1.是否存在\n换行（获取宽度最大的值）
-         * 2.不存在\n获取单行宽度值（判断是否自动换行临界值）
-         */
-        String originalText = view.getText().toString();
-        if (originalText.contains("\n"))
-        {
-            String[] originalTextArray;
-            ArrayList<Float> widthList;
-            originalTextArray = originalText.split("\n");
-            int arrayLen = originalTextArray.length;
-            widthList = new ArrayList<>(arrayLen);
-            for (int i = 0; i < arrayLen; i++)
-            {
-                widthList.add(view.getPaint().measureText(originalTextArray[i]));
-            }
-            textWidth = Collections.max(widthList);
-        } else
-        {
-            textWidth = view.getPaint().measureText(originalText);
-        }
-
-        //计算自动换行临界值，不允许超过换行临界值
-        int maxWidth = view.getWidth() - drawableWidth - paddingLeft - paddingRight - drawablePaddingHorizontal;
-        if (textWidth > maxWidth)
-        {
-            textWidth = maxWidth;
-        }
-        return textWidth;
-    }
-
-    /**
-     * 获取Text实际高度
-     * 备注:多行最大高度
-     *
-     * @param view                    view
-     * @param drawableHeight          drawable高度
-     * @param paddingTop              内边距-左
-     * @param paddingBottom           内边距-右
-     * @param drawablePaddingVertical 垂直方向上drawable间距
-     * @return
-     */
-    private float getTextHeight(TextView view, int drawableHeight, int paddingTop, int paddingBottom, int drawablePaddingVertical)
-    {
-        if (view == null)
-        {
-            return 0;
-        }
-
-        /**
-         * 1.单行高度*行数
-         * 2.最大高度临界值
-         */
-        Paint.FontMetrics fontMetrics = view.getPaint().getFontMetrics();
-        //单行高度
-        float singleLineHeight = Math.abs((fontMetrics.bottom - fontMetrics.top));
-        float textHeight = singleLineHeight * view.getLineCount();
-
-        //最大高度临界值，不允许超过最大高度临界值
-        //最大允许的宽度
-        int maxHeight = view.getHeight() - drawableHeight - paddingTop - paddingBottom - drawablePaddingVertical;
-        if (textHeight > maxHeight)
-        {
-            textHeight = maxHeight;
-        }
-        return textHeight;
     }
 
 }

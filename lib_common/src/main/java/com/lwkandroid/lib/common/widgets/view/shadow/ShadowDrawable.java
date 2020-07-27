@@ -1,4 +1,4 @@
-package com.lwkandroid.lib.common.widgets.view.drawable;
+package com.lwkandroid.lib.common.widgets.view.shadow;
 
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;
@@ -13,43 +13,27 @@ import androidx.annotation.Nullable;
 
 /**
  * Shadow Drawable
+ *
  */
-public final class ShadowDrawable extends Drawable
-{
-    /**
-     * 阴影颜色
-     */
-    private int mShadowColor;
-    /**
-     * 阴影半径
-     */
-    private float mShadowRadius;
-    /**
-     * 矩形圆角半径
-     */
-    private float[] mRoundRadii;
-    /**
-     * 阴影x偏移
-     */
-    private int mShadowDx;
-    /**
-     * 阴影y偏移
-     */
-    private int mShadowDy;
+public class ShadowDrawable extends Drawable {
+
+    private int mShadowColor;//阴影颜色
+    private float mShadowRadius;//阴影半径
+    private float[] mRoundRadii;//矩形圆角半径
+    private int mShadowDx;//阴影x偏移
+    private int mShadowDy;//阴影y偏移
 
     private Path mPath;
     private Paint mPaint;
     private RectF mBoundsF;
 
-    public ShadowDrawable()
-    {
+    public ShadowDrawable() {
         mPath = new Path();
         mBoundsF = new RectF();
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
     }
 
-    public void updateParameter(int shadowColor, float shadowRadius, int shadowDx, int shadowDy, float[] roundRadii)
-    {
+    public void updateParameter(int shadowColor, float shadowRadius, int shadowDx, int shadowDy, float[] roundRadii) {
         this.mShadowColor = shadowColor;
         this.mRoundRadii = roundRadii;
         this.mShadowRadius = shadowRadius;
@@ -63,11 +47,9 @@ public final class ShadowDrawable extends Drawable
     }
 
     @Override
-    protected void onBoundsChange(Rect bounds)
-    {
+    protected void onBoundsChange(Rect bounds) {
         super.onBoundsChange(bounds);
-        if (bounds.right - bounds.left > 0 && bounds.bottom - bounds.top > 0)
-        {
+        if (bounds.right - bounds.left > 0 && bounds.bottom - bounds.top > 0) {
             updateBounds(bounds);
         }
     }
@@ -77,8 +59,7 @@ public final class ShadowDrawable extends Drawable
      *
      * @param bounds
      */
-    private void updateBounds(Rect bounds)
-    {
+    private void updateBounds(Rect bounds) {
         if (bounds == null)
         {
             bounds = getBounds();
@@ -112,31 +93,26 @@ public final class ShadowDrawable extends Drawable
     }
 
     @Override
-    public void draw(Canvas canvas)
-    {
+    public void draw(Canvas canvas) {
         canvas.drawPath(mPath, mPaint);
     }
 
     @Override
-    public void setAlpha(int alpha)
-    {
+    public void setAlpha(int alpha) {
         mPaint.setAlpha(alpha);
     }
 
     @Override
-    public void setColorFilter(@Nullable ColorFilter colorFilter)
-    {
+    public void setColorFilter(@Nullable ColorFilter colorFilter) {
         mPaint.setColorFilter(colorFilter);
     }
 
     @Override
-    public int getOpacity()
-    {
+    public int getOpacity() {
         return PixelFormat.TRANSLUCENT;
     }
 
-    public float getShadowOffset()
-    {
+    public float getShadowOffset() {
         return mShadowRadius;
     }
 }

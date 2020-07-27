@@ -4,14 +4,14 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
-import com.lwkandroid.lib.common.widgets.view.helper.IRHelper;
 import com.lwkandroid.lib.common.widgets.view.helper.RBaseHelper;
+import com.lwkandroid.lib.common.widgets.view.iface.RHelper;
 
 
 /**
  * RFrameLayout
  */
-public class RFrameLayout extends FrameLayout implements IRHelper<RBaseHelper>
+public class RFrameLayout extends FrameLayout implements RHelper<RBaseHelper>
 {
 
     private RBaseHelper mHelper;

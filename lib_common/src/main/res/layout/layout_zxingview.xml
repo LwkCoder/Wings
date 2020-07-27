@@ -38,11 +38,10 @@
             android:gravity="center_horizontal"
             android:text="@string/qrcode_turn_on_light"
             android:textSize="@dimen/text_size_medium"
-            app:icon_direction="top"
-            app:icon_height="65dp"
-            app:icon_src_checked="@drawable/ic_qrcode_light_on"
-            app:icon_src_normal="@drawable/ic_qrcode_light_off"
-            app:icon_width="65dp"
+            app:icon_checked_top="@drawable/ic_qrcode_light_on"
+            app:icon_height_top="65dp"
+            app:icon_normal_top="@drawable/ic_qrcode_light_off"
+            app:icon_width_top="65dp"
             app:icon_with_text="false"
             app:text_color_normal="@color/white" />
 
@@ -55,11 +54,10 @@
             android:drawablePadding="@dimen/spacing_small"
             android:gravity="center_horizontal"
             android:text="@string/qrcode_parse_picture"
-            app:icon_direction="top"
-            app:icon_height="50dp"
-            app:icon_src_normal="@drawable/ic_qrcode_album_normal"
-            app:icon_src_pressed="@drawable/ic_qrcode_album_pressed"
-            app:icon_width="50dp"
+            app:icon_height_top="50dp"
+            app:icon_normal_top="@drawable/ic_qrcode_album_normal"
+            app:icon_pressed_top="@drawable/ic_qrcode_album_pressed"
+            app:icon_width_top="50dp"
             app:text_color_normal="@color/white" />
 
     </LinearLayout>

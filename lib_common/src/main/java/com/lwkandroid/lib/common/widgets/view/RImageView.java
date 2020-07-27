@@ -11,7 +11,7 @@ import android.graphics.drawable.LayerDrawable;
 import android.util.AttributeSet;
 
 import com.lwkandroid.lib.common.R;
-import com.lwkandroid.lib.common.widgets.view.drawable.RoundDrawable;
+import com.lwkandroid.lib.common.widgets.view.rounded.RoundDrawable;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
@@ -126,19 +126,6 @@ public class RImageView extends androidx.appcompat.widget.AppCompatImageView
         drawEmptyBitmap();
     }
 
-    /**
-     * 绘制空Bitmap
-     */
-    private void drawEmptyBitmap()
-    {
-        if (mDrawable == null)
-        {
-            //未设置Bitmap
-            Bitmap empty = Bitmap.createBitmap(getMeasuredWidth(), getMeasuredHeight(), Bitmap.Config.ALPHA_8);
-            setImageBitmap(empty);
-        }
-    }
-
     private Drawable resolveResource()
     {
         Resources resources = getResources();
@@ -151,7 +138,7 @@ public class RImageView extends androidx.appcompat.widget.AppCompatImageView
         {
             try
             {
-                d = resources.getDrawable(mResource, getContext().getTheme());
+                d = resources.getDrawable(mResource);
             } catch (Exception e)
             {
                 mResource = 0;
@@ -173,22 +160,37 @@ public class RImageView extends androidx.appcompat.widget.AppCompatImageView
         }
         if (drawable instanceof RoundDrawable)
         {
-            ((RoundDrawable) drawable)
-                    .setParams(scaleType,
-                            mBorderWidth,
-                            mBorderColor,
-                            mIsCircle,
-                            mCorner,
-                            mCornerTopLeft,
-                            mCornerTopRight,
-                            mCornerBottomLeft,
-                            mCornerBottomRight);
+            ((RoundDrawable) drawable).setParams(scaleType, mBorderWidth, mBorderColor, mIsCircle, mCorner, mCornerTopLeft, mCornerTopRight, mCornerBottomLeft, mCornerBottomRight);
         } else if (drawable instanceof LayerDrawable)
         {
             LayerDrawable ld = ((LayerDrawable) drawable);
             for (int i = 0, layers = ld.getNumberOfLayers(); i < layers; i++)
             {
                 updateAttrs(ld.getDrawable(i), scaleType);
+            }
+        }
+    }
+
+    /**
+     * 绘制空Bitmap
+     */
+    private void drawEmptyBitmap()
+    {
+        if (mDrawable == null)
+        {//未设置Bitmap
+            int width = getMeasuredWidth();
+            int height = getMeasuredHeight();
+            if (width > 0 && height > 0)
+            {
+                Drawable background = getBackground();
+                if (background != null)
+                {
+                    background.setBounds(0, 0, width, height);
+                    setImageDrawable(background);
+                } else
+                {
+                    setImageBitmap(Bitmap.createBitmap(width, height, Bitmap.Config.ALPHA_8));
+                }
             }
         }
     }

@@ -4,14 +4,14 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.lwkandroid.lib.common.widgets.view.helper.IRHelper;
 import com.lwkandroid.lib.common.widgets.view.helper.RBaseHelper;
+import com.lwkandroid.lib.common.widgets.view.iface.RHelper;
 
 
 /**
  * RView
  */
-public class RView extends View implements IRHelper<RBaseHelper>
+public class RView extends View implements RHelper<RBaseHelper>
 {
 
 

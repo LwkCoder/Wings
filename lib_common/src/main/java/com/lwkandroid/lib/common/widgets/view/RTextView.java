@@ -4,14 +4,14 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
-import com.lwkandroid.lib.common.widgets.view.helper.IRHelper;
 import com.lwkandroid.lib.common.widgets.view.helper.RTextViewHelper;
+import com.lwkandroid.lib.common.widgets.view.iface.RHelper;
 
 
 /**
  * RTextView
  */
-public class RTextView extends androidx.appcompat.widget.AppCompatTextView implements IRHelper<RTextViewHelper>
+public class RTextView extends androidx.appcompat.widget.AppCompatTextView implements RHelper<RTextViewHelper>
 {
 
     private RTextViewHelper mHelper;

@@ -4,14 +4,14 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.RelativeLayout;
 
-import com.lwkandroid.lib.common.widgets.view.helper.IRHelper;
 import com.lwkandroid.lib.common.widgets.view.helper.RBaseHelper;
+import com.lwkandroid.lib.common.widgets.view.iface.RHelper;
 
 
 /**
  * RRelativeLayout
  */
-public class RRelativeLayout extends RelativeLayout implements IRHelper<RBaseHelper>
+public class RRelativeLayout extends RelativeLayout implements RHelper<RBaseHelper>
 {
 
     private RBaseHelper mHelper;

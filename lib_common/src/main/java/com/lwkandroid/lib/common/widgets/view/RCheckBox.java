@@ -4,14 +4,14 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
-import com.lwkandroid.lib.common.widgets.view.helper.IRHelper;
 import com.lwkandroid.lib.common.widgets.view.helper.RCheckHelper;
+import com.lwkandroid.lib.common.widgets.view.iface.RHelper;
 
 
 /**
  * RCheckBox
  */
-public class RCheckBox extends androidx.appcompat.widget.AppCompatCheckBox implements IRHelper<RCheckHelper>
+public class RCheckBox extends androidx.appcompat.widget.AppCompatCheckBox implements RHelper<RCheckHelper>
 {
 
     private RCheckHelper mHelper;

@@ -4,14 +4,14 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 
-import com.lwkandroid.lib.common.widgets.view.helper.IRHelper;
 import com.lwkandroid.lib.common.widgets.view.helper.RBaseHelper;
+import com.lwkandroid.lib.common.widgets.view.iface.RHelper;
 
 
 /**
  * RLinearLayout
  */
-public class RLinearLayout extends LinearLayout implements IRHelper<RBaseHelper>
+public class RLinearLayout extends LinearLayout implements RHelper<RBaseHelper>
 {
 
     private RBaseHelper mHelper;
