@@ -33,7 +33,7 @@ public class ${uiClassName}Activity extends MvpBaseActivity<${uiClassName}Presen
 {
 	private IRefreshWrapper<SwipeRefreshLayout> mRefreshWrapper;
     private ILoadMoreWrapper<RcvMultiAdapter> mLoadMoreWrapper;
-	@FindView(R.id.recycleView)
+	@FindView(R.id.recyclerView)
     private RecyclerView mRecyclerView;
     private RcvSingleAdapter<${dataSourceClass}> mAdapter;
 	

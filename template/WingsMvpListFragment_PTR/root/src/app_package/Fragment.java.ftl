@@ -34,9 +34,18 @@ public class ${uiClassName}Fragment extends MvpBaseFragment<${uiClassName}Presen
 {
 	private IRefreshWrapper<PTRLayout> mRefreshWrapper;
     private ILoadMoreWrapper<RcvMultiAdapter> mLoadMoreWrapper;
-	@FindView(R.id.recycleView)
+	@FindView(R.id.recyclerView)
     private RecyclerView mRecyclerView;
     private RcvSingleAdapter<${dataSourceClass}> mAdapter;
+
+	/**
+     * 创建该Fragment的静态方法
+     */
+    public static ${uiClassName}Fragment createInstance()
+    {
+        ${uiClassName}Fragment fragment = new ${uiClassName}Fragment();
+        return fragment;
+    }
 	
 	@Override
     protected ${uiClassName}Presenter createPresenter()
