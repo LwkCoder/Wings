@@ -10,7 +10,7 @@ import io.reactivex.disposables.Disposable;
  * @author: LWK
  * @date: 2020/6/23 9:56
  */
-public abstract class ApiSingleObserver<T> implements SingleObserver<T>, IApiObserver<T>
+public abstract class ApiSingleObserver<T> implements SingleObserver<T>, IApiActionObserver<T>
 {
     @Override
     public void onSubscribe(Disposable d)

@@ -7,7 +7,7 @@ import com.lwkandroid.lib.core.net.bean.ApiException;
  * @author: LWK
  * @date: 2020/6/22 14:17
  */
-public interface IApiObserver<T>
+public interface IApiActionObserver<T>
 {
     void onAccept(T t);
 

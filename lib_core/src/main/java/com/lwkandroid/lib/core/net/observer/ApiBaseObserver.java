@@ -15,7 +15,8 @@ import io.reactivex.disposables.Disposable;
  */
 public abstract class ApiBaseObserver<T> implements Observer<T>,
         SingleObserver<T>,
-        MaybeObserver<T>
+        MaybeObserver<T>,
+        IApiActionObserver<T>
 {
     @Override
     public void onSubscribe(Disposable d)
@@ -25,19 +26,19 @@ public abstract class ApiBaseObserver<T> implements Observer<T>,
     @Override
     public void onSuccess(T t)
     {
-        subOnNext(t);
+        onAccept(t);
     }
 
     @Override
     public void onNext(T t)
     {
-        subOnNext(t);
+        onAccept(t);
     }
 
     @Override
     public void onError(Throwable e)
     {
-        subOnError(ApiException.handleThrowable(e));
+        onError(ApiException.handleThrowable(e));
     }
 
     @Override
@@ -45,19 +46,4 @@ public abstract class ApiBaseObserver<T> implements Observer<T>,
     {
 
     }
-
-
-    /**
-     * 实现类实现的下一步操作
-     *
-     * @param t 数据源
-     */
-    public abstract void subOnNext(T t);
-
-    /**
-     * 实现类实现的错误处理操作
-     *
-     * @param e 错误类型对象
-     */
-    public abstract void subOnError(ApiException e);
 }

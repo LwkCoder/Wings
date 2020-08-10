@@ -7,10 +7,10 @@ import io.reactivex.disposables.Disposable;
 
 /**
  * @description: CompletableObserver
- *
  * @author: LWK
+ * @date: 2020/8/10 15:01
  */
-public abstract class ApiCompletableObserver implements CompletableObserver
+public abstract class ApiCompletableObserver implements CompletableObserver, IApiCompleteObserver
 {
     @Override
     public void onSubscribe(Disposable d)
@@ -20,24 +20,12 @@ public abstract class ApiCompletableObserver implements CompletableObserver
     @Override
     public void onComplete()
     {
-        subOnComplete();
+        onCompleted();
     }
 
     @Override
     public void onError(Throwable e)
     {
-        subOnError(ApiException.handleThrowable(e));
+        onError(ApiException.handleThrowable(e));
     }
-
-    /**
-     * 实现类实现的下一步操作
-     */
-    public abstract void subOnComplete();
-
-    /**
-     * 实现类实现的错误处理操作
-     *
-     * @param e 错误类型对象
-     */
-    public abstract void subOnError(ApiException e);
 }

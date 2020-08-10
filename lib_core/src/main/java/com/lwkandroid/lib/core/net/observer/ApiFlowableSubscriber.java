@@ -12,7 +12,7 @@ import io.reactivex.FlowableSubscriber;
  * @author: LWK
  * @date: 2020/6/23 9:59
  */
-public abstract class ApiFlowableSubscriber<T> implements FlowableSubscriber<T>, IApiObserver<T>
+public abstract class ApiFlowableSubscriber<T> implements FlowableSubscriber<T>, IApiActionObserver<T>
 {
     @Override
     public void onSubscribe(Subscription s)
