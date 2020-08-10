@@ -1,21 +1,16 @@
 package com.lwkandroid.lib.core.net.observer;
 
-
 import com.lwkandroid.lib.core.net.bean.ApiException;
 
-import io.reactivex.MaybeObserver;
-import io.reactivex.Observer;
-import io.reactivex.SingleObserver;
+import io.reactivex.CompletableObserver;
 import io.reactivex.disposables.Disposable;
 
 /**
- * 网络请求Observer基类（非必须）
+ * @description: CompletableObserver
  *
- * @author LWK
+ * @author: LWK
  */
-public abstract class ApiBaseObserver<T> implements Observer<T>,
-        SingleObserver<T>,
-        MaybeObserver<T>
+public abstract class ApiCompletableObserver implements CompletableObserver
 {
     @Override
     public void onSubscribe(Disposable d)
@@ -23,15 +18,9 @@ public abstract class ApiBaseObserver<T> implements Observer<T>,
     }
 
     @Override
-    public void onSuccess(T t)
+    public void onComplete()
     {
-        subOnNext(t);
-    }
-
-    @Override
-    public void onNext(T t)
-    {
-        subOnNext(t);
+        subOnComplete();
     }
 
     @Override
@@ -40,19 +29,10 @@ public abstract class ApiBaseObserver<T> implements Observer<T>,
         subOnError(ApiException.handleThrowable(e));
     }
 
-    @Override
-    public void onComplete()
-    {
-
-    }
-
-
     /**
      * 实现类实现的下一步操作
-     *
-     * @param t 数据源
      */
-    public abstract void subOnNext(T t);
+    public abstract void subOnComplete();
 
     /**
      * 实现类实现的错误处理操作

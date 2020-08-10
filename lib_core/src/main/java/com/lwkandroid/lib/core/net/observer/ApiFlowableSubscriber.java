@@ -8,7 +8,7 @@ import org.reactivestreams.Subscription;
 import io.reactivex.FlowableSubscriber;
 
 /**
- * @description: 网络请求FLowableSubscriber
+ * @description: 网络请求FlowableSubscriber
  * @author: LWK
  * @date: 2020/6/23 9:59
  */
