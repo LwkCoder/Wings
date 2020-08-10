@@ -5,12 +5,15 @@ import java.util.List;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Update;
+import io.reactivex.Completable;
+import io.reactivex.Maybe;
+import io.reactivex.Single;
 
 /**
  * @description: Room Dao层基础接口
  * @author: LWK
- * @date: 2020/7/3 14:25
  */
 @Dao
 public interface IRoomBaseDao<T>
@@ -20,16 +23,16 @@ public interface IRoomBaseDao<T>
      *
      * @param item 数据
      */
-    @Insert
-    void insertItem(T item);
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    Completable insertItem(T item);
 
     /**
      * 插入list数据
      *
      * @param items 数据
      */
-    @Insert
-    void insertItems(List<T> items);
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    Completable insertItems(List<T> items);
 
     /**
      * 删除item
@@ -37,7 +40,7 @@ public interface IRoomBaseDao<T>
      * @param item 数据
      */
     @Delete
-    void deleteItem(T item);
+    Maybe<Integer> deleteItem(T item);
 
     /**
      * 更新item
@@ -45,5 +48,5 @@ public interface IRoomBaseDao<T>
      * @param item 数据
      */
     @Update
-    void updateItem(T item);
+    Single<Integer> updateItem(T item);
 }
