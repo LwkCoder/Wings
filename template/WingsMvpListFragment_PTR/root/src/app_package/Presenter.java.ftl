@@ -37,7 +37,7 @@ class ${uiClassName}Presenter extends MvpBasePresenterImpl<${uiClassName}Contrac
     {
         //下拉刷新
         getModelImpl()
-                .requestData(PAGE_INDEX_DEFAULT, PAGE_SIZE, System.currentTimeMillis())
+                .requestData(PAGE_INDEX_DEFAULT, PAGE_SIZE, System.currentTimeMillis(), args)
                 .compose(applyIo2MainUntilOnDestroy())
                 .subscribe(new ApiObserver<List<${dataSourceClass}>>()
                 {
@@ -63,7 +63,7 @@ class ${uiClassName}Presenter extends MvpBasePresenterImpl<${uiClassName}Contrac
         //自动加载
         final int nextPageIndex = mCurrentIndex + 1;
         getModelImpl()
-                .requestData(nextPageIndex, PAGE_SIZE, System.currentTimeMillis())
+                .requestData(nextPageIndex, PAGE_SIZE, System.currentTimeMillis(), args)
                 .compose(applyIo2MainUntilOnDestroy())
                 .subscribe(new ApiObserver<List<${dataSourceClass}>>()
                 {
