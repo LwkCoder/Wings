@@ -6,7 +6,7 @@ import io.reactivex.MaybeObserver;
 import io.reactivex.disposables.Disposable;
 
 /**
- * @description: 网络请求MaybeObserver
+ * @description: MaybeObserver
  * @author: LWK
  * @date: 2020/6/22 14:14
  */
@@ -33,6 +33,8 @@ public abstract class ApiMaybeObserver<T> implements MaybeObserver<T>, IApiActio
     @Override
     public void onComplete()
     {
-
+        onEmpty();
     }
+
+    abstract void onEmpty();
 }
