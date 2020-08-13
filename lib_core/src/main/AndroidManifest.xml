@@ -19,7 +19,7 @@
             android:authorities="${applicationId}.ContextProvider" />
         <provider
             android:name=".utils.common.UriUtils$UriFileProvider"
-            android:authorities="${applicationId}.uriutils.provider"
+            android:authorities="${applicationId}.uriutils.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true"
             android:multiprocess="true"
