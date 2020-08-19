@@ -11,8 +11,9 @@ import com.lwkandroid.lib.core.utils.common.StringUtils;
 import java.io.File;
 import java.io.InputStream;
 
-import io.reactivex.ObservableTransformer;
-import io.reactivex.functions.Function;
+import io.reactivex.rxjava3.core.ObservableTransformer;
+import io.reactivex.rxjava3.functions.Function;
+
 
 /**
  * 将InputStream类型的网络请求结果转换为File并写入存储的实现类

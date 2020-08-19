@@ -3,7 +3,8 @@ package com.lwkandroid.lib.core.net.exception;
 import com.lwkandroid.lib.core.net.RxHttp;
 import com.lwkandroid.lib.core.net.bean.ApiException;
 
-import io.reactivex.functions.Consumer;
+import io.reactivex.rxjava3.functions.Consumer;
+
 
 /**
  * Description:统一处理错误的消费者

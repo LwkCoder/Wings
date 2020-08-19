@@ -2,7 +2,8 @@ package com.lwkandroid.lib.core.qrcode;
 
 import android.graphics.Bitmap;
 
-import io.reactivex.Observable;
+import io.reactivex.rxjava3.core.Observable;
+
 
 /**
  * Description:二维码接口

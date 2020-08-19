@@ -4,7 +4,8 @@ package com.lwkandroid.lib.core.net.cache.strategy;
 import com.lwkandroid.lib.core.net.bean.ApiCacheOptions;
 import com.lwkandroid.lib.core.net.bean.ResultCacheWrapper;
 
-import io.reactivex.Observable;
+import io.reactivex.rxjava3.core.Observable;
+
 
 /**
  * 先读取缓存，失败或为空请求网络的策略

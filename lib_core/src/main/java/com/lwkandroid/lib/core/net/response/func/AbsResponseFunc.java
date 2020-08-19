@@ -1,6 +1,6 @@
 package com.lwkandroid.lib.core.net.response.func;
 
-import io.reactivex.functions.Function;
+import io.reactivex.rxjava3.functions.Function;
 import okhttp3.ResponseBody;
 
 /**

@@ -3,7 +3,8 @@ package com.lwkandroid.lib.core.net.cache.func;
 import com.lwkandroid.lib.core.net.bean.ResultCacheWrapper;
 import com.lwkandroid.lib.core.net.parser.IApiStringParser;
 
-import io.reactivex.functions.Function;
+import io.reactivex.rxjava3.functions.Function;
+
 
 /**
  * Description:缓存转换为对象数据的基类

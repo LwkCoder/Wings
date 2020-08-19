@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 
 /**
  * Created by LWK
@@ -114,7 +114,7 @@ public final class RetrofitUtils
         retroBuilder
                 .baseUrl(baseUrl)
                 .client(okClient)
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create());
+                .addCallAdapterFactory(RxJava3CallAdapterFactory.create());
 
         return retroBuilder.build();
     }

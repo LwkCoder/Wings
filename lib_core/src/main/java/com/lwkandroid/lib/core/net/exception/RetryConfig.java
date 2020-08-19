@@ -1,6 +1,7 @@
 package com.lwkandroid.lib.core.net.exception;
 
-import io.reactivex.Single;
+
+import io.reactivex.rxjava3.core.Single;
 
 /**
  * Description:自动重试网络请求配置

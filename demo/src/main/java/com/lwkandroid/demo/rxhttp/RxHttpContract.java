@@ -6,7 +6,7 @@ import com.lwkandroid.lib.common.mvp.IMvpBaseView;
 
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
-import io.reactivex.Observable;
+import io.reactivex.rxjava3.core.Observable;
 
 /**
  * Description:契约层

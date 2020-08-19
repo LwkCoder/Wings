@@ -3,7 +3,8 @@ package com.lwkandroid.lib.core.net.cache.func;
 
 import com.lwkandroid.lib.core.net.bean.ResultCacheWrapper;
 
-import io.reactivex.functions.Function;
+import io.reactivex.rxjava3.functions.Function;
+
 
 /**
  * Created by LWK

@@ -17,7 +17,7 @@ import com.lwkandroid.lib.core.net.observer.ApiObserver;
 import com.lwkandroid.lib.core.utils.common.ToastUtils;
 
 import androidx.fragment.app.FragmentActivity;
-import io.reactivex.Single;
+import io.reactivex.rxjava3.core.Single;
 
 /**
  * Description:异常捕获的配置

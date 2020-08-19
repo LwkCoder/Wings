@@ -7,7 +7,7 @@ import com.lwkandroid.lib.core.rx.scheduler.RxSchedulers;
 
 import cn.bingoogolapple.qrcode.zxing.QRCodeDecoder;
 import cn.bingoogolapple.qrcode.zxing.QRCodeEncoder;
-import io.reactivex.Observable;
+import io.reactivex.rxjava3.core.Observable;
 
 /**
  * Description:BGAQRCode_Android实现的策略，底层是ZXing

@@ -8,8 +8,9 @@ import com.lwkandroid.lib.core.utils.common.ImageUtils;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
-import io.reactivex.ObservableTransformer;
-import io.reactivex.functions.Function;
+import io.reactivex.rxjava3.core.ObservableTransformer;
+import io.reactivex.rxjava3.functions.Function;
+
 
 /**
  * 将InputStream的网络请求结果转换为Bitmap的实现类
@@ -30,9 +31,8 @@ public class ApiIS2BitmapParser implements IApiInputStreamParser.BitmapParser
     @Override
     public ObservableTransformer<InputStream, Bitmap> parseAsBitmap()
     {
-        return upstream -> upstream.map((Function<InputStream, Bitmap>) inputStream -> {
-            return ImageUtils.getBitmap(readStream(inputStream), 0, mMaxWidth, mMaxHeight);
-        });
+        return upstream -> upstream.map((Function<InputStream, Bitmap>) inputStream ->
+                ImageUtils.getBitmap(readStream(inputStream), 0, mMaxWidth, mMaxHeight));
     }
 
     /**

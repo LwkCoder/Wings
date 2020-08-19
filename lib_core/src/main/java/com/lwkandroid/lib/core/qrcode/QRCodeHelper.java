@@ -2,7 +2,8 @@ package com.lwkandroid.lib.core.qrcode;
 
 import android.graphics.Bitmap;
 
-import io.reactivex.Observable;
+import io.reactivex.rxjava3.core.Observable;
+
 
 /**
  * Description:向外提供二维码相关方法

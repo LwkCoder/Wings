@@ -12,11 +12,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.Callable;
 
-import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
-import io.reactivex.functions.Function;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.ObservableSource;
+import io.reactivex.rxjava3.functions.Function;
+import io.reactivex.rxjava3.functions.Supplier;
+
 
 /**
  * @description: Luban算法实现的压缩功能
@@ -50,7 +51,7 @@ public final class LubanCompressEngine
         List<File> fileList = mOptions.getFileList();
         return Observable.fromIterable(fileList)
                 .map(this::compressStep1)
-                .collect((Callable<List<File>>) LinkedList::new, List::add)
+                .collect((Supplier<List<File>>) LinkedList::new, List::add)
                 .flatMapObservable((Function<List<File>, ObservableSource<List<File>>>) Observable::just);
     }
 

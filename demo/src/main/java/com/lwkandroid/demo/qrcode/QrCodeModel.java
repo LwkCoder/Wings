@@ -5,7 +5,8 @@ import android.graphics.Bitmap;
 import com.lwkandroid.lib.common.mvp.MvpBaseModelImpl;
 import com.lwkandroid.lib.core.qrcode.QRCodeHelper;
 
-import io.reactivex.Observable;
+import io.reactivex.rxjava3.core.Observable;
+
 
 /**
  * Description:Model层

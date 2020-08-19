@@ -5,7 +5,8 @@ import android.graphics.Bitmap;
 import java.io.File;
 import java.io.InputStream;
 
-import io.reactivex.ObservableTransformer;
+import io.reactivex.rxjava3.core.ObservableTransformer;
+
 
 /**
  * Created by LWK

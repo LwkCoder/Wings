@@ -2,8 +2,9 @@ package com.lwkandroid.lib.core.net.observer;
 
 import com.lwkandroid.lib.core.net.bean.ApiException;
 
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
+import io.reactivex.rxjava3.core.Observer;
+import io.reactivex.rxjava3.disposables.Disposable;
+
 
 /**
  * @description: 网络请求Observer

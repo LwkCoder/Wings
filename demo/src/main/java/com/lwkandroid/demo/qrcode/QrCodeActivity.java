@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.jakewharton.rxbinding3.widget.RxTextView;
+import com.jakewharton.rxbinding4.widget.RxTextView;
 import com.lwkandroid.demo.R;
 import com.lwkandroid.imagepicker.ImagePicker;
 import com.lwkandroid.imagepicker.data.ImageBean;

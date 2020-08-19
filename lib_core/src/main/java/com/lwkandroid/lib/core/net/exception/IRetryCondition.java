@@ -1,6 +1,7 @@
 package com.lwkandroid.lib.core.net.exception;
 
-import io.reactivex.Single;
+
+import io.reactivex.rxjava3.core.Single;
 
 /**
  * Description:定义需要重试的条件的接口

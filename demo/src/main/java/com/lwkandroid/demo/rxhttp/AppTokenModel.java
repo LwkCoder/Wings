@@ -5,7 +5,8 @@ import com.lwkandroid.lib.core.net.RxHttp;
 import com.lwkandroid.lib.core.rx.scheduler.RxSchedulers;
 import com.lwkandroid.lib.core.utils.common.StringUtils;
 
-import io.reactivex.Observable;
+import io.reactivex.rxjava3.core.Observable;
+
 
 /**
  * Description:身份验证相关的操作

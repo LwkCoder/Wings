@@ -3,7 +3,8 @@ package com.lwkandroid.demo.rxhttp;
 import com.lwkandroid.lib.common.mvp.MvpBaseModelImpl;
 import com.lwkandroid.lib.core.net.RxHttp;
 
-import io.reactivex.Observable;
+import io.reactivex.rxjava3.core.Observable;
+
 
 /**
  * Description:Model层

@@ -90,7 +90,7 @@ public final class UriUtils
 
         public static String createAuthorities()
         {
-            return AppUtils.getPackageName() + ".uriutils.provider";
+            return AppUtils.getPackageName() + ".uriutils.fileprovider";
         }
     }
 }

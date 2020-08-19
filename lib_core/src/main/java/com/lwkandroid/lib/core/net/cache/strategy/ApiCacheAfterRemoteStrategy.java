@@ -4,7 +4,8 @@ package com.lwkandroid.lib.core.net.cache.strategy;
 import com.lwkandroid.lib.core.net.bean.ApiCacheOptions;
 import com.lwkandroid.lib.core.net.bean.ResultCacheWrapper;
 
-import io.reactivex.Observable;
+import io.reactivex.rxjava3.core.Observable;
+
 
 /**
  *  先返回本地缓存，然后获取网络数据，回调2次的策略

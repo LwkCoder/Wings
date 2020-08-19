@@ -12,7 +12,7 @@ import com.lwkandroid.lib.core.net.response.IApiStringResponse;
 import java.util.List;
 import java.util.Map;
 
-import io.reactivex.Observable;
+import io.reactivex.rxjava3.core.Observable;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 

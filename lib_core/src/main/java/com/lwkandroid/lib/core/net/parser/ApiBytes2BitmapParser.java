@@ -4,8 +4,9 @@ import android.graphics.Bitmap;
 
 import com.lwkandroid.lib.core.utils.common.ImageUtils;
 
-import io.reactivex.ObservableTransformer;
-import io.reactivex.functions.Function;
+import io.reactivex.rxjava3.core.ObservableTransformer;
+import io.reactivex.rxjava3.functions.Function;
+
 
 /**
  * 将Byte数组的网络请求结果转换为Bitmap的实现类
@@ -25,8 +26,6 @@ public class ApiBytes2BitmapParser implements IApiBytesArrayParser.BitmapParser
     @Override
     public ObservableTransformer<byte[], Bitmap> parseAsBitmap()
     {
-        return upstream -> upstream.map((Function<byte[], Bitmap>) bytes -> {
-            return ImageUtils.getBitmap(bytes, 0, mMaxWidth, mMaxHeight);
-        });
+        return upstream -> upstream.map((Function<byte[], Bitmap>) bytes -> ImageUtils.getBitmap(bytes, 0, mMaxWidth, mMaxHeight));
     }
 }

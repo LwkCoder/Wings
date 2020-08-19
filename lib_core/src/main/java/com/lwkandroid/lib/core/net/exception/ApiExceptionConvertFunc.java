@@ -2,9 +2,10 @@ package com.lwkandroid.lib.core.net.exception;
 
 import com.lwkandroid.lib.core.net.bean.ApiException;
 
-import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
-import io.reactivex.functions.Function;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.ObservableSource;
+import io.reactivex.rxjava3.functions.Function;
+
 
 /**
  * Description:异常转换为ApiException的方法

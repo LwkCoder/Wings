@@ -16,7 +16,8 @@ import com.lwkandroid.lib.core.net.requst.ApiBaseRequest;
 
 import java.util.List;
 
-import io.reactivex.Observable;
+import io.reactivex.rxjava3.core.Observable;
+
 
 /**
  * Description: 字符串网络请求结果的转换方法的实现类

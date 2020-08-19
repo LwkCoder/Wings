@@ -6,7 +6,7 @@ import com.lwkandroid.lib.core.net.response.func.ResponseToStringFunc;
 
 import java.io.InputStream;
 
-import io.reactivex.functions.Function;
+import io.reactivex.rxjava3.functions.Function;
 import okhttp3.ResponseBody;
 
 /**
