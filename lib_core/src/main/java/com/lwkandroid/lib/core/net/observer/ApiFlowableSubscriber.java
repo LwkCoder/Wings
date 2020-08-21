@@ -5,7 +5,8 @@ import com.lwkandroid.lib.core.net.bean.ApiException;
 
 import org.reactivestreams.Subscription;
 
-import io.reactivex.FlowableSubscriber;
+import io.reactivex.rxjava3.core.FlowableSubscriber;
+
 
 /**
  * @description: 网络请求FlowableSubscriber

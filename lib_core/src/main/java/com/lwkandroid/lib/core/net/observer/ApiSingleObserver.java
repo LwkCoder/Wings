@@ -2,8 +2,9 @@ package com.lwkandroid.lib.core.net.observer;
 
 import com.lwkandroid.lib.core.net.bean.ApiException;
 
-import io.reactivex.SingleObserver;
-import io.reactivex.disposables.Disposable;
+import io.reactivex.rxjava3.core.SingleObserver;
+import io.reactivex.rxjava3.disposables.Disposable;
+
 
 /**
  * @description: 网络请求SingleObserver

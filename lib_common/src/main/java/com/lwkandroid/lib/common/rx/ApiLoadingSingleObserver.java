@@ -6,7 +6,7 @@ import com.lwkandroid.lib.core.callback.WingsConsumer;
 import com.lwkandroid.lib.core.net.observer.ApiSingleObserver;
 
 import androidx.annotation.StringRes;
-import io.reactivex.disposables.Disposable;
+import io.reactivex.rxjava3.disposables.Disposable;
 
 /**
  * @description: 带Loading的网络请求SingleObserver
