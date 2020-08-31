@@ -53,7 +53,7 @@ public final class NetworkUtils
         {
             ConnectivityManager manager = (ConnectivityManager) AppContext.get().getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkCapabilities capabilities = manager.getNetworkCapabilities(manager.getActiveNetwork());
-            return capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED);
+            return capabilities != null && capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED);
         } else
         {
             NetworkInfo info = getActiveNetworkInfo();
