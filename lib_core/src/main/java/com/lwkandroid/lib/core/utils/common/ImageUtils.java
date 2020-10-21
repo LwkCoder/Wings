@@ -487,7 +487,7 @@ public final class ImageUtils
                     ExifInterface.ORIENTATION_NORMAL);
             switch (orientation)
             {
-                default:
+
                 case ExifInterface.ORIENTATION_ROTATE_90:
                     degree = 90;
                     break;
@@ -496,6 +496,8 @@ public final class ImageUtils
                     break;
                 case ExifInterface.ORIENTATION_ROTATE_270:
                     degree = 270;
+                    break;
+                default:
                     break;
             }
         } catch (IOException e)
