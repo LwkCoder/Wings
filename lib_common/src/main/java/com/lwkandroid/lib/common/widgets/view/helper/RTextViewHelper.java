@@ -12,7 +12,6 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
 import com.lwkandroid.lib.common.R;
@@ -114,20 +113,6 @@ public class RTextViewHelper extends RBaseHelper<TextView>
         {
             return;
         }
-        //大小变化
-        mView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener()
-        {
-            @Override
-            public void onGlobalLayout()
-            {
-                mView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                mPaddingLeft = mView.getPaddingLeft();
-                mPaddingRight = mView.getPaddingRight();
-                mPaddingTop = mView.getPaddingTop();
-                mPaddingBottom = mView.getPaddingBottom();
-                setIcon();
-            }
-        });
         //文本改变
         mView.addTextChangedListener(new TextWatcher()
         {
@@ -149,7 +134,20 @@ public class RTextViewHelper extends RBaseHelper<TextView>
                 setIcon();
             }
         });
+    }
 
+    @Override
+    public void onGlobalLayout()
+    {
+        super.onGlobalLayout();
+        if (mDrawableWithText)
+        {
+            mPaddingLeft = mView.getPaddingLeft();
+            mPaddingRight = mView.getPaddingRight();
+            mPaddingTop = mView.getPaddingTop();
+            mPaddingBottom = mView.getPaddingBottom();
+            setIcon();
+        }
     }
 
     /**
