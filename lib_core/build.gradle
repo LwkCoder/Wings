@@ -23,7 +23,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     api project(':lib_dependencies')
-    rootProject.ext.libDep.implementation.each { v -> implementation v }
-    rootProject.ext.libDep.testImplementation.each { v -> testImplementation v }
-    rootProject.ext.libDep.androidTestImplementation.each { v -> androidTestImplementation v }
+//    rootProject.ext.libDep.implementation.each { v -> implementation v }
+//    rootProject.ext.libDep.testImplementation.each { v -> testImplementation v }
+//    rootProject.ext.libDep.androidTestImplementation.each { v -> androidTestImplementation v }
 }
