@@ -109,6 +109,8 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':lib_common')
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     rootProject.ext.appDep.implementation.each { v -> implementation v }
     rootProject.ext.appDep.testImplementation.each { v -> testImplementation v }
     rootProject.ext.appDep.androidTestImplementation.each { v -> androidTestImplementation v }
