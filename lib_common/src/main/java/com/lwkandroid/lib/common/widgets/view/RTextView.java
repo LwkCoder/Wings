@@ -3,6 +3,7 @@ package com.lwkandroid.lib.common.widgets.view;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.View;
 
 import com.lwkandroid.lib.common.widgets.view.helper.RTextViewHelper;
 import com.lwkandroid.lib.common.widgets.view.iface.RHelper;
@@ -63,4 +64,11 @@ public class RTextView extends androidx.appcompat.widget.AppCompatTextView imple
         super.setSelected(selected);
     }
 
+    @Override
+    protected void onVisibilityChanged(View changedView, int visibility)
+    {
+        if (mHelper != null)
+            mHelper.onVisibilityChanged(changedView, visibility);
+        super.onVisibilityChanged(changedView, visibility);
+    }
 }

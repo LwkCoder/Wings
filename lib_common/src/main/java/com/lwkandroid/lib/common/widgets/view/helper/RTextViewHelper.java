@@ -12,9 +12,11 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.TextView;
 
 import com.lwkandroid.lib.common.R;
+import com.lwkandroid.lib.common.widgets.view.iface.ITextViewFeature;
 import com.lwkandroid.lib.common.widgets.view.utils.TextViewUtils;
 
 import androidx.annotation.ColorInt;
@@ -26,7 +28,7 @@ import androidx.appcompat.content.res.AppCompatResources;
  *
  * @author ZhongDaFeng
  */
-public class RTextViewHelper extends RBaseHelper<TextView>
+public class RTextViewHelper extends RBaseHelper<TextView> implements ITextViewFeature
 {
 
     //default value
@@ -765,19 +767,19 @@ public class RTextViewHelper extends RBaseHelper<TextView>
     {
         if (drawableLeft != null || drawableRight != null || drawableTop != null || drawableBottom != null)
         {
-            if (mIconHeightLeft != 0 && mIconWidthLeft != 0)
+            if (drawableLeft != null)
             {
                 drawableLeft.setBounds(0, 0, mIconWidthLeft, mIconHeightLeft);
             }
-            if (mIconHeightRight != 0 && mIconWidthRight != 0)
+            if (drawableRight != null)
             {
                 drawableRight.setBounds(0, 0, mIconWidthRight, mIconHeightRight);
             }
-            if (mIconHeightTop != 0 && mIconWidthTop != 0)
+            if (drawableTop != null)
             {
                 drawableTop.setBounds(0, 0, mIconWidthTop, mIconHeightTop);
             }
-            if (mIconHeightBottom != 0 && mIconWidthBottom != 0)
+            if (drawableBottom != null)
             {
                 drawableBottom.setBounds(0, 0, mIconWidthBottom, mIconHeightBottom);
             }
@@ -786,10 +788,6 @@ public class RTextViewHelper extends RBaseHelper<TextView>
 
             //drawable间距
             if (!mDrawableWithText)
-            {
-                return;
-            }
-            if (mView.getWidth() == 0 || mView.getHeight() == 0)
             {
                 return;
             }
@@ -815,7 +813,6 @@ public class RTextViewHelper extends RBaseHelper<TextView>
 
             final int drawableWidthFinal = mIconWidthLeft + mIconWidthRight;
             final int drawableHeightFinal = mIconHeightTop + mIconHeightBottom;
-
             final int drawablePaddingVerticalFinal = drawablePaddingVertical;//垂直方向上drawable间距
             final int drawablePaddingHorizontalFinal = drawablePaddingHorizontal;//水平方向上drawable间距
             //view.getLineCount() need post
@@ -941,6 +938,7 @@ public class RTextViewHelper extends RBaseHelper<TextView>
      * 设置是否启用
      * 备注:用于库内确定逻辑的调用，不建议开发者直接调用
      */
+    @Override
     @SuppressWarnings("unchecked")
     public void setEnabled(boolean enabled)
     {
@@ -989,6 +987,7 @@ public class RTextViewHelper extends RBaseHelper<TextView>
      * 设置是否选中
      * 备注:用于库内确定逻辑的调用，不建议开发者直接调用
      */
+    @Override
     @SuppressWarnings("unchecked")
     public void setSelected(boolean selected)
     {
@@ -1037,10 +1036,18 @@ public class RTextViewHelper extends RBaseHelper<TextView>
         }
     }
 
+    @Override
+    public void onVisibilityChanged(View changedView, int visibility)
+    {
+        if (visibility != View.GONE)
+            setIcon();
+    }
+
     /**
      * 触摸事件逻辑
      * 备注:用于库内确定逻辑的调用，不建议开发者直接调用
      */
+    @Override
     @SuppressWarnings("unchecked")
     public void onTouchEvent(MotionEvent event)
     {

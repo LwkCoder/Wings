@@ -1,11 +1,15 @@
 package com.lwkandroid.lib.common.widgets.view;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.util.AttributeSet;
@@ -39,6 +43,9 @@ public class RImageView extends androidx.appcompat.widget.AppCompatImageView
     private ScaleType mScaleType;
     private int mResource;
 
+    private ColorFilter mColorFilter;
+    private PorterDuff.Mode mTintMode = PorterDuff.Mode.SRC_ATOP;
+
     public RImageView(Context context)
     {
         this(context, null);
@@ -66,6 +73,14 @@ public class RImageView extends androidx.appcompat.widget.AppCompatImageView
         mCornerBottomRight = a.getDimensionPixelSize(R.styleable.RImageView_corner_radius_bottom_right, 0);
         mBorderWidth = a.getDimensionPixelSize(R.styleable.RImageView_border_width, 0);
         mBorderColor = a.getColor(R.styleable.RImageView_border_color, Color.BLACK);
+        //get system attrs
+        String namespace = "http://schemas.android.com/apk/res/android";//android的命名空间
+        int tintColor = attrs.getAttributeResourceValue(namespace, "tint", 0);
+        if (tintColor != 0)
+            mColorFilter = new PorterDuffColorFilter(getResources().getColor(tintColor), mTintMode);
+        int tintMode = attrs.getAttributeIntValue(namespace, "tintMode", 0);
+        if (tintMode != 0)
+            mTintMode = wrapTintMode(tintMode);
         a.recycle();
         updateDrawableAttrs();
     }
@@ -124,6 +139,59 @@ public class RImageView extends androidx.appcompat.widget.AppCompatImageView
     {
         super.onDraw(canvas);
         drawEmptyBitmap();
+    }
+
+    @Override
+    public void setImageTintList(@Nullable ColorStateList tint)
+    {
+        super.setImageTintList(tint);
+        this.mColorFilter = new PorterDuffColorFilter(tint.getDefaultColor(), mTintMode);
+        setColorFilter();
+    }
+
+
+    @Override
+    public void setImageTintMode(@Nullable PorterDuff.Mode tintMode)
+    {
+        super.setImageTintMode(tintMode);
+        this.mTintMode = tintMode;
+        setColorFilter();
+    }
+
+
+    public void setColorFilter()
+    {
+        if (mColorFilter != null && mDrawable != null)
+        {
+            //ColorFilter filter = new PorterDuffColorFilter(Color.parseColor("#00FF00"), PorterDuff.Mode.SRC_ATOP);
+            mDrawable.setColorFilter(mColorFilter);
+        }
+    }
+
+    /**
+     * 转化TintMode
+     *
+     * @param tintMode
+     * @return
+     */
+    private PorterDuff.Mode wrapTintMode(int tintMode)
+    {
+        switch (tintMode)
+        {
+            case 3:
+                return PorterDuff.Mode.SRC_OVER;
+            case 5:
+                return PorterDuff.Mode.SRC_IN;
+            case 14:
+                return PorterDuff.Mode.MULTIPLY;
+            case 15:
+                return PorterDuff.Mode.SCREEN;
+            case 16:
+                return PorterDuff.Mode.ADD;
+            case 9:
+            default:
+                return PorterDuff.Mode.SRC_ATOP;
+        }
     }
 
     private Drawable resolveResource()
