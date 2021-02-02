@@ -47,7 +47,7 @@ ext {
             RecyclerViewX       : "1.1.0",
             RcvAdapter          : "1.4.4",
             Retrofit            : "2.9.0",
-            Room                : "2.2.6",
+            Room                : "2.3.0-alpha04",
             RXJava              : "3.0.5",
             RXAndroid           : "3.0.0",
             RXBinding           : "4.0.0",
