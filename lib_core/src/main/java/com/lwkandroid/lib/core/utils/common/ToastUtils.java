@@ -14,6 +14,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.Settings;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -161,13 +162,13 @@ public final class ToastUtils
     /**
      * Set the text size of toast.
      *
-     * @param textSize The text size of toast.
+     * @param textSpSize sp值
      * @return the single {@link ToastUtils} instance
      */
     @NonNull
-    public final ToastUtils setTextSize(final int textSize)
+    public final ToastUtils setTextSize(final int textSpSize)
     {
-        mTextSize = textSize;
+        mTextSize = textSpSize;
         return this;
     }
 
@@ -937,7 +938,7 @@ public final class ToastUtils
             }
             if (mToastUtils.mTextSize != -1)
             {
-                messageTv.setTextSize(mToastUtils.mTextSize);
+                messageTv.setTextSize(TypedValue.COMPLEX_UNIT_SP, mToastUtils.mTextSize);
             }
             setBg(messageTv);
             processRtlIfNeed();
