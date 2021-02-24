@@ -109,7 +109,7 @@ public final class NetworkUtils
      * @return true:是 false：否
      */
     @RequiresPermission(allOf = {MODIFY_PHONE_STATE, ACCESS_NETWORK_STATE})
-    public static boolean getMobileDataEnabled()
+    public static boolean isMobileDataEnabled()
     {
         try
         {

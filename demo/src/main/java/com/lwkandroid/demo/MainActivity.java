@@ -86,7 +86,7 @@ public class MainActivity extends MvpBaseActivity<MainPresenter> implements Main
                 startActivity(new Intent(MainActivity.this, QrCodeActivity.class));
                 break;
             case R.id.btn_main_05:
-                test();
+//                test();
                 break;
             default:
                 break;

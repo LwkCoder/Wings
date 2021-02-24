@@ -2,8 +2,11 @@ package com.lwkandroid.lib.core.utils.common;
 
 import com.lwkandroid.lib.core.utils.constants.RegexConstants;
 
+import java.util.IllegalFormatException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import androidx.annotation.Nullable;
 
 /**
  * 字符串相关工具类
@@ -268,5 +271,31 @@ public final class StringUtils
             dest = m.replaceAll("");
         }
         return dest;
+    }
+
+    /**
+     * Format the string.
+     *
+     * @param str  The string.
+     * @param args The args.
+     * @return a formatted string.
+     */
+    public static String format(@Nullable String str, Object... args)
+    {
+        String text = str;
+        if (text != null)
+        {
+            if (args != null && args.length > 0)
+            {
+                try
+                {
+                    text = String.format(str, args);
+                } catch (IllegalFormatException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return text;
     }
 }

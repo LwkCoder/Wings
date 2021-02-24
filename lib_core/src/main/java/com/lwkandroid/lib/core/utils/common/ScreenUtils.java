@@ -7,6 +7,8 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.os.Build;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.Surface;
 import android.view.View;
@@ -14,6 +16,8 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.lwkandroid.lib.core.context.AppContext;
+
+import java.util.Locale;
 
 import androidx.annotation.NonNull;
 
@@ -247,6 +251,28 @@ public final class ScreenUtils
     {
         int fullScreenFlag = WindowManager.LayoutParams.FLAG_FULLSCREEN;
         return (activity.getWindow().getAttributes().flags & fullScreenFlag) == fullScreenFlag;
+    }
+
+    /**
+     * Return whether horizontal layout direction of views are from Right to Left.
+     *
+     * @return {@code true}: yes<br>{@code false}: no
+     */
+    public static boolean isLayoutRtl()
+    {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
+        {
+            Locale primaryLocale;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+            {
+                primaryLocale = AppContext.get().getResources().getConfiguration().getLocales().get(0);
+            } else
+            {
+                primaryLocale = AppContext.get().getResources().getConfiguration().locale;
+            }
+            return TextUtils.getLayoutDirectionFromLocale(primaryLocale) == View.LAYOUT_DIRECTION_RTL;
+        }
+        return false;
     }
 
 }

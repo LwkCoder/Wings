@@ -1,5 +1,8 @@
 package com.lwkandroid.lib.core.utils.common;
 
+import android.Manifest;
+import android.content.ContentValues;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -9,9 +12,14 @@ import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
+import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
+import android.provider.MediaStore;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.PixelCopy;
 import android.view.View;
 import android.view.Window;
@@ -35,7 +43,9 @@ import java.io.OutputStream;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.IntRange;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import static com.lwkandroid.lib.core.utils.common.FileUtils.createFileByDeleteOldFile;
@@ -178,6 +188,47 @@ public final class ImageUtils
                 }
             }
         });
+    }
+
+    /**
+     * View to bitmap.
+     *
+     * @param view The view.
+     * @return bitmap
+     */
+    public static Bitmap createBitmapFromView(final View view)
+    {
+        if (view == null)
+            return null;
+        boolean drawingCacheEnabled = view.isDrawingCacheEnabled();
+        boolean willNotCacheDrawing = view.willNotCacheDrawing();
+        view.setDrawingCacheEnabled(true);
+        view.setWillNotCacheDrawing(false);
+        Bitmap drawingCache = view.getDrawingCache();
+        Bitmap bitmap;
+        if (null == drawingCache || drawingCache.isRecycled())
+        {
+            view.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+                    View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+            view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
+            view.buildDrawingCache();
+            drawingCache = view.getDrawingCache();
+            if (null == drawingCache || drawingCache.isRecycled())
+            {
+                bitmap = Bitmap.createBitmap(view.getMeasuredWidth(), view.getMeasuredHeight(), Bitmap.Config.RGB_565);
+                Canvas canvas = new Canvas(bitmap);
+                view.draw(canvas);
+            } else
+            {
+                bitmap = Bitmap.createBitmap(drawingCache);
+            }
+        } else
+        {
+            bitmap = Bitmap.createBitmap(drawingCache);
+        }
+        view.setWillNotCacheDrawing(willNotCacheDrawing);
+        view.setDrawingCacheEnabled(drawingCacheEnabled);
+        return bitmap;
     }
 
     /**
@@ -712,6 +763,206 @@ public final class ImageUtils
         return ret;
     }
 
+    /**
+     * @param src    The source of bitmap.
+     * @param format The format of the image.
+     * @return the file if save success, otherwise return null.
+     */
+    @Nullable
+    public static File save2Album(final Bitmap src,
+                                  final Bitmap.CompressFormat format)
+    {
+        return save2Album(src, "", format, 100, false);
+    }
+
+    /**
+     * @param src     The source of bitmap.
+     * @param format  The format of the image.
+     * @param recycle True to recycle the source of bitmap, false otherwise.
+     * @return the file if save success, otherwise return null.
+     */
+    @Nullable
+    public static File save2Album(final Bitmap src,
+                                  final Bitmap.CompressFormat format,
+                                  final boolean recycle)
+    {
+        return save2Album(src, "", format, 100, recycle);
+    }
+
+    /**
+     * @param src     The source of bitmap.
+     * @param format  The format of the image.
+     * @param quality Hint to the compressor, 0-100. 0 meaning compress for
+     *                small size, 100 meaning compress for max quality. Some
+     *                formats, like PNG which is lossless, will ignore the
+     *                quality setting
+     * @return the file if save success, otherwise return null.
+     */
+    @Nullable
+    public static File save2Album(final Bitmap src,
+                                  final Bitmap.CompressFormat format,
+                                  final int quality)
+    {
+        return save2Album(src, "", format, quality, false);
+    }
+
+    /**
+     * @param src     The source of bitmap.
+     * @param format  The format of the image.
+     * @param quality Hint to the compressor, 0-100. 0 meaning compress for
+     *                small size, 100 meaning compress for max quality. Some
+     *                formats, like PNG which is lossless, will ignore the
+     *                quality setting
+     * @param recycle True to recycle the source of bitmap, false otherwise.
+     * @return the file if save success, otherwise return null.
+     */
+    @Nullable
+    public static File save2Album(final Bitmap src,
+                                  final Bitmap.CompressFormat format,
+                                  final int quality,
+                                  final boolean recycle)
+    {
+        return save2Album(src, "", format, quality, recycle);
+    }
+
+    /**
+     * @param src     The source of bitmap.
+     * @param dirName The name of directory.
+     * @param format  The format of the image.
+     * @return the file if save success, otherwise return null.
+     */
+    @Nullable
+    public static File save2Album(final Bitmap src,
+                                  final String dirName,
+                                  final Bitmap.CompressFormat format)
+    {
+        return save2Album(src, dirName, format, 100, false);
+    }
+
+    /**
+     * @param src     The source of bitmap.
+     * @param dirName The name of directory.
+     * @param format  The format of the image.
+     * @param recycle True to recycle the source of bitmap, false otherwise.
+     * @return the file if save success, otherwise return null.
+     */
+    @Nullable
+    public static File save2Album(final Bitmap src,
+                                  final String dirName,
+                                  final Bitmap.CompressFormat format,
+                                  final boolean recycle)
+    {
+        return save2Album(src, dirName, format, 100, recycle);
+    }
+
+    /**
+     * @param src     The source of bitmap.
+     * @param dirName The name of directory.
+     * @param format  The format of the image.
+     * @param quality Hint to the compressor, 0-100. 0 meaning compress for
+     *                small size, 100 meaning compress for max quality. Some
+     *                formats, like PNG which is lossless, will ignore the
+     *                quality setting
+     * @return the file if save success, otherwise return null.
+     */
+    @Nullable
+    public static File save2Album(final Bitmap src,
+                                  final String dirName,
+                                  final Bitmap.CompressFormat format,
+                                  final int quality)
+    {
+        return save2Album(src, dirName, format, quality, false);
+    }
+
+    /**
+     * @param src     The source of bitmap.
+     * @param dirName The name of directory.
+     * @param format  The format of the image.
+     * @param quality Hint to the compressor, 0-100. 0 meaning compress for
+     *                small size, 100 meaning compress for max quality. Some
+     *                formats, like PNG which is lossless, will ignore the
+     *                quality setting
+     * @param recycle True to recycle the source of bitmap, false otherwise.
+     * @return the file if save success, otherwise return null.
+     */
+    @Nullable
+    public static File save2Album(final Bitmap src,
+                                  final String dirName,
+                                  final Bitmap.CompressFormat format,
+                                  final int quality,
+                                  final boolean recycle)
+    {
+        String safeDirName = TextUtils.isEmpty(dirName) ? AppUtils.getPackageName() : dirName;
+        String suffix = Bitmap.CompressFormat.JPEG.equals(format) ? "JPG" : format.name();
+        String fileName = System.currentTimeMillis() + "_" + quality + "." + suffix;
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q)
+        {
+
+            if (ActivityCompat.checkSelfPermission(AppContext.get(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED)
+            {
+                Log.e("ImageUtils", "save to album need storage permission");
+                return null;
+            }
+            File picDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+            File destFile = new File(picDir, safeDirName + "/" + fileName);
+            if (!save(src, destFile, format, quality, recycle))
+            {
+                return null;
+            }
+            FileUtils.notifySystemToScan(destFile);
+            return destFile;
+        } else
+        {
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(MediaStore.Images.Media.DISPLAY_NAME, fileName);
+            contentValues.put(MediaStore.Images.Media.MIME_TYPE, "image/*");
+            Uri contentUri;
+            if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED))
+            {
+                contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+            } else
+            {
+                contentUri = MediaStore.Images.Media.INTERNAL_CONTENT_URI;
+            }
+            contentValues.put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_DCIM + "/" + safeDirName);
+            contentValues.put(MediaStore.MediaColumns.IS_PENDING, 1);
+            Uri uri = AppContext.get().getContentResolver().insert(contentUri, contentValues);
+            if (uri == null)
+            {
+                return null;
+            }
+            OutputStream os = null;
+            try
+            {
+                os = AppContext.get().getContentResolver().openOutputStream(uri);
+                src.compress(format, quality, os);
+
+                contentValues.clear();
+                contentValues.put(MediaStore.MediaColumns.IS_PENDING, 0);
+                AppContext.get().getContentResolver().update(uri, contentValues, null, null);
+
+                return UriUtils.uri2File(uri);
+            } catch (Exception e)
+            {
+                AppContext.get().getContentResolver().delete(uri, null, null);
+                e.printStackTrace();
+                return null;
+            } finally
+            {
+                try
+                {
+                    if (os != null)
+                    {
+                        os.close();
+                    }
+                } catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
     /**
      * 使用缩放压缩图片.

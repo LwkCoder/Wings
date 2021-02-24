@@ -106,7 +106,7 @@ public final class ActivityLifecycleHelper implements Application.ActivityLifecy
         runOnUiThread(() -> addActivityLifecycleListenerInner(activity, listener));
     }
 
-    public void removeActivityLifecycleCallbacks(final Activity activity)
+    public void removeActivityLifecycleListeners(final Activity activity)
     {
         if (activity == null)
         {
@@ -115,7 +115,7 @@ public final class ActivityLifecycleHelper implements Application.ActivityLifecy
         runOnUiThread(() -> mActivityLifecycleListenersMap.remove(activity));
     }
 
-    public void removeActivityLifecycleCallbacks(final Activity activity,
+    public void removeActivityLifecycleListeners(final Activity activity,
                                                  final OnActivityLifecycleListener callbacks)
     {
         if (activity == null || callbacks == null)
