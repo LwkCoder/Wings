@@ -1,7 +1,5 @@
 package com.lwkandroid.lib.core.utils.common;
 
-import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 
 import java.lang.annotation.ElementType;
@@ -10,8 +8,6 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -20,20 +16,22 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CopyOnWriteArraySet;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 /**
  * 类似EventBus的消息总栈
  */
 public final class BusUtils
 {
+
     private static final Object NULL = "nULl";
     private static final String TAG = "BusUtils";
 
-    private final Map<String, List<BusInfo>> mTag_BusInfoListMap = new HashMap<>();
-
+    private final Map<String, List<BusInfo>> mTag_BusInfoListMap = new ConcurrentHashMap<>();
     private final Map<String, Set<Object>> mClassName_BusesMap = new ConcurrentHashMap<>();
-    private final Map<String, List<String>> mClassName_TagsMap = new HashMap<>();
+    private final Map<String, List<String>> mClassName_TagsMap = new ConcurrentHashMap<>();
     private final Map<String, Map<String, Object>> mClassName_Tag_Arg4StickyMap = new ConcurrentHashMap<>();
-    private Handler mMainHandler = new Handler(Looper.getMainLooper());
 
     private BusUtils()
     {
@@ -61,38 +59,38 @@ public final class BusUtils
         List<BusInfo> busInfoList = mTag_BusInfoListMap.get(tag);
         if (busInfoList == null)
         {
-            busInfoList = new ArrayList<>();
+            busInfoList = new CopyOnWriteArrayList<>();
             mTag_BusInfoListMap.put(tag, busInfoList);
         }
-        busInfoList.add(new BusInfo(className, funName, paramType, paramName, sticky, threadMode, priority));
+        busInfoList.add(new BusInfo(tag, className, funName, paramType, paramName, sticky, threadMode, priority));
     }
 
-    public static void register(final Object bus)
+    public static void register(@Nullable final Object bus)
     {
         getInstance().registerInner(bus);
     }
 
-    public static void unregister(final Object bus)
+    public static void unregister(@Nullable final Object bus)
     {
         getInstance().unregisterInner(bus);
     }
 
-    public static void post(final String tag)
+    public static void post(@NonNull final String tag)
     {
         post(tag, NULL);
     }
 
-    public static void post(final String tag, final Object arg)
+    public static void post(@NonNull final String tag, @NonNull final Object arg)
     {
         getInstance().postInner(tag, arg);
     }
 
-    public static void postSticky(final String tag)
+    public static void postSticky(@NonNull final String tag)
     {
         postSticky(tag, NULL);
     }
 
-    public static void postSticky(final String tag, final Object arg)
+    public static void postSticky(@NonNull final String tag, final Object arg)
     {
         getInstance().postStickyInner(tag, arg);
     }
@@ -118,14 +116,13 @@ public final class BusUtils
         return LazyHolder.INSTANCE;
     }
 
-    private void registerInner(final Object bus)
+    private void registerInner(@Nullable final Object bus)
     {
         if (bus == null)
-        {
             return;
-        }
-        Class aClass = bus.getClass();
+        Class<?> aClass = bus.getClass();
         String className = aClass.getName();
+        boolean isNeedRecordTags = false;
         synchronized (mClassName_BusesMap)
         {
             Set<Object> buses = mClassName_BusesMap.get(className);
@@ -133,9 +130,26 @@ public final class BusUtils
             {
                 buses = new CopyOnWriteArraySet<>();
                 mClassName_BusesMap.put(className, buses);
+                isNeedRecordTags = true;
             }
-            buses.add(bus);
+            if (buses.contains(bus))
+            {
+                Log.w(TAG, "The bus of <" + bus + "> already registered.");
+                return;
+            } else
+            {
+                buses.add(bus);
+            }
         }
+        if (isNeedRecordTags)
+        {
+            recordTags(aClass, className);
+        }
+        consumeStickyIfExist(bus);
+    }
+
+    private void recordTags(Class<?> aClass, String className)
+    {
         List<String> tags = mClassName_TagsMap.get(className);
         if (tags == null)
         {
@@ -144,7 +158,7 @@ public final class BusUtils
                 tags = mClassName_TagsMap.get(className);
                 if (tags == null)
                 {
-                    tags = new ArrayList<>();
+                    tags = new CopyOnWriteArrayList<>();
                     for (Map.Entry<String, List<BusInfo>> entry : mTag_BusInfoListMap.entrySet())
                     {
                         for (BusInfo busInfo : entry.getValue())
@@ -154,7 +168,7 @@ public final class BusUtils
                                 if (Class.forName(busInfo.className).isAssignableFrom(aClass))
                                 {
                                     tags.add(entry.getKey());
-                                    busInfo.classNames.add(className);
+                                    busInfo.subClassNames.add(className);
                                 }
                             } catch (ClassNotFoundException e)
                             {
@@ -166,21 +180,49 @@ public final class BusUtils
                 }
             }
         }
-        processSticky(bus);
     }
 
-    private void processSticky(final Object bus)
+    private void consumeStickyIfExist(final Object bus)
     {
         Map<String, Object> tagArgMap = mClassName_Tag_Arg4StickyMap.get(bus.getClass().getName());
         if (tagArgMap == null)
-        {
             return;
-        }
         synchronized (mClassName_Tag_Arg4StickyMap)
         {
             for (Map.Entry<String, Object> tagArgEntry : tagArgMap.entrySet())
             {
-                postInner(tagArgEntry.getKey(), tagArgEntry.getValue());
+                consumeSticky(bus, tagArgEntry.getKey(), tagArgEntry.getValue());
+            }
+        }
+    }
+
+    private void consumeSticky(final Object bus, final String tag, final Object arg)
+    {
+        List<BusInfo> busInfoList = mTag_BusInfoListMap.get(tag);
+        if (busInfoList == null)
+        {
+            Log.e(TAG, "The bus of tag <" + tag + "> is not exists.");
+            return;
+        }
+        for (BusInfo busInfo : busInfoList)
+        {
+            if (!busInfo.subClassNames.contains(bus.getClass().getName()))
+            {
+                continue;
+            }
+            if (!busInfo.sticky)
+            {
+                continue;
+            }
+
+            synchronized (mClassName_Tag_Arg4StickyMap)
+            {
+                Map<String, Object> tagArgMap = mClassName_Tag_Arg4StickyMap.get(busInfo.className);
+                if (tagArgMap == null || !tagArgMap.containsKey(tag))
+                {
+                    continue;
+                }
+                invokeBus(bus, arg, busInfo, true);
             }
         }
     }
@@ -188,9 +230,7 @@ public final class BusUtils
     private void unregisterInner(final Object bus)
     {
         if (bus == null)
-        {
             return;
-        }
         String className = bus.getClass().getName();
         synchronized (mClassName_BusesMap)
         {
@@ -215,21 +255,35 @@ public final class BusUtils
         if (busInfoList == null)
         {
             Log.e(TAG, "The bus of tag <" + tag + "> is not exists.");
+            if (mTag_BusInfoListMap.isEmpty())
+            {
+                Log.e(TAG, "Please check whether the bus plugin is applied.");
+            }
             return;
         }
         for (BusInfo busInfo : busInfoList)
         {
-            if (busInfo.method == null)
-            {
-                Method method = getMethodByBusInfo(busInfo);
-                if (method == null)
-                {
-                    return;
-                }
-                busInfo.method = method;
-            }
-            invokeMethod(tag, arg, busInfo, sticky);
+            invokeBus(arg, busInfo, sticky);
         }
+    }
+
+    private void invokeBus(Object arg, BusInfo busInfo, boolean sticky)
+    {
+        invokeBus(null, arg, busInfo, sticky);
+    }
+
+    private void invokeBus(Object bus, Object arg, BusInfo busInfo, boolean sticky)
+    {
+        if (busInfo.method == null)
+        {
+            Method method = getMethodByBusInfo(busInfo);
+            if (method == null)
+            {
+                return;
+            }
+            busInfo.method = method;
+        }
+        invokeMethod(bus, arg, busInfo, sticky);
     }
 
     private Method getMethodByBusInfo(BusInfo busInfo)
@@ -278,19 +332,18 @@ public final class BusUtils
         }
     }
 
-    private void invokeMethod(final String tag, final Object arg, final BusInfo busInfo, final boolean sticky)
+    private void invokeMethod(final Object arg, final BusInfo busInfo, final boolean sticky)
     {
-        Runnable runnable = () -> realInvokeMethod(tag, arg, busInfo, sticky);
+        invokeMethod(null, arg, busInfo, sticky);
+    }
+
+    private void invokeMethod(final Object bus, final Object arg, final BusInfo busInfo, final boolean sticky)
+    {
+        Runnable runnable = () -> realInvokeMethod(bus, arg, busInfo, sticky);
         switch (busInfo.threadMode)
         {
             case "MAIN":
-                if (Looper.myLooper() == Looper.getMainLooper())
-                {
-                    runnable.run();
-                } else
-                {
-                    mMainHandler.post(runnable);
-                }
+                ThreadUtils.runOnUiThread(runnable);
                 return;
             case "IO":
                 ThreadUtils.getIoPool().execute(runnable);
@@ -309,28 +362,36 @@ public final class BusUtils
         }
     }
 
-    private void realInvokeMethod(final String tag, Object arg, BusInfo busInfo, boolean sticky)
+    private void realInvokeMethod(Object bus, Object arg, BusInfo busInfo, boolean sticky)
     {
         Set<Object> buses = new HashSet<>();
-        for (String className : busInfo.classNames)
+        if (bus == null)
         {
-            Set<Object> subBuses = mClassName_BusesMap.get(className);
-            if (subBuses != null && !subBuses.isEmpty())
+            for (String subClassName : busInfo.subClassNames)
             {
-                buses.addAll(subBuses);
+                Set<Object> subBuses = mClassName_BusesMap.get(subClassName);
+                if (subBuses != null && !subBuses.isEmpty())
+                {
+                    buses.addAll(subBuses);
+                }
             }
-        }
-        if (buses.size() == 0)
+            if (buses.size() == 0)
+            {
+                if (!sticky)
+                {
+                    Log.e(TAG, "The " + busInfo + " was not registered before.");
+                }
+                return;
+            }
+        } else
         {
-            if (!sticky)
-            {
-                Log.e(TAG, "The bus of tag <" + tag + "> was not registered before.");
-                return;
-            } else
-            {
-                return;
-            }
+            buses.add(bus);
         }
+        invokeBuses(arg, busInfo, buses);
+    }
+
+    private void invokeBuses(Object arg, BusInfo busInfo, Set<Object> buses)
+    {
         try
         {
             if (arg == NULL)
@@ -363,24 +424,25 @@ public final class BusUtils
             Log.e(TAG, "The bus of tag <" + tag + "> is not exists.");
             return;
         }
+        // 获取多对象，然后消费各个 busInfoList
         for (BusInfo busInfo : busInfoList)
         {
             if (!busInfo.sticky)
             { // not sticky bus will post directly.
-                postInner(tag, arg);
-                return;
+                invokeBus(arg, busInfo, false);
+                continue;
             }
             synchronized (mClassName_Tag_Arg4StickyMap)
             {
                 Map<String, Object> tagArgMap = mClassName_Tag_Arg4StickyMap.get(busInfo.className);
                 if (tagArgMap == null)
                 {
-                    tagArgMap = new HashMap<>();
+                    tagArgMap = new ConcurrentHashMap<>();
                     mClassName_Tag_Arg4StickyMap.put(busInfo.className, tagArgMap);
                 }
                 tagArgMap.put(tag, arg);
             }
-            postInner(tag, arg, true);
+            invokeBus(arg, busInfo, true);
         }
     }
 
@@ -396,15 +458,13 @@ public final class BusUtils
         {
             if (!busInfo.sticky)
             {
-                Log.e(TAG, "The bus of tag <" + tag + "> is not sticky.");
-                return;
+                continue;
             }
             synchronized (mClassName_Tag_Arg4StickyMap)
             {
                 Map<String, Object> tagArgMap = mClassName_Tag_Arg4StickyMap.get(busInfo.className);
                 if (tagArgMap == null || !tagArgMap.containsKey(tag))
                 {
-                    Log.e(TAG, "The sticky bus of tag <" + tag + "> didn't post.");
                     return;
                 }
                 tagArgMap.remove(tag);
@@ -412,9 +472,17 @@ public final class BusUtils
         }
     }
 
+    static void registerBus4Test(String tag,
+                                 String className, String funName, String paramType, String paramName,
+                                 boolean sticky, String threadMode, int priority)
+    {
+        getInstance().registerBus(tag, className, funName, paramType, paramName, sticky, threadMode, priority);
+    }
+
     private static final class BusInfo
     {
 
+        String tag;
         String className;
         String funName;
         String paramType;
@@ -423,11 +491,12 @@ public final class BusUtils
         String threadMode;
         int priority;
         Method method;
-        List<String> classNames;
+        List<String> subClassNames;
 
-        BusInfo(String className, String funName, String paramType, String paramName,
+        BusInfo(String tag, String className, String funName, String paramType, String paramName,
                 boolean sticky, String threadMode, int priority)
         {
+            this.tag = tag;
             this.className = className;
             this.funName = funName;
             this.paramType = paramType;
@@ -435,19 +504,25 @@ public final class BusUtils
             this.sticky = sticky;
             this.threadMode = threadMode;
             this.priority = priority;
-            this.classNames = new CopyOnWriteArrayList<>();
+            this.subClassNames = new CopyOnWriteArrayList<>();
         }
 
         @Override
         public String toString()
         {
-            return "BusInfo { desc: " + className + "#" + funName +
-                    ("".equals(paramType) ? "()" : ("(" + paramType + " " + paramName + ")")) +
+            return "BusInfo { tag : " + tag +
+                    ", desc: " + getDesc() +
                     ", sticky: " + sticky +
                     ", threadMode: " + threadMode +
                     ", method: " + method +
                     ", priority: " + priority +
                     " }";
+        }
+
+        private String getDesc()
+        {
+            return className + "#" + funName +
+                    ("".equals(paramType) ? "()" : ("(" + paramType + " " + paramName + ")"));
         }
     }
 

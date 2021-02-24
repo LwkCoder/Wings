@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.PopupWindow;
 
@@ -98,22 +97,30 @@ public final class WingsPopupWindow extends PopupWindow implements PopupWindow.O
                                final int yoff)
     {
         init(getActivityFromView(anchor));
-        getContentView().getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener()
-        {
-            @Override
-            public void onGlobalLayout()
-            {
-                getContentView().getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                int width = getContentView().getMeasuredWidth();
-                int height = getContentView().getMeasuredHeight();
-                int realXOffset = calculateX(anchor, xGravity, width, xoff);
-                int realYOffset = calculateY(anchor, yGravity, height, yoff);
-                update(anchor, realXOffset, realYOffset, width, height);
-            }
-        });
-        // NOTICE:
-        // 必须调用父类方法，不能用PopupWindowCompat.showAsDropDown，否则无法触发上面的监听
-        super.showAsDropDown(anchor, 0, 0, Gravity.NO_GRAVITY);
+        //        getContentView().getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener()
+        //        {
+        //            @Override
+        //            public void onGlobalLayout()
+        //            {
+        //                getContentView().getViewTreeObserver().removeOnGlobalLayoutListener(this);
+        //                int width = getContentView().getMeasuredWidth();
+        //                int height = getContentView().getMeasuredHeight();
+        //                KLog.e("cw="+width+" ch="+height);
+        //                int realXOffset = calculateX(anchor, xGravity, width, xoff);
+        //                int realYOffset = calculateY(anchor, yGravity, height, yoff);
+        //                update(anchor, realXOffset, realYOffset, width, height);
+        //            }
+        //        });
+        //        // NOTICE:
+        //        // 必须调用父类方法，不能用PopupWindowCompat.showAsDropDown，否则无法触发上面的监听
+        //        super.showAsDropDown(anchor, 0, 0, Gravity.NO_GRAVITY);
+
+        int width = getContentView().getMeasuredWidth();
+        int height = getContentView().getMeasuredHeight();
+        int realXOffset = calculateX(anchor, xGravity, width, xoff);
+        int realYOffset = calculateY(anchor, yGravity, height, yoff);
+        super.showAsDropDown(anchor, realXOffset, realYOffset, Gravity.NO_GRAVITY);
+
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -201,6 +208,12 @@ public final class WingsPopupWindow extends PopupWindow implements PopupWindow.O
             //在Android 6.0以上 ，只能通过拦截事件来解决
             setTouchInterceptor((v, event) -> isTouchDownOutside(event));
         }
+
+        int w = mContentView.getMeasuredWidth();
+        int h = mContentView.getMeasuredHeight();
+        KLog.e("w=" + w + " h=" + h);
+        if (getContentView() != null)
+            KLog.e(" ww=" + getContentView().getMeasuredWidth() + " hh=" + getContentView().getMeasuredHeight());
     }
 
 
