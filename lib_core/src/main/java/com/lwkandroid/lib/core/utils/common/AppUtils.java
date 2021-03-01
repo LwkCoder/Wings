@@ -177,13 +177,39 @@ public final class AppUtils
      */
     public static String getAppSignatureSHA1()
     {
-        Signature[] signature = getAppSignature();
-        if (signature == null)
+        Signature[] signatures = getAppSignature();
+        if (signatures == null || signatures.length <= 0)
+            return "";
+        StringBuilder builder = new StringBuilder();
+        for (Signature signature : signatures)
         {
-            return null;
+            String result = EncryptUtils.sha1()
+                    .encryptToHexString(signature.toByteArray())
+                    .replaceAll("(?<=[0-9A-F]{2})[0-9A-F]{2}", ":$0");
+            builder.append(result);
         }
-        return EncryptUtils.sha1().encryptToHexString(signature[0].toByteArray()).
-                replaceAll("(?<=[0-9A-F]{2})[0-9A-F]{2}", ":$0");
+        return builder.toString();
+    }
+
+    /**
+     * 获取应用签名的的SHA256值
+     *
+     * @return 应用签名的SHA256字符串
+     */
+    public static String getAppSignatureSHA256()
+    {
+        Signature[] signatures = getAppSignature();
+        if (signatures == null || signatures.length <= 0)
+            return "";
+        StringBuilder builder = new StringBuilder();
+        for (Signature signature : signatures)
+        {
+            String result = EncryptUtils.sha256()
+                    .encryptToHexString(signature.toByteArray())
+                    .replaceAll("(?<=[0-9A-F]{2})[0-9A-F]{2}", ":$0");
+            builder.append(result);
+        }
+        return builder.toString();
     }
 
     /**
