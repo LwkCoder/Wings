@@ -8,10 +8,6 @@ def keystorePropertiesFile = rootProject.file("key/keystore.properties")
 def keystoreProperties = new Properties()
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
-def formatDate() {
-    return new Date().format("yyyyMMdd", TimeZone.getTimeZone("UTC"))
-}
-
 bus {
     busUtilsClass "com.lwkandroid.lib.core.utils.common.BusUtils"
 }
@@ -23,9 +19,9 @@ android {
         applicationId "com.lwkandroid.demo"
         minSdkVersion rootProject.ext.androidConfig.minSdkVersion
         targetSdkVersion rootProject.ext.androidConfig.targetSdkVersion
-        versionCode rootProject.ext.androidConfig.versionCode
-        versionName rootProject.ext.androidConfig.versionName
-        flavorDimensions rootProject.ext.androidConfig.versionName
+        versionCode 1
+        versionName "1.0.0"
+        flavorDimensions "WingsDemo"
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -75,12 +71,6 @@ android {
         normal {
             manifestPlaceholders = [CHANNEL_NAME: "default"]
             buildConfigField("String", "APP_CHANNEL", "\"default\"")
-        }
-    }
-
-    android.applicationVariants.all { variant ->
-        variant.outputs.all {
-            outputFileName = "app_v${rootProject.ext.androidConfig.versionName}_${formatDate()}_${variant.productFlavors[0].name}.apk"
         }
     }
 

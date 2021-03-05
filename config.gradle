@@ -2,25 +2,31 @@ ext {
     /*项目基础配置*/
     androidConfig = [
             minSdkVersion    : 21,
-            targetSdkVersion : 29,
-            compileSdkVersion: 29,
-            applicationId    : "com.lwkandroid.app",
-            versionCode      : 1,
-            versionName      : "1.0.0"
+            targetSdkVersion : 30,
+            compileSdkVersion: 30,
     ]
 
-    /*Debug环境下配置*/
-    appDebugConfig = [
-            appName: "WingsAppDebug",
-            baseUrl: "http://localhost:8080",
-            key1   : "XXXXXX"
-    ]
+    appConfig = [
+            applicationId: "com.lwkandroid.app",
+            versionCode  : 1,
+            versionName  : "1.0.0",
+            //Debug环境下配置
+            debug        : [
+                    appName: "WingsAppDebug",
+                    baseUrl: "http://localhost:8080",
+            ],
+            //Release环境下配置
+            release      : [
+                    appName: "WingsAppRelease",
+                    baseUrl: "http://localhost:8080",
+            ],
+            //通用配置
+            common       : [
+                    key1: "value1",
+                    key2: "value2",
+                    key3: "value3",
+            ],
 
-    /*Release环境下配置*/
-    appReleaseConfig = [
-            appName: "WingsAppRelease",
-            baseUrl: "http://localhost:8080",
-            key1   : "YYYYYY"
     ]
 
     /*外部库版本号*/
@@ -47,7 +53,7 @@ ext {
             RecyclerViewX       : "1.1.0",
             RcvAdapter          : "1.4.4",
             Retrofit            : "2.9.0",
-            Room                : "2.3.0-alpha04",
+            Room                : "2.3.0-beta01",
             RXJava              : "3.0.5",
             RXAndroid           : "3.0.0",
             RXBinding           : "4.0.0",

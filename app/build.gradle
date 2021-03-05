@@ -20,12 +20,12 @@ android {
     compileSdkVersion rootProject.ext.androidConfig.compileSdkVersion
 
     defaultConfig {
-        applicationId rootProject.ext.androidConfig.applicationId
+        applicationId rootProject.ext.appConfig.applicationId
         minSdkVersion rootProject.ext.androidConfig.minSdkVersion
         targetSdkVersion rootProject.ext.androidConfig.targetSdkVersion
-        versionCode rootProject.ext.androidConfig.versionCode
-        versionName rootProject.ext.androidConfig.versionName
-        flavorDimensions rootProject.ext.androidConfig.versionName
+        versionCode rootProject.ext.appConfig.versionCode
+        versionName rootProject.ext.appConfig.versionName
+        flavorDimensions rootProject.ext.appConfig.versionName
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -57,8 +57,9 @@ android {
     buildTypes {
         debug {
             applicationIdSuffix ".dev"
-            resValue "string", "app_name", rootProject.ext.appDebugConfig.appName
-            rootProject.ext.appDebugConfig.each { k, v -> buildConfigField("String", k, "\"${v}\"") }
+            resValue "string", "app_name", rootProject.ext.appConfig.debug.appName
+            rootProject.ext.appConfig.debug.each { k, v -> buildConfigField("String", k, "\"${v}\"") }
+            rootProject.ext.appConfig.common.each { k, v -> buildConfigField("String", k, "\"${v}\"") }
 
             zipAlignEnabled false
             shrinkResources false
@@ -68,8 +69,9 @@ android {
         }
         release {
             applicationIdSuffix ".release"
-            resValue "string", "app_name", rootProject.ext.appReleaseConfig.appName
-            rootProject.ext.appReleaseConfig.each { k, v -> buildConfigField("String", k, "\"${v}\"") }
+            resValue "string", "app_name", rootProject.ext.appConfig.release.appName
+            rootProject.ext.appConfig.release.each { k, v -> buildConfigField("String", k, "\"${v}\"") }
+            rootProject.ext.appConfig.common.each { k, v -> buildConfigField("String", k, "\"${v}\"") }
 
             zipAlignEnabled true
             shrinkResources true
@@ -88,7 +90,7 @@ android {
 
     android.applicationVariants.all { variant ->
         variant.outputs.all {
-            outputFileName = "app_v${rootProject.ext.androidConfig.versionName}_${formatDate()}_${variant.productFlavors[0].name}.apk"
+            outputFileName = "app_v${rootProject.ext.appConfig.versionName}_${formatDate()}_${variant.productFlavors[0].name}.apk"
         }
     }
 

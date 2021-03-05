@@ -1,7 +1,6 @@
 package com.lwkandroid.lib.core.net.bean;
 
 
-import com.lwkandroid.lib.core.BuildConfig;
 import com.lwkandroid.lib.core.callback.WingsSupplier;
 import com.lwkandroid.lib.core.net.cache.operator.IDiskCacheOperator;
 import com.lwkandroid.lib.core.net.constants.ApiCacheMode;
@@ -96,7 +95,6 @@ public class ApiGlobalOptions implements IApiRequestOptions.Global<ApiGlobalOpti
         setApiStringParser(new ApiStringParser());
         setApiExceptionMsgParser(new ApiExceptionMsgParserImpl());
         setCacheMode(ApiCacheMode.NO_CACHE);
-        setCacheVersion(BuildConfig.VERSION_CODE);
         setCookieManager(new CookieManager());
         setRetryConfig(RetryConfig.noRetry());
         setApiErrorConsumer(ApiErrorConsumer.empty());

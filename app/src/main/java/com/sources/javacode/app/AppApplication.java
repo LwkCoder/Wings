@@ -23,7 +23,6 @@ public class AppApplication extends Application
         super.onCreate();
         ApiURL.BASEURL = BuildConfig.baseUrl;
         AppConfig.CHANNEL_NAME = BuildConfig.APP_CHANNEL;
-        AppConfig.LIB_KEY1 = BuildConfig.key1;
 
         //初始化网络请求库
         RxHttp.init(BuildConfig.DEBUG, ApiURL.BASEURL);
@@ -40,7 +39,6 @@ public class AppApplication extends Application
                     .append("| KeyStoreSHA1=").append(AppUtils.getAppSignatureSHA1()).append("\n")
                     .append("| KeyStoreSHA256=").append(AppUtils.getAppSignatureSHA256()).append("\n")
                     .append("| ApiURL.HOST=").append(ApiURL.BASEURL).append("\n")
-                    .append("| Key1=").append(AppConfig.LIB_KEY1).append("\n")
                     .append("| DeviceManufacturer=").append(Build.MANUFACTURER).append("\n")
                     .append("| DeviceModel=").append(Build.MODEL).append("\n")
                     .append("| AndroidVersion=").append(Build.VERSION.RELEASE).append("\n")
