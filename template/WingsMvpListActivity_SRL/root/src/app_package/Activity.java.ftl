@@ -137,6 +137,13 @@ public class ${uiClassName}Activity extends MvpBaseActivity<${uiClassName}Presen
     {
         mRefreshWrapper.callRefreshSuccess();
         mAdapter.refreshDatas(dataList);
+        //处理空数据占位图和NoMoreData的冲突
+        if ((dataList == null || dataList.isEmpty()) && mAdapter.getEmptyView() != null)
+        {
+            mLoadMoreWrapper.enableLoadMore(false);
+            mLoadMoreWrapper.setOnLoadMoreRequestedListener(null);
+            return;
+        }
         //配置自动加载
         if (isLoadMoreEnable())
         {
