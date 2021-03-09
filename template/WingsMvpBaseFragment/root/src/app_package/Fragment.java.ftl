@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.content.Intent;
 import android.view.View;
 import androidx.annotation.Nullable;
-import ${applicationPackage}.R;
+import com.sources.javacode.R;
 import com.lwkandroid.lib.common.mvp.MvpBaseFragment;
 import com.lwkandroid.lib.core.annotation.ClickViews;
 import com.lwkandroid.lib.core.annotation.ViewInjector;

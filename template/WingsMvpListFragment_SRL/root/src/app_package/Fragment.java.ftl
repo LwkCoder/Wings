@@ -4,7 +4,7 @@ import ${superClassFqcn};
 import android.os.Bundle;
 import android.content.Intent;
 import android.view.View;
-import ${applicationPackage}.R;
+import com.sources.javacode.R;
 import com.lwkandroid.lib.common.mvp.MvpBaseFragment;
 import com.lwkandroid.lib.common.mvp.list.ILoadMoreWrapper;
 import com.lwkandroid.lib.common.mvp.list.IRefreshWrapper;

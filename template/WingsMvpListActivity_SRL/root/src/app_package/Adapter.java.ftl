@@ -1,7 +1,7 @@
 package ${packageName};
 
 import android.content.Context;
-import ${applicationPackage}.R;
+import com.sources.javacode.R;
 import com.lwkandroid.rcvadapter.RcvSingleAdapter;
 import com.lwkandroid.rcvadapter.holder.RcvHolder;
 

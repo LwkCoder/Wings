@@ -3,7 +3,7 @@ package ${packageName};
 import com.lwkandroid.lib.common.mvp.MvpBaseModelImpl;
 import java.util.ArrayList;
 import java.util.List;
-import io.reactivex.Observable;
+import io.reactivex.rxjava3.core.Observable;
 
 /**
  * Description:Model层
