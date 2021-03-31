@@ -37,7 +37,7 @@
 
     <View
         android:id="@+id/view_dialog_template_line"
-        style="@style/VerticalLine"
+        style="@style/HorizontalLine"
         android:layout_marginTop="@dimen/spacing_normal"
         android:background="@color/gray_lighter"
         app:layout_constraintLeft_toLeftOf="parent"

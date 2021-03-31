@@ -105,13 +105,13 @@
     </style>
 
     <!--水平线条-->
-    <style name="VerticalLine">
+    <style name="HorizontalLine">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1px</item>
     </style>
 
     <!--垂直线条-->
-    <style name="HorizontalLine">
+    <style name="VerticalLine">
         <item name="android:layout_width">1px</item>
         <item name="android:layout_height">match_parent</item>
     </style>
