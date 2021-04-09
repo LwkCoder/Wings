@@ -51,7 +51,7 @@ ext {
             NineGridView        : "1.4.4",
             OkHttp              : "4.8.1",
             RecyclerViewX       : "1.1.0",
-            RcvAdapter          : "1.4.4",
+            RcvAdapter          : "1.4.5",
             Retrofit            : "2.9.0",
             Room                : "2.3.0-beta01",
             RXJava              : "3.0.5",
