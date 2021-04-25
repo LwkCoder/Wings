@@ -65,7 +65,7 @@ public final class ApiPostRequest extends ApiBaseRequest<ApiPostRequest> impleme
             headersMap.put(ApiConstants.HEADER_KEY_CONTENT_TYPE, ApiConstants.HEADER_VALUE_JSON);
             headersMap.put(ApiConstants.HEADER_KEY_ACCEPT, ApiConstants.HEADER_VALUE_JSON);
             return service.post(getSubUrl(), headersMap, jsonRequestBody);
-        } else if (mIsFormDataJson)
+        } else if (isConvertToJsonRequest())
         {
             String jsonString = JsonUtils.toJson(formDataMap);
             RequestBody jsonRequestBody = RequestBodyUtils.createJsonBody(jsonString);

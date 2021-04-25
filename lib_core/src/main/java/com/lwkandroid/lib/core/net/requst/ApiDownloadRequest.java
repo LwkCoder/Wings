@@ -16,6 +16,7 @@ import com.lwkandroid.lib.core.net.response.ApiResponseBodyConverter;
 import com.lwkandroid.lib.core.net.response.IApiBytesResponse;
 import com.lwkandroid.lib.core.net.response.IApiInputStreamResponse;
 import com.lwkandroid.lib.core.net.utils.RequestBodyUtils;
+import com.lwkandroid.lib.core.utils.json.JsonUtils;
 
 import java.io.File;
 import java.io.InputStream;
@@ -52,6 +53,8 @@ public final class ApiDownloadRequest extends ApiBaseRequest<ApiDownloadRequest>
      */
     private int mBitmapMaxHeight = Integer.MAX_VALUE;
 
+    private boolean mIsFormDataJson = false;
+
     public ApiDownloadRequest(String url)
     {
         super(url, ApiRequestType.DOWNLOAD);
@@ -74,6 +77,17 @@ public final class ApiDownloadRequest extends ApiBaseRequest<ApiDownloadRequest>
         this.mBitmapMaxWidth = maxWidth;
         this.mBitmapMaxHeight = maxHeight;
         return this;
+    }
+
+    public ApiDownloadRequest convertToJsonRequest()
+    {
+        mIsFormDataJson = true;
+        return this;
+    }
+
+    public boolean isConvertToJsonRequest()
+    {
+        return mIsFormDataJson;
     }
 
     public int getBitmapMaxHeight()
@@ -118,7 +132,17 @@ public final class ApiDownloadRequest extends ApiBaseRequest<ApiDownloadRequest>
             return service.downloadFile(getSubUrl(), headersMap, jsonRequestBody);
         } else if (formDataMap != null && formDataMap.size() > 0)
         {
-            return service.downloadFile(getSubUrl(), headersMap, formDataMap);
+            if (isConvertToJsonRequest())
+            {
+                String jsonString = JsonUtils.toJson(formDataMap);
+                RequestBody jsonRequestBody = RequestBodyUtils.createJsonBody(jsonString);
+                headersMap.put(ApiConstants.HEADER_KEY_CONTENT_TYPE, ApiConstants.HEADER_VALUE_JSON);
+                headersMap.put(ApiConstants.HEADER_KEY_ACCEPT, ApiConstants.HEADER_VALUE_JSON);
+                return service.downloadFile(getSubUrl(), headersMap, jsonRequestBody);
+            } else
+            {
+                return service.downloadFile(getSubUrl(), headersMap, formDataMap);
+            }
         } else
         {
             return service.downloadFile(getSubUrl(), headersMap);
