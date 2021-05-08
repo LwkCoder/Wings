@@ -58,6 +58,7 @@ ext {
             RXAndroid           : "3.0.0",
             RXBinding           : "4.0.0",
             SwipeRefreshX       : "1.1.0",
+            StateFrameLayout    : "2.0.0",
             Stetho              : "1.5.1",
             ViewPagerAdapter    : "1.2.0"
     ]
@@ -98,9 +99,10 @@ ext {
             RXBindingCore       : "com.jakewharton.rxbinding4:rxbinding-core:${version.RXBinding}",
             RXBindingAppCompat  : "com.jakewharton.rxbinding4:rxbinding-appcompat:${version.RXBinding}",
             SwipeRefreshX       : "androidx.swiperefreshlayout:swiperefreshlayout:${version.SwipeRefreshX}",
+            StateFrameLayout    : "com.lwkandroid.library:StateFrameLayout:${version.Stetho}",
             Stetho              : "com.facebook.stetho:stetho:${version.Stetho}",
             StethoOkHttp        : "com.facebook.stetho:stetho-okhttp3:${version.Stetho}",
-            ViewPagerAdapter    : "com.lwkandroid:ViewPagerAdapter:${version.ViewPagerAdapter}"
+            ViewPagerAdapter    : "com.lwkandroid.library:ViewPagerAdapter:${version.ViewPagerAdapter}"
     ]
 
     /*library层依赖*/
