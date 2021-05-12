@@ -10,10 +10,13 @@
     <color name="gray_darkest">#666666</color>
 
     <color name="text_black_normal">#232b35</color>
-    <color name="black_alpha25">#BF000000</color>
+    <color name="black_alpha25">#40000000</color>
     <color name="black_alpha50">#80000000</color>
-    <color name="black_alpha75">#40000000</color>
-    <color name="white_alpha25">#BFFFFFFF</color>
+    <color name="black_alpha75">#BF000000</color>
+    <color name="white_alpha25">#40FFFFFF</color>
     <color name="white_alpha50">#8FFFFFFF</color>
-    <color name="white_alpha75">#40FFFFFF</color>
+    <color name="white_alpha75">#BFFFFFFF</color>
+
+    <color name="actionbar_dark">@color/text_black_normal</color>
+    <color name="actionbar_light">@color/white</color>
 </resources>
