@@ -33,7 +33,7 @@ class ${uiClassName}Presenter extends MvpBasePresenterImpl<${uiClassName}Contrac
     }
 	
 	@Override
-    public void requestRefresh(String... args)
+    public void requestRefresh(Object... args)
     {
         //下拉刷新
         getModelImpl()
@@ -59,7 +59,7 @@ class ${uiClassName}Presenter extends MvpBasePresenterImpl<${uiClassName}Contrac
     }
 
     @Override
-    public void requestLoadMore(String... args)
+    public void requestLoadMore(Object... args)
     {
         //自动加载
         final int nextPageIndex = mCurrentIndex + 1;

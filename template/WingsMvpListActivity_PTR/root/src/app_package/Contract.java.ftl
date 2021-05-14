@@ -42,13 +42,13 @@ interface ${uiClassName}Contract
 
     interface IModel extends IMvpBaseModel
     {
-        Observable<List<${dataSourceClass}>> requestData(int pageIndex, int pageSize, long timeStamp, String... params);
+        Observable<List<${dataSourceClass}>> requestData(int pageIndex, int pageSize, long timeStamp, Object... params);
     }
 
     interface IPresenter<V extends LifecycleOwner, M> extends IMvpBasePresenter<V, M>
     {
-        void requestRefresh(String... params);
+        void requestRefresh(Object... params);
 
-        void requestLoadMore(String... params);
+        void requestLoadMore(Object... params);
     }
 }
