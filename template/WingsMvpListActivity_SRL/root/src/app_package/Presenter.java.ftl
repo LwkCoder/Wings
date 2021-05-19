@@ -31,60 +31,29 @@ class ${uiClassName}Presenter extends MvpBasePresenterImpl<${uiClassName}Contrac
     {
         super(viewImpl, modelImpl);
     }
-	
-	@Override
-    public void requestRefresh(Object... args)
-    {
-        //下拉刷新
-        getModelImpl()
-                .requestData(PAGE_INDEX_DEFAULT, PAGE_SIZE, System.currentTimeMillis(), args)
-                .compose(applyIo2MainUntilOnDestroy())
-                .subscribe(new ApiObserver<List<${dataSourceClass}>>()
-                {
-                    @Override
-                    public void onAccept(List<${dataSourceClass}> list)
-                    {
-                        //刷新成功后重置页码
-                        mCurrentIndex = PAGE_INDEX_DEFAULT;
-                        getViewImpl().onRefreshSuccess(list, list.size() < PAGE_SIZE);
-                    }
-
-                    @Override
-                    public void onError(ApiException e)
-                    {
-                        getViewImpl().onRefreshFail(e.getDisplayMessage(), e);
-                    }
-                });
-
-    }
 
     @Override
-    public void requestLoadMore(Object... args)
+    public void requestPageData(boolean isRefresh, Object[] params)
     {
-        //自动加载
-        final int nextPageIndex = mCurrentIndex + 1;
+        int nextPageIndex = isRefresh ? PAGE_INDEX_DEFAULT : mCurrentIndex + 1;
         getModelImpl()
-                .requestData(nextPageIndex, PAGE_SIZE, System.currentTimeMillis(), args)
+                .requestPageData(nextPageIndex, PAGE_SIZE, System.currentTimeMillis(), params)
                 .compose(applyIo2MainUntilOnDestroy())
                 .subscribe(new ApiObserver<List<${dataSourceClass}>>()
                 {
                     @Override
                     public void onAccept(List<${dataSourceClass}> list)
                     {
-                        //同步页码
                         mCurrentIndex = nextPageIndex;
-                        getViewImpl().onLoadMoreSuccess(list);
-                        if (list == null || list.size() < PAGE_SIZE)
-                        {
-                            getViewImpl().onLoadMoreNoMoreData();
-                        }
+                        getViewImpl().onPageRequestSuccess(isRefresh, list, list != null && list.size() >= PAGE_SIZE);
                     }
 
                     @Override
                     public void onError(ApiException e)
                     {
-                        getViewImpl().onLoadMoreFail(e.getDisplayMessage(), e);
+                        getViewImpl().onPageRequestFail(isRefresh, e.getDisplayMessage(), e);
                     }
                 });
     }
+
 }

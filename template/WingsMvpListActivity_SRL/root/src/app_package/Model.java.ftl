@@ -1,8 +1,10 @@
 package ${packageName};
 
 import com.lwkandroid.lib.common.mvp.MvpBaseModelImpl;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import io.reactivex.rxjava3.core.Observable;
 
 /**
@@ -13,7 +15,7 @@ import io.reactivex.rxjava3.core.Observable;
 class ${uiClassName}Model extends MvpBaseModelImpl implements ${uiClassName}Contract.IModel
 {
 	@Override
-    public Observable<List<${dataSourceClass}>> requestData(int pageIndex, int pageSize, long timeStamp, Object... args)
+    public Observable<List<${dataSourceClass}>> requestPageData(int pageIndex, int pageSize, long timeStamp, Object[] args)
     {
         //TODO 实现请求数据的方法
         return Observable.just(new ArrayList<>());

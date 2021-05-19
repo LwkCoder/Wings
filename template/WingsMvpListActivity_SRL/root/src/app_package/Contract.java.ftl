@@ -5,7 +5,9 @@ import com.lwkandroid.lib.common.mvp.IMvpBasePresenter;
 import com.lwkandroid.lib.common.mvp.IMvpBaseView;
 import com.lwkandroid.lib.common.mvp.list.ILoadMoreWrapper;
 import com.lwkandroid.lib.common.mvp.list.IRefreshWrapper;
+
 import java.util.List;
+
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 import io.reactivex.rxjava3.core.Observable;
@@ -29,26 +31,20 @@ interface ${uiClassName}Contract
 
         void autoRefresh();
 
-        void onRefreshSuccess(List<${dataSourceClass}> dataList, boolean noMoreData);
+        Object[] createPageRequestParams();
 
-        void onRefreshFail(String message, Throwable throwable);
+        void onPageRequestSuccess(boolean isRefresh, List<${dataSourceClass}> dataList, boolean hasMoreData);
 
-        void onLoadMoreSuccess(List<${dataSourceClass}> dataList);
-
-        void onLoadMoreFail(String message, Throwable throwable);
-
-        void onLoadMoreNoMoreData();
+        void onPageRequestFail(boolean isRefresh, String message, Throwable throwable);
     }
 
     interface IModel extends IMvpBaseModel
     {
-        Observable<List<${dataSourceClass}>> requestData(int pageIndex, int pageSize, long timeStamp, Object... params);
+        Observable<List<${dataSourceClass}>> requestPageData(int pageIndex, int pageSize, long timeStamp, Object[] params);
     }
 
     interface IPresenter<V extends LifecycleOwner, M> extends IMvpBasePresenter<V, M>
     {
-        void requestRefresh(Object... params);
-
-        void requestLoadMore(Object... params);
+        void requestPageData(boolean isRefresh, Object[] params);
     }
 }

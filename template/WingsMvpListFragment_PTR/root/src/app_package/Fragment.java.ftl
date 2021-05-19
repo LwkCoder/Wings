@@ -134,78 +134,76 @@ public class ${uiClassName}Fragment extends MvpBaseFragment<${uiClassName}Presen
     }
 
     @Override
+    public Object[] createPageRequestParams()
+    {
+        return new Object[0];
+    }
+
+    @Override
     public void onRefreshRequested()
     {
         //下拉刷新的时候禁止自动加载
         mLoadMoreWrapper.enableLoadMore(false);
-        getPresenter().requestRefresh();
-    }
-
-    @Override
-    public void onRefreshSuccess(List<${dataSourceClass}> dataList, boolean noMoreData)
-    {
-        mRefreshWrapper.callRefreshSuccess();
-        mAdapter.refreshDatas(dataList);
-        //处理空数据占位图和NoMoreData的冲突
-        if ((dataList == null || dataList.isEmpty()) && mAdapter.getEmptyView() != null)
-        {
-            mLoadMoreWrapper.enableLoadMore(false);
-            mLoadMoreWrapper.setOnLoadMoreRequestedListener(null);
-            return;
-        }
-        //配置自动加载
-        if (isLoadMoreEnable())
-        {
-            mLoadMoreWrapper.enableLoadMore(true);
-            if (noMoreData)
-            {
-                mLoadMoreWrapper.setOnLoadMoreRequestedListener(null);
-                mLoadMoreWrapper.callLoadMoreNoMoreData();
-            } else
-            {
-                mLoadMoreWrapper.setOnLoadMoreRequestedListener(this);
-            }
-        } else
-        {
-            mLoadMoreWrapper.enableLoadMore(false);
-            mLoadMoreWrapper.setOnLoadMoreRequestedListener(null);
-        }
-    }
-
-    @Override
-    public void onRefreshFail(String message, Throwable throwable)
-    {
-        mRefreshWrapper.callRefreshFail(throwable);
-        //去做具体提示
-        showShortToast(message);
+        getPresenter().requestPageData(true, createPageRequestParams());
     }
 
     @Override
     public void onLoadMoreRequested()
     {
-        getPresenter().requestLoadMore();
+        getPresenter().requestPageData(false, createPageRequestParams());
     }
 
     @Override
-    public void onLoadMoreSuccess(List<${dataSourceClass}> dataList)
+    public void onPageRequestSuccess(boolean isRefresh, List<${dataSourceClass}> dataList, boolean hasMoreData)
     {
-        mLoadMoreWrapper.callLoadMoreSuccess();
-        //由于自动加载是Adapter实现的，没有只显示状态的方法
-        //所以这里需要处理加载后的数据
-        mAdapter.notifyLoadMoreSuccess(dataList, true);
+        if (isRefresh)
+        {
+            mRefreshWrapper.callRefreshSuccess();
+            mAdapter.refreshDatas(dataList);
+            //处理空数据占位图和NoMoreData的冲突
+            if ((dataList == null || dataList.isEmpty()) && mAdapter.getEmptyView() != null)
+            {
+                mLoadMoreWrapper.enableLoadMore(false);
+                mLoadMoreWrapper.setOnLoadMoreRequestedListener(null);
+                return;
+            }
+            //配置自动加载
+            if (isLoadMoreEnable())
+            {
+                mLoadMoreWrapper.enableLoadMore(true);
+                if (hasMoreData)
+                {
+                    mLoadMoreWrapper.setOnLoadMoreRequestedListener(this);
+                } else
+                {
+                    mLoadMoreWrapper.setOnLoadMoreRequestedListener(null);
+                    mLoadMoreWrapper.callLoadMoreNoMoreData();
+                }
+            } else
+            {
+                mLoadMoreWrapper.enableLoadMore(false);
+                mLoadMoreWrapper.setOnLoadMoreRequestedListener(null);
+            }
+        } else
+        {
+            mLoadMoreWrapper.callLoadMoreSuccess();
+            //由于自动加载是Adapter实现的，没有只显示状态的方法
+            //所以这里需要处理加载后的数据
+            mAdapter.notifyLoadMoreSuccess(dataList, hasMoreData);
+        }
     }
 
     @Override
-    public void onLoadMoreFail(String message, Throwable throwable)
+    public void onPageRequestFail(boolean isRefresh, String message, Throwable throwable)
     {
-        mLoadMoreWrapper.callLoadMoreFail(throwable);
+        if (isRefresh)
+        {
+            mRefreshWrapper.callRefreshFail(throwable);
+        } else
+        {
+            mLoadMoreWrapper.callLoadMoreFail(throwable);
+        }
         //去做具体提示
         showShortToast(message);
-    }
-
-    @Override
-    public void onLoadMoreNoMoreData()
-    {
-        mLoadMoreWrapper.callLoadMoreNoMoreData();
     }
 }
