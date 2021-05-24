@@ -8,13 +8,13 @@
     android:orientation="vertical"
     tools:context=".pop.PopActivity">
 
-    <com.lwkandroid.widget.comactionbar.ComActionBar
+    <com.lwkandroid.widget.ComActionBar
         android:id="@+id/cab_pop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:bg_color="@color/actionbar"
-        app:is_left_as_back="true"
-        app:right_image01="@drawable/ic_menu"
+        android:background="@color/actionbar"
+        app:left_click_to_finish="true"
+        app:right_icon_drawable01="@drawable/ic_menu"
         app:title_text="POP" />
 
     <LinearLayout

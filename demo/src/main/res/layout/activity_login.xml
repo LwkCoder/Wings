@@ -8,11 +8,11 @@
     android:orientation="vertical"
     tools:context=".rxhttp.login.LoginActivity">
 
-    <com.lwkandroid.widget.comactionbar.ComActionBar
+    <com.lwkandroid.widget.ComActionBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:bg_color="@color/actionbar"
-        app:is_left_as_back="true"
+        android:background="@color/actionbar"
+        app:left_click_to_finish="true"
         app:title_text="假装登录" />
 
 

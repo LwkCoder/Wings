@@ -613,7 +613,9 @@ public final class ToastUtils
         public void show(int duration)
         {
             if (mToast == null)
+            {
                 return;
+            }
             mToast.setDuration(duration);
             mToast.show();
         }
@@ -674,7 +676,9 @@ public final class ToastUtils
         public void show(final int duration)
         {
             if (mToast == null)
+            {
                 return;
+            }
             mParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
             mParams.width = WindowManager.LayoutParams.WRAP_CONTENT;
             mParams.format = PixelFormat.TRANSLUCENT;
@@ -745,7 +749,9 @@ public final class ToastUtils
         public void show(int duration)
         {
             if (mToast == null)
+            {
                 return;
+            }
             if (!AppUtils.isAppForeground())
             {
                 // try to use system toast

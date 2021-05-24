@@ -6,6 +6,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.lwkandroid.demo.R;
 import com.lwkandroid.lib.common.mvp.MvpBaseActivity;
@@ -17,7 +18,7 @@ import com.lwkandroid.lib.common.widgets.pop.YGravity;
 import com.lwkandroid.lib.core.annotation.ClickViews;
 import com.lwkandroid.lib.core.annotation.FindView;
 import com.lwkandroid.lib.core.annotation.ViewInjector;
-import com.lwkandroid.widget.comactionbar.ComActionBar;
+import com.lwkandroid.widget.ComActionBar;
 
 import androidx.annotation.Nullable;
 
@@ -61,20 +62,12 @@ public class PopActivity extends MvpBaseActivity<PopPresenter> implements PopCon
     protected void initUI(View contentView)
     {
         ViewInjector.with(this);
-    }
 
-    @Override
-    protected void initData(@Nullable Bundle savedInstanceState)
-    {
-    }
-
-    @Override
-    @ClickViews(values = {R.id.fl_comactionbar_right01, R.id.btn_pop_01, R.id.btn_pop_02})
-    public void onClick(int id, View view)
-    {
-        switch (id)
+        actionBar.setRightOnItemClickListener01(new ComActionBar.OnItemClickListener()
         {
-            case R.id.fl_comactionbar_right01:
+            @Override
+            public void onActionBarItemClicked(int vid, TextView textView, View dividerLine)
+            {
                 PopBuilder.with(new MenuController())
                         .build()
                         .addOnChildClickListener(R.id.tv_pop_menu01, (viewId, view1, contentView, popupWindow) -> {
@@ -89,8 +82,22 @@ public class PopActivity extends MvpBaseActivity<PopPresenter> implements PopCon
                             popupWindow.dismiss();
                             showShortToast("CLICK MENU03");
                         })
-                        .showAsDropDown(actionBar.getRightAreaView01());
-                break;
+                        .showWithAnchor(dividerLine, XGravity.ALIGN_RIGHT, YGravity.BELOW);
+            }
+        });
+    }
+
+    @Override
+    protected void initData(@Nullable Bundle savedInstanceState)
+    {
+    }
+
+    @Override
+    @ClickViews(values = {R.id.btn_pop_01, R.id.btn_pop_02})
+    public void onClick(int id, View view)
+    {
+        switch (id)
+        {
             case R.id.btn_pop_01:
                 PopBuilder.with(new TestController())
                         .setCanceledOnTouchOutside(true)
