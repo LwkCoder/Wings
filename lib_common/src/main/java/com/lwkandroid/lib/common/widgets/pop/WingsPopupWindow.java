@@ -208,12 +208,6 @@ public final class WingsPopupWindow extends PopupWindow implements PopupWindow.O
             //在Android 6.0以上 ，只能通过拦截事件来解决
             setTouchInterceptor((v, event) -> isTouchDownOutside(event));
         }
-
-        int w = mContentView.getMeasuredWidth();
-        int h = mContentView.getMeasuredHeight();
-        KLog.e("w=" + w + " h=" + h);
-        if (getContentView() != null)
-            KLog.e(" ww=" + getContentView().getMeasuredWidth() + " hh=" + getContentView().getMeasuredHeight());
     }
 
 
