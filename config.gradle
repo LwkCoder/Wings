@@ -38,7 +38,7 @@ ext {
             AndroidXEspressoCore: "3.3.0",
             AndPermission       : "2.0.3",
             BGACode             : "1.3.6",
-            ComActionBar        : "2.1.0",
+            ComActionBar        : "2.1.2",
             ConstraintLayout    : "2.0.4",
             Chucker             : "3.4.0",
             DiskLruCache        : "2.0.2",
