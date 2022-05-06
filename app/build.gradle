@@ -2,7 +2,6 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.getkeepsafe.dexcount'
 apply plugin: "com.blankj.bus"
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 
 def keystorePropertiesFile = rootProject.file("key/keystore.properties")
 def keystoreProperties = new Properties()
@@ -27,11 +26,11 @@ android {
         versionName rootProject.ext.appConfig.versionName
         flavorDimensions rootProject.ext.appConfig.versionName
 
-        javaCompileOptions {
-            annotationProcessorOptions {
-                includeCompileClasspath true
-            }
-        }
+//        javaCompileOptions {
+//            annotationProcessorOptions {
+//                includeCompileClasspath true
+//            }
+//        }
 
         ndk {
             //选择要添加的对应cpu类型的.so库。
@@ -102,17 +101,19 @@ android {
     }
 
     packagingOptions {
-        exclude 'META-INF/rxjava.properties'
-    }
-
-    lintOptions {
-        abortOnError false
-        disable 'GoogleAppIndexingWarning'
+        resources {
+            excludes += ['META-INF/rxjava.properties']
+        }
     }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    lint {
+        abortOnError false
+        disable 'GoogleAppIndexingWarning'
     }
 }
 

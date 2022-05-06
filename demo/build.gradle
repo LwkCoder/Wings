@@ -23,11 +23,11 @@ android {
         versionName "1.0.0"
         flavorDimensions "WingsDemo"
 
-        javaCompileOptions {
-            annotationProcessorOptions {
-                includeCompileClasspath true
-            }
-        }
+//        javaCompileOptions {
+//            annotationProcessorOptions {
+//                includeCompileClasspath true
+//            }
+//        }
 
         ndk {
             //选择要添加的对应cpu类型的.so库。
@@ -80,19 +80,20 @@ android {
             jniLibs.srcDirs('libs')
         }
     }
-
     packagingOptions {
-        exclude 'META-INF/rxjava.properties'
+        resources {
+            excludes += ['META-INF/rxjava.properties']
+        }
     }
 
-    lintOptions {
-        abortOnError false
-        disable 'GoogleAppIndexingWarning'
-    }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    lint {
+        abortOnError false
+        disable 'GoogleAppIndexingWarning'
     }
 }
 
